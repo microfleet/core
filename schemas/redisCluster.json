@@ -1,0 +1,35 @@
+{
+  "id": "redisCluster",
+  "type": "object",
+  "required": [ "hosts", "options" ],
+  "properties": {
+    "hosts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [ "host", "port" ],
+        "properties": {
+          "host": {
+            "type": "string",
+            "format": "ipv4"
+          },
+          "port": {
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          }
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "keyPrefix": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
