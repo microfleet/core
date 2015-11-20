@@ -14,7 +14,7 @@ const defaultOpts = {
 };
 
 /**
- * @namespace Users
+ * @namespace Mservice
  */
 module.exports = class Mservice extends EventEmitter {
 
@@ -60,7 +60,7 @@ module.exports = class Mservice extends EventEmitter {
    */
   get redis() {
     const redis = this._redis;
-    return redis ? redis : this.emit('error', new Error.NotPermittedError('Redis was not initialized'));
+    return redis ? redis : this.emit('error', new Errors.NotPermittedError('Redis was not initialized'));
   }
 
   /**
@@ -69,7 +69,7 @@ module.exports = class Mservice extends EventEmitter {
    */
   get validator() {
     const validator = this._validator;
-    return validator ? validator : this.emit('error', new Error.NotPermittedError('Validator was not initialized'));
+    return validator ? validator : this.emit('error', new Errors.NotPermittedError('Validator was not initialized'));
   }
 
   /**
