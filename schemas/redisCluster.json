@@ -1,10 +1,11 @@
 {
   "id": "redisCluster",
   "type": "object",
-  "required": [ "hosts", "options" ],
+  "required": [ "hosts" ],
   "properties": {
     "hosts": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "required": [ "host", "port" ],
@@ -26,8 +27,7 @@
       "type": "object",
       "properties": {
         "keyPrefix": {
-          "type": "string",
-          "minLength": 1
+          "type": "string"
         }
       }
     }

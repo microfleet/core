@@ -27,22 +27,7 @@ module.exports = class Mservice extends EventEmitter {
     super();
     const config = this._config = ld.extend({}, defaultOpts, opts);
     this._initPlugins(config);
-  }
-
-  /**
-   * Initializes service plugins
-   * @param  {Object} config
-   */
-  _initPlugins(config) {
-    this._connectors = [];
-    this._destructors = [];
-
-    // init plugins
-    config.plugins.forEach(plugin => {
-      this.initPlugin(require(`./plugins/${plugin}`));
-    });
-
-    this.emit('init');
+    this.on('error', this._onError);
   }
 
   /**
@@ -73,35 +58,21 @@ module.exports = class Mservice extends EventEmitter {
   }
 
   /**
-   * Public function to init plugins
-   *
-   * @param  {Object} mod
-   * @param  {String} mod.name
-   * @param  {Function} mod.attach
+   * Getter for logger plugin
+   * @return {Object}
    */
-  initPlugin(mod, conf) {
-    const expose = mod.attach.call(this, conf || this._config[mod.name]);
-    if (!expose || typeof expose !== 'object') {
-      return;
-    }
-    const { connect, close } = expose;
-
-    if (typeof connect === 'function') {
-      this._connectors.push(connect);
-    }
-
-    if (typeof close === 'function') {
-      this._connectors.push(close);
-    }
+  get log() {
+    const log = this._log;
+    return log ? log : this.emit('error', new Errors.NotPermittedError('Logger was not initialized'));
   }
 
   /**
    * Generic connector for all of the plugins
    * @return {Promise}
    */
-  connect() {
-    return Promise.map(this._connectors, connector => {
-      return connector.connect();
+  connect = () => {
+    return Promise.map(this._connectors, connect => {
+      return connect();
     })
     .tap(() => {
       this.emit('ready');
@@ -112,13 +83,70 @@ module.exports = class Mservice extends EventEmitter {
    * Generic cleanup function
    * @return {Promise}
    */
-  close() {
-    return Promise.map(this._connectors, connector => {
-      return connector.close();
+  close = () => {
+    return Promise.map(this._destructors, destructor => {
+      return destructor();
     })
     .tap(() => {
       this.emit('close');
     });
+  }
+
+  // ****************************** Plugin section: public ************************************
+
+  /**
+   * Public function to init plugins
+   *
+   * @param  {Object} mod
+   * @param  {String} mod.name
+   * @param  {Function} mod.attach
+   */
+  initPlugin(mod, conf) {
+    const expose = mod.attach.call(this, conf || this._config[mod.name], __filename);
+
+    if (!expose || typeof expose !== 'object') {
+      return;
+    }
+    const { connect, close } = expose;
+
+    if (typeof connect === 'function') {
+      this._connectors.push(connect);
+    }
+
+    if (typeof close === 'function') {
+      this._destructors.push(close);
+    }
+  }
+
+  // ***************************** Plugin section: private **************************************
+
+  /**
+   * Initializes service plugins
+   * @param  {Object} config
+   */
+  _initPlugins(config) {
+    this._connectors = [];
+    this._destructors = [];
+
+    // init plugins
+    config.plugins.forEach(plugin => {
+      this.initPlugin(require(`./plugins/${plugin}`));
+    });
+
+    this.emit('init');
+  }
+
+  /**
+   * Notifies about errors when no other listeners are present
+   * by throwing them
+   * @param  {Object} err
+   */
+  _onError = (err) => {
+    if (this.listeners('error').length > 1) {
+      return;
+    }
+
+    throw err;
   }
 
 };

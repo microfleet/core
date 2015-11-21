@@ -7,28 +7,31 @@ require('babel-core/register')({
   optional: [ 'es7.objectRestSpread', 'es7.classProperties', 'es7.decorators' ],
 });
 
+// make sure we have stack
+require('chai').config.includeStack = true;
+
 global.SERVICES = {
   redis: {
     hosts: [
       {
-        host: process.env.IP,
-        port: process.env.REDIS_1,
+        host: process.env.REDIS_1_PORT_6379_TCP_ADDR,
+        port: process.env.REDIS_1_PORT_6379_TCP_PORT,
       },
       {
-        host: process.env.IP,
-        port: process.env.REDIS_2,
+        host: process.env.REDIS_2_PORT_6379_TCP_ADDR,
+        port: process.env.REDIS_2_PORT_6379_TCP_PORT,
       },
       {
-        host: process.env.IP,
-        port: process.env.REDIS_3,
+        host: process.env.REDIS_3_PORT_6379_TCP_ADDR,
+        port: process.env.REDIS_3_PORT_6379_TCP_PORT,
       },
     ],
     options: {},
   },
   amqp: {
     connection: {
-      host: process.env.IP,
-      port: process.env.RABBITMQ,
+      host: process.env.RABBITMQ_PORT_5672_TCP_ADDR,
+      port: process.env.RABBITMQ_PORT_5672_TCP_PORT,
     },
   },
 };

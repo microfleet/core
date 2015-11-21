@@ -1,8 +1,12 @@
 {
   "extends": "airbnb",
+  "parser": "babel-eslint",
   "plugins": [
     "mocha"
   ],
+  "ecmaFeatures": {
+    "classes": true
+  },
   "env": {
     "mocha": true
   }

@@ -40,7 +40,12 @@ class UserService extends Mservice {
       queue: 'roundrobin'
     },
     logger: true,
-    validator: [ path.resolve(__dirname, '../schemas') ],
+    // relative paths will be resolved relatively to the first dir of the file
+    // on the call stack that is not src/plugins/validator.js or src/index.js
+    // keep that in mind when creating instances of services
+    //
+    // if that's tricky - pass absolute paths!
+    validator: [ '../schemas' ],
   }
 
   constructor(opts = {}) {
@@ -76,7 +81,7 @@ When using this plugin - make sure you `npm i ms-amqp-validation -S`
 
 Attaches `ms-amqp-validation` instance to your class on `._validator`.
 Exposes `.validate` and `.validateSync` methods on the class itself.
-Pass array of absolute paths when creating service to automatically include your schemas.
+Pass array of absolute and relative paths when creating service to automatically include your schemas.
 They will be available under basename of the file. If names collide - last schemas will overwrite existing ones
 
 ```js

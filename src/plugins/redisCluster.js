@@ -1,8 +1,8 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
-const redis = require('ioredis');
+const { Cluster } = require('ioredis');
 
-exports.name = 'redisCluster';
+exports.name = 'redis';
 
 exports.attach = function attachRedisCluster(conf) {
   const service = this;
@@ -30,7 +30,7 @@ exports.attach = function attachRedisCluster(conf) {
         let onReady;
         let onError;
 
-        const instance = new redis.Cluster(conf.hosts, conf.options);
+        const instance = new Cluster(conf.hosts, conf.options);
 
         onReady = function redisConnect() {
           instance.removeListener('error', onError);
@@ -56,7 +56,7 @@ exports.attach = function attachRedisCluster(conf) {
      * @return {Promise}
      */
     close: function disconnectRedis() {
-      if (!service._redis || !(service._redis instanceof redis.Cluster)) {
+      if (!service._redis || !(service._redis instanceof Cluster)) {
         return Promise.reject(new Errors.NotPermittedError('redis was not started'));
       }
 

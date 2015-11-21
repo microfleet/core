@@ -2,7 +2,7 @@ redis_1:
   image: makeomatic/alpine-redis
   container_name: redis_1
   hostname: redis_1
-  ports:
+  expose:
     - "6379"
     - "16379"
 
@@ -10,7 +10,7 @@ redis_2:
   image: makeomatic/alpine-redis
   container_name: redis_2
   hostname: redis_2
-  ports:
+  expose:
     - "6379"
     - "16379"
 
@@ -18,12 +18,12 @@ redis_3:
   image: makeomatic/alpine-redis
   container_name: redis_3
   hostname: redis_3
-  ports:
+  expose:
     - "6379"
     - "16379"
 
 rabbitmq:
-  ports:
+  expose:
     - "5672"
   image: rabbitmq
   container_name: rabbitmq

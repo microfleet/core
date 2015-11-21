@@ -34,10 +34,11 @@ exports.attach = function attachPlugin(conf) {
       // if service.router is present - we will consume messages
       // if not - we will only create a client
       return AMQPTransport
-        .connect(conf.amqp, service.router)
+        .connect(conf, service.router)
         .tap(function attachAMQP(amqp) {
           service._amqp = amqp;
           service.emit('plugin:connect:amqp', amqp);
+          return amqp;
         });
     },
 

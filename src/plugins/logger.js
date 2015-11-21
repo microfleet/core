@@ -8,7 +8,7 @@ exports.attach = function attachLogger(conf) {
   const loggerEnabled = typeof conf === 'undefined' ? debug : conf;
 
   if (loggerEnabled && loggerEnabled instanceof bunyan) {
-    service.log = loggerEnabled;
+    service._log = loggerEnabled;
     return;
   }
 
@@ -25,7 +25,7 @@ exports.attach = function attachLogger(conf) {
     });
   }
 
-  service.log = bunyan.createLogger({
+  service._log = bunyan.createLogger({
     name: name || 'mservice',
     streams,
   });
