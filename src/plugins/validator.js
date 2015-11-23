@@ -11,7 +11,7 @@ exports.name = 'validator';
  */
 exports.attach = function attachValidator(conf, parentFile) {
   const service = this;
-  const validator = new Validator('../../schemas');
+  const validator = new Validator();
 
   if (conf) {
     if (!Array.isArray(conf)) {

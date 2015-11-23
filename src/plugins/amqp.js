@@ -2,25 +2,48 @@ const Promise = require('bluebird');
 const Errors = require('common-errors');
 const AMQPTransport = require('ms-amqp-transport');
 const AMQPSchema = require('ms-amqp-transport/schema.json');
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
 
 exports.name = 'amqp';
+
+function scanRoutes(directory, prefix) {
+  if (!fs.existsSync(directory)) {
+    throw new Errors.ArgumentError('directory', new Errors.Error(`${directory} does not exist`));
+  }
+
+  return glob.sync('**/*.js', { cwd: directory })
+    .reduce((acc, file) => {
+      const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
+      acc[route] = require(file);
+    }, {});
+}
 
 /**
  * Initializes routes
  * @param  {Object} config
  */
 function initRoutes(service, config) {
+  // use automatic directory traversal
+  if (typeof config.postfix === 'string') {
+    // scan listen routes
+    service._routes = scanRoutes(config.postfix, config.prefix);
+    // allow ms-amqp-transport to discover us
+    config.listen = Object.keys(service._routes);
+    return;
+  }
+
   // setup listen routes
   const postfixes = Object.keys(config.postfix);
   const prefix = config.prefix;
-  const actions = service._actions = {};
   const routes = service._routes = {};
 
   config.listen = postfixes.map(postfix => {
-    const route = config.postfix[postfix];
-    actions[route] = postfix;
-    routes[route] = require(`${process.cwd()}/actions/${postfix}.js`);
-    return [ prefix, route ].join('.');
+    const routingKey = [ prefix, config.postfix[postfix] ].join('.');
+    routes[routingKey] = require(`${process.cwd()}/actions/${postfix}.js`);
+    routes[routingKey].__validation = postfix;
+    return routingKey;
   });
 }
 
@@ -29,9 +52,9 @@ function initRoutes(service, config) {
  * @param  {Mservice} service
  */
 function attachRouter(service, conf) {
-  const actionNames = this._actions;
-  const routes = this._routes;
+  const routes = service._routes;
   const onComplete = conf.onComplete;
+  const prefixLength = conf.prefix.length + 1;
 
   /**
    * AMQP message router
@@ -42,9 +65,9 @@ function attachRouter(service, conf) {
    */
   service.router = function router(message, headers, actions, next) {
     const time = process.hrtime();
-    const route = headers.routingKey.split('.').pop();
+    const route = headers.routingKey;
     const action = routes[route];
-    const actionName = actionNames[route];
+    const actionName = route;
 
     let promise;
     if (!action) {
@@ -52,7 +75,7 @@ function attachRouter(service, conf) {
     } else {
       promise = Promise.bind(service)
         .then(function validateMiddleware() {
-          return this.validate(actionName, message);
+          return this.validate(action.__validation || actionName.slice(prefixLength), message);
         })
         .then(action);
     }
