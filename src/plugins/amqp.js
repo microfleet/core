@@ -2,26 +2,65 @@ const Promise = require('bluebird');
 const Errors = require('common-errors');
 const AMQPTransport = require('ms-amqp-transport');
 const AMQPSchema = require('ms-amqp-transport/schema.json');
+const fs = require('fs');
+const path = require('path');
 
 exports.name = 'amqp';
+
+function scanRoutes(directory, prefix) {
+  if (!fs.existsSync(directory)) {
+    throw new Errors.ArgumentError("directory", new Errors.Error(`${directory} does not exist`));
+  }
+
+  const files = [];
+  const dirs = [];
+  const kids = fs.readdirSync(directory);
+
+  kids.forEach((file) => {
+    const stats = fs.statSync(path.join(directory, file));
+    if (stats.isFile()) {
+      files.push(file);
+    } else if (stats.isDirectory()) {
+      dirs.push(file);
+    }
+  });
+
+  const results = files
+		.filter((file) => { return path.extname(file) == ".js" })
+		.reduce((acc, file) => {
+	    var name = path.basename(file, path.extname(file));
+
+			if (prefix !== null && prefix !== undefined) {
+	      name = `${prefix}.${name}`;
+	    }
+
+	    acc[name] = require(path.join(directory, file));
+
+	    return acc;
+	  }, {});
+
+  const child_results = dirs.reduce((acc, file) => {
+    var new_prefix = file
+    if (prefix !== null && prefix !== undefined) {
+      new_prefix = `${prefix}.${new_prefix}`
+    }
+    const child_result = scanRoutes(path.join(directory, file), new_prefix);
+    Object.assign(acc, child_result);
+    return acc;
+  }, results);
+
+  return child_results;
+}
 
 /**
  * Initializes routes
  * @param  {Object} config
  */
 function initRoutes(service, config) {
-  // setup listen routes
-  const postfixes = Object.keys(config.postfix);
-  const prefix = config.prefix;
-  const actions = service._actions = {};
-  const routes = service._routes = {};
-
-  config.amqp.listen = postfixes.map(postfix => {
-    const route = config.postfix[postfix];
-    actions[route] = postfix;
-    routes[route] = require(`${process.cwd()}/actions/${postfix}.js`);
-    return [ prefix, route ].join('.');
-  });
+  // scan listen routes
+  service._routes = scanRoutes(config.postfix, config.prefix);
+  // allow ms-amqp-transport to discover us
+  config.listen = Object.keys(service._routes);
 }
 
 /**
@@ -29,8 +68,7 @@ function initRoutes(service, config) {
  * @param  {Mservice} service
  */
 function attachRouter(service, conf) {
-  const actionNames = this._actions;
-  const routes = this._routes;
+  const routes = service._routes;
   const onComplete = conf.onComplete;
 
   /**
@@ -42,9 +80,9 @@ function attachRouter(service, conf) {
    */
   service.router = function router(message, headers, actions, next) {
     const time = process.hrtime();
-    const route = headers.routingKey.split('.').pop();
+    const route = headers.routingKey;
     const action = routes[route];
-    const actionName = actionNames[route];
+    const actionName = route;
 
     let promise;
     if (!action) {
@@ -52,7 +90,7 @@ function attachRouter(service, conf) {
     } else {
       promise = Promise.bind(service)
         .then(function validateMiddleware() {
-          return this.validate(actionName, message);
+          return this.validate(actionName.replace(conf.prefix + '.', ''), message);
         })
         .then(action);
     }

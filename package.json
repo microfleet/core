@@ -13,6 +13,9 @@
     "url": "git+https://github.com/makeomatic/mservice.git"
   },
   "author": "Vitaly Aminev <v@makeomatic.ru>",
+  "contributors": [
+    "Dmitry Gorbunov <me@tewi.tk> (http://tewi.tk)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/makeomatic/mservice/issues"
