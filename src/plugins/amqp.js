@@ -16,7 +16,7 @@ function initRoutes(service, config) {
   const actions = service._actions = {};
   const routes = service._routes = {};
 
-  config.amqp.listen = postfixes.map(postfix => {
+  config.listen = postfixes.map(postfix => {
     const route = config.postfix[postfix];
     actions[route] = postfix;
     routes[route] = require(`${process.cwd()}/actions/${postfix}.js`);
