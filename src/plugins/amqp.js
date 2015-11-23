@@ -10,14 +10,14 @@ exports.name = 'amqp';
 
 function scanRoutes(directory, prefix) {
   if (!fs.existsSync(directory)) {
-    throw new Errors.ArgumentError("directory", new Errors.Error(`${directory} does not exist`));
+    throw new Errors.ArgumentError('directory', new Errors.Error(`${directory} does not exist`));
   }
 
-  const files = glob.sync('**/*.js', { cwd: directory }).map((file) => {
-    return prefix + '.' + file.replace(/\//g, '.').replace(path.extname(file), '')
-  })
-
-  return files;
+  return glob.sync('**/*.js', { cwd: directory })
+    .reduce((acc, file) => {
+      const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
+      acc[route] = require(file);
+    }, {});
 }
 
 /**
@@ -25,10 +25,26 @@ function scanRoutes(directory, prefix) {
  * @param  {Object} config
  */
 function initRoutes(service, config) {
-  // scan listen routes
-  service._routes = scanRoutes(config.postfix, config.prefix);
-  // allow ms-amqp-transport to discover us
-  config.listen = Object.keys(service._routes);
+  // use automatic directory traversal
+  if (typeof config.postfix === 'string') {
+    // scan listen routes
+    service._routes = scanRoutes(config.postfix, config.prefix);
+    // allow ms-amqp-transport to discover us
+    config.listen = Object.keys(service._routes);
+    return;
+  }
+
+  // setup listen routes
+  const postfixes = Object.keys(config.postfix);
+  const prefix = config.prefix;
+  const routes = service._routes = {};
+
+  config.listen = postfixes.map(postfix => {
+    const routingKey = [ prefix, config.postfix[postfix] ].join('.');
+    routes[routingKey] = require(`${process.cwd()}/actions/${postfix}.js`);
+    routes[routingKey].__validation = postfix;
+    return routingKey;
+  });
 }
 
 /**
@@ -38,6 +54,7 @@ function initRoutes(service, config) {
 function attachRouter(service, conf) {
   const routes = service._routes;
   const onComplete = conf.onComplete;
+  const prefixLength = conf.prefix.length + 1;
 
   /**
    * AMQP message router
@@ -58,7 +75,7 @@ function attachRouter(service, conf) {
     } else {
       promise = Promise.bind(service)
         .then(function validateMiddleware() {
-          return this.validate(actionName.replace(conf.prefix + '.', ''), message);
+          return this.validate(action.__validation || actionName.slice(prefixLength), message);
         })
         .then(action);
     }

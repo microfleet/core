@@ -1,6 +1,6 @@
 {
   "name": "mservice",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
@@ -27,7 +27,8 @@
     "common-errors": "^0.5.3",
     "eventemitter3": "^1.1.1",
     "glob": "^6.0.1",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "ms-validation": "^0.5.0"
   },
   "devDependencies": {
     "babel": "^5.8.34",
