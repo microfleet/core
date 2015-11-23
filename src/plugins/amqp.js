@@ -4,6 +4,7 @@ const AMQPTransport = require('ms-amqp-transport');
 const AMQPSchema = require('ms-amqp-transport/schema.json');
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
 
 exports.name = 'amqp';
 
@@ -12,44 +13,11 @@ function scanRoutes(directory, prefix) {
     throw new Errors.ArgumentError("directory", new Errors.Error(`${directory} does not exist`));
   }
 
-  const files = [];
-  const dirs = [];
-  const kids = fs.readdirSync(directory);
+  const files = glob.sync('**/*.js', { cwd: directory }).map((file) => {
+    return prefix + '.' + file.replace(/\//g, '.').replace(path.extname(file), '')
+  })
 
-  kids.forEach((file) => {
-    const stats = fs.statSync(path.join(directory, file));
-    if (stats.isFile()) {
-      files.push(file);
-    } else if (stats.isDirectory()) {
-      dirs.push(file);
-    }
-  });
-
-  const results = files
-		.filter((file) => { return path.extname(file) == ".js" })
-		.reduce((acc, file) => {
-	    var name = path.basename(file, path.extname(file));
-
-			if (prefix !== null && prefix !== undefined) {
-	      name = `${prefix}.${name}`;
-	    }
-
-	    acc[name] = require(path.join(directory, file));
-
-	    return acc;
-	  }, {});
-
-  const child_results = dirs.reduce((acc, file) => {
-    var new_prefix = file
-    if (prefix !== null && prefix !== undefined) {
-      new_prefix = `${prefix}.${new_prefix}`
-    }
-    const child_result = scanRoutes(path.join(directory, file), new_prefix);
-    Object.assign(acc, child_result);
-    return acc;
-  }, results);
-
-  return child_results;
+  return files;
 }
 
 /**
