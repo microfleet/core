@@ -4,7 +4,7 @@ const { Cluster } = require('ioredis');
 
 exports.name = 'redis';
 
-exports.attach = function attachRedisCluster(conf) {
+exports.attach = function attachRedisCluster(conf = {}) {
   const service = this;
 
   // optional validation with the plugin
