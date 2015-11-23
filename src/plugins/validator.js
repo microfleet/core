@@ -1,6 +1,6 @@
 const path = require('path');
 const Errors = require('common-errors');
-const Validator = require('ms-amqp-validation');
+const Validator = require('ms-validation');
 const callsite = require('callsite');
 
 exports.name = 'validator';

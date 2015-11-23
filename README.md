@@ -77,9 +77,9 @@ When `conf` is omitted - it looks for `mod.name` - make sure this is also export
 
 ### Validator plugin
 
-When using this plugin - make sure you `npm i ms-amqp-validation -S`
+When using this plugin - make sure you `npm i ms-validation -S`
 
-Attaches `ms-amqp-validation` instance to your class on `._validator`.
+Attaches `ms-validation` instance to your class on `._validator`.
 Exposes `.validate` and `.validateSync` methods on the class itself.
 Pass array of absolute and relative paths when creating service to automatically include your schemas.
 They will be available under basename of the file. If names collide - last schemas will overwrite existing ones
