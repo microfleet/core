@@ -1,6 +1,6 @@
 {
   "name": "mservice",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
