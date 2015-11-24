@@ -16,7 +16,7 @@ function scanRoutes(directory, prefix) {
   return glob.sync('**/*.js', { cwd: directory })
     .reduce((acc, file) => {
       const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
-      acc[route] = require(file);
+      acc[route] = require(path.join(directory, file));
     }, {});
 }
 
