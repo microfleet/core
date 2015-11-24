@@ -126,10 +126,10 @@ exports.attach = function attachPlugin(conf = {}) {
   const validator = service._validator;
   if (validator && typeof validator === 'object') {
     // extend with external schema
-    validator.validators.amqp = validator._initValidator(AMQPSchema, validator.schemaOptions);
-    const isConfValid = service.validateSync('amqp', conf);
-    if (isConfValid.error) {
-      throw isConfValid.error;
+    validator.ajv.addSchema(AMQPSchema);
+    const { error } = service.validateSync('amqp', conf);
+    if (error) {
+      throw error;
     }
   }
 

@@ -18,7 +18,7 @@ describe('Validator suite', function testSuite() {
       });
     }).to.not.throw();
 
-    expect(this.service.validator.validators).to.have.ownProperty('test');
+    expect(!!this.service.validator.ajv.getSchema('test-schema')).to.be.eq(true);
   });
 
   it('validator exposes validate methods on the service', function test() {
