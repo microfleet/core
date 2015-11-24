@@ -17,6 +17,7 @@ function scanRoutes(directory, prefix) {
     .reduce((acc, file) => {
       const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
       acc[route] = require(path.join(directory, file));
+      return acc;
     }, {});
 }
 
