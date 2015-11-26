@@ -103,7 +103,7 @@ function attachRouter(service, conf) {
 
       if (fate.isRejected()) {
         const reason = fate.reason();
-        service.log.error(meta, 'Error performing operation', reason);
+        service.log.error(meta, 'Error performing operation', typeof reason.toJSON === 'function' ? reason.toJSON() : reason.toString());
         throw reason;
       }
 
