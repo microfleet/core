@@ -93,7 +93,7 @@ function attachRouter(service, conf) {
     }
 
     // if we have an error
-    promise = promise.finally(function auditLog(response) {
+    promise = promise.reflect().then(function auditLog(fate) {
       const execTime = process.hrtime(time);
       const meta = {
         message,
@@ -101,11 +101,15 @@ function attachRouter(service, conf) {
         latency: execTime[0] * 1000 + (+(execTime[1] / 1000000).toFixed(3)),
       };
 
-      if (response instanceof Error) {
-        service.log.error(meta, 'Error performing operation', response);
-      } else {
-        service.log.info(meta, 'completed operation');
+      if (fate.isRejected()) {
+        const reason = fate.reason();
+        service.log.error(meta, 'Error performing operation', reason);
+        throw reason;
       }
+
+      const response = fate.value();
+      service.log.info(meta, 'completed operation', this._config.debug ? response : '');
+      return response;
     });
 
     if (typeof next === 'function') {
