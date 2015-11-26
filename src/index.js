@@ -16,7 +16,7 @@ const defaultOpts = {
 /**
  * @namespace Mservice
  */
-module.exports = class Mservice extends EventEmitter {
+class Mservice extends EventEmitter {
 
   /**
    * @namespace Users
@@ -27,7 +27,9 @@ module.exports = class Mservice extends EventEmitter {
     super();
     const config = this._config = ld.extend({}, defaultOpts, opts);
     this._initPlugins(config);
-    this.on('error', this._onError);
+    this.on('error', err => {
+      this._onError(err);
+    });
   }
 
   /**
@@ -70,7 +72,7 @@ module.exports = class Mservice extends EventEmitter {
    * Generic connector for all of the plugins
    * @return {Promise}
    */
-  connect = () => {
+  connect() {
     return Promise.map(this._connectors, connect => {
       return connect();
     })
@@ -83,7 +85,7 @@ module.exports = class Mservice extends EventEmitter {
    * Generic cleanup function
    * @return {Promise}
    */
-  close = () => {
+  close() {
     return Promise.map(this._destructors, destructor => {
       return destructor();
     })
@@ -141,7 +143,7 @@ module.exports = class Mservice extends EventEmitter {
    * by throwing them
    * @param  {Object} err
    */
-  _onError = (err) => {
+  _onError(err) {
     if (this.listeners('error').length > 1) {
       return;
     }
@@ -149,4 +151,6 @@ module.exports = class Mservice extends EventEmitter {
     throw err;
   }
 
-};
+}
+
+module.exports = Mservice;
