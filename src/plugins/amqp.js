@@ -74,7 +74,8 @@ function attachRouter(service, conf) {
     if (!action) {
       promise = Promise.reject(new Errors.NotImplementedError(route));
     } else {
-      promise = Promise.bind(service)
+      promise = Promise
+        .bind(service)
         .then(function validateMiddleware() {
           return this.validate(action.__validation || actionName.slice(prefixLength), message);
         })

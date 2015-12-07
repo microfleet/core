@@ -33,6 +33,14 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * General configuration object
+   */
+  get config() {
+    const config = this._config;
+    return config ? config : this.emit('error', new Errors.NotPermittedError('Configuration was not initialized'));
+  }
+
+  /**
    * Getter for amqp connection
    * @return {Object}
    */
