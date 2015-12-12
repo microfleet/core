@@ -30,19 +30,19 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "babel": "^5.8.34",
-    "babel-core": "^5.8.33",
+    "babel": "^6.3.13",
+    "babel-core": "^6.3.17",
     "babel-eslint": "^4.1.5",
     "bunyan": "^1.5.1",
     "chai": "^3.4.1",
     "eslint": "^1.8.0",
-    "eslint-config-airbnb": "^1.0.0",
+    "eslint-config-airbnb": "^2.0.0",
     "eslint-plugin-mocha": "^1.1.0",
     "eslint-plugin-react": "^3.9.0",
     "ioredis": "^1.11.0",
     "json": "^9.0.3",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "^0.3.0",
+    "ms-amqp-transport": "^0.4.0",
     "ms-validation": "^0.5.1"
   }
 }
