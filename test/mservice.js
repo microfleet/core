@@ -17,35 +17,58 @@ describe('Mservice suite', function testSuite() {
 
   it('creates service with validator enabled', function test() {
     expect(() => {
-      return new Mservice({ plugins: [ 'validator' ] });
+      return new Mservice({ plugins: ['validator'] });
     }).to.not.throw();
   });
 
   it('creates services with logger enabled', function test() {
     expect(() => {
-      return new Mservice({ plugins: [ 'logger' ] });
+      return new Mservice({ plugins: ['logger'] });
     }).to.not.throw();
   });
 
   it('creates service with amqp enabled', function test() {
     expect(() => {
-      return new Mservice({ plugins: [ 'amqp' ] });
+      return new Mservice({ plugins: ['amqp'] });
     }).to.not.throw();
   });
 
   it('creates service with redis enabled', function test() {
     expect(() => {
-      return new Mservice({ plugins: [ 'redisCluster' ] });
+      return new Mservice({ plugins: ['redisCluster'] });
+    }).to.not.throw();
+  });
+
+  it('creates service with hooks enabled', function test() {
+    expect(() => {
+      return new Mservice({ plugins: [], hooks: {
+        'event:test': function eventTest() {
+          return 'OK';
+        },
+        'event:valid': [
+          function eventValid() {
+            return 1;
+          },
+          function eventValid2() {
+            return 2;
+          },
+        ],
+      } });
     }).to.not.throw();
   });
 
   it('creates service with all plugins enabled', function test() {
     expect(() => {
       this.service = new Mservice({
-        plugins: [ 'validator', 'logger', 'amqp', 'redisCluster' ],
+        plugins: ['validator', 'logger', 'amqp', 'redisCluster'],
         redis: global.SERVICES.redis,
         amqp: global.SERVICES.amqp,
         logger: true,
+        hooks: {
+          masala: function chai(a, b) {
+            return 'chai with ' + a + ' and ' + b;
+          },
+        },
       });
     }).to.not.throw();
   });
@@ -62,6 +85,17 @@ describe('Mservice suite', function testSuite() {
       .spread((amqp, redis) => {
         expect(amqp).to.be.instanceof(AMQPTransport);
         expect(redis).to.be.instanceof(Cluster);
+      });
+  });
+
+  it('init hooks and waits for their completion', function test() {
+    return this.service.postHook('masala', 'dorothy', 'chris')
+      .reflect()
+      .then(result => {
+        expect(result.isFulfilled()).to.be.eq(true);
+        expect(result.value()).to.be.deep.eq([
+          'chai with dorothy and chris',
+        ]);
       });
   });
 
