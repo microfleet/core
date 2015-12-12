@@ -10,7 +10,8 @@ const ld = require('lodash');
 const defaultOpts = {
   debug: process.env.NODE_ENV === 'development',
   logger: false,
-  plugins: [ 'validator', 'logger', 'amqp' ],
+  plugins: ['validator', 'logger', 'amqp'],
+  hooks: {},
 };
 
 /**
@@ -25,11 +26,47 @@ class Mservice extends EventEmitter {
    */
   constructor(opts = {}) {
     super();
+
+    // init configuration
     const config = this._config = ld.extend({}, defaultOpts, opts);
+
+    // init plugins
     this._initPlugins(config);
+
+    // setup error listener
     this.on('error', err => {
       this._onError(err);
     });
+
+    // setup hooks
+    ld.forOwn(config.hooks, (_hooks, eventName) => {
+      const hooks = Array.isArray(_hooks) ? _hooks : [_hooks];
+      ld.each(hooks, hook => {
+        this.on(eventName, hook);
+      });
+    });
+  }
+
+  /**
+   * asyncronously calls event listeners
+   * and waits for them to complete.
+   * This is a bit odd compared to normal event listeners,
+   * but works well for dynamically running async actions and waiting
+   * for them to complete
+   *
+   * @param  {String} event
+   * @param  {Mixed}  ...args
+   * @return {Promise}
+   */
+  postHook(event, ...args) {
+    const listeners = this.listeners(event);
+
+    return Promise
+      .bind(this)
+      .return(listeners)
+      .map(function performOp(listener) {
+        return listener.apply(this, args);
+      });
   }
 
   /**

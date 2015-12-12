@@ -1,6 +1,6 @@
 {
   "name": "mservice",
-  "version": "0.13.2",
+  "version": "0.14.0",
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
@@ -22,27 +22,32 @@
   },
   "homepage": "https://github.com/makeomatic/mservice#readme",
   "dependencies": {
-    "bluebird": "^3.0.5",
+    "bluebird": "^3.0.6",
     "callsite": "^1.0.0",
     "common-errors": "^0.5.3",
     "eventemitter3": "^1.1.1",
     "glob": "^6.0.1",
     "lodash": "^3.10.1"
   },
+  "peerDependencies": {
+    "ms-validation": "^0.5.7",
+    "ioredis": "^1.12.2",
+    "bunyan": "^1.5.1",
+    "ms-amqp-transport": "^0.4.0"
+  },
   "devDependencies": {
     "babel": "^5.8.34",
     "babel-core": "^5.8.33",
-    "babel-eslint": "^4.1.5",
+    "babel-eslint": "^4.1.6",
     "bunyan": "^1.5.1",
     "chai": "^3.4.1",
-    "eslint": "^1.8.0",
-    "eslint-config-airbnb": "^1.0.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.0.0",
     "eslint-plugin-mocha": "^1.1.0",
-    "eslint-plugin-react": "^3.9.0",
-    "ioredis": "^1.11.0",
+    "ioredis": "^1.12.2",
     "json": "^9.0.3",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "^0.3.0",
-    "ms-validation": "^0.5.1"
+    "ms-amqp-transport": "^0.4.0",
+    "ms-validation": "^0.5.7"
   }
 }

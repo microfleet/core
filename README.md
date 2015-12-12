@@ -6,13 +6,17 @@ logging features, as well as input validation. At the same time it is an event e
 ## Usage
 
 Extend Mservice class, populate plugins with array of their names. Currently supported: `validator`, `logger`, `amqp` and `redisCluster`
-Events:
+
+
+### Events:
 
 1. `ready` - when all plugins are up
 2. `close` - when all plugins were disconnected
 3. `plugin:connect:pluginName`, `instance`
 4. `plugin:close:pluginName`
 5. `error`, `err` - on critical error
+
+### Example
 
 ```js
 const path = require('path');
@@ -26,7 +30,7 @@ class UserService extends Mservice {
    * @type {Object}
    */
   static defaultOpts = {
-    plugins: [ 'validator', 'logger', 'amqp', 'redisCluster' ],
+    plugins: ['validator', 'logger', 'amqp', 'redisCluster'],
     redis: {
       hosts: [{
         host: 'localhost',
@@ -72,6 +76,14 @@ const userService = new UserService();
 Initializes plugin, which has 2 methods: `.attach` - it would be called with `service` as context and conf as first arg
 When `conf` is omitted - it looks for `mod.name` - make sure this is also exported.
 `.attach` can return `connect` and `close` functions, which must return promises for starting and stopping the plugin
+
+### postHook(event, ...args)
+
+Performs `Promise.map` listeners defined for `event`. All of them are called with the context of the `mservice`
+and args are applied as a spread. This is useful when you want to track custom event hooks completion in the app.
+
+Constructor accepts `hooks` Object, which contains of a map of `event` to a `function` or array of `functions`.
+They could either be sync or a `promise`.
 
 ## Plugins
 
