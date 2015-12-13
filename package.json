@@ -3,10 +3,10 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
-    "compile": "if [[ $NODE_ENV != \"production\" ]]; then ./node_modules/.bin/babel -d ./lib --optional es7.objectRestSpread,es7.classProperties,es7.decorators ./src; fi",
+    "compile": "/bin/bash -c 'if [[ $NODE_ENV != \"production\" ]]; then ./node_modules/.bin/babel -d ./lib --optional es7.objectRestSpread,es7.classProperties,es7.decorators ./src; fi'",
     "prepublish": "npm run compile",
     "test": "NODE_ENV=development /bin/bash ./test/docker.sh",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "./node_modules/.bin/semantic-release pre && npm publish && ./node_modules/.bin/semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,6 @@
     "babel-eslint": "^4.1.6",
     "bunyan": "^1.5.1",
     "chai": "^3.4.1",
-    "codeclimate-test-reporter": "^0.1.1",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.0.0",
     "eslint-plugin-mocha": "^1.1.0",

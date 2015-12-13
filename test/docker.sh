@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DC="$DIR/docker-compose.yml"
 PATH=$PATH:$DIR/.bin/
 
-if ! [ -z "$NODE_VER" ]; then
+if [ -z "$NODE_VER" ]; then
   NODE_VER="5"
 fi
 
