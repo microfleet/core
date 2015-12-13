@@ -1,16 +1,16 @@
 {
   "name": "mservice",
-  "version": "0.14.0",
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
     "compile": "if [[ $NODE_ENV != \"production\" ]]; then ./node_modules/.bin/babel -d ./lib --optional es7.objectRestSpread,es7.classProperties,es7.decorators ./src; fi",
     "prepublish": "npm run compile",
-    "test": "NODE_ENV=development ./test/docker.sh"
+    "test": "NODE_ENV=development /bin/bash ./test/docker.sh",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/makeomatic/mservice.git"
+    "url": "https://github.com/makeomatic/mservice.git"
   },
   "author": "Vitaly Aminev <v@makeomatic.ru>",
   "contributors": [
@@ -31,7 +31,7 @@
   },
   "peerDependencies": {
     "ms-validation": "^0.5.7",
-    "ioredis": "^1.12.2",
+    "ioredis": "^1.13.0",
     "bunyan": "^1.5.1",
     "ms-amqp-transport": "^0.4.0"
   },
@@ -44,10 +44,11 @@
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.0.0",
     "eslint-plugin-mocha": "^1.1.0",
-    "ioredis": "^1.12.2",
+    "ioredis": "^1.13.0",
     "json": "^9.0.3",
     "mocha": "^2.3.4",
     "ms-amqp-transport": "^0.4.0",
-    "ms-validation": "^0.5.7"
+    "ms-validation": "^0.5.7",
+    "semantic-release": "^4.3.5"
   }
 }

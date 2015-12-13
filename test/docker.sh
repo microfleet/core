@@ -2,6 +2,13 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DC="$DIR/docker-compose.yml"
+PATH=$PATH:$DIR/.bin/
+
+if ! [ -x "$(docker-compose -v)" ]; then
+  mkdir $DIR/.bin
+  curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` > $DIR/.bin/docker-compose
+  chmod +x $DIR/.bin/docker-compose
+fi
 
 docker-compose -f $DC up -d
 docker run --link rabbitmq --link redis_client \

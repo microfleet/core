@@ -1,5 +1,8 @@
 # Microservice core
 
+[![Build Status](https://semaphoreci.com/api/v1/projects/b4657eb4-be90-49a7-8077-84a4b4f3aeff/633101/badge.svg)](https://semaphoreci.com/makeomatic/mservice)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
+
 This module provides boilerplate for microservice core and a few plugins for starters. It sets up convenient `connect` and `close` methods,
 logging features, as well as input validation. At the same time it is an event emitter and may send log and other events silently.
 
