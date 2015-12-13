@@ -82,8 +82,7 @@ class Mservice extends EventEmitter {
    * @return {Object}
    */
   get amqp() {
-    const amqp = this._amqp;
-    return amqp ? amqp : this.emit('error', new Errors.NotPermittedError('AMQP was not initialized'));
+    return this._get('amqp');
   }
 
   /**
@@ -91,8 +90,7 @@ class Mservice extends EventEmitter {
    * @return {Object}
    */
   get redis() {
-    const redis = this._redis;
-    return redis ? redis : this.emit('error', new Errors.NotPermittedError('Redis was not initialized'));
+    return this._get('redis');
   }
 
   /**
@@ -100,8 +98,7 @@ class Mservice extends EventEmitter {
    * @return {Object}
    */
   get validator() {
-    const validator = this._validator;
-    return validator ? validator : this.emit('error', new Errors.NotPermittedError('Validator was not initialized'));
+    return this._get('validator');
   }
 
   /**
@@ -109,8 +106,15 @@ class Mservice extends EventEmitter {
    * @return {Object}
    */
   get log() {
-    const log = this._log;
-    return log ? log : this.emit('error', new Errors.NotPermittedError('Logger was not initialized'));
+    return this._get('log');
+  }
+
+  /**
+   *
+   */
+  _get(name) {
+    const it = this['_' + name];
+    return it ? it : this.emit('error', new Errors.NotPermittedError(`${name} was not initialized`));
   }
 
   /**
@@ -118,12 +122,7 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   connect() {
-    return Promise.map(this._connectors, connect => {
-      return connect();
-    })
-    .tap(() => {
-      this.emit('ready');
-    });
+    return this._processAndEmit(this._connectors, 'ready');
   }
 
   /**
@@ -131,11 +130,18 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   close() {
-    return Promise.map(this._destructors, destructor => {
-      return destructor();
+    return this._processAndEmit(this._destructors, 'close');
+  }
+
+  /**
+   * Helper for calling funcs and emitting event after
+   */
+  _processAndEmit(arr, event) {
+    return Promise.map(arr, func => {
+      return func();
     })
     .tap(() => {
-      this.emit('close');
+      this.emit(event);
     });
   }
 
