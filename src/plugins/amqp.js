@@ -41,7 +41,7 @@ function initRoutes(service, config) {
   const routes = service._routes = {};
 
   config.listen = postfixes.map(postfix => {
-    const routingKey = [ prefix, config.postfix[postfix] ].join('.');
+    const routingKey = [prefix, config.postfix[postfix]].join('.');
     routes[routingKey] = require(`${process.cwd()}/actions/${postfix}.js`);
     routes[routingKey].__validation = postfix;
     return routingKey;
