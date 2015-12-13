@@ -50,5 +50,8 @@
     "ms-amqp-transport": "^0.4.0",
     "ms-validation": "^0.5.7",
     "semantic-release": "^4.3.5"
+  },
+  "release": {
+    "verifyConditions": []
   }
 }
