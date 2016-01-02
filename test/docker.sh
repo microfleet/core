@@ -1,26 +1,28 @@
-#/bin/bash
+#!/bin/bash
 
+export NODE_ENV=development
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DC="$DIR/docker-compose.yml"
 PATH=$PATH:$DIR/.bin/
+COMPOSE=$(which docker-compose)
 
 if [ -z "$NODE_VER" ]; then
   NODE_VER="5"
 fi
 
-if ! [ -x "$(docker-compose -v)" ]; then
+if ! [ -x "$COMPOSE" ]; then
   mkdir $DIR/.bin
   curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` > $DIR/.bin/docker-compose
   chmod +x $DIR/.bin/docker-compose
+  COMPOSE=$(which docker-compose)
 fi
 
-docker-compose -f $DC up -d
-docker run --link rabbitmq --link redis_client \
-  --link redis_2 --link redis_3 --link redis_1 \
-  --rm -it --name 'mservice-test' -e 'BLUEBIRD_DEBUG=1' \
-  -v "$PWD":/usr/src/app -w /usr/src/app node:$NODE_VER \
-  ./node_modules/.bin/mocha --require ./test/babelhook.js --bail -R spec
-exitCode=$?
-docker-compose -f $DC stop
-docker-compose -f $DC rm -f
-exit ${exitCode}
+function finish {
+  $COMPOSE -f $DC stop
+  $COMPOSE -f $DC rm -f
+}
+trap finish EXIT
+
+export IMAGE=mhart/alpine-node:$NODE_VER
+$COMPOSE -f $DC up -d
+$COMPOSE -f $DC run --rm tester ./node_modules/.bin/mocha

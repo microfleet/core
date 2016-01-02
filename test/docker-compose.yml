@@ -37,3 +37,18 @@ redis_client:
     - rabbitmq
   container_name: redis_client
   image: makeomatic/redis-trib
+
+tester:
+  links:
+    - redis_1
+    - redis_2
+    - redis_3
+    - rabbitmq
+  image: ${IMAGE}
+  container_name: mservice-test
+  command: 'true'
+  environment:
+    BLUEBIRD_DEBUG: '1'
+  working_dir: /src
+  volumes:
+    - ${PWD}:/src
