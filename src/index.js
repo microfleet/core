@@ -12,6 +12,7 @@ const defaultOpts = {
   logger: false,
   plugins: ['validator', 'logger', 'amqp'],
   hooks: {},
+  sigterm: true,
 };
 
 /**
@@ -45,6 +46,22 @@ class Mservice extends EventEmitter {
         this.on(eventName, hook);
       });
     });
+
+    if (config.sigterm) {
+      process.on('SIGTERM', this.exit.bind(this));
+    }
+  }
+
+  /**
+   * Overrides SIG* events and exits cleanly
+   */
+  exit() {
+    process.stdout.write('received close signal...\n closing connections...\n');
+    return this.close()
+      .timeout(5000)
+      .finally(() => {
+        process.exit(0);
+      });
   }
 
   /**
