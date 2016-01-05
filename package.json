@@ -47,6 +47,7 @@
     "babel-register": "^6.3.13",
     "bunyan": "^1.5.1",
     "chai": "^3.4.1",
+    "cz-conventional-changelog": "^1.1.5",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.1.1",
     "eslint-plugin-mocha": "^1.1.0",
@@ -59,5 +60,10 @@
   },
   "release": {
     "verifyConditions": []
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
