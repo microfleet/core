@@ -52,13 +52,10 @@
     "eslint-plugin-mocha": "^1.1.0",
     "json": "^9.0.3",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "^0.4.0",
-    "ms-validation": "^0.5.7",
-    "semantic-release": "^4.3.5",
+    "ms-amqp-transport": "^0.9.0",
     "ms-validation": "^1.0.0",
-    "ioredis": "^1.13.2",
-    "bunyan": "^1.5.1",
-    "ms-amqp-transport": "^0.4.2"
+    "semantic-release": "^4.3.5",
+    "ioredis": "^1.13.2"
   },
   "release": {
     "verifyConditions": []
