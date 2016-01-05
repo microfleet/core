@@ -48,7 +48,15 @@ class Mservice extends EventEmitter {
     });
 
     if (config.sigterm) {
-      process.on('SIGTERM', this.exit.bind(this));
+      const exit = this.exit.bind(this);
+
+      this.on('ready', () => {
+        process.on('SIGTERM', exit);
+      });
+
+      this.on('close', () => {
+        process.removeListener('SIGTERM', exit);
+      });
     }
   }
 
