@@ -49,7 +49,7 @@
     "chai": "^3.4.1",
     "cz-conventional-changelog": "^1.1.5",
     "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^2.1.1",
+    "eslint-config-airbnb": "^3.0.2",
     "eslint-plugin-mocha": "^1.1.0",
     "ioredis": "~1.x.x",
     "json": "^9.0.3",
