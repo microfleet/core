@@ -54,7 +54,7 @@
     "ioredis": "~1.x.x",
     "json": "^9.0.3",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "~0.x.x",
+    "ms-amqp-transport": "~0.10.0",
     "ms-validation": "~1.x.x",
     "semantic-release": "^4.3.5"
   },
