@@ -27,7 +27,7 @@
     "common-errors": "^0.5.3",
     "eventemitter3": "^1.1.1",
     "glob": "^6.0.3",
-    "lodash": "^3.10.1"
+    "lodash": "^4.0.0"
   },
   "peerDependencies": {
     "ms-validation": "~1.x.x",
