@@ -13,12 +13,11 @@ function scanRoutes(directory, prefix) {
     throw new Errors.ArgumentError('directory', new Errors.Error(`${directory} does not exist`));
   }
 
-  return glob.sync('**/*.js', { cwd: directory })
-    .reduce((acc, file) => {
-      const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
-      acc[route] = require(path.join(directory, file));
-      return acc;
-    }, {});
+  return glob.sync('**/*.js', { cwd: directory }).reduce((acc, file) => {
+    const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
+    acc[route] = require(path.join(directory, file));  // eslint-disable-line
+    return acc;
+  }, {});
 }
 
 /**
@@ -29,18 +28,18 @@ function initRoutes(service, config) {
   // use automatic directory traversal
   if (typeof config.postfix === 'string') {
     // scan listen routes
-    service._routes = scanRoutes(config.postfix, config.prefix);
+    service._routes = scanRoutes(config.postfix, config.prefix); // eslint-disable-line
     // allow ms-amqp-transport to discover us
-    config.listen = Object.keys(service._routes);
+    config.listen = Object.keys(service._routes);  // eslint-disable-line
     return;
   }
 
   // setup listen routes
   const postfixes = Object.keys(config.postfix);
   const prefix = config.prefix;
-  const routes = service._routes = {};
+  const routes = service._routes = {};  // eslint-disable-line
 
-  config.listen = postfixes.map(postfix => {
+  config.listen = postfixes.map(postfix => {  // eslint-disable-line
     const routingKey = [prefix, config.postfix[postfix]].join('.');
     routes[routingKey] = require(`${process.cwd()}/actions/${postfix}.js`);
     routes[routingKey].__validation = postfix;
@@ -64,7 +63,7 @@ function attachRouter(service, conf) {
    * @param  {Object} actions
    * @return {Promise}
    */
-  service.router = function router(message, headers, actions, next) {
+  service.router = function router(message, headers, actions, next) {  // eslint-disable-line
     const time = process.hrtime();
     const route = headers.routingKey;
     const action = routes[route];
@@ -86,10 +85,10 @@ function attachRouter(service, conf) {
     if (onComplete) {
       promise = promise
         .then(function success(data) {
-          return onComplete(null, data, actionName, actions);
+          return onComplete.call(service, null, data, actionName, actions);
         })
         .catch(function err(error) {
-          return onComplete(error, null, actionName, actions);
+          return onComplete.call(service, error, null, actionName, actions);
         });
     }
 
@@ -104,7 +103,8 @@ function attachRouter(service, conf) {
 
       if (fate.isRejected()) {
         const reason = fate.reason();
-        service.log.error(meta, 'Error performing operation', typeof reason.toJSON === 'function' ? reason.toJSON() : reason.toString());
+        const err = typeof reason.toJSON === 'function' ? reason.toJSON() : reason.toString();
+        service.log.error(meta, 'Error performing operation', err);
         throw reason;
       }
 

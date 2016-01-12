@@ -15,7 +15,7 @@ exports.attach = function attachValidator(conf, parentFile) {
 
   if (conf) {
     if (!Array.isArray(conf)) {
-      throw new Errors.NotPermittedError('.validator must be an array of directories, where json schemas are located');
+      throw new Errors.NotPermittedError('.validator must be an array of directories, where json schemas are located');  // eslint-disable-line
     }
 
     // for relative paths
@@ -33,7 +33,7 @@ exports.attach = function attachValidator(conf, parentFile) {
         while (iterator < length && !source) {
           const call = stack[iterator++];
           const filename = call.getFileName();
-          if ([ parentFile, __filename, 'native array.js' ].indexOf(filename) === -1) {
+          if ([parentFile, __filename, 'native array.js'].indexOf(filename) === -1) {
             source = path.dirname(filename);
           }
         }
