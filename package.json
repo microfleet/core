@@ -33,7 +33,7 @@
     "ms-validation": "~1.x.x",
     "ioredis": "~1.x.x",
     "bunyan": "^1.5.1",
-    "ms-amqp-transport": "~0.x.x"
+    "ms-amqp-transport": "~1.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
@@ -55,7 +55,7 @@
     "istanbul": "^0.4.2",
     "json": "^9.0.3",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "~0.x.x",
+    "ms-amqp-transport": "~1.x.x",
     "ms-validation": "~1.x.x",
     "semantic-release": "^4.3.5"
   },
