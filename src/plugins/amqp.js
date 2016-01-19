@@ -147,6 +147,14 @@ exports.attach = function attachPlugin(conf = {}) {
     attachRouter(service, conf);
   }
 
+  let logger;
+  if (service._log) {
+    const log = service._log;
+    logger = function logAMQP() {
+      log.info.apply(log, arguments);
+    };
+  }
+
   // connectors
   return {
 
@@ -164,6 +172,10 @@ exports.attach = function attachPlugin(conf = {}) {
       return AMQPTransport
         .connect(conf, service.router)
         .tap(function attachAMQP(amqp) {
+          if (logger) {
+            amqp.on('log', logger);
+          }
+
           service._amqp = amqp;
           service.emit('plugin:connect:amqp', amqp);
           return amqp;
@@ -179,9 +191,13 @@ exports.attach = function attachPlugin(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('amqp was not started'));
       }
 
-      return service._amqp
-        .close()
+      const amqp = service._amqp;
+      return amqp.close()
         .tap(function cleanupRefs() {
+          if (logger) {
+            amqp.removeListener('log', logger);
+          }
+
           service._amqp = null;
           service.emit('plugin:close:amqp');
         });
