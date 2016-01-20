@@ -1,7 +1,8 @@
 const Promise = require('bluebird');
 const Errors = require('common-errors');
 const EventEmitter = require('eventemitter3');
-const ld = require('lodash');
+const forOwn = require('lodash/forOwn');
+const each = require('lodash/each');
 
 /**
  * Configuration options for the service
@@ -29,7 +30,7 @@ class Mservice extends EventEmitter {
     super();
 
     // init configuration
-    const config = this._config = ld.extend({}, defaultOpts, opts);
+    const config = this._config = { ...defaultOpts, ...opts };
 
     // init plugins
     this._initPlugins(config);
@@ -40,11 +41,9 @@ class Mservice extends EventEmitter {
     });
 
     // setup hooks
-    ld.forOwn(config.hooks, (_hooks, eventName) => {
+    forOwn(config.hooks, (_hooks, eventName) => {
       const hooks = Array.isArray(_hooks) ? _hooks : [_hooks];
-      ld.each(hooks, hook => {
-        this.on(eventName, hook);
-      });
+      each(hooks, hook => this.on(eventName, hook));
     });
 
     if (config.sigterm) {
@@ -66,7 +65,7 @@ class Mservice extends EventEmitter {
   exit() {
     process.stdout.write('received close signal...\n closing connections...\n');
     return this.close()
-      .timeout(5000)
+      .timeout(1000)
       .finally(() => {
         process.exit(0);
       });
