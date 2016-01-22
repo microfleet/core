@@ -20,7 +20,6 @@ exports.attach = function attachRedisSentinel(conf = {}) {
      * @private
      * @return {Promise}
      */
-
     connect: function connectRedis() {
       if (service._redis) {
         return Promise.reject(new Errors.NotPermittedError('redis was already started'));
