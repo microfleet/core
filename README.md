@@ -170,6 +170,8 @@ const userService = new UserService({
 
 ### RedisCluster plugin
 
+***NOTE***: you can use only 1 of the plugins for redis - either cluster or sentinel
+
 When using this plugin, make sure you also do `npm i ioredis -S`
 
 Enables redisCluster communication based on `ioredis` module.
@@ -195,3 +197,34 @@ const userService = new UserService({
 });
 
 // any redis command will be applicable
+```
+
+### Redis Sentinel plugin
+
+***NOTE***: you can use only 1 of the plugins for redis - either cluster or sentinel
+
+When using this plugin, make sure you also do `npm i ioredis -S`
+
+Enables redisCluster communication based on `ioredis` module.
+Allows one to setup connection to redis and communicate with it in a highly available fashion;
+
+Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
+
+1. `plugin:connect:redisSentinel`
+2. `plugin:close:redisSentinel`
+
+```js
+const userService = new UserService({
+  plugins: [ 'redisSentinel' ],
+  redis: {
+    sentinels: [{
+      host: '...',
+      port: Number
+    }],
+    name: 'mservice',
+    options: {
+      // ...
+    }
+  }
+});
+```

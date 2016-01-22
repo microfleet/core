@@ -25,4 +25,14 @@ global.SERVICES = {
       port: process.env.RABBITMQ_PORT_5672_TCP_PORT,
     },
   },
+  redisSentinel: {
+    sentinels: [
+      {
+        host: process.env.REDIS_SENTINEL_PORT_26379_TCP_ADDR,
+        port: process.env.REDIS_SENTINEL_PORT_26379_TCP_PORT,
+      },
+    ],
+    name: 'mservice',
+    options: {},
+  },
 };

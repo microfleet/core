@@ -22,10 +22,29 @@ redis_3:
     - "6379"
     - "16379"
 
+redis:
+  image: redis:3.0.6-alpine
+  container_name: redis
+  hostname: redis
+  expose:
+    - "6379"
+
+redis_sentinel:
+  links:
+    - redis
+  volumes:
+    - ./redis-sentinel:/etc/redis-sentinel:rw
+  image: redis:3.0.6-alpine
+  container_name: redis_sentinel
+  hostname: redis_sentinel
+  expose:
+    - "26379"
+  command: redis-server /etc/redis-sentinel/redis-sentinel.conf --sentinel
+
 rabbitmq:
   expose:
     - "5672"
-  image: rabbitmq
+  image: makeomatic/alpine-rabbitmq:3.5.7
   container_name: rabbitmq
   hostname: rabbitmq
 
@@ -44,11 +63,13 @@ tester:
     - redis_2
     - redis_3
     - rabbitmq
+    - redis_sentinel
   image: ${IMAGE}
   container_name: mservice-test
   command: 'true'
   environment:
     BLUEBIRD_DEBUG: '1'
+    DEBUG: ${DEBUG}
   working_dir: /src
   volumes:
     - ${PWD}:/src

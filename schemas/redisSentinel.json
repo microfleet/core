@@ -1,0 +1,43 @@
+{
+  "id": "redisSentinel",
+  "type": "object",
+  "required": [ "sentinels", "name" ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sentinels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [ "host", "port" ],
+        "properties": {
+          "host": {
+            "type": "string",
+            "oneOf": [
+              { "format": "hostname" },
+              { "format": "ipv4" },
+              { "format": "ipv6" }
+            ]
+          },
+          "port": {
+            "oneOf": [
+              { "type": "integer" },
+              { "type": "string" }
+            ]
+          }
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "keyPrefix": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
