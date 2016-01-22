@@ -23,6 +23,8 @@ function finish {
 }
 trap finish EXIT
 
+chmod a+w ./test/redis-sentinel/*.conf
+
 export IMAGE=mhart/alpine-node:$NODE_VER
 $COMPOSE -f $DC up -d
 $COMPOSE -f $DC run --rm tester ./node_modules/.bin/mocha
