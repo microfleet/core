@@ -15,7 +15,7 @@ function scanRoutes(directory, prefix) {
 
   return glob.sync('**/*.js', { cwd: directory }).reduce((acc, file) => {
     const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
-    acc[route] = require(path.join(directory, file));  // eslint-disable-line
+    acc[route] = require(path.join(directory, file));
     return acc;
   }, {});
 }
@@ -28,18 +28,18 @@ function initRoutes(service, config) {
   // use automatic directory traversal
   if (typeof config.postfix === 'string') {
     // scan listen routes
-    service._routes = scanRoutes(config.postfix, config.prefix); // eslint-disable-line
+    service._routes = scanRoutes(config.postfix, config.prefix);
     // allow ms-amqp-transport to discover us
-    config.listen = Object.keys(service._routes);  // eslint-disable-line
+    config.listen = Object.keys(service._routes);
     return;
   }
 
   // setup listen routes
   const postfixes = Object.keys(config.postfix);
   const prefix = config.prefix;
-  const routes = service._routes = {};  // eslint-disable-line
+  const routes = service._routes = {};
 
-  config.listen = postfixes.map(postfix => {  // eslint-disable-line
+  config.listen = postfixes.map(postfix => {
     const routingKey = [prefix, config.postfix[postfix]].join('.');
     routes[routingKey] = require(`${process.cwd()}/actions/${postfix}.js`);
     routes[routingKey].__validation = postfix;
@@ -63,7 +63,7 @@ function attachRouter(service, conf) {
    * @param  {Object} actions
    * @return {Promise}
    */
-  service.router = function router(message, headers, actions, next) {  // eslint-disable-line
+  service.router = function router(message, headers, actions, next) {
     const time = process.hrtime();
     const route = headers.routingKey;
     const action = routes[route];

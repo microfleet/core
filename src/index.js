@@ -98,7 +98,7 @@ class Mservice extends EventEmitter {
    */
   get config() {
     const config = this._config;
-    return config ? config : this.emit('error', new Errors.NotPermittedError('Configuration was not initialized'));  // eslint-disable-line
+    return config ? config : this.emit('error', new Errors.NotPermittedError('Configuration was not initialized')); // eslint-disable-line max-len
   }
 
   /**
@@ -138,7 +138,7 @@ class Mservice extends EventEmitter {
    */
   _get(name) {
     const it = this['_' + name];
-    return it ? it : this.emit('error', new Errors.NotPermittedError(`${name} was not initialized`));  // eslint-disable-line
+    return it ? it : this.emit('error', new Errors.NotPermittedError(`${name} was not initialized`));  // eslint-disable-line max-len
   }
 
   /**
