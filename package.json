@@ -56,7 +56,7 @@
     "json": "^9.0.3",
     "mocha": "^2.3.4",
     "ms-amqp-transport": "^1.1.3",
-    "ms-validation": "~1.x.x",
+    "ms-validation": "~1.1.1",
     "semantic-release": "^4.3.5"
   },
   "release": {
