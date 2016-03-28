@@ -48,7 +48,7 @@
     "bunyan": "^1.5.1",
     "chai": "^3.4.1",
     "cz-conventional-changelog": "^1.1.5",
-    "eslint": "^1.10.3",
+    "eslint": "^2.5.3",
     "eslint-config-airbnb": "^3.1.0",
     "eslint-plugin-mocha": "^1.1.0",
     "ioredis": "~1.x.x",
