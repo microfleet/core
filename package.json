@@ -33,6 +33,7 @@
     "ms-validation": "~1.x.x",
     "ioredis": "~1.x.x",
     "bunyan": "^1.5.1",
+    "elasticsearch": "~11.x.x",
     "ms-amqp-transport": "~1.x.x"
   },
   "devDependencies": {

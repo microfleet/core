@@ -35,4 +35,11 @@ global.SERVICES = {
     name: 'mservice',
     options: {},
   },
+  elasticsearch: {
+    hosts: [
+      {
+        host: process.env.ELASTICSEARCH_PORT_9200_TCP_ADDR
+      }
+    ]
+  }
 };
