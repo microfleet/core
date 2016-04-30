@@ -14,7 +14,8 @@
   },
   "author": "Vitaly Aminev <v@makeomatic.ru>",
   "contributors": [
-    "Dmitry Gorbunov <me@tewi.tk> (http://tewi.tk)"
+    "Dmitry Gorbunov <me@tewi.tk> (http://tewi.tk)",
+    "Evgeny Poyarkov <eugene@makeomatic.ru>"
   ],
   "license": "MIT",
   "bugs": {
@@ -38,7 +39,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",
-    "babel-eslint": "^5.0.0-beta6",
+    "babel-eslint": "^6.0.0",
     "babel-plugin-transform-es2015-destructuring": "^6.4.0",
     "babel-plugin-transform-es2015-parameters": "^6.4.5",
     "babel-plugin-transform-es2015-shorthand-properties": "^6.3.13",
