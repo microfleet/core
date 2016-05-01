@@ -57,6 +57,13 @@ redis_client:
   container_name: redis_client
   image: makeomatic/redis-trib
 
+elasticsearch:
+  expose:
+    - "9200"
+  image: joschi/alpine-elasticsearch
+  container_name: elasticsearch
+  hostname: elasticsearch
+
 tester:
   links:
     - redis_1
@@ -64,6 +71,7 @@ tester:
     - redis_3
     - rabbitmq
     - redis_sentinel
+    - elasticsearch
   image: ${IMAGE}
   container_name: mservice-test
   command: 'true'
