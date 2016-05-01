@@ -4,6 +4,7 @@ const EventEmitter = require('eventemitter3');
 const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
 const deprecate = require('deprecate-me');
+const is = require('is');
 
 /**
  * Configuration options for the service
@@ -107,7 +108,7 @@ class Mservice extends EventEmitter {
     });
 
     // pass control to renamed function
-    this.hook(...args);
+    return this.hook(...args);
   }
 
   /**
@@ -200,16 +201,17 @@ class Mservice extends EventEmitter {
   initPlugin(mod, conf) {
     const expose = mod.attach.call(this, conf || this._config[mod.name], __filename);
 
-    if (!expose || typeof expose !== 'object') {
+    if (is.nil(expose) || !is.object(expose)) {
       return;
     }
+
     const { connect, close } = expose;
 
-    if (typeof connect === 'function') {
+    if (is.fn(connect)) {
       this._connectors.push(connect);
     }
 
-    if (typeof close === 'function') {
+    if (is.fn(close)) {
       this._destructors.push(close);
     }
   }

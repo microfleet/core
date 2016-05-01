@@ -1,6 +1,7 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
 const Redis = require('ioredis');
+const is = require('is');
 
 exports.name = 'redis';
 
@@ -8,7 +9,7 @@ exports.attach = function attachRedisSentinel(conf = {}) {
   const service = this;
 
   // optional validation with the plugin
-  if (typeof service.validateSync === 'function') {
+  if (is.fn(service.validateSync)) {
     const isConfValid = service.validateSync('redisSentinel', conf);
     if (isConfValid.error) {
       throw isConfValid.error;

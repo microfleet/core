@@ -5,6 +5,7 @@ const AMQPSchema = require('ms-amqp-transport/schema.json');
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
+const is = require('is');
 
 exports.name = 'amqp';
 
@@ -26,7 +27,7 @@ function scanRoutes(directory, prefix) {
  */
 function initRoutes(service, config) {
   // use automatic directory traversal
-  if (typeof config.postfix === 'string') {
+  if (is.string(config.postfix) && config.postfix) {
     // scan listen routes
     service._routes = scanRoutes(config.postfix, config.prefix);
     // allow ms-amqp-transport to discover us
@@ -71,7 +72,8 @@ function attachRouter(service, conf) {
 
     let promise = Promise.bind(service);
     if (!action) {
-      promise = promise.throw(new Errors.NotImplementedError(route));
+      promise = promise
+        .throw(new Errors.NotImplementedError(route));
     } else {
       promise = promise
         .return([action.__validation || actionName.slice(prefixLength), message])
@@ -80,7 +82,7 @@ function attachRouter(service, conf) {
     }
 
     // this is a hook to handle QoS or any other events
-    if (onComplete) {
+    if (is.fn(onComplete)) {
       promise = promise
         .reflect()
         .then(fate => {
@@ -104,7 +106,7 @@ function attachRouter(service, conf) {
 
         if (fate.isRejected()) {
           const reason = fate.reason();
-          const err = typeof reason.toJSON === 'function' ? reason.toJSON() : reason.toString();
+          const err = is.fn(reason.toJSON) ? reason.toJSON() : reason.toString();
           service.log.error(meta, 'Error performing operation', err);
           throw reason;
         }
@@ -114,7 +116,7 @@ function attachRouter(service, conf) {
         return response;
       });
 
-    if (typeof next === 'function') {
+    if (is.fn(next)) {
       return promise.asCallback(next);
     }
 
@@ -131,7 +133,7 @@ exports.attach = function attachPlugin(conf = {}) {
 
   // optional validation with the plugin
   const validator = service._validator;
-  if (validator && typeof validator === 'object') {
+  if (!is.nil(validator) && is.object(validator)) {
     // extend with external schema
     validator.ajv.addSchema(AMQPSchema);
     const { error } = service.validateSync('amqp', conf);

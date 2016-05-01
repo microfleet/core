@@ -23,7 +23,7 @@ redis_3:
     - "16379"
 
 redis:
-  image: redis:3.0.6-alpine
+  image: redis:3.0.7-alpine
   container_name: redis
   hostname: redis
   expose:

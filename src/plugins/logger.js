@@ -1,11 +1,12 @@
 const bunyan = require('bunyan');
+const is = require('is');
 
 exports.name = 'logger';
 
 exports.attach = function attachLogger(conf) {
   const service = this;
   const { debug, name } = service._config;
-  const loggerEnabled = typeof conf === 'undefined' ? debug : conf;
+  const loggerEnabled = is.undef(conf) ? debug : conf;
 
   if (loggerEnabled && loggerEnabled instanceof bunyan) {
     service._log = loggerEnabled;

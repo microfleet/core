@@ -1,47 +1,37 @@
+/* eslint-disable prefer-arrow-callback */
 const { expect } = require('chai');
 
 describe('Mservice suite', function testSuite() {
   const Mservice = require('../src');
 
   it('creates service with no plugins', function test() {
-    expect(() => {
-      return new Mservice({ plugins: [] });
-    }).to.not.throw();
+    expect(() => new Mservice({ plugins: [] })).to.not.throw();
   });
 
   it('creates service with default configuration', function test() {
-    expect(() => {
-      return new Mservice();
-    }).to.not.throw();
+    expect(() => new Mservice()).to.not.throw();
   });
 
   it('creates service with validator enabled', function test() {
-    expect(() => {
-      return new Mservice({ plugins: ['validator'] });
-    }).to.not.throw();
+    expect(() => new Mservice({ plugins: ['validator'] })).to.not.throw();
   });
 
   it('creates services with logger enabled', function test() {
-    expect(() => {
-      return new Mservice({ plugins: ['logger'] });
-    }).to.not.throw();
+    expect(() => new Mservice({ plugins: ['logger'] })).to.not.throw();
   });
 
   it('creates service with amqp enabled', function test() {
-    expect(() => {
-      return new Mservice({ plugins: ['amqp'] });
-    }).to.not.throw();
+    expect(() => new Mservice({ plugins: ['amqp'] })).to.not.throw();
   });
 
   it('creates service with redis enabled', function test() {
-    expect(() => {
-      return new Mservice({ plugins: ['redisCluster'] });
-    }).to.not.throw();
+    expect(new Mservice({ plugins: ['redisCluster'] })).to.not.throw();
   });
 
   it('creates service with hooks enabled', function test() {
-    expect(() => {
-      return new Mservice({ plugins: [], hooks: {
+    expect(() => new Mservice({
+      plugins: [],
+      hooks: {
         'event:test': function eventTest() {
           return 'OK';
         },
@@ -53,8 +43,8 @@ describe('Mservice suite', function testSuite() {
             return 2;
           },
         ],
-      } });
-    }).to.not.throw();
+      },
+    })).to.not.throw();
   });
 
   it('creates service with all plugins enabled', function test() {
@@ -66,7 +56,7 @@ describe('Mservice suite', function testSuite() {
         logger: true,
         hooks: {
           masala: function chai(a, b) {
-            return 'chai with ' + a + ' and ' + b;
+            return `chai with ${a} and ${b}`;
           },
         },
       });
@@ -89,7 +79,8 @@ describe('Mservice suite', function testSuite() {
   });
 
   it('init hooks and waits for their completion', function test() {
-    return this.service.postHook('masala', 'dorothy', 'chris')
+    return this.service
+      .postHook('masala', 'dorothy', 'chris')
       .reflect()
       .then(result => {
         expect(result.isFulfilled()).to.be.eq(true);

@@ -1,6 +1,7 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
 const { Cluster } = require('ioredis');
+const is = require('is');
 
 exports.name = 'redis';
 
@@ -8,7 +9,7 @@ exports.attach = function attachRedisCluster(conf = {}) {
   const service = this;
 
   // optional validation with the plugin
-  if (typeof service.validateSync === 'function') {
+  if (is.fn(service.validateSync)) {
     const isConfValid = service.validateSync('redisCluster', conf);
     if (isConfValid.error) {
       throw isConfValid.error;
