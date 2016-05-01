@@ -25,7 +25,7 @@ describe('Mservice suite', function testSuite() {
   });
 
   it('creates service with redis enabled', function test() {
-    expect(new Mservice({ plugins: ['redisCluster'] })).to.not.throw();
+    expect(() => new Mservice({ plugins: ['redisCluster'] })).to.not.throw();
   });
 
   it('creates service with hooks enabled', function test() {
