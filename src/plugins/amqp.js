@@ -14,7 +14,7 @@ function scanRoutes(directory, prefix) {
   }
 
   return glob.sync('**/*.js', { cwd: directory }).reduce((acc, file) => {
-    const route = prefix + '.' + path.basename(file.replace(/\//g, '.'), '.js');
+    const route = `${prefix}.${path.basename(file.replace(/\//g, '.'), '.js')}`;
     acc[route] = require(path.join(directory, file));
     return acc;
   }, {});
@@ -69,49 +69,50 @@ function attachRouter(service, conf) {
     const action = routes[route];
     const actionName = route;
 
-    let promise;
+    let promise = Promise.bind(service);
     if (!action) {
-      promise = Promise.reject(new Errors.NotImplementedError(route));
+      promise = promise.throw(new Errors.NotImplementedError(route));
     } else {
-      promise = Promise
-        .bind(service)
-        .then(function validateMiddleware() {
-          return this.validate(action.__validation || actionName.slice(prefixLength), message);
-        })
+      promise = promise
+        .return([action.__validation || actionName.slice(prefixLength), message])
+        .spread(service.validate)
         .then(action);
     }
 
     // this is a hook to handle QoS or any other events
     if (onComplete) {
       promise = promise
-        .then(function success(data) {
-          return onComplete.call(service, null, data, actionName, actions);
+        .reflect()
+        .then(fate => {
+          const err = fate.isRejected() ? fate.reason() : null;
+          const data = fate.isFulfilled() ? fate.value() : null;
+          return [err, data, actionName, actions];
         })
-        .catch(function err(error) {
-          return onComplete.call(service, error, null, actionName, actions);
-        });
+        .spread(onComplete);
     }
 
     // if we have an error
-    promise = promise.reflect().then(function auditLog(fate) {
-      const execTime = process.hrtime(time);
-      const meta = {
-        message,
-        headers,
-        latency: execTime[0] * 1000 + (+(execTime[1] / 1000000).toFixed(3)),
-      };
+    promise = promise
+      .reflect()
+      .then(function auditLog(fate) {
+        const execTime = process.hrtime(time);
+        const meta = {
+          message,
+          headers,
+          latency: execTime[0] * 1000 + (+(execTime[1] / 1000000).toFixed(3)),
+        };
 
-      if (fate.isRejected()) {
-        const reason = fate.reason();
-        const err = typeof reason.toJSON === 'function' ? reason.toJSON() : reason.toString();
-        service.log.error(meta, 'Error performing operation', err);
-        throw reason;
-      }
+        if (fate.isRejected()) {
+          const reason = fate.reason();
+          const err = typeof reason.toJSON === 'function' ? reason.toJSON() : reason.toString();
+          service.log.error(meta, 'Error performing operation', err);
+          throw reason;
+        }
 
-      const response = fate.value();
-      service.log.info(meta, 'completed operation', this._config.debug ? response : '');
-      return response;
-    });
+        const response = fate.value();
+        service.log.info(meta, 'completed operation', this._config.debug ? response : '');
+        return response;
+      });
 
     if (typeof next === 'function') {
       return promise.asCallback(next);
@@ -150,8 +151,8 @@ exports.attach = function attachPlugin(conf = {}) {
   let logger;
   if (service._log) {
     const log = service._log;
-    logger = function logAMQP() {
-      log.info.apply(log, arguments);
+    logger = function logAMQP(...args) {
+      log.info(...args);
     };
   }
 
@@ -171,7 +172,7 @@ exports.attach = function attachPlugin(conf = {}) {
       // if not - we will only create a client
       return AMQPTransport
         .connect(conf, service.router)
-        .tap(function attachAMQP(amqp) {
+        .tap(amqp => {
           if (logger) {
             amqp.on('log', logger);
           }
@@ -193,7 +194,7 @@ exports.attach = function attachPlugin(conf = {}) {
 
       const amqp = service._amqp;
       return amqp.close()
-        .tap(function cleanupRefs() {
+        .tap(() => {
           if (logger) {
             amqp.removeListener('log', logger);
           }

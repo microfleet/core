@@ -1,8 +1,8 @@
-const Errors = require('common-errors')
-const Promise = require('bluebird')
-const Elasticsearch = require('elasticsearch')
+const Errors = require('common-errors');
+const Promise = require('bluebird');
+const Elasticsearch = require('elasticsearch');
 
-exports.name = 'elasticsearch'
+exports.name = 'elasticsearch';
 
 exports.attach = function attachElasticsearch(conf = {}) {
   const service = this;
@@ -26,16 +26,16 @@ exports.attach = function attachElasticsearch(conf = {}) {
       }
 
       const instance = new Elasticsearch.Client({ ...conf,
-        defer: function() {
+        defer: () => {
           const defer = {};
-          
+
           defer.promise = new Promise((resolve, reject) => {
             defer.resolve = resolve;
             defer.reject = reject;
           });
 
           return defer;
-        }
+        },
       });
 
       return instance.nodes.info({ human: true }).then(() => {
@@ -51,11 +51,11 @@ exports.attach = function attachElasticsearch(conf = {}) {
      */
     close: function disconnectElasticsearch() {
       return Promise.try(() => service._elasticsearch.close())
-        .then(function cleanupElasticsearchRef() {
+        .then(() => {
           service._elasticsearch = null;
           service.emit('plugin:close:elasticsearch');
           return true;
         });
-    }
+    },
   };
 };

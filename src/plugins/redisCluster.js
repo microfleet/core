@@ -26,18 +26,18 @@ exports.attach = function attachRedisCluster(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('redis was already started'));
       }
 
-      return new Promise(function redisClusterConnected(resolve, reject) {
+      return new Promise((resolve, reject) => {
         let onReady;
         let onError;
 
         const instance = new Cluster(conf.hosts, conf.options);
 
-        onReady = function redisConnect() {
+        onReady = function redisConnect() { // eslint-disable-line prefer-const
           instance.removeListener('error', onError);
           resolve(instance);
         };
 
-        onError = function redisError(err) {
+        onError = function redisError(err) { // eslint-disable-line prefer-const
           instance.removeListener('ready', onReady);
           reject(err);
         };
@@ -45,7 +45,7 @@ exports.attach = function attachRedisCluster(conf = {}) {
         instance.once('ready', onReady);
         instance.once('error', onError);
       })
-      .tap(function attachRedisInstance(instance) {
+      .tap(instance => {
         service._redis = instance;
         service.emit('plugin:connect:redisCluster', instance);
       });
@@ -60,9 +60,10 @@ exports.attach = function attachRedisCluster(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('redis was not started'));
       }
 
-      return service._redis
+      return service
+        ._redis
         .quit()
-        .tap(function cleanupRedisRef() {
+        .tap(() => {
           service._redis = null;
           service.emit('plugin:close:redisCluster');
         });

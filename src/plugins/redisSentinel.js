@@ -42,9 +42,10 @@ exports.attach = function attachRedisSentinel(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('redis was not started'));
       }
 
-      return service._redis
+      return service
+        ._redis
         .quit()
-        .tap(function cleanupRedisRef() {
+        .tap(() => {
           service._redis = null;
           service.emit('plugin:close:redisSentinel');
         });

@@ -3,6 +3,7 @@ const Errors = require('common-errors');
 const EventEmitter = require('eventemitter3');
 const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
+const deprecate = require('deprecate-me');
 
 /**
  * Configuration options for the service
@@ -82,7 +83,7 @@ class Mservice extends EventEmitter {
    * @param  {Mixed}  ...args
    * @return {Promise}
    */
-  postHook(event, ...args) {
+  hook(event, ...args) {
     const listeners = this.listeners(event);
 
     return Promise
@@ -94,11 +95,26 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * Deprecated, use .hook
+   */
+  postHook(...args) {
+    deprecate({
+      since: '1.7.0',
+      name: 'postHook',
+      removed: '2.0.0',
+      replaceBy: 'hook',
+      message: 'was renamed to better reflect intention of the function',
+    });
+
+    // pass control to renamed function
+    this.hook(...args);
+  }
+
+  /**
    * General configuration object
    */
   get config() {
-    const config = this._config;
-    return config ? config : this.emit('error', new Errors.NotPermittedError('Configuration was not initialized')); // eslint-disable-line max-len
+    return this._get('config');
   }
 
   /**
@@ -137,8 +153,12 @@ class Mservice extends EventEmitter {
    *
    */
   _get(name) {
-    const it = this['_' + name];
-    return it ? it : this.emit('error', new Errors.NotPermittedError(`${name} was not initialized`));  // eslint-disable-line max-len
+    const it = this[`_${name}`];
+    if (it) {
+      return it;
+    }
+
+    return this.emit('error', new Errors.NotPermittedError(`${name} was not initialized`));
   }
 
   /**
@@ -161,12 +181,11 @@ class Mservice extends EventEmitter {
    * Helper for calling funcs and emitting event after
    */
   _processAndEmit(arr, event) {
-    return Promise.map(arr, func => {
-      return func();
-    })
-    .tap(() => {
-      this.emit(event);
-    });
+    return Promise
+      .map(arr, func => func())
+      .tap(() => {
+        this.emit(event);
+      });
   }
 
   // ****************************** Plugin section: public ************************************
