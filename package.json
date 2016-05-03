@@ -41,7 +41,7 @@
     "ms-amqp-transport": "~1.x.x"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.7",
+    "babel-cli": "^6.8.0",
     "babel-eslint": "^6.0.4",
     "babel-plugin-transform-es2015-destructuring": "^6.6.5",
     "babel-plugin-transform-es2015-parameters": "^6.7.0",
