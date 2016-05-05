@@ -34,7 +34,7 @@ describe('Elasticsearch suite', function testSuite() {
       .then(result => {
         expect(result.isFulfilled()).to.be.eq(true);
         expect(() => {
-          return this.service.redis;
+          return this.service.elasticsearch;
         }).to.throw();
       });
   });

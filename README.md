@@ -228,3 +228,27 @@ const userService = new UserService({
   }
 });
 ```
+
+### Elasticsearch plugin
+
+When using this plugin, make sure you also do `npm i elasticsearch -S`
+
+Enables to use Elasticsearch as a NoSQL storage/search engine. Wraps an official
+Elasticsearch JavaScript API module.
+
+Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
+
+1. `plugin:connect:elasticsearch`
+2. `plugin:close:elasticsearch`
+
+```js
+const userService = new UserService({
+  plugins: [ 'elasticsearch' ],
+  elasticsearch: {
+    host: 'example.elastic.search:9200',
+    apiVersion: '2.1',
+    //...
+  }
+});
+```
+    
