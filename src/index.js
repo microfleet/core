@@ -151,6 +151,14 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * Getter for elasticsearch connection
+   * @return {Object}
+   */
+  get elasticsearch() {
+    return this._get('elasticsearch');
+  }
+
+  /**
    *
    */
   _get(name) {
