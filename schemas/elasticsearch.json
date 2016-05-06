@@ -31,6 +31,58 @@
         }]
       }
     },
+    "ssl": {
+      "pfx": {
+        "oneOf": [{
+          "type": "string",
+          "minLength": 1
+        }, {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }]
+      },
+      "key": {
+        "type": "string",
+        "minLength": 1
+      },
+      "passphrase": {
+        "type": "string",
+        "minLength": 1
+      },
+      "cert": {
+        "type": "string",
+        "minLength": 1
+      },
+      "ca": {
+        "oneOf": [{
+          "type": "string",
+          "minLength": 1
+        }, {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }]
+      },
+      "ciphers": {
+        "type": "string",
+        "minLength": 1
+      },
+      "rejectUnauthorized": {
+        "type": "boolean",
+        "default": "false"
+      },
+      "secureProtocol": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
     "apiVersion": {
       "type": "string"
     },
