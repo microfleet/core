@@ -55,7 +55,7 @@
     "cz-conventional-changelog": "^1.1.6",
     "elasticsearch": "~11.x.x",
     "eslint": "^2.9.0",
-    "eslint-config-airbnb": "^8.0.0",
+    "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-mocha": "^2.2.0",
     "ioredis": "~1.x.x",
