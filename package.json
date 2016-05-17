@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/makeomatic/mservice#readme",
   "dependencies": {
-    "bluebird": "^3.1.1",
+    "bluebird": "^3.4.0",
     "callsite": "^1.0.0",
     "common-errors": "^0.5.3",
     "deprecate-me": "^1.4.0",
