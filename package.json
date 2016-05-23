@@ -61,7 +61,7 @@
     "ioredis": "~1.x.x",
     "istanbul": "^0.4.3",
     "json": "^9.0.3",
-    "mocha": "^2.3.4",
+    "mocha": "^2.5.1",
     "ms-amqp-transport": "~1.x.x",
     "ms-validation": "~1.x.x",
     "semantic-release": "^4.3.5"
