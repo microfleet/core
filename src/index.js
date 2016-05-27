@@ -3,7 +3,6 @@ const Errors = require('common-errors');
 const EventEmitter = require('eventemitter3');
 const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
-const deprecate = require('deprecate-me');
 const is = require('is');
 
 /**
@@ -93,22 +92,6 @@ class Mservice extends EventEmitter {
       .map(function performOp(listener) {
         return listener.apply(this, args);
       });
-  }
-
-  /**
-   * Deprecated, use .hook
-   */
-  postHook(...args) {
-    deprecate({
-      since: '1.7.0',
-      name: 'postHook',
-      removed: '2.0.0',
-      replaceBy: 'hook',
-      message: 'was renamed to better reflect intention of the function',
-    });
-
-    // pass control to renamed function
-    return this.hook(...args);
   }
 
   /**

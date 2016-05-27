@@ -3,11 +3,11 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
-    "compile": "./node_modules/.bin/babel -d ./lib ./src",
-    "prepublish": "npm run eslint && npm run compile",
-    "eslint": "./node_modules/.bin/eslint ./src",
-    "test": "./test/docker.sh",
-    "semantic-release": "./node_modules/.bin/semantic-release pre && npm publish && ./node_modules/.bin/semantic-release post"
+    "compile": "babel -d ./lib ./src",
+    "prepublish": "npm run lint && npm run compile",
+    "lint": "eslint ./src",
+    "test": "npm run lint && ./test/docker.sh",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -27,25 +27,21 @@
     "bluebird": "^3.1.1",
     "callsite": "^1.0.0",
     "common-errors": "^0.5.3",
-    "deprecate-me": "^1.4.0",
     "eventemitter3": "^1.1.1",
     "glob": "^7.0.3",
     "is": "^3.1.0",
     "lodash": "^4.11.1"
   },
   "peerDependencies": {
-    "ms-validation": "~1.x.x",
+    "ms-validation": "~2.x.x",
     "ioredis": "~1.x.x",
     "bunyan": "~1.x.x",
     "elasticsearch": "~11.x.x",
-    "ms-amqp-transport": "~1.x.x"
+    "ms-amqp-transport": "~2.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
     "babel-eslint": "^6.0.4",
-    "babel-plugin-transform-es2015-destructuring": "^6.6.5",
-    "babel-plugin-transform-es2015-parameters": "^6.7.0",
-    "babel-plugin-transform-es2015-shorthand-properties": "^6.5.0",
     "babel-plugin-transform-es2015-spread": "^6.6.5",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-plugin-transform-strict-mode": "^6.6.5",
@@ -55,16 +51,16 @@
     "cz-conventional-changelog": "^1.1.6",
     "elasticsearch": "~11.x.x",
     "eslint": "^2.9.0",
-    "eslint-config-airbnb": "^8.0.0",
+    "eslint-config-airbnb-base": "^3.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-mocha": "^2.2.0",
     "ioredis": "~1.x.x",
     "istanbul": "^0.4.3",
     "json": "^9.0.3",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "~1.x.x",
-    "ms-validation": "~1.x.x",
-    "semantic-release": "^4.3.5"
+    "ms-amqp-transport": "~2.x.x",
+    "ms-validation": "~2.x.x",
+    "semantic-release": "^6.0.0"
   },
   "release": {
     "verifyConditions": []

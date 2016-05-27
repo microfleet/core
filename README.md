@@ -82,7 +82,7 @@ Initializes plugin, which has 2 methods: `.attach` - it would be called with `se
 When `conf` is omitted - it looks for `mod.name` - make sure this is also exported.
 `.attach` can return `connect` and `close` functions, which must return promises for starting and stopping the plugin
 
-### postHook(event, ...args)
+### hook(event, ...args)
 
 Performs `Promise.map` listeners defined for `event`. All of them are called with the context of the `mservice`
 and args are applied as a spread. This is useful when you want to track custom event hooks completion in the app.
@@ -251,4 +251,4 @@ const userService = new UserService({
   }
 });
 ```
-    
+
