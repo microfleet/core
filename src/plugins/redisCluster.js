@@ -27,6 +27,7 @@ exports.attach = function attachRedisCluster(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('redis was already started'));
       }
 
+      /* eslint-disable prefer-const */
       return new Promise((resolve, reject) => {
         let onReady;
         let onError;
@@ -50,6 +51,7 @@ exports.attach = function attachRedisCluster(conf = {}) {
         service._redis = instance;
         service.emit('plugin:connect:redisCluster', instance);
       });
+      /* eslint-enable prefer-const */
     },
 
     /**

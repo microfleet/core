@@ -80,7 +80,7 @@ describe('Mservice suite', function testSuite() {
 
   it('init hooks and waits for their completion', function test() {
     return this.service
-      .postHook('masala', 'dorothy', 'chris')
+      .hook('masala', 'dorothy', 'chris')
       .reflect()
       .then(result => {
         expect(result.isFulfilled()).to.be.eq(true);
