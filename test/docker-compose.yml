@@ -34,7 +34,7 @@ redis_sentinel:
     - redis
   volumes:
     - ./redis-sentinel:/etc/redis-sentinel:rw
-  image: redis:3.0.6-alpine
+  image: redis:3.0.7-alpine
   container_name: redis_sentinel
   hostname: redis_sentinel
   expose:
