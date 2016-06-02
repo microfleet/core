@@ -53,7 +53,7 @@
     "eslint": "^2.9.0",
     "eslint-config-airbnb-base": "^3.0.0",
     "eslint-plugin-import": "^1.6.1",
-    "eslint-plugin-mocha": "^2.2.0",
+    "eslint-plugin-mocha": "^3.0.0",
     "ioredis": "~1.x.x",
     "istanbul": "^0.4.3",
     "json": "^9.0.3",
