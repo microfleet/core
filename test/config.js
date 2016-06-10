@@ -1,5 +1,6 @@
 // make sure we have stack
 require('chai').config.includeStack = true;
+const cassandra = require('express-cassandra');
 
 global.SERVICES = {
   redis: {
@@ -41,5 +42,39 @@ global.SERVICES = {
         host: process.env.ELASTICSEARCH_PORT_9200_TCP_ADDR
       }
     ]
+  },
+  cassandra: {
+    service: {
+      models: {
+        Foo: {
+          fields:{
+            bar: 'text'
+          },
+          key:['bar']
+        }
+      }
+    },
+    client: {
+      clientOptions: {
+        contactPoints: [
+          process.env.CASSANDRA_PORT_9042_TCP_ADDR
+        ],
+        protocolOptions: {
+          port: parseInt(process.env.CASSANDRA_PORT_9042_TCP_PORT)
+        },
+        keyspace: 'mykeyspace',
+        queryOptions: {
+          consistency: cassandra.consistencies.one
+        }
+      },
+      ormOptions: {
+        defaultReplicationStrategy : {
+          class: 'SimpleStrategy',
+          replication_factor: 1
+        },
+        dropTableOnSchemaChange: false,
+        createKeyspace: true
+      }
+    }
   }
 };

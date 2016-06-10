@@ -29,6 +29,6 @@ export IMAGE=makeomatic/alpine-node:$NODE_VER
 $COMPOSE -f $DC up -d
 
 # make sure that services are up
-sleep 5
+sleep 25
 
 $COMPOSE -f $DC run --rm tester ./node_modules/.bin/mocha

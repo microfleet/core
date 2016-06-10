@@ -37,6 +37,7 @@
     "ioredis": "~1.x.x",
     "bunyan": "~1.x.x",
     "elasticsearch": "~11.x.x",
+    "express-cassandra": "^1.x.x",
     "ms-amqp-transport": "~2.x.x"
   },
   "devDependencies": {
@@ -54,6 +55,7 @@
     "eslint-config-airbnb-base": "^3.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-mocha": "^2.2.0",
+    "express-cassandra": "^1.x.x",
     "ioredis": "~1.x.x",
     "istanbul": "^0.4.3",
     "json": "^9.0.3",

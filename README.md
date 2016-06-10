@@ -252,3 +252,55 @@ const userService = new UserService({
 });
 ```
 
+### Cassandra plugin
+
+When using this plugin, make sure you also do `npm i express-cassandra -S`
+
+Enables to use Cassandra as a NoSQL storage/search engine. Based on `express-cassandra` module.
+
+Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
+
+1. `plugin:connect:cassandra`
+2. `plugin:close:cassandra`
+
+```js
+cassandra = require('express-cassandra');
+
+const service = new Service({
+  plugins: [ 'cassandra' ],
+  cassandra: {
+    service: {
+      // models also can be path to directory with models
+      // https://github.com/masumsoft/express-cassandra#write-a-model-named-personmodeljs-inside-models-directory
+      models: {
+        Foo: {
+          fields:{
+            bar: 'text'
+          },
+          key:['bar']
+        }
+      }
+    },
+    client: {
+      clientOptions: {
+        contactPoints: ['cassandra.srv'],
+        protocolOptions: {
+          port: 9042
+        },
+        keyspace: 'mykeyspace',
+        queryOptions: {
+          consistency: cassandra.consistencies.one
+        }
+      },
+      ormOptions: {
+        defaultReplicationStrategy : {
+          class: 'SimpleStrategy',
+          replication_factor: 1
+        },
+        dropTableOnSchemaChange: false,
+        createKeyspace: true
+      }
+    }
+});
+```
+

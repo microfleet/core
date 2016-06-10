@@ -142,6 +142,14 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * Getter for cassandra connection
+   * @return {Object}
+   */
+  get cassandra() {
+    return this._get('cassandra');
+  }
+
+  /**
    *
    */
   _get(name) {
