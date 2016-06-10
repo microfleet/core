@@ -314,12 +314,12 @@ Events are emitted when plugin has completed connecting, or disconnecting. First
 
 1. `plugin:start:http`
 2. `plugin:stop:http`
+3. `plugin:start:https`
+4. `plugin:stop:https`
 
 ```js
-cassandra = require('express-cassandra');
-
 const service = new Service({
-  plugins: [ 'cassandra' ],
+  plugins: [ 'http' ],
   server: {
     http: {
       handler: 'express',
