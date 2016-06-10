@@ -76,5 +76,18 @@ global.SERVICES = {
         createKeyspace: true
       }
     }
+  },
+  http: {
+    server: {
+      http: {
+        handler: 'express',
+        handlerConfig: {
+          properties: {
+            'x-powered-by': 'mservice test'
+          }
+        },
+        port: 3000,
+      }
+    }
   }
 };

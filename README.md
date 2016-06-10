@@ -304,3 +304,45 @@ const service = new Service({
 });
 ```
 
+### Http plugin
+
+Enables to create `http` and `https` servers with one of next handlers (see `/src/plugins/http/handlers`):
+
+* express (make sure you also do `npm i express -S`)
+
+Events are emitted when plugin has completed connecting, or disconnecting. First arg is the server instance
+
+1. `plugin:start:http`
+2. `plugin:stop:http`
+
+```js
+cassandra = require('express-cassandra');
+
+const service = new Service({
+  plugins: [ 'cassandra' ],
+  server: {
+    http: {
+      handler: 'express',
+      handlerConfig: {
+        properties: {
+          'x-powered-by': 'mservice test'
+        }
+      },
+      port: 3000,
+    },
+    https: {
+      handler: 'express',
+      handlerConfig: {
+        properties: {
+          'x-powered-by': 'mservice test'
+        }
+      },
+      port: 443,
+      options: {
+        // https options
+      }
+    }
+  }
+});
+```
+
