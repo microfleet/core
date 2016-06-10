@@ -64,6 +64,13 @@ elasticsearch:
   container_name: elasticsearch
   hostname: elasticsearch
 
+cassandra:
+  expose:
+    - "9042"
+  image: cassandra:3.5
+  container_name: cassandra
+  hostname: cassandra
+
 tester:
   links:
     - redis_1
@@ -72,6 +79,7 @@ tester:
     - rabbitmq
     - redis_sentinel
     - elasticsearch
+    - cassandra
   image: ${IMAGE}
   container_name: mservice-test
   command: 'true'
