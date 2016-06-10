@@ -53,7 +53,7 @@ function attachCassandra(config) {
 
   function disconnectCassandra() {
     // eslint-disable-next-line no-underscore-dangle
-    if (!service._cassandra || !(service._cassandra instanceof Cassandra)) {
+    if (!service._cassandra) {
       return Promise.reject(new Errors.NotPermittedError('cassandra was not started'));
     }
 
