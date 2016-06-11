@@ -34,7 +34,7 @@
   },
   "peerDependencies": {
     "ms-validation": "~2.x.x",
-    "ioredis": "~1.x.x || ~2.x.x",
+    "ioredis": "~2.x.x",
     "bunyan": "~1.x.x",
     "elasticsearch": "~11.x.x",
     "express-cassandra": "^1.x.x",

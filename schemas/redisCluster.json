@@ -30,8 +30,16 @@
     "options": {
       "type": "object",
       "properties": {
-        "keyPrefix": {
-          "type": "string"
+        "redisOptions": {
+          "type": "object",
+          "properties": {
+            "keyPrefix": {
+              "type": "string"
+            },
+            "dropBufferSupport": {
+              "type": "boolean"
+            }
+          }
         }
       }
     }
