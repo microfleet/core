@@ -1,11 +1,12 @@
 const Errors = require('common-errors');
-const isFunction = require('lodash/isFunction');
+const is = require('is');
 const http = require('http');
 const https = require('https');
 const Promise = require('bluebird');
+const enableDestroy = require('server-destroy');
 
 function validateConfig(config, validator) {
-  if (isFunction(validator)) {
+  if (is.fn(validator)) {
     const isServerConfigValid = validator('http', config);
 
     if (isServerConfigValid.error) {
@@ -44,6 +45,7 @@ function createHttpServer(config) {
         throw new Errors.ArgumentError('invalid http plugin config');
     }
 
+    enableDestroy(server);
     service[`_${type}`] = server;
     service[`_${type}Handler`] = handler;
   });
@@ -84,7 +86,7 @@ function createHttpServer(config) {
       const server = service[type];
 
       const disconnectPromise = new Promise((resolve, reject) => {
-        server.close((error) => {
+        server.destroy((error) => {
           if (error) {
             reject(error);
           }

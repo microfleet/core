@@ -39,7 +39,8 @@
     "elasticsearch": "~11.x.x",
     "express": "~4.x.x",
     "express-cassandra": "^1.x.x",
-    "ms-amqp-transport": "~2.x.x"
+    "ms-amqp-transport": "~2.x.x",
+    "server-destroy": "^1.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
@@ -64,7 +65,8 @@
     "mocha": "^2.3.4",
     "ms-amqp-transport": "~2.x.x",
     "ms-validation": "~2.x.x",
-    "semantic-release": "^6.0.0"
+    "semantic-release": "^6.0.0",
+    "server-destroy": "^1.x.x"
   },
   "release": {
     "verifyConditions": []
