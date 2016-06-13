@@ -6,7 +6,6 @@ describe('Cassandra suite', function testSuite() {
   const Mservice = require('../src');
 
   it('able to connect to cassandra when plugin is included', function test() {
-    this.timeout(3000);
     this.service = new Mservice({
       plugins: ['validator', 'cassandra'],
       cassandra: global.SERVICES.cassandra
@@ -26,8 +25,6 @@ describe('Cassandra suite', function testSuite() {
   });
 
   it('able to close connection to cassandra', function test() {
-    this.timeout(3000);
-
     return this.service.close()
       .reflect()
       .then(result => {
@@ -39,7 +36,6 @@ describe('Cassandra suite', function testSuite() {
   });
 
   it('should load models from directory', function test() {
-    this.timeout(3000);
     const cassandraConfig = cloneDeep(global.SERVICES.cassandra);
     cassandraConfig.service.models = __dirname + '/cassandra/models';
 
