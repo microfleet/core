@@ -334,28 +334,30 @@ Allowed handlers at this moment:
 ```js
 const service = new Service({
   plugins: [ 'http' ],
-  server: {
-    http: {
-      handler: 'express',
-      handlerConfig: {
-        properties: {
-          'x-powered-by': 'mservice test'
-        }
+  http: {
+    server: {
+      http: {
+        handler: 'express',
+        handlerConfig: {
+          properties: {
+            'x-powered-by': 'mservice test'
+          }
+        },
+        port: 3000,
       },
-      port: 3000,
-    },
-    https: {
-      handler: 'express',
-      handlerConfig: {
-        properties: {
-          'x-powered-by': 'mservice test'
+      https: {
+        handler: 'express',
+        handlerConfig: {
+          properties: {
+            'x-powered-by': 'mservice test'
+          }
+        },
+        port: 443,
+        options: {
+          // https options
         }
-      },
-      port: 443,
-      options: {
-        // https options
       }
-    }
+  }
   }
 });
 
