@@ -5,21 +5,26 @@
   "properties": {
     "server": {
       "type": "object",
-      "required": ["handler", "port"],
+      "required": ["handler", "port", "host"],
       "properties": {
         "attachSocketIO": {
+          "default": false,
           "type": "boolean"
         },
         "handler": {
+          "default": "express",
           "type": "string"
         },
         "handlerConfig": {
+          "default": {},
           "type": "object"
         },
         "port": {
+          "default": 3000,
           "type": "integer"
         },
         "host": {
+          "default": "0.0.0.0",
           "type": "string"
         }
       }
