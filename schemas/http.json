@@ -18,6 +18,9 @@
         },
         "port": {
           "type": "integer"
+        },
+        "host": {
+          "type": "string"
         }
       }
     }

@@ -21,18 +21,11 @@ function createRestifyServer(config, service) {
       service.socketio.listen(service.http);
     }
 
-    return new Promise((resolve, reject) => {
-      service.http.on('listening', () => {
-        service.emit('plugin:start:http', service.http);
-        resolve(service.http);
-      });
-      service.http.on('error', (error) => {
-        if (error.errno === 'EADDRINUSE' || error.errno === 'EACCES') {
-          reject(error);
-        }
-      });
-      service.http.listen(config.server.port);
-    });
+    return Promise
+      .fromCallback(callback =>
+        service.http.server.listen(config.server.port, config.server.host, callback))
+      .then(() => service.emit('plugin:start:http', service.http))
+      .then(() => service.http);
   }
 
   function stopServer() {
@@ -47,16 +40,9 @@ function createRestifyServer(config, service) {
       service.socketio.close();
     }
 
-    return new Promise((resolve, reject) => {
-      service.http.server.destroy((error) => {
-        if (error) {
-          reject(error);
-        }
-
-        service.emit('plugin:stop:http');
-        resolve();
-      });
-    });
+    return Promise
+      .fromCallback(callback => service.http.server.destroy(callback))
+      .then(() => service.emit('plugin:stop:http'));
   }
 
   return {
