@@ -1,0 +1,23 @@
+{
+  "id": "socketio",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "service": {
+      "type": "object",
+      "properties": {
+        "actionsDirectory": {
+          "type": "string"
+        }
+      }
+    },
+    "server": {
+      "type": "object",
+      "properties": {
+        "options": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

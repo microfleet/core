@@ -1,23 +1,12 @@
 const enableDestroy = require('server-destroy');
 const Errors = require('common-errors');
-const express = require('express');
-const http = require('http');
-const is = require('is');
 const Promise = require('bluebird');
+const restify = require('restify');
 
-function createExpressServer(config, service) {
-  const handler = express();
-  const server = http.createServer(handler);
-  const properties = config.server.handlerConfig && config.server.handlerConfig.properties;
-
-  if (is.object(properties)) {
-    Object.keys(properties).forEach((key) => handler.set(key, properties[key]));
-  }
-
-  service._http = {
-    handler,
-    server,
-  };
+function createRestifyServer(config, service) {
+  const restifyConfig = config.server.handlerConfig || {};
+  restifyConfig.socketio = true; // prevent handle socket.io requests, see restify server
+  service._http = restify.createServer(restifyConfig);
 
   function startServer() {
     if (service.http.server.listening === true) {
@@ -29,20 +18,20 @@ function createExpressServer(config, service) {
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketio.listen(service.http.server);
+      service.socketio.listen(service.http);
     }
 
     return new Promise((resolve, reject) => {
-      service.http.server.on('listening', () => {
+      service.http.on('listening', () => {
         service.emit('plugin:start:http', service.http);
         resolve(service.http);
       });
-      service.http.server.on('error', (error) => {
+      service.http.on('error', (error) => {
         if (error.errno === 'EADDRINUSE' || error.errno === 'EACCES') {
           reject(error);
         }
       });
-      service.http.server.listen(config.server.port);
+      service.http.listen(config.server.port);
     });
   }
 
@@ -76,4 +65,4 @@ function createExpressServer(config, service) {
   };
 }
 
-module.exports = createExpressServer;
+module.exports = createRestifyServer;

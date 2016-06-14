@@ -308,7 +308,7 @@ const service = new Service({
 
 #### Features
 
- * Allows creating `http` and `https` servers
+ * Allows creating `http` server
  * Predefined handlers support
  
 #### Handlers
@@ -318,6 +318,7 @@ You can use one of predefined handlers in `/src/plugins/http/handlers` directory
 Allowed handlers at this moment:
  
  * express (make sure you also do `npm i express -S`)
+ * restify (make sure you also do `npm i restify -S`)
 
 #### Peer dependencies
 
@@ -327,8 +328,6 @@ Allowed handlers at this moment:
 
  * `plugin:start:http`
  * `plugin:stop:http`
- * `plugin:start:https`
- * `plugin:stop:https`
 
 #### Usage
 ```js
@@ -336,37 +335,66 @@ const service = new Service({
   plugins: [ 'http' ],
   http: {
     server: {
-      http: {
-        handler: 'express',
-        handlerConfig: {
-          properties: {
-            'x-powered-by': 'mservice test'
-          }
-        },
-        port: 3000,
-      },
-      https: {
-        handler: 'express',
-        handlerConfig: {
-          properties: {
-            'x-powered-by': 'mservice test'
-          }
-        },
-        port: 443,
-        options: {
-          // https options
-        }
-      }
-  }
+      attachSocketIO: false, // if true socketio plugin need to be included
+      handler: 'restify',
+      handlerConfig: {},
+      port: 3000,
+    }
   }
 });
 
-// service.http - http server instance
-// service.https - https server instance
-// service.httpHandler - http server handler
-// service.httpsHandler - https server handler
+// service.http - server instance depends on handler
 ```
 
 #### Planned features
 
  * Routes and actions auto initialising from directory
+ 
+### Socket.IO plugin
+
+#### Features
+
+Attach `socket.io` instance to `.socketio` property and optionally attach `actions` from `actionsDirectory` to it.
+
+#### Peer dependencies
+
+* `npm i socket.io -S`
+
+#### Usage
+```js
+const service = new Service({
+  plugins: [ 'socketio' ],
+  socketio: {
+    service: {
+      actionsDirectory: __dirname + '/actions/socketio',
+    },
+    server: {
+      options: {
+        // socket.io options
+      },
+    }
+  }
+});
+
+// service.socketio - Socket.IO instance
+```
+
+#### Actions
+Example action `echo.js`
+```js
+function echoAction(data) {
+  this.emit('echo', data);
+}
+
+module.exports = {
+  handler: echoAction,
+  params: {
+    type: "object",
+    properties: {
+      "message": {
+        "type": "string"
+      }
+    }
+  }
+};
+```

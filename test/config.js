@@ -79,15 +79,18 @@ global.SERVICES = {
   },
   http: {
     server: {
-      http: {
-        handler: 'express',
-        handlerConfig: {
-          properties: {
-            'x-powered-by': 'mservice test'
-          }
-        },
-        port: 3000,
-      }
+      attachSocketIO: true,
+      handler: 'restify',
+      handlerConfig: {},
+      port: 3000,
+    }
+  },
+  socketio: {
+    service: {
+      actionsDirectory: __dirname + '/actions/socketio',
+    },
+    server: {
+      options: {},
     }
   }
 };

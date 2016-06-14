@@ -1,40 +1,23 @@
 {
   "id": "http",
   "type": "object",
+  "required": ["server"],
   "properties": {
     "server": {
       "type": "object",
+      "required": ["handler", "port"],
       "properties": {
-        "http": {
-          "type": "object",
-          "properties": {
-            "handler": {
-              "type": "string"
-            },
-            "handlerConfig": {
-              "type": "object"
-            },
-            "port": {
-              "type": "integer"
-            }
-          }
+        "attachSocketIO": {
+          "type": "boolean"
         },
-        "https": {
-          "type": "object",
-          "properties": {
-            "handler": {
-              "type": "string"
-            },
-            "handlerConfig": {
-              "type": "object"
-            },
-            "port": {
-              "type": "integer"
-            },
-            "options": {
-              "type": "object"
-            }
-          }
+        "handler": {
+          "type": "string"
+        },
+        "handlerConfig": {
+          "type": "object"
+        },
+        "port": {
+          "type": "integer"
         }
       }
     }

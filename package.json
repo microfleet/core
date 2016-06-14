@@ -40,7 +40,9 @@
     "express": "~4.x.x",
     "express-cassandra": "^1.x.x",
     "ms-amqp-transport": "~2.x.x",
-    "server-destroy": "^1.x.x"
+    "restify": "~4.x.x",
+    "server-destroy": "~1.x.x",
+    "socket.io": "~1.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
@@ -65,8 +67,11 @@
     "mocha": "^2.3.4",
     "ms-amqp-transport": "~2.x.x",
     "ms-validation": "~2.x.x",
+    "restify": "~4.x.x",
     "semantic-release": "^6.0.0",
-    "server-destroy": "^1.x.x"
+    "server-destroy": "~1.x.x",
+    "socket.io": "~1.x.x",
+    "socket.io-client": "^1.4.6"
   },
   "release": {
     "verifyConditions": []
