@@ -1,0 +1,42 @@
+{
+  "id": "http",
+  "type": "object",
+  "properties": {
+    "server": {
+      "type": "object",
+      "properties": {
+        "http": {
+          "type": "object",
+          "properties": {
+            "handler": {
+              "type": "string"
+            },
+            "handlerConfig": {
+              "type": "object"
+            },
+            "port": {
+              "type": "integer"
+            }
+          }
+        },
+        "https": {
+          "type": "object",
+          "properties": {
+            "handler": {
+              "type": "string"
+            },
+            "handlerConfig": {
+              "type": "object"
+            },
+            "port": {
+              "type": "integer"
+            },
+            "options": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  }
+}

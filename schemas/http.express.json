@@ -1,0 +1,9 @@
+{
+  "id": "http.express",
+  "type": "object",
+  "properties": {
+    "properties": {
+      "type": "object"
+    }
+  }
+}

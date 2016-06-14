@@ -150,6 +150,38 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * Getter for http server
+   * @return {Object}
+   */
+  get http() {
+    return this._get('http');
+  }
+
+  /**
+   * Getter for http server handler
+   * @return {Object}
+   */
+  get httpHandler() {
+    return this._get('httpHandler');
+  }
+
+  /**
+   * Getter for https server
+   * @return {Object}
+   */
+  get https() {
+    return this._get('https');
+  }
+
+  /**
+   * Getter for https server handler
+   * @return {Object}
+   */
+  get httpsHandler() {
+    return this._get('httpsHandler');
+  }
+
+  /**
    *
    */
   _get(name) {

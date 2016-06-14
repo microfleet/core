@@ -37,8 +37,10 @@
     "ioredis": "~2.x.x",
     "bunyan": "~1.x.x",
     "elasticsearch": "~11.x.x",
+    "express": "~4.x.x",
     "express-cassandra": "^1.x.x",
-    "ms-amqp-transport": "~2.x.x"
+    "ms-amqp-transport": "~2.x.x",
+    "server-destroy": "^1.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
@@ -55,6 +57,7 @@
     "eslint-config-airbnb-base": "^3.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-mocha": "^3.0.0",
+    "express": "~4.x.x",
     "express-cassandra": "^1.0.1",
     "ioredis": "~2.x.x",
     "istanbul": "^0.4.3",
@@ -62,7 +65,8 @@
     "mocha": "^2.3.4",
     "ms-amqp-transport": "~2.x.x",
     "ms-validation": "~2.x.x",
-    "semantic-release": "^6.0.0"
+    "semantic-release": "^6.0.0",
+    "server-destroy": "^1.x.x"
   },
   "release": {
     "verifyConditions": []

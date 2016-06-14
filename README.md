@@ -304,3 +304,69 @@ const service = new Service({
 });
 ```
 
+### Http plugin
+
+#### Features
+
+ * Allows creating `http` and `https` servers
+ * Predefined handlers support
+ 
+#### Handlers
+
+You can use one of predefined handlers in `/src/plugins/http/handlers` directory
+
+Allowed handlers at this moment:
+ 
+ * express (make sure you also do `npm i express -S`)
+
+#### Peer dependencies
+
+* `npm i server-destroy -S`
+
+#### Events
+
+ * `plugin:start:http`
+ * `plugin:stop:http`
+ * `plugin:start:https`
+ * `plugin:stop:https`
+
+#### Usage
+```js
+const service = new Service({
+  plugins: [ 'http' ],
+  http: {
+    server: {
+      http: {
+        handler: 'express',
+        handlerConfig: {
+          properties: {
+            'x-powered-by': 'mservice test'
+          }
+        },
+        port: 3000,
+      },
+      https: {
+        handler: 'express',
+        handlerConfig: {
+          properties: {
+            'x-powered-by': 'mservice test'
+          }
+        },
+        port: 443,
+        options: {
+          // https options
+        }
+      }
+  }
+  }
+});
+
+// service.http - http server instance
+// service.https - https server instance
+// service.httpHandler - http server handler
+// service.httpsHandler - https server handler
+```
+
+#### Planned features
+
+ * Routes and actions auto initialising from directory
