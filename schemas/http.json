@@ -1,40 +1,31 @@
 {
   "id": "http",
   "type": "object",
+  "required": ["server"],
   "properties": {
     "server": {
       "type": "object",
+      "required": ["handler", "port", "host"],
       "properties": {
-        "http": {
-          "type": "object",
-          "properties": {
-            "handler": {
-              "type": "string"
-            },
-            "handlerConfig": {
-              "type": "object"
-            },
-            "port": {
-              "type": "integer"
-            }
-          }
+        "attachSocketIO": {
+          "default": false,
+          "type": "boolean"
         },
-        "https": {
-          "type": "object",
-          "properties": {
-            "handler": {
-              "type": "string"
-            },
-            "handlerConfig": {
-              "type": "object"
-            },
-            "port": {
-              "type": "integer"
-            },
-            "options": {
-              "type": "object"
-            }
-          }
+        "handler": {
+          "default": "express",
+          "type": "string"
+        },
+        "handlerConfig": {
+          "default": {},
+          "type": "object"
+        },
+        "port": {
+          "default": 3000,
+          "type": "integer"
+        },
+        "host": {
+          "default": "0.0.0.0",
+          "type": "string"
         }
       }
     }
