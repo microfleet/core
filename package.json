@@ -71,7 +71,7 @@
     "semantic-release": "^6.0.0",
     "server-destroy": "~1.x.x",
     "socket.io": "~1.x.x",
-    "socket.io-client": "^1.4.6"
+    "socket.io-client": "^1.4.7"
   },
   "release": {
     "verifyConditions": []
