@@ -16,6 +16,33 @@ exports.attach = function attachElasticsearch(conf = {}) {
     }
   }
 
+  const { log, ...opts } = conf;
+
+  let Logger = null;
+  if (log && log.type === 'service') {
+    if (!service._log) {
+      throw new Errors.ReferenceError('\'logger\' plugin is required to use \'service\' logging');
+    }
+
+    Logger = function ElasticLogger() {
+      const { _log } = service;
+      this.error = _log.error.bind(_log);
+      this.warning = _log.warn.bind(_log);
+      this.info = _log.info.bind(_log);
+      this.debug = _log.debug.bind(_log);
+      this.trace = function trace(method, requestUrl, body, responseBody, responseStatus) {
+        _log.trace({
+          method,
+          requestUrl,
+          body,
+          responseBody,
+          responseStatus,
+        });
+      };
+      this.close = function close() { /* not need to close */ };
+    };
+  }
+
   return {
     /**
      * @private
@@ -25,8 +52,7 @@ exports.attach = function attachElasticsearch(conf = {}) {
       if (service._elasticsearch) {
         return Promise.reject(new Errors.NotPermittedError('elasticsearch was already started'));
       }
-
-      const instance = new Elasticsearch.Client({ ...conf,
+      const instance = new Elasticsearch.Client({ ...opts,
         defer: () => {
           const defer = {};
 
@@ -37,6 +63,7 @@ exports.attach = function attachElasticsearch(conf = {}) {
 
           return defer;
         },
+        log: Logger || log,
       });
 
       return instance.nodes.info({ human: true }).then(() => {

@@ -1,42 +1,42 @@
-redis_1:
+redis-1:
   image: makeomatic/alpine-redis
-  container_name: redis_1
-  hostname: redis_1
+  container_name: redis-1
+  hostname: redis-1
   expose:
     - "6379"
     - "16379"
 
-redis_2:
+redis-2:
   image: makeomatic/alpine-redis
-  container_name: redis_2
-  hostname: redis_2
+  container_name: redis-2
+  hostname: redis-2
   expose:
     - "6379"
     - "16379"
 
-redis_3:
+redis-3:
   image: makeomatic/alpine-redis
-  container_name: redis_3
-  hostname: redis_3
+  container_name: redis-3
+  hostname: redis-3
   expose:
     - "6379"
     - "16379"
 
 redis:
-  image: redis:3.0.7-alpine
+  image: redis:3.2.1-alpine
   container_name: redis
   hostname: redis
   expose:
     - "6379"
 
-redis_sentinel:
+redis-sentinel:
   links:
     - redis
   volumes:
     - ./redis-sentinel:/etc/redis-sentinel:rw
-  image: redis:3.0.7-alpine
-  container_name: redis_sentinel
-  hostname: redis_sentinel
+  image: redis:3.2.1-alpine
+  container_name: redis-sentinel
+  hostname: redis-sentinel
   expose:
     - "26379"
   command: redis-server /etc/redis-sentinel/redis-sentinel.conf --sentinel
@@ -50,12 +50,16 @@ rabbitmq:
 
 redis_client:
   links:
-    - redis_1
-    - redis_2
-    - redis_3
+    - redis-1
+    - redis-2
+    - redis-3
     - rabbitmq
   container_name: redis_client
   image: makeomatic/redis-trib
+  environment:
+    - REDIS_1=redis-1
+    - REDIS_2=redis-2
+    - REDIS_3=redis-3
 
 elasticsearch:
   expose:
@@ -73,14 +77,14 @@ cassandra:
 
 tester:
   links:
-    - redis_1
-    - redis_2
-    - redis_3
+    - redis-1
+    - redis-2
+    - redis-3
     - rabbitmq
-    - redis_sentinel
+    - redis-sentinel
     - elasticsearch
     - cassandra
-  image: ${IMAGE}
+  image: makeomatic/node:6.2.2-tester-glibc
   container_name: mservice-test
   command: 'true'
   environment:

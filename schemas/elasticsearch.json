@@ -97,6 +97,22 @@
     },
     "pingTimeout": {
       "type": "integer"
+    },
+    "log": {
+      "type": "object",
+      "required": [ "type" ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [ "stdio", "file", "tracer", "console", "service" ],
+          "default": "console"
+        },
+        "level": {
+          "type": "string",
+          "enum": [ "error", "warning", "info", "trace" ],
+          "default": "warning"
+        }
+      }
     }
   }
 }

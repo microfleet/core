@@ -47,6 +47,7 @@
   "devDependencies": {
     "babel-cli": "^6.7.7",
     "babel-eslint": "^6.0.4",
+    "babel-plugin-transform-es2015-destructuring": "^6.9.0",
     "babel-plugin-transform-es2015-spread": "^6.6.5",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-plugin-transform-strict-mode": "^6.6.5",
@@ -61,7 +62,7 @@
     "eslint-plugin-mocha": "^3.0.0",
     "express": "~4.x.x",
     "express-cassandra": "^1.0.1",
-    "ioredis": "~2.x.x",
+    "ioredis": "^2.1.0",
     "istanbul": "^0.4.3",
     "json": "^9.0.4",
     "mocha": "^2.3.4",
