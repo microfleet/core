@@ -4,33 +4,23 @@ const cassandra = require('express-cassandra');
 
 global.SERVICES = {
   redis: {
-    hosts: [
-      {
-        host: process.env.REDIS_1_PORT_6379_TCP_ADDR,
-        port: process.env.REDIS_1_PORT_6379_TCP_PORT,
-      },
-      {
-        host: process.env.REDIS_2_PORT_6379_TCP_ADDR,
-        port: process.env.REDIS_2_PORT_6379_TCP_PORT,
-      },
-      {
-        host: process.env.REDIS_3_PORT_6379_TCP_ADDR,
-        port: process.env.REDIS_3_PORT_6379_TCP_PORT,
-      },
-    ],
+    hosts: [0, 1, 2].map(idx => ({
+      host: `redis-${idx}`,
+      port: 6379,
+    })),
     options: {},
   },
   amqp: {
     connection: {
-      host: process.env.RABBITMQ_PORT_5672_TCP_ADDR,
-      port: process.env.RABBITMQ_PORT_5672_TCP_PORT,
+      host: 'rabbitmq',
+      port: 5672,
     },
   },
   redisSentinel: {
     sentinels: [
       {
-        host: process.env.REDIS_SENTINEL_PORT_26379_TCP_ADDR,
-        port: process.env.REDIS_SENTINEL_PORT_26379_TCP_PORT,
+        host: 'redis-sentinel',
+        port: 26379,
       },
     ],
     name: 'mservice',
@@ -39,7 +29,7 @@ global.SERVICES = {
   elasticsearch: {
     hosts: [
       {
-        host: process.env.ELASTICSEARCH_PORT_9200_TCP_ADDR,
+        host: 'elasticsearch',
       },
     ],
     log: {
@@ -50,35 +40,35 @@ global.SERVICES = {
     service: {
       models: {
         Foo: {
-          fields:{
-            bar: 'text'
+          fields: {
+            bar: 'text',
           },
-          key:['bar']
-        }
-      }
+          key: ['bar'],
+        },
+      },
     },
     client: {
       clientOptions: {
         contactPoints: [
-          process.env.CASSANDRA_PORT_9042_TCP_ADDR
+          'cassandra',
         ],
         protocolOptions: {
-          port: parseInt(process.env.CASSANDRA_PORT_9042_TCP_PORT)
+          port: 9042,
         },
         keyspace: 'mykeyspace',
         queryOptions: {
-          consistency: cassandra.consistencies.one
-        }
+          consistency: cassandra.consistencies.one,
+        },
       },
       ormOptions: {
-        defaultReplicationStrategy : {
+        defaultReplicationStrategy: {
           class: 'SimpleStrategy',
-          replication_factor: 1
+          replication_factor: 1,
         },
         dropTableOnSchemaChange: false,
-        createKeyspace: true
-      }
-    }
+        createKeyspace: true,
+      },
+    },
   },
   http: {
     server: {
@@ -86,14 +76,14 @@ global.SERVICES = {
       handler: 'restify',
       handlerConfig: {},
       port: 3000,
-    }
+    },
   },
   socketio: {
     service: {
-      actionsDirectory: __dirname + '/actions/socketio',
+      actionsDirectory: `${__dirname}/actions/socketio`,
     },
     server: {
       options: {},
-    }
-  }
+    },
+  },
 };

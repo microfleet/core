@@ -13,7 +13,7 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
         server: {
           handler: 'restify',
           port: 3000,
-        }
+        },
       },
     });
 
@@ -40,7 +40,9 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
     http.get('http://0.0.0.0:3000/bar', (res) => {
       let body = '';
 
-      res.on('data', (chunk) => body += chunk);
+      res.on('data', (chunk) => {
+        body += chunk;
+      });
       res.on('end', () => {
         expect(body).to.be.equals('"/bar route"');
         done();
@@ -51,6 +53,8 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
   });
 
   it('should be able to stop \'restify\' http server', function test() {
+    this.timeout(10000);
+
     return this.service.close()
       .reflect()
       .then(result => {
@@ -70,14 +74,14 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
           attachSocketIO: true,
           handler: 'restify',
           port: 3000,
-        }
+        },
       },
       socketio: global.SERVICES.socketio,
     });
 
     service.connect()
       .then(() => {
-        const client = SocketIOClient('http://0.0.0.0:3000');
+        const client = new SocketIOClient('http://0.0.0.0:3000');
         client.on('echo', data => {
           expect(data.message).to.be.eq('foo');
           service.close().then(() => done());

@@ -34,7 +34,11 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "format": "ipv4"
+                "oneOf": [
+                  { "format": "host-name" },
+                  { "format": "ipv4" },
+                  { "format": "ipv6" }
+                ]
               }
             },
             "protocolOptions": {
