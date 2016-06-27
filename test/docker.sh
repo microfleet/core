@@ -17,6 +17,6 @@ chmod a+w ./test/redis-sentinel/*.conf
 $COMPOSE up -d
 
 # make sure that services are up
-sleep 40
+sleep 60
 
 $COMPOSE run --rm tester ./node_modules/.bin/mocha
