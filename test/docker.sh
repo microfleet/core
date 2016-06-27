@@ -5,7 +5,7 @@ DC="$DIR/docker-compose.yml"
 PATH=$PATH:$DIR/.bin/
 COMPOSE="docker-compose -f $DC"
 
-if ! [ -x "$COMPOSE" ]; then
+if ! [ -x "$(which docker-compose)" ]; then
   mkdir $DIR/.bin
   curl -L https://github.com/docker/compose/releases/download/1.7.0/docker-compose-`uname -s`-`uname -m` > $DIR/.bin/docker-compose
   chmod +x $DIR/.bin/docker-compose
