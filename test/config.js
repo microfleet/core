@@ -39,9 +39,12 @@ global.SERVICES = {
   elasticsearch: {
     hosts: [
       {
-        host: process.env.ELASTICSEARCH_PORT_9200_TCP_ADDR
-      }
-    ]
+        host: process.env.ELASTICSEARCH_PORT_9200_TCP_ADDR,
+      },
+    ],
+    log: {
+      type: 'service',
+    },
   },
   cassandra: {
     service: {

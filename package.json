@@ -50,6 +50,7 @@
     "babel-plugin-transform-es2015-spread": "^6.6.5",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-plugin-transform-strict-mode": "^6.6.5",
+    "babel-plugin-transform-es2015-destructuring": "^6.9.0",
     "babel-register": "^6.7.2",
     "bunyan": "^1.8.1",
     "chai": "^3.5.0",
