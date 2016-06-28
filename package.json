@@ -66,7 +66,7 @@
     "istanbul": "^0.4.3",
     "json": "^9.0.4",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "~2.x.x",
+    "ms-amqp-transport": "~3.0.0",
     "ms-validation": "~2.x.x",
     "restify": "~4.x.x",
     "semantic-release": "^6.0.0",
