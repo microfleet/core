@@ -34,7 +34,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "oneOf": [
+                "anyOf": [
                   { "format": "host-name" },
                   { "format": "ipv4" },
                   { "format": "ipv6" }
@@ -45,7 +45,10 @@
               "type": "object",
               "properties": {
                 "port": {
-                  "type": "integer"
+                  "oneOf": [
+                    { "type": "integer" },
+                    { "type": "string" }
+                  ]
                 }
               }
             },

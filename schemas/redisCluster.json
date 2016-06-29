@@ -12,7 +12,7 @@
         "properties": {
           "host": {
             "type": "string",
-            "oneOf": [
+            "anyOf": [
               { "format": "hostname" },
               { "format": "ipv4" },
               { "format": "ipv6" }
