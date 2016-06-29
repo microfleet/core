@@ -55,7 +55,7 @@ describe('Redis suite', function testSuite() {
       .spread(redis => {
         expect(redis).to.be.instanceof(Redis);
         expect(() => this.service.redis).to.not.throw();
-        expect(is.fn(redis.echo)).to.be.eq(true);
+        expect(is.fn(redis['echo-woo'])).to.be.eq(true);
       });
   });
 

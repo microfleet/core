@@ -27,6 +27,7 @@
     "bluebird": "^3.4.0",
     "callsite": "^1.0.0",
     "common-errors": "^0.5.7",
+    "debug": "^2.2.0",
     "eventemitter3": "^1.1.1",
     "glob": "^7.0.3",
     "is": "^3.1.0",

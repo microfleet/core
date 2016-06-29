@@ -3,6 +3,7 @@ const Promise = require('bluebird');
 const { Cluster } = require('ioredis');
 const is = require('is');
 const loadLuaScripts = require('./redis/utils.js');
+const debug = require('debug')('mservice:redisCluster');
 
 exports.name = 'redis';
 
@@ -14,6 +15,8 @@ exports.attach = function attachRedisCluster(conf = {}) {
     const isConfValid = service.validateSync('redisCluster', conf);
     if (isConfValid.error) throw isConfValid.error;
   }
+
+  debug('loading with config', conf);
 
   return {
     /**
@@ -35,6 +38,7 @@ exports.attach = function attachRedisCluster(conf = {}) {
 
         // attach to instance right away
         if (conf.luaScripts) {
+          debug('attaching lua');
           loadLuaScripts(conf.luaScripts, instance);
         }
 

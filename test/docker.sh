@@ -13,12 +13,16 @@ if ! [ -x "$(which docker-compose)" ]; then
   chmod +x $DIR/.bin/docker-compose
 fi
 
-trap "$COMPOSE stop; $COMPOSE rm -f -v;" EXIT
+if [[ x"$CI" == x"true" ]]; then
+  trap "$COMPOSE stop; $COMPOSE rm -f -v;" EXIT
+else
+  trap "printf \"to remove containers use:\n\n$COMPOSE stop;\n$COMPOSE rm -f -v;\n\n\"" EXIT
+fi
 
 chmod a+w ./test/redis-sentinel/*.conf
 $COMPOSE up -d
 
 # make sure that services are up
-sleep 60
+sleep 40
 
 docker exec tester ./node_modules/.bin/_mocha './test/suites/*.js'

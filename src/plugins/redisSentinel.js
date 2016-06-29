@@ -3,6 +3,7 @@ const Promise = require('bluebird');
 const Redis = require('ioredis');
 const is = require('is');
 const loadLuaScripts = require('./redis/utils.js');
+const debug = require('debug')('mservice:redisSentinel');
 
 exports.name = 'redis';
 
@@ -14,6 +15,8 @@ exports.attach = function attachRedisSentinel(conf = {}) {
     const isConfValid = service.validateSync('redisSentinel', conf);
     if (isConfValid.error) throw isConfValid.error;
   }
+
+  debug('loading with config', conf);
 
   return {
     /**
@@ -29,6 +32,7 @@ exports.attach = function attachRedisSentinel(conf = {}) {
 
       // attach to instance right away
       if (conf.luaScripts) {
+        debug('attaching lua');
         loadLuaScripts(conf.luaScripts, instance);
       }
 
