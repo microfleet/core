@@ -8,8 +8,8 @@ describe('Cassandra suite', function testSuite() {
 
   // make sure that cassandra is up
   before(function before() {
-    this.timeout(1000 * 101);
-    return Promise.delay(1000 * 100, true);
+    this.timeout(1000 * 121);
+    return Promise.delay(1000 * 120, true);
   });
 
   it('able to connect to cassandra when plugin is included', function test() {
