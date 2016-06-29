@@ -27,10 +27,12 @@
     "bluebird": "^3.4.0",
     "callsite": "^1.0.0",
     "common-errors": "^0.5.7",
+    "debug": "^2.2.0",
     "eventemitter3": "^1.1.1",
     "glob": "^7.0.3",
     "is": "^3.1.0",
-    "lodash": "^4.11.1"
+    "lodash": "^4.11.1",
+    "stdout-stream": "^1.4.0"
   },
   "peerDependencies": {
     "ms-validation": "~2.x.x",
@@ -38,8 +40,8 @@
     "bunyan": "~1.x.x",
     "elasticsearch": "~11.x.x",
     "express": "~4.x.x",
-    "express-cassandra": "^1.x.x",
-    "ms-amqp-transport": "~2.x.x",
+    "express-cassandra": "~1.x.x",
+    "ms-amqp-transport": "~2.x.x || ~3.x.x",
     "restify": "~4.x.x",
     "server-destroy": "~1.x.x",
     "socket.io": "~1.x.x"
@@ -66,7 +68,7 @@
     "istanbul": "^0.4.3",
     "json": "^9.0.4",
     "mocha": "^2.3.4",
-    "ms-amqp-transport": "~2.x.x",
+    "ms-amqp-transport": "^3.0.0",
     "ms-validation": "~2.x.x",
     "restify": "~4.x.x",
     "semantic-release": "^6.0.0",

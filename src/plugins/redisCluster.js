@@ -2,6 +2,8 @@ const Errors = require('common-errors');
 const Promise = require('bluebird');
 const { Cluster } = require('ioredis');
 const is = require('is');
+const loadLuaScripts = require('./redis/utils.js');
+const debug = require('debug')('mservice:redisCluster');
 
 exports.name = 'redis';
 
@@ -11,10 +13,10 @@ exports.attach = function attachRedisCluster(conf = {}) {
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {
     const isConfValid = service.validateSync('redisCluster', conf);
-    if (isConfValid.error) {
-      throw isConfValid.error;
-    }
+    if (isConfValid.error) throw isConfValid.error;
   }
+
+  debug('loading with config', conf);
 
   return {
     /**
@@ -33,6 +35,12 @@ exports.attach = function attachRedisCluster(conf = {}) {
         let onError;
 
         const instance = new Cluster(conf.hosts, conf.options);
+
+        // attach to instance right away
+        if (conf.luaScripts) {
+          debug('attaching lua');
+          loadLuaScripts(conf.luaScripts, instance);
+        }
 
         onReady = function redisConnect() { // eslint-disable-line prefer-const
           instance.removeListener('error', onError);

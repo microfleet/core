@@ -2,7 +2,7 @@
 const { expect } = require('chai');
 
 describe('Mservice suite', function testSuite() {
-  const Mservice = require('../src');
+  const Mservice = require('../../src');
 
   it('creates service with no plugins', function test() {
     expect(() => new Mservice({ plugins: [] })).to.not.throw();
