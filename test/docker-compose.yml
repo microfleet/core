@@ -46,9 +46,11 @@ services:
   rabbitmq:
     expose:
       - "5672"
-    image: makeomatic/alpine-rabbitmq:3.5.7
+    image: makeomatic/rabbitmq:3.6.2
     container_name: rabbitmq
     hostname: rabbitmq
+    volumes:
+      - ./rabbitmq/rabbitmq.config:/usr/lib/rabbitmq/etc/rabbitmq/rabbitmq.config
 
   redis_client:
     links:
