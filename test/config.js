@@ -50,10 +50,10 @@ global.SERVICES = {
     client: {
       clientOptions: {
         contactPoints: [
-          'cassandra',
+          process.env.CASSANDRA_PORT_9042_TCP_ADDR
         ],
         protocolOptions: {
-          port: 9042,
+          port: parseInt(process.env.CASSANDRA_PORT_9042_TCP_PORT)
         },
         keyspace: 'mykeyspace',
         queryOptions: {
