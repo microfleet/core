@@ -6,6 +6,19 @@ const { expect } = require('chai');
 describe('Cassandra suite', function testSuite() {
   const Mservice = require('../../src');
 
+  before('lookup ipv4', (done) => {
+    const dns = require('dns');
+    const hostnames = global.SERVICES.cassandra.client.clientOptions.contactPoints;
+    dns.lookup(hostnames[0], { family: 4 }, (err, addr) => {
+      if (err) {
+        return done(err);
+      }
+
+      hostnames[0] = addr;
+      return done();
+    });
+  });
+
   it('able to connect to cassandra when plugin is included', function test() {
     this.service = new Mservice({
       plugins: ['validator', 'cassandra'],
