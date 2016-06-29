@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const { ReferenceError } = require('common-errors');
 
 describe('Elasticsearch suite', function testSuite() {
-  const Mservice = require('../src');
+  const Mservice = require('../../src');
 
   it('should throw an error when plugin isn\'t included', function test() {
     const service = new Mservice({ plugins: [] });

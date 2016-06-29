@@ -15,7 +15,7 @@ exports.attach = function attachValidator(conf, parentFile) {
 
   if (conf) {
     if (!Array.isArray(conf)) {
-      throw new Errors.NotPermittedError('.validator must be an array of directories, where json schemas are located');  // eslint-disable-line
+      throw new Errors.NotPermittedError('config.validator must be an array of directories, where json schemas are located');  // eslint-disable-line
     }
 
     // for relative paths
@@ -51,4 +51,10 @@ exports.attach = function attachValidator(conf, parentFile) {
   service._validator = validator;
   service.validate = validator.validate;
   service.validateSync = validator.validateSync;
+
+  // if we have schema called `config` - we will use it to validate
+  if (validator.$ajv.getSchema('config')) {
+    const error = service.validateSync('config', service.config).error;
+    if (error) throw error;
+  }
 };

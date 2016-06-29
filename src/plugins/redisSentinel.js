@@ -2,6 +2,7 @@ const Errors = require('common-errors');
 const Promise = require('bluebird');
 const Redis = require('ioredis');
 const is = require('is');
+const loadLuaScripts = require('./redis/utils.js');
 
 exports.name = 'redis';
 
@@ -11,9 +12,7 @@ exports.attach = function attachRedisSentinel(conf = {}) {
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {
     const isConfValid = service.validateSync('redisSentinel', conf);
-    if (isConfValid.error) {
-      throw isConfValid.error;
-    }
+    if (isConfValid.error) throw isConfValid.error;
   }
 
   return {
@@ -27,6 +26,12 @@ exports.attach = function attachRedisSentinel(conf = {}) {
       }
 
       const instance = new Redis({ ...conf, lazyConnect: true });
+
+      // attach to instance right away
+      if (conf.luaScripts) {
+        loadLuaScripts(conf.luaScripts, instance);
+      }
+
       return instance.connect().then(() => {
         service._redis = instance;
         service.emit('plugin:connect:redisSentinel', instance);

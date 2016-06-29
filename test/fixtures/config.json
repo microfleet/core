@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "invalid": {
+      "type": "boolean"
+    }
+  }
+}

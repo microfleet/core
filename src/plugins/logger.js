@@ -1,5 +1,6 @@
 const bunyan = require('bunyan');
 const is = require('is');
+const stdout = require('stdout-stream');
 
 exports.name = 'logger';
 
@@ -21,7 +22,7 @@ exports.attach = function attachLogger(conf) {
 
   if (loggerEnabled) {
     streams.push({
-      stream: process.stdout,
+      stream: stdout,
       level: debug ? 'debug' : 'info',
     });
   }

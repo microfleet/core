@@ -29,7 +29,7 @@ function getActions(actionsDirectory, validator) {
       handler = function preValidate(data) {
         const socket = this;
         validator.validate(validatorName, data)
-          .then((params) => action.handler.call(socket, params))
+          .then(params => action.handler.call(socket, params))
           .catch(error => socket.error(error));
       };
     }

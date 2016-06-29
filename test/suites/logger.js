@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const bunyan = require('bunyan');
 
 describe('Logger suite', function testSuite() {
-  const Mservice = require('../src');
+  const Mservice = require('../../src');
 
   it('when service does not include `logger` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });

@@ -4,6 +4,7 @@ const EventEmitter = require('eventemitter3');
 const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
 const is = require('is');
+const stdout = require('stdout-stream');
 
 /**
  * Configuration options for the service
@@ -64,7 +65,7 @@ class Mservice extends EventEmitter {
    * Overrides SIG* events and exits cleanly
    */
   exit() {
-    process.stdout.write('received close signal...\n closing connections...\n');
+    stdout.write('received close signal...\n closing connections...\n');
     return this.close()
       .timeout(1000)
       .finally(() => {
@@ -216,7 +217,7 @@ class Mservice extends EventEmitter {
   initPlugin(mod, conf) {
     const expose = mod.attach.call(this, conf || this._config[mod.name], __filename);
 
-    if (is.nil(expose) || !is.object(expose)) {
+    if (!is.object(expose)) {
       return;
     }
 

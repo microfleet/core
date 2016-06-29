@@ -1,19 +1,24 @@
 const { expect } = require('chai');
+const express = require('express');
 const http = require('http');
-const Server = require('restify/lib/server');
 const SocketIOClient = require('socket.io-client');
 
-describe('Http server with \'restify\' handler suite', function testSuite() {
-  const Mservice = require('../src');
+describe('Http server with \'express\' handler suite', function testSuite() {
+  const Mservice = require('../../src');
 
-  it('should start \'restify\' http server when plugin is included', function test() {
+  it('should start \'express\' http server when plugin is included', function test() {
     this.service = new Mservice({
       plugins: ['validator', 'http'],
       http: {
         server: {
-          handler: 'restify',
+          handler: 'express',
+          handlerConfig: {
+            properties: {
+              'x-powered-by': 'mservice test'
+            }
+          },
           port: 3000,
-        },
+        }
       },
     });
 
@@ -23,28 +28,30 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
-      .spread(restifyServer => {
-        expect(restifyServer).to.be.instanceof(Server);
-        expect(restifyServer.server).to.be.instanceof(http.Server);
-        expect(this.service.http).to.be.instanceof(Server);
+      .spread(server => {
+        expect(server.handler).to.be.instanceof(Function);
+        expect(server.server).to.be.instanceof(http.Server);
+        expect(this.service.http.handler).to.be.instanceof(Function);
         expect(this.service.http.server).to.be.instanceof(http.Server);
+        expect(this.service.http.handler.get('x-powered-by')).to.be.equals('mservice test');
       });
   });
 
   it('should can add routes after start', function test(done) {
-    this.service.http.get('/bar', (req, res, next) => {
+    const application = this.service.http.handler;
+    const router = express.Router();
+    router.use('/bar', function(req, res, next) {
       res.send('/bar route');
       next();
     });
+    application.use('/', router);
 
     http.get('http://0.0.0.0:3000/bar', (res) => {
       let body = '';
 
-      res.on('data', (chunk) => {
-        body += chunk;
-      });
+      res.on('data', (chunk) => body += chunk);
       res.on('end', () => {
-        expect(body).to.be.equals('"/bar route"');
+        expect(body).to.be.equals('/bar route');
         done();
       });
     }).on('error', (error) => {
@@ -52,9 +59,7 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
     });
   });
 
-  it('should be able to stop \'restify\' http server', function test() {
-    this.timeout(10000);
-
+  it('should be able to stop \'express\' http server', function test() {
     return this.service.close()
       .reflect()
       .then(result => {
@@ -72,16 +77,16 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
       http: {
         server: {
           attachSocketIO: true,
-          handler: 'restify',
+          handler: 'express',
           port: 3000,
-        },
+        }
       },
       socketio: global.SERVICES.socketio,
     });
 
     service.connect()
       .then(() => {
-        const client = new SocketIOClient('http://0.0.0.0:3000');
+        const client = SocketIOClient('http://0.0.0.0:3000');
         client.on('echo', data => {
           expect(data.message).to.be.eq('foo');
           service.close().then(() => done());

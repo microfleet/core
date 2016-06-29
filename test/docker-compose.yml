@@ -1,95 +1,95 @@
-redis-1:
-  image: makeomatic/alpine-redis
-  container_name: redis-1
-  hostname: redis-1
-  expose:
-    - "6379"
-    - "16379"
+version: '2'
+services:
+  redis-1:
+    image: makeomatic/alpine-redis
+    container_name: redis-1
+    hostname: redis-1
+    expose:
+      - "6379"
+      - "16379"
 
-redis-2:
-  image: makeomatic/alpine-redis
-  container_name: redis-2
-  hostname: redis-2
-  expose:
-    - "6379"
-    - "16379"
+  redis-2:
+    image: makeomatic/alpine-redis
+    container_name: redis-2
+    hostname: redis-2
+    expose:
+      - "6379"
+      - "16379"
 
-redis-3:
-  image: makeomatic/alpine-redis
-  container_name: redis-3
-  hostname: redis-3
-  expose:
-    - "6379"
-    - "16379"
+  redis-3:
+    image: makeomatic/alpine-redis
+    container_name: redis-3
+    hostname: redis-3
+    expose:
+      - "6379"
+      - "16379"
 
-redis:
-  image: redis:3.2.1-alpine
-  container_name: redis
-  hostname: redis
-  expose:
-    - "6379"
+  redis:
+    image: redis:3.2.1-alpine
+    container_name: redis
+    hostname: redis
+    expose:
+      - "6379"
 
-redis-sentinel:
-  links:
-    - redis
-  volumes:
-    - ./redis-sentinel:/etc/redis-sentinel:rw
-  image: redis:3.2.1-alpine
-  container_name: redis-sentinel
-  hostname: redis-sentinel
-  expose:
-    - "26379"
-  command: redis-server /etc/redis-sentinel/redis-sentinel.conf --sentinel
+  redis-sentinel:
+    links:
+      - redis
+    volumes:
+      - ./redis-sentinel:/etc/redis-sentinel:rw
+    image: redis:3.2.1-alpine
+    container_name: redis-sentinel
+    hostname: redis-sentinel
+    expose:
+      - "26379"
+    command: redis-server /etc/redis-sentinel/redis-sentinel.conf --sentinel
 
-rabbitmq:
-  expose:
-    - "5672"
-  image: makeomatic/alpine-rabbitmq:3.5.7
-  container_name: rabbitmq
-  hostname: rabbitmq
+  rabbitmq:
+    expose:
+      - "5672"
+    image: makeomatic/alpine-rabbitmq:3.5.7
+    container_name: rabbitmq
+    hostname: rabbitmq
 
-redis_client:
-  links:
-    - redis-1
-    - redis-2
-    - redis-3
-    - rabbitmq
-  container_name: redis_client
-  image: makeomatic/redis-trib
-  environment:
-    - REDIS_1=redis-1
-    - REDIS_2=redis-2
-    - REDIS_3=redis-3
+  redis_client:
+    links:
+      - redis-1
+      - redis-2
+      - redis-3
+      - rabbitmq
+    container_name: redis_client
+    image: makeomatic/redis-trib
+    environment:
+      - REDIS_1=redis-1
+      - REDIS_2=redis-2
+      - REDIS_3=redis-3
 
-elasticsearch:
-  expose:
-    - "9200"
-  image: joschi/alpine-elasticsearch
-  container_name: elasticsearch
-  hostname: elasticsearch
+  elasticsearch:
+    expose:
+      - "9200"
+    image: joschi/alpine-elasticsearch
+    container_name: elasticsearch
+    hostname: elasticsearch
 
-cassandra:
-  expose:
-    - "9042"
-  image: cassandra:3.5
-  container_name: cassandra
-  hostname: cassandra
+  cassandra:
+    image: cassandra:3.7
+    container_name: cassandra
+    hostname: cassandra
 
-tester:
-  links:
-    - redis-1
-    - redis-2
-    - redis-3
-    - rabbitmq
-    - redis-sentinel
-    - elasticsearch
-    - cassandra
-  image: makeomatic/node:6.2.2-tester-glibc
-  container_name: mservice-test
-  command: 'true'
-  environment:
-    BLUEBIRD_DEBUG: '1'
-    DEBUG: ${DEBUG}
-  working_dir: /src
-  volumes:
-    - ${PWD}:/src
+  tester:
+    links:
+      - redis-1
+      - redis-2
+      - redis-3
+      - rabbitmq
+      - redis-sentinel
+      - elasticsearch
+      - cassandra
+    image: makeomatic/node:6.2.2-tester-glibc
+    container_name: tester
+    command: tail -f /dev/null
+    environment:
+      BLUEBIRD_DEBUG: '1'
+      DEBUG: ${DEBUG}
+    working_dir: /src
+    volumes:
+      - ${PWD}:/src

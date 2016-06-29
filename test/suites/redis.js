@@ -1,15 +1,15 @@
+const path = require('path');
+const is = require('is');
 const { expect } = require('chai');
 
 describe('Redis suite', function testSuite() {
-  const Mservice = require('../src');
+  const Mservice = require('../../src');
   const Redis = require('ioredis');
   const { Cluster } = Redis;
 
   it('when service does not include `redis` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });
-    expect(() => {
-      return service.redis;
-    }).to.throw();
+    expect(() => service.redis).to.throw();
   });
 
   it('able to connect to redis when plugin is included', function test() {
@@ -25,9 +25,7 @@ describe('Redis suite', function testSuite() {
       })
       .spread(redis => {
         expect(redis).to.be.instanceof(Cluster);
-        expect(() => {
-          return this.service.redis;
-        }).to.not.throw();
+        expect(() => this.service.redis).to.not.throw();
       });
   });
 
@@ -36,16 +34,17 @@ describe('Redis suite', function testSuite() {
       .reflect()
       .then(result => {
         expect(result.isFulfilled()).to.be.eq(true);
-        expect(() => {
-          return this.service.redis;
-        }).to.throw();
+        expect(() => this.service.redis).to.throw();
       });
   });
 
   it('able to connect to redis sentinel when plugin is included', function test() {
     this.service = new Mservice({
       plugins: ['validator', 'redisSentinel'],
-      redis: global.SERVICES.redisSentinel,
+      redis: {
+        ...global.SERVICES.redisSentinel,
+        luaScripts: path.resolve(__dirname, '../fixtures'),
+      },
     });
     return this.service.connect()
       .reflect()
@@ -55,9 +54,8 @@ describe('Redis suite', function testSuite() {
       })
       .spread(redis => {
         expect(redis).to.be.instanceof(Redis);
-        expect(() => {
-          return this.service.redis;
-        }).to.not.throw();
+        expect(() => this.service.redis).to.not.throw();
+        expect(is.fn(redis.echo)).to.be.eq(true);
       });
   });
 
@@ -66,9 +64,7 @@ describe('Redis suite', function testSuite() {
       .reflect()
       .then(result => {
         expect(result.isFulfilled()).to.be.eq(true);
-        expect(() => {
-          return this.service.redis;
-        }).to.throw();
+        expect(() => this.service.redis).to.throw();
       });
   });
 });
