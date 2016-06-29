@@ -73,7 +73,7 @@ services:
     hostname: elasticsearch
 
   cassandra:
-    image: cassandra:3.7
+    image: cassandra:3.5
     container_name: cassandra
     hostname: cassandra
 
