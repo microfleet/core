@@ -14,7 +14,7 @@ if ! [ -x "$(which docker-compose)" ]; then
 fi
 
 if [[ x"$CI" == x"true" ]]; then
-  trap "$COMPOSE stop; $COMPOSE rm -f -v;" EXIT
+  trap "$COMPOSE logs; $COMPOSE stop; $COMPOSE rm -f -v;" EXIT
 else
   trap "printf \"to remove containers use:\n\n$COMPOSE stop;\n$COMPOSE rm -f -v;\n\n\"" EXIT
 fi
