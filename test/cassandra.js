@@ -1,9 +1,16 @@
 const Cassandra = require('express-cassandra');
 const cloneDeep = require('lodash/cloneDeep');
 const { expect } = require('chai');
+const Promise = require('bluebird');
 
 describe('Cassandra suite', function testSuite() {
   const Mservice = require('../src');
+
+  // make sure that cassandra is up
+  before(function before() {
+    this.timeout(1000 * 60);
+    return Promise.delay(1000 * 50, true);
+  });
 
   it('able to connect to cassandra when plugin is included', function test() {
     this.service = new Mservice({
