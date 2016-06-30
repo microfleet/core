@@ -55,6 +55,7 @@ exports.attach = function attachRedisSentinel(conf = {}) {
       return service
         ._redis
         .quit()
+        .catchReturn({ message: 'Connection is closed.' }, null)
         .tap(() => {
           service._redis = null;
           service.emit('plugin:close:redisSentinel');

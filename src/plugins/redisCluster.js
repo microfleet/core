@@ -74,6 +74,7 @@ exports.attach = function attachRedisCluster(conf = {}) {
       return service
         ._redis
         .quit()
+        .catchReturn({ message: 'Connection is closed.' }, null)
         .tap(() => {
           service._redis = null;
           service.emit('plugin:close:redisCluster');
