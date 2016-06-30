@@ -71,6 +71,20 @@ cassandra:
   container_name: cassandra
   hostname: cassandra
 
+crate1:
+  expose:
+    - "4200"
+  image: crate
+  container_name: crate1
+  hostname: crate1
+
+crate2:
+  ports:
+    - "4201:4200"
+  image: crate
+  container_name: crate2
+  hostname: crate2
+
 tester:
   links:
     - redis_1
@@ -80,6 +94,7 @@ tester:
     - redis_sentinel
     - elasticsearch
     - cassandra
+    - crate
   image: ${IMAGE}
   container_name: mservice-test
   command: 'true'

@@ -89,5 +89,20 @@ global.SERVICES = {
         port: 3000,
       }
     }
+  },
+  crate: {
+    servers: [{
+      host: process.env.CRATE_HOST_1,
+      port: process.env.CRATE_PORT_1
+    }]
+  },
+  crate_cluster: {
+    servers: [{
+      host: process.env.CRATE_HOST_1,
+      port: process.env.CRATE_PORT_1
+    }, {
+      host: process.env.CRATE_HOST_2,
+      port: process.env.CRATE_PORT_2
+    }]
   }
 };
