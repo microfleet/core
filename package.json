@@ -58,7 +58,7 @@
     "chai": "^3.5.0",
     "cz-conventional-changelog": "^1.1.6",
     "elasticsearch": "~11.x.x",
-    "eslint": "^2.11.1",
+    "eslint": "^3.0.1",
     "eslint-config-airbnb-base": "^3.0.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-mocha": "^3.0.0",
