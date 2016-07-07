@@ -101,7 +101,7 @@ function attachRouter(service, conf) {
         const meta = {
           message,
           headers,
-          latency: execTime[0] * 1000 + (+(execTime[1] / 1000000).toFixed(3)),
+          latency: (execTime[0] * 1000) + (+(execTime[1] / 1000000).toFixed(3)),
         };
 
         if (fate.isRejected()) {
@@ -150,13 +150,8 @@ exports.attach = function attachPlugin(conf = {}) {
     attachRouter(service, conf);
   }
 
-  let logger;
-  if (service._log) {
-    const log = service._log;
-    logger = function logAMQP(...args) {
-      log.info(...args);
-    };
-  }
+  // logger
+  const logger = service._log && service._log.child({ namespace: 'ms-amqp-transport' });
 
   // connectors
   return {
@@ -173,12 +168,11 @@ exports.attach = function attachPlugin(conf = {}) {
       // if service.router is present - we will consume messages
       // if not - we will only create a client
       return AMQPTransport
-        .connect(conf, service.router)
+        .connect({
+          ...conf,
+          log: logger || null,
+        }, service.router)
         .tap(amqp => {
-          if (logger) {
-            amqp.on('log', logger);
-          }
-
           service._amqp = amqp;
           service.emit('plugin:connect:amqp', amqp);
           return amqp;
@@ -197,10 +191,6 @@ exports.attach = function attachPlugin(conf = {}) {
       const amqp = service._amqp;
       return amqp.close()
         .tap(() => {
-          if (logger) {
-            amqp.removeListener('log', logger);
-          }
-
           service._amqp = null;
           service.emit('plugin:close:amqp');
         });
