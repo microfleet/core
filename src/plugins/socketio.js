@@ -55,12 +55,14 @@ function attachSocketIO(config = {}) {
 
   const socketio = new SocketIO(config.server.options);
 
-  if (config.service.actionsDirectory) {
-    const actions = getActions(config.service.actionsDirectory, this.validator);
-    socketio.on('connection', socket => {
-      Object.keys(actions).forEach((action) => socket.on(action, actions[action].handler));
-    });
-  }
+  socketio.on('connection', this.router.getRouterByTransport('socketIO'));
+
+  //if (config.service.actionsDirectory) {
+  //  const actions = getActions(config.service.actionsDirectory, this.validator);
+  //  socketio.on('connection', socket => {
+  //    Object.keys(actions).forEach((action) => socket.on(action, actions[action].handler));
+  //  });
+  //}
 
   this._socketio = socketio;
 }

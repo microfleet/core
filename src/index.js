@@ -167,6 +167,14 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * Getter for router
+   * @return {Object}
+   */
+  get router() {
+    return this._get('router');
+  }
+
+  /**
    *
    */
   _get(name) {

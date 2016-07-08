@@ -1,0 +1,11 @@
+{
+  "id": "router",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "actionsDirectory": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}
