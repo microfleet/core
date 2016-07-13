@@ -1,49 +1,39 @@
-const Errors = require('common-errors');
 const Promise = require('bluebird');
 
-let strategies = [];
-
-function authHandler(request, action, router) {
-  if (action.auth === null) {
+function validateHandler(request, action, router) {
+  if (action.validate === null) {
     return Promise.resolve();
   }
 
-  const authStrategy = strategies[action.auth];
   const promisesFactories = [];
   const extension = router.extension;
+  const validator = router.service.validator;
 
-  if (authStrategy === undefined) {
-    throw new Errors.NotImplementedError(action.auth);
-  }
-
-  if (extension.has('preAuth')) {
-    promisesFactories.push(function preAuth() {
-      return extension.exec('preAuth', request, action, router);
+  if (extension.has('preValidate')) {
+    promisesFactories.push(function preValidate() {
+      return extension.exec('preValidate', request, action, router);
     });
   }
 
-  promisesFactories.push(function auth() {
-    return authStrategy(request, action, router)
-      .tap(credentials => {
-        request.auth = { credentials };
-      })
-      .catch(error => {
-        return Promise.reject(new Errors.AuthenticationRequired(error));
+  promisesFactories.push(function validate() {
+    return validator
+      .validate(request.route, request.params)
+      .tap(sanitizedParams => {
+        request.params = sanitizedParams;
       });
   });
 
-  if (extension.has('postAuth')) {
-    promisesFactories.push(function postAuth() {
-      return extension.exec('postAuth', request, action, router);
+  if (extension.has('postValidate')) {
+    promisesFactories.push(function postValidate() {
+      return extension.exec('postValidate', request, action, router);
     });
   }
 
-  return Promise.map(promisesFactories, handler => handler());
+  return Promise.mapSeries(promisesFactories, handler => handler());
 }
 
-function getAuthHandler(config) {
-  strategies = config.strategies;
-  return authHandler;
+function getValidateHandler(config) {
+  return validateHandler;
 }
 
-module.exports = getAuthHandler;
+module.exports = getValidateHandler;

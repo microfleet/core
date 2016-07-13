@@ -1,23 +1,28 @@
 {
-  "id": "socketio",
+  "id": "socketIO",
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "service": {
+    "router": {
       "type": "object",
       "properties": {
-        "actionsDirectory": {
-          "type": "string"
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "actionEvent": {
+          "type": "string",
+          "default": "action"
+        },
+        "requestActionKey": {
+          "type": "string",
+          "default": "action"
         }
       }
     },
-    "server": {
+    "options": {
       "type": "object",
-      "properties": {
-        "options": {
-          "type": "object"
-        }
-      }
+      "default": {}
     }
   }
 }

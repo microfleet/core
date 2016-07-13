@@ -1,8 +1,15 @@
 const Promise = require('bluebird');
 
 module.exports = {
-  handler: function (request) {
-    return Promise.resolve(request);
+  auth: 'token',
+  allowed: function (request) {
+    return Promise.resolve(request)
   },
-  transports: ['amqp', 'http', 'socketIO'],
+  handler: function (request) {
+    return Promise.resolve('success');
+  },
+  transports: ['http', 'socketIO'],
+  isAllowed: (request, service) => {
+    return true;
+  }
 };

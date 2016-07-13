@@ -23,7 +23,13 @@ function authHandler(request, action, router) {
   }
 
   promisesFactories.push(function auth() {
-    return authStrategy(request, action, router);
+    return authStrategy(request, action, router)
+      .tap(credentials => {
+        request.auth = { credentials };
+      })
+      .catch(error => {
+        return Promise.reject(new Errors.AuthenticationRequired(error));
+      });
   });
 
   if (extension.has('postAuth')) {
@@ -32,7 +38,7 @@ function authHandler(request, action, router) {
     });
   }
 
-  return Promise.map(promisesFactories, handler => handler());
+  return Promise.mapSeries(promisesFactories, handler => handler());
 }
 
 function getAuthHandler(config) {

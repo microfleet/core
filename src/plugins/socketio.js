@@ -1,73 +1,31 @@
-const glob = require('glob');
+const assert = require('assert');
+const debug = require('debug')('mservice:socketIO');
 const Errors = require('common-errors');
-const fs = require('fs');
 const is = require('is');
-const path = require('path');
 const SocketIO = require('socket.io');
+const getSocketIORouter = require('./socketIO/router');
 
-function getActions(actionsDirectory, validator) {
-  if (!fs.existsSync(actionsDirectory)) {
-    const error = new Errors.Error(`${actionsDirectory} does not exist`);
-    throw new Errors.ArgumentError('actionsDirectory', error);
-  }
-
-  function initActions(actions, file) {
-    const actionName = path.basename(file.replace(/\//g, '.'), '.js');
-    // eslint-disable global-require
-    const action = require(path.join(actionsDirectory, file));
-    // eslint-enable global-require
-
-    if (is.fn(action.handler) === false) {
-      return actions;
-    }
-
-    let handler = action.handler;
-
-    if (is.object(action.params)) {
-      const validatorName = `socketio_actions_${actionName}`;
-      validator.ajv.addSchema(action.params, validatorName);
-      handler = function preValidate(data) {
-        const socket = this;
-        validator.validate(validatorName, data)
-          .then(params => action.handler.call(socket, params))
-          .catch(error => socket.error(error));
-      };
-    }
-
-    actions[actionName] = { handler };
-
-    return actions;
-  }
-
-  return glob
-    .sync('**/*.js', { cwd: actionsDirectory })
-    .reduce(initActions, {});
-}
-
+/**
+ * @todo add adapter factory
+ */
 function attachSocketIO(config = {}) {
-  if (is.fn(this.validateSync)) {
-    const isConfigValid = this.validateSync('socketio', config);
+  debug('Attaching socketIO plugin');
 
-    if (isConfigValid.error) {
-      throw isConfigValid.error;
-    }
+  if (is.fn(this.validateSync)) {
+    assert.ifError(this.validateSync('socketIO', config).error);
   }
 
-  const socketio = new SocketIO(config.server.options);
+  const socketIO = new SocketIO(config.options);
 
-  socketio.on('connection', this.router.getRouterByTransport('socketIO'));
+  if (config.router.enabled) {
+    assert(this.router);
+    socketIO.on('connection', getSocketIORouter(config.router, this.router));
+  }
 
-  //if (config.service.actionsDirectory) {
-  //  const actions = getActions(config.service.actionsDirectory, this.validator);
-  //  socketio.on('connection', socket => {
-  //    Object.keys(actions).forEach((action) => socket.on(action, actions[action].handler));
-  //  });
-  //}
-
-  this._socketio = socketio;
+  this._socketIO = socketIO;
 }
 
 module.exports = {
   attach: attachSocketIO,
-  name: 'socketio',
+  name: 'socketIO',
 };

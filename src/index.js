@@ -162,8 +162,8 @@ class Mservice extends EventEmitter {
    * Getter for https server handler
    * @return {Object}
    */
-  get socketio() {
-    return this._get('socketio');
+  get socketIO() {
+    return this._get('socketIO');
   }
 
   /**

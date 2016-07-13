@@ -1,8 +1,13 @@
 const _ = require('lodash');
+const Allowed = require('./router/modules/allowed');
 const assert = require('assert');
+const Auth = require('./router/modules/auth');
 const debug = require('debug')('mservice:router');
+const dispatcher = require('./router/dispatcher');
+const Extension = require('./router/extension');
 const is = require('is');
 const path = require('path');
+const Validate = require('./router/modules/validate');
 
 function initRoutes(config) {
   // @todo: if actionsConfig.enabled is empty attach all routes from directory
@@ -26,28 +31,25 @@ function initRoutes(config) {
   return routes;
 }
 
-function attachRouter(config) {
+function attachRouter(config = {}) {
   debug('Attaching router plugin');
 
   if (is.fn(this.validateSync)) {
-    // @todo uncomment
     //assert.ifError(this.validateSync('router', config).error);
   }
 
   // @todo validate transports (plugin included)
 
-  const routes = initRoutes(config);
-  const service = this;
-
-  function getRouterByTransport(transport) {
-    // @todo validate transport
-
-    return require('./router/adapters/socketIO')(service);
-  }
-
   this._router = {
-    getRouterByTransport,
-    routes,
+    modules: {
+      allowed: Allowed(config.allowed),
+      auth: Auth(config.auth),
+      validate: Validate(config.validate),
+    },
+    dispatcher,
+    extension: new Extension(this, config.extensions),
+    routes: initRoutes(config),
+    service: this,
   };
 }
 

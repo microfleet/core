@@ -1,5 +1,7 @@
 const { expect } = require('chai');
+const http = require('http');
 const path = require('path');
+const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 
 describe('Router suite', function testSuite() {
@@ -12,7 +14,7 @@ describe('Router suite', function testSuite() {
 
   it('###', function test(done) {
     const service = new MService({
-      plugins: [ /*'validator',*/ 'validator', 'router', 'socketio' ],
+      plugins: [ 'validator', 'logger', 'router', 'socketIO', 'http' ],
       router: {
         actions: {
           directory: path.resolve(__dirname, './../router/actions'),
@@ -22,37 +24,63 @@ describe('Router suite', function testSuite() {
           prefix: 'action',
           transports: ['amqp', 'http', 'socketIO']
         },
+        auth: {
+          strategies: {
+            token: function auth(request) {
+              return Promise.resolve({ user: request.params.token});
+            }
+          }
+        },
+        extensions: {
+          onSocketIORequest: [
+            function disableAuth(socket, request, service) {
+              const config = service.config.socketIO.router;
+              const actionName = request.params[config.requestActionKey];
+              const routes = service.router.routes['socketIO'];
+
+              const action = routes[actionName];
+              action.auth = null;
+              request.auth = { credentials: socket.purr };
+
+              return Promise.resolve();
+            }
+          ]
+        }
       },
-      socketio: {
-        service: {
-          actionsDirectory: `${__dirname}/actions/socketio`,
+      socketIO: {
+        router: {
+          enabled: true,
         },
+        options: {}
+      },
+      http: {
         server: {
-          options: {},
+          attachSocketIO: true,
+          handler: 'express',
+          port: 3000,
         },
-      }
+        router: {
+          enabled: true,
+        },
+      },
     });
 
-    service.socketio.listen(3000);
-    const client = SocketIOClient('http://0.0.0.0:3000');
-    client.emit('action', { action: 'action.bar' }, (error, result) => {
-      console.log(error, result);
-    });
+    service.connect().then(() => {
+      const client = SocketIOClient('http://0.0.0.0:3000');
+      client.emit('action', { action: 'action.bar', token: '1' }, (error, result) => {
+        console.log(error, result);
+      });
 
-    console.log(service.router);
+      http.get('http://0.0.0.0:3000/action/bar?token=1', (res) => {
+        let body = '';
+
+        res.on('data', (chunk) => body += chunk);
+        res.on('end', () => {
+          console.log(body)
+        });
+      }).on('error', (error) => {
+        console.log(error)
+      });
+    });
   });
 });
-
-
-//const service = new Mservice({
-//  plugins: ['validator', 'socketio'],
-//  socketio: global.SERVICES.socketio,
-//});
-//service.socketio.listen(3000);
-//const client = SocketIOClient('http://0.0.0.0:3000');
-//client.on('echo', data => {
-//  expect(data.message).to.be.eq('foo');
-//  service.socketio.close();
-//  done();
-//});
-//client.emit('echo', { message: 'foo' });

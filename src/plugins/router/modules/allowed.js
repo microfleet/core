@@ -1,39 +1,39 @@
+const Errors = require('common-errors');
 const Promise = require('bluebird');
 
-function validateHandler(request, action, router) {
-  if (action.validate === null) {
+function allowedHandler(request, action, router) {
+  if (action.allowed === null) {
     return Promise.resolve();
   }
 
   const promisesFactories = [];
   const extension = router.extension;
-  const validator = router.service.validator;
 
-  if (extension.has('preValidate')) {
-    promisesFactories.push(function preValidate() {
-      return extension.exec('preValidate', request, action, router);
+  if (extension.has('preAllowed')) {
+    promisesFactories.push(function preAllowed() {
+      return extension.exec('preAllowed', request, action, router);
     });
   }
 
-  promisesFactories.push(function validate() {
-    return validator
-      .validate(request.route, request.params)
-      .tap(sanitizedParams => {
-        request.params = sanitizedParams;
+  promisesFactories.push(function allowed() {
+    return action
+      .allowed(request, action, router)
+      .catch(error => {
+        return Promise.reject(new Errors.NotPermittedError(error));
       });
   });
 
-  if (extension.has('postValidate')) {
-    promisesFactories.push(function postValidate() {
-      return extension.exec('postValidate', request, action, router);
+  if (extension.has('postAllowed')) {
+    promisesFactories.push(function postAllowed() {
+      return extension.exec('postAllowed', request, action, router);
     });
   }
 
   return Promise.mapSeries(promisesFactories, handler => handler());
 }
 
-function getValidateHandler(config) {
-  return validateHandler;
+function getAllowedHandler(config) {
+  return allowedHandler;
 }
 
-module.exports = getValidateHandler;
+module.exports = getAllowedHandler;
