@@ -1,44 +1,31 @@
 const Errors = require('common-errors');
+const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
 let strategies = [];
+
+function auth(request, action, router) {
+  const authStrategy = strategies[action.auth];
+
+  if (authStrategy === undefined) {
+    throw new Errors.NotImplementedError(action.auth);
+  }
+
+  return authStrategy(request, action, router)
+    .tap(credentials => {
+      request.auth = { credentials };
+    })
+    .catch(error => {
+      return Promise.reject(new Errors.AuthenticationRequired(error));
+    });
+}
 
 function authHandler(request, action, router) {
   if (action.auth === null) {
     return Promise.resolve();
   }
 
-  const authStrategy = strategies[action.auth];
-  const promisesFactories = [];
-  const extension = router.extension;
-
-  if (authStrategy === undefined) {
-    throw new Errors.NotImplementedError(action.auth);
-  }
-
-  if (extension.has('preAuth')) {
-    promisesFactories.push(function preAuth() {
-      return extension.exec('preAuth', request, action, router);
-    });
-  }
-
-  promisesFactories.push(function auth() {
-    return authStrategy(request, action, router)
-      .tap(credentials => {
-        request.auth = { credentials };
-      })
-      .catch(error => {
-        return Promise.reject(new Errors.AuthenticationRequired(error));
-      });
-  });
-
-  if (extension.has('postAuth')) {
-    promisesFactories.push(function postAuth() {
-      return extension.exec('postAuth', request, action, router);
-    });
-  }
-
-  return Promise.mapSeries(promisesFactories, handler => handler());
+  return moduleLifecycle('auth', auth, router.extensions, [request, action, router]);
 }
 
 function getAuthHandler(config) {

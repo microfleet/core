@@ -1,35 +1,21 @@
+const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+
+function validate(request, action, router) {
+  const validator = router.service.validator;
+
+  return validator.validate(request.route, request.params)
+    .then(sanitizedParams => {
+      request.params = sanitizedParams;
+    });
+}
 
 function validateHandler(request, action, router) {
   if (action.validate === null) {
     return Promise.resolve();
   }
 
-  const promisesFactories = [];
-  const extension = router.extension;
-  const validator = router.service.validator;
-
-  if (extension.has('preValidate')) {
-    promisesFactories.push(function preValidate() {
-      return extension.exec('preValidate', request, action, router);
-    });
-  }
-
-  promisesFactories.push(function validate() {
-    return validator
-      .validate(request.route, request.params)
-      .tap(sanitizedParams => {
-        request.params = sanitizedParams;
-      });
-  });
-
-  if (extension.has('postValidate')) {
-    promisesFactories.push(function postValidate() {
-      return extension.exec('postValidate', request, action, router);
-    });
-  }
-
-  return Promise.mapSeries(promisesFactories, handler => handler());
+  return moduleLifecycle('validate', validate, router.extensions, [request, action, router]);
 }
 
 function getValidateHandler(config) {

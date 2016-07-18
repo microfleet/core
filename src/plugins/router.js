@@ -2,11 +2,13 @@ const _ = require('lodash');
 const Allowed = require('./router/modules/allowed');
 const assert = require('assert');
 const Auth = require('./router/modules/auth');
+const Handler = require('./router/modules/handler');
 const debug = require('debug')('mservice:router');
 const dispatcher = require('./router/dispatcher');
-const Extension = require('./router/extension');
+const Extensions = require('./router/extensions');
 const is = require('is');
 const path = require('path');
+const Request = require('./router/modules/request');
 const Validate = require('./router/modules/validate');
 
 function initRoutes(config) {
@@ -44,10 +46,12 @@ function attachRouter(config = {}) {
     modules: {
       allowed: Allowed(config.allowed),
       auth: Auth(config.auth),
+      handler: Handler(config.auth),
+      request: Request(config.auth),
       validate: Validate(config.validate),
     },
     dispatcher,
-    extension: new Extension(this, config.extensions),
+    extensions: new Extensions(this, config.extensions),
     routes: initRoutes(config),
     service: this,
   };

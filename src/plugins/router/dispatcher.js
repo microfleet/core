@@ -2,48 +2,41 @@ const Errors = require('common-errors');
 const Promise = require('bluebird');
 
 function dispatcher(route, routes, request, callback) {
-  function response(error, result) {
-    request = null;
-
-    if (error) {
-      switch (error.constructor) {
-        case Errors.AuthenticationRequiredError:
-        case Errors.ValidationError:
-        case Errors.NotPermittedError:
-        case Errors.NotFoundError:
-          return callback(error);
-        default:
-          service.log.error(error);
-          return callback(new Errors.Error('Something went wrong'));
-      }
-    }
-
-    return callback(null, result);
-  }
-
-  const action = routes[route];
-
-  if (action === undefined) {
-    return Promise.reject(new Errors.NotFoundError(route)).asCallback(response);
-  }
-
   const router = this;
-  const service = router.service;
-  request.route = route;
 
   return Promise
-    .mapSeries(
+    .resolve([route, routes, request, router])
+    .bind(router)
+    .spread(router.modules.request)
+    .then(action => Promise.mapSeries(
       [
         router.modules.auth,
         router.modules.validate,
         router.modules.allowed,
+        router.modules.handler,
       ],
       handler => handler(request, action, router)
-    )
-    .return(request)
-    .bind(router)
-    .then(action.handler)
-    .asCallback(response);
+    ))
+    .spread((authResult, validateResult, allowedResult, handlerResult) => handlerResult)
+    .asCallback((error, result) => {
+      const service = router.service;
+      request = null;
+
+      if (error) {
+        switch (error.constructor) {
+          case Errors.AuthenticationRequiredError:
+          case Errors.ValidationError:
+          case Errors.NotPermittedError:
+          case Errors.NotFoundError:
+            return callback(error);
+          default:
+            service.log.error(error);
+            return callback(new Errors.Error('Something went wrong'));
+        }
+      }
+
+      return callback(null, result);
+    });
 }
 
 module.exports = dispatcher;

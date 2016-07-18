@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 function getSocketIORouter(config, router) {
   return function socketIORouter(socket) {
     socket.on(config.actionEvent, (params, callback) => {
-      const extension = router.extension;
+      const extension = router.extensions;
       let promise = Promise.resolve();
       let request = { params };
 
@@ -12,13 +12,13 @@ function getSocketIORouter(config, router) {
       }
 
       return promise
-        .then(() => {
+        .tap(() => {
           const actionName = params[config.requestActionKey];
           const routes = router.routes['socketIO'];
 
           return router.dispatcher(actionName, routes, request, callback);
         })
-        .tap(() => {
+        .asCallback(() => {
           request = null;
         });
     });
