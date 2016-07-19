@@ -1,0 +1,24 @@
+{
+  "id": "router.extensions",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "register": {
+      "type": "object",
+      "default": {},
+      "patternProperties": {
+        "^.*$": {
+          "type": "array"
+        }
+      }
+    }
+  }
+}

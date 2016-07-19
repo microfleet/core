@@ -1,0 +1,32 @@
+{
+  "id": "router.routes",
+  "additionalProperties": false,
+  "required": ["directory", "enabled", "prefix", "transports"],
+  "type": "object",
+  "properties": {
+    "directory": {
+      "type": "string"
+    },
+    "enabled": {
+      "default": {},
+      "patternProperties": {
+        "^.*$": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "prefix": {
+      "default": "action",
+      "type": "string"
+    },
+    "transports": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  }
+}

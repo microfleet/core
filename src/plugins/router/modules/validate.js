@@ -1,3 +1,4 @@
+const Errors = require('common-errors');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
@@ -7,6 +8,13 @@ function validate(request, action, router) {
   return validator.validate(request.route, request.params)
     .then(sanitizedParams => {
       request.params = sanitizedParams;
+    })
+    .catch(error => {
+      if (error.constructor === Errors.ValidationError) {
+        return Promise.reject(error);
+      }
+
+      return Promise.reject(new Errors.Error(error));
     });
 }
 
@@ -18,7 +26,7 @@ function validateHandler(request, action, router) {
   return moduleLifecycle('validate', validate, router.extensions, [request, action, router]);
 }
 
-function getValidateHandler(config) {
+function getValidateHandler() {
   return validateHandler;
 }
 

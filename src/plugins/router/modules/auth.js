@@ -12,10 +12,14 @@ function auth(request, action, router) {
   }
 
   return authStrategy(request, action, router)
-    .tap(credentials => {
+    .then(credentials => {
       request.auth = { credentials };
     })
     .catch(error => {
+      if (error.constructor === Errors.AuthenticationRequired) {
+        return Promise.reject(error);
+      }
+
       return Promise.reject(new Errors.AuthenticationRequired(error));
     });
 }

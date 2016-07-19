@@ -5,6 +5,10 @@ const Promise = require('bluebird');
 function allowed(request, action, router) {
   return action.allowed(request, action, router)
     .catch(error => {
+      if (error.constructor === Errors.NotPermittedError) {
+        return Promise.reject(error);
+      }
+
       return Promise.reject(new Errors.NotPermittedError(error));
     });
 }
@@ -17,7 +21,7 @@ function allowedHandler(request, action, router) {
   return moduleLifecycle('allowed', allowed, router.extensions, [request, action, router]);
 }
 
-function getAllowedHandler(config) {
+function getAllowedHandler() {
   return allowedHandler;
 }
 

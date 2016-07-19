@@ -1,32 +1,44 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
 
+/**
+ *
+ */
 class Extensions {
-  constructor(config = {}) {
-    // @todo validate config
-    // @todo remove
-    if (!config.enabled) config.enabled = [];
-    if (!config.register) config.register = {};
+  /**
+   * @param {Object} config
+   * @param {Array}  config.enabled
+   * @param {Object} config.register
+   */
+  constructor(config) {
+    const { enabled, register } = config;
+    const extensions = {};
 
-    const { enabled, register} = config;
+    enabled.forEach(extension => {
+      extensions[extension] = [];
+    });
 
-    this.extensions = enabled.reduce((extensions, name) => {
-      extensions[name] = [];
-
-      return extensions;
-    }, {});
+    this.extensions = extensions;
 
     Object.keys(register).forEach(name => {
       register[name].forEach(handler => this.register(name, handler));
     });
   }
 
+  /**
+   * @param {String} name
+   * @returns {Boolean}
+   */
   has(name) {
     const handlers = this.extensions[name];
 
     return handlers !== undefined && handlers.length > 0;
   }
 
+  /**
+   * @param {String} name
+   * @param {Function} handler
+   */
   register(name, handler) {
     if (this.extensions[name] === undefined) {
       throw new Errors.NotSupportedError(name);
@@ -35,6 +47,11 @@ class Extensions {
     this.extensions[name].push(handler);
   }
 
+  /**
+   * @param {String} name
+   * @param {Array} args
+   * @returns {Promise}
+   */
   exec(name, args) {
     const handlers = this.extensions[name];
 

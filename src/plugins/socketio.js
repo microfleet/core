@@ -10,6 +10,7 @@ const getSocketIORouter = require('./socketIO/router');
  */
 function attachSocketIO(config = {}) {
   debug('Attaching socketIO plugin');
+  const service = this;
 
   if (is.fn(this.validateSync)) {
     assert.ifError(this.validateSync('socketIO', config).error);
@@ -18,7 +19,13 @@ function attachSocketIO(config = {}) {
   const socketIO = new SocketIO(config.options);
 
   if (config.router.enabled) {
-    assert(this.router);
+    assert(service.router);
+    const routesConfig = service.router.config.routes;
+
+    if (routesConfig.transports.includes('socketIO') === false) {
+      throw new Errors.NotSupportedError('routes.transports.socketIO');
+    }
+
     socketIO.on('connection', getSocketIORouter(config.router, this.router));
   }
 

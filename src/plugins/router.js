@@ -1,60 +1,22 @@
-const _ = require('lodash');
-const Allowed = require('./router/modules/allowed');
 const assert = require('assert');
-const Auth = require('./router/modules/auth');
-const Handler = require('./router/modules/handler');
-const debug = require('debug')('mservice:router');
-const dispatcher = require('./router/dispatcher');
-const Extensions = require('./router/extensions');
-const is = require('is');
-const path = require('path');
-const Request = require('./router/modules/request');
-const Validate = require('./router/modules/validate');
+const debug = require('debug')('mservice:attach:router');
+const getRouter = require('./router/factory');
 
-function initRoutes(config) {
-  // @todo: if actionsConfig.enabled is empty attach all routes from directory
-  const actionsConfig = config.actions;
-  const routes = { _all: {} };
-
-  actionsConfig.transports.forEach(transport => {
-    routes[transport] = {};
-  });
-
-  Object.keys(actionsConfig.enabled).map(route => {
-    const routingKey = [actionsConfig.prefix, actionsConfig.enabled[route]].join('.');
-    const action = require(path.resolve(actionsConfig.directory, route));
-    // @todo validate action
-    routes._all[routingKey] = action;
-    _.intersection(actionsConfig.transports, action.transports).forEach(transport => {
-      routes[transport][routingKey] = action
-    });
-  });
-
-  return routes;
-}
-
-function attachRouter(config = {}) {
+/**
+ * @param {Object} config
+ */
+function attachRouter(config) {
   debug('Attaching router plugin');
 
-  if (is.fn(this.validateSync)) {
-    //assert.ifError(this.validateSync('router', config).error);
-  }
+  /** @type {Mservice} */
+  const service = this;
 
-  // @todo validate transports (plugin included)
+  assert(service.log);
+  assert(service.validator);
+  assert.ifError(service.validator.validateSync('router', config).error);
+  config.routes.transports.forEach(transport => assert(service.config.plugins.includes(transport)));
 
-  this._router = {
-    modules: {
-      allowed: Allowed(config.allowed),
-      auth: Auth(config.auth),
-      handler: Handler(config.auth),
-      request: Request(config.auth),
-      validate: Validate(config.validate),
-    },
-    dispatcher,
-    extensions: new Extensions(this, config.extensions),
-    routes: initRoutes(config),
-    service: this,
-  };
+  this._router = getRouter(config, service);
 }
 
 module.exports = {

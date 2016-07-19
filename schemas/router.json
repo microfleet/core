@@ -1,11 +1,19 @@
 {
   "id": "router",
-  "type": "object",
   "additionalProperties": false,
+  "required": ["auth", "routes"],
+  "type": "object",
   "properties": {
-    "actionsDirectory": {
-      "type": "string",
-      "format": "uri"
+    "auth": {
+      "$ref": "router.auth",
+      "default": {}
+    },
+    "extensions": {
+      "$ref": "router.extensions",
+      "default": {}
+    },
+    "routes": {
+      "$ref": "router.routes"
     }
   }
 }

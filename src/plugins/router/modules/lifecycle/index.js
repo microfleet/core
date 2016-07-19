@@ -3,10 +3,25 @@ const assert = require('assert');
 const debug = require('debug')('mservice:router:module:lifecycle');
 const is = require('is');
 const Errors = require('common-errors');
+const Extensions = require('./../../extensions');
 const Promise = require('bluebird');
 
 function moduleLifecycle(module, promiseFactory, extensions, args = []) {
-  // @todo validate
+  if (is.string(module) === false) {
+    throw new Errors.ArgumentError('module');
+  }
+
+  if (is.fn(promiseFactory) === false) {
+    throw new Errors.ArgumentError('promiseFactory');
+  }
+
+  if (is.instance(extensions, Extensions) === false) {
+    throw new Errors.ArgumentError('extensions');
+  }
+
+  if (is.array(args) === false) {
+    throw new Errors.ArgumentError('args');
+  }
 
   debug('lifecycle for module "%s"', module);
 
@@ -23,8 +38,7 @@ function moduleLifecycle(module, promiseFactory, extensions, args = []) {
   }
 
   return promise
-    .return(args)
-    .then(args => {
+    .then(() => {
       debug('execute handler for module "%s"', module);
 
       if (extensions.has(postModule) === false) {
@@ -49,7 +63,7 @@ function moduleLifecycle(module, promiseFactory, extensions, args = []) {
 
               return response.result;
             });
-        })
+        });
     });
 }
 

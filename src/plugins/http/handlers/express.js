@@ -1,3 +1,5 @@
+const assert = require('assert');
+const bodyParser = require('body-parser');
 const enableDestroy = require('server-destroy');
 const Errors = require('common-errors');
 const express = require('express');
@@ -16,7 +18,14 @@ function createExpressServer(config, service) {
   }
 
   if (config.router.enabled) {
-    handler.all('*', getHTTPRouter(service.router));
+    assert(service.router);
+    const routesConfig = service.router.config.routes;
+
+    if (routesConfig.transports.includes('http') === false) {
+      throw new Errors.NotSupportedError('routes.transports.http');
+    }
+    handler.use(bodyParser.json());
+    handler.post('*', getHTTPRouter(service.router));
   }
 
   service._http = {

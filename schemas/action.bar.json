@@ -1,9 +1,0 @@
-{
-  "id": "action.bar",
-  "type": "object",
-  "properties": {
-    "token": {
-      "type": "string"
-    }
-  }
-}

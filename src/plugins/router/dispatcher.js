@@ -20,7 +20,7 @@ function dispatcher(route, routes, request, callback) {
     .spread((authResult, validateResult, allowedResult, handlerResult) => handlerResult)
     .asCallback((error, result) => {
       const service = router.service;
-      request = null;
+      request = null; // eslint-disable-line no-param-reassign
 
       if (error) {
         switch (error.constructor) {

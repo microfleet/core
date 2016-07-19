@@ -1,9 +1,27 @@
 const { expect } = require('chai');
 const moduleLifecycle = require('./');
+const Errors = require('common-errors');
 const Extensions = require('./../../extensions');
 const Promise = require('bluebird');
 
-describe('router module lifecycle', function suite() {
+describe('router: module lifecycle', function suite() {
+  it('should throw argument error', function test(done) {
+    const module = 'foo';
+    const promiseFactory = () => {};
+    const extensions = new Extensions({ enabled: [], register: {} });
+    const args = [];
+
+    expect(() => moduleLifecycle({}, promiseFactory, extensions, args))
+      .to.throw(Errors.ArgumentError, 'module');
+    expect(() => moduleLifecycle(module, {}, extensions, args))
+      .to.throw(Errors.ArgumentError, 'promiseFactory');
+    expect(() => moduleLifecycle(module, promiseFactory, {}, args))
+      .to.throw(Errors.ArgumentError, 'extensions');
+    expect(() => moduleLifecycle(module, promiseFactory, extensions, {}))
+      .to.throw(Errors.ArgumentError, 'args');
+    done();
+  });
+
   it('should return error from pre-handler', function test(done) {
     const extensions = new Extensions({
       enabled: ['preFoo'],
@@ -11,8 +29,8 @@ describe('router module lifecycle', function suite() {
         preFoo: [
           args => Promise.resolve(`success: ${args}`),
           args => Promise.reject(`error: ${args}`),
-        ]
-      }
+        ],
+      },
     });
 
     moduleLifecycle(
@@ -32,8 +50,8 @@ describe('router module lifecycle', function suite() {
       register: {
         preFoo: [
           args => Promise.resolve(`success: ${args}`),
-        ]
-      }
+        ],
+      },
     });
 
     moduleLifecycle(
@@ -48,7 +66,7 @@ describe('router module lifecycle', function suite() {
   });
 
   it('should return result from handler', function test() {
-    const extensions = new Extensions();
+    const extensions = new Extensions({ enabled: [], register: {} });
 
     moduleLifecycle(
       'foo',
@@ -62,7 +80,7 @@ describe('router module lifecycle', function suite() {
   });
 
   it('should return error from handler', function test(done) {
-    const extensions = new Extensions();
+    const extensions = new Extensions({ enabled: [], register: {} });
 
     moduleLifecycle(
       'foo',
@@ -81,9 +99,9 @@ describe('router module lifecycle', function suite() {
       register: {
         postFoo: [
           args => Promise.resolve(`success: ${args}`),
-          args => Promise.reject('error: bar'),
-        ]
-      }
+          () => Promise.reject('error: bar'),
+        ],
+      },
     });
 
     moduleLifecycle(
@@ -105,9 +123,9 @@ describe('router module lifecycle', function suite() {
           responce => {
             responce.result = `${responce.result} baz`;
             return Promise.resolve();
-          }
-        ]
-      }
+          },
+        ],
+      },
     });
 
     moduleLifecycle(
@@ -129,9 +147,9 @@ describe('router module lifecycle', function suite() {
           responce => {
             responce.error = `${responce.error} baz`;
             return Promise.resolve();
-          }
-        ]
-      }
+          },
+        ],
+      },
     });
 
     moduleLifecycle(
