@@ -1,9 +1,7 @@
-const assert = require('assert');
-const bodyParser = require('body-parser');
+const attachRouter = require('./../router/attach');
 const enableDestroy = require('server-destroy');
 const Errors = require('common-errors');
 const express = require('express');
-const getHTTPRouter = require('./../router');
 const http = require('http');
 const is = require('is');
 const Promise = require('bluebird');
@@ -18,14 +16,7 @@ function createExpressServer(config, service) {
   }
 
   if (config.router.enabled) {
-    assert(service.router);
-    const routesConfig = service.router.config.routes;
-
-    if (routesConfig.transports.includes('http') === false) {
-      throw new Errors.NotSupportedError('routes.transports.http');
-    }
-    handler.use(bodyParser.json());
-    handler.post('*', getHTTPRouter(service.router));
+    attachRouter(handler, service.router);
   }
 
   service._http = {

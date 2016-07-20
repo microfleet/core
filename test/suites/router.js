@@ -1,11 +1,12 @@
 const { expect } = require('chai');
 const Errors = require('common-errors');
-const http = require('http');
+const getAMQPRequest = require('./../router/helpers/requests/amqp');
+const getHTTPRequest = require('./../router/helpers/requests/http');
+const getSocketIORequest = require('./../router/helpers/requests/socketIO');
 const path = require('path');
-const request = require('request');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
-const querystring = require('querystring');
+const verify = require('./../router/helpers/verifyCase');
 
 describe('Router suite', function testSuite() {
   const MService = require('../../src');
@@ -17,15 +18,32 @@ describe('Router suite', function testSuite() {
 
   it('should return response', function test(done) {
     const service = new MService({
-      plugins: [ 'validator', 'logger', 'router', 'socketIO', 'http' ],
-      validator: [
-        path.resolve(__dirname, '../router/helpers/schemas'),
-      ],
+      amqp: {
+        transport: {
+          connection: {
+            host: '0.0.0.0',
+            port: 5672,
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      http: {
+        server: {
+          attachSocketIO: true,
+          handler: 'express',
+        },
+        router: {
+          enabled: true,
+        },
+      },
       logger: true,
+      plugins: [ 'validator', 'logger', 'router', 'amqp', 'http', 'socketIO' ],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
-          transports: ['http', 'socketIO'],
+          transports: ['amqp', 'http', 'socketIO'],
         },
         auth: {
           strategies: {
@@ -49,88 +67,80 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      http: {
-        server: {
-          attachSocketIO: true,
-          handler: 'express',
-        },
-        router: {
-          enabled: true,
-        },
-      },
+      validator: [ path.resolve(__dirname, '../router/helpers/schemas') ]
     });
 
     service.connect()
       .then(() => {
-        const client = SocketIOClient('http://0.0.0.0:3000');
-        const socketIORequest = params =>
-          Promise.fromCallback(callback =>
-            client.emit('action', params, callback));
-        const httpRequest = (action, params) => {
-          return new Promise((resolve, reject) => {
-            request({
-              uri: `http://0.0.0.0:3000${action}`,
-              method: 'POST',
-              json: params,
-            }, (error, response, body) => {
-              if (!error && response.statusCode == 200) {
-                resolve(body);
-              } else {
-                reject(body);
-              }
-            });
-          });
+        const AMQPRequest = getAMQPRequest(service.amqp);
+        const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+        const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
+        const socketIORequest = getSocketIORequest(socketIOClient);
+
+        const routeNotFound = {
+          expect: 'error',
+          verify: error => {
+            expect(error.name).to.be.equals('NotFoundError');
+            expect(error.message).to.be.equals('Not Found: "not.exists"');
+          }
         };
 
-        const throwError = () => {
-          throw new Error();
+        const authFailed = {
+          expect: 'error',
+          verify: error => {
+            expect(error.name).to.be.equals('AuthenticationRequiredError');
+            expect(error.message).to.be.equals(
+              'An attempt was made to perform an operation without authentication: Invalid token'
+            );
+          }
         };
 
-        // route not found
-        const case1 = error => {
-          expect(error.name).to.be.equals('NotFoundError');
-          expect(error.message).to.be.equals('Not Found: "not.exists"');
+        const validationFailed = {
+          expect: 'error',
+          verify: error => {
+            expect(error.name).to.be.equals('ValidationError');
+            expect(error.message).to.be.equals(
+              'action.simple validation failed: data.isAdmin should be boolean'
+            );
+          }
         };
-        // auth failed
-        const case2 = error => {
-          expect(error.name).to.be.equals('AuthenticationRequiredError');
-          expect(error.message).to.be.equals(
-            'An attempt was made to perform an operation without authentication: Invalid token'
-          );
+
+        const accessDenied = {
+          expect: 'error',
+          verify: error => {
+            expect(error.name).to.be.equals('NotPermittedError');
+            expect(error.message).to.be.equals(
+              'An attempt was made to perform an operation that is not permitted: You are not admin'
+            );
+          }
         };
-        // validation failed
-        const case3 = error => {
-          expect(error.name).to.be.equals('ValidationError');
-          expect(error.message).to.be.equals(
-            'action.simple validation failed: data.isAdmin should be boolean'
-          );
-        };
-        // access denied
-        const case4 = error => {
-          expect(error.name).to.be.equals('NotPermittedError');
-          expect(error.message).to.be.equals(
-            'An attempt was made to perform an operation that is not permitted: You are not admin'
-          );
-        };
-        // returns result
-        const case5 = result => {
-          expect(result.user).to.be.equals('User');
-          expect(result.token).to.be.equals(true);
-          expect(result.response).to.be.equals('success');
+
+        const returnsResult = {
+          expect: 'success',
+          verify: result => {
+            expect(result.user).to.be.equals('User');
+            expect(result.token).to.be.equals(true);
+            expect(result.response).to.be.equals('success');
+          }
         };
 
         Promise.map(
           [
-            () => socketIORequest({ action: 'not.exists' }).then(throwError).catch(case1),
-            () => socketIORequest({ action: 'action.simple' }).then(throwError).catch(case2),
-            () => socketIORequest({ action: 'action.simple', token: true, isAdmin: 42 }).then(throwError).catch(case3),
-            () => socketIORequest({ action: 'action.simple', token: true }).then(throwError).catch(case4),
-            () => socketIORequest({ action: 'action.simple', token: true, isAdmin: true }).then(case5).catch(throwError),
-            () => httpRequest('/not/exists', {}).then(throwError).catch(case1),
-            () => httpRequest('/action/simple', {}).then(throwError).catch(case2),
-            () => httpRequest('/action/simple', { token: true, isAdmin: 42 }).then(throwError).catch(case3),
-            () => httpRequest('/action/simple', { token: true }).then(throwError).catch(case4),
-            () => httpRequest('/action/simple', { token: true, isAdmin: true }).then(case5).catch(throwError),
+            () => socketIORequest({ action: 'not.exists' }).reflect().then(verify(routeNotFound)),
+            () => socketIORequest({ action: 'action.simple' }).reflect().then(verify(authFailed)),
+            () => socketIORequest({ action: 'action.simple', token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+            () => socketIORequest({ action: 'action.simple', token: true }).reflect().then(verify(accessDenied)),
+            () => socketIORequest({ action: 'action.simple', token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+            () => HTTPRequest('/not/exists', {}).reflect().then(verify(routeNotFound)),
+            () => HTTPRequest('/action/simple', {}).reflect().then(verify(authFailed)),
+            () => HTTPRequest('/action/simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+            () => HTTPRequest('/action/simple', { token: true }).reflect().then(verify(accessDenied)),
+            () => HTTPRequest('/action/simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+            // non-existent action will be not processed by ms-amqp-transport
+            () => AMQPRequest('action.simple', {}).reflect().then(verify(authFailed)),
+            () => AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+            () => AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+            () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
           ],
           handler => handler()
         ).asCallback(done);

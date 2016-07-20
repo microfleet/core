@@ -18,5 +18,5 @@ module.exports = {
     });
   },
   schema: 'action.simple',
-  transports: ['http', 'socketIO']
+  transports: ['amqp', 'http', 'socketIO']
 };

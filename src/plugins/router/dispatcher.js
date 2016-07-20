@@ -1,7 +1,9 @@
+const debug = require('debug')('mservice:router:dispatcher');
 const Errors = require('common-errors');
 const Promise = require('bluebird');
 
 function dispatcher(route, routes, request, callback) {
+  debug('process route "%s" with request "%s"', route, JSON.stringify(request));
   const router = this;
 
   return Promise
@@ -40,4 +42,3 @@ function dispatcher(route, routes, request, callback) {
 }
 
 module.exports = dispatcher;
-
