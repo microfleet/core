@@ -11,7 +11,7 @@ function getHTTPRequest(options) {
 
     return new Promise((resolve, reject) => {
       const callback = (error, response, body) => {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           resolve(body);
         } else {
           reject(body);

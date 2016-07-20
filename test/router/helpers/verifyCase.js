@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-Promise = require('bluebird');
+const Promise = require('bluebird');
 
 function verify(caseObject) {
   return inspection => {
