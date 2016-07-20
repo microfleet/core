@@ -18,7 +18,7 @@ function verify(caseObject) {
     }
 
     return Promise.reject();
-  }
+  };
 }
 
 module.exports = verify;

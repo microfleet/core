@@ -3,20 +3,18 @@ const Promise = require('bluebird');
 
 module.exports = {
   auth: 'token',
-  allowed: function allowed(request) {
+  allowed: request => {
     if (request.params.isAdmin === true) {
       return Promise.resolve();
     }
 
     return Promise.reject(new Errors.NotPermittedError('You are not admin'));
   },
-  handler: function(request) {
-    return Promise.resolve({
-      response: 'success',
-      token: request.params.token,
-      user: request.auth.credentials
-    });
-  },
+  handler: request => Promise.resolve({
+    response: 'success',
+    token: request.params.token,
+    user: request.auth.credentials,
+  }),
   schema: 'action.simple',
-  transports: ['amqp', 'http', 'socketIO']
+  transports: ['amqp', 'http', 'socketIO'],
 };
