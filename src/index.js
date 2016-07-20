@@ -15,6 +15,7 @@ const defaultOpts = {
   logger: false,
   plugins: ['validator', 'logger', 'amqp'],
   hooks: {},
+  amqp: {},
   sigterm: true,
 };
 

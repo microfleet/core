@@ -4,6 +4,7 @@
   "additionalProperties": false,
   "properties": {
     "router": {
+      "default": {},
       "type": "object",
       "properties": {
         "enabled": {

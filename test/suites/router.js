@@ -21,8 +21,7 @@ describe('Router suite', function testSuite() {
       amqp: {
         transport: {
           connection: {
-            host: '0.0.0.0',
-            port: 5672,
+            host: 'rabbitmq',
           },
         },
         router: {
@@ -143,7 +142,7 @@ describe('Router suite', function testSuite() {
             () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
           ],
           handler => handler()
-        ).asCallback(done);
+        ).then(() => service.close()).asCallback(done);
       });
   });
 });

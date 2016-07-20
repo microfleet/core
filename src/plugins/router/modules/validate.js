@@ -19,7 +19,7 @@ function validate(request, action, router) {
 }
 
 function validateHandler(request, action, router) {
-  if (action.validate === null) {
+  if (action.schema === null) {
     return Promise.resolve();
   }
 
