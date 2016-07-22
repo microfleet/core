@@ -119,6 +119,14 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * Getter for mongo connection
+   * @return {Object}
+   */
+  get mongo() {
+    return this._get('mongo');
+  }
+
+  /**
    * Getter for validator plugin
    * @return {Object}
    */

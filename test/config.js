@@ -10,6 +10,12 @@ global.SERVICES = {
     })),
     options: {},
   },
+  mongo: {
+    standalone: {
+      connectionString: 'mongodb://mongo/mservice',
+      options: {},
+    }
+  },
   amqp: {
     connection: {
       host: 'rabbitmq',

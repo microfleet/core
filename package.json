@@ -37,6 +37,7 @@
   "peerDependencies": {
     "ms-validation": "~2.x.x",
     "ioredis": "^2.2.0",
+    "mongoose": "^4.5.3",
     "bunyan": "~1.x.x",
     "elasticsearch": "~11.x.x",
     "express": "~4.x.x",
@@ -68,6 +69,7 @@
     "istanbul": "^0.4.3",
     "json": "^9.0.4",
     "mocha": "^2.3.4",
+    "mongoose": "^4.5.5",
     "ms-amqp-transport": "^3.1.0",
     "ms-validation": "~2.x.x",
     "restify": "~4.x.x",
