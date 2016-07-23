@@ -7,6 +7,8 @@ const Mongoose = require('mongoose');
 const is = require('is');
 const debug = require('debug');
 
+exports.name = 'mongo';
+
 exports.attach = function attachMongo(conf = {}) {
   const service = this;
 
