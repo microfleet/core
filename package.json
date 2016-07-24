@@ -1,6 +1,5 @@
 {
   "name": "mservice",
-  "version": "3.0.0-beta",
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
