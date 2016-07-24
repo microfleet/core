@@ -73,7 +73,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
 
   it('should attach \'socket.io\' when plugin is included', function test(done) {
     const service = new Mservice({
-      plugins: ['validator', 'http', 'socketio'],
+      plugins: ['validator', 'logger', 'router', 'http', 'socketIO'],
       http: {
         server: {
           attachSocketIO: true,
@@ -81,17 +81,19 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           port: 3000,
         }
       },
-      socketio: global.SERVICES.socketio,
+      logger: true,
+      socketIO: global.SERVICES.socketIO,
+      router: global.SERVICES.router,
     });
 
     service.connect()
       .then(() => {
         const client = SocketIOClient('http://0.0.0.0:3000');
-        client.on('echo', data => {
-          expect(data.message).to.be.eq('foo');
-          service.close().then(() => done());
+        client.emit('action', { action: 'action.echo', message: 'foo' }, (error, response) => {
+          expect(error).to.be.equals(null);
+          expect(response).to.be.deep.equals({ action: 'action.echo', message: 'foo' });
+          service.close().asCallback(done);
         });
-        client.emit('echo', { message: 'foo' });
       });
   });
 });

@@ -1,6 +1,8 @@
 // make sure we have stack
 require('chai').config.includeStack = true;
+const { ActionTransport } = require('./../src');
 const cassandra = require('express-cassandra');
+const path = require('path');
 
 global.SERVICES = {
   redis: {
@@ -11,9 +13,11 @@ global.SERVICES = {
     options: {},
   },
   amqp: {
-    connection: {
-      host: 'rabbitmq',
-      port: 5672,
+    transport: {
+      connection: {
+        host: 'rabbitmq',
+        port: 5672,
+      },
     },
   },
   redisSentinel: {
@@ -78,12 +82,19 @@ global.SERVICES = {
       port: 3000,
     },
   },
-  socketio: {
-    service: {
-      actionsDirectory: `${__dirname}/actions/socketio`,
+  router: {
+    routes: {
+      directory: path.resolve(__dirname, './socketIO/helpers/actions'),
+      enabled: {
+        echo: 'echo',
+      },
+      transports: [ActionTransport.socketIO],
     },
-    server: {
-      options: {},
+  },
+  socketIO: {
+    router: {
+      enabled: true,
     },
+    options: {},
   },
 };

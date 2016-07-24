@@ -9,7 +9,7 @@ function createRestifyServer(config, service) {
   service._http = restify.createServer(restifyConfig);
 
   // make sure we can destroy it
-  enableDestroy(service._http.server);
+  enableDestroy(service.http);
 
   function startServer() {
     if (service.http.server.listening === true) {
@@ -17,11 +17,11 @@ function createRestifyServer(config, service) {
     }
 
     if (config.server.attachSocketIO) {
-      if (!service._socketio) {
+      if (!service._socketIO) {
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketio.listen(service.http);
+      service.socketIO.listen(service.http);
     }
 
     return Promise
@@ -33,19 +33,19 @@ function createRestifyServer(config, service) {
 
   function stopServer() {
     if (config.server.attachSocketIO) {
-      if (!service._socketio) {
+      if (!service._socketIO) {
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketio.httpServer = null;
-      service.socketio.close();
+      service.socketIO.httpServer = null;
+      service.socketIO.close();
     }
 
     return Promise
-      .fromCallback(next => service.http.server.close(next))
+      .fromCallback(next => service.http.close(next))
       .timeout(5000)
       .catch(Promise.TimeoutError, () => Promise.fromCallback(next =>
-        service.http.server.destroy(next)
+        service.http.destroy(next)
       ))
       .then(() => service.emit('plugin:stop:http'));
   }

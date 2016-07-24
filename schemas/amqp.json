@@ -1,5 +1,5 @@
 {
-  "id": "socketIO",
+  "id": "amqp",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -10,18 +10,10 @@
         "enabled": {
           "type": "boolean",
           "default": false
-        },
-        "actionEvent": {
-          "type": "string",
-          "default": "action"
-        },
-        "requestActionKey": {
-          "type": "string",
-          "default": "action"
         }
       }
     },
-    "options": {
+    "transport": {
       "type": "object",
       "default": {}
     }

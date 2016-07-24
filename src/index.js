@@ -15,6 +15,7 @@ const defaultOpts = {
   logger: false,
   plugins: ['validator', 'logger', 'amqp'],
   hooks: {},
+  amqp: {},
   sigterm: true,
 };
 
@@ -22,6 +23,14 @@ const defaultOpts = {
  * @namespace Mservice
  */
 class Mservice extends EventEmitter {
+  /**
+   * @type {{amqp: string, http: string, socketIO: string}}
+   */
+  static ActionTransport = {
+    amqp: 'amqp',
+    http: 'http',
+    socketIO: 'socketIO',
+  };
 
   /**
    * @namespace Users
@@ -162,8 +171,16 @@ class Mservice extends EventEmitter {
    * Getter for https server handler
    * @return {Object}
    */
-  get socketio() {
-    return this._get('socketio');
+  get socketIO() {
+    return this._get('socketIO');
+  }
+
+  /**
+   * Getter for router
+   * @return {Object}
+   */
+  get router() {
+    return this._get('router');
   }
 
   /**
@@ -262,7 +279,6 @@ class Mservice extends EventEmitter {
 
     throw err;
   }
-
 }
 
 module.exports = Mservice;

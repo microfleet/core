@@ -1,0 +1,14 @@
+{
+  "id": "action.simple",
+  "type": "object",
+  "properties": {
+    "isAdmin": {
+      "type": "boolean",
+      "default": false
+    },
+    "token": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

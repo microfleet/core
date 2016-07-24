@@ -28,6 +28,16 @@
           "type": "string"
         }
       }
+    },
+    "router": {
+      "type": "object",
+      "default": {},
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        }
+      }
     }
   }
 }

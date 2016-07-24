@@ -1,7 +1,6 @@
 const { expect } = require('chai');
 const http = require('http');
 const Server = require('restify/lib/server');
-const SocketIOClient = require('socket.io-client');
 
 describe('Http server with \'restify\' handler suite', function testSuite() {
   const Mservice = require('../../src');
@@ -68,7 +67,7 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
 
   it('should attach \'socket.io\' when plugin is included', function test(done) {
     const service = new Mservice({
-      plugins: ['validator', 'http', 'socketio'],
+      plugins: ['validator', 'socketIO', 'http'],
       http: {
         server: {
           attachSocketIO: true,
@@ -76,17 +75,13 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
           port: 3000,
         },
       },
-      socketio: global.SERVICES.socketio,
+      socketIO: {},
     });
 
     service.connect()
       .then(() => {
-        const client = new SocketIOClient('http://0.0.0.0:3000');
-        client.on('echo', data => {
-          expect(data.message).to.be.eq('foo');
-          service.close().then(() => done());
-        });
-        client.emit('echo', { message: 'foo' });
+        expect(service.socketIO.httpServer).to.be.instanceof(Server);
+        service.close().asCallback(done);
       });
   });
 });
