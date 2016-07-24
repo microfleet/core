@@ -1,5 +1,14 @@
 const Errors = require('common-errors');
+const is = require('is');
 const Promise = require('bluebird');
+
+function convertToArrayIfNot(arg) {
+  if (is.array(arg) === false) {
+    return Promise.resolve([arg]);
+  }
+
+  return Promise.resolve(arg);
+}
 
 /**
  *
@@ -10,7 +19,7 @@ class Extensions {
    * @param {Array}  config.enabled
    * @param {Object} config.register
    */
-  constructor(config) {
+  constructor(config = { enabled: [], register: {} }) {
     const { enabled, register } = config;
     const extensions = {};
 
@@ -50,16 +59,24 @@ class Extensions {
   /**
    * @param {String} name
    * @param {Array} args
+   * @param context
    * @returns {Promise}
    */
-  exec(name, args) {
+  exec(name, args = [], context = null) {
     const handlers = this.extensions[name];
 
-    if (handlers === undefined) {
-      throw new Errors.NotSupportedError(name);
+    if (is.undefined(handlers) === true) {
+      return Promise.reject(new Errors.NotSupportedError(name));
     }
 
-    return Promise.mapSeries(handlers, handler => handler(...args));
+    if (is.array(args) === false) {
+      return Promise.reject(new Errors.ArgumentError('"args" must be array'));
+    }
+
+    return Promise.resolve(handlers)
+      .bind(context)
+      .reduce((previousArgs, handler) => convertToArrayIfNot(previousArgs).spread(handler), args)
+      .then(convertToArrayIfNot);
   }
 }
 

@@ -1,20 +1,24 @@
 const Errors = require('common-errors');
+const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
 let strategies = [];
 
-function auth(request, action, router) {
-  const authStrategy = strategies[action.auth];
+function auth(request) {
+  const authStrategy = strategies[request.action.auth];
 
   if (authStrategy === undefined) {
-    throw new Errors.NotImplementedError(action.auth);
+    throw new Errors.NotImplementedError(request.action.auth);
   }
 
-  return authStrategy(request, action, router)
-    .then(credentials => {
+  return Promise.resolve(request)
+    .bind(this)
+    .then(authStrategy)
+    .tap(credentials => {
       request.auth = { credentials };
     })
+    .return(request)
     .catch(error => {
       if (error.constructor === Errors.AuthenticationRequired) {
         return Promise.reject(error);
@@ -24,12 +28,16 @@ function auth(request, action, router) {
     });
 }
 
-function authHandler(request, action, router) {
-  if (action.auth === null) {
-    return Promise.resolve();
+function authHandler(request) {
+  if (request.action === undefined) {
+    return Promise.reject(new Errors.ArgumentError('"request" must have property "action"'));
   }
 
-  return moduleLifecycle('auth', auth, router.extensions, [request, action, router]);
+  if (is.undefined(request.action.auth) === true) {
+    return Promise.resolve(request);
+  }
+
+  return moduleLifecycle('auth', auth, this.router.extensions, [request], this);
 }
 
 function getAuthHandler(config) {

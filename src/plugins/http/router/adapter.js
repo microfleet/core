@@ -1,3 +1,4 @@
+const { ActionTransport } = require('./../../../');
 const Errors = require('common-errors');
 
 function getHTTPRouter(router) {
@@ -28,9 +29,10 @@ function getHTTPRouter(router) {
     }
 
     const actionName = request.path.split('/').slice(1).join('.');
-    const routes = router.routes.http;
-
-    return router.dispatcher(actionName, routes, { params: request.body }, callback);
+    return router.dispatch(actionName, {
+      params: request.body,
+      transport: ActionTransport.http,
+    }, callback);
   };
 }
 

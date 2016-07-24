@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const Errors = require('common-errors');
 const Extensions = require('./');
+const Promise = require('bluebird');
 
 describe('router: extensions', function suite() {
   it('should be able to auto register extension', () => {
@@ -11,7 +12,7 @@ describe('router: extensions', function suite() {
       ],
       register: {
         postHandler: [
-          result => Promise.resolve(result),
+          result => Promise.resolve([result]),
         ],
       },
     };
@@ -21,10 +22,18 @@ describe('router: extensions', function suite() {
       extensions.register('preHandler', args => Promise.reject(args));
     }).to.not.throw();
 
-    expect(() => {
-      extensions.exec('postPreHandler', [{}]);
-    }).to.throw(Errors.NotSupportedError, 'postPreHandler');
+    return extensions.exec('postHandler', ['foo']);
+  });
 
-    return extensions.exec('postHandler', [{}]);
+  it('should not be able to execute unknown extension', (done) => {
+    const extensions = new Extensions();
+    extensions.exec('postPreHandler', ['foo'])
+      .reflect()
+      .then(inspection => {
+        const error = inspection.reason();
+        expect(error).to.be.instanceof(Errors.NotSupportedError);
+        expect(error.message).to.be.equals('Not Supported: postPreHandler');
+        done();
+      });
   });
 });

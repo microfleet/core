@@ -1,6 +1,10 @@
+const { ActionTransport } = require('./../../../../../');
 const Promise = require('bluebird');
 
-module.exports = {
-  handler: () => Promise.resolve('bar'),
-  transports: ['http'],
-};
+function BarAction() {
+  return Promise.resolve('bar');
+}
+
+BarAction.transports = [ActionTransport.http];
+
+module.exports = BarAction;

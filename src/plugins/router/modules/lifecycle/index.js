@@ -1,26 +1,25 @@
 const _ = require('lodash');
-const assert = require('assert');
 const debug = require('debug')('mservice:router:module:lifecycle');
 const is = require('is');
 const Errors = require('common-errors');
 const Extensions = require('./../../extensions');
 const Promise = require('bluebird');
 
-function moduleLifecycle(module, promiseFactory, extensions, args = []) {
+function moduleLifecycle(module, promiseFactory, extensions, args, context) {
   if (is.string(module) === false) {
-    throw new Errors.ArgumentError('module');
+    return Promise.reject(new Errors.ArgumentError('module'));
   }
 
   if (is.fn(promiseFactory) === false) {
-    throw new Errors.ArgumentError('promiseFactory');
+    return Promise.reject(new Errors.ArgumentError('promiseFactory'));
   }
 
   if (is.instance(extensions, Extensions) === false) {
-    throw new Errors.ArgumentError('extensions');
+    return Promise.reject(new Errors.ArgumentError('extensions'));
   }
 
   if (is.array(args) === false) {
-    throw new Errors.ArgumentError('args');
+    return Promise.reject(new Errors.ArgumentError('args'));
   }
 
   debug('lifecycle for module "%s"', module);
@@ -28,41 +27,47 @@ function moduleLifecycle(module, promiseFactory, extensions, args = []) {
   const upperFirstName = _.upperFirst(module);
   const preModule = `pre${upperFirstName}`;
   const postModule = `post${upperFirstName}`;
-  let promise;
+  let result;
 
   if (extensions.has(preModule)) {
-    debug('execute pre-handlers "%s"', preModule);
-    promise = extensions.exec(preModule, args);
+    result = Promise.resolve([preModule, args, context])
+      .bind(extensions)
+      .spread(extensions.exec);
   } else {
-    promise = Promise.resolve();
+    result = Promise.resolve(args);
   }
 
-  return promise
-    .then(() => {
-      debug('execute handler for module "%s"', module);
+  return result
+    .bind(context)
+    .spread(promiseFactory)
+    .reflect()
+    .then(inspection => {
+      let resultResponse = null;
+      let errorResponse = null;
 
-      if (extensions.has(postModule) === false) {
-        return promiseFactory(...args);
+      if (inspection.isFulfilled()) {
+        resultResponse = inspection.value();
+      } else {
+        errorResponse = inspection.reason();
       }
 
-      return promiseFactory(...args)
-        .reflect()
-        .then(inspection => {
-          debug('execute post-handlers for module "%s"', postModule);
-          const response = {};
+      if (extensions.has(postModule) === false) {
+        if (errorResponse) {
+          return Promise.reject(errorResponse);
+        }
 
-          if (inspection.isFulfilled()) {
-            response.result = inspection.value();
-          } else {
-            response.error = inspection.reason();
+        return Promise.resolve(resultResponse);
+      }
+
+      return Promise.resolve([postModule, [errorResponse, resultResponse], context])
+        .bind(extensions)
+        .spread(extensions.exec)
+        .spread((error, response) => {
+          if (error) {
+            return Promise.reject(error);
           }
 
-          return extensions.exec(postModule, [response])
-            .then(() => {
-              assert.ifError(response.error);
-
-              return response.result;
-            });
+          return Promise.resolve(response);
         });
     });
 }

@@ -1,3 +1,4 @@
+const { ActionTransport } = require('./../../../');
 const Promise = require('bluebird');
 
 function getSocketIORouterAdapter(config, router) {
@@ -5,23 +6,21 @@ function getSocketIORouterAdapter(config, router) {
     const extension = router.extensions;
 
     socket.on(config.actionEvent, (params, callback) => {
-      let request = { params };
+      const actionName = params[config.requestActionKey];
+      let request = { params, transport: ActionTransport.socketIO };
       let preRequest;
 
       if (extension.has('preSocketIORequest')) {
-        preRequest = extension.exec('preSocketIORequest', socket, request);
+        preRequest = extension.exec('preSocketIORequest', [socket, request], router.service);
+        // @todo if error response error
       } else {
         preRequest = Promise.resolve();
       }
 
       return preRequest
-        .then(() => {
-          const actionName = params[config.requestActionKey];
-          const routes = router.routes.socketIO;
-
-          return router.dispatcher(actionName, routes, request, callback);
-        })
-        // @todo if error response error
+        .return([actionName, request, callback])
+        .bind(router)
+        .spread(router.dispatch)
         .asCallback(() => {
           request = null;
         });

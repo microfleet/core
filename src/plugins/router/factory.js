@@ -3,6 +3,7 @@ const Extensions = require('./extensions');
 const getAllowedModule = require('./modules/allowed');
 const getAuthModule = require('./modules/auth');
 const getHandlerModule = require('./modules/handler');
+const getResponseHandler = require('./modules/response');
 const getRequestModule = require('./modules/request');
 const getRoutes = require('./routes');
 const getValidateModule = require('./modules/validate');
@@ -17,7 +18,7 @@ const getValidateModule = require('./modules/validate');
 function getRouter(config, service) {
   const router = { modules: {} };
 
-  router.dispatcher = dispatcher;
+  router.dispatch = dispatcher;
   router.config = config;
   router.extensions = new Extensions(config.extensions);
   router.routes = getRoutes(config.routes);
@@ -26,6 +27,7 @@ function getRouter(config, service) {
   router.modules.allowed = getAllowedModule();
   router.modules.auth = getAuthModule(config.auth);
   router.modules.handler = getHandlerModule();
+  router.modules.response = getResponseHandler;
   router.modules.request = getRequestModule();
   router.modules.validate = getValidateModule();
 

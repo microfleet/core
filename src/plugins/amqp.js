@@ -1,3 +1,4 @@
+const { ActionTransport } = require('./../');
 const _ = require('lodash');
 const AMQPSchema = require('ms-amqp-transport/schema.json');
 const AMQPTransport = require('ms-amqp-transport');
@@ -26,7 +27,7 @@ function attachAMQPPlugin(config) {
   }
 
   if (config.router.enabled === true) {
-    verifyPossibility(service.router, 'amqp');
+    verifyPossibility(service.router, ActionTransport.amqp);
     routerAdapter = getAMQPRouterAdapter(service.router);
     // allow ms-amqp-transport to discover routes
     config.transport.listen = Object.keys(service.router.routes.amqp);

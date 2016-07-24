@@ -13,23 +13,19 @@ const path = require('path');
  * @param {Array}         action.transports
  */
 function validateAction(action) {
-  if (is.object(action) === false) {
-    throw new Errors.ValidationError('action must be the object');
+  if (is.function(action) === false) {
+    throw new Errors.ValidationError('action must be a function');
   }
 
-  if (is.null(action.allowed) !== true && is.fn(action.allowed) !== true) {
+  if (is.defined(action.allowed) === true && is.fn(action.allowed) !== true) {
     throw new Errors.ValidationError('action.allowed must be a function');
   }
 
-  if (is.null(action.auth) !== true && is.string(action.auth) !== true) {
-    throw new Errors.ValidationError('action.auth must be a function');
+  if (is.defined(action.auth) === true && is.string(action.auth) !== true) {
+    throw new Errors.ValidationError('action.auth must be a string');
   }
 
-  if (is.fn(action.handler) === false) {
-    throw new Errors.ValidationError('action.handler must be a function');
-  }
-
-  if (is.null(action.schema) !== true && is.string(action.schema) !== true) {
+  if (is.defined(action.schema) === true && is.string(action.schema) !== true) {
     throw new Errors.ValidationError('action.schema must be a string');
   }
 
@@ -65,13 +61,7 @@ function getRoutes(config) {
 
   Object.keys(enabled).forEach(route => {
     const routingKey = [config.prefix, enabled[route]].join('.');
-    const action = Object.assign({}, {
-      allowed: null,
-      auth: null,
-      handler: null,
-      schema: null,
-      transports: null,
-    }, require(path.resolve(config.directory, route)));
+    const action = require(path.resolve(config.directory, route));
 
     validateAction(action);
 

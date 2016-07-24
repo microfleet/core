@@ -1,6 +1,10 @@
+const { ActionTransport } = require('./../../../../../');
 const Promise = require('bluebird');
 
-module.exports = {
-  handler: () => Promise.resolve('bar'),
-  transports: ['socketIO'],
-};
+function BazAction() {
+  return Promise.resolve('bar');
+}
+
+BazAction.transports = [ActionTransport.socketIO];
+
+module.exports = BazAction;

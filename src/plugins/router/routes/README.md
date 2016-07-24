@@ -4,22 +4,26 @@
 
 ### Usage
 
-`Action` is an `object` that contains the following properties
+`Action` is a `function` that takes `request` as parameter.
+The following properties could be assigned to `Action`
 
-* `allowed` - `null` or a `function` that returns `Promise`
-* `auth` - `null` or `string` with auth `strategy` name
-* `handler` - `required`, `function` that returns `Promise`
-* `schema` - `null` or `string` with validation schema name
-* `transports` - an array of allowed `transports`
+* `Action.allowed` - a `function` that returns `Promise`, take `request`
+  as parameter
+* `Action.auth` - a `string` with auth `strategy` name
+* `Action.schema` - a `string` with validation schema name
+* `Action.transports` - an array of allowed `transports`
 
 ### Example
 
 ```js
-module.exports = {
-  auth: 'token',
-  allowed: (request, action, router) => Promise.reject('access denied'),
-  hanlder: (request, action, router) => Promise.resolve('success'),
-  schema: 'action.join',
-  transports: ['http', 'socketIO']
+const { ActionTransport } = require('mservice');
+
+function Action(request) {
+  return Promise.resolve(request.params);
 }
+
+Action.auth = 'token';
+Action.allowed = (request, action, router) => Promise.reject('access denied');
+Action.schema = 'action.join';
+Action.transports = [ActionTransport.http, ActionTransport.socketIO];
 ```

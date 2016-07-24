@@ -1,44 +1,28 @@
 const debug = require('debug')('mservice:router:dispatcher');
-const Errors = require('common-errors');
+const is = require('is');
 const Promise = require('bluebird');
 
-function dispatcher(route, routes, request, callback) {
+function dispatch(route, request, callback) {
   debug('process route "%s" with request "%s"', route, JSON.stringify(request));
   const router = this;
 
-  return Promise
-    .resolve([route, routes, request, router])
-    .bind(router)
+  const result = Promise
+    .resolve([route, request])
+    .bind(router.service)
     .spread(router.modules.request)
-    .then(action => Promise.mapSeries(
-      [
-        router.modules.auth,
-        router.modules.validate,
-        router.modules.allowed,
-        router.modules.handler,
-      ],
-      handler => handler(request, action, router)
-    ))
-    .spread((authResult, validateResult, allowedResult, handlerResult) => handlerResult)
-    .asCallback((error, result) => {
-      const service = router.service;
+    .then(router.modules.auth)
+    .then(router.modules.validate)
+    .then(router.modules.allowed)
+    .then(router.modules.handler)
+    .tap(() => {
       request = null; // eslint-disable-line no-param-reassign
-
-      if (error) {
-        switch (error.constructor) {
-          case Errors.AuthenticationRequiredError:
-          case Errors.ValidationError:
-          case Errors.NotPermittedError:
-          case Errors.NotFoundError:
-            return callback(error);
-          default:
-            service.log.error(error);
-            return callback(new Errors.Error('Something went wrong'));
-        }
-      }
-
-      return callback(null, result);
     });
+
+  if (is.fn(callback)) {
+    return result.asCallback(router.modules.response(callback, router));
+  }
+
+  return result;
 }
 
-module.exports = dispatcher;
+module.exports = dispatch;

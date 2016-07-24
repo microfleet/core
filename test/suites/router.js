@@ -1,3 +1,4 @@
+const { ActionTransport } = require('./../../src');
 const { expect } = require('chai');
 const Errors = require('common-errors');
 const getAMQPRequest = require('./../router/helpers/requests/amqp');
@@ -42,7 +43,11 @@ describe('Router suite', function testSuite() {
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
-          transports: ['amqp', 'http', 'socketIO'],
+          transports: [
+            ActionTransport.amqp,
+            ActionTransport.http,
+            ActionTransport.socketIO
+          ],
         },
         auth: {
           strategies: {
@@ -80,7 +85,7 @@ describe('Router suite', function testSuite() {
           expect: 'error',
           verify: error => {
             expect(error.name).to.be.equals('NotFoundError');
-            expect(error.message).to.be.equals('Not Found: "not.exists"');
+            expect(error.message).to.be.equals('Not Found: "route "not.exists" not found"');
           }
         };
 

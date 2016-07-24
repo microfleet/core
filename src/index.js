@@ -23,6 +23,14 @@ const defaultOpts = {
  * @namespace Mservice
  */
 class Mservice extends EventEmitter {
+  /**
+   * @type {{amqp: string, http: string, socketIO: string}}
+   */
+  static ActionTransport = {
+    amqp: 'amqp',
+    http: 'http',
+    socketIO: 'socketIO',
+  };
 
   /**
    * @namespace Users
@@ -271,7 +279,6 @@ class Mservice extends EventEmitter {
 
     throw err;
   }
-
 }
 
 module.exports = Mservice;

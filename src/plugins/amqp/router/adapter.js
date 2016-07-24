@@ -1,9 +1,12 @@
-function getAmqpRouterAdapter(router) {
-  const routes = router.routes.amqp;
+const { ActionTransport } = require('./../../../');
 
-  return function amqpRouterAdapter(message, headers, actions, callback) {
-    return router.dispatcher(headers.routingKey, routes, { params: message }, callback);
+function getAMQPRouterAdapter(router) {
+  return function AMQPRouterAdapter(message, headers, actions, callback) {
+    return router.dispatch(headers.routingKey, {
+      params: message,
+      transport: ActionTransport.amqp,
+    }, callback);
   };
 }
 
-module.exports = getAmqpRouterAdapter;
+module.exports = getAMQPRouterAdapter;
