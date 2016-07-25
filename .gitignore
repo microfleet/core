@@ -29,5 +29,5 @@ build/Release
 node_modules
 
 # compiled source code
-lib
+# lib @todo don't forget uncomment
 .env
