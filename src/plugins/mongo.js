@@ -28,7 +28,7 @@ exports.attach = function attachMongo(conf = {}) {
      */
     connect: function connectMongo() {
       if (service._mongo) {
-        return Promise.reject(new Errors.NotPermittedError('redis was already started'));
+        return Promise.reject(new Errors.NotPermittedError('mongo was already started'));
       }
 
       Mongoose.Promise = Promise;
@@ -52,12 +52,13 @@ exports.attach = function attachMongo(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('mongo was not started'));
       }
 
-      return Promise.bind(service)
-        .tap(() => { this._mongo.disconnect(); })
-        .tap(() => {
-          this._mongo = null;
-          this.emit('plugin:close:mongo');
-        });
+      return new Promise(() => {
+        service._mongo.disconnect();
+      })
+      .tap(() => {
+        service._mongo = null;
+        service.emit('plugin:close:mongo');
+      });
     },
   };
 };
