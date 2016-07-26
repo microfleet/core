@@ -28,7 +28,7 @@
   "dependencies": {
     "bluebird": "^3.4.0",
     "callsite": "^1.0.0",
-    "common-errors": "^0.5.7",
+    "common-errors": "^1.0.0",
     "debug": "^2.2.0",
     "eventemitter3": "^1.1.1",
     "glob": "^7.0.3",
@@ -64,7 +64,7 @@
     "cz-conventional-changelog": "^1.1.6",
     "elasticsearch": "~11.x.x",
     "eslint": "^3.0.1",
-    "eslint-config-airbnb-base": "^4.0.0",
+    "eslint-config-airbnb-base": "^5.0.0",
     "eslint-plugin-import": "^1.10.2",
     "eslint-plugin-mocha": "^4.0.0",
     "express": "~4.x.x",
