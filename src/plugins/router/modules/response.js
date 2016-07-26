@@ -8,9 +8,14 @@ function response(error, result) {
   if (error) {
     switch (error.constructor) {
       case Errors.AuthenticationRequiredError:
-      case Errors.ValidationError:
-      case Errors.NotPermittedError:
+      case Errors.ConnectionError:
+      case Errors.HttpStatusError:
+      case Errors.NotImplementedError:
       case Errors.NotFoundError:
+      case Errors.NotPermittedError:
+      case Errors.NotSupportedError:
+      case Errors.TimeoutError:
+      case Errors.ValidationError:
         return Promise.reject(error);
       default:
         service.log.error(error);
