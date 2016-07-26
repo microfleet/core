@@ -10,8 +10,19 @@ logging features, as well as input validation. At the same time it is an event e
 
 ## Usage
 
-Extend Mservice class, populate plugins with array of their names. Currently supported: `validator`, `logger`, `amqp` and `redisCluster`
+Extend Mservice class, populate plugins with array of their names. 
+Currently supported: 
 
+* `amqp` 
+* `cassandra` 
+* `elasticsearch`
+* `http`
+* `logger`
+* `redisCluster`
+* `redisSentinel`
+* `router`
+* `socketIO`
+* `validator`
 
 ### Events:
 
@@ -46,7 +57,9 @@ class UserService extends Mservice {
       }
     },
     amqp: {
-      queue: 'roundrobin'
+      transport: {
+        queue: 'roundrobin',
+      },
     },
     logger: true,
     // relative paths will be resolved relatively to the first dir of the file
@@ -60,14 +73,6 @@ class UserService extends Mservice {
   constructor(opts = {}) {
     super(ld.merge({}, UserService.defaultOpts, opts));
   }
-
-  /**
-   * If specified, amqp plugin will use it when setting up consumers
-   */
-  router = (message, headers, actions) => {
-    // read more about params in makeomatic/ms-amqp-transport
-  }
-
 }
 
 const userService = new UserService();
@@ -148,11 +153,12 @@ userService.log.debug('You won\'t see me!');
 When using this plugin, make sure you also do `npm i ms-amqp-transport -S`
 
 Enables AMQP transport `makeomatic/ms-amqp-transport`
-It allows the service to communicate over AMQP protocol. If `service.router` is defined, then we will make
-the best attempt to setup listeners and route incoming messages through this function. Make sure you bind it to your instance
-if using any references to `this`. Attaches `._amqp` to `service`.
+It allows the service to communicate over AMQP protocol. If `service.router` 
+plugin is enabled, then we will make the best attempt to setup listeners 
+and route incoming messages through this plugin. Attaches `._amqp` to `service`.
 
-Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
+Events are emitted when plugin has completed connecting, or disconnecting. 
+First arg is the transport instance
 
 1. `plugin:connect:amqp`
 2. `plugin:close:amqp`
@@ -160,8 +166,13 @@ Events are emitted when plugin has completed connecting, or disconnecting. First
 ```js
 const userService = new UserService({
   amqp: {
-    queue: 'my-nice-queue',
-    listen: [ 'users.ping' ],
+    transport: {
+      queue: 'my-nice-queue',
+      listen: ['users.ping'],
+    },
+    router: {
+      enabled: true
+    },
   }
 });
 
@@ -345,16 +356,12 @@ const service = new Service({
 
 // service.http - server instance depends on handler
 ```
-
-#### Planned features
-
- * Routes and actions auto initialising from directory
  
-### Socket.IO plugin
+### Socket.io plugin
 
 #### Features
 
-Attach `socket.io` instance to `.socketio` property and optionally attach `actions` from `actionsDirectory` to it.
+Attach `Socket.io` instance to `.socketIO` property.
 
 #### Peer dependencies
 
@@ -365,36 +372,18 @@ Attach `socket.io` instance to `.socketio` property and optionally attach `actio
 const service = new Service({
   plugins: [ 'socketio' ],
   socketio: {
-    service: {
-      actionsDirectory: __dirname + '/actions/socketio',
+    router: {
+      enabled: true,
     },
-    server: {
-      options: {
-        // socket.io options
-      },
-    }
+    options: {
+      // socket.io options
+    },
   }
 });
 
-// service.socketio - Socket.IO instance
+// service.socketIO - Socket.io instance
 ```
 
-#### Actions
-Example action `echo.js`
-```js
-function echoAction(data) {
-  this.emit('echo', data);
-}
+### Router plugin
 
-module.exports = {
-  handler: echoAction,
-  params: {
-    type: "object",
-    properties: {
-      "message": {
-        "type": "string"
-      }
-    }
-  }
-};
-```
+Attach `router` to `service` that can be used by other plugins
