@@ -8,13 +8,18 @@
 This module provides boilerplate for microservice core and a few plugins for starters. It sets up convenient `connect` and `close` methods,
 logging features, as well as input validation. At the same time it is an event emitter and may send log and other events silently.
 
+## Migration from 1.x to 2.x
+
+Version 2 bring a neat feature of supporting multiple transports and request lifecycle.
+Please consult releases page on how to migrate your code
+
 ## Usage
 
-Extend Mservice class, populate plugins with array of their names. 
-Currently supported: 
+Extend Mservice class, populate plugins with array of their names.
+Currently supported:
 
-* `amqp` 
-* `cassandra` 
+* `amqp`
+* `cassandra`
 * `elasticsearch`
 * `http`
 * `logger`
@@ -153,11 +158,11 @@ userService.log.debug('You won\'t see me!');
 When using this plugin, make sure you also do `npm i ms-amqp-transport -S`
 
 Enables AMQP transport `makeomatic/ms-amqp-transport`
-It allows the service to communicate over AMQP protocol. If `service.router` 
-plugin is enabled, then we will make the best attempt to setup listeners 
+It allows the service to communicate over AMQP protocol. If `service.router`
+plugin is enabled, then we will make the best attempt to setup listeners
 and route incoming messages through this plugin. Attaches `._amqp` to `service`.
 
-Events are emitted when plugin has completed connecting, or disconnecting. 
+Events are emitted when plugin has completed connecting, or disconnecting.
 First arg is the transport instance
 
 1. `plugin:connect:amqp`
@@ -321,13 +326,13 @@ const service = new Service({
 
  * Allows creating `http` server
  * Predefined handlers support
- 
+
 #### Handlers
 
 You can use one of predefined handlers in `/src/plugins/http/handlers` directory
 
 Allowed handlers at this moment:
- 
+
  * express (make sure you also do `npm i express -S`)
  * restify (make sure you also do `npm i restify -S`)
 
@@ -356,7 +361,7 @@ const service = new Service({
 
 // service.http - server instance depends on handler
 ```
- 
+
 ### Socket.io plugin
 
 #### Features
