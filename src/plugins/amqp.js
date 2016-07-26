@@ -16,7 +16,6 @@ const verifyPossibility = require('./router/verifyAttachPossibility');
  */
 function attachAMQPPlugin(config) {
   const service = this;
-  let routerAdapter = null;
 
   if (is.fn(service.validateSync)) {
     const transportSchema = _.cloneDeep(AMQPSchema);
@@ -28,7 +27,7 @@ function attachAMQPPlugin(config) {
 
   if (config.router.enabled === true) {
     verifyPossibility(service.router, ActionTransport.amqp);
-    routerAdapter = getAMQPRouterAdapter(service.router);
+    service.AMQPRouter = getAMQPRouterAdapter(service.router);
     // allow ms-amqp-transport to discover routes
     config.transport.listen = Object.keys(service.router.routes.amqp);
   }
@@ -52,7 +51,7 @@ function attachAMQPPlugin(config) {
         .connect({
           ...config.transport,
           log: logger || null,
-        }, routerAdapter)
+        }, service.AMQPRouter)
         .tap(amqp => {
           service._amqp = amqp;
           service.emit('plugin:connect:amqp', amqp);
