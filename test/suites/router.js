@@ -2,7 +2,7 @@ const { ActionTransport } = require('./../../src');
 const auditLog = require('./../../src/plugins/router/extensions/audit/log');
 const { expect } = require('chai');
 const Errors = require('common-errors');
-const schemaFromActionName = require('./../../src/plugins/router/extensions/validate/schemaFromActionName');
+const schemaLessAction = require('./../../src/plugins/router/extensions/validate/schemaLessAction');
 const getAMQPRequest = require('./../router/helpers/requests/amqp');
 const getHTTPRequest = require('./../router/helpers/requests/http');
 const getSocketIORequest = require('./../router/helpers/requests/socketIO');
@@ -178,7 +178,7 @@ describe('Router suite', function testSuite() {
         extensions: {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
-            schemaFromActionName,
+            schemaLessAction,
             auditLog
           ],
         },
