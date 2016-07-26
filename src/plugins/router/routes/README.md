@@ -12,7 +12,8 @@ The following properties could be assigned to `Action`
 * `Action.auth` - a `string` with auth `strategy` name
 * `Action.schema` - a `string` with validation schema name
 * `Action.transports` - an array of allowed `transports`
-
+* `Action.setTransportsAsDefault` - if `true` and `Action.transports` 
+   is empty set action transports from `config.transports`
 ### Example
 
 ```js

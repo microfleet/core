@@ -19,10 +19,12 @@ function response(error, result, logger) {
   return Promise.resolve(result);
 }
 
-function getResponseHandler(callback, router) {
+function getResponseHandler(callback) {
   return function responseHandler(error, result) {
-    const params = [error, result, router.service.logger];
-    return moduleLifecycle('response', response, router.extensions, params).asCallback(callback);
+    const service = this;
+    const params = [error, result, service.logger];
+    return moduleLifecycle('response', response, service.router.extensions, params, service)
+      .asCallback(callback);
   };
 }
 

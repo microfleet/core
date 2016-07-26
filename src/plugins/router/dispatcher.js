@@ -19,7 +19,7 @@ function dispatch(route, request, callback) {
     });
 
   if (is.fn(callback)) {
-    return result.asCallback(router.modules.response(callback, router));
+    return result.asCallback(router.modules.response(callback));
   }
 
   return result;

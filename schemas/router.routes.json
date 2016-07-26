@@ -20,6 +20,10 @@
       "default": "action",
       "type": "string"
     },
+    "setTransportsAsDefault": {
+      "default": false,
+      "type": "boolean"
+    },
     "transports": {
       "default": [],
       "items": {

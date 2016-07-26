@@ -6,7 +6,7 @@ const path = require('path');
 describe('router: get routes', function suite() {
   it('should be able to get only enabled routes', (done) => {
     const config = {
-      directory: path.resolve(__dirname, 'examples/actions'),
+      directory: path.resolve(__dirname, 'examples/actions/simple'),
       enabled: {
         baz: 'baz',
         bar: 'foo',
@@ -45,7 +45,7 @@ describe('router: get routes', function suite() {
 
   it('should be able to get routes from directory', (done) => {
     const config = {
-      directory: path.resolve(__dirname, 'examples/actions'),
+      directory: path.resolve(__dirname, 'examples/actions/simple'),
       enabled: {},
       prefix: 'action',
       transports: [ActionTransport.socketIO],
@@ -73,6 +73,26 @@ describe('router: get routes', function suite() {
     expect(routes.socketIO).to.have.property('action.baz');
     expect(routes.socketIO['action.baz']).to.be.a('function');
     expect(Object.keys(routes.socketIO)).to.have.lengthOf(2);
+
+    done();
+  });
+
+  it('should be able to set default transports', (done) => {
+    const config = {
+      directory: path.resolve(__dirname, 'examples/actions/withoutTransport'),
+      enabled: {},
+      prefix: 'action',
+      setTransportsAsDefault: true,
+      transports: [ActionTransport.socketIO],
+    };
+
+    const routes = getRoutes(config);
+
+    // socketIO routes
+    expect(routes).to.have.property('socketIO');
+    expect(routes.socketIO).to.have.property('action.bar');
+    expect(routes.socketIO['action.bar']).to.be.a('function');
+    expect(Object.keys(routes.socketIO)).to.have.lengthOf(1);
 
     done();
   });

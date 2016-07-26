@@ -5,10 +5,9 @@ const is = require('is');
 const path = require('path');
 
 /**
- * @param {Object}        action
- * @param {Function|null} action.allowed
+ * @param {Function}      action
+ * @param {Function} action.allowed
  * @param {String}        action.auth
- * @param {Function}      action.handler
  * @param {String}        action.schema
  * @param {Array}         action.transports
  */
@@ -35,12 +34,13 @@ function validateAction(action) {
 }
 
 /**
- * @param {Object}   config            - routes config
- * @param {String}   config.directory  - actions directory
- * @param {Object}   config.enabled    - enabled routes list,
- *                                       mapped key as filename to value as route name
- * @param {String}   config.prefix     - routes prefix
- * @param {String[]} config.transports - enabled transports list
+ * @param {Object}   config                        - routes config
+ * @param {String}   config.directory              - actions directory
+ * @param {Object}   config.enabled                - enabled routes list,
+ *                                                   mapped key as filename to value as route name
+ * @param {String}   config.prefix                 - routes prefix
+ * @param {Boolean}  config.setTransportsAsDefault - set action transports from config transports
+ * @param {String[]} config.transports             - enabled transports list
  */
 function getRoutes(config) {
   const routes = { _all: {} };
@@ -62,6 +62,10 @@ function getRoutes(config) {
   Object.keys(enabled).forEach(route => {
     const routingKey = [config.prefix, enabled[route]].join('.');
     const action = require(path.resolve(config.directory, route));
+
+    if (config.setTransportsAsDefault === true && action.transports === undefined) {
+      action.transports = config.transports.slice(0);
+    }
 
     validateAction(action);
 

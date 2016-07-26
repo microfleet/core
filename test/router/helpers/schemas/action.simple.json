@@ -1,6 +1,7 @@
 {
   "id": "action.simple",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "isAdmin": {
       "type": "boolean",

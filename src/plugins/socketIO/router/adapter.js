@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { ActionTransport } = require('./../../../');
 const Promise = require('bluebird');
 
@@ -7,7 +8,10 @@ function getSocketIORouterAdapter(config, router) {
 
     socket.on(config.actionEvent, (params, callback) => {
       const actionName = params[config.requestActionKey];
-      let request = { params, transport: ActionTransport.socketIO };
+      let request = {
+        params: _.omit(params, [config.requestActionKey]),
+        transport: ActionTransport.socketIO,
+      };
       let preRequest;
 
       if (extension.has('preSocketIORequest')) {
