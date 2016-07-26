@@ -8,9 +8,9 @@
 This module provides boilerplate for microservice core and a few plugins for starters. It sets up convenient `connect` and `close` methods,
 logging features, as well as input validation. At the same time it is an event emitter and may send log and other events silently.
 
-## Migration from 1.x to 2.x
+## Migration from 2.x to 3.x
 
-Version 2 bring a neat feature of supporting multiple transports and request lifecycle.
+Version 3 bring a neat feature of supporting multiple transports and request lifecycle.
 Please consult releases page on how to migrate your code
 
 ## Usage
