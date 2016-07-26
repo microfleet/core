@@ -69,6 +69,8 @@ function getRoutes(config) {
 
     validateAction(action);
 
+    action.actionName = route;
+
     routes._all[routingKey] = action;
     _.intersection(config.transports, action.transports).forEach(transport => {
       routes[transport][routingKey] = action;

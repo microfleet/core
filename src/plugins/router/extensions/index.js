@@ -19,7 +19,7 @@ class Extensions {
    * @param {Array}  config.enabled
    * @param {Object} config.register
    */
-  constructor(config = { enabled: [], register: {} }) {
+  constructor(config = { enabled: [], register: [] }) {
     const { enabled, register } = config;
     const extensions = {};
 
@@ -28,9 +28,12 @@ class Extensions {
     });
 
     this.extensions = extensions;
+    this.autoRegister(register);
+  }
 
-    Object.keys(register).forEach(name => {
-      register[name].forEach(handler => this.register(name, handler));
+  autoRegister(register) {
+    register.forEach(extensions => {
+      extensions.forEach(extension => this.register(extension.point, extension.handler));
     });
   }
 

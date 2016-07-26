@@ -2,7 +2,9 @@ const Errors = require('common-errors');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
-function response(error, result, logger) {
+function response(error, result) {
+  const service = this;
+
   if (error) {
     switch (error.constructor) {
       case Errors.AuthenticationRequiredError:
@@ -11,7 +13,7 @@ function response(error, result, logger) {
       case Errors.NotFoundError:
         return Promise.reject(error);
       default:
-        logger.error(error);
+        service.log.error(error);
         return Promise.reject(new Errors.Error('Something went wrong'));
     }
   }
@@ -22,7 +24,7 @@ function response(error, result, logger) {
 function getResponseHandler(callback) {
   return function responseHandler(error, result) {
     const service = this;
-    const params = [error, result, service.logger];
+    const params = [error, result];
     return moduleLifecycle('response', response, service.router.extensions, params, service)
       .asCallback(callback);
   };

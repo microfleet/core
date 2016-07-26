@@ -12,11 +12,18 @@
       "uniqueItems": true
     },
     "register": {
-      "type": "object",
-      "default": {},
-      "patternProperties": {
-        "^.*$": {
-          "type": "array"
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "require": ["point", "handler"],
+          "properties": {
+            "point": {
+              "type": "string"
+            }
+          }
         }
       }
     }

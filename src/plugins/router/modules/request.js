@@ -20,6 +20,7 @@ function getAction(route, request) {
   }
 
   request.action = action;
+  request.route = route;
 
   return Promise.resolve(request);
 }

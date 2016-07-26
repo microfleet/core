@@ -1,6 +1,7 @@
 const { ActionTransport } = require('./../../src');
 const { expect } = require('chai');
 const Errors = require('common-errors');
+const schemaFromActionName = require('./../../src/plugins/router/extensions/validate/schemaFromActionName');
 const getAMQPRequest = require('./../router/helpers/requests/amqp');
 const getHTTPRequest = require('./../router/helpers/requests/http');
 const getSocketIORequest = require('./../router/helpers/requests/socketIO');
@@ -43,6 +44,7 @@ describe('Router suite', function testSuite() {
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
+          enabled: { simple: 'simple' },
           transports: [
             ActionTransport.amqp,
             ActionTransport.http,
@@ -145,6 +147,68 @@ describe('Router suite', function testSuite() {
             () => AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
             () => AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
             () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+          ],
+          handler => handler()
+        ).then(() => service.close()).asCallback(done);
+      });
+  });
+
+  it('should be able to set schema from action name', function test(done) {
+    const service = new MService({
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: true,
+      plugins: [ 'validator', 'logger', 'router', 'amqp' ],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          enabled: { withoutSchema: 'withoutSchema' },
+          setTransportsAsDefault: true,
+          transports: [ActionTransport.amqp],
+        },
+        extensions: {
+          enabled: ['postRequest'],
+          register: [
+            schemaFromActionName
+          ],
+        },
+      },
+      validator: [ path.resolve(__dirname, '../router/helpers/schemas') ]
+    });
+
+    service.connect()
+      .then(() => {
+        const AMQPRequest = getAMQPRequest(service.amqp);
+
+        const validationFailed = {
+          expect: 'error',
+          verify: error => {
+            expect(error.name).to.be.equals('ValidationError');
+            expect(error.message).to.be.equals(
+              'withoutSchema validation failed: data.foo should be integer'
+            );
+          }
+        };
+
+        const returnsResult = {
+          expect: 'success',
+          verify: result => {
+            expect(result.foo).to.be.equals(42);
+          }
+        };
+
+        Promise.map(
+          [
+            () => AMQPRequest('action.withoutSchema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+            () => AMQPRequest('action.withoutSchema', { foo: 42 }).reflect().then(verify(returnsResult)),
           ],
           handler => handler()
         ).then(() => service.close()).asCallback(done);

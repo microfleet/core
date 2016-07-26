@@ -92,6 +92,7 @@ describe('router: get routes', function suite() {
     expect(routes).to.have.property('socketIO');
     expect(routes.socketIO).to.have.property('action.bar');
     expect(routes.socketIO['action.bar']).to.be.a('function');
+    expect(routes.socketIO['action.bar'].actionName).to.be.equals('bar');
     expect(Object.keys(routes.socketIO)).to.have.lengthOf(1);
 
     done();

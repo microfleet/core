@@ -6,7 +6,7 @@ const Promise = require('bluebird');
 
 describe('router: module lifecycle', function suite() {
   it('should reject "module" argument error', function test(done) {
-    const extensions = new Extensions({ enabled: [], register: {} });
+    const extensions = new Extensions();
 
     moduleLifecycle({}, () => {}, extensions, []).reflect()
       .then(inspection => {
@@ -18,7 +18,7 @@ describe('router: module lifecycle', function suite() {
   });
 
   it('should reject "promiseFactory" argument error', function test(done) {
-    const extensions = new Extensions({ enabled: [], register: {} });
+    const extensions = new Extensions();
 
     moduleLifecycle('foo', 'promiseFactory', extensions, []).reflect()
       .then(inspection => {
@@ -40,7 +40,7 @@ describe('router: module lifecycle', function suite() {
   });
 
   it('should reject "args" argument error', function test(done) {
-    const extensions = new Extensions({ enabled: [], register: {} });
+    const extensions = new Extensions();
 
     moduleLifecycle('foo', () => {}, extensions, '').reflect()
       .then(inspection => {
@@ -54,12 +54,12 @@ describe('router: module lifecycle', function suite() {
   it('should return error from "pre-handler"', function test(done) {
     const extensions = new Extensions({
       enabled: ['preFoo'],
-      register: {
-        preFoo: [
-          (foo, bar) => Promise.resolve([foo, bar]),
-          (foo, bar) => Promise.reject(`error: ${bar}`),
+      register: [
+        [
+          { point: 'preFoo', handler: (foo, bar) => Promise.resolve([foo, bar]) },
+          { point: 'preFoo', handler: (foo, bar) => Promise.reject(`error: ${bar}`) },
         ],
-      },
+      ],
     });
     const handler = (foo, bar) => Promise.resolve(`result: ${bar}`);
 
@@ -76,11 +76,11 @@ describe('router: module lifecycle', function suite() {
   it('should return result from handler with "pre-handler"', function test(done) {
     const extensions = new Extensions({
       enabled: ['preFoo'],
-      register: {
-        preFoo: [
-          (foo, bar) => Promise.resolve([bar, 'baz']),
+      register: [
+        [
+          { point: 'preFoo', handler: (foo, bar) => Promise.resolve([bar, 'baz']) },
         ],
-      },
+      ],
     });
     const handler = (bar, baz) => Promise.resolve(`result: ${baz}`);
 
@@ -95,12 +95,12 @@ describe('router: module lifecycle', function suite() {
   it('should return result from handler with "pre-handler" that takes one argument', done => {
     const extensions = new Extensions({
       enabled: ['preFoo'],
-      register: {
-        preFoo: [
-          request => Promise.resolve(`${request} bar`),
-          request => Promise.resolve(`${request} baz`),
+      register: [
+        [
+          { point: 'preFoo', handler: request => Promise.resolve(`${request} bar`) },
+          { point: 'preFoo', handler: request => Promise.resolve(`${request} baz`) },
         ],
-      },
+      ],
     });
     const handler = request => Promise.resolve(`result: ${request}`);
 
@@ -113,7 +113,7 @@ describe('router: module lifecycle', function suite() {
   });
 
   it('should return result from handler', function test(done) {
-    const extensions = new Extensions({ enabled: [], register: {} });
+    const extensions = new Extensions();
     const handler = (foo, bar) => Promise.resolve(`result: ${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
@@ -125,7 +125,7 @@ describe('router: module lifecycle', function suite() {
   });
 
   it('should return error from handler', function test(done) {
-    const extensions = new Extensions({ enabled: [], register: {} });
+    const extensions = new Extensions();
     const handler = (foo, bar) => Promise.reject(`result error: ${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
@@ -139,12 +139,12 @@ describe('router: module lifecycle', function suite() {
   it('should return error from post-handler', function test(done) {
     const extensions = new Extensions({
       enabled: ['postFoo'],
-      register: {
-        postFoo: [
-          (error, result) => Promise.resolve([error, result]),
-          (error, result) => Promise.reject(`error: ${result}`),
+      register: [
+        [
+          { point: 'postFoo', handler: (error, result) => Promise.resolve([error, result]) },
+          { point: 'postFoo', handler: (error, result) => Promise.reject(`error: ${result}`) },
         ],
-      },
+      ],
     });
     const handler = (foo, bar) => Promise.resolve(`${foo}.${bar}`);
 
@@ -159,11 +159,15 @@ describe('router: module lifecycle', function suite() {
   it('should be able to modify result if no error returned from handler', function test(done) {
     const extensions = new Extensions({
       enabled: ['postFoo'],
-      register: {
-        postFoo: [
-          (error, result) => Promise.resolve([error, 'baz']), //eslint-disable-line no-unused-vars
+      register: [
+        [
+          {
+            point: 'postFoo',
+            // eslint-disable-next-line no-unused-vars
+            handler: (error, result) => Promise.resolve([error, 'baz']),
+          },
         ],
-      },
+      ],
     });
     const handler = (foo, bar) => Promise.resolve(`${foo}.${bar}`);
 
@@ -178,17 +182,36 @@ describe('router: module lifecycle', function suite() {
   it('should be able to modify error returned from handler', function test(done) {
     const extensions = new Extensions({
       enabled: ['postFoo'],
-      register: {
-        postFoo: [
-          (error, result) => Promise.resolve(['baz', result]),
+      register: [
+        [
+          { point: 'postFoo', handler: (error, result) => Promise.resolve(['baz', result]) },
         ],
-      },
+      ],
     });
     const handler = (foo, bar) => Promise.reject(`${foo}.${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
       .then(inspection => {
         expect(inspection.reason()).to.be.equals('baz');
+        done();
+      }
+    );
+  });
+
+  it('should be able to pass arguments to post-handler', function test(done) {
+    const extensions = new Extensions({
+      enabled: ['postFoo'],
+      register: [
+        [
+          { point: 'postFoo', handler: (error, result, foo, bar) => Promise.resolve([foo + bar]) },
+        ],
+      ],
+    });
+    const handler = (foo, bar) => Promise.resolve(`${foo}.${bar}`);
+
+    moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
+      .then(inspection => {
+        expect(inspection.reason()).to.be.equals('foobar');
         done();
       }
     );

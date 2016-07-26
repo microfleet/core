@@ -10,11 +10,11 @@ describe('router: extensions', function suite() {
         'preHandler',
         'postHandler',
       ],
-      register: {
-        postHandler: [
-          result => Promise.resolve([result]),
+      register: [
+        [
+          { point: 'postHandler', handler: result => Promise.resolve([result]) },
         ],
-      },
+      ],
     };
     const extensions = new Extensions(config);
 

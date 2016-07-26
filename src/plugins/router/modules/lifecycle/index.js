@@ -59,7 +59,7 @@ function moduleLifecycle(module, promiseFactory, extensions, args, context) {
         return Promise.resolve(resultResponse);
       }
 
-      return Promise.resolve([postModule, [errorResponse, resultResponse], context])
+      return Promise.resolve([postModule, [errorResponse, resultResponse, ...args], context])
         .bind(extensions)
         .spread(extensions.exec)
         .spread((error, response) => {
