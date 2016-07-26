@@ -7,5 +7,8 @@
     "no-underscore-dangle": 0,
     "global-require": 0,
     "prefer-arrow-callback": 0
+  },
+  "env": {
+    "mocha": true
   }
 }

@@ -4,9 +4,11 @@
   "main": "./lib/index.js",
   "scripts": {
     "compile": "babel -d ./lib ./src",
+    "coverage:unit": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha -- --recursive ./src",
     "prepublish": "npm run lint && npm run compile",
     "lint": "eslint ./src",
-    "test": "npm run lint && ./test/docker.sh",
+    "test": "npm run lint && npm run test:unit && ./test/docker.sh",
+    "test:unit": "mocha --recursive ./src",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -35,6 +37,7 @@
     "stdout-stream": "^1.4.0"
   },
   "peerDependencies": {
+    "body-parser": "^1.x.x",
     "ms-validation": "~2.x.x",
     "ioredis": "^2.2.0",
     "bunyan": "~1.x.x",
@@ -49,11 +52,13 @@
   "devDependencies": {
     "babel-cli": "^6.7.7",
     "babel-eslint": "^6.0.4",
+    "babel-plugin-transform-class-properties": "^6.10.2",
     "babel-plugin-transform-es2015-destructuring": "^6.9.0",
-    "babel-plugin-transform-es2015-spread": "^6.6.5",
-    "babel-plugin-transform-object-rest-spread": "^6.6.5",
-    "babel-plugin-transform-strict-mode": "^6.6.5",
+    "babel-plugin-transform-es2015-spread": "^6.3.13",
+    "babel-plugin-transform-object-rest-spread": "^6.3.13",
+    "babel-plugin-transform-strict-mode": "^6.3.13",
     "babel-register": "^6.7.2",
+    "body-parser": "^1.15.2",
     "bunyan": "^1.8.1",
     "chai": "^3.5.0",
     "cz-conventional-changelog": "^1.1.6",
@@ -65,11 +70,13 @@
     "express": "~4.x.x",
     "express-cassandra": "^1.0.1",
     "ioredis": "^2.2.0",
-    "istanbul": "^0.4.3",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.4",
     "json": "^9.0.4",
     "mocha": "^2.3.4",
     "ms-amqp-transport": "^3.1.0",
     "ms-validation": "~2.x.x",
+    "request": "^2.73.0",
     "restify": "~4.x.x",
     "semantic-release": "^6.0.0",
     "server-destroy": "~1.x.x",

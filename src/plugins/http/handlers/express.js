@@ -1,3 +1,4 @@
+const attachRouter = require('./../router/attach');
 const enableDestroy = require('server-destroy');
 const Errors = require('common-errors');
 const express = require('express');
@@ -14,6 +15,10 @@ function createExpressServer(config, service) {
     Object.keys(properties).forEach((key) => handler.set(key, properties[key]));
   }
 
+  if (config.router.enabled) {
+    attachRouter(handler, service.router);
+  }
+
   service._http = {
     handler,
     server,
@@ -25,11 +30,11 @@ function createExpressServer(config, service) {
     }
 
     if (config.server.attachSocketIO) {
-      if (!service._socketio) {
+      if (!service._socketIO) {
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketio.listen(service.http.server);
+      service.socketIO.listen(service.http.server);
     }
 
     return Promise
@@ -43,12 +48,12 @@ function createExpressServer(config, service) {
     enableDestroy(service.http.server);
 
     if (config.server.attachSocketIO) {
-      if (!service._socketio) {
+      if (!service._socketIO) {
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketio.httpServer = null;
-      service.socketio.close();
+      service.socketIO.httpServer = null;
+      service.socketIO.close();
     }
 
     return Promise

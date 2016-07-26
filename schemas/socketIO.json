@@ -1,0 +1,29 @@
+{
+  "id": "socketIO",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "router": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "actionEvent": {
+          "type": "string",
+          "default": "action"
+        },
+        "requestActionKey": {
+          "type": "string",
+          "default": "action"
+        }
+      }
+    },
+    "options": {
+      "type": "object",
+      "default": {}
+    }
+  }
+}
