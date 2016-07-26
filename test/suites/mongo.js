@@ -23,7 +23,7 @@ describe('Mongo suite', function testSuite() {
         return Promise.resolve(result.value());
       })
       .spread(mng => {
-        expect(mng).to.be.instanceof(Mongoose);
+        expect(mng === Mongoose).to.be.equal(true);
         expect(() => this.service.mongo).to.not.throw();
       });
   });

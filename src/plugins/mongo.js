@@ -32,15 +32,14 @@ exports.attach = function attachMongo(conf = {}) {
       }
 
       Mongoose.Promise = Promise;
-
-      return new Promise(() => {
-        const connOpts = conf.standalone ? conf.standalone : (conf.replicaSet ? conf.replicaSet : conf.mongos); // eslint-disable-line
-        return Mongoose.createConnection(connOpts.connectionString, connOpts.options);
-      })
-      .tap(instance => {
-        service._mongo = instance;
-        service.emit('plugin:connect:mongo', instance);
-      });
+      const connOpts = conf.standalone ? conf.standalone : (conf.replicaSet ? conf.replicaSet : conf.mongos); // eslint-disable-line
+      return Mongoose
+        .connect(connOpts.connectionString, { ...connOpts.options, promiseLibrary: Promise })
+        .then(instance => {
+          service._mongo = Mongoose;
+          service.emit('plugin:connect:mongo', instance);
+          return Mongoose;
+        });
     },
 
     /**
@@ -52,13 +51,12 @@ exports.attach = function attachMongo(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('mongo was not started'));
       }
 
-      return new Promise(() => {
-        service._mongo.disconnect();
-      })
-      .tap(() => {
-        service._mongo = null;
-        service.emit('plugin:close:mongo');
-      });
+      return Promise
+        .fromCallback(next => service._mongo.connection.close(next))
+        .tap(() => {
+          service._mongo = null;
+          service.emit('plugin:close:mongo');
+        });
     },
   };
 };
