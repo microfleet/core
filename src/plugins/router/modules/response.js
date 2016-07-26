@@ -21,10 +21,10 @@ function response(error, result) {
   return Promise.resolve(result);
 }
 
-function getResponseHandler(callback) {
+function getResponseHandler(callback, request) {
   return function responseHandler(error, result) {
     const service = this;
-    const params = [error, result];
+    const params = [error, result, request];
     return moduleLifecycle('response', response, service.router.extensions, params, service)
       .asCallback(callback);
   };

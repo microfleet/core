@@ -12,9 +12,14 @@ const config = {
     'preHandler'
     'postHandler'
   ],
-  register: {
-    'postHandler': result => Promise.reject(result)
-  }
+  register: [
+    [
+      {
+        point: "preHandler",
+        handler: result => Promise.resolve(result),
+      }
+    ]
+  ]
 };
 
 const extensions = new Extensions(config);
@@ -31,7 +36,7 @@ const promise = extensions.exec('postHandler');
 
 * `config` - configuration object
     * `enabled` - an array of enabled extensions
-    * `register` - an object that contains a set of auto-registered extensions
+    * `register` - an array that contains a set of auto-registered extensions
 
 `Extension.exec(name, args = [], context)`
 

@@ -1,4 +1,5 @@
 const { ActionTransport } = require('./../../src');
+const auditLog = require('./../../src/plugins/router/extensions/audit/log');
 const { expect } = require('chai');
 const Errors = require('common-errors');
 const schemaFromActionName = require('./../../src/plugins/router/extensions/validate/schemaFromActionName');
@@ -175,9 +176,10 @@ describe('Router suite', function testSuite() {
           transports: [ActionTransport.amqp],
         },
         extensions: {
-          enabled: ['postRequest'],
+          enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
-            schemaFromActionName
+            schemaFromActionName,
+            auditLog
           ],
         },
       },

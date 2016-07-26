@@ -77,8 +77,8 @@ class Extensions {
     }
 
     return Promise.resolve(handlers)
-      .bind(context)
-      .reduce((previousArgs, handler) => convertToArrayIfNot(previousArgs).spread(handler), args)
+      .reduce((previousArgs, handler) =>
+        convertToArrayIfNot(previousArgs).bind(context).spread(handler), args)
       .then(convertToArrayIfNot);
   }
 }

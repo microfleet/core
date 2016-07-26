@@ -13,16 +13,15 @@ function dispatch(route, request, callback) {
     .then(router.modules.auth)
     .then(router.modules.validate)
     .then(router.modules.allowed)
-    .then(router.modules.handler)
-    .tap(() => {
-      request = null; // eslint-disable-line no-param-reassign
-    });
+    .then(router.modules.handler);
 
   if (is.fn(callback)) {
-    return result.asCallback(router.modules.response(callback));
+    return result.asCallback(router.modules.response(callback, request));
   }
 
-  return result;
+  return result.tap(() => {
+    request = null; // eslint-disable-line no-param-reassign
+  });
 }
 
 module.exports = dispatch;
