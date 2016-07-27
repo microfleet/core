@@ -1,5 +1,13 @@
 version: '2'
 services:
+  mongo: 
+    image: mvertes/alpine-mongo
+    container_name: mongo
+    hostname: mongo
+    expose: 
+      - "27017"
+      - "28017"
+
   redis-1:
     image: makeomatic/alpine-redis
     container_name: redis-1
@@ -82,6 +90,7 @@ services:
       - redis-1
       - redis-2
       - redis-3
+      - mongo
       - rabbitmq
       - redis-sentinel
       - elasticsearch

@@ -12,6 +12,12 @@ global.SERVICES = {
     })),
     options: {},
   },
+  mongo: {
+    standalone: {
+      connectionString: 'mongodb://mongo/mservice',
+      options: {},
+    }
+  },
   amqp: {
     transport: {
       connection: {

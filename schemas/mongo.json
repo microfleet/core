@@ -1,0 +1,207 @@
+{
+  "id": "mongo",
+  "type": "object",
+  "properties": {
+    "standalone": {
+      "type": "object",
+      "properties": {
+        "connectionString": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "poolSize": {
+              "type": "number"
+            },
+            "ssl": {
+              "type": "number"
+            },
+            "sslValidate": {
+              "type": "number"
+            },
+            "checkServerIdentity": {
+              "type": "number"
+            },
+            "sslCA": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sslCert": {
+              "type": "string"
+            },
+            "sslKey": {
+              "type": "string"
+            },
+            "sslPass": {
+              "type": "string"
+            },
+            "socketOptions": {
+              "type": "object",
+              "properties": {
+                "autoReconnect": {
+                  "type": "boolean"
+                },
+                "noDelay": {
+                  "type": "boolean"
+                },
+                "keepAlive": {
+                  "type": "number"
+                },
+                "connectTimeoutMS": {
+                  "type": "number"
+                },
+                "socketTimeoutMS": {
+                  "type": "number"
+                }
+              }
+            },
+            "reconnectTries": {
+              "type": "number"
+            },
+            "reconnectInterval": {
+              "type": "number"
+            },
+            "monitoring": {
+              "type": "number"
+            },
+            "haInterval": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "replicaSet": {
+      "connectionString": {
+        "type": "string"
+      },
+      "options": {
+        "type": "object",
+        "properties": {
+          "ha": {
+            "type": "booelan"
+          },
+          "haInterval": {
+            "type": "number"
+          },
+          "replicaSet": {
+            "type": "string"
+          },
+          "secondaryAcceptableLatencyMS": {
+            "type": "number"
+          },
+          "connectWithNoPrimary": {
+            "type": "boolean"
+          },
+          "poolSize": {
+            "type": "number"
+          },
+          "ssl": {
+            "type": "boolean"
+          },
+          "checkServerIdentity": {
+            "type": "boolean"
+          },
+          "sslValidate": {
+            "type": "boolean"
+          },
+          "sslCA": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sslCert": {
+            "type": "string"
+          },
+          "sslKey": {
+            "type": "string"
+          },
+          "sslPass": {
+            "type": "string"
+          },
+          "socketOptions": {
+            "type": "object",
+            "properties": {
+              "noDelay": {
+                "type": "boolean"
+              },
+              "keepAlive": {
+                "type": "number"
+              },
+              "connectTimeoutMS": {
+                "type": "number"
+              },
+              "socketTimeoutMS": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "mongos": {
+      "connectionString": {
+        "type": "string"
+      },
+      "options": {
+        "type": "object",
+        "properties": {
+          "ha": {
+            "type": "booelan"
+          },
+          "haInterval": {
+            "type": "number"
+          },
+          "poolSize": {
+            "type": "number"
+          },
+          "ssl": {
+            "type": "boolean"
+          },
+          "checkServerIdentity": {
+            "type": "boolean"
+          },
+          "sslValidate": {
+            "type": "boolean"
+          },
+          "sslCA": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sslCert": {
+            "type": "string"
+          },
+          "sslKey": {
+            "type": "string"
+          },
+          "sslPass": {
+            "type": "string"
+          },
+          "socketOptions": {
+            "type": "object",
+            "properties": {
+              "noDelay": {
+                "type": "boolean"
+              },
+              "keepAlive": {
+                "type": "number"
+              },
+              "connectTimeoutMS": {
+                "type": "number"
+              },
+              "socketTimeoutMS": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
