@@ -75,7 +75,7 @@
     "json": "^9.0.4",
     "mocha": "^2.3.4",
     "ms-amqp-transport": "^3.1.0",
-    "ms-validation": "~2.x.x",
+    "ms-validation": "~3.0.0",
     "request": "^2.73.0",
     "restify": "~4.x.x",
     "semantic-release": "^6.0.0",
