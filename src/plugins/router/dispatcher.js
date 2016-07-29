@@ -1,9 +1,7 @@
-const debug = require('debug')('mservice:router:dispatcher');
 const is = require('is');
 const Promise = require('bluebird');
 
 function dispatch(route, request, callback) {
-  debug('process route "%s" with request "%s"', route, JSON.stringify(request));
   const router = this;
 
   const result = Promise
