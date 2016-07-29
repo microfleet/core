@@ -64,7 +64,7 @@
     "common-errors": "^1.0.0",
     "cz-conventional-changelog": "^1.1.6",
     "elasticsearch": "~11.x.x",
-    "eslint": "^3.0.1",
+    "eslint": "^3.2.0",
     "eslint-config-airbnb-base": "^5.0.0",
     "eslint-plugin-import": "^1.10.2",
     "eslint-plugin-mocha": "^4.0.0",
