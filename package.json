@@ -41,7 +41,7 @@
     "common-errors": "^1.x.x",
     "elasticsearch": "~11.x.x",
     "express": "~4.x.x",
-    "express-cassandra": "~1.x.x",
+    "express-cassandra": "~1.1.2",
     "ioredis": "~2.2.0",
     "ms-amqp-transport": "~4.x.x",
     "ms-validation": "~3.x.x",
