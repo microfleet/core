@@ -74,7 +74,7 @@
     "isparta": "^4.0.0",
     "istanbul": "^0.4.4",
     "json": "^9.0.4",
-    "mocha": "^2.3.4",
+    "mocha": "^3.0.0",
     "ms-amqp-transport": "^4.0.0",
     "ms-validation": "^3.0.0",
     "request": "^2.73.0",
