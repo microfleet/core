@@ -1,12 +1,15 @@
+const AdapterFactory = require('ms-socket.io-adapter-amqp');
 const assert = require('assert');
+const attachRouter = require('./socketIO/router/attach');
 const debug = require('debug')('mservice:socketIO');
+const Errors = require('common-errors');
 const is = require('is');
 const SocketIO = require('socket.io');
-const attachRouter = require('./socketIO/router/attach');
 
-/**
- * @todo add adapter factory
- */
+const adapters = {
+  amqp: options => AdapterFactory.fromOptions(options),
+};
+
 function attachSocketIO(config = {}) {
   debug('Attaching socketIO plugin');
   const service = this;
@@ -15,10 +18,21 @@ function attachSocketIO(config = {}) {
     assert.ifError(this.validateSync('socketIO', config).error);
   }
 
-  const socketIO = new SocketIO(config.options);
+  const { options, router } = config;
+  const { adapter } = options;
 
-  if (config.router.enabled) {
-    attachRouter(socketIO, config.router, service.router);
+  if (is.object(adapter)) {
+    if (adapters[adapter.name] === undefined) {
+      throw new Errors.NotImplementedError(`Adapter ${adapter.name} is not implemented`);
+    }
+
+    options.adapter = adapters[adapter.name](adapter.options);
+  }
+
+  const socketIO = new SocketIO(options);
+
+  if (router.enabled) {
+    attachRouter(socketIO, router, service.router);
   }
 
   this._socketIO = socketIO;

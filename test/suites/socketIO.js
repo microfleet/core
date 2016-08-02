@@ -1,10 +1,11 @@
 const { expect } = require('chai');
+const AdapterTransport = require('ms-socket.io-adapter-amqp/lib/transport');
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const socketIOClient = require('socket.io-client');
 
-describe('socketIO suite', function testSuite() {
+describe('"socketIO" plugin', function testSuite() {
   const Mservice = require('../../src');
 
   it('should throw error when plugin isn\'t included', function test() {
@@ -33,5 +34,27 @@ describe('socketIO suite', function testSuite() {
       expect(response).to.be.deep.equals({ message: 'foo' });
       service.close().asCallback(done);
     });
+  });
+
+  it.only('should be able to set up AMQP adapter', function test(done) {
+    const service = new Mservice({
+      plugins: ['validator', 'socketIO'],
+      socketIO: {
+        options: {
+          adapter: {
+            name: 'amqp',
+            options: {
+              connection: {
+                host: 'rabbitmq',
+                port: 5672,
+              },
+            }
+          }
+        },
+      },
+    });
+
+    expect(service.socketIO.sockets.adapter.transport).to.be.instanceof(AdapterTransport);
+    done();
   });
 });
