@@ -1,4 +1,4 @@
-const attachRouter = require('./../router/attach');
+const attachRouter = require('./router/attach');
 const enableDestroy = require('server-destroy');
 const Errors = require('common-errors');
 const express = require('express');
@@ -16,7 +16,7 @@ function createExpressServer(config, service) {
   }
 
   if (config.router.enabled) {
-    attachRouter(handler, service.router);
+    attachRouter(handler, config.router, service.router);
   }
 
   service._http = {

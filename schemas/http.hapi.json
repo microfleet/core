@@ -1,0 +1,15 @@
+{
+  "id": "http.hapi",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "server": {
+      "default": {},
+      "type": "object"
+    },
+    "connection": {
+      "default": {},
+      "type": "object"
+    }
+  }
+}

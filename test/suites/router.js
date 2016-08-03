@@ -46,6 +46,7 @@ describe('Router suite', function testSuite() {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
           enabled: { simple: 'simple' },
+          prefix: 'action',
           transports: [
             ActionTransport.amqp,
             ActionTransport.http,
@@ -172,6 +173,7 @@ describe('Router suite', function testSuite() {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
           enabled: { withoutSchema: 'withoutSchema' },
+          prefix: 'action',
           setTransportsAsDefault: true,
           transports: [ActionTransport.amqp],
         },

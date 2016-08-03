@@ -17,7 +17,7 @@
       "type": "object"
     },
     "prefix": {
-      "default": "action",
+      "default": "",
       "type": "string"
     },
     "setTransportsAsDefault": {

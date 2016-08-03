@@ -1,24 +1,17 @@
 const { expect } = require('chai');
-const express = require('express');
-const http = require('http');
 const path = require('path');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
 
-describe('Http server with \'express\' handler suite', function testSuite() {
+describe('Http server with \'hapi\' handler', function testSuite() {
   const Mservice = require('../../src');
 
-  it('should start \'express\' http server when plugin is included', function test() {
+  it('should starts \'hapi\' http server when plugin is included', function test() {
     this.service = new Mservice({
       plugins: ['validator', 'http'],
       http: {
         server: {
-          handler: 'express',
-          handlerConfig: {
-            properties: {
-              'x-powered-by': 'mservice test'
-            }
-          },
+          handler: 'hapi',
           port: 3000,
         }
       },
@@ -31,55 +24,29 @@ describe('Http server with \'express\' handler suite', function testSuite() {
         return Promise.resolve(result.value());
       })
       .spread(server => {
-        expect(server.handler).to.be.instanceof(Function);
-        expect(server.server).to.be.instanceof(http.Server);
-        expect(this.service.http.handler).to.be.instanceof(Function);
-        expect(this.service.http.server).to.be.instanceof(http.Server);
-        expect(this.service.http.handler.get('x-powered-by')).to.be.equals('mservice test');
+        expect(server).to.be.equals(this.service.http);
+        expect(this.service.http.info.started !== undefined).to.be.equals(true);
+        expect(this.service.http.info.started > 0).to.be.equals(true);
       });
   });
 
-  it('should can add routes after start', function test(done) {
-    const application = this.service.http.handler;
-    const router = express.Router();
-    router.use('/bar', function(req, res, next) {
-      res.send('/bar route');
-      next();
-    });
-    application.use('/', router);
-
-    http.get('http://0.0.0.0:3000/bar', (res) => {
-      let body = '';
-
-      res.on('data', (chunk) => body += chunk);
-      res.on('end', () => {
-        expect(body).to.be.equals('/bar route');
-        done();
-      });
-    }).on('error', (error) => {
-      done(error);
-    });
-  });
-
-  it('should be able to stop \'express\' http server', function test() {
+  it('should be able to stop \'hapi\' http server', function test() {
     return this.service.close()
       .reflect()
       .then(result => {
         expect(result.isFulfilled()).to.be.eq(true);
-        return Promise.resolve(result.value());
-      })
-      .spread(() => {
-        expect(this.service.http.server.listening).to.be.eq(false);
+        expect(this.service.http.info.started !== undefined).to.be.equals(true);
+        expect(this.service.http.info.started === 0).to.be.equals(true);
       });
   });
 
-  it('should attach \'socket.io\' when plugin is included', function test(done) {
+  it('should be able to attach \'socketIO\' plugin', function test(done) {
     const service = new Mservice({
       plugins: ['validator', 'logger', 'router', 'http', 'socketIO'],
       http: {
         server: {
           attachSocketIO: true,
-          handler: 'express',
+          handler: 'hapi',
           port: 3000,
         }
       },
@@ -91,6 +58,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
     service.connect()
       .then(() => {
         const client = SocketIOClient('http://0.0.0.0:3000');
+        client.on('error', done);
         client.emit('action', { action: 'echo', message: 'foo' }, (error, response) => {
           expect(error).to.be.equals(null);
           expect(response).to.be.deep.equals({ message: 'foo' });
@@ -104,7 +72,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
       plugins: ['validator', 'logger', 'router', 'http'],
       http: {
         server: {
-          handler: 'express',
+          handler: 'hapi',
           port: 3000,
         },
         router: {
@@ -148,7 +116,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
       plugins: ['validator', 'logger', 'router', 'http'],
       http: {
         server: {
-          handler: 'express',
+          handler: 'hapi',
           port: 3000,
         },
         router: {
@@ -188,12 +156,12 @@ describe('Http server with \'express\' handler suite', function testSuite() {
       });
   });
 
-  it('should be able to use \'express\' plugin prefix', () => {
+  it('should be able to use \'hapi\' plugin prefix', () => {
     const service = new Mservice({
       plugins: ['validator', 'logger', 'router', 'http'],
       http: {
         server: {
-          handler: 'express',
+          handler: 'hapi',
           port: 3000,
         },
         router: {
@@ -233,12 +201,12 @@ describe('Http server with \'express\' handler suite', function testSuite() {
       });
   });
 
-  it('should be able to use both \'express\' plugin prefix and \'router\' plugin prefix', () => {
+  it('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', () => {
     const service = new Mservice({
       plugins: ['validator', 'logger', 'router', 'http'],
       http: {
         server: {
-          handler: 'express',
+          handler: 'hapi',
           port: 3000,
         },
         router: {
