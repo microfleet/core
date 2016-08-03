@@ -36,7 +36,7 @@ describe('"socketIO" plugin', function testSuite() {
     });
   });
 
-  it.only('should be able to set up AMQP adapter', function test(done) {
+  it('should be able to set up AMQP adapter', function test(done) {
     const service = new Mservice({
       plugins: ['validator', 'socketIO'],
       socketIO: {

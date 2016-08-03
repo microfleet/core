@@ -35,7 +35,13 @@ module.exports = function getHapiAdapter(router, config) {
           errorMessage = message;
         }
 
-        return reply(Boom.wrap(error, statusCode, errorMessage));
+        const replyError = Boom.wrap(error, statusCode, errorMessage);
+
+        if (error.name) {
+          replyError.output.payload.name = error.name;
+        }
+
+        return reply(replyError);
       }
 
       return reply(null, result);

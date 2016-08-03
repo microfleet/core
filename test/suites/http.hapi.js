@@ -1,5 +1,6 @@
 const { expect } = require('chai');
 const path = require('path');
+const Promise = require('bluebird');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
 
@@ -102,10 +103,18 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
-          expect(response.statusCode).to.be.equals(200);
-          expect(response.body).to.be.deep.equals({ message: 'foo' });
-
+        return Promise.all([
+          request(options).then(response => {
+            expect(response.statusCode).to.be.equals(200);
+            expect(response.body).to.be.deep.equals({ message: 'foo' });
+          }),
+          request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then(response => {
+            expect(response.statusCode).to.be.equals(404);
+            expect(response.body.name).to.be.equals('NotFoundError');
+            expect(response.body.message).to.be.deep.equals('Not Found: "route "not-found" not found"');
+          })
+        ]).reflect().then(inspection => {
+          expect(inspection.isFulfilled()).to.be.equals(true);
           return service.close();
         });
       });
