@@ -1,9 +1,10 @@
 const { ActionTransport } = require('./../../../../../');
+const { fromPathToName } = require('./../../../helpers/actionName');
 const Boom = require('boom');
 const Errors = require('common-errors');
 const is = require('is');
 
-module.exports = function getHapiAdapter(router) {
+module.exports = function getHapiAdapter(router, config) {
   return function handler(request, reply) {
     function callback(error, result) {
       if (error) {
@@ -40,7 +41,7 @@ module.exports = function getHapiAdapter(router) {
       return reply(null, result);
     }
 
-    const actionName = request.path.split('/').slice(1).join('.');
+    const actionName = fromPathToName(request.path, config.prefix);
     router.dispatch(actionName, {
       params: request.payload,
       transport: ActionTransport.http,

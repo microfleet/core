@@ -1,7 +1,8 @@
-const { ActionTransport } = require('./../../../');
+const { ActionTransport } = require('./../../../../../');
+const { fromPathToName } = require('./../../../helpers/actionName');
 const Errors = require('common-errors');
 
-function getHTTPRouter(router) {
+function getHTTPRouter(router, config) {
   return function HTTPRouter(request, response) {
     function callback(error, result) {
       if (error) {
@@ -28,7 +29,7 @@ function getHTTPRouter(router) {
       response.json(error || result);
     }
 
-    const actionName = request.path.split('/').slice(1).join('.');
+    const actionName = fromPathToName(request.path, config.prefix);
     return router.dispatch(actionName, {
       params: request.body,
       transport: ActionTransport.http,

@@ -60,7 +60,7 @@ function getRoutes(config) {
   });
 
   Object.keys(enabled).forEach(route => {
-    const routingKey = [config.prefix, enabled[route]].join('.');
+    const routingKey = config.prefix.length ? `${config.prefix}.${enabled[route]}` : enabled[route];
     const action = require(path.resolve(config.directory, route));
 
     if (config.setTransportsAsDefault === true && action.transports === undefined) {
