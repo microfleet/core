@@ -368,9 +368,22 @@ const service = new Service({
 
 Attach `Socket.io` instance to `.socketIO` property.
 
+#### Config
+
+* `router`
+    * `enabled` - `boolean`, enable router, default `false`
+    * `actionEvent` - `string`, an event name that should be emitted 
+       for routing, default `action`
+    * `requestActionKey` - `string`, an action name key, default `action`
+* `options` - `object`, `socket.io` options
+    * `adapter` - `object`, adapter
+        * `name` - `string`, adapter name, e.g. `amqp`
+        * `options` - `object`, adapter options
+
 #### Peer dependencies
 
 * `npm i socket.io -S`
+* `npm i ms-socket.io-adapter-amqp -S`
 
 #### Usage
 ```js
