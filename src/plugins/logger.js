@@ -1,4 +1,3 @@
-const bunyan = require('bunyan');
 const is = require('is');
 const stdout = require('stdout-stream');
 
@@ -6,6 +5,8 @@ exports.name = 'logger';
 
 exports.attach = function attachLogger(conf) {
   const service = this;
+  const bunyan = service._require('bunyan');
+
   const { debug, name } = service._config;
   const loggerEnabled = is.undef(conf) ? debug : conf;
 

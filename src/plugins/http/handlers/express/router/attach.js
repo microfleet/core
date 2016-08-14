@@ -1,14 +1,14 @@
-const { ActionTransport } = require('./../../../../../');
-const { fromNameToPath } = require('./../../../helpers/actionName');
-const bodyParser = require('body-parser');
+const { ActionTransport } = require('../../../../../');
+const { fromNameToPath } = require('../../../helpers/actionName');
 const getHTTPRouterAdapter = require('./adapter');
-const verifyPossibility = require('./../../../../router/verifyAttachPossibility');
+const verifyPossibility = require('../../../../router/verifyAttachPossibility');
 
-function attachHTTPRouter(handler, config, router) {
-  verifyPossibility(router, ActionTransport.http);
+function attachHTTPRouter(service, handler, config) {
+  const bodyParser = service._require('body-parser');
+  verifyPossibility(service.router, ActionTransport.http);
   const path = fromNameToPath('*', config.prefix);
   handler.use(bodyParser.json());
-  handler.post(path, getHTTPRouterAdapter(router, config));
+  handler.post(path, getHTTPRouterAdapter(service.router, config));
 }
 
 module.exports = attachHTTPRouter;

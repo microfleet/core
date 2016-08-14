@@ -1,6 +1,5 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
-const Redis = require('ioredis');
 const is = require('is');
 const loadLuaScripts = require('./redis/utils.js');
 const debug = require('debug')('mservice:redisSentinel');
@@ -9,6 +8,7 @@ exports.name = 'redis';
 
 exports.attach = function attachRedisSentinel(conf = {}) {
   const service = this;
+  const Redis = service._require('ioredis');
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {

@@ -5,6 +5,9 @@ const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
 const is = require('is');
 const stdout = require('stdout-stream');
+const pkg = require('../package.json');
+const semver = require('semver');
+const chalk = require('chalk');
 
 /**
  * Configuration options for the service
@@ -42,6 +45,14 @@ class Mservice extends EventEmitter {
 
     // init configuration
     const config = this._config = { ...defaultOpts, ...opts };
+
+    // init getters
+    [
+      'config', 'amqp', 'redis',
+      'validator', 'log', 'elasticsearch',
+      'cassandra', 'http', 'socketIO',
+      'router',
+    ].map(prop => this._defineGetter(prop));
 
     // init plugins
     this._initPlugins(config);
@@ -105,82 +116,32 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   * General configuration object
+   * Performs require and validates that constraints are met
    */
-  get config() {
-    return this._get('config');
+  _require(name) {
+    const version = pkg.pluginDependencies[name];
+    const depVersion = require(`${name}/package.json`).version;
+
+    // print warning if we have incompatible version
+    if (!semver.satisfies(depVersion, version)) {
+      // eslint-disable-next-line max-len
+      const msg = `Package ${name} has version ${depVersion} installed. However, required module version is ${version}\n`;
+      process.stderr.write(chalk.yellow(msg));
+    }
+
+    return require(name);
   }
 
   /**
-   * Getter for amqp connection
-   * @return {Object}
+   * Defines convinience getters
    */
-  get amqp() {
-    return this._get('amqp');
-  }
-
-  /**
-   * Getter for redis connection
-   * @return {Object}
-   */
-  get redis() {
-    return this._get('redis');
-  }
-
-  /**
-   * Getter for validator plugin
-   * @return {Object}
-   */
-  get validator() {
-    return this._get('validator');
-  }
-
-  /**
-   * Getter for logger plugin
-   * @return {Object}
-   */
-  get log() {
-    return this._get('log');
-  }
-
-  /**
-   * Getter for elasticsearch connection
-   * @return {Object}
-   */
-  get elasticsearch() {
-    return this._get('elasticsearch');
-  }
-
-  /**
-   * Getter for cassandra connection
-   * @return {Object}
-   */
-  get cassandra() {
-    return this._get('cassandra');
-  }
-
-  /**
-   * Getter for http server
-   * @return {Object}
-   */
-  get http() {
-    return this._get('http');
-  }
-
-  /**
-   * Getter for https server handler
-   * @return {Object}
-   */
-  get socketIO() {
-    return this._get('socketIO');
-  }
-
-  /**
-   * Getter for router
-   * @return {Object}
-   */
-  get router() {
-    return this._get('router');
+  _defineGetter(name) {
+    Object.defineProperty(this, name, {
+      __proto__: null,
+      enumerable: true,
+      configurable: false,
+      get: () => this._get(name),
+    });
   }
 
   /**

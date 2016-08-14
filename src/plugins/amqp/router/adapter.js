@@ -1,4 +1,4 @@
-const { ActionTransport } = require('./../../../');
+const { ActionTransport } = require('../../../');
 
 function getAMQPRouterAdapter(router) {
   return function AMQPRouterAdapter(message, headers, actions, callback) {

@@ -1,18 +1,18 @@
-const AdapterFactory = require('ms-socket.io-adapter-amqp');
 const assert = require('assert');
 const attachRouter = require('./socketIO/router/attach');
 const debug = require('debug')('mservice:socketIO');
 const Errors = require('common-errors');
 const is = require('is');
-const SocketIO = require('socket.io');
-
-const adapters = {
-  amqp: options => AdapterFactory.fromOptions(options),
-};
 
 function attachSocketIO(config = {}) {
   debug('Attaching socketIO plugin');
   const service = this;
+  const AdapterFactory = service._require('ms-socket.io-adapter-amqp');
+  const SocketIO = service._require('socket.io');
+
+  const adapters = {
+    amqp: options => AdapterFactory.fromOptions(options),
+  };
 
   if (is.fn(this.validateSync)) {
     assert.ifError(this.validateSync('socketIO', config).error);

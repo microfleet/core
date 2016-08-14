@@ -1,14 +1,14 @@
-const { ActionTransport } = require('./../../../../../');
-const { fromNameToPath } = require('./../../../helpers/actionName');
+const { ActionTransport } = require('../../../../../');
+const { fromNameToPath } = require('../../../helpers/actionName');
 const hapiRouterAdapter = require('./adapter');
-const verifyPossibility = require('./../../../../router/verifyAttachPossibility');
+const verifyPossibility = require('../../../../router/verifyAttachPossibility');
 
-module.exports = function attachRouter(server, router, config) {
-  verifyPossibility(router, ActionTransport.http);
+module.exports = function attachRouter(service, server, config) {
+  verifyPossibility(service.router, ActionTransport.http);
   const path = fromNameToPath('{p*}', config.prefix);
   server.route({
     path,
-    handler: hapiRouterAdapter(router, config),
+    handler: hapiRouterAdapter(service, config),
     method: 'POST',
   });
 };

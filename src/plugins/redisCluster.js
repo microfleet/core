@@ -1,6 +1,5 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
-const { Cluster } = require('ioredis');
 const is = require('is');
 const loadLuaScripts = require('./redis/utils.js');
 const debug = require('debug')('mservice:redisCluster');
@@ -9,6 +8,7 @@ exports.name = 'redis';
 
 exports.attach = function attachRedisCluster(conf = {}) {
   const service = this;
+  const { Cluster } = service._require('ioredis');
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {
@@ -29,37 +29,24 @@ exports.attach = function attachRedisCluster(conf = {}) {
         return Promise.reject(new Errors.NotPermittedError('redis was already started'));
       }
 
-      /* eslint-disable prefer-const */
-      return new Promise((resolve, reject) => {
-        let onReady;
-        let onError;
-
-        const instance = new Cluster(conf.hosts, conf.options);
-
-        // attach to instance right away
-        if (conf.luaScripts) {
-          debug('attaching lua');
-          loadLuaScripts(conf.luaScripts, instance);
-        }
-
-        onReady = function redisConnect() { // eslint-disable-line prefer-const
-          instance.removeListener('error', onError);
-          resolve(instance);
-        };
-
-        onError = function redisError(err) { // eslint-disable-line prefer-const
-          instance.removeListener('ready', onReady);
-          reject(err);
-        };
-
-        instance.once('ready', onReady);
-        instance.once('error', onError);
-      })
-      .tap(instance => {
-        service._redis = instance;
-        service.emit('plugin:connect:redisCluster', instance);
+      const instance = new Cluster(conf.hosts, {
+        ...conf.options,
+        lazyConnect: true,
       });
-      /* eslint-enable prefer-const */
+
+      // attach to instance right away
+      if (conf.luaScripts) {
+        debug('attaching lua');
+        loadLuaScripts(conf.luaScripts, instance);
+      }
+
+      return instance
+        .connect()
+        .tap(() => {
+          service._redis = instance;
+          service.emit('plugin:connect:redisCluster', instance);
+        })
+        .return(instance);
     },
 
     /**

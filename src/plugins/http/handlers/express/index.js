@@ -1,22 +1,23 @@
-const attachRouter = require('./router/attach');
-const enableDestroy = require('server-destroy');
 const Errors = require('common-errors');
-const express = require('express');
 const http = require('http');
 const is = require('is');
 const Promise = require('bluebird');
+const attachRouter = require('./router/attach');
 
 function createExpressServer(config, service) {
+  const enableDestroy = service._require('server-destroy');
+  const express = service._require('express');
+
   const handler = express();
   const server = http.createServer(handler);
   const properties = config.server.handlerConfig && config.server.handlerConfig.properties;
 
   if (is.object(properties)) {
-    Object.keys(properties).forEach((key) => handler.set(key, properties[key]));
+    Object.keys(properties).forEach(key => handler.set(key, properties[key]));
   }
 
   if (config.router.enabled) {
-    attachRouter(handler, config.router, service.router);
+    attachRouter(service, handler, config.router);
   }
 
   service._http = {

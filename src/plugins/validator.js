@@ -1,6 +1,5 @@
 const path = require('path');
 const Errors = require('common-errors');
-const Validator = require('ms-validation');
 const callsite = require('callsite');
 
 exports.name = 'validator';
@@ -11,6 +10,7 @@ exports.name = 'validator';
  */
 exports.attach = function attachValidator(conf, parentFile) {
   const service = this;
+  const Validator = service._require('ms-validation');
   const validator = new Validator('../../schemas');
 
   if (conf) {

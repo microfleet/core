@@ -1,6 +1,6 @@
-const { ActionTransport } = require('./../../../');
+const { ActionTransport } = require('../../../');
 const getSocketIORouterAdapter = require('./adapter');
-const verifyPossibility = require('./../../router/verifyAttachPossibility');
+const verifyPossibility = require('../../router/verifyAttachPossibility');
 
 function attachSocketIORouter(socketIO, config, router) {
   verifyPossibility(router, ActionTransport.socketIO);
@@ -8,4 +8,3 @@ function attachSocketIORouter(socketIO, config, router) {
 }
 
 module.exports = attachSocketIORouter;
-
