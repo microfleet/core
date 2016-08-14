@@ -1,12 +1,12 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
-const Elasticsearch = require('elasticsearch');
 const is = require('is');
 
 exports.name = 'elasticsearch';
 
 exports.attach = function attachElasticsearch(conf = {}) {
   const service = this;
+  const Elasticsearch = service._require('elasticsearch');
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {

@@ -1,12 +1,11 @@
-const { ActionTransport } = require('./../');
-const _ = require('lodash');
-const AMQPSchema = require('ms-amqp-transport/schema.json');
-const AMQPTransport = require('ms-amqp-transport');
-const assert = require('assert');
-const Errors = require('common-errors');
-const getAMQPRouterAdapter = require('./amqp/router/adapter');
-const is = require('is');
 const Promise = require('bluebird');
+const Errors = require('common-errors');
+const cloneDeep = require('lodash/cloneDeep');
+const assert = require('assert');
+const is = require('is');
+
+const { ActionTransport } = require('../');
+const getAMQPRouterAdapter = require('./amqp/router/adapter');
 const verifyPossibility = require('./router/verifyAttachPossibility');
 
 /**
@@ -17,8 +16,11 @@ const verifyPossibility = require('./router/verifyAttachPossibility');
 function attachAMQPPlugin(config) {
   const service = this;
 
+  const AMQPTransport = service._require('ms-amqp-transport');
+  const AMQPSchema = require('ms-amqp-transport/schema.json');
+
   if (is.fn(service.validateSync)) {
-    const transportSchema = _.cloneDeep(AMQPSchema);
+    const transportSchema = cloneDeep(AMQPSchema);
     transportSchema.id = 'amqp.transport';
     service.validator.ajv.addSchema(transportSchema);
     assert.ifError(service.validateSync('amqp', config).error);

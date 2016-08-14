@@ -1,10 +1,12 @@
-const { ActionTransport } = require('./../../../../../');
-const { fromPathToName } = require('./../../../helpers/actionName');
-const Boom = require('boom');
+const { ActionTransport } = require('../../../../../');
+const { fromPathToName } = require('../../../helpers/actionName');
 const Errors = require('common-errors');
 const is = require('is');
 
-module.exports = function getHapiAdapter(router, config) {
+module.exports = function getHapiAdapter(service, config) {
+  const Boom = service._require('boom');
+  const router = service.router;
+
   return function handler(request, reply) {
     function callback(error, result) {
       if (error) {

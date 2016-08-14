@@ -2,7 +2,7 @@ const _ = require('lodash');
 const debug = require('debug')('mservice:router:module:lifecycle');
 const is = require('is');
 const Errors = require('common-errors');
-const Extensions = require('./../../extensions');
+const Extensions = require('../../extensions');
 const Promise = require('bluebird');
 
 function moduleLifecycle(module, promiseFactory, extensions, args, context) {

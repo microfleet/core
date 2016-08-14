@@ -1,9 +1,10 @@
-const enableDestroy = require('server-destroy');
 const Errors = require('common-errors');
 const Promise = require('bluebird');
-const restify = require('restify');
 
 function createRestifyServer(config, service) {
+  const restify = service._require('restify');
+  const enableDestroy = service._require('server-destroy');
+
   const restifyConfig = config.server.handlerConfig || {};
   restifyConfig.socketio = true; // prevent handle socket.io requests, see restify server
   service._http = restify.createServer(restifyConfig);

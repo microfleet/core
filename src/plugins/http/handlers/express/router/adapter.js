@@ -1,5 +1,5 @@
-const { ActionTransport } = require('./../../../../../');
-const { fromPathToName } = require('./../../../helpers/actionName');
+const { ActionTransport } = require('../../../../../');
+const { fromPathToName } = require('../../../helpers/actionName');
 const Errors = require('common-errors');
 
 function getHTTPRouter(router, config) {

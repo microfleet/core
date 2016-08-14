@@ -1,9 +1,10 @@
 const Errors = require('common-errors');
-const Hapi = require('hapi');
 const attachRouter = require('./router/attach');
 const Promise = require('bluebird');
 
 function createHapiServer(config, service) {
+  const Hapi = service._require('hapi');
+
   const handlerConfig = config.server.handlerConfig;
   const server = service._http = new Hapi.Server(handlerConfig.server);
 
@@ -13,7 +14,7 @@ function createHapiServer(config, service) {
   }));
 
   if (config.router.enabled) {
-    attachRouter(server, service.router, config.router);
+    attachRouter(service, server, config.router);
   }
 
   function startServer() {
