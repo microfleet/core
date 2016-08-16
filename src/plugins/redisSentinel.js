@@ -38,7 +38,7 @@ exports.attach = function attachRedisSentinel(conf = {}) {
       }
 
       return instance.connect().then(() => {
-        service.addMigrator('redis', migrate, instance);
+        service.addMigrator('redis', migrate, instance, service);
         service._redis = instance;
         service.emit('plugin:connect:redisSentinel', instance);
         return instance;
