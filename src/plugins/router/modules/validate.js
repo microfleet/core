@@ -13,10 +13,10 @@ function validate(request) {
     .return(request)
     .catch(error => {
       if (error.constructor === Errors.ValidationError) {
-        return Promise.reject(error);
+        throw error;
       }
 
-      return Promise.reject(new Errors.Error(error));
+      throw new Errors.Error(error);
     });
 }
 

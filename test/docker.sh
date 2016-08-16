@@ -6,6 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DC="$DIR/docker-compose.yml"
 PATH=$PATH:$DIR/.bin/
 COMPOSE="docker-compose -f $DC"
+TESTS=${TESTS:-'./test/suites/*.js'}
 
 if ! [ -x "$(which docker-compose)" ]; then
   mkdir $DIR/.bin
@@ -23,6 +24,11 @@ chmod a+w ./test/redis-sentinel/*.conf
 $COMPOSE up -d
 
 # make sure that services are up
-sleep 40
+if [[ x"$SKIP_REBUILD" == x"1" ]]; then
+  echo "skipping rebuild & sleep";
+else
+  docker exec tester npm rebuild
+  sleep 40
+fi
 
-docker exec tester ./node_modules/.bin/_mocha './test/suites/*.js'
+docker exec tester ./node_modules/.bin/_mocha ${TESTS}

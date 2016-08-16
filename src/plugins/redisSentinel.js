@@ -2,6 +2,7 @@ const Errors = require('common-errors');
 const Promise = require('bluebird');
 const is = require('is');
 const loadLuaScripts = require('./redis/utils.js');
+const migrate = require('./redis/migrate.js');
 const debug = require('debug')('mservice:redisSentinel');
 
 exports.name = 'redis';
@@ -37,6 +38,7 @@ exports.attach = function attachRedisSentinel(conf = {}) {
       }
 
       return instance.connect().then(() => {
+        service.addMigrator('redis', migrate, instance);
         service._redis = instance;
         service.emit('plugin:connect:redisSentinel', instance);
         return instance;
