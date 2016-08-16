@@ -53,7 +53,7 @@ ${script}
 return redis.call('set', versionKey, '${finalVersion}');
 `;
 
-module.exports = async function performMigration(redis, scripts) {
+module.exports = async function performMigration(redis, service, scripts) {
   let files;
   if (is.string(scripts)) {
     debug('looking for files in %s', scripts);
@@ -103,7 +103,7 @@ module.exports = async function performMigration(redis, scripts) {
       pipeline.eval(script, 1, VERSION_KEY);
     } else if (is.fn(file.script)) {
       // must return promise
-      await file.script(redis, pipeline, VERSION_KEY, appendLuaScript);
+      await file.script(service, pipeline, VERSION_KEY, appendLuaScript);
     } else {
       throw new Error('script must be a function if not a string');
     }

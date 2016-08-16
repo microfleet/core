@@ -44,7 +44,7 @@ exports.attach = function attachRedisCluster(conf = {}) {
       return instance
         .connect()
         .then(() => {
-          service.addMigrator('redis', migrate, instance);
+          service.addMigrator('redis', migrate, instance, service);
           service._redis = instance;
           service.emit('plugin:connect:redisCluster', instance);
           return instance;

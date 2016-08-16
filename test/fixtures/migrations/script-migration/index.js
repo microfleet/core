@@ -5,7 +5,7 @@ const script = fs.readFileSync(`${__dirname}/migration.lua`, 'utf8');
 exports.min = 2;
 exports.final = 10;
 
-exports.script = (redis, pipeline, versionKey, appendLuaScript) => redis
+exports.script = (service, pipeline, versionKey, appendLuaScript) => service.redis
   .get('cardinality')
   .return(10)
   .then(cardinality => {
