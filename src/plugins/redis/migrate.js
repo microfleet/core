@@ -99,8 +99,11 @@ module.exports = async function performMigration(redis, service, scripts) {
 
       // finalize content
       const script = appendLuaScript(final, file.min, file.script);
+      const keys = [VERSION_KEY].concat(file.keys || []);
+      const args = file.args;
+
       debug('evaluating script after %s', currentVersion, script);
-      pipeline.eval(script, 1, VERSION_KEY);
+      pipeline.eval(script, keys.length, keys, args);
     } else if (is.fn(file.script)) {
       // must return promise
       await file.script(service, pipeline, VERSION_KEY, appendLuaScript);
