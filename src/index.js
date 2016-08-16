@@ -8,6 +8,8 @@ const stdout = require('stdout-stream');
 const pkg = require('../package.json');
 const semver = require('semver');
 const chalk = require('chalk');
+const partial = require('lodash/partial');
+const assert = require('assert');
 
 /**
  * Configuration options for the service
@@ -68,6 +70,9 @@ class Mservice extends EventEmitter {
       each(hooks, hook => this.on(eventName, hook));
     });
 
+    // init migrations
+    this._migrators = {};
+
     if (config.sigterm) {
       const exit = this.exit.bind(this);
 
@@ -113,6 +118,22 @@ class Mservice extends EventEmitter {
       .map(function performOp(listener) {
         return listener.apply(this, args);
       });
+  }
+
+  /**
+   * Adds migrators
+   */
+  addMigrator(name, fn, ...args) {
+    this._migrators[name] = partial(fn, ...args);
+  }
+
+  /**
+   * Performs migration for a given database or throws if migrator is not present
+   */
+  migrate(name, ...args) {
+    const migrate = this._migrators[name];
+    assert(is.fn(migrate), `migrator ${name} not defined`);
+    return migrate(...args);
   }
 
   /**

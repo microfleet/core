@@ -4,6 +4,13 @@
     "transform-es2015-spread",
     "transform-object-rest-spread",
     "transform-class-properties",
-    "transform-es2015-destructuring"
+    "transform-es2015-destructuring",
+    "transform-runtime",
+    "syntax-async-functions",
+    "transform-es2015-modules-commonjs",
+    ["transform-async-to-module-method", {
+      "module": "bluebird",
+      "method": "coroutine"
+    }]
   ]
 }

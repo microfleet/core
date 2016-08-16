@@ -2,6 +2,7 @@ const Errors = require('common-errors');
 const Promise = require('bluebird');
 const is = require('is');
 const loadLuaScripts = require('./redis/utils.js');
+const migrate = require('./redis/migrate.js');
 const debug = require('debug')('mservice:redisCluster');
 
 exports.name = 'redis';
@@ -42,11 +43,12 @@ exports.attach = function attachRedisCluster(conf = {}) {
 
       return instance
         .connect()
-        .tap(() => {
+        .then(() => {
+          service.addMigrator('redis', migrate, instance);
           service._redis = instance;
           service.emit('plugin:connect:redisCluster', instance);
-        })
-        .return(instance);
+          return instance;
+        });
     },
 
     /**

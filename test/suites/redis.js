@@ -1,15 +1,16 @@
 const path = require('path');
 const is = require('is');
-const { expect } = require('chai');
+const assert = require('assert');
 
 describe('Redis suite', function testSuite() {
   const Mservice = require('../../src');
   const Redis = require('ioredis');
+
   const { Cluster } = Redis;
 
   it('when service does not include `redis` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });
-    expect(() => service.redis).to.throw();
+    assert.throws(() => service.redis);
   });
 
   it('able to connect to redis when plugin is included', function test() {
@@ -20,12 +21,12 @@ describe('Redis suite', function testSuite() {
     return this.service.connect()
       .reflect()
       .then(result => {
-        expect(result.isFulfilled()).to.be.eq(true);
+        assert(result.isFulfilled());
         return Promise.resolve(result.value());
       })
       .spread(redis => {
-        expect(redis).to.be.instanceof(Cluster);
-        expect(() => this.service.redis).to.not.throw();
+        assert(redis instanceof Cluster);
+        assert.doesNotThrow(() => this.service.redis);
       });
   });
 
@@ -33,8 +34,8 @@ describe('Redis suite', function testSuite() {
     return this.service.close()
       .reflect()
       .then(result => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        expect(() => this.service.redis).to.throw();
+        assert(result.isFulfilled());
+        assert.throws(() => this.service.redis);
       });
   });
 
@@ -46,16 +47,27 @@ describe('Redis suite', function testSuite() {
         luaScripts: path.resolve(__dirname, '../fixtures'),
       },
     });
+
     return this.service.connect()
       .reflect()
       .then(result => {
-        expect(result.isFulfilled()).to.be.eq(true);
+        assert(result.isFulfilled());
         return Promise.resolve(result.value());
       })
       .spread(redis => {
-        expect(redis).to.be.instanceof(Redis);
-        expect(() => this.service.redis).to.not.throw();
-        expect(is.fn(redis['echo-woo'])).to.be.eq(true);
+        assert(redis instanceof Redis);
+        assert(is.fn(redis['echo-woo']));
+        assert.doesNotThrow(() => this.service.redis);
+      });
+  });
+
+  it('able to perform migrations', function test() {
+    return this.service
+      .migrate('redis', '/src/test/fixtures/migrations')
+      .then(() => this.service.redis.get('version'))
+      .then(version => {
+        assert.equal(version, '10');
+        return null;
       });
   });
 
@@ -63,8 +75,8 @@ describe('Redis suite', function testSuite() {
     return this.service.close()
       .reflect()
       .then(result => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        expect(() => this.service.redis).to.throw();
+        assert(result.isFulfilled());
+        assert.throws(() => this.service.redis);
       });
   });
 });

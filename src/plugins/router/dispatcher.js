@@ -17,9 +17,7 @@ function dispatch(route, request, callback) {
     return result.asCallback(router.modules.response(callback, request));
   }
 
-  return result.tap(() => {
-    request = null; // eslint-disable-line no-param-reassign
-  });
+  return result;
 }
 
 module.exports = dispatch;
