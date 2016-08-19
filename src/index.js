@@ -37,6 +37,10 @@ class Mservice extends EventEmitter {
     socketIO: 'socketIO',
   };
 
+  static routerExtension(name) {
+    return require(`./plugins/router/extensions/${name}`);
+  }
+
   /**
    * @namespace Users
    * @param  {Object} opts
