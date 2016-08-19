@@ -29,7 +29,7 @@ function attachAMQPPlugin(config) {
 
   if (config.router.enabled === true) {
     verifyPossibility(service.router, ActionTransport.amqp);
-    service.AMQPRouter = getAMQPRouterAdapter(service.router);
+    service.AMQPRouter = getAMQPRouterAdapter(service.router, config);
     // allow ms-amqp-transport to discover routes
     config.transport.listen = Object.keys(service.router.routes.amqp);
   }
