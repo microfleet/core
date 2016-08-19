@@ -1,3 +1,4 @@
+/* eslint-disable max-len, new-cap */
 const { ActionTransport } = require('./../../src');
 const auditLog = require('./../../src/plugins/router/extensions/audit/log');
 const { expect } = require('chai');
@@ -41,7 +42,7 @@ describe('Router suite', function testSuite() {
         },
       },
       logger: true,
-      plugins: [ 'validator', 'logger', 'router', 'amqp', 'http', 'socketIO' ],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -50,7 +51,7 @@ describe('Router suite', function testSuite() {
           transports: [
             ActionTransport.amqp,
             ActionTransport.http,
-            ActionTransport.socketIO
+            ActionTransport.socketIO,
           ],
         },
         auth: {
@@ -64,10 +65,10 @@ describe('Router suite', function testSuite() {
 
                   return Promise.reject(
                     new Errors.AuthenticationRequiredError('Invalid token')
-                  )
+                  );
                 });
-            }
-          }
+            },
+          },
         },
       },
       socketIO: {
@@ -75,7 +76,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      validator: [ path.resolve(__dirname, '../router/helpers/schemas') ]
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
     });
 
     service.connect()
@@ -90,17 +91,21 @@ describe('Router suite', function testSuite() {
           verify: error => {
             expect(error.name).to.be.equals('NotFoundError');
             expect(error.message).to.be.equals('Not Found: "route "not.exists" not found"');
-          }
+          },
         };
 
         const authFailed = {
           expect: 'error',
           verify: error => {
-            expect(error.name).to.be.equals('AuthenticationRequiredError');
-            expect(error.message).to.be.equals(
-              'An attempt was made to perform an operation without authentication: Invalid token'
-            );
-          }
+            try {
+              expect(error.name).to.be.equals('AuthenticationRequiredError');
+              expect(error.message).to.be.equals(
+                'An attempt was made to perform an operation without authentication: Invalid token'
+              );
+            } catch (e) {
+              throw error;
+            }
+          },
         };
 
         const validationFailed = {
@@ -110,7 +115,7 @@ describe('Router suite', function testSuite() {
             expect(error.message).to.be.equals(
               'action.simple validation failed: data.isAdmin should be boolean'
             );
-          }
+          },
         };
 
         const accessDenied = {
@@ -120,7 +125,7 @@ describe('Router suite', function testSuite() {
             expect(error.message).to.be.equals(
               'An attempt was made to perform an operation that is not permitted: You are not admin'
             );
-          }
+          },
         };
 
         const returnsResult = {
@@ -129,7 +134,7 @@ describe('Router suite', function testSuite() {
             expect(result.user).to.be.equals('User');
             expect(result.token).to.be.equals(true);
             expect(result.response).to.be.equals('success');
-          }
+          },
         };
 
         Promise.map(
@@ -168,7 +173,7 @@ describe('Router suite', function testSuite() {
         },
       },
       logger: true,
-      plugins: [ 'validator', 'logger', 'router', 'amqp' ],
+      plugins: ['validator', 'logger', 'router', 'amqp'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -181,11 +186,11 @@ describe('Router suite', function testSuite() {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
             schemaLessAction,
-            auditLog
+            auditLog,
           ],
         },
       },
-      validator: [ path.resolve(__dirname, '../router/helpers/schemas') ]
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
     });
 
     service.connect()
@@ -199,14 +204,14 @@ describe('Router suite', function testSuite() {
             expect(error.message).to.be.equals(
               'withoutSchema validation failed: data.foo should be integer'
             );
-          }
+          },
         };
 
         const returnsResult = {
           expect: 'success',
           verify: result => {
             expect(result.foo).to.be.equals(42);
-          }
+          },
         };
 
         Promise.map(
