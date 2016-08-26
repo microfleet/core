@@ -72,7 +72,7 @@
     "babel-plugin-transform-strict-mode": "^6.11.3",
     "babel-register": "^6.11.6",
     "body-parser": "^1.15.2",
-    "boom": "^3.2.2",
+    "boom": "^4.0.0",
     "bunyan": "^1.8.1",
     "chai": "^3.5.0",
     "common-errors": "^1.0.0",
