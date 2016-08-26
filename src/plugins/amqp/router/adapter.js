@@ -1,4 +1,5 @@
 const { ActionTransport } = require('../../../');
+const Promise = require('bluebird');
 const is = require('is');
 
 function getAMQPRouterAdapter(router, config) {
@@ -15,11 +16,15 @@ function getAMQPRouterAdapter(router, config) {
 
   return function AMQPRouterAdapter(message, headers, actions, next) {
     const actionName = headers.routingKey;
-    const promise = router.dispatch(actionName, {
-      params: message,
-      transport: ActionTransport.amqp,
+
+    // TODO: response module is not correctly called, callback is always needed
+    const promise = Promise.fromNode(callback => {
+      router.dispatch(actionName, { params: message, transport: ActionTransport.amqp }, callback);
     });
+
     const wrappedDispatch = wrapDispatch(promise, actionName, actions);
+
+    // promise or callback
     return is.fn(next) ? wrappedDispatch.asCallback(next) : wrappedDispatch;
   };
 }

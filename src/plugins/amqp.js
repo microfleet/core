@@ -57,7 +57,6 @@ function attachAMQPPlugin(config) {
         .tap(amqp => {
           service._amqp = amqp;
           service.emit('plugin:connect:amqp', amqp);
-          return amqp;
         });
     },
 
