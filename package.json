@@ -81,7 +81,7 @@
     "eslint": "^3.3.0",
     "eslint-config-airbnb-base": "^5.0.2",
     "eslint-plugin-import": "^1.13.0",
-    "eslint-plugin-mocha": "^4.3.0",
+    "eslint-plugin-mocha": "^4.5.1",
     "express": "~4.x.x",
     "express-cassandra": "^1.2.1",
     "hapi": "^14.2.0",
