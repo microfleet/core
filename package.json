@@ -84,7 +84,7 @@
     "eslint-plugin-mocha": "^4.3.0",
     "express": "~4.x.x",
     "express-cassandra": "^1.2.1",
-    "hapi": "^14.2.0",
+    "hapi": "^15.0.3",
     "ioredis": "^2.3.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.4",
