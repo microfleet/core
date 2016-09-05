@@ -5,8 +5,7 @@ function dispatch(route, request, callback) {
   const router = this;
 
   const result = Promise
-    .resolve([route, request])
-    .bind(router.service)
+    .bind(router.service, [route, request])
     .spread(router.modules.request)
     .then(router.modules.auth)
     .then(router.modules.validate)

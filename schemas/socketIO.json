@@ -10,14 +10,6 @@
         "enabled": {
           "type": "boolean",
           "default": false
-        },
-        "actionEvent": {
-          "type": "string",
-          "default": "action"
-        },
-        "requestActionKey": {
-          "type": "string",
-          "default": "action"
         }
       }
     },
