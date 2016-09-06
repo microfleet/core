@@ -16,7 +16,7 @@ const assert = require('assert');
  * @type {Object}
  */
 const defaultOpts = {
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV !== 'production',
   logger: false,
   plugins: ['validator', 'logger', 'amqp'],
   hooks: {},
