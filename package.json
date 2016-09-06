@@ -80,7 +80,7 @@
     "cz-conventional-changelog": "^1.2.0",
     "elasticsearch": "~11.x.x",
     "eslint": "^3.4.0",
-    "eslint-config-airbnb-base": "^5.0.3",
+    "eslint-config-airbnb-base": "^7.0.0",
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-mocha": "^4.5.1",
     "express": "~4.x.x",
