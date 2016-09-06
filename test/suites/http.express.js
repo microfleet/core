@@ -91,7 +91,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
     service.connect()
       .then(() => {
         const client = SocketIOClient('http://0.0.0.0:3000');
-        client.emit('action', { action: 'echo', message: 'foo' }, (error, response) => {
+        client.emit('echo', { message: 'foo' }, (error, response) => {
           expect(error).to.be.equals(null);
           expect(response).to.be.deep.equals({ message: 'foo' });
           service.close().asCallback(done);

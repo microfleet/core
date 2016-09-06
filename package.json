@@ -56,7 +56,8 @@
     "ms-validation": "~3.x.x",
     "restify": "~4.x.x",
     "server-destroy": "~1.x.x",
-    "socket.io": "~1.x.x"
+    "socket.io": "~1.x.x",
+    "socketio-wildcard": "~0.x.x"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
@@ -99,7 +100,8 @@
     "semantic-release": "^6.0.0",
     "server-destroy": "~1.x.x",
     "socket.io": "~1.x.x",
-    "socket.io-client": "^1.4.6"
+    "socket.io-client": "^1.4.6",
+    "socketio-wildcard": "^0.3.0"
   },
   "release": {
     "verifyConditions": []

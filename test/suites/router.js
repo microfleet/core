@@ -139,11 +139,11 @@ describe('Router suite', function testSuite() {
 
         Promise.map(
           [
-            () => socketIORequest({ action: 'not.exists' }).reflect().then(verify(routeNotFound)),
-            () => socketIORequest({ action: 'action.simple' }).reflect().then(verify(authFailed)),
-            () => socketIORequest({ action: 'action.simple', token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-            () => socketIORequest({ action: 'action.simple', token: true }).reflect().then(verify(accessDenied)),
-            () => socketIORequest({ action: 'action.simple', token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+            () => socketIORequest('not.exists', {}).reflect().then(verify(routeNotFound)),
+            () => socketIORequest('action.simple', {}).reflect().then(verify(authFailed)),
+            () => socketIORequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+            () => socketIORequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+            () => socketIORequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
             () => HTTPRequest('/not/exists', {}).reflect().then(verify(routeNotFound)),
             () => HTTPRequest('/action/simple', {}).reflect().then(verify(authFailed)),
             () => HTTPRequest('/action/simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
