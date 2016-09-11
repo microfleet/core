@@ -3,12 +3,13 @@ const attachRouter = require('./socketIO/router/attach');
 const debug = require('debug')('mservice:socketIO');
 const Errors = require('common-errors');
 const is = require('is');
+const _require = require('../utils/require');
 
 function attachSocketIO(config = {}) {
   debug('Attaching socketIO plugin');
   const service = this;
-  const AdapterFactory = service._require('ms-socket.io-adapter-amqp');
-  const SocketIO = service._require('socket.io');
+  const AdapterFactory = _require('ms-socket.io-adapter-amqp');
+  const SocketIO = _require('socket.io');
 
   const adapters = {
     amqp: options => AdapterFactory.fromOptions(options),

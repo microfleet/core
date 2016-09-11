@@ -15,11 +15,11 @@ function auth(request) {
   return Promise.resolve(request)
     .bind(this)
     .then(authStrategy)
-    .tap(credentials => {
+    .tap((credentials) => {
       request.auth = { credentials };
     })
     .return(request)
-    .catch(error => {
+    .catch((error) => {
       if (error.constructor === Errors.AuthenticationRequired) {
         return Promise.reject(error);
       }

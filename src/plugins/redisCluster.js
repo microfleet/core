@@ -4,12 +4,13 @@ const is = require('is');
 const loadLuaScripts = require('./redis/utils.js');
 const migrate = require('./redis/migrate.js');
 const debug = require('debug')('mservice:redisCluster');
+const _require = require('../utils/require');
 
 exports.name = 'redis';
 
 exports.attach = function attachRedisCluster(conf = {}) {
   const service = this;
-  const { Cluster } = service._require('ioredis');
+  const { Cluster } = _require('ioredis');
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {

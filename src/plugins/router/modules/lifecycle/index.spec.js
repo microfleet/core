@@ -9,7 +9,7 @@ describe('router: module lifecycle', function suite() {
     const extensions = new Extensions();
 
     moduleLifecycle({}, () => {}, extensions, []).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.instanceof(Errors.ArgumentError);
         expect(error.message).to.be.equals('Invalid or missing argument supplied: module');
@@ -21,7 +21,7 @@ describe('router: module lifecycle', function suite() {
     const extensions = new Extensions();
 
     moduleLifecycle('foo', 'promiseFactory', extensions, []).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.instanceof(Errors.ArgumentError);
         expect(error.message).to.be.equals('Invalid or missing argument supplied: promiseFactory');
@@ -31,7 +31,7 @@ describe('router: module lifecycle', function suite() {
 
   it('should reject "extensions" argument error', function test(done) {
     moduleLifecycle('foo', () => {}, [], []).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.instanceof(Errors.ArgumentError);
         expect(error.message).to.be.equals('Invalid or missing argument supplied: extensions');
@@ -43,7 +43,7 @@ describe('router: module lifecycle', function suite() {
     const extensions = new Extensions();
 
     moduleLifecycle('foo', () => {}, extensions, '').reflect()
-      .then(inspection => {
+      .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.instanceof(Errors.ArgumentError);
         expect(error.message).to.be.equals('Invalid or missing argument supplied: args');
@@ -65,7 +65,7 @@ describe('router: module lifecycle', function suite() {
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar'])
       .reflect()
-      .then(inspection => {
+      .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.equals('error: bar');
         done();
@@ -85,14 +85,14 @@ describe('router: module lifecycle', function suite() {
     const handler = (bar, baz) => Promise.resolve(`result: ${baz}`);
 
     moduleLifecycle('foo', handler, extensions, ['bar', 'foo']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.value()).to.be.equals('result: baz');
         done();
       }
     );
   });
 
-  it('should return result from handler with "pre-handler" that takes one argument', done => {
+  it('should return result from handler with "pre-handler" that takes one argument', (done) => {
     const extensions = new Extensions({
       enabled: ['preFoo'],
       register: [
@@ -105,7 +105,7 @@ describe('router: module lifecycle', function suite() {
     const handler = request => Promise.resolve(`result: ${request}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.value()).to.be.equals('result: foo bar baz');
         done();
       }
@@ -117,7 +117,7 @@ describe('router: module lifecycle', function suite() {
     const handler = (foo, bar) => Promise.resolve(`result: ${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.value()).to.be.equals('result: bar');
         done();
       }
@@ -129,7 +129,7 @@ describe('router: module lifecycle', function suite() {
     const handler = (foo, bar) => Promise.reject(`result error: ${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.reason()).to.be.equals('result error: bar');
         done();
       }
@@ -149,7 +149,7 @@ describe('router: module lifecycle', function suite() {
     const handler = (foo, bar) => Promise.resolve(`${foo}.${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.reason()).to.be.equals('error: foo.bar');
         done();
       }
@@ -172,7 +172,7 @@ describe('router: module lifecycle', function suite() {
     const handler = (foo, bar) => Promise.resolve(`${foo}.${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.value()).to.be.equals('baz');
         done();
       }
@@ -191,7 +191,7 @@ describe('router: module lifecycle', function suite() {
     const handler = (foo, bar) => Promise.reject(`${foo}.${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.reason()).to.be.equals('baz');
         done();
       }
@@ -210,7 +210,7 @@ describe('router: module lifecycle', function suite() {
     const handler = (foo, bar) => Promise.resolve(`${foo}.${bar}`);
 
     moduleLifecycle('foo', handler, extensions, ['foo', 'bar']).reflect()
-      .then(inspection => {
+      .then((inspection) => {
         expect(inspection.reason()).to.be.equals('foobar');
         done();
       }

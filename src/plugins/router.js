@@ -22,7 +22,7 @@ function attachRouter(config) {
   }
 
   assert.ifError(service.validator.validateSync('router', config).error);
-  config.routes.transports.forEach(transport => {
+  config.routes.transports.forEach((transport) => {
     if (service.config.plugins.includes(transport) === false) {
       throw new Errors.NotSupportedError(`transport ${transport}`);
     }

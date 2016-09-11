@@ -5,9 +5,6 @@ const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
 const is = require('is');
 const stdout = require('stdout-stream');
-const pkg = require('../package.json');
-const semver = require('semver');
-const chalk = require('chalk');
 const partial = require('lodash/partial');
 const assert = require('assert');
 
@@ -64,7 +61,7 @@ class Mservice extends EventEmitter {
     this._initPlugins(config);
 
     // setup error listener
-    this.on('error', err => {
+    this.on('error', (err) => {
       this._onError(err);
     });
 
@@ -138,23 +135,6 @@ class Mservice extends EventEmitter {
     const migrate = this._migrators[name];
     assert(is.fn(migrate), `migrator ${name} not defined`);
     return migrate(...args);
-  }
-
-  /**
-   * Performs require and validates that constraints are met
-   */
-  _require(name) {
-    const version = pkg.pluginDependencies[name];
-    const depVersion = require(`${name}/package.json`).version;
-
-    // print warning if we have incompatible version
-    if (!semver.satisfies(depVersion, version)) {
-      // eslint-disable-next-line max-len
-      const msg = `Package ${name} has version ${depVersion} installed. However, required module version is ${version}\n`;
-      process.stderr.write(chalk.yellow(msg));
-    }
-
-    return require(name);
   }
 
   /**
@@ -246,7 +226,7 @@ class Mservice extends EventEmitter {
     this._destructors = [];
 
     // init plugins
-    config.plugins.forEach(plugin => {
+    config.plugins.forEach((plugin) => {
       this.initPlugin(require(`./plugins/${plugin}`));
     });
 

@@ -1,10 +1,11 @@
 const Errors = require('common-errors');
 const is = require('is');
 const Promise = require('bluebird');
+const _require = require('../utils/require');
 
 function attachCassandra(config) {
   const service = this;
-  const Cassandra = service._require('express-cassandra');
+  const Cassandra = _require('express-cassandra');
 
   if (is.fn(service.validateSync)) {
     const isConfigValid = service.validateSync('cassandra', config);
@@ -42,7 +43,7 @@ function attachCassandra(config) {
       } else if (is.object(models)) {
         cassandra = Cassandra.createClient(config.client);
         Object.keys(models)
-          .forEach((modelName) => cassandra.loadSchema(modelName, models[modelName]));
+          .forEach(modelName => cassandra.loadSchema(modelName, models[modelName]));
 
         cassandra.connect(onConnect);
       }

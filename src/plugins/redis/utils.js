@@ -13,7 +13,7 @@ function loadLuaScripts(dir, redis) {
 
   return glob
     .sync('*.lua', { cwd: dir })
-    .forEach(scriptName => {
+    .forEach((scriptName) => {
       const lua = fs.readFileSync(`${dir}/${scriptName}`, 'utf8');
       const name = path.basename(scriptName, '.lua');
       debug('attaching %s', name);

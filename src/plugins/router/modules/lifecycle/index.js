@@ -41,7 +41,7 @@ function moduleLifecycle(module, promiseFactory, extensions, args, context) {
     .bind(context)
     .spread(promiseFactory)
     .reflect()
-    .then(inspection => {
+    .then((inspection) => {
       let resultResponse = null;
       let errorResponse = null;
 

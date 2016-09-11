@@ -112,7 +112,7 @@ module.exports = async function performMigration(redis, service, scripts) {
     }
   }
 
-  return pipeline.exec().map(resp => {
+  return pipeline.exec().map((resp) => {
     const [err, result] = resp;
     if (err) {
       throw err;

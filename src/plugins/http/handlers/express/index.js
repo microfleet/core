@@ -3,10 +3,11 @@ const http = require('http');
 const is = require('is');
 const Promise = require('bluebird');
 const attachRouter = require('./router/attach');
+const _require = require('../../../../utils/require');
 
 function createExpressServer(config, service) {
-  const enableDestroy = service._require('server-destroy');
-  const express = service._require('express');
+  const enableDestroy = _require('server-destroy');
+  const express = _require('express');
 
   const handler = express();
   const server = http.createServer(handler);

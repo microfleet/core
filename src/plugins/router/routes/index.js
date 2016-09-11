@@ -49,17 +49,17 @@ function getRoutes(config) {
   // if enabled actions is empty load all actions from directory
   if (Object.keys(enabled).length === 0) {
     glob.sync('*.js', { cwd: config.directory, matchBase: true })
-      .forEach(file => {
+      .forEach((file) => {
         const route = path.basename(file, '.js');
         enabled[route] = route;
       });
   }
 
-  config.transports.forEach(transport => {
+  config.transports.forEach((transport) => {
     routes[transport] = {};
   });
 
-  Object.keys(enabled).forEach(route => {
+  Object.keys(enabled).forEach((route) => {
     const routingKey = config.prefix.length ? `${config.prefix}.${enabled[route]}` : enabled[route];
     const action = require(path.resolve(config.directory, route));
 
@@ -72,7 +72,7 @@ function getRoutes(config) {
     action.actionName = route;
 
     routes._all[routingKey] = action;
-    _.intersection(config.transports, action.transports).forEach(transport => {
+    _.intersection(config.transports, action.transports).forEach((transport) => {
       routes[transport][routingKey] = action;
     });
   });

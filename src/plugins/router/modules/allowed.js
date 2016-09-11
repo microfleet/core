@@ -8,7 +8,7 @@ function allowed(request) {
     .bind(this)
     .then(request.action.allowed)
     .return(request)
-    .catch(error => {
+    .catch((error) => {
       if (error.constructor === Errors.NotPermittedError) {
         return Promise.reject(error);
       }

@@ -1,11 +1,12 @@
 const is = require('is');
 const stdout = require('stdout-stream');
+const _require = require('../utils/require');
 
 exports.name = 'logger';
 
 exports.attach = function attachLogger(conf) {
   const service = this;
-  const bunyan = service._require('bunyan');
+  const bunyan = _require('bunyan');
 
   const { debug, name } = service._config;
   const loggerEnabled = is.undef(conf) ? debug : conf;

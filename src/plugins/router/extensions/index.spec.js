@@ -29,7 +29,7 @@ describe('router: extensions', function suite() {
     const extensions = new Extensions();
     extensions.exec('postPreHandler', ['foo'])
       .reflect()
-      .then(inspection => {
+      .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.instanceof(Errors.NotSupportedError);
         expect(error.message).to.be.equals('Not Supported: postPreHandler');

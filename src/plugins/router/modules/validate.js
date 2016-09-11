@@ -7,11 +7,11 @@ function validate(request) {
   const validator = this.validator;
 
   return validator.validate(request.action.schema, request.params)
-    .tap(sanitizedParams => {
+    .tap((sanitizedParams) => {
       request.params = sanitizedParams;
     })
     .return(request)
-    .catch(error => {
+    .catch((error) => {
       if (error.constructor === Errors.ValidationError) {
         throw error;
       }

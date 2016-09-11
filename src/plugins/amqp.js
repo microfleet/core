@@ -3,6 +3,7 @@ const Errors = require('common-errors');
 const cloneDeep = require('lodash/cloneDeep');
 const assert = require('assert');
 const is = require('is');
+const _require = require('../utils/require');
 
 const { ActionTransport } = require('../');
 const getAMQPRouterAdapter = require('./amqp/router/adapter');
@@ -16,7 +17,7 @@ const verifyPossibility = require('./router/verifyAttachPossibility');
 function attachAMQPPlugin(config) {
   const service = this;
 
-  const AMQPTransport = service._require('ms-amqp-transport');
+  const AMQPTransport = _require('ms-amqp-transport');
   const AMQPSchema = require('ms-amqp-transport/schema.json');
 
   if (is.fn(service.validateSync)) {
@@ -54,7 +55,7 @@ function attachAMQPPlugin(config) {
           ...config.transport,
           log: logger || null,
         }, service.AMQPRouter)
-        .tap(amqp => {
+        .tap((amqp) => {
           service._amqp = amqp;
           service.emit('plugin:connect:amqp', amqp);
         });

@@ -23,7 +23,7 @@ class Extensions {
     const { enabled, register } = config;
     const extensions = {};
 
-    enabled.forEach(extension => {
+    enabled.forEach((extension) => {
       extensions[extension] = [];
     });
 
@@ -32,7 +32,7 @@ class Extensions {
   }
 
   autoRegister(register) {
-    register.forEach(extensions => {
+    register.forEach((extensions) => {
       extensions.forEach(extension => this.register(extension.point, extension.handler));
     });
   }

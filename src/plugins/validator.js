@@ -1,6 +1,7 @@
 const path = require('path');
 const Errors = require('common-errors');
 const callsite = require('callsite');
+const _require = require('../utils/require');
 
 exports.name = 'validator';
 
@@ -10,7 +11,7 @@ exports.name = 'validator';
  */
 exports.attach = function attachValidator(conf, parentFile) {
   const service = this;
-  const Validator = service._require('ms-validation');
+  const Validator = _require('ms-validation');
   const validator = new Validator('../../schemas');
 
   if (conf) {
@@ -22,7 +23,7 @@ exports.attach = function attachValidator(conf, parentFile) {
     const stack = callsite();
 
     // Note that schemas with same file name will be overwritten
-    conf.forEach(_location => {
+    conf.forEach((_location) => {
       let dir;
       if (!path.isAbsolute(_location)) {
         const length = stack.length;
@@ -31,11 +32,13 @@ exports.attach = function attachValidator(conf, parentFile) {
         let iterator = 0;
         let source;
         while (iterator < length && !source) {
-          const call = stack[iterator++];
+          const call = stack[iterator];
           const filename = call.getFileName();
           if ([parentFile, __filename, 'native array.js'].indexOf(filename) === -1) {
             source = path.dirname(filename);
           }
+
+          iterator += 1;
         }
 
         dir = path.resolve(source, _location);
