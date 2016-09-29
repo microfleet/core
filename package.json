@@ -81,7 +81,7 @@
     "elasticsearch": "~11.x.x",
     "eslint": "^3.4.0",
     "eslint-config-airbnb-base": "^7.1.0",
-    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-import": "^2.0.0",
     "eslint-plugin-mocha": "^4.5.1",
     "express": "~4.x.x",
     "express-cassandra": "^1.4.1",
