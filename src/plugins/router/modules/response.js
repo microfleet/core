@@ -18,8 +18,8 @@ function response(error, result) {
       case Errors.ValidationError:
         return Promise.reject(error);
       default:
-        service.log.error(error);
-        return Promise.reject(new Errors.Error('Something went wrong'));
+        service.log.fatal('unexpected error', error);
+        return Promise.reject(new Errors.Error('Something went wrong', error));
     }
   }
 
