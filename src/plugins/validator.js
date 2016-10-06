@@ -2,8 +2,10 @@ const path = require('path');
 const Errors = require('common-errors');
 const callsite = require('callsite');
 const _require = require('../utils/require');
+const { PluginsTypes } = require('../');
 
 exports.name = 'validator';
+exports.type = PluginsTypes.essential;
 
 /**
  * Attaches initialized validator based on conf

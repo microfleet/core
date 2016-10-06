@@ -1,8 +1,10 @@
 const is = require('is');
+const { PluginsTypes } = require('../');
 const stdout = require('stdout-stream');
 const _require = require('../utils/require');
 
 exports.name = 'logger';
+exports.type = PluginsTypes.essential;
 
 exports.attach = function attachLogger(conf) {
   const service = this;

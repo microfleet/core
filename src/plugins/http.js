@@ -1,4 +1,5 @@
 const is = require('is');
+const { PluginsTypes } = require('../');
 
 function validateConfig(config, validator) {
   if (is.fn(validator)) {
@@ -28,4 +29,5 @@ function createHttpServer(config) {
 module.exports = {
   name: 'http',
   attach: createHttpServer,
+  type: PluginsTypes.transport,
 };

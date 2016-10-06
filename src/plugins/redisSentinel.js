@@ -1,4 +1,5 @@
 const Errors = require('common-errors');
+const { PluginsTypes } = require('../');
 const Promise = require('bluebird');
 const is = require('is');
 const loadLuaScripts = require('./redis/utils');
@@ -7,6 +8,7 @@ const debug = require('debug')('mservice:redisSentinel');
 const _require = require('../utils/require');
 
 exports.name = 'redis';
+exports.type = PluginsTypes.database;
 
 exports.attach = function attachRedisSentinel(conf = {}) {
   const service = this;

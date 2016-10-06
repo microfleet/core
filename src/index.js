@@ -3,6 +3,9 @@ const Errors = require('common-errors');
 const EventEmitter = require('eventemitter3');
 const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
+const mapValues = require('lodash/mapValues');
+const flatten = require('lodash/flatten');
+const values = require('lodash/values');
 const is = require('is');
 const stdout = require('stdout-stream');
 const partial = require('lodash/partial');
@@ -33,6 +36,15 @@ class Mservice extends EventEmitter {
     http: 'http',
     socketIO: 'socketIO',
   };
+
+  /**
+   * Warning, plugins order by priority
+   */
+  static PluginsTypes = {
+    essential: 'essential',
+    database: 'database',
+    transport: 'transport',
+  }
 
   static routerExtension(name) {
     return require(`./plugins/router/extensions/${name}`);
@@ -180,12 +192,11 @@ class Mservice extends EventEmitter {
   /**
    * Helper for calling funcs and emitting event after
    */
-  _processAndEmit(arr, event) {
+  _processAndEmit(collection, event) {
     return Promise
-      .map(arr, func => func())
-      .tap(() => {
-        this.emit(event);
-      });
+      .mapSeries(values(collection), arr => Promise.map(arr, func => func()))
+      .then(result => flatten(result))
+      .tap(() => this.emit(event));
   }
 
   // ****************************** Plugin section: public ************************************
@@ -207,11 +218,11 @@ class Mservice extends EventEmitter {
     const { connect, close } = expose;
 
     if (is.fn(connect)) {
-      this._connectors.push(connect);
+      this._connectors[mod.type].push(connect);
     }
 
     if (is.fn(close)) {
-      this._destructors.push(close);
+      this._destructors[mod.type].unshift(close);
     }
   }
 
@@ -222,8 +233,13 @@ class Mservice extends EventEmitter {
    * @param  {Object} config
    */
   _initPlugins(config) {
-    this._connectors = [];
-    this._destructors = [];
+    this._connectors = {};
+    this._destructors = {};
+
+    mapValues(Mservice.PluginsTypes, (pluginType) => {
+      this._connectors[pluginType] = [];
+      this._destructors[pluginType] = [];
+    });
 
     // init plugins
     config.plugins.forEach((plugin) => {

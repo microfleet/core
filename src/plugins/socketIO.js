@@ -4,6 +4,7 @@ const debug = require('debug')('mservice:socketIO');
 const Errors = require('common-errors');
 const is = require('is');
 const _require = require('../utils/require');
+const { PluginsTypes } = require('../');
 
 function attachSocketIO(config = {}) {
   debug('Attaching socketIO plugin');
@@ -42,4 +43,5 @@ function attachSocketIO(config = {}) {
 module.exports = {
   attach: attachSocketIO,
   name: 'socketIO',
+  type: PluginsTypes.transport,
 };

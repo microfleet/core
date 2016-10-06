@@ -5,7 +5,7 @@ const assert = require('assert');
 const is = require('is');
 const _require = require('../utils/require');
 
-const { ActionTransport } = require('../');
+const { ActionTransport, PluginsTypes } = require('../');
 const getAMQPRouterAdapter = require('./amqp/router/adapter');
 const verifyPossibility = require('./router/verifyAttachPossibility');
 
@@ -84,4 +84,5 @@ function attachAMQPPlugin(config) {
 module.exports = {
   attach: attachAMQPPlugin,
   name: 'amqp',
+  type: PluginsTypes.transport,
 };
