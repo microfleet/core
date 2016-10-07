@@ -1,0 +1,24 @@
+{
+  "id": "knex.pg",
+  "type": "object",
+  "required": ["client", "connection", "searchPath"],
+  "properties": {
+    "client": {
+      "type": "string",
+      "constant": "pg"
+    },
+    "connection": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "object" }
+      ]
+    },
+    "searchPath": {
+      "type": "string"
+    },
+    "debug": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
