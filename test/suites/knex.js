@@ -13,7 +13,6 @@ describe('knex plugin', function testSuite() {
       knex: {
         client: 'pg',
         connection: 'postgres://postgres@pg:5432/postgres',
-        searchPath: 'test',
       },
     });
 

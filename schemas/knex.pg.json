@@ -1,7 +1,7 @@
 {
   "id": "knex.pg",
   "type": "object",
-  "required": ["client", "connection", "searchPath"],
+  "required": ["client", "connection"],
   "properties": {
     "client": {
       "type": "string",
@@ -15,10 +15,6 @@
     },
     "searchPath": {
       "type": "string"
-    },
-    "debug": {
-      "type": "boolean",
-      "default": false
     }
   }
 }
