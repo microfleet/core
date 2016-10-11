@@ -72,9 +72,9 @@ describe('Mservice suite', function testSuite() {
         expect(result.isFulfilled()).to.be.eq(true);
         return result.value();
       })
-      .spread((amqp, redis) => {
-        expect(amqp).to.be.instanceof(AMQPTransport);
+      .spread((redis, amqp) => {
         expect(redis).to.be.instanceof(Cluster);
+        expect(amqp).to.be.instanceof(AMQPTransport);
       });
   });
 

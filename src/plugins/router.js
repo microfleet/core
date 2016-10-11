@@ -3,6 +3,7 @@ const debug = require('debug')('mservice:attach:router');
 const Errors = require('common-errors');
 const is = require('is');
 const getRouter = require('./router/factory');
+const { PluginsTypes } = require('../');
 
 /**
  * @param {Object} config
@@ -34,4 +35,5 @@ function attachRouter(config) {
 module.exports = {
   attach: attachRouter,
   name: 'router',
+  type: PluginsTypes.essential,
 };

@@ -1,5 +1,6 @@
 const Errors = require('common-errors');
 const is = require('is');
+const { PluginsTypes } = require('../');
 const Promise = require('bluebird');
 const _require = require('../utils/require');
 
@@ -77,4 +78,5 @@ function attachCassandra(config) {
 module.exports = {
   attach: attachCassandra,
   name: 'cassandra',
+  type: PluginsTypes.database,
 };
