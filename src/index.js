@@ -3,9 +3,7 @@ const Errors = require('common-errors');
 const EventEmitter = require('eventemitter3');
 const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
-const mapValues = require('lodash/mapValues');
 const flatten = require('lodash/flatten');
-const values = require('lodash/values');
 const is = require('is');
 const stdout = require('stdout-stream');
 const partial = require('lodash/partial');
@@ -45,6 +43,12 @@ class Mservice extends EventEmitter {
     database: 'database',
     transport: 'transport',
   }
+
+  static PluginsPriority = [
+    'essential',
+    'database',
+    'transport',
+  ];
 
   static routerExtension(name) {
     return require(`./plugins/router/extensions/${name}`);
@@ -194,7 +198,8 @@ class Mservice extends EventEmitter {
    */
   _processAndEmit(collection, event) {
     return Promise
-      .mapSeries(values(collection), arr => Promise.map(arr, func => func()))
+      .mapSeries(Mservice.PluginsPriority, pluginsType =>
+        Promise.map(collection[pluginsType], func => func()))
       .then(result => flatten(result))
       .tap(() => this.emit(event));
   }
@@ -236,10 +241,11 @@ class Mservice extends EventEmitter {
     this._connectors = {};
     this._destructors = {};
 
-    mapValues(Mservice.PluginsTypes, (pluginType) => {
-      this._connectors[pluginType] = [];
-      this._destructors[pluginType] = [];
-    });
+    Mservice.PluginsPriority
+      .forEach((pluginType) => {
+        this._connectors[pluginType] = [];
+        this._destructors[pluginType] = [];
+      });
 
     // init plugins
     config.plugins.forEach((plugin) => {
