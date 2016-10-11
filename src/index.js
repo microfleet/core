@@ -70,7 +70,7 @@ class Mservice extends EventEmitter {
       'config', 'amqp', 'redis',
       'validator', 'log', 'elasticsearch',
       'cassandra', 'http', 'socketIO',
-      'router',
+      'router', 'knex',
     ].map(prop => this._defineGetter(prop));
 
     // init plugins
