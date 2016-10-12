@@ -92,7 +92,7 @@
     "isparta": "^4.0.0",
     "istanbul": "^0.4.4",
     "json": "^9.0.4",
-    "knex": "^0.12.2",
+    "knex": "^0.12.4",
     "mocha": "^3.1.0",
     "ms-amqp-transport": "^4.0.0",
     "ms-socket.io-adapter-amqp": "^2.0.0",
