@@ -279,8 +279,8 @@ describe('Router suite', function testSuite() {
 
         return Promise.map(
           [
-            () => AMQPRequest('action.nested.schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
-            () => AMQPRequest('action.nested.schema', { foo: 42 }).reflect().then(verify(returnsResult)),
+            () => AMQPRequest('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+            () => AMQPRequest('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
           ],
           handler => handler()
         )
