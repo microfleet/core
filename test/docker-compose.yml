@@ -25,7 +25,7 @@ services:
       - "16379"
 
   redis:
-    image: redis:3.2.1-alpine
+    image: redis:3.2.4-alpine
     container_name: redis
     hostname: redis
     expose:
@@ -36,7 +36,7 @@ services:
       - redis
     volumes:
       - ./redis-sentinel:/etc/redis-sentinel:rw
-    image: redis:3.2.1-alpine
+    image: redis:3.2.4-alpine
     container_name: redis-sentinel
     hostname: redis-sentinel
     expose:
@@ -73,7 +73,7 @@ services:
     hostname: elasticsearch
 
   cassandra:
-    image: cassandra:3.5
+    image: cassandra:3.7
     container_name: cassandra
     hostname: cassandra
 
