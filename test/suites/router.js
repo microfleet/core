@@ -58,7 +58,7 @@ describe('Router suite', function testSuite() {
           strategies: {
             token: function auth(request) {
               return Promise.resolve(request.params.token)
-                .then(token => {
+                .then((token) => {
                   if (token) {
                     return Promise.resolve('User');
                   }
@@ -88,7 +88,7 @@ describe('Router suite', function testSuite() {
 
         const routeNotFound = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('NotFoundError');
             expect(error.message).to.be.equals('Not Found: "route "not.exists" not found"');
           },
@@ -96,7 +96,7 @@ describe('Router suite', function testSuite() {
 
         const authFailed = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             try {
               expect(error.name).to.be.equals('AuthenticationRequiredError');
               expect(error.message).to.be.equals(
@@ -110,7 +110,7 @@ describe('Router suite', function testSuite() {
 
         const validationFailed = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('ValidationError');
             expect(error.message).to.be.equals(
               'action.simple validation failed: data.isAdmin should be boolean'
@@ -120,7 +120,7 @@ describe('Router suite', function testSuite() {
 
         const accessDenied = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('NotPermittedError');
             expect(error.message).to.be.equals(
               'An attempt was made to perform an operation that is not permitted: You are not admin'
@@ -130,10 +130,17 @@ describe('Router suite', function testSuite() {
 
         const returnsResult = {
           expect: 'success',
-          verify: result => {
+          verify: (result) => {
             expect(result.user).to.be.equals('User');
             expect(result.token).to.be.equals(true);
             expect(result.response).to.be.equals('success');
+          },
+        };
+
+        const nested = {
+          expect: 'success',
+          verify: (result) => {
+            expect(result.foo).to.be.equal(10);
           },
         };
 
@@ -154,6 +161,8 @@ describe('Router suite', function testSuite() {
             () => AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
             () => AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
             () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+            // nested
+            () => AMQPRequest('action.nested.test', { foo: 10 }).reflect().then(verify(nested)),
           ],
           handler => handler()
         ).then(() => service.close()).asCallback(done);
@@ -199,7 +208,7 @@ describe('Router suite', function testSuite() {
 
         const validationFailed = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('ValidationError');
             expect(error.message).to.be.equals(
               'withoutSchema validation failed: data.foo should be integer'
@@ -209,7 +218,7 @@ describe('Router suite', function testSuite() {
 
         const returnsResult = {
           expect: 'success',
-          verify: result => {
+          verify: (result) => {
             expect(result.foo).to.be.equals(42);
           },
         };
