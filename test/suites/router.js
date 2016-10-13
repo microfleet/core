@@ -137,13 +137,6 @@ describe('Router suite', function testSuite() {
           },
         };
 
-        const nested = {
-          expect: 'success',
-          verify: (result) => {
-            expect(result.foo).to.be.equal(10);
-          },
-        };
-
         Promise.map(
           [
             () => socketIORequest('not.exists', {}).reflect().then(verify(routeNotFound)),
@@ -161,8 +154,6 @@ describe('Router suite', function testSuite() {
             () => AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
             () => AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
             () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-            // nested
-            () => AMQPRequest('action.nested.test', { foo: 10 }).reflect().then(verify(nested)),
           ],
           handler => handler()
         ).then(() => service.close()).asCallback(done);
@@ -230,6 +221,70 @@ describe('Router suite', function testSuite() {
           ],
           handler => handler()
         ).then(() => service.close()).asCallback(done);
+      });
+  });
+
+  it('should scan for nested routes', function test() {
+    const service = new MService({
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: true,
+      plugins: ['validator', 'logger', 'router', 'amqp'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          prefix: 'action',
+          setTransportsAsDefault: true,
+          transports: [ActionTransport.amqp],
+        },
+        extensions: {
+          enabled: ['preRequest', 'postRequest', 'preResponse'],
+          register: [
+            schemaLessAction,
+            auditLog,
+          ],
+        },
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    });
+
+    return service.connect()
+      .then(() => {
+        const AMQPRequest = getAMQPRequest(service.amqp);
+
+        const validationFailed = {
+          expect: 'error',
+          verify: (error) => {
+            expect(error.name).to.be.equals('ValidationError');
+            expect(error.message).to.be.equals(
+              'nested.test validation failed: data.foo should be integer'
+            );
+          },
+        };
+
+        const returnsResult = {
+          expect: 'success',
+          verify: (result) => {
+            expect(result.foo).to.be.equals(42);
+          },
+        };
+
+        Promise.map(
+          [
+            () => AMQPRequest('action.nested.schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+            () => AMQPRequest('action.nested.schema', { foo: 42 }).reflect().then(verify(returnsResult)),
+          ],
+          handler => handler()
+        )
+        .then(() => service.close());
       });
   });
 });
