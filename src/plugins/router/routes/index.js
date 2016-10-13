@@ -43,7 +43,10 @@ function validateAction(action) {
  * @param {String[]} config.transports             - enabled transports list
  */
 function getRoutes(config) {
-  const routes = { _all: {} };
+  // lack of prototype makes it easier to search for a key
+  const routes = Object.create(null);
+  routes._all = Object.create(null);
+
   const enabled = config.enabled;
 
   // if enabled actions is empty load all actions from directory
@@ -59,7 +62,7 @@ function getRoutes(config) {
   }
 
   config.transports.forEach((transport) => {
-    routes[transport] = {};
+    routes[transport] = Object.create(null);
   });
 
   Object.keys(enabled).forEach((route) => {
@@ -72,9 +75,12 @@ function getRoutes(config) {
 
     validateAction(action);
 
-    action.actionName = route;
+    // action name is the same as a route name
+    action.actionName = enabled[route];
 
+    // add action
     routes._all[routingKey] = action;
+
     _.intersection(config.transports, action.transports).forEach((transport) => {
       routes[transport][routingKey] = action;
     });
