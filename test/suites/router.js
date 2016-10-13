@@ -160,7 +160,7 @@ describe('Router suite', function testSuite() {
       });
   });
 
-  it('should be able to set schema from action name', function test(done) {
+  it('should be able to set schema from action name', function test() {
     const service = new MService({
       amqp: {
         transport: {
@@ -193,7 +193,7 @@ describe('Router suite', function testSuite() {
       validator: [path.resolve(__dirname, '../router/helpers/schemas')],
     });
 
-    service.connect()
+    return service.connect()
       .then(() => {
         const AMQPRequest = getAMQPRequest(service.amqp);
 
@@ -214,13 +214,13 @@ describe('Router suite', function testSuite() {
           },
         };
 
-        Promise.map(
+        return Promise.map(
           [
             () => AMQPRequest('action.withoutSchema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
             () => AMQPRequest('action.withoutSchema', { foo: 42 }).reflect().then(verify(returnsResult)),
           ],
           handler => handler()
-        ).then(() => service.close()).asCallback(done);
+        ).then(() => service.close());
       });
   });
 
@@ -277,7 +277,7 @@ describe('Router suite', function testSuite() {
           },
         };
 
-        Promise.map(
+        return Promise.map(
           [
             () => AMQPRequest('action.nested.schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
             () => AMQPRequest('action.nested.schema', { foo: 42 }).reflect().then(verify(returnsResult)),
