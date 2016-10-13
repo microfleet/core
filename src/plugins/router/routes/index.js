@@ -50,8 +50,11 @@ function getRoutes(config) {
   if (Object.keys(enabled).length === 0) {
     glob.sync('*.js', { cwd: config.directory, matchBase: true })
       .forEach((file) => {
-        const route = path.basename(file, '.js');
-        enabled[route] = route;
+        // remove .js from route
+        const route = file.slice(0, -3);
+
+        // replace / with . for route
+        enabled[route] = route.split(path.sep).join('.');
       });
   }
 

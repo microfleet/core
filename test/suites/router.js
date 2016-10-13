@@ -58,7 +58,7 @@ describe('Router suite', function testSuite() {
           strategies: {
             token: function auth(request) {
               return Promise.resolve(request.params.token)
-                .then(token => {
+                .then((token) => {
                   if (token) {
                     return Promise.resolve('User');
                   }
@@ -88,7 +88,7 @@ describe('Router suite', function testSuite() {
 
         const routeNotFound = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('NotFoundError');
             expect(error.message).to.be.equals('Not Found: "route "not.exists" not found"');
           },
@@ -96,7 +96,7 @@ describe('Router suite', function testSuite() {
 
         const authFailed = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             try {
               expect(error.name).to.be.equals('AuthenticationRequiredError');
               expect(error.message).to.be.equals(
@@ -110,7 +110,7 @@ describe('Router suite', function testSuite() {
 
         const validationFailed = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('ValidationError');
             expect(error.message).to.be.equals(
               'action.simple validation failed: data.isAdmin should be boolean'
@@ -120,7 +120,7 @@ describe('Router suite', function testSuite() {
 
         const accessDenied = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('NotPermittedError');
             expect(error.message).to.be.equals(
               'An attempt was made to perform an operation that is not permitted: You are not admin'
@@ -130,7 +130,7 @@ describe('Router suite', function testSuite() {
 
         const returnsResult = {
           expect: 'success',
-          verify: result => {
+          verify: (result) => {
             expect(result.user).to.be.equals('User');
             expect(result.token).to.be.equals(true);
             expect(result.response).to.be.equals('success');
@@ -199,7 +199,7 @@ describe('Router suite', function testSuite() {
 
         const validationFailed = {
           expect: 'error',
-          verify: error => {
+          verify: (error) => {
             expect(error.name).to.be.equals('ValidationError');
             expect(error.message).to.be.equals(
               'withoutSchema validation failed: data.foo should be integer'
@@ -209,7 +209,7 @@ describe('Router suite', function testSuite() {
 
         const returnsResult = {
           expect: 'success',
-          verify: result => {
+          verify: (result) => {
             expect(result.foo).to.be.equals(42);
           },
         };
@@ -221,6 +221,70 @@ describe('Router suite', function testSuite() {
           ],
           handler => handler()
         ).then(() => service.close()).asCallback(done);
+      });
+  });
+
+  it('should scan for nested routes', function test() {
+    const service = new MService({
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: true,
+      plugins: ['validator', 'logger', 'router', 'amqp'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          prefix: 'action',
+          setTransportsAsDefault: true,
+          transports: [ActionTransport.amqp],
+        },
+        extensions: {
+          enabled: ['preRequest', 'postRequest', 'preResponse'],
+          register: [
+            schemaLessAction,
+            auditLog,
+          ],
+        },
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    });
+
+    return service.connect()
+      .then(() => {
+        const AMQPRequest = getAMQPRequest(service.amqp);
+
+        const validationFailed = {
+          expect: 'error',
+          verify: (error) => {
+            expect(error.name).to.be.equals('ValidationError');
+            expect(error.message).to.be.equals(
+              'nested.test validation failed: data.foo should be integer'
+            );
+          },
+        };
+
+        const returnsResult = {
+          expect: 'success',
+          verify: (result) => {
+            expect(result.foo).to.be.equals(42);
+          },
+        };
+
+        Promise.map(
+          [
+            () => AMQPRequest('action.nested.schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+            () => AMQPRequest('action.nested.schema', { foo: 42 }).reflect().then(verify(returnsResult)),
+          ],
+          handler => handler()
+        )
+        .then(() => service.close());
       });
   });
 });
