@@ -35,9 +35,23 @@ class Mservice extends EventEmitter {
     socketIO: 'socketIO',
   };
 
-  /**
-   * Warning, plugins order by priority
-   */
+  static ConnectorsGroups = {
+    connectors: 'connectors',
+    destructors: 'destructors',
+  }
+
+  static ConnectorsTypes = {
+    database: 'database',
+    migration: 'migration',
+    transport: 'transport',
+  }
+
+  static ConnectorsPriority = [
+    Mservice.ConnectorsTypes.database,
+    Mservice.ConnectorsTypes.migration,
+    Mservice.ConnectorsTypes.transport,
+  ]
+
   static PluginsTypes = {
     essential: 'essential',
     database: 'database',
@@ -45,9 +59,9 @@ class Mservice extends EventEmitter {
   }
 
   static PluginsPriority = [
-    'essential',
-    'database',
-    'transport',
+    Mservice.PluginsTypes.essential,
+    Mservice.PluginsTypes.database,
+    Mservice.PluginsTypes.transport,
   ];
 
   static routerExtension(name) {
@@ -73,6 +87,9 @@ class Mservice extends EventEmitter {
       'router', 'knex',
     ].map(prop => this._defineGetter(prop));
 
+    // init migrations
+    this._migrators = {};
+
     // init plugins
     this._initPlugins(config);
 
@@ -86,9 +103,6 @@ class Mservice extends EventEmitter {
       const hooks = Array.isArray(_hooks) ? _hooks : [_hooks];
       each(hooks, hook => this.on(eventName, hook));
     });
-
-    // init migrations
-    this._migrators = {};
 
     if (config.sigterm) {
       const exit = this.exit.bind(this);
@@ -182,7 +196,10 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   connect() {
-    return this._processAndEmit(this._connectors, 'ready');
+    const { connectors } = Mservice.ConnectorsGroups;
+    const collection = this.getConnectorsGroup(connectors);
+
+    return this._processAndEmit(collection, 'ready');
   }
 
   /**
@@ -190,7 +207,10 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   close() {
-    return this._processAndEmit(this._destructors, 'close');
+    const { destructors } = Mservice.ConnectorsGroups;
+    const collection = this.getConnectorsGroup(destructors);
+
+    return this._processAndEmit(collection, 'close');
   }
 
   /**
@@ -198,8 +218,18 @@ class Mservice extends EventEmitter {
    */
   _processAndEmit(collection, event) {
     return Promise
-      .mapSeries(Mservice.PluginsPriority, pluginsType =>
-        Promise.map(collection[pluginsType], func => func()))
+      .mapSeries(
+        Mservice.ConnectorsPriority,
+        (connectorType) => {
+          const connectors = collection[connectorType];
+
+          if (!connectors) {
+            return [];
+          }
+
+          return Promise.map(connectors, func => func());
+        }
+      )
       .then(result => flatten(result))
       .tap(() => this.emit(event));
   }
@@ -215,20 +245,44 @@ class Mservice extends EventEmitter {
    */
   initPlugin(mod, conf) {
     const expose = mod.attach.call(this, conf || this._config[mod.name], __filename);
+    const { connectors, destructors } = Mservice.ConnectorsGroups;
 
     if (!is.object(expose)) {
       return;
     }
 
     const { connect, close } = expose;
+    const connectorType = Mservice.ConnectorsTypes[mod.type];
+
+    assert(connectorType, 'Plugin type must be equal to one of connectors type');
 
     if (is.fn(connect)) {
-      this._connectors[mod.type].push(connect);
+      this.addConnector(connectors, connectorType, connect);
     }
 
     if (is.fn(close)) {
-      this._destructors[mod.type].unshift(close);
+      this.addConnector(destructors, connectorType, close);
     }
+  }
+
+  getConnectorsGroup(group) {
+    assert(Mservice.ConnectorsGroups[group]);
+
+    return this[`_${group}`];
+  }
+
+  addConnector(group, type, handler) {
+    const connectorsGroup = `_${group}`;
+
+    if (this[connectorsGroup] === undefined) {
+      this[connectorsGroup] = {};
+    }
+
+    if (this[connectorsGroup][type] === undefined) {
+      this[connectorsGroup][type] = [];
+    }
+
+    this[connectorsGroup][type].push(handler);
   }
 
   // ***************************** Plugin section: private **************************************
