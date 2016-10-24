@@ -1,6 +1,7 @@
 const _require = require('../utils/require');
 const assert = require('assert');
 const Errors = require('common-errors');
+const { PluginsTypes } = require('../');
 
 const factory = _require('knex');
 
@@ -26,6 +27,8 @@ function attachKnex(config = {}) {
         .raw('SELECT TRUE;')
         .then((result) => {
           assert.equal(result.rows[0].bool, true);
+
+          service.addMigrator('knex', () => knex.migrate.latest());
           service.emit('plugin:connect:knex', knex);
 
           return knex;
@@ -43,5 +46,5 @@ function attachKnex(config = {}) {
 module.exports = {
   attach: attachKnex,
   name: 'knex',
-  type: 'database',
+  type: PluginsTypes.database,
 };

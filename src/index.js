@@ -9,6 +9,9 @@ const stdout = require('stdout-stream');
 const partial = require('lodash/partial');
 const assert = require('assert');
 
+const CONNECTORS_PROPERTY = '_connectors';
+const DESTRUCTORS_PROPERTY = '_destructors';
+
 /**
  * Configuration options for the service
  * @type {Object}
@@ -35,9 +38,18 @@ class Mservice extends EventEmitter {
     socketIO: 'socketIO',
   };
 
-  /**
-   * Warning, plugins order by priority
-   */
+  static ConnectorsTypes = {
+    database: 'database',
+    migration: 'migration',
+    transport: 'transport',
+  }
+
+  static ConnectorsPriority = [
+    Mservice.ConnectorsTypes.database,
+    Mservice.ConnectorsTypes.migration,
+    Mservice.ConnectorsTypes.transport,
+  ]
+
   static PluginsTypes = {
     essential: 'essential',
     database: 'database',
@@ -45,9 +57,9 @@ class Mservice extends EventEmitter {
   }
 
   static PluginsPriority = [
-    'essential',
-    'database',
-    'transport',
+    Mservice.PluginsTypes.essential,
+    Mservice.PluginsTypes.database,
+    Mservice.PluginsTypes.transport,
   ];
 
   static routerExtension(name) {
@@ -73,6 +85,9 @@ class Mservice extends EventEmitter {
       'router', 'knex',
     ].map(prop => this._defineGetter(prop));
 
+    // init migrations
+    this._migrators = {};
+
     // init plugins
     this._initPlugins(config);
 
@@ -86,9 +101,6 @@ class Mservice extends EventEmitter {
       const hooks = Array.isArray(_hooks) ? _hooks : [_hooks];
       each(hooks, hook => this.on(eventName, hook));
     });
-
-    // init migrations
-    this._migrators = {};
 
     if (config.sigterm) {
       const exit = this.exit.bind(this);
@@ -182,7 +194,7 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   connect() {
-    return this._processAndEmit(this._connectors, 'ready');
+    return this._processAndEmit(this.getConnectors(), 'ready');
   }
 
   /**
@@ -190,7 +202,7 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   close() {
-    return this._processAndEmit(this._destructors, 'close');
+    return this._processAndEmit(this.getDesturctors(), 'close');
   }
 
   /**
@@ -198,8 +210,18 @@ class Mservice extends EventEmitter {
    */
   _processAndEmit(collection, event) {
     return Promise
-      .mapSeries(Mservice.PluginsPriority, pluginsType =>
-        Promise.map(collection[pluginsType], func => func()))
+      .mapSeries(
+        Mservice.ConnectorsPriority,
+        (connectorType) => {
+          const connectors = collection[connectorType];
+
+          if (!connectors) {
+            return [];
+          }
+
+          return Promise.map(connectors, func => func());
+        }
+      )
       .then(result => flatten(result))
       .tap(() => this.emit(event));
   }
@@ -221,17 +243,48 @@ class Mservice extends EventEmitter {
     }
 
     const { connect, close } = expose;
+    const type = Mservice.ConnectorsTypes[mod.type];
+
+    assert(type, 'Plugin type must be equal to one of connectors type');
 
     if (is.fn(connect)) {
-      this._connectors[mod.type].push(connect);
+      this.addConnector(type, connect);
     }
 
     if (is.fn(close)) {
-      this._destructors[mod.type].unshift(close);
+      this.addDestructor(type, close);
     }
   }
 
+  getConnectors() {
+    return this[CONNECTORS_PROPERTY];
+  }
+
+  getDesturctors() {
+    return this[DESTRUCTORS_PROPERTY];
+  }
+
+  addConnector(type, handler) {
+    this._addHandler(CONNECTORS_PROPERTY, type, handler);
+  }
+
+  addDestructor(type, handler) {
+    this._addHandler(DESTRUCTORS_PROPERTY, type, handler);
+  }
+
   // ***************************** Plugin section: private **************************************
+
+  _addHandler(property, type, handler) {
+    if (this[property] === undefined) {
+      this[property] = {};
+    }
+
+    if (this[property][type] === undefined) {
+      this[property][type] = [];
+    }
+
+    this[property][type].push(handler);
+  }
 
   /**
    * Initializes service plugins

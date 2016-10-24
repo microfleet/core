@@ -52,4 +52,27 @@ describe('knex plugin', function testSuite() {
         assert.equal(this.service.knex.client.pool, undefined);
       });
   });
+
+  it('should be able to run migrations', function test() {
+    const service = new Mservice({
+      plugins: ['logger', 'validator', 'knex'],
+      knex: {
+        client: 'pg',
+        connection: 'postgres://postgres@pg:5432/postgres',
+      },
+    });
+
+    service.addConnector(
+      Mservice.ConnectorsTypes.migration,
+      () => service.migrate('knex')
+    );
+
+    return service
+      .connect()
+      .reflect()
+      .then((inspection) => {
+        // causes error because there are no migrations to execute
+        assert.equal(inspection.reason().path, '/src/migrations');
+      });
+  });
 });
