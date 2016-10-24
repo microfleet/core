@@ -87,6 +87,7 @@ module.exports = async function performMigration(redis, service, scripts) {
   // pre-process all scripts and append LUA check for greate version
   const pipeline = redis.pipeline();
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const file of files) {
     const final = file.final;
     assert(is.integer(+final), 'final version must be present and be an integer');

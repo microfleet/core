@@ -5,11 +5,11 @@ const is = require('is');
 const path = require('path');
 
 /**
- * @param {Function}      action
+ * @param {Function} action
  * @param {Function} action.allowed
- * @param {String}        action.auth
- * @param {String}        action.schema
- * @param {Array}         action.transports
+ * @param {String} action.auth
+ * @param {String} action.schema
+ * @param {Array} action.transports
  */
 function validateAction(action) {
   if (is.function(action) === false) {
