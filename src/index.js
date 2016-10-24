@@ -9,6 +9,9 @@ const stdout = require('stdout-stream');
 const partial = require('lodash/partial');
 const assert = require('assert');
 
+const CONNECTORS_PROPERTY = '_connectors';
+const DESTRUCTORS_PROPERTY = '_destructors';
+
 /**
  * Configuration options for the service
  * @type {Object}
@@ -34,11 +37,6 @@ class Mservice extends EventEmitter {
     http: 'http',
     socketIO: 'socketIO',
   };
-
-  static ConnectorsGroups = {
-    connectors: 'connectors',
-    destructors: 'destructors',
-  }
 
   static ConnectorsTypes = {
     database: 'database',
@@ -196,10 +194,7 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   connect() {
-    const { connectors } = Mservice.ConnectorsGroups;
-    const collection = this.getConnectorsGroup(connectors);
-
-    return this._processAndEmit(collection, 'ready');
+    return this._processAndEmit(this.getConnectors(), 'ready');
   }
 
   /**
@@ -207,10 +202,7 @@ class Mservice extends EventEmitter {
    * @return {Promise}
    */
   close() {
-    const { destructors } = Mservice.ConnectorsGroups;
-    const collection = this.getConnectorsGroup(destructors);
-
-    return this._processAndEmit(collection, 'close');
+    return this._processAndEmit(this.getDesturctors(), 'close');
   }
 
   /**
@@ -245,47 +237,54 @@ class Mservice extends EventEmitter {
    */
   initPlugin(mod, conf) {
     const expose = mod.attach.call(this, conf || this._config[mod.name], __filename);
-    const { connectors, destructors } = Mservice.ConnectorsGroups;
 
     if (!is.object(expose)) {
       return;
     }
 
     const { connect, close } = expose;
-    const connectorType = Mservice.ConnectorsTypes[mod.type];
+    const type = Mservice.ConnectorsTypes[mod.type];
 
-    assert(connectorType, 'Plugin type must be equal to one of connectors type');
+    assert(type, 'Plugin type must be equal to one of connectors type');
 
     if (is.fn(connect)) {
-      this.addConnector(connectors, connectorType, connect);
+      this.addConnector(type, connect);
     }
 
     if (is.fn(close)) {
-      this.addConnector(destructors, connectorType, close);
+      this.addDestructor(type, close);
     }
   }
 
-  getConnectorsGroup(group) {
-    assert(Mservice.ConnectorsGroups[group]);
-
-    return this[`_${group}`];
+  getConnectors() {
+    return this[CONNECTORS_PROPERTY];
   }
 
-  addConnector(group, type, handler) {
-    const connectorsGroup = `_${group}`;
+  getDesturctors() {
+    return this[DESTRUCTORS_PROPERTY];
+  }
 
-    if (this[connectorsGroup] === undefined) {
-      this[connectorsGroup] = {};
-    }
+  addConnector(type, handler) {
+    this._addHandler(CONNECTORS_PROPERTY, type, handler);
+  }
 
-    if (this[connectorsGroup][type] === undefined) {
-      this[connectorsGroup][type] = [];
-    }
-
-    this[connectorsGroup][type].push(handler);
+  addDestructor(type, handler) {
+    this._addHandler(DESTRUCTORS_PROPERTY, type, handler);
   }
 
   // ***************************** Plugin section: private **************************************
+
+  _addHandler(property, type, handler) {
+    if (this[property] === undefined) {
+      this[property] = {};
+    }
+
+    if (this[property][type] === undefined) {
+      this[property][type] = [];
+    }
+
+    this[property][type].push(handler);
+  }
 
   /**
    * Initializes service plugins

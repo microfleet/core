@@ -63,7 +63,6 @@ describe('knex plugin', function testSuite() {
     });
 
     service.addConnector(
-      Mservice.ConnectorsGroups.connectors,
       Mservice.ConnectorsTypes.migration,
       () => service.migrate('knex')
     );
