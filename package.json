@@ -80,7 +80,7 @@
     "chai": "^3.5.0",
     "common-errors": "^1.0.0",
     "cz-conventional-changelog": "^1.2.0",
-    "elasticsearch": "~11.x.x",
+    "elasticsearch": "~12.0.1",
     "eslint": "^3.8.1",
     "eslint-config-airbnb-base": "^9.0.0",
     "eslint-plugin-import": "^2.0.0",
