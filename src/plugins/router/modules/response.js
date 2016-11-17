@@ -19,7 +19,7 @@ function response(error, result) {
         return Promise.reject(error);
       default:
         service.log.fatal('unexpected error', error);
-        return Promise.reject(new Errors.Error('Something went wrong', error));
+        return Promise.reject(new Errors.Error(`Something went wrong: ${error.message}`, error));
     }
   }
 
@@ -36,4 +36,3 @@ function getResponseHandler(callback, request) {
 }
 
 module.exports = getResponseHandler;
-
