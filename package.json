@@ -101,7 +101,7 @@
     "request": "^2.78.0",
     "request-promise": "^4.1.1",
     "restify": "^4.3.0",
-    "semantic-release": "^6.3.1",
+    "semantic-release": "^6.3.2",
     "server-destroy": "~1.x.x",
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.1",
