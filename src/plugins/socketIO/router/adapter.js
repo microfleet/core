@@ -6,7 +6,14 @@ function getSocketIORouterAdapter(config, router) {
   return function socketIORouterAdapter(socket) {
     socket.on('*', (packet) => {
       const [actionName, params, callback] = packet.data;
-      const request = { params, socket, transport: ActionTransport.socketIO };
+      const request = {
+        params,
+        query: {},
+        socket,
+        // default method to the transport for similar interfaces
+        method: ActionTransport.socketIO,
+        transport: ActionTransport.socketIO,
+      };
 
       debug('prepared request with', packet.data);
 

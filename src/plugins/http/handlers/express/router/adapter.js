@@ -30,8 +30,12 @@ function getHTTPRouter(router, config) {
     }
 
     const actionName = fromPathToName(request.path, config.prefix);
+
     return router.dispatch(actionName, {
       params: request.body,
+      query: request.query,
+      headers: request.headers,
+      method: request.method,
       transport: ActionTransport.http,
     }, callback);
   };

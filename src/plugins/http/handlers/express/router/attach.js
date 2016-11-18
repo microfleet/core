@@ -8,8 +8,13 @@ function attachHTTPRouter(service, handler, config) {
   const bodyParser = _require('body-parser');
   verifyPossibility(service.router, ActionTransport.http);
   const path = fromNameToPath('*', config.prefix);
+  const handleRequest = getHTTPRouterAdapter(service.router, config);
+
+  // setup the router
   handler.use(bodyParser.json());
-  handler.post(path, getHTTPRouterAdapter(service.router, config));
+  handler.route(path)
+    .get(handleRequest)
+    .post(handleRequest);
 }
 
 module.exports = attachHTTPRouter;
