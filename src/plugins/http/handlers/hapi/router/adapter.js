@@ -51,8 +51,12 @@ module.exports = function getHapiAdapter(service, config) {
     }
 
     const actionName = fromPathToName(request.path, config.prefix);
+
     router.dispatch(actionName, {
+      headers: request.headers,
       params: request.payload,
+      query: request.query,
+      method: request.method,
       transport: ActionTransport.http,
     }, callback);
   };

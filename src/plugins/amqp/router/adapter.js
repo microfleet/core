@@ -19,7 +19,7 @@ function getAMQPRouterAdapter(router, config) {
 
     // TODO: response module is not correctly called, callback is always needed
     const promise = Promise.fromNode((callback) => {
-      router.dispatch(actionName, { params, transport }, callback);
+      router.dispatch(actionName, { params, headers, query: {}, transport }, callback);
     });
 
     const wrappedDispatch = wrapDispatch(promise, actionName, actions);

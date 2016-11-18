@@ -5,10 +5,13 @@ const verifyPossibility = require('../../../../router/verifyAttachPossibility');
 
 module.exports = function attachRouter(service, server, config) {
   verifyPossibility(service.router, ActionTransport.http);
+
   const path = fromNameToPath('{p*}', config.prefix);
+
+  // based on the method we'd push different handlers
   server.route({
     path,
     handler: hapiRouterAdapter(service, config),
-    method: 'POST',
+    method: ['GET', 'POST'],
   });
 };
