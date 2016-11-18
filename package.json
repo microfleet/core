@@ -98,7 +98,7 @@
     "ms-socket.io-adapter-amqp": "^2.0.0",
     "ms-validation": "^3.0.0",
     "pg": "^6.1.0",
-    "request": "^2.78.0",
+    "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "restify": "^4.3.0",
     "semantic-release": "^6.3.1",
