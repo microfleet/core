@@ -11,7 +11,7 @@ function getSocketIORouterAdapter(config, router) {
         query: {},
         socket,
         // default method to the transport for similar interfaces
-        method: ActionTransport.socketIO,
+        method: ActionTransport.socketIO.toLowerCase(),
         transport: ActionTransport.socketIO,
       };
 

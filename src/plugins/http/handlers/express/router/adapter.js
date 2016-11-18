@@ -35,7 +35,7 @@ function getHTTPRouter(router, config) {
       params: request.body,
       query: request.query,
       headers: request.headers,
-      method: request.method,
+      method: request.method.toLowerCase(),
       transport: ActionTransport.http,
     }, callback);
   };

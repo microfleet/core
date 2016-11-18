@@ -56,7 +56,7 @@ module.exports = function getHapiAdapter(service, config) {
       headers: request.headers,
       params: request.payload,
       query: request.query,
-      method: request.method,
+      method: request.method.toLowerCase(),
       transport: ActionTransport.http,
     }, callback);
   };

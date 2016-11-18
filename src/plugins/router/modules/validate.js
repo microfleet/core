@@ -2,14 +2,13 @@ const Errors = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
-const { ActionTransport } = require('../../..');
 
 // based on this we validate input data
 const DATA_KEY_SELECTOR = {
   get: 'query',
   post: 'params',
-  [ActionTransport.amqp]: 'params',
-  [ActionTransport.socketIO]: 'params',
+  amqp: 'params',
+  socketio: 'params',
 };
 
 function validate(request) {
