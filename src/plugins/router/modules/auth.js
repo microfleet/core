@@ -6,7 +6,8 @@ const Promise = require('bluebird');
 let strategies = [];
 
 function auth(request) {
-  const authStrategy = strategies[request.action.auth];
+  const authName = request.action.auth;
+  const authStrategy = strategies[is.fn(authName) ? authName(request) : authName];
 
   if (authStrategy === undefined) {
     throw new Errors.NotImplementedError(request.action.auth);
