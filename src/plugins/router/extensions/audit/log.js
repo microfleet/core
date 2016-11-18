@@ -18,6 +18,10 @@ module.exports = [
       const meta = {
         route: request.route,
         params: request.params,
+        method: request.method,
+        transport: request.transport,
+        headers: request.headers,
+        query: request.query,
         latency: (execTime[0] * 1000) + (+(execTime[1] / 1000000).toFixed(3)),
       };
 
