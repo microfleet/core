@@ -2,15 +2,26 @@ const Errors = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+const { ActionTransport } = require('../../..');
+
+// based on this we validate input data
+const DATA_KEY_SELECTOR = {
+  get: 'query',
+  post: 'params',
+  [ActionTransport.amqp]: 'params',
+  [ActionTransport.socketIO]: 'params',
+};
 
 function validate(request) {
   const validator = this.validator;
+  const paramsKey = DATA_KEY_SELECTOR[request.method];
 
-  return validator.validate(request.action.schema, request.params)
-    .tap((sanitizedParams) => {
-      request.params = sanitizedParams;
+  return validator
+    .validate(request.action.schema, request[paramsKey])
+    .then((sanitizedParams) => {
+      request[paramsKey] = sanitizedParams;
+      return request;
     })
-    .return(request)
     .catch((error) => {
       if (error.constructor === Errors.ValidationError) {
         throw error;
