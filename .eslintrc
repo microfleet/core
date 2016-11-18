@@ -8,7 +8,14 @@
     "global-require": 0,
     "prefer-arrow-callback": 0,
     "generator-star-spacing": 0,
-    "import/no-dynamic-require": 0
+    "import/no-dynamic-require": 0,
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "never",
+      "exports": "never",
+      "functions": "never",
+    }]
   },
   "env": {
     "mocha": true
