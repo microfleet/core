@@ -94,7 +94,7 @@
     "json": "^9.0.4",
     "knex": "^0.12.6",
     "mocha": "^3.2.0",
-    "ms-amqp-transport": "^5.0.0",
+    "ms-amqp-transport": "^6.0.0",
     "ms-socket.io-adapter-amqp": "^3.0.0",
     "ms-validation": "^3.0.0",
     "pg": "^6.1.0",
