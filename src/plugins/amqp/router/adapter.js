@@ -4,14 +4,15 @@ const transport = require('../../../').ActionTransport.amqp;
 
 function getAMQPRouterAdapter(router, config) {
   const onComplete = config.transport.onComplete;
-  const wrapDispatch = is.fn(onComplete)
+  const onCompleteBound = is.fn(onComplete) && onComplete.bind(router.service);
+  const wrapDispatch = onCompleteBound
     ? (promise, actionName, actions) => promise.reflect()
       .then((fate) => {
         const err = fate.isRejected() ? fate.reason() : null;
         const data = fate.isFulfilled() ? fate.value() : null;
         return [err, data, actionName, actions];
       })
-      .spread(onComplete)
+      .spread(onCompleteBound)
     : promise => promise;
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
