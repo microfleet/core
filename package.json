@@ -86,7 +86,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-mocha": "^4.7.0",
     "express": "~4.x.x",
-    "express-cassandra": "^1.5.0",
+    "express-cassandra": "^1.6.0",
     "hapi": "^15.2.0",
     "ioredis": "^2.4.0",
     "isparta": "^4.0.0",
