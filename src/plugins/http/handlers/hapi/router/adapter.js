@@ -28,6 +28,9 @@ module.exports = function getHapiAdapter(service, config) {
           case Errors.NotFoundError:
             statusCode = 404;
             break;
+          case Errors.HttpStatusError:
+            statusCode = error.statusCode;
+            break;
           default:
             statusCode = 500;
         }
@@ -38,7 +41,9 @@ module.exports = function getHapiAdapter(service, config) {
           errorMessage = message;
         }
 
-        const replyError = Boom.wrap(error, statusCode, errorMessage);
+        // override default error message
+        error.message = errorMessage;
+        const replyError = Boom.wrap(error, statusCode);
 
         if (error.name) {
           replyError.output.payload.name = error.name;
