@@ -36,14 +36,13 @@ module.exports = function getHapiAdapter(service, config) {
         }
 
         if (is.array(errors) && errors.length) {
-          errorMessage = errors[0].text;
+          const [nestedError] = errors;
+          errorMessage = nestedError.text || nestedError.message || message;
         } else {
           errorMessage = message;
         }
 
-        // override default error message
-        error.message = errorMessage;
-        const replyError = Boom.wrap(error, statusCode);
+        const replyError = Boom.wrap(error, statusCode, errorMessage);
 
         if (error.name) {
           replyError.output.payload.name = error.name;
