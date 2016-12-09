@@ -36,4 +36,23 @@ describe('Validator suite', function testSuite() {
       });
     }).to.throw();
   });
+
+
+  it('should be able to load config as object', () => {
+    expect(() => {
+      this.service = new Mservice({
+        plugins: ['validator'],
+        validator: {
+          schemas: ['../fixtures'],
+          ajv: {
+            coerceTypes: true,
+          },
+        },
+      });
+    }).to.not.throw();
+
+    expect(!!this.service.validator.ajv.getSchema('test-schema')).to.be.eq(true);
+    expect(this.service.validateSync('test-types-schema', '1').doc).to.be.eq('1');
+    expect(!!this.service.validator.ajv.getSchema('config')).to.be.eq(true);
+  });
 });
