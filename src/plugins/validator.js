@@ -1,5 +1,5 @@
 const path = require('path');
-const Errors = require('common-errors');
+const { NotPermittedError } = require('common-errors');
 const callsite = require('callsite');
 const _require = require('../utils/require');
 const { PluginsTypes } = require('../');
@@ -14,18 +14,28 @@ exports.type = PluginsTypes.essential;
 exports.attach = function attachValidator(conf, parentFile) {
   const service = this;
   const Validator = _require('ms-validation');
-  const validator = new Validator('../../schemas');
+  const schemasPath = '../../schemas';
+  let validator;
+  let schemas;
 
-  if (conf) {
-    if (!Array.isArray(conf)) {
-      throw new Errors.NotPermittedError('config.validator must be an array of directories, where json schemas are located');  // eslint-disable-line
+  if (Array.isArray(conf) || conf === undefined) {
+    validator = new Validator(schemasPath);
+    schemas = conf;
+  } else {
+    validator = new Validator(schemasPath, conf.filter, conf.ajv);
+    schemas = conf.schemas;
+  }
+
+  if (schemas) {
+    if (!Array.isArray(schemas)) {
+      throw new NotPermittedError('validator schemas must be an array of directories, where json schemas are located');  // eslint-disable-line
     }
 
     // for relative paths
     const stack = callsite();
 
     // Note that schemas with same file name will be overwritten
-    conf.forEach((_location) => {
+    schemas.forEach((_location) => {
       let dir;
       if (!path.isAbsolute(_location)) {
         const length = stack.length;
