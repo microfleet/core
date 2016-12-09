@@ -70,7 +70,7 @@
     "babel-plugin-transform-es2015-destructuring": "^6.19.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-plugin-transform-es2015-spread": "^6.3.13",
-    "babel-plugin-transform-object-rest-spread": "^6.19.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-plugin-transform-strict-mode": "^6.18.0",
     "babel-register": "^6.18.0",
