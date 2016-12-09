@@ -18,7 +18,7 @@ exports.attach = function attachValidator(conf, parentFile) {
   let validator;
   let schemas;
 
-  if (Array.isArray(conf)) {
+  if (Array.isArray(conf) || conf === undefined) {
     validator = new Validator(schemasPath);
     schemas = conf;
   } else {
