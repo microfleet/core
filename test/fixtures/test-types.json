@@ -1,5 +1,5 @@
 {
   "id": "test-types-schema",
   "type": "integer",
-  "enum": [2]
+  "enum": [1]
 }
