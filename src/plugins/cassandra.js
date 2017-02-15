@@ -1,8 +1,28 @@
-const Errors = require('common-errors');
+const { NotPermittedError } = require('common-errors');
 const is = require('is');
 const { PluginsTypes } = require('../');
-const Promise = require('bluebird');
 const _require = require('../utils/require');
+
+function factory(Cassandra, config) {
+  const models = config.service.models;
+
+  if (is.string(models)) {
+    const client = Cassandra;
+
+    return Cassandra
+      .setDirectory(models)
+      .bindAsync(config.client)
+      .return(client);
+  }
+
+  const client = Cassandra.createClient(config.client);
+
+  return client
+    .connectAsync()
+    .return(Object.keys(models))
+    .map(modelName => client.loadSchemaAsync(modelName, models[modelName]))
+    .return(client);
+}
 
 function attachCassandra(config) {
   const service = this;
@@ -16,57 +36,31 @@ function attachCassandra(config) {
     }
   }
 
-  let cassandra;
-
   function connectCassandra() {
     if (service._cassandra) { // eslint-disable-line no-underscore-dangle
-      return Promise.reject(new Errors.NotPermittedError('cassandra was already started'));
+      throw new NotPermittedError('Cassandra was already started');
     }
 
-    return new Promise((resolve, reject) => {
-      const models = config.service.models;
-
-      function onConnect(error) {
-        if (error) {
-          reject(error);
-        } else {
-          service._cassandra = cassandra; // eslint-disable-line no-underscore-dangle
-          service.emit('plugin:connect:cassandra', cassandra);
-          resolve(cassandra);
-        }
-      }
-
-      if (is.string(models)) {
-        cassandra = Cassandra;
-        cassandra
-          .setDirectory(models)
-          .bind(config.client, onConnect);
-      } else if (is.object(models)) {
-        cassandra = Cassandra.createClient(config.client);
-        Object.keys(models)
-          .forEach(modelName => cassandra.loadSchema(modelName, models[modelName]));
-
-        cassandra.connect(onConnect);
-      }
-    });
+    return factory(Cassandra, config)
+      .tap((cassandra) => {
+        service._cassandra = cassandra; // eslint-disable-line no-underscore-dangle
+        service.emit('plugin:connect:cassandra', cassandra);
+      });
   }
 
   function disconnectCassandra() {
     if (!service._cassandra) {
-      return Promise.reject(new Errors.NotPermittedError('cassandra was not started'));
+      throw new NotPermittedError('Cassandra was not started');
     }
 
-    return new Promise((resolve, reject) => {
-      cassandra.close((error) => {
-        if (error) {
-          reject(error);
-        } else {
-          service._cassandra = null; // eslint-disable-line no-underscore-dangle
-          service.emit('plugin:close:cassandra');
-          resolve();
-        }
+    const { _cassandra: cassandra } = service;
+
+    return cassandra
+      .closeAsync()
+      .tap(() => {
+        service._cassandra = null; // eslint-disable-line no-underscore-dangle
+        service.emit('plugin:close:cassandra');
       });
-    });
   }
 
   return {
