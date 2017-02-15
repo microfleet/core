@@ -176,7 +176,6 @@ class Mservice extends EventEmitter {
       enumerable: true,
       configurable: false,
       get: () => this._get(name),
-      set: value => (this[`_${name}`] = value),
     });
   }
 

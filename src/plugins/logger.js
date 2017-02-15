@@ -39,7 +39,7 @@ function attach(config = {}) {
   } = Object.assign({}, defaultConfig, config);
 
   if (defaultLogger instanceof bunyan) {
-    service.log = defaultLogger;
+    service._log = defaultLogger;
 
     return;
   }
@@ -57,7 +57,7 @@ function attach(config = {}) {
     .keys(streamsConfig)
     .forEach(streamName => streams.push(streamsFactory(streamName, streamsConfig[streamName])));
 
-  service.log = bunyan.createLogger({
+  service._log = bunyan.createLogger({
     streams,
     name: name || applicationName,
   });
