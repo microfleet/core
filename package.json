@@ -81,6 +81,7 @@
     "bunyan": "^1.8.5",
     "bunyan-sentry-stream": "^1.0.2",
     "chai": "^3.5.0",
+    "codecov": "^1.0.1",
     "common-errors": "^1.0.0",
     "cz-conventional-changelog": "^1.2.0",
     "elasticsearch": "^12.1.0",
