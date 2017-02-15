@@ -26,6 +26,8 @@ else
   trap "printf \"to remove containers use:\n\n$COMPOSE stop;\n$COMPOSE rm -f -v;\n\n\"" EXIT
 fi
 
+chmod a+w ./test/redis-sentinel/*.conf
+
 # bring compose up
 $COMPOSE up -d
 
