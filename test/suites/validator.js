@@ -37,7 +37,6 @@ describe('Validator suite', function testSuite() {
     }).to.throw();
   });
 
-
   it('should be able to load config as object', () => {
     expect(() => {
       this.service = new Mservice({

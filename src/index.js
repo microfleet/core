@@ -17,8 +17,9 @@ const DESTRUCTORS_PROPERTY = '_destructors';
  * @type {Object}
  */
 const defaultOpts = {
-  debug: process.env.NODE_ENV !== 'production',
-  logger: false,
+  logger: {
+    debug: process.env.NODE_ENV !== 'production',
+  },
   plugins: ['validator', 'logger', 'amqp'],
   hooks: {},
   amqp: {},
@@ -175,6 +176,7 @@ class Mservice extends EventEmitter {
       enumerable: true,
       configurable: false,
       get: () => this._get(name),
+      set: value => (this[`_${name}`] = value),
     });
   }
 

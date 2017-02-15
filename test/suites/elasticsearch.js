@@ -24,7 +24,6 @@ describe('Elasticsearch suite', function testSuite() {
     this.service = new Mservice({
       plugins: ['logger', 'validator', 'elasticsearch'],
       elasticsearch: global.SERVICES.elasticsearch,
-      log: true,
     });
 
     return this.service.connect()

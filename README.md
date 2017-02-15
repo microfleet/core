@@ -66,7 +66,9 @@ class UserService extends Mservice {
         queue: 'roundrobin',
       },
     },
-    logger: true,
+    logger: {
+      defaultLogger: true,
+    },
     // relative paths will be resolved relatively to the first dir of the file
     // on the call stack that is not src/plugins/validator.js or src/index.js
     // keep that in mind when creating instances of services
@@ -135,15 +137,41 @@ validationResult.doc
 
 When using this plugin - make sure you `npm i bunyan -S`
 
-Attaches `.log` method, which is an instance of a `bunyan` logger. Provides sane defaults when `NODE_ENV` is set to `development`.
-If not includes ringBuffer trace logger with 100 records. Can accept either a boolean value or an existing custom bunyan instance;
-Will have name of `service._config.name` or `mservice`. When `logger` options is set to `true` - will output to stdout, when to `false` - only to
-ringBuffer. When debug is on - default log level is `debug`, otherwise - `info`
+Attaches `.log` method, which is an instance of a `bunyan` logger.
+Provides sane defaults when `NODE_ENV` is set to `development`.
+If not includes ringBuffer trace logger with 100 records.
+Can accept either a boolean value or an existing custom bunyan instance;
 
+#### `logger` config
+* `defaultLogger` - when options is set to `true` - will output to stdout,
+when to `false` - only to ringBuffer.
+* `debug` - when debug is on - default log level is `debug`, otherwise - `info`.
+* `name` - logger name, will have name of `service._config.name` or `mservice` if not set.
+* `streams` - steams config, keys are name of stream, values are stream config
+
+#### Predefined steams
+* `sentry`
+```js
+logger: {
+  streams: {
+    stream: {
+      dns: 'sentry-dns',
+      level: 'error',
+      options: {
+        // sentry options
+      },
+    },
+  },
+}
+```
+
+#### Example
 ```js
 const userService = new UserService({
-  debug: false,
-  logger: true
+  logger: {
+    debug: false,
+    defaultLogger: true
+  }
 });
 
 // will output data to stdout

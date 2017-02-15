@@ -53,7 +53,9 @@ describe('Mservice suite', function testSuite() {
         plugins: ['validator', 'logger', 'amqp', 'redisCluster'],
         redis: global.SERVICES.redis,
         amqp: global.SERVICES.amqp,
-        logger: true,
+        logger : {
+          defaultLogger: true,
+        },
         hooks: {
           masala: function chai(a, b) {
             return `chai with ${a} and ${b}`;

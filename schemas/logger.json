@@ -1,0 +1,34 @@
+{
+  "name": "logger",
+  "type": "object",
+  "properties": {
+    "defaultLogger": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "object" }
+      ]
+    },
+    "debug": {
+      "type": "boolean"
+    },
+    "streams": {
+      "type": "object",
+      "properties": {
+        "sentry": {
+          "type": "object",
+          "properties": {
+            "dns": {
+              "type": "string"
+            },
+            "level": {
+              "type": "string"
+            },
+            "options": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  }
+}
