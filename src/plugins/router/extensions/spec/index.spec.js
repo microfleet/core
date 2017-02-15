@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const Errors = require('common-errors');
-const Extensions = require('./');
+const Extensions = require('..');
 const Promise = require('bluebird');
 
 describe('router: extensions', function suite() {
@@ -25,15 +25,16 @@ describe('router: extensions', function suite() {
     return extensions.exec('postHandler', ['foo']);
   });
 
-  it('should not be able to execute unknown extension', (done) => {
+  it('should not be able to execute unknown extension', () => {
     const extensions = new Extensions();
-    extensions.exec('postPreHandler', ['foo'])
+
+    return extensions
+      .exec('postPreHandler', ['foo'])
       .reflect()
       .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.instanceof(Errors.NotSupportedError);
         expect(error.message).to.be.equals('Not Supported: postPreHandler');
-        done();
       });
   });
 });

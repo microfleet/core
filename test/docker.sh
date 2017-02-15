@@ -1,16 +1,22 @@
 #!/bin/bash
 
-set -ex
+set -x
 
+BIN=node_modules/.bin
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DC="$DIR/docker-compose.yml"
 PATH=$PATH:$DIR/.bin/
+COMPOSE=$(which docker-compose)
+MOCHA=$BIN/_mocha
+COVER="$BIN/isparta cover"
+NODE=$BIN/babel-node
+TESTS=${TESTS:-test/suites/*.js}
+COMPOSE_VER=${COMPOSE_VER:-1.7.1}
 COMPOSE="docker-compose -f $DC"
-TESTS=${TESTS:-'./test/suites/*.js'}
 
 if ! [ -x "$(which docker-compose)" ]; then
   mkdir $DIR/.bin
-  curl -L https://github.com/docker/compose/releases/download/1.7.0/docker-compose-`uname -s`-`uname -m` > $DIR/.bin/docker-compose
+  curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VER}/docker-compose-`uname -s`-`uname -m` > $DIR/.bin/docker-compose
   chmod +x $DIR/.bin/docker-compose
 fi
 
@@ -21,14 +27,31 @@ else
 fi
 
 chmod a+w ./test/redis-sentinel/*.conf
+
+# bring compose up
 $COMPOSE up -d
 
-# make sure that services are up
-if [[ x"$SKIP_REBUILD" == x"1" ]]; then
-  echo "skipping rebuild & sleep";
-else
+echo "cleaning old coverage"
+rm -rf ./coverage
+
+set -e
+
+if [[ "$SKIP_REBUILD" != "1" ]]; then
+  echo "rebuilding native dependencies..."
   docker exec tester npm rebuild
   sleep 40
 fi
 
-docker exec tester ./node_modules/.bin/_mocha ${TESTS}
+echo "running tests"
+for fn in $TESTS; do
+  echo "running tests for $fn"
+  docker exec tester /bin/sh -c "$NODE $COVER --dir ./coverage/${fn##*/} $MOCHA -- --trace-deprecation $fn"
+done
+
+echo "started generating combined coverage"
+docker exec tester test/aggregate-report.js
+
+if [[ x"$CI" == x"true" ]]; then
+  echo "uploading coverage report from ./coverage/lcov.info"
+  $BIN/codecov -f ./coverage/lcov.info
+fi

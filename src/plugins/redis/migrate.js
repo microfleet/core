@@ -57,6 +57,7 @@ module.exports = async function performMigration(redis, service, scripts) {
   let files;
   if (is.string(scripts)) {
     debug('looking for files in %s', scripts);
+    // eslint-disable-next-line import/no-dynamic-require
     files = glob.sync('*{.js,/}', { cwd: scripts }).map(script => require(`${scripts}/${script}`));
   } else if (is.array(scripts)) {
     files = scripts;
@@ -107,6 +108,7 @@ module.exports = async function performMigration(redis, service, scripts) {
       pipeline.eval(script, keys.length, keys, args);
     } else if (is.fn(file.script)) {
       // must return promise
+      // eslint-disable-next-line no-await-in-loop
       await file.script(service, pipeline, VERSION_KEY, appendLuaScript);
     } else {
       throw new Error('script must be a function if not a string');

@@ -67,6 +67,7 @@ function getRoutes(config) {
 
   Object.keys(enabled).forEach((route) => {
     const routingKey = config.prefix.length ? `${config.prefix}.${enabled[route]}` : enabled[route];
+    // eslint-disable-next-line import/no-dynamic-require
     const action = require(path.resolve(config.directory, route));
 
     if (config.setTransportsAsDefault === true && action.transports === undefined) {

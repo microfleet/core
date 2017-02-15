@@ -22,7 +22,9 @@ function validateConfig(config, validator) {
 
 function createHttpServer(config) {
   validateConfig(config, this.validateSync);
+  // eslint-disable-next-line import/no-dynamic-require
   const handler = require(`./http/handlers/${config.server.handler}`);
+
   return handler(config, this);
 }
 

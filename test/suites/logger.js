@@ -1,4 +1,5 @@
-const { expect } = require('chai');
+const assert = require('assert');
+const { NotPermittedError } = require('common-errors');
 const bunyan = require('bunyan');
 
 describe('Logger suite', function testSuite() {
@@ -6,45 +7,76 @@ describe('Logger suite', function testSuite() {
 
   it('when service does not include `logger` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });
-    expect(() => {
-      return service.log;
-    }).to.throw();
+
+    assert.throws(() => service.log, NotPermittedError);
   });
 
   it('logger inits with output to stdout', function test() {
-    expect(() => {
-      const service = new Mservice({
-        plugins: [ 'logger' ],
-        logger: true,
-      });
+    const service = new Mservice({
+      plugins: ['validator', 'logger'], // order is important
+      logger : {
+        defaultLogger : true,
+      },
+    });
 
-      expect(service.log).to.be.instanceof(bunyan);
-      expect(service.log.streams).to.have.length.of(2);
-    }).to.not.throw();
+    assert.ok(service.log instanceof bunyan);
+    assert.equal(service.log.streams.length, 2);
+    assert.equal(service.log.streams[1].level, 30); // 30 - info
+  });
+
+  it('logger inits with output to stdout', function test() {
+    const service = new Mservice({
+      plugins: ['validator', 'logger'], // order is important
+      logger : {
+        defaultLogger : true,
+        debug: true,
+      },
+    });
+
+    assert.ok(service.log instanceof bunyan);
+    assert.equal(service.log.streams.length, 2);
+    assert.equal(service.log.streams[1].level, 20); // 20 - debug
   });
 
   it('logger inits with output to ringBuffer', function test() {
-    expect(() => {
-      const service = new Mservice({
-        plugins: [ 'logger' ],
-        logger: false,
-      });
+    const service = new Mservice({
+      plugins: ['validator', 'logger'], // order is important
+      logger : {
+        defaultLogger: false,
+      },
+    });
 
-      expect(service.log).to.be.instanceof(bunyan);
-      expect(service.log.streams).to.have.length.of(1);
-      expect(service.log.streams[0].type).to.be.eq('raw');
-    }).to.not.throw();
+    assert.ok(service.log instanceof bunyan);
+    assert.equal(service.log.streams.length, 1);
+    assert.equal(service.log.streams[0].type, 'raw');
   });
 
-  it('logger inits with output to ringBuffer', function test() {
-    expect(() => {
-      const log = bunyan.createLogger({ name: 'test' });
-      const service = new Mservice({
-        plugins: [ 'logger' ],
-        logger: log,
-      });
+  it('should be able to init custom logger', function test() {
+    const logger = bunyan.createLogger({ name: 'test' });
+    const service = new Mservice({
+      plugins: ['validator', 'logger'], // order is important
+      logger : {
+        defaultLogger: logger,
+      },
+    });
 
-      expect(service.log).to.be.eq(log);
-    }).to.not.throw();
+    assert.deepEqual(service.log, logger);
+  });
+
+  it('should be able to init sentry stream', function test() {
+    const service = new Mservice({
+      plugins: ['validator', 'logger'], // order is important
+      logger : {
+        streams: {
+          sentry: {
+            dns: 'https://api:key@sentry.io/1822'
+          },
+        },
+      },
+    });
+
+    assert.ok(service.log instanceof bunyan);
+    assert.equal(service.log.streams.length, 2);
+    assert.equal(service.log.streams[1].level, 50); // 50 - error
   });
 });

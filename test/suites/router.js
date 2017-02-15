@@ -41,7 +41,9 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
       router: {
         routes: {
@@ -172,7 +174,9 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       plugins: ['validator', 'logger', 'router', 'amqp'],
       router: {
         routes: {
@@ -236,7 +240,9 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       plugins: ['validator', 'logger', 'router', 'amqp'],
       router: {
         routes: {

@@ -51,7 +51,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           port: 3000,
         }
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       socketIO: global.SERVICES.socketIO,
       router: global.SERVICES.router,
     });
@@ -80,7 +82,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           enabled: true,
         },
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       router: {
         routes: {
           directory: path.resolve(__dirname, './../socketIO/helpers/actions'),
@@ -132,7 +136,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           enabled: true,
         },
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       router: {
         routes: {
           directory: path.resolve(__dirname, './../socketIO/helpers/actions'),
@@ -178,7 +184,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       router: {
         routes: {
           directory: path.resolve(__dirname, './../socketIO/helpers/actions'),
@@ -223,7 +231,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger: true,
+      logger : {
+        defaultLogger: true,
+      },
       router: {
         routes: {
           directory: path.resolve(__dirname, './../socketIO/helpers/actions'),

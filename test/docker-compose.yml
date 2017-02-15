@@ -94,7 +94,7 @@ services:
       - redis-sentinel
       - elasticsearch
       - cassandra
-    image: makeomatic/node:7.1.0-tester-glibc
+    image: makeomatic/node:7.5.0-tester-glibc
     container_name: tester
     command: tail -f /dev/null
     environment:
