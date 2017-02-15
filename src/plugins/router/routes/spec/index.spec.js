@@ -1,6 +1,6 @@
-const { ActionTransport } = require('./../../../');
+const { ActionTransport } = require('../../../..');
 const { expect } = require('chai');
-const getRoutes = require('./');
+const getRoutes = require('..');
 const path = require('path');
 
 describe('router: get routes', function suite() {

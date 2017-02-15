@@ -68,7 +68,7 @@ services:
   elasticsearch:
     expose:
       - "9200"
-    image: joschi/alpine-elasticsearch
+    image: danielguerra/alpine-elasticsearch
     container_name: elasticsearch
     hostname: elasticsearch
 

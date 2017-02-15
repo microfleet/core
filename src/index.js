@@ -63,6 +63,7 @@ class Mservice extends EventEmitter {
   ];
 
   static routerExtension(name) {
+    // eslint-disable-next-line import/no-dynamic-require
     return require(`./plugins/router/extensions/${name}`);
   }
 
@@ -302,6 +303,7 @@ class Mservice extends EventEmitter {
 
     // init plugins
     config.plugins.forEach((plugin) => {
+      // eslint-disable-next-line import/no-dynamic-require
       this.initPlugin(require(`./plugins/${plugin}`));
     });
 
