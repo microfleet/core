@@ -43,12 +43,14 @@ class Mservice extends EventEmitter {
     database: 'database',
     migration: 'migration',
     transport: 'transport',
+    application: 'application',
   }
 
   static ConnectorsPriority = [
     Mservice.ConnectorsTypes.database,
     Mservice.ConnectorsTypes.migration,
     Mservice.ConnectorsTypes.transport,
+    Mservice.ConnectorsTypes.application,
   ]
 
   static PluginsTypes = {
