@@ -3,7 +3,6 @@ const { PluginsTypes } = require('..');
 const stdout = require('stdout-stream');
 const _require = require('../utils/require');
 
-const bunyan = _require('bunyan');
 const defaultConfig = {
   defaultLogger: false,
   debug: false,
@@ -26,6 +25,7 @@ function streamsFactory(name, options) {
 function attach(config = {}) {
   const service = this;
   const { config: { name: applicationName }, validator } = service;
+  const bunyan = _require('bunyan');
 
   if (validator.validateSync) {
     assert.ifError(service.validator.validateSync('logger', config).error);
