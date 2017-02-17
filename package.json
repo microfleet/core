@@ -93,7 +93,7 @@
     "express": "~4.x.x",
     "express-cassandra": "^1.7.2",
     "hapi": "^16.0.1",
-    "ioredis": "^2.4.2",
+    "ioredis": "^2.5.0",
     "isparta": "^4.0.0",
     "istanbul": "=0.4.4",
     "json": "^9.0.4",
