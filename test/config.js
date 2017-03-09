@@ -7,8 +7,8 @@ const path = require('path');
 global.SERVICES = {
   redis: {
     hosts: [0, 1, 2].map(idx => ({
-      host: `redis-${idx}`,
-      port: 6379,
+      host: 'redis-cluster',
+      port: 7000 + idx,
     })),
     options: {},
   },

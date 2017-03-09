@@ -1,6 +1,0 @@
-instrumentation:
-  root: src
-
-reporting:
-  reports:
-    - lcovonly
