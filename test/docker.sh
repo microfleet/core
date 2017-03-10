@@ -21,7 +21,7 @@ if ! [ -x "$(which docker-compose)" ]; then
 fi
 
 if [[ x"$CI" == x"true" ]]; then
-  trap "$COMPOSE logs; $COMPOSE stop; $COMPOSE rm -f -v;" EXIT
+  trap "$COMPOSE stop; $COMPOSE rm -f -v;" EXIT
 else
   trap "printf \"to remove containers use:\n\n$COMPOSE stop;\n$COMPOSE rm -f -v;\n\n\"" EXIT
 fi
@@ -47,5 +47,5 @@ done
 
 if [[ x"$CI" == x"true" ]]; then
   echo "uploading coverage report from ./coverage/lcov.info"
-  $BIN/codecov
+  docker exec tester $BIN/codecov
 fi

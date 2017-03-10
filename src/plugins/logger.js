@@ -6,6 +6,7 @@ const _require = require('../utils/require');
 const defaultConfig = {
   defaultLogger: false,
   debug: false,
+  trace: false,
   name: 'mservice',
   streams: {},
 };
@@ -35,6 +36,7 @@ function attach(config = {}) {
     defaultLogger,
     debug,
     name,
+    trace,
     streams: streamsConfig,
   } = Object.assign({}, defaultConfig, config);
 
@@ -44,7 +46,15 @@ function attach(config = {}) {
     return;
   }
 
-  const streams = [{ level: 'trace', type: 'raw', stream: new bunyan.RingBuffer({ limit: 100 }) }];
+  const streams = [];
+
+  if (trace === true) {
+    streams.push({
+      level: 'trace',
+      type: 'raw',
+      stream: new bunyan.RingBuffer({ limit: 100 }),
+    });
+  }
 
   if (defaultLogger === true) {
     streams.push({
