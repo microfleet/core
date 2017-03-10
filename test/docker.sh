@@ -47,5 +47,5 @@ done
 
 if [[ x"$CI" == x"true" ]]; then
   echo "uploading coverage report from ./coverage/lcov.info"
-  docker exec tester $BIN/codecov
+  $BIN/codecov
 fi
