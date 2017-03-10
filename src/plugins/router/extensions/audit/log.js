@@ -27,7 +27,8 @@ module.exports = [
 
       if (error) {
         const err = is.fn(error.toJSON) ? error.toJSON() : error.toString();
-        service.log.error(meta, 'Error performing operation', err);
+        const level = err && err.statusCode && err.statusCode < 400 ? 'info' : 'error';
+        service.log[level](meta, 'Error performing operation', err);
       } else {
         service.log.info(meta, 'completed operation', service._config.debug ? result : '');
       }
