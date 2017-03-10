@@ -1,31 +1,12 @@
 version: '2'
 services:
-  redis-1:
-    image: makeomatic/alpine-redis
-    container_name: redis-1
-    hostname: redis-1
-    expose:
-      - "6379"
-      - "16379"
-
-  redis-2:
-    image: makeomatic/alpine-redis
-    container_name: redis-2
-    hostname: redis-2
-    expose:
-      - "6379"
-      - "16379"
-
-  redis-3:
-    image: makeomatic/alpine-redis
-    container_name: redis-3
-    hostname: redis-3
-    expose:
-      - "6379"
-      - "16379"
+  redis-cluster:
+    image: makeomatic/redis-cluster:3.2.8
+    hostname: redis-cluster
+    container_name: redis-cluster
 
   redis:
-    image: redis:3.2.4-alpine
+    image: redis:3.2.8-alpine
     container_name: redis
     hostname: redis
     expose:
@@ -36,7 +17,7 @@ services:
       - redis
     volumes:
       - ./redis-sentinel:/etc/redis-sentinel:rw
-    image: redis:3.2.4-alpine
+    image: redis:3.2.8-alpine
     container_name: redis-sentinel
     hostname: redis-sentinel
     expose:
@@ -45,25 +26,15 @@ services:
 
   rabbitmq:
     expose:
+      - "4369"
       - "5672"
-    image: makeomatic/rabbitmq:3.6.2
+      - "15672"
+      - "25672"
+    image: makeomatic/rabbitmq:3.6.6
     container_name: rabbitmq
     hostname: rabbitmq
     volumes:
       - ./rabbitmq/rabbitmq.config:/usr/lib/rabbitmq/etc/rabbitmq/rabbitmq.config
-
-  redis_client:
-    links:
-      - redis-1
-      - redis-2
-      - redis-3
-      - rabbitmq
-    container_name: redis_client
-    image: makeomatic/redis-trib
-    environment:
-      - REDIS_1=redis-1
-      - REDIS_2=redis-2
-      - REDIS_3=redis-3
 
   elasticsearch:
     expose:
@@ -87,19 +58,19 @@ services:
   tester:
     links:
       - postgres
-      - redis-1
-      - redis-2
-      - redis-3
+      - redis-cluster
       - rabbitmq
       - redis-sentinel
+      - redis
       - elasticsearch
       - cassandra
-    image: makeomatic/node:7.5.0-tester-glibc
+    image: makeomatic/node:7.6.0-tester-glibc
     container_name: tester
     command: tail -f /dev/null
     environment:
       BLUEBIRD_DEBUG: '1'
       DEBUG: ${DEBUG}
+      NODE_ENV: test
     working_dir: /src
     volumes:
       - ${PWD}:/src

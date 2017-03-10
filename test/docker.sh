@@ -1,16 +1,16 @@
 #!/bin/bash
 
-set -x
-
 BIN=node_modules/.bin
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DC="$DIR/docker-compose.yml"
 PATH=$PATH:$DIR/.bin/
-COMPOSE=$(which docker-compose)
-MOCHA=$BIN/_mocha
-COVER="$BIN/isparta cover"
-NODE=$BIN/babel-node
+
+# coverage & test files
+COVER="$BIN/cross-env NODE_ENV=test $BIN/nyc"
 TESTS=${TESTS:-test/suites/*.js}
+
+# compose stuff
+DC="$DIR/docker-compose.yml"
+COMPOSE=$(which docker-compose)
 COMPOSE_VER=${COMPOSE_VER:-1.7.1}
 COMPOSE="docker-compose -f $DC"
 
@@ -21,7 +21,7 @@ if ! [ -x "$(which docker-compose)" ]; then
 fi
 
 if [[ x"$CI" == x"true" ]]; then
-  trap "$COMPOSE logs; $COMPOSE stop; $COMPOSE rm -f -v;" EXIT
+  trap "$COMPOSE stop; $COMPOSE rm -f -v;" EXIT
 else
   trap "printf \"to remove containers use:\n\n$COMPOSE stop;\n$COMPOSE rm -f -v;\n\n\"" EXIT
 fi
@@ -30,9 +30,6 @@ chmod a+w ./test/redis-sentinel/*.conf
 
 # bring compose up
 $COMPOSE up -d
-
-echo "cleaning old coverage"
-rm -rf ./coverage
 
 set -e
 
@@ -45,13 +42,10 @@ fi
 echo "running tests"
 for fn in $TESTS; do
   echo "running tests for $fn"
-  docker exec tester /bin/sh -c "$NODE $COVER --dir ./coverage/${fn##*/} $MOCHA -- --trace-deprecation $fn"
+  docker exec tester /bin/sh -c "$COVER --report-dir ./coverage/${fn##*/} $BIN/mocha $fn"
 done
-
-echo "started generating combined coverage"
-docker exec tester test/aggregate-report.js
 
 if [[ x"$CI" == x"true" ]]; then
   echo "uploading coverage report from ./coverage/lcov.info"
-  $BIN/codecov -f ./coverage/lcov.info
+  $BIN/codecov
 fi

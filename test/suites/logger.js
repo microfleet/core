@@ -14,35 +14,36 @@ describe('Logger suite', function testSuite() {
   it('logger inits with output to stdout', function test() {
     const service = new Mservice({
       plugins: ['validator', 'logger'], // order is important
-      logger : {
-        defaultLogger : true,
+      logger: {
+        defaultLogger: true,
       },
     });
 
     assert.ok(service.log instanceof bunyan);
-    assert.equal(service.log.streams.length, 2);
-    assert.equal(service.log.streams[1].level, 30); // 30 - info
+    assert.equal(service.log.streams.length, 1);
+    assert.equal(service.log.streams[0].level, 30); // 30 - info
   });
 
-  it('logger inits with output to stdout', function test() {
+  it('logger inits with output to stdout: debug', function test() {
     const service = new Mservice({
       plugins: ['validator', 'logger'], // order is important
-      logger : {
-        defaultLogger : true,
+      logger: {
+        defaultLogger: true,
         debug: true,
       },
     });
 
     assert.ok(service.log instanceof bunyan);
-    assert.equal(service.log.streams.length, 2);
-    assert.equal(service.log.streams[1].level, 20); // 20 - debug
+    assert.equal(service.log.streams.length, 1);
+    assert.equal(service.log.streams[0].level, 20); // 20 - debug
   });
 
   it('logger inits with output to ringBuffer', function test() {
     const service = new Mservice({
       plugins: ['validator', 'logger'], // order is important
-      logger : {
+      logger: {
         defaultLogger: false,
+        trace: true,
       },
     });
 
@@ -55,7 +56,7 @@ describe('Logger suite', function testSuite() {
     const logger = bunyan.createLogger({ name: 'test' });
     const service = new Mservice({
       plugins: ['validator', 'logger'], // order is important
-      logger : {
+      logger: {
         defaultLogger: logger,
       },
     });
@@ -66,17 +67,17 @@ describe('Logger suite', function testSuite() {
   it('should be able to init sentry stream', function test() {
     const service = new Mservice({
       plugins: ['validator', 'logger'], // order is important
-      logger : {
+      logger: {
         streams: {
           sentry: {
-            dns: 'https://api:key@sentry.io/1822'
+            dns: 'https://api:key@sentry.io/1822',
           },
         },
       },
     });
 
     assert.ok(service.log instanceof bunyan);
-    assert.equal(service.log.streams.length, 2);
-    assert.equal(service.log.streams[1].level, 50); // 50 - error
+    assert.equal(service.log.streams.length, 1);
+    assert.equal(service.log.streams[0].level, 50); // 50 - error
   });
 });
