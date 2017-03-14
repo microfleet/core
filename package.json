@@ -75,7 +75,7 @@
     "bunyan": "^1.8.8",
     "bunyan-sentry-stream": "^1.0.2",
     "chai": "^3.5.0",
-    "codecov": "^1.0.1",
+    "codecov": "^2.0.1",
     "common-errors": "^1.0.0",
     "cross-env": "^3.2.3",
     "cz-conventional-changelog": "^2.0.0",
