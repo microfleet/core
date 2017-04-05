@@ -72,7 +72,7 @@
     "babel-register": "^6.23.0",
     "body-parser": "^1.17.1",
     "boom": "^4.2.0",
-    "bunyan": "^1.8.8",
+    "bunyan": "^1.8.10",
     "bunyan-sentry-stream": "^1.0.2",
     "chai": "^3.5.0",
     "codecov": "^2.0.1",
