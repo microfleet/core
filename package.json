@@ -63,7 +63,7 @@
     "socketio-wildcard": "~0.x.x"
   },
   "devDependencies": {
-    "babel-cli": "^6.23.0",
+    "babel-cli": "^6.24.1",
     "babel-eslint": "^7.1.1",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
