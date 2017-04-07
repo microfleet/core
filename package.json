@@ -97,7 +97,7 @@
     "ms-validation": "^3.0.0",
     "nyc": "^10.1.2",
     "pg": "^6.1.4",
-    "raven": "^1.1.4",
+    "raven": "^1.1.6",
     "request": "^2.81.0",
     "request-promise": "^4.1.1",
     "restify": "^4.3.0",
