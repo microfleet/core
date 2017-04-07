@@ -69,7 +69,7 @@
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-strict-mode": "^6.22.0",
-    "babel-register": "^6.23.0",
+    "babel-register": "^6.24.1",
     "body-parser": "^1.17.1",
     "boom": "^4.2.0",
     "bunyan": "^1.8.8",
