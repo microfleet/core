@@ -86,7 +86,7 @@
     "eslint-plugin-mocha": "^4.8.0",
     "eslint-plugin-promise": "^3.5.0",
     "express": "^4.15.2",
-    "express-cassandra": "^1.7.5",
+    "express-cassandra": "^1.8.0",
     "hapi": "^16.0.1",
     "ioredis": "^2.4.2",
     "json": "^9.0.6",
