@@ -52,8 +52,6 @@ module.exports = function getHapiAdapter(service, config) {
         return reply(replyError);
       }
 
-      console.log('result:', result);
-      console.log(typeof result);
       if (result instanceof Response) {
         return reply(result);
       }
