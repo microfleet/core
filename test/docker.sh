@@ -6,7 +6,8 @@ PATH=$PATH:$DIR/.bin/
 
 # coverage & test files
 COVER="$BIN/cross-env NODE_ENV=test $BIN/nyc"
-TESTS=${TESTS:-test/suites/*.js}
+# TESTS=${TESTS:-test/suites/*.js}
+TESTS=test/suites/http.hapi.js
 
 # compose stuff
 DC="$DIR/docker-compose.yml"

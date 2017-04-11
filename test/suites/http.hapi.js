@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const path = require('path');
 const Promise = require('bluebird');
+const cheerio = require('cheerio');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
 
@@ -231,7 +232,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -264,5 +265,100 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           return service.close();
         });
       });
+  });
+
+  describe('should be able to use hapi\'s plugins', () => {
+    const service = new Mservice({
+      plugins: ['validator', 'logger', 'router', 'http'],
+      http: {
+        server: {
+          handler: 'hapi',
+          port: 3000,
+          handlerConfig: {
+            views: {
+              engines: {
+                hbs: require('handlebars'),
+              },
+              path: path.resolve(__dirname, './../hapi/templates'),
+            },
+          },
+        },
+        router: {
+          enabled: true,
+          prefix: 'foo.bar',
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, './../hapi/helpers/actions'),
+          transports: ['http'],
+        },
+      },
+    });
+
+    before(() => service.connect());
+    after(() => service.close());
+
+    it('should be able to send html view', () => {
+      const options = {
+        json: true,
+        method: 'post',
+        resolveWithFullResponse: true,
+        simple: false,
+        uri: 'http://0.0.0.0:3000/foo/bar/view',
+        body: {
+          title: 'title',
+          content: 'content',
+        },
+      };
+
+      return request(options).then((response) => {
+        expect(response.statusCode).to.be.equals(200);
+        expect(response.headers['content-type']).to.be.equals('text/html; charset=utf-8');
+        expect(response.body).to.be.a('string');
+
+        const page = cheerio.load(response.body);
+        expect(page('title').html().trim()).to.be.equal(options.body.title);
+        expect(page('div#content').html().trim()).to.be.equal(options.body.content);
+
+        return true;
+      });
+    });
+
+    it('should be able to redirect', () => {
+      const options = {
+        json: true,
+        method: 'get',
+        resolveWithFullResponse: true,
+        simple: false,
+        uri: 'http://0.0.0.0:3000/foo/bar/redirect',
+      };
+
+      return request(options).then((response) => {
+        expect(response.statusCode).to.be.equals(200);
+        expect(response.body).to.be.deep.equals({ redirected: true });
+
+        return true;
+      });
+    });
+
+    it('should be able to redirect', () => {
+      const options = {
+        method: 'get',
+        resolveWithFullResponse: true,
+        simple: false,
+        uri: 'http://0.0.0.0:3000/foo/bar/externalRedirect',
+      };
+
+      return request(options).then((response) => {
+        expect(response.statusCode).to.be.equals(200);
+        expect(response.body).to.be.a('string');
+
+        return true;
+      });
+    });
   });
 });

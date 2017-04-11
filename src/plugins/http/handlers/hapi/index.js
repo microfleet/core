@@ -18,6 +18,39 @@ function createHapiServer(config, service) {
     attachRouter(service, server, config.router);
   }
 
+  // eslint-disable-next-line no-shadow
+  function initPlugins(server) {
+    const { plugins } = handlerConfig;
+    const { list, options } = plugins;
+
+    if (handlerConfig.views) {
+      list.push({
+        register: 'vision',
+        options: {},
+      }, {
+        register: './plugins/views',
+        options: handlerConfig.views,
+      });
+    }
+
+    if (!list.length) {
+      return server;
+    }
+
+    const registrations = list.map((plugin) => {
+      // eslint-disable-next-line no-shadow
+      const { register, options } = plugin;
+
+      return {
+        // eslint-disable-next-line import/no-dynamic-require
+        register: typeof register === 'string' ? require(register) : register,
+        options,
+      };
+    });
+
+    return server.register(registrations, options);
+  }
+
   function startServer() {
     if (config.server.attachSocketIO) {
       if (!service._socketIO) {
@@ -27,7 +60,9 @@ function createHapiServer(config, service) {
       service.socketIO.listen(server.listener);
     }
 
-    return Promise.resolve(server.start())
+    return Promise.resolve(server)
+      .tap(initPlugins)
+      .tap(() => server.start())
       .return(server)
       .tap(() => service.emit('plugin:start:http', server));
   }

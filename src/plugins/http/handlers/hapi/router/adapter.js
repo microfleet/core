@@ -3,6 +3,7 @@ const { fromPathToName } = require('../../../helpers/actionName');
 const Errors = require('common-errors');
 const is = require('is');
 const _require = require('../../../../../utils/require');
+const Response = require('hapi/lib/response');
 
 module.exports = function getHapiAdapter(service, config) {
   const Boom = _require('boom');
@@ -51,6 +52,12 @@ module.exports = function getHapiAdapter(service, config) {
         return reply(replyError);
       }
 
+      console.log('result:', result);
+      console.log(typeof result);
+      if (result instanceof Response) {
+        return reply(result);
+      }
+
       return reply(null, result);
     }
 
@@ -62,6 +69,7 @@ module.exports = function getHapiAdapter(service, config) {
       query: request.query,
       method: request.method.toLowerCase(),
       transport: ActionTransport.http,
+      transportRequest: request,
     }, callback);
   };
 };
