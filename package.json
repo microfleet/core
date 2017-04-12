@@ -7,8 +7,8 @@
     "coverage:unit": "cross-env NODE_ENV=test nyc --report-dir ./coverage/unit-tests npm run test:unit",
     "prepublish": "npm run compile",
     "lint": "eslint ./src",
-    "test": "npm run lint && rimraf ./coverage && npm run test:unit && ./test/docker.sh",
-    "test:unit": "mocha --recursive ./src",
+    "test": "npm run lint && npm run test:integration",
+    "test:integration": "npm run compile && mdep test run --node 7.9.0",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -64,6 +64,7 @@
     "socketio-wildcard": "~0.x.x"
   },
   "devDependencies": {
+    "@makeomatic/deploy": "makeomatic/deploy",
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
     "babel-plugin-istanbul": "^4.0.0",
