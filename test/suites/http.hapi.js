@@ -15,17 +15,17 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         server: {
           handler: 'hapi',
           port: 3000,
-        }
+        },
       },
     });
 
     return this.service.connect()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
-      .spread(server => {
+      .spread((server) => {
         expect(server).to.be.equals(this.service.http);
         expect(this.service.http.info.started !== undefined).to.be.equals(true);
         expect(this.service.http.info.started > 0).to.be.equals(true);
@@ -35,7 +35,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   it('should be able to stop \'hapi\' http server', function test() {
     return this.service.close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         expect(this.service.http.info.started !== undefined).to.be.equals(true);
         expect(this.service.http.info.started === 0).to.be.equals(true);
@@ -50,16 +50,16 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           attachSocketIO: true,
           handler: 'hapi',
           port: 3000,
-        }
+        },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       socketIO: global.SERVICES.socketIO,
       router: global.SERVICES.router,
     });
 
-    service.connect()
+    return service.connect()
       .then(() => {
         const client = SocketIOClient('http://0.0.0.0:3000');
         client.on('error', done);
@@ -83,7 +83,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           enabled: true,
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -109,16 +109,18 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         };
 
         return Promise.all([
-          request(options).then(response => {
+          request(options).then((response) => {
             expect(response.statusCode).to.be.equals(200);
             expect(response.body).to.be.deep.equals({ message: 'foo' });
           }),
-          request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then(response => {
+          request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
             expect(response.statusCode).to.be.equals(404);
             expect(response.body.name).to.be.equals('NotFoundError');
             expect(response.body.message).to.be.deep.equals('Not Found: "route "not-found" not found"');
-          })
-        ]).reflect().then(inspection => {
+          }),
+        ])
+        .reflect()
+        .then((inspection) => {
           expect(inspection.isFulfilled()).to.be.equals(true);
           return service.close();
         });
@@ -137,7 +139,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           enabled: true,
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -163,7 +165,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
+        return request(options).then((response) => {
           expect(response.statusCode).to.be.equals(200);
           expect(response.body).to.be.deep.equals({ message: 'foo' });
 
@@ -185,7 +187,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -210,7 +212,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
+        return request(options).then((response) => {
           expect(response.statusCode).to.be.equals(200);
           expect(response.body).to.be.deep.equals({ message: 'foo' });
 
@@ -258,7 +260,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
+        return request(options).then((response) => {
           expect(response.statusCode).to.be.equals(200);
           expect(response.body).to.be.deep.equals({ message: 'foo' });
 
