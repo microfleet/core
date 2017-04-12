@@ -59,7 +59,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       router: global.SERVICES.router,
     });
 
-    return service.connect()
+    service.connect()
       .then(() => {
         const client = SocketIOClient('http://0.0.0.0:3000');
         client.on('error', done);
