@@ -7,10 +7,6 @@ function register(server, options, next) {
       .then(page => this.generateResponse(page));
   });
 
-  server.root.decorate('request', 'redirect', function redirect(url) {
-    return this.generateResponse().redirect(url);
-  });
-
   return next();
 }
 

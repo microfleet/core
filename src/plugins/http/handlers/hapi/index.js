@@ -3,6 +3,11 @@ const attachRouter = require('./router/attach');
 const Promise = require('bluebird');
 const _require = require('../../../../utils/require');
 
+const defaultPlugins = [{
+  register: './plugins/redirect',
+  options: {},
+}];
+
 function createHapiServer(config, service) {
   const Hapi = _require('hapi');
 
@@ -20,11 +25,11 @@ function createHapiServer(config, service) {
 
   // eslint-disable-next-line no-shadow
   function initPlugins(server) {
-    const { plugins } = handlerConfig;
-    const { list, options } = plugins;
+    const { list, options } = handlerConfig.plugins;
+    const plugins = defaultPlugins.concat(list);
 
     if (handlerConfig.views) {
-      list.push({
+      plugins.push({
         register: 'vision',
         options: {},
       }, {
@@ -33,11 +38,7 @@ function createHapiServer(config, service) {
       });
     }
 
-    if (!list.length) {
-      return server;
-    }
-
-    const registrations = list.map((plugin) => {
+    const registrations = plugins.map((plugin) => {
       // eslint-disable-next-line no-shadow
       const { register, options } = plugin;
 

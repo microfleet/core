@@ -363,6 +363,7 @@ Allowed handlers at this moment:
 
  * express (make sure you also do `npm i express -S`)
  * restify (make sure you also do `npm i restify -S`)
+ * hapi (make sure you also do `npm i hapi -S`, also additional dependencies may be required, for example if you want to use some of hapi's plugins)
 
 #### Peer dependencies
 
@@ -386,8 +387,72 @@ const service = new Service({
     }
   }
 });
+```
 
-// service.http - server instance depends on handler
+##### Hapi features
+
+That's possible to use hapi plugins such as `vision`, `bell`, etc. All you need is extend the config of http server. Possible options are:
+
+```js
+const service = new Service({
+  plugins: [ 'http' ],
+  http: {
+    server: {
+      handler: 'hapi',
+      handlerConfig: {
+        /** implicitly loads 'vision' plugin and decorates a native hapi request with 'sendView' method
+         *  https://github.com/hapijs/vision
+         */
+        views: {
+          engines: {
+            hbs: require('handlebars'),
+          },
+          paths: 'path/to/templates',
+          relativeTo: __dirname,
+        },
+        plugins: {
+          list: [{
+            // you can provide a plugin name, but be sure you've included it in the dependencies
+            register: 'bell',
+            options: {
+              /** bell options */
+            }
+          }, {
+            // also you can provide a function as a plugin
+            register: require('path/to/custom/plugin'),
+            options: {
+              /** options */
+            }
+          }, {
+            // or even just a path to the file
+            register: 'path/to/custom/plugin',
+            options: {}
+          }],
+          options: {
+            /** https://hapijs.com/api#plugins */
+          }
+        }
+      },
+      port: 3000,
+    }
+  }
+});
+
+// next in route handler you can use a native hapi request instance. 
+/** file: some/action/handler.js */
+module.exports = function actionHandler(request) {
+  const context = {
+    example: true,
+  };
+
+  return request.transportRequest.sendView('view', context);
+}
+
+// decorates a native hapi request with 'redirect' method.
+/** file: redirect/action/handler.js */
+module.exports = function redirectHandler(request) {
+  return request.transportRequest.redirect('https://github.com/makeomatic');
+}
 ```
 
 ### Socket.io plugin
