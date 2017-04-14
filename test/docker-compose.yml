@@ -30,7 +30,7 @@ services:
       - "5672"
       - "15672"
       - "25672"
-    image: makeomatic/rabbitmq:3.6.6
+    image: makeomatic/rabbitmq:3.6.9
     container_name: rabbitmq
     hostname: rabbitmq
     volumes:
@@ -43,7 +43,7 @@ services:
     container_name: elasticsearch
     hostname: elasticsearch
     environment:
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_OPTS: "-Xms128m -Xmx128m"
       http.host: "0.0.0.0"
       transport.host: "127.0.0.1"
       xpack.security.enabled: "false"
@@ -54,14 +54,18 @@ services:
       nofile:
         soft: 65536
         hard: 65536
-    mem_limit: 1g
+    mem_limit: 256m
     cap_add:
       - IPC_LOCK
 
   cassandra:
-    image: cassandra:3.7
+    image: cassandra:3.10
     container_name: cassandra
     hostname: cassandra
+    mem_limit: 256m
+    environment:
+      MAX_HEAP_SIZE: 128m
+      HEAP_NEWSIZE: 24m
 
   postgres:
     expose:
