@@ -9,7 +9,7 @@
     "lint": "eslint ./src",
     "test": "npm run lint && npm run coverage:unit && npm run test:integration",
     "test:unit": "mocha --recursive ./src",
-    "test:integration": "npm run compile && mdep test run --sleep 60 --node 7.9.0",
+    "test:integration": "npm run compile && mdep test run --sleep 60 --node 7.9.0 --fail 'docker-compose logs -f ./test/docker-compose.yml'",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
