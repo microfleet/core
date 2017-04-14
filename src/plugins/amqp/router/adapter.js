@@ -27,6 +27,7 @@ function getAMQPRouterAdapter(router, config) {
       // to provide similar interfaces
       transport,
       method: transport.toLowerCase(),
+      transportRequest: {},
     };
 
     const promise = dispatch(actionName, opts);

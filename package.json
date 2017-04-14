@@ -7,8 +7,9 @@
     "coverage:unit": "cross-env NODE_ENV=test nyc --report-dir ./coverage/unit-tests npm run test:unit",
     "prepublish": "npm run compile",
     "lint": "eslint ./src",
-    "test": "npm run lint && rimraf ./coverage && npm run test:unit && ./test/docker.sh",
+    "test": "npm run lint && npm run coverage:unit && npm run test:integration",
     "test:unit": "mocha --recursive ./src",
+    "test:integration": "npm run compile && mdep test run --sleep 60 --node 7.9.0 --fail 'docker-compose -f ./test/docker-compose.yml logs'",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -48,7 +49,7 @@
     "bunyan-sentry-stream": "~1.x.x",
     "elasticsearch": "~11.x.x || ~12.x.x",
     "express": "~4.x.x",
-    "express-cassandra": "~1.7.x",
+    "express-cassandra": "~1.8.x",
     "hapi": ">= 14.x.x < 17",
     "ioredis": "^2.3.0",
     "knex": "~0.x.x",
@@ -56,6 +57,7 @@
     "ms-socket.io-adapter-amqp": "~2.x.x || ~3.x.x",
     "ms-validation": "~3.x.x",
     "pg": "^6.x.x",
+    "vision": "^4.x.x",
     "raven": "~1.x.x",
     "restify": "~4.x.x",
     "server-destroy": "~1.x.x",
@@ -63,21 +65,23 @@
     "socketio-wildcard": "~0.x.x"
   },
   "devDependencies": {
+    "@makeomatic/deploy": "^1.2.0",
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
-    "babel-plugin-istanbul": "^4.0.0",
+    "babel-plugin-istanbul": "^4.1.1",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-strict-mode": "^6.22.0",
-    "babel-register": "^6.23.0",
+    "babel-register": "^6.24.1",
     "body-parser": "^1.17.1",
     "boom": "^4.2.0",
     "bunyan": "^1.8.8",
     "bunyan-sentry-stream": "^1.0.2",
     "chai": "^3.5.0",
+    "cheerio": "^0.22.0",
     "codecov": "^2.0.1",
     "common-errors": "^1.0.0",
-    "cross-env": "^3.2.3",
+    "cross-env": "^4.0.0",
     "cz-conventional-changelog": "^2.0.0",
     "elasticsearch": "^12.1.0",
     "eslint": "^3.17.1",
@@ -87,6 +91,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "express": "^4.15.2",
     "express-cassandra": "^1.7.5",
+    "handlebars": "^4.0.6",
     "hapi": "^16.0.1",
     "ioredis": "^2.4.2",
     "json": "^9.0.6",
@@ -95,7 +100,7 @@
     "ms-amqp-transport": "^7.1.0",
     "ms-socket.io-adapter-amqp": "^3.0.1",
     "ms-validation": "^3.0.0",
-    "nyc": "^10.1.2",
+    "nyc": "^10.2.0",
     "pg": "^6.1.4",
     "raven": "^1.1.4",
     "request": "^2.81.0",
@@ -106,7 +111,8 @@
     "server-destroy": "~1.x.x",
     "socket.io": "^1.7.1",
     "socket.io-client": "^1.7.1",
-    "socketio-wildcard": "^0.4.0"
+    "socketio-wildcard": "^0.4.0",
+    "vision": "^4.1.1"
   },
   "release": {
     "verifyConditions": []
@@ -117,26 +123,7 @@
     }
   },
   "engines": {
-    "node": ">= 7.6.0",
+    "node": ">= 7.8.0",
     "npm": ">= 3.0.0"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "src/**/*.spec.js"
-    ],
-    "require": [
-      "babel-register"
-    ],
-    "sourceMap": false,
-    "instrument": false,
-    "cache": true,
-    "reporter": [
-      "lcov",
-      "json",
-      "text-summary"
-    ]
   }
 }
