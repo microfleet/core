@@ -62,19 +62,9 @@ services:
     image: cassandra:3.10
     container_name: cassandra
     hostname: cassandra
-    mem_limit: 256m
     environment:
       MAX_HEAP_SIZE: 128m
       HEAP_NEWSIZE: 24m
-    cap_add:
-      - IPC_LOCK
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
 
   postgres:
     expose:
