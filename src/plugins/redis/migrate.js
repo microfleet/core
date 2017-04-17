@@ -37,7 +37,14 @@ const debug = require('debug')('mservice:redis:migrate');
 
 // some constant helpers
 const VERSION_KEY = 'version';
-const appendLuaScript = (finalVersion, min = 0, script) => `-- check for ${finalVersion}
+
+/**
+ * This script is used to verify that we havent performed the transaction yet
+ * @param  {Number} finalVersion
+ * @param  {Number} [min=0]
+ * @return {String}
+ */
+const appendPreScript = (finalVersion, min = 0) => `-- check for ${finalVersion}
 local versionKey = KEYS[1];
 local currentVersion = tonumber(redis.call('get', versionKey) or 0);
 if currentVersion >= ${finalVersion} then
@@ -47,11 +54,29 @@ end
 if currentVersion < ${min} then
   return redis.reply_error('min version constraint failed');
 end
--- end check
-${script}
--- set current version
+-- end check`;
+
+/**
+ * This script is used to put version after migration is complete
+ * @param  {Number} finalVersion
+ * @return {String}
+ */
+const appendPostScript = finalVersion => `-- set current version
 return redis.call('set', versionKey, '${finalVersion}');
 `;
+
+/**
+ * This is the most common case of a single LUA script for migration
+ * @param  {Number} finalVersion
+ * @param  {Number} [min=0]
+ * @param  {String} script
+ * @return {String}
+ */
+const appendLuaScript = (finalVersion, min = 0, script) => [
+  appendPreScript(finalVersion, min),
+  script,
+  appendPostScript(finalVersion),
+].join('\n');
 
 module.exports = async function performMigration(redis, service, scripts) {
   let files;
@@ -109,7 +134,7 @@ module.exports = async function performMigration(redis, service, scripts) {
     } else if (is.fn(file.script)) {
       // must return promise
       // eslint-disable-next-line no-await-in-loop
-      await file.script(service, pipeline, VERSION_KEY, appendLuaScript);
+      await file.script(service, pipeline, VERSION_KEY, appendLuaScript, { appendPreScript, appendPostScript });
     } else {
       throw new Error('script must be a function if not a string');
     }
