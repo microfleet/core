@@ -83,7 +83,7 @@
     "common-errors": "^1.0.0",
     "cross-env": "^4.0.0",
     "cz-conventional-changelog": "^2.0.0",
-    "elasticsearch": "^12.1.0",
+    "elasticsearch": "^13.0.0",
     "eslint": "^3.17.1",
     "eslint-config-makeomatic": "^1.0.1",
     "eslint-plugin-import": "^2.2.0",
