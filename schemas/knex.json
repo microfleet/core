@@ -1,42 +1,49 @@
 {
-  "id": "knex",
-  "type": "object",
-  "required": ["client", "debug"],
-  "properties": {
-    "client": {
-      "type": "string",
-      "enum": ["pg", "mysql", "sqlite3"]
-    },
-    "debug": {
-      "type": "boolean",
-      "default": false
-    },
-    "migrations": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "tableName": {
-          "type": "string"
+    "$id": "knex",
+    "type": "object",
+    "required": [
+        "client",
+        "debug"
+    ],
+    "properties": {
+        "client": {
+            "type": "string",
+            "enum": [
+                "pg",
+                "mysql",
+                "sqlite3"
+            ]
         },
-        "directory": {
-          "type": "string"
+        "debug": {
+            "type": "boolean",
+            "default": false
         },
-        "extension": {
-          "type": "string"
+        "migrations": {
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+                "tableName": {
+                    "type": "string"
+                },
+                "directory": {
+                    "type": "string"
+                },
+                "extension": {
+                    "type": "string"
+                },
+                "disableTransactions": {
+                    "type": "boolean"
+                }
+            }
         },
-        "disableTransactions": {
-          "type": "boolean"
+        "seeds": {
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+                "directory": {
+                    "type": "string"
+                }
+            }
         }
-      }
-    },
-    "seeds": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "directory": {
-          "type": "string"
-        }
-      }
     }
-  }
 }

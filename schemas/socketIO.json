@@ -1,21 +1,21 @@
 {
-  "id": "socketIO",
-  "type": "object",
-  "additionalProperties": false,
-  "properties": {
-    "router": {
-      "default": {},
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": false
+    "$id": "socketIO",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "router": {
+            "default": {},
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                }
+            }
+        },
+        "options": {
+            "type": "object",
+            "default": {}
         }
-      }
-    },
-    "options": {
-      "type": "object",
-      "default": {}
     }
-  }
 }

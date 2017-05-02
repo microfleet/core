@@ -1,11 +1,11 @@
 {
-  "id": "router.auth",
-  "additionalProperties": false,
-  "type": "object",
-  "properties": {
-    "strategies": {
-      "type": "object",
-      "default": {}
+    "$id": "router.auth",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+        "strategies": {
+            "type": "object",
+            "default": {}
+        }
     }
-  }
 }

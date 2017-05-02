@@ -1,31 +1,34 @@
 {
-  "id": "router.extensions",
-  "additionalProperties": false,
-  "type": "object",
-  "properties": {
-    "enabled": {
-      "default": [],
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "uniqueItems": true
-    },
-    "register": {
-      "type": "array",
-      "default": [],
-      "items": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "require": ["point", "handler"],
-          "properties": {
-            "point": {
-              "type": "string"
+    "$id": "router.extensions",
+    "additionalProperties": false,
+    "type": "object",
+    "properties": {
+        "enabled": {
+            "default": [],
+            "items": {
+                "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+        },
+        "register": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "require": [
+                        "point",
+                        "handler"
+                    ],
+                    "properties": {
+                        "point": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }

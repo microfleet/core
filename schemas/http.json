@@ -1,47 +1,53 @@
 {
-  "id": "http",
-  "type": "object",
-  "required": ["server"],
-  "properties": {
-    "server": {
-      "type": "object",
-      "required": ["handler", "port", "host"],
-      "properties": {
-        "attachSocketIO": {
-          "default": false,
-          "type": "boolean"
+    "$id": "http",
+    "type": "object",
+    "required": [
+        "server"
+    ],
+    "properties": {
+        "server": {
+            "type": "object",
+            "required": [
+                "handler",
+                "port",
+                "host"
+            ],
+            "properties": {
+                "attachSocketIO": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "handler": {
+                    "default": "express",
+                    "type": "string"
+                },
+                "handlerConfig": {
+                    "default": {},
+                    "type": "object"
+                },
+                "port": {
+                    "default": 3000,
+                    "type": "integer"
+                },
+                "host": {
+                    "default": "0.0.0.0",
+                    "type": "string"
+                }
+            }
         },
-        "handler": {
-          "default": "express",
-          "type": "string"
-        },
-        "handlerConfig": {
-          "default": {},
-          "type": "object"
-        },
-        "port": {
-          "default": 3000,
-          "type": "integer"
-        },
-        "host": {
-          "default": "0.0.0.0",
-          "type": "string"
+        "router": {
+            "type": "object",
+            "default": {},
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "prefix": {
+                    "type": "string",
+                    "default": ""
+                }
+            }
         }
-      }
-    },
-    "router": {
-      "type": "object",
-      "default": {},
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": false
-        },
-        "prefix": {
-          "type": "string",
-          "default": ""
-        }
-      }
     }
-  }
 }

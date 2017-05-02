@@ -1,95 +1,105 @@
 {
-  "id": "cassandra",
-  "type": "object",
-  "additionalProperties": false,
-  "properties": {
-    "service": {
-      "type": "object",
-      "properties": {
-        "models": {
-          "oneOf": [
-            {
-              "type": "string",
-              "format": "uri"
-            },
-            {
-              "type": "object",
-              "patternProperties": {
-                ".*": {
-                  "type": "object"
+    "$id": "cassandra",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "service": {
+            "type": "object",
+            "properties": {
+                "models": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "uri"
+                        },
+                        {
+                            "type": "object",
+                            "patternProperties": {
+                                ".*": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    ]
                 }
-              }
             }
-          ]
-        }
-      }
-    },
-    "client": {
-      "type": "object",
-      "properties": {
-        "clientOptions": {
-          "type": "object",
-          "properties": {
-            "contactPoints": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "anyOf": [
-                  { "format": "hostname" },
-                  { "format": "ipv4" },
-                  { "format": "ipv6" }
-                ]
-              }
-            },
-            "protocolOptions": {
-              "type": "object",
-              "properties": {
-                "port": {
-                  "oneOf": [
-                    { "type": "integer" },
-                    { "type": "string" }
-                  ]
-                }
-              }
-            },
-            "keyspace": {
-              "type": "string",
-              "minLength": 1
-            },
-            "queryOptions": {
-              "type": "object",
-              "properties": {
-                "consistency": {
-                  "type": "integer"
-                }
-              }
-            }
-          }
         },
-        "ormOptions": {
-          "type": "object",
-          "properties": {
-            "defaultReplicationStrategy": {
-              "type": "object",
-              "properties": {
-                "class": {
-                  "type": "string",
-                  "minLength": 1
+        "client": {
+            "type": "object",
+            "properties": {
+                "clientOptions": {
+                    "type": "object",
+                    "properties": {
+                        "contactPoints": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "anyOf": [
+                                    {
+                                        "format": "hostname"
+                                    },
+                                    {
+                                        "format": "ipv4"
+                                    },
+                                    {
+                                        "format": "ipv6"
+                                    }
+                                ]
+                            }
+                        },
+                        "protocolOptions": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "oneOf": [
+                                        {
+                                            "type": "integer"
+                                        },
+                                        {
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "keyspace": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "queryOptions": {
+                            "type": "object",
+                            "properties": {
+                                "consistency": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
                 },
-                "replication_factor": {
-                  "type": "integer"
+                "ormOptions": {
+                    "type": "object",
+                    "properties": {
+                        "defaultReplicationStrategy": {
+                            "type": "object",
+                            "properties": {
+                                "class": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "replication_factor": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "dropTableOnSchemaChange": {
+                            "type": "boolean"
+                        },
+                        "createKeyspace": {
+                            "type": "boolean"
+                        }
+                    }
                 }
-              }
-            },
-            "dropTableOnSchemaChange": {
-              "type": "boolean"
-            },
-            "createKeyspace": {
-              "type": "boolean"
             }
-          }
         }
-      }
     }
-  }
 }
