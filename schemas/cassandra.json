@@ -7,10 +7,10 @@
             "type": "object",
             "properties": {
                 "models": {
-                    "oneOf": [
+                    "anyOf": [
                         {
                             "type": "string",
-                            "format": "uri"
+                            "format": "uri-reference"
                         },
                         {
                             "type": "object",
