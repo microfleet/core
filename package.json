@@ -109,7 +109,7 @@
     "rimraf": "^2.6.1",
     "semantic-release": "^6.3.2",
     "server-destroy": "~1.x.x",
-    "socket.io": "^1.7.1",
+    "socket.io": "^2.0.0",
     "socket.io-client": "^1.7.1",
     "socketio-wildcard": "^0.4.0",
     "vision": "^4.1.1"
