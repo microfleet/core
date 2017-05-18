@@ -93,7 +93,7 @@
     "express-cassandra": "^1.8.3",
     "handlebars": "^4.0.7",
     "hapi": "^16.0.1",
-    "ioredis": "^2.4.2",
+    "ioredis": "^3.0.0",
     "json": "^9.0.6",
     "knex": "^0.13.0",
     "mocha": "^3.3.0",
