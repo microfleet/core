@@ -1,3 +1,4 @@
+// @flow
 const assert = require('assert');
 const { PluginsTypes } = require('..');
 const stdout = require('stdout-stream');
@@ -15,15 +16,15 @@ function streamsFactory(name, options) {
   switch (name) {
     case 'sentry': {
       const sentryStreamFactory = require('./logger/streams/sentry');
-
       return sentryStreamFactory(options);
     }
+
     default:
       return options;
   }
 }
 
-function attach(config = {}) {
+function attach(config: Object = {}) {
   const service = this;
   const { config: { name: applicationName }, validator } = service;
   const bunyan = _require('bunyan');

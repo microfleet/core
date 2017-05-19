@@ -1,7 +1,27 @@
+// @flow
+
+import type { LifecycleRequestType } from '../../../types';
+
 const Errors = require('common-errors');
 const is = require('is');
 const Promise = require('bluebird');
 
+/**
+ * Type definitions
+ */
+export type ExtensionPlugin = {
+  point: LifecycleRequestType,
+  handler: () => mixed,
+};
+
+export type ExtensionsConfig = {
+  enabled: Array<string>,
+  register: Array<Array<ExtensionPlugin>>
+};
+
+/**
+ * Helpers
+ */
 function convertToArrayIfNot(arg) {
   if (is.array(arg) === false) {
     return Promise.resolve([arg]);
@@ -14,12 +34,16 @@ function convertToArrayIfNot(arg) {
  *
  */
 class Extensions {
+  extensions: {
+    [extension_name: string]: Array<() => mixed>
+  };
+
   /**
    * @param {Object} config
    * @param {Array}  config.enabled
    * @param {Object} config.register
    */
-  constructor(config = { enabled: [], register: [] }) {
+  constructor(config: ExtensionsConfig = { enabled: [], register: [] }) {
     const { enabled, register } = config;
     const extensions = {};
 
@@ -31,7 +55,7 @@ class Extensions {
     this.autoRegister(register);
   }
 
-  autoRegister(register) {
+  autoRegister(register: Array<Array<ExtensionPlugin>>) {
     register.forEach((extensions) => {
       extensions.forEach(extension => this.register(extension.point, extension.handler));
     });
@@ -41,7 +65,7 @@ class Extensions {
    * @param {String} name
    * @returns {Boolean}
    */
-  has(name) {
+  has(name: LifecycleRequestType) {
     const handlers = this.extensions[name];
 
     return handlers !== undefined && handlers.length > 0;
@@ -51,7 +75,7 @@ class Extensions {
    * @param {String} name
    * @param {Function} handler
    */
-  register(name, handler) {
+  register(name: LifecycleRequestType, handler: () => mixed) {
     if (this.extensions[name] === undefined) {
       throw new Errors.NotSupportedError(name);
     }
@@ -65,7 +89,7 @@ class Extensions {
    * @param context
    * @returns {Promise}
    */
-  exec(name, args = [], context = null) {
+  exec(name: string, args: Array<any> = [], context: mixed = null) {
     const handlers = this.extensions[name];
 
     if (is.undefined(handlers) === true) {
@@ -76,9 +100,11 @@ class Extensions {
       return Promise.reject(new Errors.ArgumentError('"args" must be array'));
     }
 
-    return Promise.resolve(handlers)
-      .reduce((previousArgs, handler) =>
-        convertToArrayIfNot(previousArgs).bind(context).spread(handler), args)
+    return Promise
+      .resolve(handlers)
+      .reduce((previousArgs, handler) => (
+        convertToArrayIfNot(previousArgs).bind(context).spread(handler)
+      ), args)
       .then(convertToArrayIfNot);
   }
 }

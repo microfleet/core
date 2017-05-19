@@ -1,4 +1,5 @@
-function register(server, options, next) {
+// @flow
+function register(server: Object, options: Object, next: (error: ?Error) => void) {
   server.root.views(options);
 
   server.root.decorate('request', 'sendView', function sendView(...args) {

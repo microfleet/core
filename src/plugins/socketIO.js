@@ -1,3 +1,4 @@
+// @flow
 const assert = require('assert');
 const attachRouter = require('./socketIO/router/attach');
 const debug = require('debug')('mservice:socketIO');
@@ -6,7 +7,7 @@ const is = require('is');
 const _require = require('../utils/require');
 const { PluginsTypes } = require('../');
 
-function attachSocketIO(config = {}) {
+function attachSocketIO(config: Object = {}) {
   debug('Attaching socketIO plugin');
   const service = this;
   const AdapterFactory = _require('ms-socket.io-adapter-amqp');

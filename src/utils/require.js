@@ -1,3 +1,4 @@
+// @flow
 const pkg = require('../../package.json');
 const semver = require('semver');
 const chalk = require('chalk');
@@ -6,7 +7,7 @@ const chalk = require('chalk');
  * Performs require and validates that constraints are met
  */
 
-module.exports = function _require(name) {
+module.exports = function _require(name: string) {
   const version = pkg.pluginDependencies[name];
   // eslint-disable-next-line import/no-dynamic-require
   const depVersion = require(`${name}/package.json`).version;

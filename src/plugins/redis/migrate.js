@@ -1,3 +1,4 @@
+// @flow
 // Provides sets of utils for perfoming migrations on redis database
 // It's essential to note that this is targeted at a single instance
 // In case of cluster one must ensure that you use keyPrefix, which would
@@ -26,6 +27,9 @@
 // be performed on the main database during migration process
 //
 
+import typeof Redis from 'ioredis';
+import typeof Mservice from '../../index';
+
 const Promise = require('bluebird');
 const assert = require('assert');
 const glob = require('glob');
@@ -37,7 +41,7 @@ const debug = require('debug')('mservice:redis:migrate');
 
 // some constant helpers
 const VERSION_KEY = 'version';
-const appendLuaScript = (finalVersion, min = 0, script) => `-- check for ${finalVersion}
+const appendLuaScript = (finalVersion: number, min: number = 0, script: string) => `-- check for ${finalVersion}
 local versionKey = KEYS[1];
 local currentVersion = tonumber(redis.call('get', versionKey) or 0);
 if currentVersion >= ${finalVersion} then
@@ -53,14 +57,21 @@ ${script}
 return redis.call('set', versionKey, '${finalVersion}');
 `;
 
-module.exports = async function performMigration(redis, service, scripts) {
+export type Migration = {
+  final: number,
+  min: number,
+  args: Array<any>,
+  script: any,
+};
+
+module.exports = async function performMigration(redis: Redis, service: Mservice, scripts: Migration | Array<Migration>) {
   let files;
   if (is.string(scripts)) {
     debug('looking for files in %s', scripts);
     // eslint-disable-next-line import/no-dynamic-require
     files = glob.sync('*{.js,/}', { cwd: scripts }).map(script => require(`${scripts}/${script}`));
   } else if (is.array(scripts)) {
-    files = scripts;
+    files = ((scripts: any): Array<Migration>);
   } else {
     throw new Error('`scripts` arg must be either a directory with migrations or Migrations[]');
   }

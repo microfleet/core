@@ -1,10 +1,20 @@
+// @flow
+
+import typeof Redis from 'ioredis';
+
 const { ArgumentError } = require('common-errors');
 const glob = require('glob');
 const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('mservice:lua');
 
-function loadLuaScripts(dir, redis) {
+/**
+ * Loads LUA script and defines it on the redis instance
+ * @param  {String} dir
+ * @param  {Redis} redis
+ * @return {Void}
+ */
+module.exports = function loadLuaScripts(dir: string, redis: Redis) {
   if (!path.isAbsolute(dir)) {
     throw new ArgumentError('config.scripts must be an absolute path');
   }
@@ -25,6 +35,4 @@ function loadLuaScripts(dir, redis) {
         console.warn('script %s already defined', name);
       }
     });
-}
-
-module.exports = loadLuaScripts;
+};

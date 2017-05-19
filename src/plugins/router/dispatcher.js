@@ -1,19 +1,26 @@
+// @flow
+import type { ServiceRequest } from '../../types';
+
+/**
+ * Project deps
+ */
 const is = require('is');
 const Promise = require('bluebird');
 const debug = require('debug')('mservice:router:dispatch');
 
-function dispatch(route, request, callback) {
+function dispatch(route: string, request: ServiceRequest, callback?: () => mixed): Promise<any> | void {
   const router = this;
+  const { modules } = router;
 
   debug('initiating request on route %s', route);
 
   const result = Promise
     .bind(router.service, [route, request])
-    .spread(router.modules.request)
-    .then(router.modules.auth)
-    .then(router.modules.validate)
-    .then(router.modules.allowed)
-    .then(router.modules.handler);
+    .spread(modules.request)
+    .then(modules.auth)
+    .then(modules.validate)
+    .then(modules.allowed)
+    .then(modules.handler);
 
   if (is.fn(callback)) {
     debug('attaching response via callback');

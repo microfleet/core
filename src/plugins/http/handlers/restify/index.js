@@ -1,8 +1,12 @@
+// @flow
+import typeof Mservice from '../../../../index';
+import type { PluginInterface } from '../../../../types';
+
 const Errors = require('common-errors');
 const Promise = require('bluebird');
 const _require = require('../../../../utils/require');
 
-function createRestifyServer(config, service) {
+function createRestifyServer(config: Object, service: Mservice): PluginInterface {
   const restify = _require('restify');
   const enableDestroy = _require('server-destroy');
 

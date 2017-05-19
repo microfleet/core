@@ -1,3 +1,9 @@
+// @flow
+import type { PluginInterface } from '../types';
+
+/**
+ * Project deps
+ */
 const Errors = require('common-errors');
 const { PluginsTypes } = require('../');
 const Promise = require('bluebird');
@@ -7,7 +13,7 @@ const _require = require('../utils/require');
 exports.name = 'elasticsearch';
 exports.type = PluginsTypes.database;
 
-exports.attach = function attachElasticsearch(conf = {}) {
+exports.attach = function attachElasticsearch(conf: Object = {}): PluginInterface {
   const service = this;
   const Elasticsearch = _require('elasticsearch');
 
@@ -55,6 +61,7 @@ exports.attach = function attachElasticsearch(conf = {}) {
       if (service._elasticsearch) {
         return Promise.reject(new Errors.NotPermittedError('elasticsearch was already started'));
       }
+
       const instance = new Elasticsearch.Client({ ...opts,
         defer: () => {
           const defer = {};

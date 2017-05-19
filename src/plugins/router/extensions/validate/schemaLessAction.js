@@ -1,9 +1,12 @@
+// @flow
+import type { ServiceRequest } from '../../../../types';
+
 const Promise = require('bluebird');
 
 module.exports = [
   {
     point: 'postRequest',
-    handler: (error, request) => {
+    handler: (error: Error, request: ServiceRequest) => {
       const action = request.action;
 
       if (action.schema === undefined) {

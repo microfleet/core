@@ -1,14 +1,23 @@
+// @flow
+import typeof Mservice from '../../../../index';
+import type { PluginInterface } from '../../../../types';
+
 const Errors = require('common-errors');
 const attachRouter = require('./router/attach');
 const Promise = require('bluebird');
 const _require = require('../../../../utils/require');
 
-const defaultPlugins = [{
+export type HapiPlugin = {
+  register: string,
+  options: Object,
+};
+
+const defaultPlugins: Array<HapiPlugin> = [{
   register: './plugins/redirect',
   options: {},
 }];
 
-function createHapiServer(config, service) {
+function createHapiServer(config: Object, service: Mservice): PluginInterface {
   const Hapi = _require('hapi');
 
   const handlerConfig = config.server.handlerConfig;
@@ -32,9 +41,11 @@ function createHapiServer(config, service) {
       plugins.push({
         register: 'vision',
         options: {},
-      }, {
+      });
+
+      plugins.push({
         register: './plugins/views',
-        options: handlerConfig.views,
+        options: (handlerConfig.views: Object),
       });
     }
 

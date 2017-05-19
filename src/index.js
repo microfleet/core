@@ -1,3 +1,13 @@
+// @flow
+
+/**
+ * Types
+ */
+import type { Plugin, PluginInterface, PluginConnector, HandlerProperties, ConnectorsTypes } from './types';
+
+/**
+ * Third-party deps
+ */
 const Promise = require('bluebird');
 const Errors = require('common-errors');
 const EventEmitter = require('eventemitter3');
@@ -9,96 +19,101 @@ const stdout = require('stdout-stream');
 const partial = require('lodash/partial');
 const assert = require('assert');
 
-const CONNECTORS_PROPERTY = '_connectors';
-const DESTRUCTORS_PROPERTY = '_destructors';
-
 /**
- * Configuration options for the service
- * @type {Object}
+ * Local helpers and utils
  */
-const defaultOpts = {
-  logger: {
-    debug: process.env.NODE_ENV !== 'production',
-  },
-  plugins: ['validator', 'logger', 'amqp'],
-  hooks: {},
-  amqp: {},
-  sigterm: true,
-};
+const constants = require('./constants');
+const defaultOpts = require('./defaults');
 
 /**
  * @namespace Mservice
  */
 class Mservice extends EventEmitter {
+
   /**
+   * Constants with possilble transport values
    * @type {{amqp: string, http: string, socketIO: string}}
    */
-  static ActionTransport = {
-    amqp: 'amqp',
-    http: 'http',
-    socketIO: 'socketIO',
-  };
+  static ActionTransport = constants.ActionTransport;
 
-  static ConnectorsTypes = {
-    database: 'database',
-    migration: 'migration',
-    transport: 'transport',
-    application: 'application',
-  }
+  /**
+   * Constants with connect types to control order of service bootstrap
+   * @type {Object}
+   */
+  static ConnectorsTypes = constants.ConnectorsTypes;
 
-  static ConnectorsPriority = [
-    Mservice.ConnectorsTypes.database,
-    Mservice.ConnectorsTypes.migration,
-    Mservice.ConnectorsTypes.transport,
-    Mservice.ConnectorsTypes.application,
-  ]
+  /**
+   * Default priority of connectors during bootstrap
+   * @type {Array}
+   */
+  static ConnectorsPriority = constants.ConnectorsPriority;
 
-  static PluginsTypes = {
-    essential: 'essential',
-    database: 'database',
-    transport: 'transport',
-  }
+  /**
+   * Plugin Types
+   * @type {Object}
+   */
+  static PluginsTypes = constants.PluginsTypes;
 
-  static PluginsPriority = [
-    Mservice.PluginsTypes.essential,
-    Mservice.PluginsTypes.database,
-    Mservice.PluginsTypes.transport,
-  ];
+  /**
+   * Plugin boot priority
+   * @type {Array}
+   */
+  static PluginsPriority = constants.PluginsPriority;
 
+  /**
+   * Helper method to enable router extensions
+   * @param  {String} name
+   * @return {Module}
+   */
   static routerExtension(name) {
     // eslint-disable-next-line import/no-dynamic-require
     return require(`./plugins/router/extensions/${name}`);
   }
 
   /**
+   * These namespaces are reserved by plugins or core funcs
+   * of mservice fleet
+   * @type {Array}
+   */
+  static reservedNamespaces = [
+    'config',
+    'amqp',
+    'redis',
+    'validator',
+    'log',
+    'elasticsearch',
+    'cassandra',
+    'http',
+    'socketIO',
+    'router',
+    'knex',
+  ];
+
+  /**
    * @namespace Users
    * @param  {Object} opts
    * @return {Users}
    */
-  constructor(opts = {}) {
+  constructor(opts: Object = {}) {
     super();
 
     // init configuration
     const config = this._config = { ...defaultOpts, ...opts };
 
     // init getters
-    [
-      'config', 'amqp', 'redis',
-      'validator', 'log', 'elasticsearch',
-      'cassandra', 'http', 'socketIO',
-      'router', 'knex',
-    ].map(prop => this._defineGetter(prop));
+    Mservice.reservedNamespaces.map(prop => this._defineGetter(prop));
 
     // init migrations
     this._migrators = {};
+
+    // bind onError
+    this.onError = this._onError.bind(this);
 
     // init plugins
     this._initPlugins(config);
 
     // setup error listener
-    this.on('error', (err) => {
-      this._onError(err);
-    });
+    this.on('error', this.onError);
 
     // setup hooks
     forOwn(config.hooks, (_hooks, eventName) => {
@@ -142,7 +157,7 @@ class Mservice extends EventEmitter {
    * @param  {Mixed}  ...args
    * @return {Promise}
    */
-  hook(event, ...args) {
+  hook(event: string, ...args: Array<any>) {
     const listeners = this.listeners(event);
 
     return Promise
@@ -156,14 +171,14 @@ class Mservice extends EventEmitter {
   /**
    * Adds migrators
    */
-  addMigrator(name, fn, ...args) {
+  addMigrator(name: string, fn: () => mixed, ...args: Array<any>) {
     this._migrators[name] = partial(fn, ...args);
   }
 
   /**
    * Performs migration for a given database or throws if migrator is not present
    */
-  migrate(name, ...args) {
+  migrate(name: string, ...args: Array<any>) {
     const migrate = this._migrators[name];
     assert(is.fn(migrate), `migrator ${name} not defined`);
     return migrate(...args);
@@ -172,7 +187,7 @@ class Mservice extends EventEmitter {
   /**
    * Defines convinience getters
    */
-  _defineGetter(name) {
+  _defineGetter(name: string) {
     Object.defineProperty(this, name, {
       __proto__: null,
       enumerable: true,
@@ -184,7 +199,7 @@ class Mservice extends EventEmitter {
   /**
    *
    */
-  _get(name) {
+  _get(name: string) {
     const it = this[`_${name}`];
     if (it) {
       return it;
@@ -212,7 +227,7 @@ class Mservice extends EventEmitter {
   /**
    * Helper for calling funcs and emitting event after
    */
-  _processAndEmit(collection, event) {
+  _processAndEmit(collection: Object, event: string) {
     return Promise
       .mapSeries(
         Mservice.ConnectorsPriority,
@@ -239,14 +254,14 @@ class Mservice extends EventEmitter {
    * @param  {String} mod.name
    * @param  {Function} mod.attach
    */
-  initPlugin(mod, conf) {
+  initPlugin(mod: Plugin, conf: ?Object) {
     const expose = mod.attach.call(this, conf || this._config[mod.name], __filename);
 
     if (!is.object(expose)) {
       return;
     }
 
-    const { connect, close } = expose;
+    const { connect, close } = ((expose: any): PluginInterface);
     const type = Mservice.ConnectorsTypes[mod.type];
 
     assert(type, 'Plugin type must be equal to one of connectors type');
@@ -261,24 +276,24 @@ class Mservice extends EventEmitter {
   }
 
   getConnectors() {
-    return this[CONNECTORS_PROPERTY];
+    return this[constants.CONNECTORS_PROPERTY];
   }
 
   getDesturctors() {
-    return this[DESTRUCTORS_PROPERTY];
+    return this[constants.DESTRUCTORS_PROPERTY];
   }
 
-  addConnector(type, handler) {
-    this._addHandler(CONNECTORS_PROPERTY, type, handler);
+  addConnector(type: ConnectorsTypes, handler: PluginConnector) {
+    this._addHandler(constants.CONNECTORS_PROPERTY, type, handler);
   }
 
-  addDestructor(type, handler) {
-    this._addHandler(DESTRUCTORS_PROPERTY, type, handler);
+  addDestructor(type: ConnectorsTypes, handler: PluginConnector) {
+    this._addHandler(constants.DESTRUCTORS_PROPERTY, type, handler);
   }
 
   // ***************************** Plugin section: private **************************************
 
-  _addHandler(property, type, handler) {
+  _addHandler(property: HandlerProperties, type: ConnectorsTypes, handler: () => mixed) {
     if (this[property] === undefined) {
       this[property] = {};
     }
@@ -294,7 +309,7 @@ class Mservice extends EventEmitter {
    * Initializes service plugins
    * @param  {Object} config
    */
-  _initPlugins(config) {
+  _initPlugins(config: Object) {
     this._connectors = {};
     this._destructors = {};
 
@@ -316,9 +331,9 @@ class Mservice extends EventEmitter {
   /**
    * Notifies about errors when no other listeners are present
    * by throwing them
-   * @param  {Object} err
+   * @param  {Error} err
    */
-  _onError(err) {
+  _onError(err: Error) {
     if (this.listeners('error').length > 1) {
       return;
     }

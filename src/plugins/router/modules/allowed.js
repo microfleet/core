@@ -1,25 +1,29 @@
-const Errors = require('common-errors');
+// @flow
+import type { ServiceRequest } from '../../../types';
+
+const { NotPermittedError, ArgumentError } = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
-function allowed(request) {
-  return Promise.resolve(request)
+function allowed(request: ServiceRequest): Promise<ServiceRequest | NotPermittedError | ArgumentError> {
+  return Promise
+    .resolve(request)
     .bind(this)
     .then(request.action.allowed)
     .return(request)
     .catch((error) => {
-      if (error.constructor === Errors.NotPermittedError) {
+      if (error.constructor === NotPermittedError) {
         return Promise.reject(error);
       }
 
-      return Promise.reject(new Errors.NotPermittedError(error));
+      return Promise.reject(new NotPermittedError(error));
     });
 }
 
-function allowedHandler(request) {
+function allowedHandler(request: ServiceRequest): * {
   if (request.action === undefined) {
-    return Promise.reject(new Errors.ArgumentError('"request" must have property "action"'));
+    return Promise.reject(new ArgumentError('"request" must have property "action"'));
   }
 
   if (is.undefined(request.action.allowed) === true) {
@@ -29,8 +33,4 @@ function allowedHandler(request) {
   return moduleLifecycle('allowed', allowed, this.router.extensions, [request], this);
 }
 
-function getAllowedHandler() {
-  return allowedHandler;
-}
-
-module.exports = getAllowedHandler;
+module.exports = allowedHandler;

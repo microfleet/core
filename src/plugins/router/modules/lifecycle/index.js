@@ -1,11 +1,17 @@
-const _ = require('lodash');
+// @flow
+
+import type { LifecycleRequestType } from '../../../../types';
+
+const upperFirst = require('lodash/upperFirst');
 const debug = require('debug')('mservice:router:module:lifecycle');
 const is = require('is');
 const Errors = require('common-errors');
 const Extensions = require('../../extensions');
 const Promise = require('bluebird');
 
-function moduleLifecycle(module, promiseFactory, extensions, args, context) {
+export type PromiseFactory = (...args: Array<any>) => *;
+
+function moduleLifecycle(module: string, promiseFactory: PromiseFactory, extensions: Extensions, args: Array<any>, context: any): * {
   if (is.string(module) === false) {
     return Promise.reject(new Errors.ArgumentError('module'));
   }
@@ -24,9 +30,9 @@ function moduleLifecycle(module, promiseFactory, extensions, args, context) {
 
   debug('lifecycle for module "%s"', module);
 
-  const upperFirstName = _.upperFirst(module);
-  const preModule = `pre${upperFirstName}`;
-  const postModule = `post${upperFirstName}`;
+  const upperFirstName = upperFirst(module);
+  const preModule = ((`pre${upperFirstName}`: any): LifecycleRequestType);
+  const postModule = ((`post${upperFirstName}`: any): LifecycleRequestType);
   let result;
 
   if (extensions.has(preModule)) {

@@ -1,3 +1,9 @@
+// @flow
+import type { PluginInterface } from '../types';
+
+/**
+ * Project deps
+ */
 const Promise = require('bluebird');
 const Errors = require('common-errors');
 const cloneDeep = require('lodash/cloneDeep');
@@ -5,16 +11,28 @@ const assert = require('assert');
 const is = require('is');
 const _require = require('../utils/require');
 
-const { ActionTransport, PluginsTypes } = require('../');
+const { ActionTransport, PluginsTypes } = require('../constants');
 const getAMQPRouterAdapter = require('./amqp/router/adapter');
 const verifyPossibility = require('./router/verifyAttachPossibility');
+
+/**
+ * Plugin Name
+ * @type {String}
+ */
+exports.name = 'amqp';
+
+/**
+ * Plugin Type
+ * @type {String}
+ */
+exports.type = PluginsTypes.transport;
 
 /**
  * Attaches plugin to the MService class
  *
  * @param  {Object} config
  */
-function attachAMQPPlugin(config) {
+exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   const service = this;
 
   const AMQPTransport = _require('ms-amqp-transport');
@@ -79,10 +97,4 @@ function attachAMQPPlugin(config) {
     },
 
   };
-}
-
-module.exports = {
-  attach: attachAMQPPlugin,
-  name: 'amqp',
-  type: PluginsTypes.transport,
 };

@@ -1,3 +1,4 @@
+// @flow
 const Errors = require('common-errors');
 const { PluginsTypes } = require('../');
 const Promise = require('bluebird');
@@ -10,7 +11,7 @@ const _require = require('../utils/require');
 exports.name = 'redis';
 exports.type = PluginsTypes.database;
 
-exports.attach = function attachRedisSentinel(conf = {}) {
+exports.attach = function attachRedisSentinel(conf: Object = {}) {
   const service = this;
   const Redis = _require('ioredis');
 

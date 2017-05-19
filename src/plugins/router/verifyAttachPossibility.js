@@ -1,7 +1,16 @@
+// @flow
+import type { Router } from './factory';
+import type { TransportTypes } from '../../types';
+
 const Errors = require('common-errors');
 const is = require('is');
 
-function verifyAttachPossibility(router, transportName) {
+/**
+ * Verifies if it's possible to attach router for specific transport
+ * @param  {Router} router        [description]
+ * @param  {String} transportName [description]
+ */
+function verifyAttachPossibility(router: Router, transportName: TransportTypes): void {
   if (is.object(router) === false) {
     throw new Errors.NotFoundError('Module "router" not included');
   }

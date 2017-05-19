@@ -1,17 +1,38 @@
+// @flow
 const path = require('path');
+const assert = require('assert');
 const { NotPermittedError } = require('common-errors');
 const callsite = require('callsite');
 const _require = require('../utils/require');
 const { PluginsTypes } = require('../');
 
+/**
+ * Validator configuration, more details in
+ * https://github.com/makeomatic/ms-validation
+ */
+export type ValidatorConfig = Array<string> | void | {
+  filter: (filename: string) => boolean,
+  schemas: Array<string>,
+  ajv: Object,
+};
+
+/**
+ * Plugin name
+ * @type {String}
+ */
 exports.name = 'validator';
+
+/**
+ * Plugin Type
+ * @type {String}
+ */
 exports.type = PluginsTypes.essential;
 
 /**
  * Attaches initialized validator based on conf
  * Provides `validate` and `validateSync` methods
  */
-exports.attach = function attachValidator(conf, parentFile) {
+exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: string) {
   const service = this;
   const Validator = _require('ms-validation');
   const schemasPath = '../../schemas';
@@ -28,7 +49,7 @@ exports.attach = function attachValidator(conf, parentFile) {
 
   if (schemas) {
     if (!Array.isArray(schemas)) {
-      throw new NotPermittedError('validator schemas must be an array of directories, where json schemas are located');  // eslint-disable-line
+      throw new NotPermittedError('validator schemas must be an array of directories, where json schemas are located');
     }
 
     // for relative paths
@@ -42,7 +63,7 @@ exports.attach = function attachValidator(conf, parentFile) {
 
         // filter out the file itself
         let iterator = 0;
-        let source;
+        let source = '';
         while (iterator < length && !source) {
           const call = stack[iterator];
           const filename = call.getFileName();
@@ -63,13 +84,12 @@ exports.attach = function attachValidator(conf, parentFile) {
   }
 
   // extend service
-  service._validator = validator;
+  service[`_${exports.name}`] = validator;
   service.validate = validator.validate;
   service.validateSync = validator.validateSync;
 
   // if we have schema called `config` - we will use it to validate
   if (validator.$ajv.getSchema('config')) {
-    const error = service.validateSync('config', service.config).error;
-    if (error) throw error;
+    assert.ifError(service.validateSync('config', service.config).error);
   }
 };

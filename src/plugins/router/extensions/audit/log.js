@@ -1,17 +1,27 @@
+// @flow
+import type { ServiceRequest, MserviceError } from '../../../../types';
+
 const is = require('is');
 const Promise = require('bluebird');
+
+export type AuditLogExtension = {
+  auditLog: {
+    start: [number, number],
+    execTime?: [number, number],
+  },
+};
 
 module.exports = [
   {
     point: 'preRequest',
-    handler: (route, request) => {
+    handler: (route: string, request: ServiceRequest & AuditLogExtension) => {
       request.auditLog = { start: process.hrtime() };
       return Promise.resolve([route, request]);
     },
   },
   {
     point: 'preResponse',
-    handler: function preResponse(error, result, request) {
+    handler: function preResponse(error: MserviceError | void, result: mixed, request: ServiceRequest & AuditLogExtension) {
       const service = this;
       const execTime = request.auditLog.execTime = process.hrtime(request.auditLog.start);
 
