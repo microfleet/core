@@ -10,5 +10,5 @@ exports.script = ({ redis }) =>
     .get('cardinality')
     .return(10)
     .then((cardinality) => {
-      redis.eval(script, 1, 'some-index-key', cardinality);
+      return redis.eval(script, 1, 'some-index-key', cardinality);
     });
