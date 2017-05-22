@@ -28,9 +28,8 @@ exports.name = 'amqp';
 exports.type = PluginsTypes.transport;
 
 /**
- * Attaches plugin to the MService class
- *
- * @param  {Object} config
+ * Attaches plugin to the MService class.
+ * @param {Object} config - AMQP plugin configuration.
  */
 exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   const service = this;
@@ -57,9 +56,10 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   const logger = service._log && service._log.child({ namespace: 'ms-amqp-transport' });
 
   return {
+
     /**
-     * Generic AMQP Connector
-     * @return {Function}
+     * Generic AMQP Connector.
+     * @returns {Promise<AMQPTransport>} Opens connection to AMQP.
      */
     connect: function connectToAMQP() {
       if (service._amqp) {
@@ -80,8 +80,8 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     },
 
     /**
-     * Generic AMQP disconnector
-     * @return {Function}
+     * Generic AMQP disconnector.
+     * @returns {Promise<void>} Closes connection to AMQP.
      */
     close: function disconnectFromAMQP() {
       if (!service._amqp || !(service._amqp instanceof AMQPTransport)) {

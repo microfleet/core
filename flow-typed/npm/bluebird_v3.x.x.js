@@ -2,6 +2,8 @@
 // flow-typed signature: a379340a5d360a5a86716b8e3ed03d31
 // flow-typed version: 3a109ae4bc/bluebird_v3.x.x/flow_>=v0.33.x
 
+/* eslint-disable no-use-before-define, promise/no-native, max-len */
+
 type Bluebird$RangeError = Error;
 type Bluebird$CancellationErrors = Error;
 type Bluebird$TimeoutError = Error;
@@ -53,7 +55,7 @@ declare class Bluebird$Promise<+R> extends Promise<R>{
   static TimeoutError: Bluebird$TimeoutError;
 
   static all<T, Elem: $Promisable<T>>(Promises: $Promisable<Iterable<Elem>>): Bluebird$Promise<Array<T>>;
-  static props(input: $Promisable<Object | Map<*,*>>): Bluebird$Promise<*>;
+  static props(input: $Promisable<Object | Map<*, *>>): Bluebird$Promise<*>;
   static any<T, Elem: $Promisable<T>>(Promises: Array<Elem>): Bluebird$Promise<T>;
   static race<T, Elem: $Promisable<T>>(Promises: Array<Elem>): Bluebird$Promise<T>;
   static reject<T>(error?: any): Bluebird$Promise<T>;
@@ -133,8 +135,8 @@ declare class Bluebird$Promise<+R> extends Promise<R>{
   ) => mixed): void;
   then<U>(onFulfill?: (value: R) => $Promisable<U>, onReject?: (error: any) => $Promisable<U>): Bluebird$Promise<U>;
   catch<U>(onReject?: (error: any) => ?$Promisable<U>): Bluebird$Promise<U>;
-  catch<P, U>(predicate: P, onReject?: (error: any) => ?$Promisable<U>): Bluebird$Promise<U>;
-  caught<U>(onReject?: (error: any) => ?$Promisable<U>): Bluebird$Promise<U>;
+  catch<P, U>(predicate: P, onReject: (error: any) => ?$Promisable<U>): Bluebird$Promise<U>;
+  caught<U>(onReject: (error: any) => ?$Promisable<U>): Bluebird$Promise<U>;
   error<U>(onReject?: (error: any) => ?$Promisable<U>): Bluebird$Promise<U>;
   done<U>(onFulfill?: (value: R) => mixed, onReject?: (error: any) => mixed): void;
   finally<T>(onDone?: (value: R) => mixed): Bluebird$Promise<T>;

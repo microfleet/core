@@ -1,5 +1,5 @@
 // @flow
-import type { express$Request, express$Response } from 'express';
+import type { $Response, $Request } from 'express';
 import type { Router } from '../../../../router/factory';
 
 const { ActionTransport } = require('../../../../../constants');
@@ -8,7 +8,7 @@ const { AuthenticationRequiredError, ValidationError, NotPermittedError, NotFoun
 const noop = require('lodash/noop');
 
 function getHTTPRouter(router: Router, config: Object) {
-  return function HTTPRouter(request: express$Request, response: express$Response) {
+  return function HTTPRouter(request: $Request, response: $Response) {
     function callback(error, result) {
       if (error) {
         switch (error.constructor) {
@@ -41,7 +41,7 @@ function getHTTPRouter(router: Router, config: Object) {
       params: request.body,
       query: request.query,
       headers: request.headers,
-      method: request.method.toLowerCase(),
+      method: (request.method.toLowerCase(): any),
       // transport options
       transport: ActionTransport.http,
       transportRequest: request,

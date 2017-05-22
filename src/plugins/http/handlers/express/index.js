@@ -1,5 +1,5 @@
 // @flow
-import type express$Application from 'express';
+import type { $Application } from 'express';
 import typeof Mservice from '../../../../index';
 import type { PluginInterface } from '../../../../types';
 
@@ -14,7 +14,7 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
   const enableDestroy = _require('server-destroy');
   const express = _require('express');
 
-  const handler: express$Application = express();
+  const handler: $Application = express();
   const server = http.createServer(handler);
   const properties = config.server.handlerConfig && config.server.handlerConfig.properties;
 

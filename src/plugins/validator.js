@@ -29,8 +29,10 @@ exports.name = 'validator';
 exports.type = PluginsTypes.essential;
 
 /**
- * Attaches initialized validator based on conf
- * Provides `validate` and `validateSync` methods
+ * Attaches initialized validator based on conf.
+ * Provides `validate` and `validateSync` methods.
+ * @param {Object} conf - Validator Configuration Object.
+ * @param {string} parentFile - From which file this plugin was invoked.
  */
 exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: string) {
   const service = this;

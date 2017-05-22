@@ -1,5 +1,5 @@
 // @flow
-import type express$Application from 'express';
+import type { $Application } from 'express';
 import typeof Mservice from '../../../../../index';
 
 const { ActionTransport } = require('../../../../../constants');
@@ -8,7 +8,7 @@ const getHTTPRouterAdapter = require('./adapter');
 const verifyPossibility = require('../../../../router/verifyAttachPossibility');
 const _require = require('../../../../../utils/require');
 
-function attachHTTPRouter(service: Mservice, handler: express$Application, config: Object): void {
+function attachHTTPRouter(service: Mservice, handler: $Application, config: Object): void {
   const bodyParser = _require('body-parser');
   verifyPossibility(service.router, ActionTransport.http);
   const path = fromNameToPath('*', config.prefix);

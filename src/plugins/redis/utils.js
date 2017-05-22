@@ -9,10 +9,9 @@ const path = require('path');
 const debug = require('debug')('mservice:lua');
 
 /**
- * Loads LUA script and defines it on the redis instance
- * @param  {String} dir
- * @param  {Redis} redis
- * @return {Void}
+ * Loads LUA script and defines it on the redis instance.
+ * @param {string} dir - Directory to scan for LUA scripts to load.
+ * @param {Redis} redis - Redis connector instance.
  */
 module.exports = function loadLuaScripts(dir: string, redis: Redis) {
   if (!path.isAbsolute(dir)) {

@@ -19,7 +19,8 @@ exports.name = 'router';
 exports.type = PluginsTypes.essential;
 
 /**
- * @param {Object} config
+ * Enables router plugin.
+ * @param {Object} config - Router configuration object.
  */
 exports.attach = function attachRouter(config: Object): void {
   debug('Attaching router plugin');

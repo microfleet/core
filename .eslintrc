@@ -1,14 +1,10 @@
 {
   "extends": [
-    "makeomatic",
-    "plugin:flowtype/recommended"
+    "standard-jsdoc",
+    "plugin:flowtype/recommended",
+    "makeomatic"
   ],
   "plugins": [
     "flowtype"
-  ],
-  "settings": {
-    "flowtype": {
-      "onlyFilesWithFlowAnnotation": true
-    }
-  }
+  ]
 }

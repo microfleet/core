@@ -1,6 +1,11 @@
 // @flow
 
 /**
+ * Microservice Abstract Class
+ * @module mservice
+ */
+
+/**
  * Types
  */
 import type { Plugin, PluginInterface, PluginConnector, HandlerProperties, ConnectorsTypes } from './types';
@@ -26,7 +31,7 @@ const constants = require('./constants');
 const defaultOpts = require('./defaults');
 
 /**
- * @namespace Mservice
+ * @class Mservice
  */
 class Mservice extends EventEmitter {
 
@@ -61,9 +66,9 @@ class Mservice extends EventEmitter {
   static PluginsPriority = constants.PluginsPriority;
 
   /**
-   * Helper method to enable router extensions
-   * @param  {String} name
-   * @return {Module}
+   * Helper method to enable router extensions.
+   * @param {string} name - Pass extension name to require.
+   * @returns {Module} Extension to router plugin.
    */
   static routerExtension(name) {
     // eslint-disable-next-line import/no-dynamic-require
@@ -90,9 +95,8 @@ class Mservice extends EventEmitter {
   ];
 
   /**
-   * @namespace Users
-   * @param  {Object} opts
-   * @return {Users}
+   * @param {Object} [opts={}] - Overrides for configuration.
+   * @returns {Mservice} Instance of microservice.
    */
   constructor(opts: Object = {}) {
     super();
@@ -135,7 +139,8 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   * Overrides SIG* events and exits cleanly
+   * Overrides SIG* events and exits cleanly.
+   * @returns {Promise<void>} Resolves when exit sequence has completed.
    */
   exit() {
     stdout.write('received close signal...\n closing connections...\n');
@@ -147,15 +152,15 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   * asyncronously calls event listeners
+   * Asyncronously calls event listeners
    * and waits for them to complete.
    * This is a bit odd compared to normal event listeners,
    * but works well for dynamically running async actions and waiting
-   * for them to complete
+   * for them to complete.
    *
-   * @param  {String} event
-   * @param  {Mixed}  ...args
-   * @return {Promise}
+   * @param {string} event - Hook name to be called during execution.
+   * @param {Mixed} args - Arbitrary args to pass to the hooks.
+   * @returns {Promise<[*]>} Result of invoked hook.
    */
   hook(event: string, ...args: Array<any>) {
     const listeners = this.listeners(event);
@@ -169,14 +174,20 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   * Adds migrators
+   * Adds migrators.
+   * @param {string} name - Migrator name.
+   * @param {Function} fn - Migrator function to be invoked.
+   * @param {Mixed} args - Arbitrary args to be passed to fn later on.
    */
   addMigrator(name: string, fn: () => mixed, ...args: Array<any>) {
     this._migrators[name] = partial(fn, ...args);
   }
 
   /**
-   * Performs migration for a given database or throws if migrator is not present
+   * Performs migration for a given database or throws if migrator is not present.
+   * @param {string} name - Name of the migration to invoke.
+   * @param {Mixed} args - Extra args to pass to the migrator.
+   * @returns {Promise<*>} Result of the migration.
    */
   migrate(name: string, ...args: Array<any>) {
     const migrate = this._migrators[name];
@@ -185,7 +196,9 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   * Defines convinience getters
+   * Defines convinience getters.
+   * @param {string} name - Getter name.
+   * @private
    */
   _defineGetter(name: string) {
     Object.defineProperty(this, name, {
@@ -197,7 +210,10 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   *
+   * Convinience function to ensure that when a getter is called
+   * that is not defined - it throws.
+   * @param {string} name - Name of the service extension to get.
+   * @private
    */
   _get(name: string) {
     const it = this[`_${name}`];
@@ -209,23 +225,27 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   * Generic connector for all of the plugins
-   * @return {Promise}
+   * Generic connector for all of the plugins.
+   * @returns {Promise<*>} Walks over registered connectors and emits ready event upon completion.
    */
   connect() {
     return this._processAndEmit(this.getConnectors(), 'ready');
   }
 
   /**
-   * Generic cleanup function
-   * @return {Promise}
+   * Generic cleanup function.
+   * @returns {Promise} Walks over registered destructors and emits close event upon completion.
    */
   close() {
     return this._processAndEmit(this.getDesturctors(), 'close');
   }
 
   /**
-   * Helper for calling funcs and emitting event after
+   * Helper for calling funcs and emitting event after.
+   * @private
+   * @param {Object} collection - Object with namespaces for arbitrary handlers.
+   * @param {string} event - Type of handlers that must be called.
+   * @returns {Promise<*>} Result of the invocation.
    */
   _processAndEmit(collection: Object, event: string) {
     return Promise
@@ -248,11 +268,12 @@ class Mservice extends EventEmitter {
   // ****************************** Plugin section: public ************************************
 
   /**
-   * Public function to init plugins
+   * Public function to init plugins.
    *
-   * @param  {Object} mod
-   * @param  {String} mod.name
-   * @param  {Function} mod.attach
+   * @param {Object} mod - Plugin module instance.
+   * @param {string} mod.name - Plugin name.
+   * @param {Function} mod.attach - Plugin attach function.
+   * @param {Object} [conf] - Configuration in case it's not present in the core configuration object.
    */
   initPlugin(mod: Plugin, conf: ?Object) {
     const expose = mod.attach.call(this, conf || this._config[mod.name], __filename);
@@ -275,10 +296,18 @@ class Mservice extends EventEmitter {
     }
   }
 
+  /**
+   * Returns registered connectors.
+   * @returns {Object} Connectors.
+   */
   getConnectors() {
     return this[constants.CONNECTORS_PROPERTY];
   }
 
+  /**
+   * Returns registered destructors.
+   * @returns {Object} Destructors.
+   */
   getDesturctors() {
     return this[constants.DESTRUCTORS_PROPERTY];
   }
@@ -306,8 +335,9 @@ class Mservice extends EventEmitter {
   }
 
   /**
-   * Initializes service plugins
-   * @param  {Object} config
+   * Initializes service plugins.
+   * @param {Object} config - Service plugins configuration.
+   * @private
    */
   _initPlugins(config: Object) {
     this._connectors = {};
@@ -330,8 +360,8 @@ class Mservice extends EventEmitter {
 
   /**
    * Notifies about errors when no other listeners are present
-   * by throwing them
-   * @param  {Error} err
+   * by throwing them.
+   * @param {Error} err - Error that was emitted by the service members.
    */
   _onError(err: Error) {
     if (this.listeners('error').length > 1) {

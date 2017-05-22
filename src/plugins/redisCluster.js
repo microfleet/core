@@ -8,7 +8,16 @@ const migrate = require('./redis/migrate.js');
 const debug = require('debug')('mservice:redisCluster');
 const _require = require('../utils/require');
 
+/**
+ * Plugin name.
+ * @type {string}
+ */
 exports.name = 'redis';
+
+/**
+ * Plugin type
+ * @type {string}
+ */
 exports.type = PluginsTypes.database;
 
 exports.attach = function attachRedisCluster(conf: Object = {}) {
@@ -24,11 +33,11 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
   debug('loading with config', conf);
 
   return {
+
     /**
      * @private
-     * @return {Promise}
+     * @returns {Promise} Opens redis connection.
      */
-
     connect: function connectRedis() {
       if (service._redis) {
         return Promise.reject(new Errors.NotPermittedError('redis was already started'));
@@ -57,7 +66,7 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
 
     /**
      * @private
-     * @return {Promise}
+     * @returns {Promise<void>} Closes redis connection.
      */
     close: function disconnectRedis() {
       if (!service._redis || !(service._redis instanceof Cluster)) {

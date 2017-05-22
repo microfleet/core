@@ -1,8 +1,8 @@
 // @flow
 
 /**
- * Configuration options for the service
- * @type {Object}
+ * Default configurations module
+ * @module defaults
  */
 
 /**
@@ -12,13 +12,13 @@
 exports.logger = {
   /**
    * anything thats not production will include extra logs
-   * @type {Boolean}
+   * @type {boolean}
    */
   debug: process.env.NODE_ENV !== 'production',
 
   /**
    * Enables default logger to stdout
-   * @type {Boolean}
+   * @type {boolean}
    */
   defaultLogger: true,
 };
@@ -48,6 +48,6 @@ exports.amqp = {};
 
 /**
  * Enables graceful handling of shutdown for supported plugins
- * @type {Boolean}
+ * @type {boolean}
  */
 exports.sigterm = true;

@@ -8,9 +8,23 @@ const migrate = require('./redis/migrate');
 const debug = require('debug')('mservice:redisSentinel');
 const _require = require('../utils/require');
 
+/**
+ * Plugin name.
+ * @type {string}
+ */
 exports.name = 'redis';
+
+/**
+ * Plugin type.
+ * @type {string}
+ */
 exports.type = PluginsTypes.database;
 
+/**
+ * Attaches Redis Sentinel plugin.
+ * @param  {Object} [conf={}] - Configuration for Redis Sentinel Connection.
+ * @returns {Object} Connections and Destructors.
+ */
 exports.attach = function attachRedisSentinel(conf: Object = {}) {
   const service = this;
   const Redis = _require('ioredis');
@@ -24,9 +38,10 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
   debug('loading with config', conf);
 
   return {
+
     /**
      * @private
-     * @return {Promise}
+     * @returns {Promise<Redis>} Opens connection to Redis.
      */
     connect: function connectRedis() {
       if (service._redis) {
@@ -51,7 +66,7 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
 
     /**
      * @private
-     * @return {Promise}
+     * @returns {Promise<void>} Closes redis connection.
      */
     close: function disconnectRedis() {
       if (!service._redis || !(service._redis instanceof Redis)) {

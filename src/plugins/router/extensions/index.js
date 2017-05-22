@@ -20,7 +20,9 @@ export type ExtensionsConfig = {
 };
 
 /**
- * Helpers
+ * Helpers.
+ * @param {mixed} arg - Wrap into array if it is not.
+ * @returns {Array<*>} Wrappe array.
  */
 function convertToArrayIfNot(arg) {
   if (is.array(arg) === false) {
@@ -31,18 +33,16 @@ function convertToArrayIfNot(arg) {
 }
 
 /**
- *
+ * @class Extensions
+ * @param {Object} config - Extensions configuration object.
+ * @param {Array}  config.enabled - Enabled lifecycle events.
+ * @param {Object} config.register - Extensions to register.
  */
 class Extensions {
   extensions: {
     [extension_name: string]: Array<() => mixed>
   };
 
-  /**
-   * @param {Object} config
-   * @param {Array}  config.enabled
-   * @param {Object} config.register
-   */
   constructor(config: ExtensionsConfig = { enabled: [], register: [] }) {
     const { enabled, register } = config;
     const extensions = {};
@@ -62,8 +62,9 @@ class Extensions {
   }
 
   /**
-   * @param {String} name
-   * @returns {Boolean}
+   * Checks for existence of the extension handler name.
+   * @param {string} name - Name of the extension handler.
+   * @returns {boolean} True if exists.
    */
   has(name: LifecycleRequestType) {
     const handlers = this.extensions[name];
@@ -72,8 +73,9 @@ class Extensions {
   }
 
   /**
-   * @param {String} name
-   * @param {Function} handler
+   * Registeres handler of the lifecycle event.
+   * @param {string} name - Name of the lifecycle event.
+   * @param {Function} handler - Handler of the event.
    */
   register(name: LifecycleRequestType, handler: () => mixed) {
     if (this.extensions[name] === undefined) {
@@ -84,10 +86,11 @@ class Extensions {
   }
 
   /**
-   * @param {String} name
-   * @param {Array} args
-   * @param context
-   * @returns {Promise}
+   * Executes handlers for the lifecycle event.
+   * @param {string} name - Name of the lifecycle event.
+   * @param {Array<mixed>} args - Arguments to pass to lifecycle handlers.
+   * @param {Mixed} [context=null] - Context to call lifecycle handlers with.
+   * @returns {Promise<*>} Result of the invocation.
    */
   exec(name: string, args: Array<any> = [], context: mixed = null) {
     const handlers = this.extensions[name];

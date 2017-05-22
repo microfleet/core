@@ -21,7 +21,9 @@ exports.name = 'http';
 exports.type = PluginsTypes.transport;
 
 /**
- * Helper configuration validator
+ * Configuration validator helper.
+ * @param {Object} config - Configuration to validate.
+ * @param {Function} validator - Instance of ms-validation to be used.
  */
 function validateConfig(config: Object, validator: () => { error: ?Error, doc: ?mixed }) {
   if (is.fn(validator)) {
@@ -36,6 +38,10 @@ function validateConfig(config: Object, validator: () => { error: ?Error, doc: ?
   }
 }
 
+/**
+ * Attaches HTTP handler.
+ * @param  {Object} config - HTTP handler configuration to attach.
+ */
 exports.attach = function createHttpServer(config: Object): PluginInterface {
   validateConfig(config, this.validateSync);
   // eslint-disable-next-line import/no-dynamic-require

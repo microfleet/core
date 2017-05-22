@@ -6,9 +6,9 @@ const Errors = require('common-errors');
 const is = require('is');
 
 /**
- * Verifies if it's possible to attach router for specific transport
- * @param  {Router} router        [description]
- * @param  {String} transportName [description]
+ * Verifies if it's possible to attach router for specific transport.
+ * @param  {Router} router - Existing router instance.
+ * @param  {string} transportName - Transport name to attach handler to.
  */
 function verifyAttachPossibility(router: Router, transportName: TransportTypes): void {
   if (is.object(router) === false) {

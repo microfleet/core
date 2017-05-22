@@ -33,11 +33,13 @@ export type Router = {
 };
 
 /**
- * @param {Object}   config
- * @param {Object}   config.auth       - auth module config
- * @param {Object}   config.extensions - extensions config
- * @param {Object}   config.routes     - routes config
- * @param {Mservice} service           - MService instance
+ * Initializes router.
+ * @param {Object} config - Router configuration object.
+ * @param {Object} config.auth - Auth module configuration object.
+ * @param {Object} config.extensions - Extensions configuration object.
+ * @param {Object} config.routes - Routes configuration object.
+ * @param {Mservice} service - Mservice instance.
+ * @returns {Router} Router instance.
  */
 function getRouter(config: Object, service: Mservice): Router {
   const router: Router = {

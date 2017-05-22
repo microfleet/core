@@ -53,9 +53,10 @@ exports.attach = function attachElasticsearch(conf: Object = {}): PluginInterfac
   }
 
   return {
+
     /**
      * @private
-     * @return {Promise}
+     * @returns {Promise<Elasticsearch>} Elasticsearch connection.
      */
     connect: function connectElasticsearch() {
       if (service._elasticsearch) {
@@ -85,7 +86,7 @@ exports.attach = function attachElasticsearch(conf: Object = {}): PluginInterfac
 
     /**
      * @private
-     * @return {Promise}
+     * @returns {Promise<void>} Closes elasticsearch connection.
      */
     close: function disconnectElasticsearch() {
       return Promise.try(() => service._elasticsearch.close())
