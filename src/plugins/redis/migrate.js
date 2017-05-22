@@ -45,8 +45,7 @@ const VERSION_KEY = 'version';
  * @return {String}
  */
 const appendPreScript = (finalVersion, min = 0) => `-- check for ${finalVersion}
-local versionKey = KEYS[1];
-local currentVersion = tonumber(redis.call('get', versionKey) or 0);
+local currentVersion = tonumber(redis.call('get', KEYS[1]) or 0);
 if currentVersion >= ${finalVersion} then
   return nil;
 end
@@ -62,8 +61,18 @@ end
  * @return {String}
  */
 const appendPostScript = finalVersion => `-- set current version
-return redis.call('set', versionKey, '${finalVersion}');
+return redis.call('set', KEYS[1], '${finalVersion}');
 `;
+
+function checkVersionError(error) {
+  this.log.error(error);
+
+  if (error.message === 'min version constraint failed') {
+    return;
+  }
+
+  throw error;
+}
 
 /**
  * This is the most common case of a single LUA script for migration
@@ -110,9 +119,6 @@ module.exports = async function performMigration(redis, service, scripts) {
     return Promise.resolve();
   }
 
-  // pre-process all scripts and append LUA check for greate version
-  const pipeline = redis.pipeline();
-
   // eslint-disable-next-line no-restricted-syntax
   for (const file of files) {
     const final = file.final;
@@ -130,22 +136,30 @@ module.exports = async function performMigration(redis, service, scripts) {
       const args = file.args;
 
       debug('evaluating script after %s', currentVersion, script);
-      pipeline.eval(script, keys.length, keys, args);
+
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await redis.eval(script, keys.length, keys, args);
+      } catch (error) {
+        checkVersionError.call(service, error);
+      }
     } else if (is.fn(file.script)) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await redis.eval(appendPreScript(final, file.min), 1, [VERSION_KEY]);
+      } catch (error) {
+        checkVersionError.call(service, error);
+      }
+
       // must return promise
       // eslint-disable-next-line no-await-in-loop
-      await file.script(service, pipeline, VERSION_KEY, appendLuaScript, { appendPreScript, appendPostScript });
+      await file.script(service);
+      // eslint-disable-next-line no-await-in-loop
+      await redis.eval(appendPostScript(final), 1, [VERSION_KEY]);
     } else {
       throw new Error('script must be a function if not a string');
     }
   }
 
-  return pipeline.exec().map((resp) => {
-    const [err, result] = resp;
-    if (err) {
-      throw err;
-    }
-
-    return result;
-  });
+  return Promise.resolve(true);
 };
