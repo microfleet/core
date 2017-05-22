@@ -111,7 +111,7 @@
     "server-destroy": "~1.x.x",
     "socket.io": "^1.7.1",
     "socket.io-client": "^1.7.1",
-    "socketio-wildcard": "^0.4.0",
+    "socketio-wildcard": "^2.0.0",
     "vision": "^4.1.1"
   },
   "release": {
