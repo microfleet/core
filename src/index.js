@@ -7,11 +7,13 @@
 
 /**
  * Types
+ * @private
  */
 import type { Plugin, PluginInterface, PluginConnector, HandlerProperties, ConnectorsTypes } from './types';
 
 /**
  * Third-party deps
+ * @private
  */
 const Promise = require('bluebird');
 const Errors = require('common-errors');
@@ -26,6 +28,7 @@ const assert = require('assert');
 
 /**
  * Local helpers and utils
+ * @private
  */
 const constants = require('./constants');
 const defaultOpts = require('./defaults');
@@ -37,30 +40,35 @@ class Mservice extends EventEmitter {
 
   /**
    * Constants with possilble transport values
-   * @type {{amqp: string, http: string, socketIO: string}}
+   * @memberof Mservice
+   * @type {Object}
    */
   static ActionTransport = constants.ActionTransport;
 
   /**
    * Constants with connect types to control order of service bootstrap
+   * @memberof Mservice
    * @type {Object}
    */
   static ConnectorsTypes = constants.ConnectorsTypes;
 
   /**
    * Default priority of connectors during bootstrap
+   * @memberof Mservice
    * @type {Array}
    */
   static ConnectorsPriority = constants.ConnectorsPriority;
 
   /**
    * Plugin Types
+   * @memberof Mservice
    * @type {Object}
    */
   static PluginsTypes = constants.PluginsTypes;
 
   /**
    * Plugin boot priority
+   * @memberof Mservice
    * @type {Array}
    */
   static PluginsPriority = constants.PluginsPriority;
@@ -78,6 +86,7 @@ class Mservice extends EventEmitter {
   /**
    * These namespaces are reserved by plugins or core funcs
    * of mservice fleet
+   * @memberof Mservice
    * @type {Array}
    */
   static reservedNamespaces = [
@@ -312,10 +321,20 @@ class Mservice extends EventEmitter {
     return this[constants.DESTRUCTORS_PROPERTY];
   }
 
+  /**
+   * Initializes connectors on the instance of Mservice.
+   * @param {string} type - Connector type.
+   * @param {Function} handler - Plugin connector.
+   */
   addConnector(type: ConnectorsTypes, handler: PluginConnector) {
     this._addHandler(constants.CONNECTORS_PROPERTY, type, handler);
   }
 
+  /**
+   * Initializes destructor on the instance of Mservice.
+   * @param {string} type - Destructor type.
+   * @param {Function} handler - Plugin destructor.
+   */
   addDestructor(type: ConnectorsTypes, handler: PluginConnector) {
     this._addHandler(constants.DESTRUCTORS_PROPERTY, type, handler);
   }

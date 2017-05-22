@@ -4,9 +4,9 @@ const semver = require('semver');
 const chalk = require('chalk');
 
 /**
- * Performs require and validates that constraints are met
+ * Performs require and validates that constraints are met.
+ * @param {string} name - Name of the module to require.
  */
-
 module.exports = function _require(name: string) {
   const version = pkg.pluginDependencies[name];
   // eslint-disable-next-line import/no-dynamic-require

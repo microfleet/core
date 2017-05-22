@@ -3,6 +3,7 @@ import type { PluginInterface } from '../types';
 
 /**
  * Project deps
+ * @private
  */
 const Errors = require('common-errors');
 const { PluginsTypes } = require('../');

@@ -3,6 +3,7 @@ import type { ServiceRequest } from '../../types';
 
 /**
  * Project deps
+ * @private
  */
 const is = require('is');
 const Promise = require('bluebird');

@@ -2,7 +2,7 @@
 
 /**
  * Default configurations module
- * @module defaults
+ * @module mservice:defaults
  */
 
 /**

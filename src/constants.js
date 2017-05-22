@@ -2,7 +2,7 @@
 
 /**
  * This file exports constants used throughout the project
- * @type {Object}
+ * @module mservice:constants
  */
 
 exports.CONNECTORS_PROPERTY = '_connectors';
@@ -10,7 +10,7 @@ exports.DESTRUCTORS_PROPERTY = '_destructors';
 
 /**
  * Constants with possilble transport values
- * @type {{ amqp: string, http: string, socketIO: string }}
+ * @type {Object}
  */
 exports.ActionTransport = {
   amqp: 'amqp',

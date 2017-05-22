@@ -3,6 +3,7 @@ import type { PluginInterface } from '../types';
 
 /**
  * Project deps
+ * @private
  */
 const is = require('is');
 const assert = require('assert');
