@@ -153,7 +153,7 @@ module.exports = async function performMigration(redis, service, scripts) {
 
       // must return promise
       // eslint-disable-next-line no-await-in-loop
-      await file.script(service, VERSION_KEY, appendLuaScript);
+      await file.script(service);
       // eslint-disable-next-line no-await-in-loop
       await redis.eval(appendPostScript(final), 1, [VERSION_KEY]);
     } else {
@@ -161,5 +161,5 @@ module.exports = async function performMigration(redis, service, scripts) {
     }
   }
 
-  return null;
+  return Promise.resolve(true);
 };
