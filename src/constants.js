@@ -5,7 +5,16 @@
  * @module mservice:constants
  */
 
+/**
+ * Connector property.
+ * @type {string}
+ */
 exports.CONNECTORS_PROPERTY = '_connectors';
+
+/**
+ * Destructor property.
+ * @type {string}
+ */
 exports.DESTRUCTORS_PROPERTY = '_destructors';
 
 /**

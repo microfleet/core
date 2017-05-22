@@ -22,11 +22,12 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
 
   const handlerConfig = config.server.handlerConfig;
   const server = service._http = new Hapi.Server(handlerConfig.server);
-
-  server.connection(Object.assign({}, handlerConfig.connection, {
+  const serverConfiguration = Object.assign({}, handlerConfig.connection, {
     port: config.server.port,
     address: config.server.host,
-  }));
+  });
+
+  server.connection(serverConfiguration);
 
   if (config.router.enabled) {
     attachRouter(service, server, config.router);
@@ -75,6 +76,11 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
     return Promise.resolve(server)
       .tap(initPlugins)
       .tap(() => server.start())
+      .tap(() => {
+        if (service._log) {
+          service.log.info({ transport: 'http', http: 'hapi' }, 'listening on http://%s:%s', serverConfiguration.address, serverConfiguration.port);
+        }
+      })
       .return(server)
       .tap(() => service.emit('plugin:start:http', server));
   }

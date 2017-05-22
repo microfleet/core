@@ -9,7 +9,13 @@
  * Types
  * @private
  */
-import type { Plugin, PluginInterface, PluginConnector, HandlerProperties, ConnectorsTypes } from './types';
+import type {
+  Plugin,
+  PluginInterface,
+  PluginConnector,
+  HandlerProperties,
+  ConnectorsTypes
+} from './types';
 
 /**
  * Third-party deps
@@ -391,4 +397,19 @@ class Mservice extends EventEmitter {
   }
 }
 
+/**
+ * @public
+ * @type {Mservice}
+ */
 module.exports = Mservice;
+
+// if there is no parent module we assume it's called as a binary
+if (!module.parent) {
+  const mservice = new Mservice();
+  mservice
+    .connect()
+    .catch(function serviceCrashed(err) {
+      mservice.log.fatal('Failed to start service', err);
+      setImmediate(() => { throw err; });
+    });
+}

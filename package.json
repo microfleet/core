@@ -1,5 +1,5 @@
 {
-  "name": "mservice",
+  "name": "@microfleet/core",
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "scripts": {
@@ -7,11 +7,24 @@
     "coverage:unit": "cross-env NODE_ENV=test nyc --report-dir ./coverage/unit-tests npm run test:unit",
     "prepublish": "npm run compile",
     "lint": "eslint ./src",
-    "test": "npm run lint && npm run coverage:unit && npm run test:integration",
+    "test": "npm run lint && npm run test:flow && npm run coverage:unit && npm run test:integration",
     "test:unit": "mocha --recursive ./src",
+    "test:flow": "flow",
     "test:integration": "npm run compile && mdep test run --sleep 60 --fail 'docker-compose -f ./test/docker-compose.yml logs'",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "fleet",
+    "distributed",
+    "amqp",
+    "logger",
+    "http",
+    "redis",
+    "highload",
+    "docker"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/makeomatic/mservice.git"

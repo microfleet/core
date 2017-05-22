@@ -27,6 +27,8 @@ build/Release
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
+src/actions
+schemas/add.json
 
 # compiled source code
 lib

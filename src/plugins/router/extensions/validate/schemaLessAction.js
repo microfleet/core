@@ -7,6 +7,10 @@ module.exports = [
   {
     point: 'postRequest',
     handler: (error: Error, request: ServiceRequest) => {
+      if (error) {
+        return Promise.reject(error);
+      }
+
       const action = request.action;
 
       if (action.schema === undefined) {
