@@ -22,7 +22,7 @@ function attachAMQPPlugin(config) {
 
   if (is.fn(service.validateSync)) {
     const transportSchema = cloneDeep(AMQPSchema);
-    transportSchema.id = 'amqp.transport';
+    transportSchema.$id = 'amqp.transport';
     service.validator.ajv.addSchema(transportSchema);
     assert.ifError(service.validateSync('amqp', config).error);
     assert.ifError(service.validateSync('amqp.transport', config.transport).error);

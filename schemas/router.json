@@ -1,19 +1,22 @@
 {
-  "id": "router",
-  "additionalProperties": false,
-  "required": ["auth", "routes"],
-  "type": "object",
-  "properties": {
-    "auth": {
-      "$ref": "router.auth",
-      "default": {}
-    },
-    "extensions": {
-      "$ref": "router.extensions",
-      "default": {}
-    },
-    "routes": {
-      "$ref": "router.routes"
+    "$id": "router",
+    "additionalProperties": false,
+    "required": [
+        "auth",
+        "routes"
+    ],
+    "type": "object",
+    "properties": {
+        "auth": {
+            "$ref": "router.auth",
+            "default": {}
+        },
+        "extensions": {
+            "$ref": "router.extensions",
+            "default": {}
+        },
+        "routes": {
+            "$ref": "router.routes"
+        }
     }
-  }
 }

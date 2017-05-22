@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const Cassandra = require('express-cassandra');
 const cloneDeep = require('lodash/cloneDeep');
 const path = require('path');
@@ -27,11 +28,11 @@ describe('Cassandra suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
-      .spread(cassandra => {
+      .spread((cassandra) => {
         expect(cassandra).to.be.instanceof(Cassandra);
         expect(cassandra.modelInstance).to.have.property('Foo');
         expect(this.service.cassandra).to.be.instanceof(Cassandra);
@@ -41,7 +42,7 @@ describe('Cassandra suite', function testSuite() {
   it('able to close connection to cassandra', function test() {
     return this.service.close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         expect(() => this.service.cassandra).to.throw();
       });
@@ -58,11 +59,11 @@ describe('Cassandra suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
-      .spread(cassandra => {
+      .spread((cassandra) => {
         expect(cassandra.modelInstance).to.have.property('Bar');
       })
       .finally(() => this.service.close());

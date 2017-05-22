@@ -8,7 +8,7 @@ exports.final = 10;
 exports.script = (service, pipeline, versionKey, appendLuaScript) => service.redis
   .get('cardinality')
   .return(10)
-  .then(cardinality => {
+  .then((cardinality) => {
     const lua = appendLuaScript(exports.final, exports.min, script);
     debug('evaluating', lua);
     pipeline.eval(lua, 2, versionKey, 'some-index-key', cardinality);

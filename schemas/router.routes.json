@@ -1,36 +1,41 @@
 {
-  "id": "router.routes",
-  "additionalProperties": false,
-  "required": ["directory", "enabled", "prefix", "transports"],
-  "type": "object",
-  "properties": {
-    "directory": {
-      "type": "string"
-    },
-    "enabled": {
-      "default": {},
-      "patternProperties": {
-        "^.*$": {
-          "type": "string"
+    "$id": "router.routes",
+    "additionalProperties": false,
+    "required": [
+        "directory",
+        "enabled",
+        "prefix",
+        "transports"
+    ],
+    "type": "object",
+    "properties": {
+        "directory": {
+            "type": "string"
+        },
+        "enabled": {
+            "default": {},
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "prefix": {
+            "default": "",
+            "type": "string"
+        },
+        "setTransportsAsDefault": {
+            "default": false,
+            "type": "boolean"
+        },
+        "transports": {
+            "default": [],
+            "items": {
+                "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
         }
-      },
-      "type": "object"
-    },
-    "prefix": {
-      "default": "",
-      "type": "string"
-    },
-    "setTransportsAsDefault": {
-      "default": false,
-      "type": "boolean"
-    },
-    "transports": {
-      "default": [],
-      "items": {
-        "type": "string"
-      },
-      "type": "array",
-      "uniqueItems": true
     }
-  }
 }

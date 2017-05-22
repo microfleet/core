@@ -1,10 +1,10 @@
 {
-  "id": "http.express",
-  "type": "object",
-  "properties": {
+    "$id": "http.express",
+    "type": "object",
     "properties": {
-      "default": {},
-      "type": "object"
+        "properties": {
+            "default": {},
+            "type": "object"
+        }
     }
-  }
 }
