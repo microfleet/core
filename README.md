@@ -105,3 +105,34 @@ vary: accept-encoding
 ```
 
 Now on top of it you can build pretty much anything - routes will be created automatically, network topology will follow your configuration, input would be validated. Make sure to check real-world examples with or without database usage. We recommend starting with the [@microfleet/mailer](https://github.com/makeomatic/ms-mailer) service as it contains only 2 actions, but clearly shows most of the concepts.
+
+## Available Plugins
+
+To ensure smooth and fast development, there are many core plugins that allow
+
+### Essentials
+
+### Transports
+
+### Databases
+
+## Roadmap
+
+As with any healthy toolkit - there is always plenty to add. These are some of the major features that we are working towards.
+Our goal to ensure that most of the apps can be created by writing a simple integration layer with your business logic and a bunch
+of human-readable configuration
+
+- [] authentication framework:
+  - [] ubiquitous way to pass authorization tokens disregarding the transport
+  - [] RBAC route configuration
+
+- [] transport-agnostic inter-service communication API
+  - [] service discovery integration:
+    - [] consul
+    - [] etcd
+  - [] high level messaging API
+  - [] app-level healthchecks
+
+- [] Tracing API: visibility into transactions
+  - [] tracing integration via http://opentracing.io/
+  - [] Monitoring dashboard
