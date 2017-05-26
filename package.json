@@ -77,7 +77,7 @@
     "boom": "^4.3.1",
     "bunyan": "^1.8.10",
     "bunyan-sentry-stream": "^1.0.2",
-    "chai": "^3.5.0",
+    "chai": "^4.0.0",
     "cheerio": "^0.22.0",
     "codecov": "^2.0.1",
     "common-errors": "^1.0.0",
