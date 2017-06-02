@@ -100,7 +100,7 @@
     "ms-amqp-transport": "^8.0.0",
     "ms-socket.io-adapter-amqp": "^3.1.0",
     "ms-validation": "^4.0.0",
-    "nyc": "^10.3.0",
+    "nyc": "^11.0.1",
     "pg": "^6.1.4",
     "raven": "^1.1.4",
     "request": "^2.81.0",
