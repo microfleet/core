@@ -27,7 +27,8 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       if (error) {
         let statusCode;
         let errorMessage;
-        const { message, errors } = error;
+
+        const { errors } = error;
 
         switch (error.constructor) {
           case Errors.AuthenticationRequiredError:
@@ -51,9 +52,7 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
 
         if (is.array(errors) && errors.length) {
           const [nestedError] = errors;
-          errorMessage = nestedError.text || nestedError.message || message;
-        } else {
-          errorMessage = message;
+          errorMessage = nestedError.text || nestedError.message || undefined;
         }
 
         const replyError = Boom.wrap(error, statusCode, errorMessage);
