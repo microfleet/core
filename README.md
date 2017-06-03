@@ -128,15 +128,15 @@ Create directory `schemas` and populate it with schemas, where names correspond 
 
 Adds following API to the microservice instance:
 
-`.validator` - instance of `ms-validation`
-`.validate<T>(schema: string, input: T) => Promise<Error | T>` - Promise-based API that resolves/rejects based
-`.validateSync<T>(schema: string, input: T) => { error?: Error, doc: T }` - sync API, which always returns an object. If validation failed - it populates error property with an instance of Error. Doc is a modified version of input arg with coercion, defaults, filtering of props and so on.
+* `.validator` - instance of `ms-validation`
+* `.validate<T>(schema: string, input: T) => Promise<Error | T>` - Promise-based API that resolves/rejects based
+* `.validateSync<T>(schema: string, input: T) => { error?: Error, doc: T }` - sync API, which always returns an object. If validation failed - it populates error property with an instance of Error. Doc is a modified version of input arg with coercion, defaults, filtering of props and so on.
 
 #### Logger
 
 Creates bunyan logger, with streams based on passed configuration and extends microservice instance with the following methods:
 
-`.log` - instance of [bunyan](https://github.com/trentm/node-bunyan) logger
+* `.log` - instance of [bunyan](https://github.com/trentm/node-bunyan) logger
 
 #### Router
 
@@ -171,32 +171,32 @@ As with any healthy toolkit - there is always plenty to add. These are some of t
 Our goal to ensure that most of the apps can be created by writing a simple integration layer with your business logic and a bunch
 of human-readable configuration
 
-- [] more docs
-  - [] verbose validator configuration example
-  - [] verbose logger configuration example
-  - [] verbose router configuration example
-  - [] verbose AMQP transport configuration docs
-  - [] verbose HTTP transports configuration example
-  - [] verbose socket.io transport configuration example
-  - [] redis documentation
-  - [] knex documentation
-  - [] elasticsearch configuration documentation
-  - [] cassandra configuration docs
+- [ ] more docs
+  - [ ] verbose validator configuration example
+  - [ ] verbose logger configuration example
+  - [ ] verbose router configuration example
+  - [ ] verbose AMQP transport configuration docs
+  - [ ] verbose HTTP transports configuration example
+  - [ ] verbose socket.io transport configuration example
+  - [ ] redis documentation
+  - [ ] knex documentation
+  - [ ] elasticsearch configuration documentation
+  - [ ] cassandra configuration docs
 
-- [] authentication framework:
-  - [] ubiquitous way to pass authorization tokens disregarding the transport
-  - [] RBAC route configuration
+- [ ] authentication framework:
+  - [ ] ubiquitous way to pass authorization tokens disregarding the transport
+  - [ ] RBAC route configuration
 
-- [] transport-agnostic inter-service communication API
-  - [] service discovery integration:
-    - [] consul
-    - [] etcd
-  - [] high level messaging API
-  - [] app-level healthchecks
+- [ ] transport-agnostic inter-service communication API
+  - [ ] service discovery integration:
+    - [ ] consul
+    - [ ] etcd
+  - [ ] high level messaging API
+  - [ ] app-level healthchecks
 
-- [] Tracing API: visibility into transactions
-  - [] tracing integration via http://opentracing.io/
-  - [] Monitoring dashboard
+- [ ] Tracing API: visibility into transactions
+  - [ ] tracing integration via http://opentracing.io/
+  - [ ] Monitoring dashboard
 
 ## Sponsorship
 
