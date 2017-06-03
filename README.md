@@ -1,16 +1,20 @@
 # @microfleet / core
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/makeomatic/mservice.svg)](https://greenkeeper.io/)
-[![Build Status](https://semaphoreci.com/api/v1/makeomatic/mservice/branches/master/shields_badge.svg)](https://semaphoreci.com/makeomatic/mservice)
-[![Code Climate](https://codeclimate.com/github/makeomatic/mservice/badges/gpa.svg)](https://codeclimate.com/github/makeomatic/mservice)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+## Opinionated Web and (Micro)Services Toolkit
+
+Lead Maintainer: [Vitaly Aminev](https://github.com/avvs)
 
 Easily design, develop & distribute your code with opinionated microservices toolkit.
 It's designed to provide highly extensible, defined structure so that you only have to worry about implementing business logic and nothing else.
 Make sure that every minute you spend counts.
 
 ## Installation
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/makeomatic/mservice.svg)](https://greenkeeper.io/)
+[![Build Status](https://semaphoreci.com/api/v1/makeomatic/mservice/branches/master/shields_badge.svg)](https://semaphoreci.com/makeomatic/mservice)
+[![Code Climate](https://codeclimate.com/github/makeomatic/mservice/badges/gpa.svg)](https://codeclimate.com/github/makeomatic/mservice)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 `yarn add @microfleet/core` or `npm i @microfleet/core`
 
@@ -195,3 +199,11 @@ of human-readable configuration
 - [] Tracing API: visibility into transactions
   - [] tracing integration via http://opentracing.io/
   - [] Monitoring dashboard
+
+## Sponsorship
+
+Development of the @microfleet generously supported by contributions from individuals and corporations. If you are benefiting from @microfleet and would like to help keep the project financially sustainable, please send an email to [Vitaly Aminev](mailto:v@makeomatic.ca)
+
+### Current Supporters
+
+* [Makeomatic](https://makeomatic.ca)

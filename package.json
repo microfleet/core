@@ -27,7 +27,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/makeomatic/mservice.git"
+    "url": "https://github.com/microfleet/core.git"
   },
   "author": "Vitaly Aminev <v@makeomatic.ca>",
   "contributors": [
@@ -37,9 +37,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/makeomatic/mservice/issues"
+    "url": "https://github.com/microfleet/core/issues"
   },
-  "homepage": "https://github.com/makeomatic/mservice#readme",
+  "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
     "callsite": "^1.0.0",
