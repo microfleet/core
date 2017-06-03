@@ -104,7 +104,7 @@
     "eslint-config-makeomatic": "^1.0.1",
     "eslint-config-standard-jsdoc": "^0.3.2",
     "eslint-plugin-flowtype": "^2.33.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsdoc": "^3.1.0",
     "eslint-plugin-mocha": "^4.8.0",
     "eslint-plugin-promise": "^3.5.0",

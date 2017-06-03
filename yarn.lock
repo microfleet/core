@@ -2267,7 +2267,7 @@ eslint-plugin-flowtype@^2.33.0:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-import@^2.2.0:
+eslint-plugin-import@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.3.0.tgz#37c801e0ada0e296cbdf20c3f393acb5b52af36b"
   dependencies:
