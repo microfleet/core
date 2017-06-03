@@ -58,7 +58,7 @@
   },
   "pluginDependencies": {
     "body-parser": "~1.x.x",
-    "boom": "~2.x.x || ~3.x.x || ~4.x.x",
+    "boom": "~2.x.x || ~3.x.x || ~4.x.x || ~5.x.x",
     "bunyan": "~1.x.x",
     "bunyan-sentry-stream": "~1.x.x",
     "elasticsearch": "~11.x.x || ~12.x.x || ~13.x.x",
@@ -72,11 +72,11 @@
     "ms-validation": "~4.x.x || ~5.x.x",
     "pg": "^6.x.x",
     "vision": "^4.x.x",
-    "raven": "~1.x.x",
+    "raven": "~1.x.x || ~2.x.x",
     "restify": "~4.x.x",
     "server-destroy": "~1.x.x",
-    "socket.io": "~1.x.x",
-    "socketio-wildcard": "~0.x.x"
+    "socket.io": "~2.x.x",
+    "socketio-wildcard": "~2.x.x"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^1.6.2",
