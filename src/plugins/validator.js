@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable promise/no-native */
 const path = require('path');
 const assert = require('assert');
 const { NotPermittedError } = require('common-errors');
@@ -15,6 +16,18 @@ export type ValidatorConfig = Array<string> | void | {
   schemas: Array<string>,
   ajv: Object,
 };
+
+/**
+ * Validation function signature - promise based
+ * @type {Function}
+ */
+export type Validate = <T>(schema: string, document: T) => Promise<Error | T>;
+
+/**
+ * Validation function signature - sync
+ * @type {Function}
+ */
+export type ValidateSync = <T>(schema: string, document: T) => { error?: Error, doc: T };
 
 /**
  * Plugin name
@@ -87,8 +100,8 @@ exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: str
 
   // extend service
   service[`_${exports.name}`] = validator;
-  service.validate = validator.validate;
-  service.validateSync = validator.validateSync;
+  service.validate = (validator.validate: Validate);
+  service.validateSync = (validator.validateSync: ValidateSync);
 
   // if we have schema called `config` - we will use it to validate
   if (validator.$ajv.getSchema('config')) {

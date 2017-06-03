@@ -123,6 +123,7 @@ declare class Bluebird$Promise<+R> extends Promise<R>{
 
   static cast<T>(value: $Promisable<T>): Bluebird$Promise<T>;
   static bind(ctx: any): Bluebird$Promise<void>;
+  static bind<T>(ctx: any, value: $Promisable<T>): Bluebird$Promise<T>;
   static is(value: any): boolean;
   static longStackTraces(): void;
 
@@ -160,7 +161,7 @@ declare class Bluebird$Promise<+R> extends Promise<R>{
     reducer: (total: T, item: U, index: number, arrayLength: number) => $Promisable<T>,
     initialValue?: $Promisable<T>
   ): Bluebird$Promise<T>;
-  filter<T>(filterer: (item: T, index: number, arrayLength: number) => $Promisable<bool>, options?: Bluebird$ConcurrencyOption): Bluebird$Promise<Array<T>>;
+  filter<T>(filterer: (item: T, index: number, arrayLength: number) => $Promisable<boolean>, options?: Bluebird$ConcurrencyOption): Bluebird$Promise<Array<T>>;
   each<T, U>(iterator: (item: T, index: number, arrayLength: number) => $Promisable<U>): Bluebird$Promise<Array<T>>;
   asCallback<T>(callback: (error: ?any, value?: T) => any, options?: Bluebird$SpreadOption): void;
   return<T>(value: T): Bluebird$Promise<T>;

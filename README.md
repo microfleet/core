@@ -108,19 +108,78 @@ Now on top of it you can build pretty much anything - routes will be created aut
 
 ## Available Plugins
 
-To ensure smooth and fast development, there are many core plugins that allow
+To ensure smooth and fast development, there are many core plugins that build-up on core functionality. At this point they are all bundled with
+core toolkit, but expect them to be externalized as toolkit matures.
 
 ### Essentials
 
+This includes common functionality plugins:
+
+* [validator](src/plugins/validator.js) - json-schema based input data validation
+* [logger](src/plugins/logger.js) - request logger
+* [router](src/plugins/router.js) - logic layer for multi-transport router
+
+#### Validator
+
+Based on [ms-validation](https://github.com/makeomatic/ms-validation) allows to easily validate input args based on json-schema.
+Create directory `schemas` and populate it with schemas, where names correspond to actions.
+
+Adds following API to the microservice instance:
+
+`.validator` - instance of `ms-validation`
+`.validate<T>(schema: string, input: T) => Promise<Error | T>` - Promise-based API that resolves/rejects based
+`.validateSync<T>(schema: string, input: T) => { error?: Error, doc: T }` - sync API, which always returns an object. If validation failed - it populates error property with an instance of Error. Doc is a modified version of input arg with coercion, defaults, filtering of props and so on.
+
+#### Logger
+
+Creates bunyan logger, with streams based on passed configuration and extends microservice instance with the following methods:
+
+`.log` - instance of [bunyan](https://github.com/trentm/node-bunyan) logger
+
+#### Router
+
+Initializes router, which scans folders for actions and builds routing tree for for enabled transports.
+Router controls request lifecycle, which tries to mimic hapi.js lifecycle as closely as possible, with unified interface for multiple transports.
+Currently supports `AMQP` (`ms-amqp-transport`), `HTTP` (`hapi.js`, `express.js,` `restify`) and `Socket.IO`.
+Default sensible configurations are provided.
+
+Stock configuration looks for all `**/*.js` files in `src/actions` directory, enables `hapi.js` based HTTP handler on port 3000.
+On top of it enables 2 router extension, which provide request logging & automatic json-schema matching for actions based on their names.
+
 ### Transports
 
+* [amqp](src/plugins/amqp.js) - AMQP transport based on [ms-amqp-transport](https://github.com/ms-amqp-transport), requires RabbitMQ
+* [http](src/plugins/http.js):
+  * [hapi.js](src/plugins/http/handlers/hapi) - hapi implementation, recommended for use
+  * [express.js](src/plugins/http/handlers/express) - express.js implementation
+  * [restify](src/plugins/http/handlers/restify) - restify implementation
+* [socket.io](src/plugins/socketIO.js) - enabled websockets on top of http, therefore, requires `http plugin` to be enabled
+
 ### Databases
+
+* [redis cluster](src/plugins/redisCluster.js) - clustered redis implementation, uses [ioredis](https://github.com/luin/ioredis) client
+* [redis sentinel](src/plugins/redisSentinel.js) - HA redis implementation, no sharding, uses [ioredis](https://github.com/luin/ioredis) client
+* [knex](src/plugins/knex.js) - high-level API for SQL based databases (PostgreSQL, MySQL, MariaDB, etc)
+* [elasticsearch](src/plugins/elasticsearch.js) - elasticsearch connector
+* [cassandra](src/plugins/cassandra.js) - cassandra connector
 
 ## Roadmap
 
 As with any healthy toolkit - there is always plenty to add. These are some of the major features that we are working towards.
 Our goal to ensure that most of the apps can be created by writing a simple integration layer with your business logic and a bunch
 of human-readable configuration
+
+- [] more docs
+  - [] verbose validator configuration example
+  - [] verbose logger configuration example
+  - [] verbose router configuration example
+  - [] verbose AMQP transport configuration docs
+  - [] verbose HTTP transports configuration example
+  - [] verbose socket.io transport configuration example
+  - [] redis documentation
+  - [] knex documentation
+  - [] elasticsearch configuration documentation
+  - [] cassandra configuration docs
 
 - [] authentication framework:
   - [] ubiquitous way to pass authorization tokens disregarding the transport

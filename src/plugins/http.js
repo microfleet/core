@@ -1,5 +1,6 @@
 // @flow
 import type { PluginInterface } from '../types';
+import type { ValidateSync } from './validator';
 
 /**
  * Project deps
@@ -26,7 +27,7 @@ exports.type = PluginsTypes.transport;
  * @param {Object} config - Configuration to validate.
  * @param {Function} validator - Instance of ms-validation to be used.
  */
-function validateConfig(config: Object, validator: () => { error: ?Error, doc: ?mixed }) {
+function validateConfig(config: Object, validator: ValidateSync) {
   if (is.fn(validator)) {
     // validate core http config
     assert.ifError(validator('http', config).error);

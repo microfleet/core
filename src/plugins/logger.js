@@ -24,7 +24,24 @@ function streamsFactory(name, options) {
   }
 }
 
-function attach(config: Object = {}) {
+/**
+ * Plugin Type
+ * @type {Object}
+ */
+exports.type = PluginsTypes.essential;
+
+/**
+ * Plugin Name
+ * @type {string}
+ */
+exports.name = 'logger';
+
+/**
+ * Plugin init function.
+ * @param  {Object} config - Logger configuration.
+ * @returns {Void} Void.
+ */
+exports.attach = function attach(config: Object = {}) {
   const service = this;
   const { config: { name: applicationName }, validator } = service;
   const bunyan = _require('bunyan');
@@ -72,10 +89,4 @@ function attach(config: Object = {}) {
     streams,
     name: name || applicationName,
   });
-}
-
-module.exports = {
-  attach,
-  name: 'logger',
-  type: PluginsTypes.essential,
 };

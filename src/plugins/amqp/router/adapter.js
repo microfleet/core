@@ -5,6 +5,7 @@ import type { Router } from '../../router/factory';
 const Promise = require('bluebird');
 const is = require('is');
 const noop = require('lodash/noop');
+const passThrough = require('lodash/identity');
 const { ActionTransport } = require('../../../constants');
 
 // cached var
@@ -21,7 +22,7 @@ function getAMQPRouterAdapter(router: Router, config: Object) {
         return [err, data, actionName, actions];
       })
       .spread(onCompleteBound)
-    : promise => promise;
+    : passThrough;
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Promise.promisify(router.dispatch, { context: router });

@@ -8,8 +8,7 @@ const Promise = require('bluebird');
 
 function allowed(request: ServiceRequest): Promise<ServiceRequest | NotPermittedError | ArgumentError> {
   return Promise
-    .resolve(request)
-    .bind(this)
+    .bind(this, request)
     .then(request.action.allowed)
     .return(request)
     .catch((error) => {

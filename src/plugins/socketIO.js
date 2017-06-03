@@ -32,7 +32,7 @@ function attachSocketIO(config: Object = {}) {
     options.adapter = adapters[adapter.name](adapter.options);
   }
 
-  const socketIO = new SocketIO(options);
+  const socketIO = SocketIO(options);
 
   if (router.enabled) {
     attachRouter(socketIO, router, service.router);

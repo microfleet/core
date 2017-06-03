@@ -41,21 +41,46 @@ const debug = require('debug')('mservice:redis:migrate');
 
 // some constant helpers
 const VERSION_KEY = 'version';
-const appendLuaScript = (finalVersion: number, min: number = 0, script: string) => `-- check for ${finalVersion}
-local versionKey = KEYS[1];
-local currentVersion = tonumber(redis.call('get', versionKey) or 0);
+
+/**
+ * This script is used to verify that we havent performed the transaction yet.
+ * @param  {number} finalVersion - This would be set in Redis after update.
+ * @param  {number} [min=0] - Minimal version to apply this migration to.
+ * @returns {string} Lua script for version verification.
+ */
+const appendPreScript = (finalVersion: number, min: number = 0) => `-- check for ${finalVersion}
+local currentVersion = tonumber(redis.call('get', KEYS[1]) or 0);
+
 if currentVersion >= ${finalVersion} then
-  return nil;
+  return redis.reply_error('migration already performed');
 end
 
 if currentVersion < ${min} then
   return redis.reply_error('min version constraint failed');
 end
--- end check
-${script}
--- set current version
-return redis.call('set', versionKey, '${finalVersion}');
+-- end check`;
+
+/**
+ * This script is used to put version after migration is complete.
+ * @param {number} finalVersion - This Would be set in redis after update.
+ * @returns {string} Lua post-verification script.
+ */
+const appendPostScript = (finalVersion: number) => `-- set current version
+return redis.call('set', KEYS[1], '${finalVersion}');
 `;
+
+/**
+ * This is the most common case of a single LUA script for migration.
+ * @param  {number} finalVersion - Sets version after upgrade.
+ * @param  {number} [min=0] - Minimal version to apple migration to.
+ * @param  {string} script - Userland LUA script.
+ * @returns {string} Final Lua script.
+ */
+const appendLuaScript = (finalVersion: number, min: number = 0, script: string) => [
+  appendPreScript(finalVersion, min),
+  script,
+  appendPostScript(finalVersion),
+].join('\n');
 
 export type Migration = {
   final: number,
@@ -64,6 +89,28 @@ export type Migration = {
   script: any,
 };
 
+/**
+ * Verifies current Redis schema version.
+ * @param  {Error} error - Any error.
+ * @returns {Void} Swallows certain error messages.
+ */
+function checkVersionError(error) {
+  this.log.error(error);
+
+  if (error.message === 'migration already performed') {
+    return;
+  }
+
+  throw error;
+}
+
+/**
+ * Perform migrations on the Redis database.
+ * @param  {Redis} redis - Redis client.
+ * @param  {Mservice} service - Mservice instance.
+ * @param  {Migration[]} scripts - Migrations to perform.
+ * @returns {Promise<*>} Returns when migrations are performed.
+ */
 module.exports = async function performMigration(redis: Redis, service: Mservice, scripts: Migration | Array<Migration>) {
   let files;
   if (is.string(scripts)) {
@@ -96,9 +143,6 @@ module.exports = async function performMigration(redis: Redis, service: Mservice
     return Promise.resolve();
   }
 
-  // pre-process all scripts and append LUA check for greate version
-  const pipeline = redis.pipeline();
-
   // eslint-disable-next-line no-restricted-syntax
   for (const file of files) {
     const final = file.final;
@@ -116,22 +160,29 @@ module.exports = async function performMigration(redis: Redis, service: Mservice
       const args = file.args;
 
       debug('evaluating script after %s', currentVersion, script);
-      pipeline.eval(script, keys.length, keys, args);
+
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await redis.eval(script, keys.length, keys, args);
+      } catch (error) {
+        checkVersionError.call(service, error);
+      }
     } else if (is.fn(file.script)) {
-      // must return promise
-      // eslint-disable-next-line no-await-in-loop
-      await file.script(service, pipeline, VERSION_KEY, appendLuaScript);
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await redis.eval(appendPreScript(final, file.min), 1, [VERSION_KEY]);
+        // must return promise
+        // eslint-disable-next-line no-await-in-loop
+        await file.script(service);
+        // eslint-disable-next-line no-await-in-loop
+        await redis.eval(appendPostScript(final), 1, [VERSION_KEY]);
+      } catch (error) {
+        checkVersionError.call(service, error);
+      }
     } else {
       throw new Error('script must be a function if not a string');
     }
   }
 
-  return pipeline.exec().map((resp) => {
-    const [err, result] = resp;
-    if (err) {
-      throw err;
-    }
-
-    return result;
-  });
+  return Promise.resolve(true);
 };
