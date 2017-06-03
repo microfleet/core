@@ -13,6 +13,7 @@ module.exports = function _require(name: string) {
   const depVersion = require(`${name}/package.json`).version;
 
   // print warning if we have incompatible version
+  /* istanbul ignore if */
   if (!semver.satisfies(depVersion, version)) {
     // eslint-disable-next-line max-len
     const msg = `Package ${name} has version ${depVersion} installed.`

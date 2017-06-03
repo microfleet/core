@@ -404,6 +404,7 @@ class Mservice extends EventEmitter {
 module.exports = Mservice;
 
 // if there is no parent module we assume it's called as a binary
+/* istanbul ignore if */
 if (!module.parent) {
   const mservice = new Mservice();
   mservice
