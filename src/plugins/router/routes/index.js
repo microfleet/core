@@ -1,18 +1,23 @@
-const _ = require('lodash');
+// @flow
+import type { ServiceAction, RouteMap } from '../../../types';
+
+const intersection = require('lodash/intersection');
 const glob = require('glob');
 const Errors = require('common-errors');
 const is = require('is');
 const path = require('path');
 
 /**
- * @param {Function} action
- * @param {Function} action.allowed
- * @param {String} action.auth
- * @param {String} action.schema
- * @param {Array} action.transports
+ * Validated that each discovered action conforms to composition rules.
+ *
+ * @param {Function} action - Action definition.
+ * @param {Function} action.allowed - Static property, if defined must be a function.
+ * @param {string} action.auth - Static property, if defined must reference existing auth schema.
+ * @param {string} action.schema - Static property, if defined must reference json-schema.
+ * @param {Array} action.transports - Static property, must be defined to show enabled transports for the method.
  */
-function validateAction(action) {
-  if (is.function(action) === false) {
+function validateAction(action: ServiceAction) {
+  if (is.fn(action) === false) {
     throw new Errors.ValidationError('action must be a function');
   }
 
@@ -34,18 +39,23 @@ function validateAction(action) {
 }
 
 /**
- * @param {Object}   config                        - routes config
- * @param {String}   config.directory              - actions directory
- * @param {Object}   config.enabled                - enabled routes list,
- *                                                   mapped key as filename to value as route name
- * @param {String}   config.prefix                 - routes prefix
- * @param {Boolean}  config.setTransportsAsDefault - set action transports from config transports
- * @param {String[]} config.transports             - enabled transports list
+ * @param {Object} config - Routes configuration object.
+ * @param {string} config.directory - Actions directory, will be glob scanned.
+ * @param {Object} config.enabled - Enabled routes list, mapped key as filename to value as route name. If empty - loads all routes.
+ * @param {string} config.prefix - Routes prefix, useful for launching on a certain namespace.
+ * @param {boolean} config.setTransportsAsDefault - Set action transports from config transports, so they don't need to be specified.
+ * @param {String[]} config.transports - Enabled transports list.
  */
-function getRoutes(config) {
+function getRoutes(config: Object): RouteMap {
   // lack of prototype makes it easier to search for a key
-  const routes = Object.create(null);
-  routes._all = Object.create(null);
+  const routes: RouteMap = Object.create(null, {
+    _all: {
+      value: Object.create(null),
+      writable: false,
+      enumerable: true,
+      configurable: false,
+    },
+  });
 
   const enabled = config.enabled;
 
@@ -82,7 +92,7 @@ function getRoutes(config) {
     // add action
     routes._all[routingKey] = action;
 
-    _.intersection(config.transports, action.transports).forEach((transport) => {
+    intersection(config.transports, action.transports).forEach((transport) => {
       routes[transport][routingKey] = action;
     });
   });

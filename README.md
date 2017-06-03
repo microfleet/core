@@ -1,499 +1,207 @@
-# Microservice core
+# @microfleet / core
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/makeomatic/mservice.svg)](https://greenkeeper.io/)
+## Opinionated Web and (Micro)Services Toolkit
 
-[![Build Status](https://semaphoreci.com/api/v1/makeomatic/mservice/branches/master/shields_badge.svg)](https://semaphoreci.com/makeomatic/mservice)
-[![Code Climate](https://codeclimate.com/github/makeomatic/mservice/badges/gpa.svg)](https://codeclimate.com/github/makeomatic/mservice)
+Lead Maintainer: [Vitaly Aminev](https://github.com/avvs)
+
+Easily design, develop & distribute your code with opinionated microservices toolkit.
+It's designed to provide highly extensible, defined structure so that you only have to worry about implementing business logic and nothing else.
+Make sure that every minute you spend counts.
+
+## Installation
+
+[![Build Status](https://semaphoreci.com/api/v1/makeomatic/core/branches/master/shields_badge.svg)](https://semaphoreci.com/makeomatic/core)
+[![Code Climate](https://codeclimate.com/github/microfleet/core/badges/gpa.svg)](https://codeclimate.com/github/microfleet/core)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-This module provides boilerplate for microservice core and a few plugins for starters. It sets up convenient `connect` and `close` methods,
-logging features, as well as input validation. At the same time it is an event emitter and may send log and other events silently.
+`yarn add @microfleet/core` or `npm i @microfleet/core`
 
-## Migration from 2.x to 3.x
+## Getting started
 
-Version 3 bring a neat feature of supporting multiple transports and request lifecycle.
-Please consult releases page on how to migrate your code
+### What is @microfleet?
 
-## Usage
+First of all it's a middle ground between usability and flexibility, ease of use and scalability. Unless you are Facebook or Google it's very likely that you can handle hundreds of thousands of TPS on a bunch of small and slow VMs with @microfleet. It's not a walk in the park, but after grasping basic concepts of this - you'd be able to create robust microservices within minutes.
 
-Extend Mservice class, populate plugins with array of their names.
-Currently supported:
+A lot of components could still be improved and a lot of common use-cases handled, we've been working on this since 2015 and we are commited to constantly improving this toolkit as we believe that almost every app out there shares common functionality. We want to make a toolkit that allows you to hack together production grade apps within days to be able to prove your startup concept, roll out safely and actually handle load if your idea is the next Big One.
 
-* `amqp`
-* `cassandra`
-* `elasticsearch`
-* `http`
-* `logger`
-* `redisCluster`
-* `redisSentinel`
-* `router`
-* `socketIO`
-* `validator`
+Having this concept in mind there is already a solid basis for this:
 
-### Events:
+* [@microfleet/users](https://github.com/makeomatic/ms-users) - user management service with practically anything you might think of in that matter
+* [@microfleet/files](https://github.com/makeomatic/ms-files) - distributed file management with the help of S3-like storage
+* [@microfleet/payments](https://github.com/makeomatic/ms-payments) - loathed paypal payments implementation. This one likely needs a lot of love, even though it's still used in production
+* [@microfleet/chat](https://github.com/makeomatic/mservice-chat) - chat service, real-time and scalable with moderator capabilities. Once again a middle ground between complicated messenger apps and hello-world chats
+* [@microfleet/mailer](https://github.com/makeomatic/ms-mailer) - sends emails, what else! includes queue, quality of service & integrations with some of the popular providers
+* [@microfleet/phone](https://github.com/makeomatic/ms-phone) - if mails aren't good enough you can always send a text message
+* [@microfleet/social](https://github.com/makeomatic/mservice-social) - hub for social services
+* [@microfleet/calendar](https://github.com/makeomatic/mservice-calendar) - be able to create calendar of events for your app, radio station or anything else
+* [@microfleet/organizations](https://github.com/makeomatic/ms-organizations) - this one is WIP, provides meta layer to include shared-accounts / organization-like accounts
 
-1. `ready` - when all plugins are up
-2. `close` - when all plugins were disconnected
-3. `plugin:connect:pluginName`, `instance`
-4. `plugin:close:pluginName`
-5. `error`, `err` - on critical error
+Most of the time it's easy to combine these services in a lego-like fashion providing you with a mix of desired functionality.
 
-### Example
+### Using @microfleet
 
-```js
-const path = require('path');
-const Mservice = require('mservice');
-const ld = require('lodash');
+So, how do we use it? After many iterations we have what we believe is a great structure for the code, which allows for easy service creation.
+Here is an example of action:
 
-class UserService extends Mservice {
-
-  /**
-   * default options
-   * @type {Object}
-   */
-  static defaultOpts = {
-    plugins: ['validator', 'logger', 'amqp', 'redisCluster'],
-    redis: {
-      hosts: [{
-        host: 'localhost',
-        port: 6379
-      }],
-      options: {
-        keyPrefix: 'nice'
-      }
-    },
-    amqp: {
-      transport: {
-        queue: 'roundrobin',
-      },
-    },
-    logger: {
-      defaultLogger: true,
-    },
-    // relative paths will be resolved relatively to the first dir of the file
-    // on the call stack that is not src/plugins/validator.js or src/index.js
-    // keep that in mind when creating instances of services
-    //
-    // if that's tricky - pass absolute paths!
-    validator: [ '../schemas' ],
-  }
-
-  constructor(opts = {}) {
-    super(ld.merge({}, UserService.defaultOpts, opts));
-  }
+```src/actions/add.js
+function addAction({ params }) {
+  return params[0] + params[1];
 }
 
-const userService = new UserService();
-// methods that userService will have are explain below
+module.exports = addAction;
 ```
 
-## Methods
+How do we test it? Easiest for us is https://github.com/jakubroztocil/httpie, go ahead and install it if you still haven't
 
-### initPlugin(mod, [conf])
+It's clear that params could be anything and our little action handler won't do any good in that way as we have no means of enforcing validation of input arguments. Rejoice, this was one of the first things we've done. By default every handler will look for a relevant `json-schema` under `<project_root>/schemas/<actionName>.json`. Lets create that file now with the following content:
 
-Initializes plugin, which has 2 methods: `.attach` - it would be called with `service` as context and conf as first arg
-When `conf` is omitted - it looks for `mod.name` - make sure this is also exported.
-`.attach` can return `connect` and `close` functions, which must return promises for starting and stopping the plugin
-
-### hook(event, ...args)
-
-Performs `Promise.map` listeners defined for `event`. All of them are called with the context of the `mservice`
-and args are applied as a spread. This is useful when you want to track custom event hooks completion in the app.
-
-Constructor accepts `hooks` Object, which contains of a map of `event` to a `function` or array of `functions`.
-They could either be sync or a `promise`.
-
-## Plugins
-
-### Validator plugin
-
-When using this plugin - make sure you `npm i ms-validation -S`
-
-Attaches `ms-validation` instance to your class on `._validator`.
-Exposes `.validate` and `.validateSync` methods on the class itself.
-Pass array of absolute and relative paths when creating service to automatically include your schemas.
-They will be available under basename of the file. If names collide - last schemas will overwrite existing ones
-
-```js
-// MixedData - any variable to be checked
-userService.validate('schemaName', MixedData)
-  .then(mixedData => {
-    // passed validation
-  })
-  .catch(err => {
-    // validation failed
-  })
-
-const validationResult = userService.validateSync('schemaName');
-if (validationResult.error) {
-  // validation failed
-  // handle error
-}
-
-// resulting doc if filter: true was set, otherwise original doc
-validationResult.doc
-```
-
-### Logger plugin
-
-When using this plugin - make sure you `npm i bunyan -S`
-
-Attaches `.log` method, which is an instance of a `bunyan` logger.
-Provides sane defaults when `NODE_ENV` is set to `development`.
-If not includes ringBuffer trace logger with 100 records.
-Can accept either a boolean value or an existing custom bunyan instance;
-
-#### `logger` config
-* `defaultLogger` - when options is set to `true` - will output to stdout,
-when to `false` - only to ringBuffer.
-* `debug` - when debug is on - default log level is `debug`, otherwise - `info`.
-* `name` - logger name, will have name of `service._config.name` or `mservice` if not set.
-* `streams` - steams config, keys are name of stream, values are stream config
-
-#### Predefined steams
-* `sentry`
-```js
-logger: {
-  streams: {
-    stream: {
-      dns: 'sentry-dns',
-      level: 'error',
-      options: {
-        // sentry options
-      },
-    },
-  },
+```schemas/add.json
+{
+  "$id": "add",
+  "type": "array",
+  "items": {
+    "minItems": 2,
+    "maxItems": 2,
+    "type": "number"
+  }
 }
 ```
 
-#### Example
-```js
-const userService = new UserService({
-  logger: {
-    debug: false,
-    defaultLogger: true
-  }
-});
+It will ensure that payload is validated, it must be an array and contain 2 numbers. You get the gist of it.
+Let's try running request without any payload:
 
-// will output data to stdout
-userService.log.info('Flying just fine!');
+```sh
+http localhost:3000/mservice/add
 
-// will only save to ringBuffer stream
-userService.log.debug('You won\'t see me!');
-```
+HTTP/1.1 400 Bad Request
+Connection: keep-alive
+Date: Mon, 22 May 2017 21:11:32 GMT
+Transfer-Encoding: chunked
+cache-control: no-cache
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+vary: accept-encoding
 
-### AMQP plugin
-
-When using this plugin, make sure you also do `npm i ms-amqp-transport -S`
-
-Enables AMQP transport `makeomatic/ms-amqp-transport`
-It allows the service to communicate over AMQP protocol. If `service.router`
-plugin is enabled, then we will make the best attempt to setup listeners
-and route incoming messages through this plugin. Attaches `._amqp` to `service`.
-
-Events are emitted when plugin has completed connecting, or disconnecting.
-First arg is the transport instance
-
-1. `plugin:connect:amqp`
-2. `plugin:close:amqp`
-
-```js
-const userService = new UserService({
-  amqp: {
-    transport: {
-      queue: 'my-nice-queue',
-      listen: ['users.ping'],
-    },
-    router: {
-      enabled: true
-    },
-  }
-});
-
-// messages that are sent to users.ping will be processed
-```
-
-### RedisCluster plugin
-
-***NOTE***: you can use only 1 of the plugins for redis - either cluster or sentinel
-
-When using this plugin, make sure you also do `npm i ioredis -S`
-
-Enables redisCluster communication based on `ioredis` module.
-Allows one to setup connection to redis and communicate with it;
-
-Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
-
-1. `plugin:connect:redisCluster`
-2. `plugin:close:redisCluster`
-
-```js
-const userService = new UserService({
-  plugins: [ 'redisCluster' ],
-  redis: {
-    hosts: [{
-      host: '...',
-      port: Number
-    }],
-    options: {
-      // ...
-    }
-  }
-});
-
-// any redis command will be applicable
-```
-
-### Redis Sentinel plugin
-
-***NOTE***: you can use only 1 of the plugins for redis - either cluster or sentinel
-
-When using this plugin, make sure you also do `npm i ioredis -S`
-
-Enables redisCluster communication based on `ioredis` module.
-Allows one to setup connection to redis and communicate with it in a highly available fashion;
-
-Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
-
-1. `plugin:connect:redisSentinel`
-2. `plugin:close:redisSentinel`
-
-```js
-const userService = new UserService({
-  plugins: [ 'redisSentinel' ],
-  redis: {
-    sentinels: [{
-      host: '...',
-      port: Number
-    }],
-    name: 'mservice',
-    options: {
-      // ...
-    }
-  }
-});
-```
-
-### Elasticsearch plugin
-
-When using this plugin, make sure you also do `npm i elasticsearch -S`
-
-Enables to use Elasticsearch as a NoSQL storage/search engine. Wraps an official
-Elasticsearch JavaScript API module.
-
-Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
-
-1. `plugin:connect:elasticsearch`
-2. `plugin:close:elasticsearch`
-
-```js
-const userService = new UserService({
-  plugins: [ 'elasticsearch' ],
-  elasticsearch: {
-    host: 'example.elastic.search:9200',
-    apiVersion: '2.1',
-    //...
-  }
-});
-```
-
-### Cassandra plugin
-
-When using this plugin, make sure you also do `npm i express-cassandra -S`
-
-Enables to use Cassandra as a NoSQL storage/search engine. Based on `express-cassandra` module.
-
-Events are emitted when plugin has completed connecting, or disconnecting. First arg is the transport instance
-
-1. `plugin:connect:cassandra`
-2. `plugin:close:cassandra`
-
-```js
-cassandra = require('express-cassandra');
-
-const service = new Service({
-  plugins: [ 'cassandra' ],
-  cassandra: {
-    service: {
-      // models also can be path to directory with models
-      // https://github.com/masumsoft/express-cassandra#write-a-model-named-personmodeljs-inside-models-directory
-      models: {
-        Foo: {
-          fields:{
-            bar: 'text'
-          },
-          key:['bar']
-        }
-      }
-    },
-    client: {
-      clientOptions: {
-        contactPoints: ['cassandra.srv'],
-        protocolOptions: {
-          port: 9042
-        },
-        keyspace: 'mykeyspace',
-        queryOptions: {
-          consistency: cassandra.consistencies.one
-        }
-      },
-      ormOptions: {
-        defaultReplicationStrategy : {
-          class: 'SimpleStrategy',
-          replication_factor: 1
-        },
-        dropTableOnSchemaChange: false,
-        createKeyspace: true
-      }
-    }
-});
-```
-
-### Http plugin
-
-#### Features
-
- * Allows creating `http` server
- * Predefined handlers support
-
-#### Handlers
-
-You can use one of predefined handlers in `/src/plugins/http/handlers` directory
-
-Allowed handlers at this moment:
-
- * express (make sure you also do `npm i express -S`)
- * restify (make sure you also do `npm i restify -S`)
- * hapi (make sure you also do `npm i hapi -S`, also additional dependencies may be required, for example if you want to use some of hapi's plugins)
-
-#### Peer dependencies
-
-* `npm i server-destroy -S`
-
-#### Events
-
- * `plugin:start:http`
- * `plugin:stop:http`
-
-#### Usage
-```js
-const service = new Service({
-  plugins: [ 'http' ],
-  http: {
-    server: {
-      attachSocketIO: false, // if true socketio plugin need to be included
-      handler: 'restify',
-      handlerConfig: {},
-      port: 3000,
-    }
-  }
-});
-```
-
-##### Hapi features
-
-That's possible to use hapi plugins such as `vision`, `bell`, etc. All you need is extend the config of http server. Possible options are:
-
-```js
-const service = new Service({
-  plugins: [ 'http' ],
-  http: {
-    server: {
-      handler: 'hapi',
-      handlerConfig: {
-        /** implicitly loads 'vision' plugin and decorates a native hapi request with 'sendView' method
-         *  https://github.com/hapijs/vision
-         */
-        views: {
-          engines: {
-            hbs: require('handlebars'),
-          },
-          paths: 'path/to/templates',
-          relativeTo: __dirname,
-        },
-        plugins: {
-          list: [{
-            // you can provide a plugin name, but be sure you've included it in the dependencies
-            register: 'bell',
-            options: {
-              /** bell options */
-            }
-          }, {
-            // also you can provide a function as a plugin
-            register: require('path/to/custom/plugin'),
-            options: {
-              /** options */
-            }
-          }, {
-            // or even just a path to the file
-            register: 'path/to/custom/plugin',
-            options: {}
-          }],
-          options: {
-            /** https://hapijs.com/api#plugins */
-          }
-        }
-      },
-      port: 3000,
-    }
-  }
-});
-
-// next in route handler you can use a native hapi request instance. 
-/** file: some/action/handler.js */
-module.exports = function actionHandler(request) {
-  const context = {
-    example: true,
-  };
-
-  return request.transportRequest.sendView('view', context);
-}
-
-// decorates a native hapi request with 'redirect' method.
-/** file: redirect/action/handler.js */
-module.exports = function redirectHandler(request) {
-  return request.transportRequest.redirect('https://github.com/makeomatic');
+{
+    "error": "Bad Request",
+    "message": "add validation failed: data should be array",
+    "name": "ValidationError",
+    "statusCode": 400
 }
 ```
 
-### Socket.io plugin
+And with the correct payload:
 
-#### Features
+```sh
+echo '[1,2]' | http POST localhost:3000/mservice/add
+HTTP/1.1 200 OK
+Connection: keep-alive
+Date: Mon, 22 May 2017 21:21:33 GMT
+Transfer-Encoding: chunked
+cache-control: no-cache
+content-encoding: gzip
+content-type: application/json; charset=utf-8
+vary: accept-encoding
 
-Attach `Socket.io` instance to `.socketIO` property.
-
-#### Config
-
-* `router`
-    * `enabled` - `boolean`, enable router, default `false`
-* `options` - `object`, `socket.io` options
-    * `adapter` - `object`, adapter
-        * `name` - `string`, adapter name, e.g. `amqp`
-        * `options` - `object`, adapter options
-
-#### Peer dependencies
-
-* `npm i socket.io -S`
-* `npm i ms-socket.io-adapter-amqp -S`
-
-#### Usage
-```js
-const service = new Service({
-  plugins: [ 'socketio' ],
-  socketio: {
-    router: {
-      enabled: true,
-    },
-    options: {
-      // socket.io options
-    },
-  }
-});
-
-// service.socketIO - Socket.io instance
+3
 ```
 
-### Router plugin
+Now on top of it you can build pretty much anything - routes will be created automatically, network topology will follow your configuration, input would be validated. Make sure to check real-world examples with or without database usage. We recommend starting with the [@microfleet/mailer](https://github.com/makeomatic/ms-mailer) service as it contains only 2 actions, but clearly shows most of the concepts.
 
-Attach `router` to `service` that can be used by other plugins
+## Available Plugins
+
+To ensure smooth and fast development, there are many core plugins that build-up on core functionality. At this point they are all bundled with
+core toolkit, but expect them to be externalized as toolkit matures.
+
+### Essentials
+
+This includes common functionality plugins:
+
+* [validator](src/plugins/validator.js) - json-schema based input data validation
+* [logger](src/plugins/logger.js) - request logger
+* [router](src/plugins/router.js) - logic layer for multi-transport router
+
+#### Validator
+
+Based on [ms-validation](https://github.com/makeomatic/ms-validation) allows to easily validate input args based on json-schema.
+Create directory `schemas` and populate it with schemas, where names correspond to actions.
+
+Adds following API to the microservice instance:
+
+* `.validator` - instance of `ms-validation`
+* `.validate<T>(schema: string, input: T) => Promise<Error | T>` - Promise-based API that resolves/rejects based
+* `.validateSync<T>(schema: string, input: T) => { error?: Error, doc: T }` - sync API, which always returns an object. If validation failed - it populates error property with an instance of Error. Doc is a modified version of input arg with coercion, defaults, filtering of props and so on.
+
+#### Logger
+
+Creates bunyan logger, with streams based on passed configuration and extends microservice instance with the following methods:
+
+* `.log` - instance of [bunyan](https://github.com/trentm/node-bunyan) logger
+
+#### Router
+
+Initializes router, which scans folders for actions and builds routing tree for for enabled transports.
+Router controls request lifecycle, which tries to mimic hapi.js lifecycle as closely as possible, with unified interface for multiple transports.
+Currently supports `AMQP` (`ms-amqp-transport`), `HTTP` (`hapi.js`, `express.js,` `restify`) and `Socket.IO`.
+Default sensible configurations are provided.
+
+Stock configuration looks for all `**/*.js` files in `src/actions` directory, enables `hapi.js` based HTTP handler on port 3000.
+On top of it enables 2 router extension, which provide request logging & automatic json-schema matching for actions based on their names.
+
+### Transports
+
+* [amqp](src/plugins/amqp.js) - AMQP transport based on [ms-amqp-transport](https://github.com/ms-amqp-transport), requires RabbitMQ
+* [http](src/plugins/http.js):
+  * [hapi.js](src/plugins/http/handlers/hapi) - hapi implementation, recommended for use
+  * [express.js](src/plugins/http/handlers/express) - express.js implementation
+  * [restify](src/plugins/http/handlers/restify) - restify implementation
+* [socket.io](src/plugins/socketIO.js) - enabled websockets on top of http, therefore, requires `http plugin` to be enabled
+
+### Databases
+
+* [redis cluster](src/plugins/redisCluster.js) - clustered redis implementation, uses [ioredis](https://github.com/luin/ioredis) client
+* [redis sentinel](src/plugins/redisSentinel.js) - HA redis implementation, no sharding, uses [ioredis](https://github.com/luin/ioredis) client
+* [knex](src/plugins/knex.js) - high-level API for SQL based databases (PostgreSQL, MySQL, MariaDB, etc)
+* [elasticsearch](src/plugins/elasticsearch.js) - elasticsearch connector
+* [cassandra](src/plugins/cassandra.js) - cassandra connector
+
+## Roadmap
+
+As with any healthy toolkit - there is always plenty to add. These are some of the major features that we are working towards.
+Our goal to ensure that most of the apps can be created by writing a simple integration layer with your business logic and a bunch
+of human-readable configuration
+
+- [ ] more docs
+  - [ ] verbose validator configuration example
+  - [ ] verbose logger configuration example
+  - [ ] verbose router configuration example
+  - [ ] verbose AMQP transport configuration docs
+  - [ ] verbose HTTP transports configuration example
+  - [ ] verbose socket.io transport configuration example
+  - [ ] redis documentation
+  - [ ] knex documentation
+  - [ ] elasticsearch configuration documentation
+  - [ ] cassandra configuration docs
+
+- [ ] authentication framework:
+  - [ ] ubiquitous way to pass authorization tokens disregarding the transport
+  - [ ] RBAC route configuration
+
+- [ ] transport-agnostic inter-service communication API
+  - [ ] service discovery integration:
+    - [ ] consul
+    - [ ] etcd
+  - [ ] high level messaging API
+  - [ ] app-level healthchecks
+
+- [ ] Tracing API: visibility into transactions
+  - [ ] tracing integration via http://opentracing.io/
+  - [ ] Monitoring dashboard
+
+## Sponsorship
+
+Development of the @microfleet generously supported by contributions from individuals and corporations. If you are benefiting from @microfleet and would like to help keep the project financially sustainable, please send an email to [Vitaly Aminev](mailto:v@makeomatic.ca)
+
+### Current Supporters
+
+* [Makeomatic](https://makeomatic.ca)

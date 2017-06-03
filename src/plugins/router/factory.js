@@ -1,35 +1,62 @@
-const dispatcher = require('./dispatcher');
+// @flow
+import typeof Mservice from '../../index';
+import type { RouteMap } from '../../types';
+
+const dispatch = require('./dispatcher');
 const Extensions = require('./extensions');
-const getAllowedModule = require('./modules/allowed');
+const allowedModule = require('./modules/allowed');
 const getAuthModule = require('./modules/auth');
-const getHandlerModule = require('./modules/handler');
+const handlerModule = require('./modules/handler');
 const getResponseHandler = require('./modules/response');
-const getRequestModule = require('./modules/request');
+const requestModule = require('./modules/request');
 const getRoutes = require('./routes');
-const getValidateModule = require('./modules/validate');
+const validateModule = require('./modules/validate');
 
 /**
- * @param {Object}   config
- * @param {Object}   config.auth       - auth module config
- * @param {Object}   config.extensions - extensions config
- * @param {Object}   config.routes     - routes config
- * @param {Mservice} service           - MService instance
+ * Defines router signature
+ * @type {Object}
  */
-function getRouter(config, service) {
-  const router = { modules: {} };
+export type Router = {
+  config: Object,
+  service: Mservice,
+  dispatch: typeof dispatch,
+  extensions: Extensions,
+  routes: RouteMap,
+  modules: {
+    request: typeof requestModule,
+    auth: typeof getAuthModule,
+    validate: typeof validateModule,
+    allowed: typeof allowedModule,
+    handler: typeof handlerModule,
+    response: typeof getResponseHandler,
+  },
+};
 
-  router.dispatch = dispatcher;
-  router.config = config;
-  router.extensions = new Extensions(config.extensions);
-  router.routes = getRoutes(config.routes);
-  router.service = service;
-
-  router.modules.allowed = getAllowedModule();
-  router.modules.auth = getAuthModule(config.auth);
-  router.modules.handler = getHandlerModule();
-  router.modules.response = getResponseHandler;
-  router.modules.request = getRequestModule();
-  router.modules.validate = getValidateModule();
+/**
+ * Initializes router.
+ * @param {Object} config - Router configuration object.
+ * @param {Object} config.auth - Auth module configuration object.
+ * @param {Object} config.extensions - Extensions configuration object.
+ * @param {Object} config.routes - Routes configuration object.
+ * @param {Mservice} service - Mservice instance.
+ * @returns {Router} Router instance.
+ */
+function getRouter(config: Object, service: Mservice): Router {
+  const router: Router = {
+    config,
+    service,
+    dispatch,
+    extensions: new Extensions(config.extensions),
+    routes: getRoutes(config.routes),
+    modules: {
+      request: requestModule,
+      auth: getAuthModule(config.auth),
+      validate: validateModule,
+      allowed: allowedModule,
+      handler: handlerModule,
+      response: getResponseHandler,
+    },
+  };
 
   return router;
 }

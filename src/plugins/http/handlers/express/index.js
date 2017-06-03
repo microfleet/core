@@ -1,3 +1,8 @@
+// @flow
+import type { $Application } from 'express';
+import typeof Mservice from '../../../../index';
+import type { PluginInterface } from '../../../../types';
+
 const Errors = require('common-errors');
 const http = require('http');
 const is = require('is');
@@ -5,11 +10,11 @@ const Promise = require('bluebird');
 const attachRouter = require('./router/attach');
 const _require = require('../../../../utils/require');
 
-function createExpressServer(config, service) {
+function createExpressServer(config: Object, service: Mservice): PluginInterface {
   const enableDestroy = _require('server-destroy');
   const express = _require('express');
 
-  const handler = express();
+  const handler: $Application = express();
   const server = http.createServer(handler);
   const properties = config.server.handlerConfig && config.server.handlerConfig.properties;
 

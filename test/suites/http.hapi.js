@@ -4,6 +4,7 @@ const Promise = require('bluebird');
 const cheerio = require('cheerio');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Http server with \'hapi\' handler', function testSuite() {
   const Mservice = require('../../src');
@@ -21,10 +22,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then((result) => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread((server) => {
         expect(server).to.be.equals(this.service.http);
         expect(this.service.http.info.started !== undefined).to.be.equals(true);
@@ -35,8 +33,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   it('should be able to stop \'hapi\' http server', function test() {
     return this.service.close()
       .reflect()
-      .then((result) => {
-        expect(result.isFulfilled()).to.be.eq(true);
+      .then(inspectPromise())
+      .then(() => {
         expect(this.service.http.info.started !== undefined).to.be.equals(true);
         expect(this.service.http.info.started === 0).to.be.equals(true);
       });
@@ -68,7 +66,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           expect(response).to.be.deep.equals({ message: 'foo' });
           service.close().asCallback(done);
         });
-      });
+      })
+      .catch(done);
   });
 
   it('should be able to attach \'router\' plugin', () => {
@@ -120,8 +119,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           }),
         ])
         .reflect()
-        .then((inspection) => {
-          expect(inspection.isFulfilled()).to.be.equals(true);
+        .then(inspectPromise())
+        .then(() => {
           return service.close();
         });
       });

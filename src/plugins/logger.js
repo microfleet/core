@@ -1,3 +1,4 @@
+// @flow
 const assert = require('assert');
 const { PluginsTypes } = require('..');
 const stdout = require('stdout-stream');
@@ -15,15 +16,32 @@ function streamsFactory(name, options) {
   switch (name) {
     case 'sentry': {
       const sentryStreamFactory = require('./logger/streams/sentry');
-
       return sentryStreamFactory(options);
     }
+
     default:
       return options;
   }
 }
 
-function attach(config = {}) {
+/**
+ * Plugin Type
+ * @type {Object}
+ */
+exports.type = PluginsTypes.essential;
+
+/**
+ * Plugin Name
+ * @type {string}
+ */
+exports.name = 'logger';
+
+/**
+ * Plugin init function.
+ * @param  {Object} config - Logger configuration.
+ * @returns {Void} Void.
+ */
+exports.attach = function attach(config: Object = {}) {
   const service = this;
   const { config: { name: applicationName }, validator } = service;
   const bunyan = _require('bunyan');
@@ -71,10 +89,4 @@ function attach(config = {}) {
     streams,
     name: name || applicationName,
   });
-}
-
-module.exports = {
-  attach,
-  name: 'logger',
-  type: PluginsTypes.essential,
 };

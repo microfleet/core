@@ -1,20 +1,34 @@
-const { ActionTransport } = require('../../../../../');
+// @flow
+import type { IncomingMessage } from 'http';
+import typeof Mservice from '../../../../../index';
+import type { ServiceRequest } from '../../../../../types';
+
+const { ActionTransport } = require('../../../../../constants');
 const { fromPathToName } = require('../../../helpers/actionName');
 const Errors = require('common-errors');
 const is = require('is');
+const noop = require('lodash/noop');
 const _require = require('../../../../../utils/require');
 const Response = require('hapi/lib/response');
 
-module.exports = function getHapiAdapter(service, config) {
+export type HapiIncomingMessage = IncomingMessage & {
+  path: string,
+  payload: Object,
+  query: Object,
+  method: 'PUT' | 'DELETE' | 'GET' | 'POST' | 'PATCH' | 'HEAD',
+};
+
+module.exports = function getHapiAdapter(service: Mservice, config: Object) {
   const Boom = _require('boom');
   const router = service.router;
 
-  return function handler(request, reply) {
+  return function handler(request: HapiIncomingMessage, reply: (error: ?Error, result: mixed) => void) {
     function callback(error, result) {
       if (error) {
         let statusCode;
         let errorMessage;
-        const { message, errors } = error;
+
+        const { errors } = error;
 
         switch (error.constructor) {
           case Errors.AuthenticationRequiredError:
@@ -38,9 +52,7 @@ module.exports = function getHapiAdapter(service, config) {
 
         if (is.array(errors) && errors.length) {
           const [nestedError] = errors;
-          errorMessage = nestedError.text || nestedError.message || message;
-        } else {
-          errorMessage = message;
+          errorMessage = nestedError.text || nestedError.message || undefined;
         }
 
         const replyError = Boom.wrap(error, statusCode, errorMessage);
@@ -61,13 +73,19 @@ module.exports = function getHapiAdapter(service, config) {
 
     const actionName = fromPathToName(request.path, config.prefix);
 
-    router.dispatch(actionName, {
+    router.dispatch(actionName, ({
       headers: request.headers,
       params: request.payload,
       query: request.query,
       method: request.method.toLowerCase(),
+
+      // transport type
       transport: ActionTransport.http,
       transportRequest: request,
-    }, callback);
+
+      // defaults for consistent object map
+      action: noop,
+      route: '',
+    }: ServiceRequest), callback);
   };
 };

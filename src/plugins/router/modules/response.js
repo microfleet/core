@@ -1,3 +1,6 @@
+// @flow
+import type { ServiceRequest } from '../../../types';
+
 const Errors = require('common-errors');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
@@ -26,8 +29,8 @@ function response(error, result) {
   return Promise.resolve(result);
 }
 
-function getResponseHandler(callback, request) {
-  return function responseHandler(error, result) {
+function getResponseHandler(callback: (error: ?Error, result: mixed) => void, request: ServiceRequest): * {
+  return function responseHandler(error: ?Error, result: mixed): void {
     const service = this;
     const params = [error, result, request];
     return moduleLifecycle('response', response, service.router.extensions, params, service)

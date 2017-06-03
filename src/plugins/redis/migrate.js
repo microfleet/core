@@ -1,3 +1,4 @@
+// @flow
 // Provides sets of utils for perfoming migrations on redis database
 // It's essential to note that this is targeted at a single instance
 // In case of cluster one must ensure that you use keyPrefix, which would
@@ -26,6 +27,9 @@
 // be performed on the main database during migration process
 //
 
+import typeof Redis from 'ioredis';
+import typeof Mservice from '../../index';
+
 const Promise = require('bluebird');
 const assert = require('assert');
 const glob = require('glob');
@@ -39,15 +43,16 @@ const debug = require('debug')('mservice:redis:migrate');
 const VERSION_KEY = 'version';
 
 /**
- * This script is used to verify that we havent performed the transaction yet
- * @param  {Number} finalVersion
- * @param  {Number} [min=0]
- * @return {String}
+ * This script is used to verify that we havent performed the transaction yet.
+ * @param  {number} finalVersion - This would be set in Redis after update.
+ * @param  {number} [min=0] - Minimal version to apply this migration to.
+ * @returns {string} Lua script for version verification.
  */
-const appendPreScript = (finalVersion, min = 0) => `-- check for ${finalVersion}
+const appendPreScript = (finalVersion: number, min: number = 0) => `-- check for ${finalVersion}
 local currentVersion = tonumber(redis.call('get', KEYS[1]) or 0);
+
 if currentVersion >= ${finalVersion} then
-  return nil;
+  return redis.reply_error('migration already performed');
 end
 
 if currentVersion < ${min} then
@@ -56,18 +61,43 @@ end
 -- end check`;
 
 /**
- * This script is used to put version after migration is complete
- * @param  {Number} finalVersion
- * @return {String}
+ * This script is used to put version after migration is complete.
+ * @param {number} finalVersion - This Would be set in redis after update.
+ * @returns {string} Lua post-verification script.
  */
-const appendPostScript = finalVersion => `-- set current version
+const appendPostScript = (finalVersion: number) => `-- set current version
 return redis.call('set', KEYS[1], '${finalVersion}');
 `;
 
+/**
+ * This is the most common case of a single LUA script for migration.
+ * @param  {number} finalVersion - Sets version after upgrade.
+ * @param  {number} [min=0] - Minimal version to apple migration to.
+ * @param  {string} script - Userland LUA script.
+ * @returns {string} Final Lua script.
+ */
+const appendLuaScript = (finalVersion: number, min: number = 0, script: string) => [
+  appendPreScript(finalVersion, min),
+  script,
+  appendPostScript(finalVersion),
+].join('\n');
+
+export type Migration = {
+  final: number,
+  min: number,
+  args: Array<any>,
+  script: any,
+};
+
+/**
+ * Verifies current Redis schema version.
+ * @param  {Error} error - Any error.
+ * @returns {Void} Swallows certain error messages.
+ */
 function checkVersionError(error) {
   this.log.error(error);
 
-  if (error.message === 'min version constraint failed') {
+  if (error.message === 'migration already performed') {
     return;
   }
 
@@ -75,26 +105,20 @@ function checkVersionError(error) {
 }
 
 /**
- * This is the most common case of a single LUA script for migration
- * @param  {Number} finalVersion
- * @param  {Number} [min=0]
- * @param  {String} script
- * @return {String}
+ * Perform migrations on the Redis database.
+ * @param  {Redis} redis - Redis client.
+ * @param  {Mservice} service - Mservice instance.
+ * @param  {Migration[]} scripts - Migrations to perform.
+ * @returns {Promise<*>} Returns when migrations are performed.
  */
-const appendLuaScript = (finalVersion, min = 0, script) => [
-  appendPreScript(finalVersion, min),
-  script,
-  appendPostScript(finalVersion),
-].join('\n');
-
-module.exports = async function performMigration(redis, service, scripts) {
+module.exports = async function performMigration(redis: Redis, service: Mservice, scripts: Migration | Array<Migration>) {
   let files;
   if (is.string(scripts)) {
     debug('looking for files in %s', scripts);
     // eslint-disable-next-line import/no-dynamic-require
     files = glob.sync('*{.js,/}', { cwd: scripts }).map(script => require(`${scripts}/${script}`));
   } else if (is.array(scripts)) {
-    files = scripts;
+    files = ((scripts: any): Array<Migration>);
   } else {
     throw new Error('`scripts` arg must be either a directory with migrations or Migrations[]');
   }
@@ -147,15 +171,14 @@ module.exports = async function performMigration(redis, service, scripts) {
       try {
         // eslint-disable-next-line no-await-in-loop
         await redis.eval(appendPreScript(final, file.min), 1, [VERSION_KEY]);
+        // must return promise
+        // eslint-disable-next-line no-await-in-loop
+        await file.script(service);
+        // eslint-disable-next-line no-await-in-loop
+        await redis.eval(appendPostScript(final), 1, [VERSION_KEY]);
       } catch (error) {
         checkVersionError.call(service, error);
       }
-
-      // must return promise
-      // eslint-disable-next-line no-await-in-loop
-      await file.script(service);
-      // eslint-disable-next-line no-await-in-loop
-      await redis.eval(appendPostScript(final), 1, [VERSION_KEY]);
     } else {
       throw new Error('script must be a function if not a string');
     }

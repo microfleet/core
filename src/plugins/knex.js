@@ -1,3 +1,4 @@
+// @flow
 const _require = require('../utils/require');
 const assert = require('assert');
 const Errors = require('common-errors');
@@ -5,7 +6,7 @@ const { PluginsTypes } = require('../');
 
 const factory = _require('knex');
 
-function attachKnex(config = {}) {
+function attachKnex(config: Object = {}) {
   const service = this;
 
   if (this._log === undefined) {

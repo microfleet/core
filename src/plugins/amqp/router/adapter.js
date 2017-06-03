@@ -1,8 +1,17 @@
+// @flow
+import type { ServiceRequest } from '../../../types';
+import type { Router } from '../../router/factory';
+
 const Promise = require('bluebird');
 const is = require('is');
-const transport = require('../../../').ActionTransport.amqp;
+const noop = require('lodash/noop');
+const passThrough = require('lodash/identity');
+const { ActionTransport } = require('../../../constants');
 
-function getAMQPRouterAdapter(router, config) {
+// cached var
+const { amqp } = ActionTransport;
+
+function getAMQPRouterAdapter(router: Router, config: Object) {
   const onComplete = config.transport.onComplete;
   const onCompleteBound = is.fn(onComplete) && onComplete.bind(router.service);
   const wrapDispatch = onCompleteBound
@@ -13,21 +22,24 @@ function getAMQPRouterAdapter(router, config) {
         return [err, data, actionName, actions];
       })
       .spread(onCompleteBound)
-    : promise => promise;
+    : passThrough;
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Promise.promisify(router.dispatch, { context: router });
 
-  return function AMQPRouterAdapter(params, headers, actions, next) {
+  return function AMQPRouterAdapter(params: mixed, headers: Object, actions: Object, next?: () => mixed) {
     const actionName = headers.routingKey;
-    const opts = {
+    const opts: ServiceRequest = {
       params,
       headers,
       query: {},
       // to provide similar interfaces
-      transport,
-      method: transport.toLowerCase(),
+      transport: amqp,
+      method: amqp,
       transportRequest: {},
+      // initiate action to ensure that we have prepared proto fo the object
+      action: noop,
+      route: '',
     };
 
     const promise = dispatch(actionName, opts);

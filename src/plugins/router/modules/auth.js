@@ -1,3 +1,6 @@
+// @flow
+import type { ServiceRequest } from '../../../types';
+
 const Errors = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
@@ -5,7 +8,7 @@ const Promise = require('bluebird');
 
 let strategies = [];
 
-function auth(request) {
+function auth(request: ServiceRequest): Promise<any> {
   const authName = request.action.auth;
   const authStrategy = strategies[is.fn(authName) ? authName(request) : authName];
 
@@ -29,7 +32,7 @@ function auth(request) {
     });
 }
 
-function authHandler(request) {
+function authHandler(request: ServiceRequest): Promise<any> {
   if (request.action === undefined) {
     return Promise.reject(new Errors.ArgumentError('"request" must have property "action"'));
   }
@@ -41,7 +44,7 @@ function authHandler(request) {
   return moduleLifecycle('auth', auth, this.router.extensions, [request], this);
 }
 
-function getAuthHandler(config) {
+function getAuthHandler(config: Object): Function {
   strategies = config.strategies;
   return authHandler;
 }

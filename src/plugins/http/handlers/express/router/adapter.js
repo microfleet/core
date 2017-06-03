@@ -1,22 +1,27 @@
-const { ActionTransport } = require('../../../../../');
-const { fromPathToName } = require('../../../helpers/actionName');
-const Errors = require('common-errors');
+// @flow
+import type { $Response, $Request } from 'express';
+import type { Router } from '../../../../router/factory';
 
-function getHTTPRouter(router, config) {
-  return function HTTPRouter(request, response) {
+const { ActionTransport } = require('../../../../../constants');
+const { fromPathToName } = require('../../../helpers/actionName');
+const { AuthenticationRequiredError, ValidationError, NotPermittedError, NotFoundError } = require('common-errors');
+const noop = require('lodash/noop');
+
+function getHTTPRouter(router: Router, config: Object) {
+  return function HTTPRouter(request: $Request, response: $Response) {
     function callback(error, result) {
       if (error) {
         switch (error.constructor) {
-          case Errors.AuthenticationRequiredError:
+          case AuthenticationRequiredError:
             response.status(401);
             break;
-          case Errors.ValidationError:
+          case ValidationError:
             response.status(400);
             break;
-          case Errors.NotPermittedError:
+          case NotPermittedError:
             response.status(403);
             break;
-          case Errors.NotFoundError:
+          case NotFoundError:
             response.status(404);
             break;
           default:
@@ -32,12 +37,17 @@ function getHTTPRouter(router, config) {
     const actionName = fromPathToName(request.path, config.prefix);
 
     return router.dispatch(actionName, {
+      // input params
       params: request.body,
       query: request.query,
       headers: request.headers,
-      method: request.method.toLowerCase(),
+      method: (request.method.toLowerCase(): any),
+      // transport options
       transport: ActionTransport.http,
       transportRequest: request,
+      // ensure common proto
+      action: noop,
+      route: '',
     }, callback);
   };
 }

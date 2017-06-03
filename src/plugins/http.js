@@ -1,35 +1,53 @@
+// @flow
+import type { PluginInterface } from '../types';
+import type { ValidateSync } from './validator';
+
+/**
+ * Project deps
+ * @private
+ */
 const is = require('is');
-const { PluginsTypes } = require('../');
+const assert = require('assert');
+const { PluginsTypes } = require('../constants');
 
-function validateConfig(config, validator) {
+/**
+ * Plugin Name
+ * @type {String}
+ */
+exports.name = 'http';
+
+/**
+ * Plugin Type
+ * @type {String}
+ */
+exports.type = PluginsTypes.transport;
+
+/**
+ * Configuration validator helper.
+ * @param {Object} config - Configuration to validate.
+ * @param {Function} validator - Instance of ms-validation to be used.
+ */
+function validateConfig(config: Object, validator: ValidateSync) {
   if (is.fn(validator)) {
-    const isServerConfigValid = validator('http', config);
+    // validate core http config
+    assert.ifError(validator('http', config).error);
 
-    if (isServerConfigValid.error) {
-      throw isServerConfigValid.error;
-    }
-
+    // validate handler config
     if (config.server.handlerConfig) {
       const validatorName = `http.${config.server.handler}`;
-      const isHandlerConfigValid = validator(validatorName, config.server.handlerConfig);
-
-      if (isHandlerConfigValid.error) {
-        throw isHandlerConfigValid.error;
-      }
+      assert.ifError(validator(validatorName, config.server.handlerConfig).error);
     }
   }
 }
 
-function createHttpServer(config) {
+/**
+ * Attaches HTTP handler.
+ * @param  {Object} config - HTTP handler configuration to attach.
+ */
+exports.attach = function createHttpServer(config: Object): PluginInterface {
   validateConfig(config, this.validateSync);
   // eslint-disable-next-line import/no-dynamic-require
   const handler = require(`./http/handlers/${config.server.handler}`);
 
   return handler(config, this);
-}
-
-module.exports = {
-  name: 'http',
-  attach: createHttpServer,
-  type: PluginsTypes.transport,
 };

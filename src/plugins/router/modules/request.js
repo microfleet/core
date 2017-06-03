@@ -1,10 +1,13 @@
+// @flow
+import type { ServiceRequest } from '../../../types';
+
 const debug = require('debug')('mservice:router:module:request');
 const Errors = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
-function getAction(route, request) {
+function getAction(route: string, request: ServiceRequest): Promise<any> {
   debug('handler for module "request"');
   const service = this;
   const transport = request.transport;
@@ -25,14 +28,10 @@ function getAction(route, request) {
   return Promise.resolve(request);
 }
 
-function requestHandler(route, request) {
+function requestHandler(route: string, request: ServiceRequest): Promise<any> {
   const service = this;
   const extensions = service.router.extensions;
   return moduleLifecycle('request', getAction, extensions, [route, request], service);
 }
 
-function getRequestHandler() {
-  return requestHandler;
-}
-
-module.exports = getRequestHandler;
+module.exports = requestHandler;

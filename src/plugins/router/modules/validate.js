@@ -1,3 +1,6 @@
+// @flow
+import type { ServiceRequest } from '../../../types';
+
 const Errors = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
@@ -6,12 +9,16 @@ const Promise = require('bluebird');
 // based on this we validate input data
 const DATA_KEY_SELECTOR = {
   get: 'query',
+  delete: 'query',
+  head: 'query',
+  patch: 'params',
+  put: 'params',
   post: 'params',
   amqp: 'params',
   socketio: 'params',
 };
 
-function validate(request) {
+function validate(request: ServiceRequest): Promise<*> {
   const validator = this.validator;
   const paramsKey = DATA_KEY_SELECTOR[request.method];
 
@@ -30,7 +37,7 @@ function validate(request) {
     });
 }
 
-function validateHandler(request) {
+function validateHandler(request: ServiceRequest): Promise<*> {
   if (request.action === undefined) {
     return Promise.reject(new Errors.ArgumentError('"request" must have property "action"'));
   }
@@ -42,8 +49,4 @@ function validateHandler(request) {
   return moduleLifecycle('validate', validate, this.router.extensions, [request], this);
 }
 
-function getValidateHandler() {
-  return validateHandler;
-}
-
-module.exports = getValidateHandler;
+module.exports = validateHandler;

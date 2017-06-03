@@ -1,23 +1,33 @@
+// @flow
+import typeof Mservice from '../../../../index';
+import type { PluginInterface } from '../../../../types';
+
 const Errors = require('common-errors');
 const attachRouter = require('./router/attach');
 const Promise = require('bluebird');
 const _require = require('../../../../utils/require');
 
-const defaultPlugins = [{
+export type HapiPlugin = {
+  register: string,
+  options: Object,
+};
+
+const defaultPlugins: Array<HapiPlugin> = [{
   register: './plugins/redirect',
   options: {},
 }];
 
-function createHapiServer(config, service) {
+function createHapiServer(config: Object, service: Mservice): PluginInterface {
   const Hapi = _require('hapi');
 
   const handlerConfig = config.server.handlerConfig;
   const server = service._http = new Hapi.Server(handlerConfig.server);
-
-  server.connection(Object.assign({}, handlerConfig.connection, {
+  const serverConfiguration = Object.assign({}, handlerConfig.connection, {
     port: config.server.port,
     address: config.server.host,
-  }));
+  });
+
+  server.connection(serverConfiguration);
 
   if (config.router.enabled) {
     attachRouter(service, server, config.router);
@@ -32,9 +42,11 @@ function createHapiServer(config, service) {
       plugins.push({
         register: 'vision',
         options: {},
-      }, {
+      });
+
+      plugins.push({
         register: './plugins/views',
-        options: handlerConfig.views,
+        options: (handlerConfig.views: Object),
       });
     }
 
@@ -64,6 +76,11 @@ function createHapiServer(config, service) {
     return Promise.resolve(server)
       .tap(initPlugins)
       .tap(() => server.start())
+      .tap(() => {
+        if (service._log) {
+          service.log.info({ transport: 'http', http: 'hapi' }, 'listening on http://%s:%s', serverConfiguration.address, serverConfiguration.port);
+        }
+      })
       .return(server)
       .tap(() => service.emit('plugin:start:http', server));
   }

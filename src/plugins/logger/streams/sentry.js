@@ -1,8 +1,9 @@
+// @flow
 const assert = require('assert');
 const raven = require('raven');
 const SentryStream = require('bunyan-sentry-stream').SentryStream;
 
-function sentryStreamFactory(config) {
+function sentryStreamFactory(config: Object) {
   const { dns, level, options } = config;
 
   assert(dns, '"dns" property must be set');
