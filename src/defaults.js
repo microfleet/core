@@ -154,7 +154,22 @@ exports.hooks = {};
  * Contains amqp plugin configuration
  * @type {Object}
  */
-exports.amqp = {};
+exports.amqp = {
+  /**
+   * ms-amqp-transport configuration
+   * @type {Object}
+   */
+  transport: {
+
+  },
+  /**
+   * Router adapter configuration
+   * @type {Object}
+   */
+  router: {
+    enabled: false,
+  },
+};
 
 /**
  * Enables graceful handling of shutdown for supported plugins
