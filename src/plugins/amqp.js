@@ -46,7 +46,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     assert.ifError(service.validateSync('amqp.transport', config.transport).error);
   }
 
-  if (config.router.enabled === true) {
+  if (config.router && config.router.enabled === true) {
     verifyPossibility(service.router, ActionTransport.amqp);
     service.AMQPRouter = getAMQPRouterAdapter(service.router, config);
     // allow ms-amqp-transport to discover routes

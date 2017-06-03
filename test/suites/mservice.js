@@ -53,7 +53,7 @@ describe('Mservice suite', function testSuite() {
         plugins: ['validator', 'logger', 'amqp', 'redisCluster'],
         redis: global.SERVICES.redis,
         amqp: global.SERVICES.amqp,
-        logger : {
+        logger: {
           defaultLogger: true,
         },
         hooks: {
@@ -70,7 +70,7 @@ describe('Mservice suite', function testSuite() {
     const { Cluster } = require('ioredis');
 
     return this.service.connect().reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return result.value();
       })
@@ -84,7 +84,7 @@ describe('Mservice suite', function testSuite() {
     return this.service
       .hook('masala', 'dorothy', 'chris')
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         expect(result.value()).to.be.deep.eq([
           'chai with dorothy and chris',
@@ -96,7 +96,7 @@ describe('Mservice suite', function testSuite() {
     return this.service
       .close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
       });
   });
