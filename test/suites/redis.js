@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const path = require('path');
 const is = require('is');
 const assert = require('assert');
@@ -20,11 +21,11 @@ describe('Redis suite', function testSuite() {
     });
     return this.service.connect()
       .reflect()
-      .then(result => {
+      .then((result) => {
         assert(result.isFulfilled());
         return Promise.resolve(result.value());
       })
-      .spread(redis => {
+      .spread((redis) => {
         assert(redis instanceof Cluster);
         assert.doesNotThrow(() => this.service.redis);
       });
@@ -33,7 +34,7 @@ describe('Redis suite', function testSuite() {
   it('able to close connection to redis', function test() {
     return this.service.close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         assert(result.isFulfilled());
         assert.throws(() => this.service.redis);
       });
@@ -50,11 +51,11 @@ describe('Redis suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then(result => {
+      .then((result) => {
         assert(result.isFulfilled());
         return Promise.resolve(result.value());
       })
-      .spread(redis => {
+      .spread((redis) => {
         assert(redis instanceof Redis);
         assert(is.fn(redis['echo-woo']));
         assert.doesNotThrow(() => this.service.redis);
@@ -65,7 +66,7 @@ describe('Redis suite', function testSuite() {
     return this.service
       .migrate('redis', '/src/test/fixtures/migrations')
       .then(() => this.service.redis.get('version'))
-      .then(version => {
+      .then((version) => {
         assert.equal(version, '10');
         return null;
       });
@@ -74,7 +75,7 @@ describe('Redis suite', function testSuite() {
   it('able to close connection to redis sentinel', function test() {
     return this.service.close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         assert(result.isFulfilled());
         assert.throws(() => this.service.redis);
       });
