@@ -10,7 +10,7 @@ Make sure that every minute you spend counts.
 
 ## Installation
 
-[![Build Status](https://semaphoreci.com/api/v1/makeomatic/core/branches/master/shields_badge.svg)](https://semaphoreci.com/makeomatic/core)
+[![Build Status](https://semaphoreci.com/api/v1/microfleet/core/branches/master/shields_badge.svg)](https://semaphoreci.com/microfleet/core)
 [![Code Climate](https://codeclimate.com/github/microfleet/core/badges/gpa.svg)](https://codeclimate.com/github/microfleet/core)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 
