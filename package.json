@@ -5,13 +5,12 @@
   "scripts": {
     "compile": "babel -d ./lib ./src",
     "coverage:unit": "cross-env NODE_ENV=test nyc --report-dir ./coverage/unit-tests npm run test:unit",
-    "prepublishOnly": "npm run compile",
     "lint": "eslint ./src",
     "test": "npm run lint && npm run test:flow && npm run coverage:unit && npm run test:integration",
     "test:unit": "mocha --recursive ./src",
     "test:flow": "flow",
     "test:integration": "npm run compile && mdep test run --sleep 60 --fail 'docker-compose -f ./test/docker-compose.yml logs'",
-    "semantic-release": "semantic-release pre && npm publish --access public && semantic-release post"
+    "semantic-release": "semantic-release pre && npm run compile && npm publish --access public && semantic-release post"
   },
   "tags": [
     "microservice",
