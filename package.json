@@ -79,7 +79,7 @@
     "socketio-wildcard": "~2.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^1.8.4",
+    "@makeomatic/deploy": "^1.8.5",
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.2.3",
     "babel-plugin-istanbul": "^4.1.3",

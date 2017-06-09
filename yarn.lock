@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@makeomatic/deploy@^1.8.4":
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-1.8.4.tgz#5136bf7bd28a4dbbcb0012a9bcd5dca9de6d5a1a"
+"@makeomatic/deploy@^1.8.5":
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-1.8.5.tgz#2b10f0882a02446bb53b25f896ee3cba16d37a8e"
   dependencies:
     bluebird "^3.5.0"
     death "^1.1.0"
