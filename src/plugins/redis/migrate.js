@@ -52,11 +52,11 @@ const appendPreScript = (finalVersion: number, min: number = 0) => `-- check for
 local currentVersion = tonumber(redis.call('get', KEYS[1]) or 0);
 
 if currentVersion >= ${finalVersion} then
-  return redis.reply_error('migration already performed');
+  return redis.error_reply('migration already performed');
 end
 
 if currentVersion < ${min} then
-  return redis.reply_error('min version constraint failed');
+  return redis.error_reply('min version constraint failed');
 end
 -- end check`;
 

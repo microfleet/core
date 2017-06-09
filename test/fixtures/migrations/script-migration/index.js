@@ -1,5 +1,4 @@
 const fs = require('fs');
-const debug = require('debug')('mservice:redis:migrations');
 
 const script = fs.readFileSync(`${__dirname}/migration.lua`, 'utf8');
 exports.min = 2;
