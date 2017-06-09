@@ -58,10 +58,10 @@
   },
   "pluginDependencies": {
     "body-parser": "~1.x.x",
-    "boom": "~2.x.x || ~3.x.x || ~4.x.x || ~5.x.x",
+    "boom": "~4.x.x || ~5.x.x",
     "bunyan": "~1.x.x",
     "bunyan-sentry-stream": "~1.x.x",
-    "elasticsearch": "~11.x.x || ~12.x.x || ~13.x.x",
+    "elasticsearch": "~12.x.x || ~13.x.x",
     "express": "~4.x.x",
     "express-cassandra": "~1.8.x",
     "hapi": ">= 14.x.x < 17",
@@ -144,6 +144,10 @@
   },
   "engines": {
     "node": ">= 7.6.0",
-    "npm": ">= 3.0.0"
-  }
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "schemas/"
+  ]
 }
