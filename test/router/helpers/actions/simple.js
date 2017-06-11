@@ -12,7 +12,7 @@ function SimpleAction(request) {
 
 SimpleAction.auth = 'token';
 
-SimpleAction.allowed = request => {
+SimpleAction.allowed = (request) => {
   if (request.params.isAdmin === true) {
     return Promise.resolve(request);
   }

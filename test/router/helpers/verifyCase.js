@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const Promise = require('bluebird');
 
 function verify(caseObject) {
-  return inspection => {
+  return (inspection) => {
     expect(inspection.isFulfilled() || inspection.isRejected()).to.be.equals(true);
 
     if (inspection.isFulfilled()) {

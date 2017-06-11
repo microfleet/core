@@ -41,7 +41,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
@@ -158,7 +158,9 @@ describe('Router suite', function testSuite() {
             () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
           ],
           handler => handler()
-        ).then(() => service.close()).asCallback(done);
+        )
+        .then(() => service.close())
+        .asCallback(done);
       });
   });
 
@@ -174,7 +176,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       plugins: ['validator', 'logger', 'router', 'amqp'],
@@ -240,7 +242,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       plugins: ['validator', 'logger', 'router', 'amqp'],

@@ -20,7 +20,7 @@ function allowed(request: ServiceRequest): Promise<ServiceRequest | NotPermitted
     });
 }
 
-function allowedHandler(request: ServiceRequest): * {
+function allowedHandler(request: ServiceRequest): Promise<*> {
   if (request.action === undefined) {
     return Promise.reject(new ArgumentError('"request" must have property "action"'));
   }

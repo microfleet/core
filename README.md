@@ -148,6 +148,37 @@ Default sensible configurations are provided.
 Stock configuration looks for all `**/*.js` files in `src/actions` directory, enables `hapi.js` based HTTP handler on port 3000.
 On top of it enables 2 router extension, which provide request logging & automatic json-schema matching for actions based on their names.
 
+##### Request Lifecycle & Structure
+
+We've struggled to make sure that requests loop the same regardless of transport selected and the lifecycle was adopted from hapi.js model as it proved to be extremely easy to follow and extend.
+
+[Lifecycle](src/plugins/router/dispatcher.js) goes in the following way:
+
+0. [Request](src/plugins/router/modules/request.js) - finds `action` based on `route` and `ServiceRequest` object
+  * preRequest: `(route: string, request: ServiceRequest) => mixed`
+  * request: adds `action` and `route` to `ServiceRequest` object
+  * postRequest: can handle errors from `request` part
+0. [Auth](src/plugins/router/modules/auth.js) - performs authentication if `action.auth` is present
+  * preAuth - `(request: ServiceRequest) => mixed`
+  * auth: performs authentication
+  * postAuth: can handle errors from `auth` part
+0. [Validate](src/plugins/router/modules/validate.js) - performs validation based on `json-schema` if `action.schema` is defined
+  * preValidate: `(request: ServiceRequest) => mixed`
+  * validate: performs validation
+  * postValidate: handle validation errors if handlers present
+0. [Allowed](src/plugins/router/modules/allowed.js) - performs arbitrary validation before passing control to actual function handler
+  * preAllowed: `(request: ServiceRequest) => mixed`
+  * allowed: performs arbitrary code defined in `action.allowed`
+  * postAllowed: handle errors from `allowed` part
+0. [Handler](src/plugins/router/modules/handler.js) - runs userland endpoint code:
+  * preHandler: `(request: ServiceRequest) => mixed`
+  * handler: performs userland code
+  * postHandler: handle response from `handler`
+9. [Response](src/plugins/router/modules/response.js) - runs response handler, which makes standard error / standard responses:
+  * preResponse: `(error: ?Error, result: ?Mixed, request: ServiceRequest) => mixed`
+  * response: pushes data to the requester
+  * postResponse: can modify finalized data that goes to the client
+
 ### Transports
 
 * [amqp](src/plugins/amqp.js) - AMQP transport based on [ms-amqp-transport](https://github.com/ms-amqp-transport), requires RabbitMQ

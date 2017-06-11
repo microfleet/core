@@ -1,7 +1,7 @@
 // @flow
 import type EventEmitter from 'events';
 
-/* eslint-disable promise/no-native */
+/* eslint-disable promise/no-native, no-use-before-define */
 const constants = require('./constants');
 
 export type PluginConnector = () => Promise<any>;
@@ -37,10 +37,11 @@ export type LifecycleRequestType = 'preAllowed' | 'postAllowed'
   | 'preResponse' | 'postResponse'
   | 'preValidate' | 'postValidate';
 
-export type ServiceAction = () => Promise<any> & {
-  allowed: () => boolean | Promise<boolean>,
-  auth: ?string,
-  schema: ?string,
+export type ServiceAction = (...args: Array<mixed>) => Promise<any> & {
+  allowed?: () => boolean | Promise<boolean>,
+  auth?: string | (req: ServiceRequest) => string,
+  passAuthError?: boolean,
+  schema?: string,
   transports: Array<TransportTypes>,
   actionName: string,
 };

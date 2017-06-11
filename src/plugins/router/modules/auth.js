@@ -1,40 +1,48 @@
 // @flow
-import type { ServiceRequest } from '../../../types';
+import type { ServiceRequest, ServiceAction } from '../../../types';
 
-const Errors = require('common-errors');
+const { AuthenticationRequired, NotImplementedError, ArgumentError } = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
 let strategies = [];
 
+const remapError = (error) => {
+  if (error.constructor === AuthenticationRequired) {
+    return Promise.reject(error);
+  }
+
+  return Promise.reject(new AuthenticationRequired(error.message, error));
+};
+
 function auth(request: ServiceRequest): Promise<any> {
-  const authName = request.action.auth;
+  const action: ServiceAction = request.action;
+  const authName = action.auth;
   const authStrategy = strategies[is.fn(authName) ? authName(request) : authName];
 
   if (authStrategy === undefined) {
-    throw new Errors.NotImplementedError(request.action.auth);
+    throw new NotImplementedError(action.auth);
   }
 
-  return Promise.resolve(request)
-    .bind(this)
+  const promise = Promise
+    .bind(this, request)
     .then(authStrategy)
     .tap((credentials) => {
       request.auth = { credentials };
     })
-    .return(request)
-    .catch((error) => {
-      if (error.constructor === Errors.AuthenticationRequired) {
-        return Promise.reject(error);
-      }
+    .return(request);
 
-      return Promise.reject(new Errors.AuthenticationRequired(error));
-    });
+  if (action.passAuthError !== true) {
+    return promise;
+  }
+
+  return promise.catch(remapError);
 }
 
 function authHandler(request: ServiceRequest): Promise<any> {
   if (request.action === undefined) {
-    return Promise.reject(new Errors.ArgumentError('"request" must have property "action"'));
+    return Promise.reject(new ArgumentError('"request" must have property "action"'));
   }
 
   if (is.undefined(request.action.auth) === true) {
