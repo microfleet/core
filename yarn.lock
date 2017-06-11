@@ -2445,9 +2445,9 @@ expand-tilde@^1.2.2:
   dependencies:
     os-homedir "^1.0.1"
 
-express-cassandra@^1.8.3:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-1.8.3.tgz#00a2e9873ff14443814908e4e5ed54cff185e0e8"
+express-cassandra@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-1.9.0.tgz#1a159304c9f666b6ba141c9306847b24a9cbda14"
   dependencies:
     async "^1.0.0"
     bluebird "^3.4.6"

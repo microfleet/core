@@ -33,7 +33,7 @@ function auth(request: ServiceRequest): Promise<any> {
     })
     .return(request);
 
-  if (action.passAuthError !== true) {
+  if (action.passAuthError === true) {
     return promise;
   }
 

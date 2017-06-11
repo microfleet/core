@@ -148,7 +148,7 @@ Default sensible configurations are provided.
 Stock configuration looks for all `**/*.js` files in `src/actions` directory, enables `hapi.js` based HTTP handler on port 3000.
 On top of it enables 2 router extension, which provide request logging & automatic json-schema matching for actions based on their names.
 
-##### Request Lifecycle & Structure
+##### Request Lifecycle
 
 We've struggled to make sure that requests loop the same regardless of transport selected and the lifecycle was adopted from hapi.js model as it proved to be extremely easy to follow and extend.
 
