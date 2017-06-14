@@ -156,7 +156,7 @@ exports.hooks = {};
  */
 exports.amqp = {
   /**
-   * ms-amqp-transport configuration
+   * @microfleet/transport-amqp configuration
    * @type {Object}
    */
   transport: {

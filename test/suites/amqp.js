@@ -2,7 +2,7 @@ const { expect } = require('chai');
 
 describe('AMQP suite', function testSuite() {
   const Mservice = require('../../src');
-  const AMQPTransport = require('ms-amqp-transport');
+  const AMQPTransport = require('@microfleet/transport-amqp');
 
   it('when service does not include `amqp` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });

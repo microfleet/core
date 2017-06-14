@@ -66,7 +66,7 @@ describe('Mservice suite', function testSuite() {
   });
 
   it('able to connect to all services', function test() {
-    const AMQPTransport = require('ms-amqp-transport');
+    const AMQPTransport = require('@microfleet/transport-amqp');
     const { Cluster } = require('ioredis');
 
     return this.service.connect().reflect()

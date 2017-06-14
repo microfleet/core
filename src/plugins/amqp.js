@@ -35,8 +35,8 @@ exports.type = PluginsTypes.transport;
 exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   const service = this;
 
-  const AMQPTransport = _require('ms-amqp-transport');
-  const AMQPSchema = require('ms-amqp-transport/schema.json');
+  const AMQPTransport = _require('@microfleet/transport-amqp');
+  const AMQPSchema = require('@microfleet/transport-amqp/schema.json');
 
   if (is.fn(service.validateSync)) {
     const transportSchema = cloneDeep(AMQPSchema);
