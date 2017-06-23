@@ -15,6 +15,9 @@ export type HapiPlugin = {
 const defaultPlugins: Array<HapiPlugin> = [{
   register: './plugins/redirect',
   options: {},
+}, {
+  register: './plugins/state',
+  options: {},
 }];
 
 function createHapiServer(config: Object, service: Mservice): PluginInterface {
