@@ -7,7 +7,6 @@ import type { PluginInterface } from '../types';
  */
 const Promise = require('bluebird');
 const Errors = require('common-errors');
-const cloneDeep = require('lodash/cloneDeep');
 const assert = require('assert');
 const is = require('is');
 const _require = require('../utils/require');
@@ -36,14 +35,9 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   const service = this;
 
   const AMQPTransport = _require('@microfleet/transport-amqp');
-  const AMQPSchema = require('@microfleet/transport-amqp/schema.json');
 
   if (is.fn(service.validateSync)) {
-    const transportSchema = cloneDeep(AMQPSchema);
-    transportSchema.$id = 'amqp.transport';
-    service.validator.ajv.addSchema(transportSchema);
     assert.ifError(service.validateSync('amqp', config).error);
-    assert.ifError(service.validateSync('amqp.transport', config.transport).error);
   }
 
   if (config.router && config.router.enabled === true) {
@@ -72,6 +66,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
       return AMQPTransport
         .connect({
           ...config.transport,
+          tracer: service._tracer,
           log: logger || null,
         }, service.AMQPRouter)
         .tap((amqp) => {

@@ -107,6 +107,7 @@ class Mservice extends EventEmitter {
     'socketIO',
     'router',
     'knex',
+    'tracer',
   ];
 
   /**
