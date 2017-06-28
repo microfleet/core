@@ -31,6 +31,7 @@ function getAction(route: string, request: ServiceRequest): Promise<any> {
 function requestHandler(route: string, request: ServiceRequest): Promise<any> {
   const service = this;
   const extensions = service.router.extensions;
+
   return moduleLifecycle('request', getAction, extensions, [route, request], service);
 }
 

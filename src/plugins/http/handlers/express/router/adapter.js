@@ -42,12 +42,18 @@ function getHTTPRouter(router: Router, config: Object) {
       query: request.query,
       headers: request.headers,
       method: (request.method.toLowerCase(): any),
+
       // transport options
       transport: ActionTransport.http,
       transportRequest: request,
+
       // ensure common proto
       action: noop,
       route: '',
+
+      // opentracing
+      parentSpan: undefined,
+      span: undefined,
     }, callback);
   };
 }

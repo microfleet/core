@@ -5,11 +5,11 @@ const Errors = require('common-errors');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
-function response(error, result) {
+function response(err: any, result: any) {
   const service = this;
 
-  if (error) {
-    switch (error.constructor) {
+  if (err) {
+    switch (err.constructor) {
       case Errors.AuthenticationRequiredError:
       case Errors.ConnectionError:
       case Errors.HttpStatusError:
@@ -19,23 +19,19 @@ function response(error, result) {
       case Errors.NotSupportedError:
       case Errors.TimeoutError:
       case Errors.ValidationError:
-        return Promise.reject(error);
+        return Promise.reject(err);
       default:
-        service.log.fatal('unexpected error', error);
-        return Promise.reject(new Errors.Error(`Something went wrong: ${error.message}`, error));
+        service.log.fatal('unexpected error', err);
+        return Promise.reject(new Errors.Error(`Something went wrong: ${err.message}`, err));
     }
   }
 
   return Promise.resolve(result);
 }
 
-function getResponseHandler(callback: (error: ?Error, result: mixed) => void, request: ServiceRequest): * {
-  return function responseHandler(error: ?Error, result: mixed): void {
-    const service = this;
-    const params = [error, result, request];
-    return moduleLifecycle('response', response, service.router.extensions, params, service)
-      .asCallback(callback);
-  };
+function responseHandler(params: [?Error, mixed, ServiceRequest]): * {
+  const service = this;
+  return moduleLifecycle('response', response, service.router.extensions, (params: any), service);
 }
 
-module.exports = getResponseHandler;
+module.exports = responseHandler;

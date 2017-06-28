@@ -32,6 +32,10 @@ function getSocketIORouterAdapter(config: Object, router: Router) {
         // init proto of obj
         action: noop,
         route: '',
+
+        // opentracing
+        parentSpan: undefined,
+        span: undefined,
       };
 
       debug('prepared request with', packet.data);

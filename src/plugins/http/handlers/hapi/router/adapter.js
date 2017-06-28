@@ -55,7 +55,7 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
           errorMessage = nestedError.text || nestedError.message || undefined;
         }
 
-        if (errorMessage) {
+        if (errorMessage !== undefined) {
           error.message = errorMessage;
         }
 
@@ -90,6 +90,10 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       // defaults for consistent object map
       action: noop,
       route: '',
+
+      // opentracing
+      parentSpan: undefined,
+      span: undefined,
     }: ServiceRequest), callback);
   };
 };
