@@ -176,3 +176,14 @@ exports.amqp = {
  * @type {boolean}
  */
 exports.sigterm = true;
+
+/**
+ * Opentracing configuration
+ * @type {object}
+ */
+exports.opentracing = {
+  config: {
+    serviceName: 'microfleet',
+    disable: true,
+  },
+};

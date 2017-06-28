@@ -50,7 +50,7 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
 
       if (service._tracer) {
         const applyInstrumentation = _require('opentracing-js-ioredis');
-        applyInstrumentation(this._tracer, instance);
+        applyInstrumentation(service._tracer, instance);
       }
 
       // attach to instance right away

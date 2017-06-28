@@ -1,7 +1,7 @@
-const Promise = require('bluebird');
 const path = require('path');
 const is = require('is');
 const assert = require('assert');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Redis suite', function testSuite() {
   const Mservice = require('../../src');
@@ -16,15 +16,12 @@ describe('Redis suite', function testSuite() {
 
   it('able to connect to redis when plugin is included', function test() {
     this.service = new Mservice({
-      plugins: ['validator', 'redisCluster'],
+      plugins: ['validator', 'opentracing', 'redisCluster'],
       redis: global.SERVICES.redis,
     });
     return this.service.connect()
       .reflect()
-      .then((result) => {
-        assert(result.isFulfilled());
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread((redis) => {
         assert(redis instanceof Cluster);
         assert.doesNotThrow(() => this.service.redis);
@@ -34,15 +31,15 @@ describe('Redis suite', function testSuite() {
   it('able to close connection to redis', function test() {
     return this.service.close()
       .reflect()
-      .then((result) => {
-        assert(result.isFulfilled());
+      .then(inspectPromise())
+      .then(() => {
         assert.throws(() => this.service.redis);
       });
   });
 
   it('able to connect to redis sentinel when plugin is included', function test() {
     this.service = new Mservice({
-      plugins: ['validator', 'redisSentinel'],
+      plugins: ['validator', 'opentracing', 'redisSentinel'],
       redis: {
         ...global.SERVICES.redisSentinel,
         luaScripts: path.resolve(__dirname, '../fixtures'),
@@ -51,10 +48,7 @@ describe('Redis suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then((result) => {
-        assert(result.isFulfilled());
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread((redis) => {
         assert(redis instanceof Redis);
         assert(is.fn(redis['echo-woo']));
@@ -75,8 +69,8 @@ describe('Redis suite', function testSuite() {
   it('able to close connection to redis sentinel', function test() {
     return this.service.close()
       .reflect()
-      .then((result) => {
-        assert(result.isFulfilled());
+      .then(inspectPromise())
+      .then(() => {
         assert.throws(() => this.service.redis);
       });
   });

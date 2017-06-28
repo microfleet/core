@@ -23,16 +23,21 @@ exports.type = PluginsTypes.essential;
 
 /**
  * Attaches plugin to the MService class.
- * @param {Object} config - AMQP plugin configuration.
+ * @param {Object} settings - AMQP plugin configuration.
  */
-exports.attach = function attachOpentracing(config: Object): void {
+exports.attach = function attachOpentracing(settings: Object): void {
   const initTracer = _require('jaeger-client').initTracer;
 
   // optional validation with the plugin
   if (is.fn(this.validateSync)) {
-    assert.ifError(this.validateSync('opentracing', config).error);
+    assert.ifError(this.validateSync('opentracing', settings).error);
+  }
+
+  // push logger over
+  if (is.fn(this._log)) {
+    settings.options.logger = this._log;
   }
 
   // init tracer
-  this._tracer = initTracer(config);
+  this._tracer = initTracer(settings.config, settings.options);
 };
