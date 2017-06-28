@@ -55,11 +55,7 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
           errorMessage = nestedError.text || nestedError.message || undefined;
         }
 
-        if (errorMessage !== undefined) {
-          error.message = errorMessage;
-        }
-
-        const replyError = Boom.wrap(error, statusCode);
+        const replyError = Boom.wrap(error, statusCode, errorMessage);
 
         if (error.name) {
           replyError.output.payload.name = error.name;
