@@ -20,8 +20,8 @@ function getSocketIORouterAdapter(config: Object, router: Router) {
       const [actionName, params, callback] = packet.data;
       const request: ServiceRequest = {
         params,
-        query: {},
-        headers: {},
+        query: Object.create(null),
+        headers: Object.create(null),
         socket,
 
         // default method to the transport for similar interfaces
@@ -32,6 +32,10 @@ function getSocketIORouterAdapter(config: Object, router: Router) {
         // init proto of obj
         action: noop,
         route: '',
+
+        // NOTE: not supported, opentracing parent span won't be defined here
+        parentSpan: undefined,
+        span: undefined,
       };
 
       debug('prepared request with', packet.data);

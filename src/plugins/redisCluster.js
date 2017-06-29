@@ -3,6 +3,7 @@ const Errors = require('common-errors');
 const { PluginsTypes } = require('../');
 const Promise = require('bluebird');
 const is = require('is');
+const assert = require('assert');
 const loadLuaScripts = require('./redis/utils.js');
 const migrate = require('./redis/migrate.js');
 const debug = require('debug')('mservice:redisCluster');
@@ -26,8 +27,7 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {
-    const isConfValid = service.validateSync('redisCluster', conf);
-    if (isConfValid.error) throw isConfValid.error;
+    assert.ifError(service.validateSync('redisCluster', conf).error);
   }
 
   debug('loading with config', conf);
@@ -47,6 +47,11 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
         ...conf.options,
         lazyConnect: true,
       });
+
+      if (service._tracer) {
+        const applyInstrumentation = _require('opentracing-js-ioredis');
+        applyInstrumentation(service._tracer, instance);
+      }
 
       // attach to instance right away
       if (conf.luaScripts) {

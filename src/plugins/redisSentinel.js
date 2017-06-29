@@ -3,6 +3,7 @@ const Errors = require('common-errors');
 const { PluginsTypes } = require('../');
 const Promise = require('bluebird');
 const is = require('is');
+const assert = require('assert');
 const loadLuaScripts = require('./redis/utils');
 const migrate = require('./redis/migrate');
 const debug = require('debug')('mservice:redisSentinel');
@@ -31,8 +32,7 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {
-    const isConfValid = service.validateSync('redisSentinel', conf);
-    if (isConfValid.error) throw isConfValid.error;
+    assert.ifError(service.validateSync('redisSentinel', conf).error);
   }
 
   debug('loading with config', conf);
@@ -49,6 +49,11 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
       }
 
       const instance = new Redis({ ...conf, lazyConnect: true });
+
+      if (service._tracer) {
+        const applyInstrumentation = _require('opentracing-js-ioredis');
+        applyInstrumentation(service._tracer, instance);
+      }
 
       // attach to instance right away
       if (conf.luaScripts) {

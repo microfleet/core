@@ -13,40 +13,45 @@ const { amqp } = ActionTransport;
 
 function getAMQPRouterAdapter(router: Router, config: Object) {
   const onComplete = config.transport.onComplete;
-  const onCompleteBound = is.fn(onComplete) && onComplete.bind(router.service);
-  const wrapDispatch = onCompleteBound
-    ? (promise, actionName, actions) => promise.reflect()
+  const service = router.service;
+  const wrapDispatch = is.fn(onComplete)
+    ? (promise, actionName, raw) => promise
+      .reflect()
       .then((fate) => {
         const err = fate.isRejected() ? fate.reason() : null;
         const data = fate.isFulfilled() ? fate.value() : null;
-        return [err, data, actionName, actions];
+        return onComplete.call(service, err, data, actionName, raw);
       })
-      .spread(onCompleteBound)
     : passThrough;
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Promise.promisify(router.dispatch, { context: router });
 
-  return function AMQPRouterAdapter(params: mixed, headers: Object, actions: Object, next?: () => mixed) {
-    const actionName = headers.routingKey;
+  return function AMQPRouterAdapter(params: mixed, properties: Object, raw: Object, next?: () => mixed) {
+    const actionName = properties.routingKey;
     const opts: ServiceRequest = {
+      // input params
       params,
-      headers,
-      query: {},
+      headers: properties,
       // to provide similar interfaces
       transport: amqp,
       method: amqp,
-      transportRequest: {},
       // initiate action to ensure that we have prepared proto fo the object
       action: noop,
       route: '',
+      // make sure we standardize the request
+      query: Object.create(null),
+      transportRequest: Object.create(null),
+      // pass raw span
+      parentSpan: raw.span,
+      span: undefined,
     };
 
     const promise = dispatch(actionName, opts);
-    const wrappedDispatch = wrapDispatch(promise, actionName, actions);
+    const wrappedDispatch = wrapDispatch(promise, actionName, raw);
 
     // promise or callback
-    return is.fn(next) ? wrappedDispatch.asCallback(next) : wrappedDispatch;
+    return wrappedDispatch.asCallback(next);
   };
 }
 

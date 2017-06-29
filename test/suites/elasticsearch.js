@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const { expect } = require('chai');
 const { ReferenceError } = require('common-errors');
 
@@ -28,11 +29,11 @@ describe('Elasticsearch suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
-      .spread(elastic => {
+      .spread((elastic) => {
         // Since elastic is not an instance of Elasticsearch.Client due to
         // its inner implementation, here we do some duck tests to check it
         expect(elastic).to.have.property('transport');
@@ -44,7 +45,7 @@ describe('Elasticsearch suite', function testSuite() {
   it('able to close connection to elasticsearch', function test() {
     return this.service.close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         expect(() => this.service.elasticsearch).to.throw();
       });

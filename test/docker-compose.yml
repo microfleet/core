@@ -1,12 +1,12 @@
 version: '2'
 services:
   redis-cluster:
-    image: makeomatic/redis-cluster:3.2.8
+    image: makeomatic/redis-cluster:3.2.9
     hostname: redis-cluster
     container_name: redis-cluster
 
   redis:
-    image: redis:3.2.8-alpine
+    image: redis:3.2.9-alpine
     container_name: redis
     hostname: redis
     expose:
@@ -17,7 +17,7 @@ services:
       - redis
     volumes:
       - ./redis-sentinel:/etc/redis-sentinel
-    image: redis:3.2.8-alpine
+    image: redis:3.2.9-alpine
     container_name: redis-sentinel
     hostname: redis-sentinel
     expose:
@@ -82,7 +82,7 @@ services:
       - redis
       - elasticsearch
       - cassandra
-    image: makeomatic/node:8.0.0-tester-glibc
+    image: makeomatic/node:8.1.0-tester-glibc
     container_name: tester
     command: tail -f /dev/null
     environment:
