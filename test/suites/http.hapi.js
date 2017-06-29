@@ -1,9 +1,9 @@
-const { expect } = require('chai');
 const path = require('path');
 const Promise = require('bluebird');
 const cheerio = require('cheerio');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
+const assert = require('assert');
 const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Http server with \'hapi\' handler', function testSuite() {
@@ -11,7 +11,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should starts \'hapi\' http server when plugin is included', function test() {
     this.service = new Mservice({
-      plugins: ['validator', 'http'],
+      plugins: ['validator', 'opentracing', 'http'],
       http: {
         server: {
           handler: 'hapi',
@@ -24,9 +24,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       .reflect()
       .then(inspectPromise())
       .spread((server) => {
-        expect(server).to.be.equals(this.service.http);
-        expect(this.service.http.info.started !== undefined).to.be.equals(true);
-        expect(this.service.http.info.started > 0).to.be.equals(true);
+        assert.equal(server, this.service.http);
+        assert.equal(this.service.http.info.started !== undefined, true);
+        assert.equal(this.service.http.info.started > 0, true);
       });
   });
 
@@ -35,14 +35,14 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       .reflect()
       .then(inspectPromise())
       .then(() => {
-        expect(this.service.http.info.started !== undefined).to.be.equals(true);
-        expect(this.service.http.info.started === 0).to.be.equals(true);
+        assert.equal(this.service.http.info.started !== undefined, true);
+        assert.equal(this.service.http.info.started === 0, true);
       });
   });
 
   it('should be able to attach \'socketIO\' plugin', function test(done) {
     const service = new Mservice({
-      plugins: ['validator', 'logger', 'router', 'http', 'socketIO'],
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http', 'socketIO'],
       http: {
         server: {
           attachSocketIO: true,
@@ -62,8 +62,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         const client = SocketIOClient('http://0.0.0.0:3000');
         client.on('error', done);
         client.emit('echo', { message: 'foo' }, (error, response) => {
-          expect(error).to.be.equals(null);
-          expect(response).to.be.deep.equals({ message: 'foo' });
+          assert.equal(error, null);
+          assert.deepEqual(response, { message: 'foo' });
           service.close().asCallback(done);
         });
       })
@@ -72,7 +72,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to attach \'router\' plugin', () => {
     const service = new Mservice({
-      plugins: ['validator', 'logger', 'router', 'http'],
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
           handler: 'hapi',
@@ -109,13 +109,13 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
         return Promise.all([
           request(options).then((response) => {
-            expect(response.statusCode).to.be.equals(200);
-            expect(response.body).to.be.deep.equals({ message: 'foo' });
+            assert.equal(response.statusCode, 200);
+            assert.deepEqual(response.body, { message: 'foo' });
           }),
           request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
-            expect(response.statusCode).to.be.equals(404);
-            expect(response.body.name).to.be.equals('NotFoundError');
-            expect(response.body.message).to.be.deep.equals('Not Found: "route "not-found" not found"');
+            assert.equal(response.statusCode, 404);
+            assert.equal(response.body.name, 'NotFoundError');
+            assert.deepEqual(response.body.message, 'Not Found: "route "not-found" not found"');
           }),
         ])
         .reflect()
@@ -128,7 +128,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to use \'router\' plugin prefix', () => {
     const service = new Mservice({
-      plugins: ['validator', 'logger', 'router', 'http'],
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
           handler: 'hapi',
@@ -165,8 +165,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         };
 
         return request(options).then((response) => {
-          expect(response.statusCode).to.be.equals(200);
-          expect(response.body).to.be.deep.equals({ message: 'foo' });
+          assert.equal(response.statusCode, 200);
+          assert.deepEqual(response.body, { message: 'foo' });
 
           return service.close();
         });
@@ -175,7 +175,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to use \'hapi\' plugin prefix', () => {
     const service = new Mservice({
-      plugins: ['validator', 'logger', 'router', 'http'],
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
           handler: 'hapi',
@@ -212,8 +212,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         };
 
         return request(options).then((response) => {
-          expect(response.statusCode).to.be.equals(200);
-          expect(response.body).to.be.deep.equals({ message: 'foo' });
+          assert.equal(response.statusCode, 200);
+          assert.deepEqual(response.body, { message: 'foo' });
 
           return service.close();
         });
@@ -222,7 +222,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', () => {
     const service = new Mservice({
-      plugins: ['validator', 'logger', 'router', 'http'],
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
           handler: 'hapi',
@@ -260,8 +260,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         };
 
         return request(options).then((response) => {
-          expect(response.statusCode).to.be.equals(200);
-          expect(response.body).to.be.deep.equals({ message: 'foo' });
+          assert.equal(response.statusCode, 200);
+          assert.deepEqual(response.body, { message: 'foo' });
 
           return service.close();
         });
@@ -270,7 +270,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   describe('should be able to use hapi\'s plugins', () => {
     const service = new Mservice({
-      plugins: ['validator', 'logger', 'router', 'http'],
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
           handler: 'hapi',
@@ -317,13 +317,13 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       };
 
       return request(options).then((response) => {
-        expect(response.statusCode).to.be.equals(200);
-        expect(response.headers['content-type']).to.be.equals('text/html; charset=utf-8');
-        expect(response.body).to.be.a('string');
+        assert.equal(response.statusCode, 200);
+        assert.equal(response.headers['content-type'], 'text/html; charset=utf-8');
+        assert.equal(typeof response.body, 'string');
 
         const page = cheerio.load(response.body);
-        expect(page('title').html().trim()).to.be.equal(options.body.title);
-        expect(page('div#content').html().trim()).to.be.equal(options.body.content);
+        assert.equal(page('title').html().trim(), options.body.title);
+        assert.equal(page('div#content').html().trim(), options.body.content);
 
         return true;
       });
@@ -339,8 +339,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       };
 
       return request(options).then((response) => {
-        expect(response.statusCode).to.be.equals(200);
-        expect(response.body).to.be.deep.equals({ redirected: true });
+        assert.equal(response.statusCode, 200);
+        assert.deepEqual(response.body, { redirected: true });
 
         return true;
       });
@@ -355,8 +355,8 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       };
 
       return request(options).then((response) => {
-        expect(response.statusCode).to.be.equals(200);
-        expect(response.body).to.be.a('string');
+        assert.equal(response.statusCode, 200);
+        assert.equal(typeof response.body, 'string');
 
         return true;
       });
