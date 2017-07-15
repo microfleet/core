@@ -43,7 +43,6 @@ const defaultOpts = require('./defaults');
  * @class Mservice
  */
 class Mservice extends EventEmitter {
-
   /**
    * Constants with possilble transport values
    * @memberof Mservice

@@ -68,8 +68,7 @@ describe('router: module lifecycle', function suite() {
       .then((inspection) => {
         const error = inspection.reason();
         expect(error).to.be.equals('error: bar');
-      }
-    );
+      });
   });
 
   it('should return result from handler with "pre-handler"', function test() {
@@ -87,8 +86,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.value()).to.be.equals('result: baz');
-      }
-    );
+      });
   });
 
   it('should return result from handler with "pre-handler" that takes one argument', () => {
@@ -107,8 +105,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.value()).to.be.equals('result: foo bar baz');
-      }
-    );
+      });
   });
 
   it('should return result from handler', function test() {
@@ -119,8 +116,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.value()).to.be.equals('result: bar');
-      }
-    );
+      });
   });
 
   it('should return error from handler', function test() {
@@ -131,8 +127,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.reason()).to.be.equals('result error: bar');
-      }
-    );
+      });
   });
 
   it('should return error from post-handler', function test() {
@@ -151,8 +146,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.reason()).to.be.equals('error: foo.bar');
-      }
-    );
+      });
   });
 
   it('should be able to modify result if no error returned from handler', function test() {
@@ -174,8 +168,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.value()).to.be.equals('baz');
-      }
-    );
+      });
   });
 
   it('should be able to modify error returned from handler', function test() {
@@ -193,8 +186,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.reason()).to.be.equals('baz');
-      }
-    );
+      });
   });
 
   it('should be able to pass arguments to post-handler', function test() {
@@ -212,7 +204,6 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         expect(inspection.reason()).to.be.equals('foobar');
-      }
-    );
+      });
   });
 });

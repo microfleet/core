@@ -11,15 +11,16 @@ const debug = require('debug')('mservice:router:dispatch');
 const { ERROR, COMPONENT } = require('opentracing').Tags;
 
 const wrapPromise = (span: any, promise: any, callback: () => mixed | void) => (
-  promise.catch((err) => {
-    span.setTag(ERROR, true);
-    span.log({ event: 'error', 'error.object': err, message: err.message, stack: err.stack });
-    throw err;
-  })
-  .finally(() => {
-    span.finish();
-  })
-  .asCallback(callback)
+  promise
+    .catch((err) => {
+      span.setTag(ERROR, true);
+      span.log({ event: 'error', 'error.object': err, message: err.message, stack: err.stack });
+      throw err;
+    })
+    .finally(() => {
+      span.finish();
+    })
+    .asCallback(callback)
 );
 
 function reflectToProps(reflection) {
