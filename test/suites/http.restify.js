@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const { expect } = require('chai');
 const http = require('http');
 const Server = require('restify/lib/server');
@@ -18,11 +19,11 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
-      .spread(restifyServer => {
+      .spread((restifyServer) => {
         expect(restifyServer).to.be.instanceof(Server);
         expect(restifyServer.server).to.be.instanceof(http.Server);
         expect(this.service.http).to.be.instanceof(Server);
@@ -56,7 +57,7 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
 
     return this.service.close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
@@ -65,7 +66,7 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
       });
   });
 
-  it('should attach \'socket.io\' when plugin is included', function test(done) {
+  it('should attach \'socket.io\' when plugin is included', function test() {
     const service = new Mservice({
       plugins: ['validator', 'socketIO', 'http'],
       http: {
@@ -78,10 +79,9 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
       socketIO: {},
     });
 
-    service.connect()
-      .then(() => {
-        expect(service.socketIO.httpServer).to.be.instanceof(Server);
-        service.close().asCallback(done);
-      });
+    return service.connect().then(() => {
+      expect(service.socketIO.httpServer).to.be.instanceof(Server);
+      return service.close();
+    });
   });
 });

@@ -31,8 +31,9 @@ function createRestifyServer(config: Object, service: Mservice): PluginInterface
     }
 
     return Promise
-      .fromCallback(callback =>
-        service.http.server.listen(config.server.port, config.server.host, callback))
+      .fromCallback(callback => (
+        service.http.server.listen(config.server.port, config.server.host, callback)
+      ))
       .then(() => service.emit('plugin:start:http', service.http))
       .then(() => service.http);
   }

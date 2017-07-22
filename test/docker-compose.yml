@@ -82,7 +82,7 @@ services:
       - redis
       - elasticsearch
       - cassandra
-    image: makeomatic/node:8.1.0-tester-glibc
+    image: makeomatic/node:8.2.1-tester-glibc
     container_name: tester
     command: tail -f /dev/null
     environment:

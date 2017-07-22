@@ -28,7 +28,7 @@ function getAMQPRouterAdapter(router: Router, config: Object) {
   const dispatch = Promise.promisify(router.dispatch, { context: router });
 
   return function AMQPRouterAdapter(params: mixed, properties: Object, raw: Object, next?: () => mixed) {
-    const actionName = properties.routingKey;
+    const actionName = properties.headers['x-routing-key'] || properties.routingKey;
     const opts: ServiceRequest = {
       // input params
       params,
