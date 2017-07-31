@@ -4,6 +4,7 @@
 <PROJECT_ROOT>/node_modules/documentation/.*
 <PROJECT_ROOT>/node_modules/config-chain/test/broken.json
 <PROJECT_ROOT>/node_modules/npmconf/test/fixtures/package.json
+<PROJECT_ROOT>/node_modules/findup/test/.*
 
 [include]
 
