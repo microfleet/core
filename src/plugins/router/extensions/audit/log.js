@@ -9,6 +9,7 @@ export type AuditLogExtension = {
     start: [number, number],
     execTime?: [number, number],
   },
+  log: any
 };
 
 module.exports = [
@@ -38,9 +39,9 @@ module.exports = [
       if (error) {
         const err = is.fn(error.toJSON) ? error.toJSON() : error.toString();
         const level = error.statusCode && error.statusCode < 400 ? 'info' : 'error';
-        service.log[level](meta, 'Error performing operation', err);
+        request.log[level](meta, 'Error performing operation', err);
       } else {
-        service.log.info(meta, 'completed operation', service._config.debug ? result : '');
+        request.log.info(meta, 'completed operation', service._config.debug ? result : '');
       }
 
       return Promise.resolve([error, result]);

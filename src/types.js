@@ -59,6 +59,7 @@ export type ServiceRequest = {
   socket?: EventEmitter,
   parentSpan: any,
   span: any,
+  log?: any,
 };
 
 export type RouteMap = {

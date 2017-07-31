@@ -7,6 +7,7 @@ import type { ServiceRequest } from '../../types';
  */
 const is = require('is');
 const Promise = require('bluebird');
+const uuid = require('uuid');
 const debug = require('debug')('mservice:router:dispatch');
 const { ERROR, COMPONENT } = require('opentracing').Tags;
 
@@ -44,6 +45,12 @@ function dispatch(route: string, request: ServiceRequest, callback: () => mixed 
       tags: {
         [COMPONENT]: request.transport,
       },
+    });
+  }
+
+  if (service._log !== undefined) {
+    request.log = service._log.child({
+      reqId: uuid.v4(),
     });
   }
 
