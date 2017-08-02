@@ -78,6 +78,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     const retry = config.retry;
     const backoff = new Backoff({ qos: retry });
     const predicate = retry.predicate;
+    const maxRetries = retry.maxRetries;
 
     /**
       * Composes onComplete handler for QoS enabled Subscriber.
@@ -109,12 +110,12 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
       }
 
       // check for current try
-      const retryCount = (headers['x-retry-count'] || 0) + 1;
-      err.retryAttempt = retryCount;
+      err.retryAttempt = (headers['x-retry-count'] || 0);
+      const retryCount = err.retryAttempt + 1;
 
       // quite complex, basicaly verifies that these are not logic errors
       // and that if there were no other problems - that we haven't exceeded max retries
-      if (predicate(err, actionName) || retryCount > config.retry.maxRetries) {
+      if (predicate(err, actionName) || retryCount > maxRetries) {
         // we must ack, otherwise message would be returned to sender with reject
         // instead of promise.reject
         message.ack();
