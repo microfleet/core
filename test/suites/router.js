@@ -1,4 +1,4 @@
-/* eslint-disable max-len, new-cap */
+/* eslint-disable max-len, new-cap, promise/catch-or-return */
 const { ActionTransport } = require('./../../src');
 const auditLog = require('./../../src/plugins/router/extensions/audit/log');
 const { expect } = require('chai');
@@ -27,9 +27,22 @@ describe('Router suite', function testSuite() {
           connection: {
             host: 'rabbitmq',
           },
+          queue: 'simple-retry-test',
+          neck: 10,
+          bindPersistantQueueToHeadersExchange: true,
         },
         router: {
           enabled: true,
+        },
+        retry: {
+          enabled: true,
+          min: 10,
+          max: 50,
+          factor: 1.3,
+          maxRetries: 5,
+          predicate(err, actionName) {
+            return actionName !== 'action.retry';
+          },
         },
       },
       http: {
@@ -48,7 +61,10 @@ describe('Router suite', function testSuite() {
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
-          enabled: { simple: 'simple' },
+          enabled: {
+            simple: 'simple',
+            retry: 'retry',
+          },
           prefix: 'action',
           transports: [
             ActionTransport.amqp,
@@ -58,16 +74,12 @@ describe('Router suite', function testSuite() {
         },
         auth: {
           strategies: {
-            token: function auth(request) {
-              return Promise.resolve(request.params.token)
+            token(request) {
+              return Promise
+                .resolve(request.params.token)
                 .then((token) => {
-                  if (token) {
-                    return Promise.resolve('User');
-                  }
-
-                  return Promise.reject(
-                    new Errors.AuthenticationRequiredError('Invalid token')
-                  );
+                  if (token) return 'User';
+                  throw new Errors.AuthenticationRequiredError('Invalid token');
                 });
             },
           },
@@ -139,28 +151,41 @@ describe('Router suite', function testSuite() {
           },
         };
 
-        Promise.map(
-          [
-            () => socketIORequest('not.exists', {}).reflect().then(verify(routeNotFound)),
-            () => socketIORequest('action.simple', {}).reflect().then(verify(authFailed)),
-            () => socketIORequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-            () => socketIORequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
-            () => socketIORequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-            () => HTTPRequest('/not/exists', {}).reflect().then(verify(routeNotFound)),
-            () => HTTPRequest('/action/simple', {}).reflect().then(verify(authFailed)),
-            () => HTTPRequest('/action/simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-            () => HTTPRequest('/action/simple', { token: true }).reflect().then(verify(accessDenied)),
-            () => HTTPRequest('/action/simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-            // non-existent action will be not processed by ms-amqp-transport
-            () => AMQPRequest('action.simple', {}).reflect().then(verify(authFailed)),
-            () => AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-            () => AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
-            () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-          ],
-          handler => handler()
-        )
-        .then(() => service.close())
-        .asCallback(done);
+        const retryFail = {
+          expect: 'error',
+          verify: (error) => {
+            expect(error.retryAttempt).to.be.equal(5);
+          },
+        };
+
+        const retrySuccess = {
+          expect: 'success',
+          verify: (result) => {
+            expect(result).to.be.equal(3);
+          },
+        };
+
+        Promise.map([
+          () => socketIORequest('not.exists', {}).reflect().then(verify(routeNotFound)),
+          () => socketIORequest('action.simple', {}).reflect().then(verify(authFailed)),
+          () => socketIORequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+          () => socketIORequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+          () => socketIORequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+          () => HTTPRequest('/not/exists', {}).reflect().then(verify(routeNotFound)),
+          () => HTTPRequest('/action/simple', {}).reflect().then(verify(authFailed)),
+          () => HTTPRequest('/action/simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+          () => HTTPRequest('/action/simple', { token: true }).reflect().then(verify(accessDenied)),
+          () => HTTPRequest('/action/simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+          // non-existent action will be not processed by ms-amqp-transport
+          () => AMQPRequest('action.simple', {}).reflect().then(verify(authFailed)),
+          () => AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+          () => AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+          () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+          () => AMQPRequest('action.retry', 10).reflect().then(verify(retryFail)),
+          () => AMQPRequest('action.retry', 3).reflect().then(verify(retrySuccess)),
+        ], handler => handler())
+          .then(() => service.close())
+          .asCallback(done);
       });
   });
 
@@ -292,7 +317,7 @@ describe('Router suite', function testSuite() {
           ],
           handler => handler()
         )
-        .then(() => service.close());
+          .then(() => service.close());
       });
   });
 });
