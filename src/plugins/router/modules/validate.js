@@ -7,7 +7,7 @@ const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
 // based on this we validate input data
-const DATA_KEY_SELECTOR = {
+const DATA_KEY_SELECTOR: any = Object.setPrototypeOf({
   get: 'query',
   delete: 'query',
   head: 'query',
@@ -16,6 +16,14 @@ const DATA_KEY_SELECTOR = {
   post: 'params',
   amqp: 'params',
   socketio: 'params',
+}, null);
+
+const handleValidationError = (error) => {
+  if (error.constructor === Errors.ValidationError) {
+    throw error;
+  }
+
+  throw new Errors.Error('internal validation error', error);
 };
 
 function validate(request: ServiceRequest): Promise<*> {
@@ -28,13 +36,7 @@ function validate(request: ServiceRequest): Promise<*> {
       request[paramsKey] = sanitizedParams;
       return request;
     })
-    .catch((error) => {
-      if (error.constructor === Errors.ValidationError) {
-        throw error;
-      }
-
-      throw new Errors.Error(error);
-    });
+    .catch(handleValidationError);
 }
 
 function validateHandler(request: ServiceRequest): Promise<*> {

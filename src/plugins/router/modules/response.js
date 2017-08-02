@@ -1,28 +1,40 @@
 // @flow
 import type { ServiceRequest } from '../../../types';
 
-const Errors = require('common-errors');
-const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+const moduleLifecycle = require('./lifecycle');
+const {
+  AuthenticationRequiredError,
+  ConnectionError,
+  HttpStatusError,
+  NotImplementedError,
+  NotFoundError,
+  NotPermittedError,
+  NotSupportedError,
+  TimeoutError,
+  ValidationError,
+  Error: CError,
+} = require('common-errors');
 
 function response(err: any, result: any) {
   const service = this;
 
   if (err) {
     switch (err.constructor) {
-      case Errors.AuthenticationRequiredError:
-      case Errors.ConnectionError:
-      case Errors.HttpStatusError:
-      case Errors.NotImplementedError:
-      case Errors.NotFoundError:
-      case Errors.NotPermittedError:
-      case Errors.NotSupportedError:
-      case Errors.TimeoutError:
-      case Errors.ValidationError:
+      case AuthenticationRequiredError:
+      case ConnectionError:
+      case HttpStatusError:
+      case NotImplementedError:
+      case NotFoundError:
+      case NotPermittedError:
+      case NotSupportedError:
+      case TimeoutError:
+      case ValidationError:
+      case CError:
         return Promise.reject(err);
       default:
         service.log.fatal('unexpected error', err);
-        return Promise.reject(new Errors.Error(`Something went wrong: ${err.message}`, err));
+        return Promise.reject(new CError(`Something went wrong: ${err.message}`, err));
     }
   }
 
