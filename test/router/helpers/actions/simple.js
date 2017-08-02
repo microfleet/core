@@ -28,5 +28,4 @@ SimpleAction.transports = [
   ActionTransport.socketIO,
 ];
 
-
 module.exports = SimpleAction;

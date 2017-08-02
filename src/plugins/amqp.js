@@ -16,6 +16,23 @@ const getAMQPRouterAdapter = require('./amqp/router/adapter');
 const verifyPossibility = require('./router/verifyAttachPossibility');
 
 /**
+ * Helpers Section
+ */
+
+/**
+ * Calculate priority based on message expiration time.
+ * Logic behind it is to give each expiration a certain priority bucket
+ * based on the amount of priority levels in the RabbitMQ queue.
+ * @param {number} expiration - Current expiration (retry) time.
+ * @param {number} maxExpiration - Max possible expiration (retry) time.
+ * @returns {number} Queue Priority Level.
+ */
+function calculatePriority(expiration, maxExpiration) {
+  const newExpiration = Math.min(expiration, maxExpiration);
+  return 100 - Math.floor((newExpiration / maxExpiration) * 100);
+}
+
+/**
  * Plugin Name
  * @type {String}
  */
@@ -35,9 +52,134 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   const service = this;
 
   const AMQPTransport = _require('@microfleet/transport-amqp');
+  const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery');
 
   if (is.fn(service.validateSync)) {
     assert.ifError(service.validateSync('amqp', config).error);
+  }
+
+  // init logger if service is enabled
+  const logger = service._log && service._log.child({ namespace: '@microfleet/transport-amqp' });
+
+  // initializes custom onComplete function
+  if (config.retry && config.retry.enabled === true) {
+    assert.equal(config.transport.bindPersistantQueueToHeadersExchange, true,
+      'config.transport.bindPersistantQueueToHeadersExchange must be set to true');
+    assert.ok(config.retry.queue || config.transport.queue, '`retry.queue` or `transport.queue` must be truthy string');
+    assert.equal(typeof config.transport.onComplete, 'undefined', 'transport.onComplete must be undefined');
+    assert.equal(typeof config.transport.neck, 'number', 'neck must be set to >= 0');
+    assert.ok(config.transport.neck >= 0, 'neck must be set for the retry to work');
+    assert.equal(typeof config.retry.predicate, 'function', '`retry.predicate` must be defined');
+
+    // adds queue setup connector - will be initialized after AMQP is connected
+    service.retryQueue = config.retry.queue || `x-delay-${config.transport.queue}`;
+
+    // cache vars for faster access
+    const retry = config.retry;
+    const backoff = new Backoff({ qos: retry });
+    const predicate = retry.predicate;
+
+    /**
+      * Composes onComplete handler for QoS enabled Subscriber.
+      * Allows one to set custom fast-rejection policy.
+      * Relies on certain configuration options of the initialized service.
+      *
+      * @param {Error} err - Possible error.
+      * @param {Mixed} data - Anything that is a response.
+      * @param {string} actionName - In-flight action name.
+      * @param {Object} message - An amqp-coffee raw message.
+      */
+    config.transport.onComplete = function onComplete(err, data, actionName, message) {
+      const { properties } = message;
+      const { headers } = properties;
+
+      // reassign back so that response can be routed properly
+      if (headers['x-correlation-id'] !== undefined) {
+        properties.correlationId = headers['x-correlation-id'];
+      }
+
+      if (headers['x-reply-to'] !== undefined) {
+        properties.replyTo = headers['x-reply-to'];
+      }
+
+      if (!err) {
+        if (logger !== undefined) logger.info('sent message via %s, ack', actionName);
+        message.ack();
+        return data;
+      }
+
+      // check for current try
+      const retryCount = (headers['x-retry-count'] || 0) + 1;
+      err.retryAttempt = retryCount;
+
+      // quite complex, basicaly verifies that these are not logic errors
+      // and that if there were no other problems - that we haven't exceeded max retries
+      if (predicate(err, actionName) || retryCount > config.retry.maxRetries) {
+        // we must ack, otherwise message would be returned to sender with reject
+        // instead of promise.reject
+        message.ack();
+        if (logger !== undefined) logger.fatal({ err }, 'failed to process message');
+        return Promise.reject(err);
+      }
+
+      // assume that predefined accounts must not fail - credentials are correct
+      if (logger !== undefined) logger.error({ err }, 'Error performing operation %s. Scheduling retry', actionName);
+
+      // retry message options
+      const expiration = backoff.get('qos', retryCount);
+      const retryMessageOptions: any = {
+        skipSerialize: true,
+        confirm: true,
+        expiration: expiration.toString(),
+        priority: calculatePriority(expiration, retry.max),
+        headers: {
+          'x-routing-key': headers['x-routing-key'] || message.routingKey,
+          'x-retry-count': retryCount,
+        },
+      };
+
+      // deal with special routing properties
+      const { replyTo, correlationId } = properties;
+
+      // correlation id is used in routing stuff back from DLX, so we have to "hide" it
+      // same with replyTo
+      if (replyTo !== undefined) {
+        // prefixed header so it doesn't match with the original queue
+        retryMessageOptions.headers['x-reply-to'] = replyTo;
+        // unroutable
+        retryMessageOptions.replyTo = '00000000-0000-0000-0000-000000000000';
+      }
+
+      if (correlationId !== undefined) {
+        // this is to ensure .reply will be sent back by @microfleet/transport-amqp
+        retryMessageOptions.correlationId = '00000000-0000-0000-0000-000000000000';
+        // this is to replace it back with this header in the router earlier
+        retryMessageOptions.headers['x-correlation-id'] = correlationId;
+      }
+
+      return service.amqp
+        .send(service.retryQueue, message.raw, retryMessageOptions)
+        .catch((e) => {
+          if (logger !== undefined) logger.error({ err: e }, 'Failed to queue retried message');
+          message.retry();
+          return Promise.reject(err);
+        })
+        .then(() => {
+          if (logger !== undefined) logger.debug('queued retry message');
+          message.ack();
+
+          // enrich error
+          err.scheduledRetry = true;
+
+          // reset correlation id
+          // that way response will actually come, but won't be routed in the private router
+          // of the sender
+          message.properties.correlationId = '00000000-0000-0000-0000-000000000000';
+
+          // reject with an error, yet a retry will still occur
+          return Promise.reject(err);
+        });
+    };
   }
 
   if (config.router && config.router.enabled === true) {
@@ -46,9 +188,6 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     // allow ms-amqp-transport to discover routes
     config.transport.listen = Object.keys(service.router.routes.amqp);
   }
-
-  // logger
-  const logger = service._log && service._log.child({ namespace: 'ms-amqp-transport' });
 
   return {
 
@@ -69,6 +208,26 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
           tracer: service._tracer,
           log: logger || null,
         }, service.AMQPRouter)
+        .tap((amqp) => {
+          // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
+          if (config.retry && config.retry.enabled === true) {
+            // in case defaults were overwritten - throw here
+            assert.ok(amqp.config.headersExchange.exchange, 'transport.headersExchange.exchange must be set');
+
+            return amqp.createQueue({
+              queue: service.retryQueue,
+              autoDelete: false,
+              durable: true,
+              router: null,
+              arguments: {
+                'x-dead-letter-exchange': amqp.config.headersExchange.exchange,
+                'x-max-priority': 100, // to support proper priorities
+              },
+            });
+          }
+
+          return null;
+        })
         .tap((amqp) => {
           service._amqp = amqp;
           service.emit('plugin:connect:amqp', amqp);
