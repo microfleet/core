@@ -1,5 +1,7 @@
 # @microfleet / core
 
+<img alt="Microfleet" src="https://raw.githubusercontent.com/microfleet/core/master/assets/mf-concept-core.png" width="500" height="208" />
+
 ## Opinionated Web and (Micro)Services Toolkit
 
 Lead Maintainer: [Vitaly Aminev](https://github.com/avvs)
