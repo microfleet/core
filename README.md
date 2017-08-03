@@ -1,6 +1,6 @@
 # @microfleet / core
 
-<img alt="Microfleet" src="https://raw.githubusercontent.com/microfleet/core/master/assets/mf-concept-core.png" width="500" height="208" />
+<img alt="Microfleet" src="https://raw.githubusercontent.com/microfleet/core/master/assets/mf-concept-core-2.png" width="412" height="208" />
 
 ## Opinionated Web and (Micro)Services Toolkit
 
