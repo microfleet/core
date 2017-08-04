@@ -18,6 +18,7 @@ const verifyPossibility = require('./router/verifyAttachPossibility');
 /**
  * Helpers Section
  */
+const NULL_UUID = '00000000-0000-0000-0000-000000000000';
 
 /**
  * Calculate priority based on message expiration time.
@@ -95,16 +96,16 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
       const { headers } = properties;
 
       // reassign back so that response can be routed properly
-      if (headers['x-correlation-id'] !== undefined) {
-        properties.correlationId = headers['x-correlation-id'];
+      if (headers['x-original-correlation-id'] !== undefined) {
+        properties.correlationId = headers['x-original-correlation-id'];
       }
 
-      if (headers['x-reply-to'] !== undefined) {
-        properties.replyTo = headers['x-reply-to'];
+      if (headers['x-original-reply-to'] !== undefined) {
+        properties.replyTo = headers['x-original-reply-to'];
       }
 
       if (!err) {
-        if (logger !== undefined) logger.info('sent message via %s, ack', actionName);
+        if (logger !== undefined) logger.info('Sent, ack: [%s]', actionName);
         message.ack();
         return data;
       }
@@ -119,23 +120,25 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
         // we must ack, otherwise message would be returned to sender with reject
         // instead of promise.reject
         message.ack();
-        if (logger !== undefined) logger.fatal({ err }, 'failed to process message');
+        if (logger !== undefined) logger.error({ err, properties }, 'Failed: [%s]', actionName);
         return Promise.reject(err);
       }
 
       // assume that predefined accounts must not fail - credentials are correct
-      if (logger !== undefined) logger.error({ err }, 'Error performing operation %s. Scheduling retry', actionName);
+      if (logger !== undefined) logger.warn({ err, properties }, 'Retry: [%s]', actionName);
 
       // retry message options
       const expiration = backoff.get('qos', retryCount);
       const retryMessageOptions: any = {
         skipSerialize: true,
         confirm: true,
+        mandatory: true,
         expiration: expiration.toString(),
         priority: calculatePriority(expiration, retry.max),
         headers: {
-          'x-routing-key': headers['x-routing-key'] || message.routingKey,
+          'x-routing-key': actionName,
           'x-retry-count': retryCount,
+          'x-original-error': String(err),
         },
       };
 
@@ -145,17 +148,11 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
       // correlation id is used in routing stuff back from DLX, so we have to "hide" it
       // same with replyTo
       if (replyTo !== undefined) {
-        // prefixed header so it doesn't match with the original queue
-        retryMessageOptions.headers['x-reply-to'] = replyTo;
-        // unroutable
-        retryMessageOptions.replyTo = '00000000-0000-0000-0000-000000000000';
+        retryMessageOptions.headers['x-original-reply-to'] = replyTo;
       }
 
       if (correlationId !== undefined) {
-        // this is to ensure .reply will be sent back by @microfleet/transport-amqp
-        retryMessageOptions.correlationId = '00000000-0000-0000-0000-000000000000';
-        // this is to replace it back with this header in the router earlier
-        retryMessageOptions.headers['x-correlation-id'] = correlationId;
+        retryMessageOptions.headers['x-original-correlation-id'] = correlationId;
       }
 
       return service.amqp
@@ -175,7 +172,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
           // reset correlation id
           // that way response will actually come, but won't be routed in the private router
           // of the sender
-          message.properties.correlationId = '00000000-0000-0000-0000-000000000000';
+          properties.correlationId = NULL_UUID;
 
           // reject with an error, yet a retry will still occur
           return Promise.reject(err);
