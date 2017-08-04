@@ -87,6 +87,6 @@ exports.attach = function attach(config: Object = {}) {
 
   service._log = bunyan.createLogger({
     streams,
-    name: name || applicationName,
+    name: applicationName || name,
   });
 };
