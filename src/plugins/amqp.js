@@ -136,7 +136,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
         expiration: expiration.toString(),
         priority: calculatePriority(expiration, retry.max),
         headers: {
-          'x-routing-key': actionName,
+          'routing-key': actionName,
           'x-retry-count': retryCount,
           'x-original-error': String(err),
         },
