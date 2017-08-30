@@ -38,6 +38,31 @@ function validateAction(action: ServiceAction) {
   }
 }
 
+function loadActions(paths) {
+  const directories = Array.isArray(paths) ? paths : [paths];
+  const actions = Object.create(null);
+
+  directories
+    .forEach((directory) => {
+      glob.sync('*.js', { cwd: directory, matchBase: true })
+        .forEach((file) => {
+          // remove .js from route, replace / with . for route
+          const route = file.slice(0, -3).split(path.sep).join('.');
+
+          if (actions[route]) {
+            throw new Errors.AlreadyInUseError(`${route} already exists`);
+          }
+
+          actions[route] = {
+            route,
+            path: path.resolve(directory, file),
+          };
+        });
+    });
+
+  return actions;
+}
+
 /**
  * @param {Object} config - Routes configuration object.
  * @param {string} config.directory - Actions directory, will be glob scanned.
@@ -57,17 +82,15 @@ function getRoutes(config: Object): RouteMap {
     },
   });
 
+  const actions = loadActions(config.directory);
   const enabled = config.enabled;
 
   // if enabled actions is empty load all actions from directory
   if (Object.keys(enabled).length === 0) {
-    glob.sync('*.js', { cwd: config.directory, matchBase: true })
-      .forEach((file) => {
-        // remove .js from route
-        const route = file.slice(0, -3);
-
-        // replace / with . for route
-        enabled[route] = route.split(path.sep).join('.');
+    Object
+      .keys(actions)
+      .forEach((route) => {
+        enabled[route] = route;
       });
   }
 
@@ -76,9 +99,12 @@ function getRoutes(config: Object): RouteMap {
   });
 
   Object.keys(enabled).forEach((route) => {
-    const routingKey = config.prefix.length ? `${config.prefix}.${enabled[route]}` : enabled[route];
+    const routeName = enabled[route];
+    const routingKey = config.prefix.length
+      ? `${config.prefix}.${routeName}`
+      : routeName;
     // eslint-disable-next-line import/no-dynamic-require
-    const action = require(path.resolve(config.directory, route));
+    const action = require(actions[route].path);
 
     if (config.setTransportsAsDefault === true && action.transports === undefined) {
       action.transports = config.transports.slice(0);
@@ -87,7 +113,7 @@ function getRoutes(config: Object): RouteMap {
     validateAction(action);
 
     // action name is the same as a route name
-    action.actionName = enabled[route];
+    action.actionName = routeName;
 
     // add action
     routes._all[routingKey] = action;

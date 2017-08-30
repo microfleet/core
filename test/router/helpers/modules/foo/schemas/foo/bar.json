@@ -1,0 +1,10 @@
+{
+  "id": "foo.bar",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "number": {
+      "type": "integer"
+    }
+  }
+}
