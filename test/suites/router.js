@@ -11,6 +11,7 @@ const path = require('path');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 const verify = require('./../router/helpers/verifyCase');
+const assert = require('assert');
 
 describe('Router suite', function testSuite() {
   const MService = require('../../src');
@@ -319,5 +320,108 @@ describe('Router suite', function testSuite() {
         )
           .then(() => service.close());
       });
+  });
+
+  it('should throw error for duplicates', (done) => {
+    try {
+      const service = new MService({
+        amqp: {
+          transport: {
+            connection: {
+              host: 'rabbitmq',
+            },
+          },
+          router: {
+            enabled: true,
+          },
+        },
+        logger: {
+          defaultLogger: true,
+        },
+        plugins: ['validator', 'logger', 'router', 'amqp'],
+        router: {
+          routes: {
+            directory: [
+              path.resolve(__dirname, '../router/helpers/modules/foo/actions'),
+              path.resolve(__dirname, '../router/helpers/modules/foo-duplicate/actions'),
+            ],
+            prefix: 'action',
+            setTransportsAsDefault: true,
+            transports: [ActionTransport.amqp],
+          },
+          extensions: {
+            enabled: ['preRequest', 'postRequest', 'preResponse'],
+            register: [
+              schemaLessAction,
+              auditLog,
+            ],
+          },
+        },
+        validator: [
+          path.resolve(__dirname, '../router/helpers/modules/foo/schemas'),
+          path.resolve(__dirname, '../router/helpers/modules/foo-duplicate/schemas'),
+        ],
+      });
+    } catch (error) {
+      assert.equal(
+        error.message,
+        'The specified \'foo.bar already exists\' value is already in use for: '
+      );
+      done();
+    }
+  });
+
+  it('should be able to load routes from array of directories', () => {
+    const service = new MService({
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      plugins: ['validator', 'logger', 'router', 'amqp'],
+      router: {
+        routes: {
+          directory: [
+            path.resolve(__dirname, '../router/helpers/modules/foo/actions'),
+            path.resolve(__dirname, '../router/helpers/modules/bar/actions'),
+          ],
+          prefix: 'action',
+          setTransportsAsDefault: true,
+          transports: [ActionTransport.amqp],
+        },
+        extensions: {
+          enabled: ['preRequest', 'postRequest', 'preResponse'],
+          register: [
+            schemaLessAction,
+            auditLog,
+          ],
+        },
+      },
+      validator: [
+        path.resolve(__dirname, '../router/helpers/modules/foo/schemas'),
+        path.resolve(__dirname, '../router/helpers/modules/bar/schemas'),
+      ],
+    });
+
+    return service
+      .connect()
+      .then(() => {
+        const AMQPRequest = getAMQPRequest(service.amqp);
+
+        return AMQPRequest('action.bar', {});
+      })
+      .reflect()
+      .then(result => {
+        assert.equal(result.value(), 'bar');
+      })
+      .then(() => service.close());
   });
 });

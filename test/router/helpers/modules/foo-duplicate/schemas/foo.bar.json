@@ -1,0 +1,10 @@
+{
+  "id": "foo.baz",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "number": {
+      "type": "integer"
+    }
+  }
+}

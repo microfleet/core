@@ -1,0 +1,5 @@
+{
+  "id": "bar",
+  "type": "object",
+  "additionalProperties": false
+}

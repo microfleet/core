@@ -191,7 +191,7 @@ ajv@^4.7.0, ajv@^4.9.1:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-ajv@^5.1.5, ajv@^5.2.0:
+ajv@^5.2.0, ajv@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.2.2.tgz#47c68d69e86f5d953103b0074a9430dc63da5e39"
   dependencies:
@@ -1812,7 +1812,7 @@ commit-closes@1.0.1:
     check-more-types "2.24.0"
     lazy-ass "1.6.0"
 
-common-errors@^1.0.2, common-errors@^1.0.4:
+common-errors@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/common-errors/-/common-errors-1.0.4.tgz#6724b011ccee1125fca136b30c439b4f97a36a04"
 
@@ -2074,6 +2074,12 @@ debug@2, debug@2.6.8, debug@^2.1.1, debug@^2.1.3, debug@^2.2.0, debug@^2.3.3, de
 debug@2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
+  dependencies:
+    ms "2.0.0"
+
+debug@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.0.1.tgz#0564c612b521dc92d9f2988f0549e34f9c98db64"
   dependencies:
     ms "2.0.0"
 
@@ -4867,15 +4873,17 @@ ms-socket.io-adapter-amqp@^5.0.0:
     socket.io-adapter "^1.1.0"
     uid2 "0.0.3"
 
-ms-validation@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/ms-validation/-/ms-validation-5.0.1.tgz#64bcf2512e4015d8683235b300e62aa428ee2a42"
+ms-validation@6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ms-validation/-/ms-validation-6.0.2.tgz#929e22901b3bc996660fb4a240423291560caa40"
   dependencies:
-    ajv "^5.1.5"
+    ajv "^5.2.2"
     ajv-keywords "^2.1.0"
     bluebird "^3.4.1"
     callsite "^1.0.0"
-    common-errors "^1.0.2"
+    common-errors "^1.0.4"
+    debug "^3.0.0"
+    glob "^7.1.2"
 
 ms@2.0.0:
   version "2.0.0"
