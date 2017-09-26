@@ -82,7 +82,7 @@ exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: str
         while (iterator < length && !source) {
           const call = stack[iterator];
           const filename = call.getFileName();
-          if ([parentFile, __filename, 'native array.js'].indexOf(filename) === -1) {
+          if ([parentFile, __filename, 'native array.js', null].indexOf(filename) === -1) {
             source = path.dirname(filename);
           }
 
