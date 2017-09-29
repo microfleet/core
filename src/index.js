@@ -216,6 +216,8 @@ class Mservice extends EventEmitter {
    * @private
    */
   _defineGetter(name: string) {
+    // NOTE: this is slow, must use a more performant operation for actually
+    // hot access to services
     Object.defineProperty(this, name, {
       __proto__: null,
       enumerable: true,

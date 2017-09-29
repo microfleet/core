@@ -48,14 +48,9 @@ function validateAction(action: ServiceAction) {
  */
 function getRoutes(config: Object): RouteMap {
   // lack of prototype makes it easier to search for a key
-  const routes: RouteMap = Object.create(null, {
-    _all: {
-      value: Object.create(null),
-      writable: false,
-      enumerable: true,
-      configurable: false,
-    },
-  });
+  const routes = {
+    _all: Object.create(null),
+  };
 
   const enabled = config.enabled;
 
@@ -97,7 +92,11 @@ function getRoutes(config: Object): RouteMap {
     });
   });
 
-  return routes;
+  // reset prototype for faster access along the way
+  Object.setPrototypeOf(routes, null);
+
+  // cast to RouteMap
+  return ((routes: any): RouteMap);
 }
 
 module.exports = getRoutes;

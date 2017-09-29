@@ -118,7 +118,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "express": "^4.16.1",
     "express-cassandra": "^1.9.0",
-    "flow-bin": "^0.56.0",
+    "flow-bin": "=0.54.0",
     "handlebars": "^4.0.8",
     "hapi": "^16.5.2",
     "ioredis": "^3.1.2",
