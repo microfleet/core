@@ -3,6 +3,7 @@ import type { IncomingMessage } from 'http';
 import typeof Mservice from '../../../../../index';
 import type { ServiceRequest } from '../../../../../types';
 
+const Promise = require('bluebird');
 const { FORMAT_HTTP_HEADERS } = require('opentracing');
 const { ActionTransport } = require('../../../../../constants');
 const { fromPathToName } = require('../../../helpers/actionName');
@@ -10,7 +11,6 @@ const Errors = require('common-errors');
 const is = require('is');
 const noop = require('lodash/noop');
 const _require = require('../../../../../utils/require');
-const Response = require('hapi/lib/response');
 
 export type HapiIncomingMessage = IncomingMessage & {
   path: string,
@@ -54,7 +54,7 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       errorMessage = nestedError.text || nestedError.message || undefined;
     }
 
-    const replyError = Boom.wrap(error, statusCode, errorMessage);
+    const replyError = Boom.boomify(error, { statusCode, message: errorMessage });
 
     if (error.name) {
       replyError.output.payload.name = error.name;
@@ -63,7 +63,10 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
     return replyError;
   };
 
-  return function handler(request: HapiIncomingMessage, reply: (error: ?Error, result: mixed) => void) {
+  // pre-wrap the function so that we do not need to actually do fromNode(next)
+  const dispatch = Promise.promisify(router.dispatch, { context: router });
+
+  return async function handler(request: HapiIncomingMessage) {
     const actionName = fromPathToName(request.path, config.prefix);
     const headers = request.headers;
 
@@ -91,16 +94,10 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       span: undefined,
     };
 
-    router.dispatch(actionName, serviceRequest, (error, result) => {
-      if (error) {
-        return reply(reformatError(error));
-      }
-
-      if (result instanceof Response) {
-        return reply(result);
-      }
-
-      return reply(null, result);
-    });
+    try {
+      return dispatch(actionName, serviceRequest);
+    } catch (e) {
+      return reformatError(e);
+    }
   };
 };

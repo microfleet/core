@@ -1,8 +1,8 @@
-const Promise = require('bluebird');
 const Cassandra = require('express-cassandra');
 const cloneDeep = require('lodash/cloneDeep');
 const path = require('path');
 const { expect } = require('chai');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Cassandra suite', function testSuite() {
   const Mservice = require('../../src');
@@ -28,10 +28,7 @@ describe('Cassandra suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then((result) => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread((cassandra) => {
         expect(cassandra).to.be.instanceof(Cassandra);
         expect(cassandra.modelInstance).to.have.property('Foo');
@@ -59,10 +56,7 @@ describe('Cassandra suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then((result) => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread((cassandra) => {
         expect(cassandra.modelInstance).to.have.property('Bar');
       })

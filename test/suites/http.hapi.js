@@ -107,22 +107,23 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return Promise.all([
-          request(options).then((response) => {
-            assert.equal(response.statusCode, 200);
-            assert.deepEqual(response.body, { message: 'foo' });
-          }),
-          request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
-            assert.equal(response.statusCode, 404);
-            assert.equal(response.body.name, 'NotFoundError');
-            assert.deepEqual(response.body.message, 'Not Found: "route "not-found" not found"');
-          }),
-        ])
-        .reflect()
-        .then(inspectPromise())
-        .then(() => {
-          return service.close();
-        });
+        return Promise
+          .all([
+            request(options).then((response) => {
+              assert.equal(response.statusCode, 200);
+              assert.deepEqual(response.body, { message: 'foo' });
+            }),
+            request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
+              assert.equal(response.statusCode, 404);
+              assert.equal(response.body.name, 'NotFoundError');
+              assert.deepEqual(response.body.message, 'Not Found: "route "not-found" not found"');
+            }),
+          ])
+          .reflect()
+          .then(inspectPromise())
+          .then(() => {
+            return service.close();
+          });
       });
   });
 

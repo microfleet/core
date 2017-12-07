@@ -1,21 +1,13 @@
 // @flow
-function register(server: Object, options: Object, next: (error: ?Error) => void) {
-  server.root.views(options);
 
-  server.root.decorate('request', 'sendView', function sendView(...args) {
-    return this
-      .render(...args)
-      .then(page => this.generateResponse(page));
+exports.name = 'view-wrapper';
+exports.dependencies = ['vision'];
+exports.version = '1.0.0';
+exports.once = true;
+exports.register = function register(server: Object, options: Object) {
+  server.views(options);
+  server.decorate('request', 'sendView', async function sendView(...args) {
+    const page = await this.render(...args);
+    return this.generateResponse(page);
   });
-
-  return next();
-}
-
-register.attributes = {
-  name: 'view-wrapper',
-  dependencies: ['vision'],
-  version: '1.0.0',
-  once: true,
 };
-
-exports.register = register;

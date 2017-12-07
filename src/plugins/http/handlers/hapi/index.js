@@ -8,15 +8,16 @@ const Promise = require('bluebird');
 const _require = require('../../../../utils/require');
 
 export type HapiPlugin = {
-  register: string,
+  plugin: string | Object,
   options: Object,
+  once?: boolean,
 };
 
 const defaultPlugins: Array<HapiPlugin> = [{
-  register: './plugins/redirect',
+  plugin: './plugins/redirect',
   options: {},
 }, {
-  register: './plugins/state',
+  plugin: './plugins/state',
   options: {},
 }];
 
@@ -24,13 +25,10 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
   const Hapi = _require('hapi');
 
   const handlerConfig = config.server.handlerConfig;
-  const server = service._http = new Hapi.Server(handlerConfig.server);
-  const serverConfiguration = Object.assign({}, handlerConfig.connection, {
-    port: config.server.port,
-    address: config.server.host,
-  });
+  handlerConfig.server.address = config.server.host || '0.0.0.0';
+  handlerConfig.server.port = config.server.port || 3000;
 
-  server.connection(serverConfiguration);
+  const server = service._http = new Hapi.Server(handlerConfig.server);
 
   if (config.router.enabled) {
     attachRouter(service, server, config.router);
@@ -43,23 +41,23 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
 
     if (handlerConfig.views) {
       plugins.push({
-        register: 'vision',
+        plugin: 'vision',
         options: {},
       });
 
       plugins.push({
-        register: './plugins/views',
+        plugin: './plugins/views',
         options: (handlerConfig.views: Object),
       });
     }
 
-    const registrations = plugins.map((plugin) => {
+    const registrations = plugins.map((pluginObj) => {
       // eslint-disable-next-line no-shadow
-      const { register, options } = plugin;
+      const { plugin, options } = pluginObj;
 
       return {
         // eslint-disable-next-line import/no-dynamic-require
-        register: typeof register === 'string' ? require(register) : register,
+        plugin: typeof plugin === 'string' ? require(plugin) : plugin,
         options,
       };
     });
@@ -81,7 +79,7 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
       .tap(() => server.start())
       .tap(() => {
         if (service._log) {
-          service.log.info({ transport: 'http', http: 'hapi' }, 'listening on http://%s:%s', serverConfiguration.address, serverConfiguration.port);
+          service.log.info({ transport: 'http', http: 'hapi' }, 'listening on http://%s:%s', handlerConfig.server.address, handlerConfig.server.port);
         }
       })
       .return(server)

@@ -1,7 +1,5 @@
 const { expect } = require('chai');
 const AdapterTransport = require('ms-socket.io-adapter-amqp/lib/transport');
-const express = require('express');
-const http = require('http');
 const socketIO = require('socket.io');
 const socketIOClient = require('socket.io-client');
 
@@ -48,8 +46,8 @@ describe('"socketIO" plugin', function testSuite() {
                 host: 'rabbitmq',
                 port: 5672,
               },
-            }
-          }
+            },
+          },
         },
       },
     });
