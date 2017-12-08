@@ -94,10 +94,13 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       span: undefined,
     };
 
+    let response;
     try {
-      return dispatch(actionName, serviceRequest);
+      response = await dispatch(actionName, serviceRequest);
     } catch (e) {
-      return reformatError(e);
+      response = reformatError(e);
     }
+
+    return response;
   };
 };
