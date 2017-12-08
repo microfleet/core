@@ -31,6 +31,9 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
     server,
   };
 
+  // make sure we can destroy it
+  enableDestroy(service.http);
+
   function startServer() {
     if (service.http.server.listening === true) {
       return Promise.reject(new Errors.NotPermittedError('Http server was already started'));
@@ -45,15 +48,19 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
     }
 
     return Promise
-      .fromCallback(callback =>
-        service.http.server.listen(config.server.port, config.server.host, callback))
+      .fromCallback(callback => (
+        service.http.server.listen(config.server.port, config.server.host, callback)
+      ))
       .then(() => service.emit('plugin:start:http', service.http))
-      .then(() => service.http);
+      .then(() => {
+        const expressServer = service.http;
+        expressServer.closeAsync = Promise.promisify(expressServer.close, { context: expressServer });
+        expressServer.destroyAsync = Promise.promisify(expressServer.destroy, { context: expressServer });
+        return expressServer;
+      });
   }
 
   function stopServer() {
-    enableDestroy(service.http.server);
-
     if (config.server.attachSocketIO) {
       if (!service._socketIO) {
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
@@ -63,8 +70,10 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
       service.socketIO.close();
     }
 
-    return Promise
-      .fromCallback(callback => service.http.server.destroy(callback))
+    return service.http
+      .closeAsync()
+      .timeout(5000)
+      .catch(Promise.TimeoutError, () => service.http.destroyAsync())
       .then(() => service.emit('plugin:stop:http'));
   }
 
