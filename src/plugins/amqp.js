@@ -120,7 +120,10 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
         // we must ack, otherwise message would be returned to sender with reject
         // instead of promise.reject
         message.ack();
-        if (logger !== undefined) logger.error({ err, properties }, 'Failed: [%s]', actionName);
+        if (logger !== undefined) {
+          const logLevel = err.retryAttempt === 0 ? 'warn' : 'error';
+          logger[logLevel]({ err, properties }, 'Failed: [%s]', actionName);
+        }
         return Promise.reject(err);
       }
 
