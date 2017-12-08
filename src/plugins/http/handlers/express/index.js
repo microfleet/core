@@ -32,7 +32,7 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
   };
 
   // make sure we can destroy it
-  enableDestroy(service.http);
+  enableDestroy(server);
 
   function startServer() {
     if (service.http.server.listening === true) {
