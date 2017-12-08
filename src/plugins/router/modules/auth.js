@@ -25,6 +25,7 @@ function auth(request: ServiceRequest): Promise<any> {
     throw new NotImplementedError(action.auth);
   }
 
+  // $FlowFixMe
   const promise = Promise
     .bind(this, request)
     .then(authStrategy)

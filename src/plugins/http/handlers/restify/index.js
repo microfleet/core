@@ -35,7 +35,12 @@ function createRestifyServer(config: Object, service: Mservice): PluginInterface
         service.http.server.listen(config.server.port, config.server.host, callback)
       ))
       .then(() => service.emit('plugin:start:http', service.http))
-      .then(() => service.http);
+      .then(() => {
+        const http = service.http;
+        http.closeAsync = Promise.promisify(http.close, { context: http });
+        http.destroyAsync = Promise.promisify(http.destroy, { context: http });
+        return http;
+      });
   }
 
   function stopServer() {
@@ -48,12 +53,10 @@ function createRestifyServer(config: Object, service: Mservice): PluginInterface
       service.socketIO.close();
     }
 
-    return Promise
-      .fromCallback(next => service.http.close(next))
+    return service.http
+      .closeAsync()
       .timeout(5000)
-      .catch(Promise.TimeoutError, () => Promise.fromCallback(next =>
-        service.http.destroy(next)
-      ))
+      .catch(Promise.TimeoutError, () => service.http.destroyAsync())
       .then(() => service.emit('plugin:stop:http'));
   }
 

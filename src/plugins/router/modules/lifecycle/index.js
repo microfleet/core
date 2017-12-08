@@ -65,6 +65,7 @@ function moduleLifecycle(module: string, promiseFactory: PromiseFactory, extensi
         return Promise.resolve(resultResponse);
       }
 
+      // $FlowFixMe
       return Promise
         .bind(extensions, [postModule, [errorResponse, resultResponse, ...args], context])
         .spread(extensions.exec)

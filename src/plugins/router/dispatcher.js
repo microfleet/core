@@ -54,6 +54,7 @@ function dispatch(route: string, request: ServiceRequest, callback: () => mixed 
     });
   }
 
+  // $FlowFixMe
   let result = Promise
     .bind(service, [route, request])
     .spread(modules.request)

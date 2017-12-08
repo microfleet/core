@@ -83,7 +83,7 @@ class Mservice extends EventEmitter {
    * @param {string} name - Pass extension name to require.
    * @returns {Module} Extension to router plugin.
    */
-  static routerExtension(name) {
+  static routerExtension(name: string) {
     // eslint-disable-next-line import/no-dynamic-require
     return require(`./plugins/router/extensions/${name}`);
   }
@@ -180,6 +180,7 @@ class Mservice extends EventEmitter {
   hook(event: string, ...args: Array<any>) {
     const listeners = this.listeners(event);
 
+    // $FlowFixMe
     return Promise
       .bind(this)
       .return(listeners)

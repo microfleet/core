@@ -7,6 +7,7 @@ const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
 function allowed(request: ServiceRequest): Promise<ServiceRequest | NotPermittedError | ArgumentError> {
+  // $FlowFixMe
   return Promise
     .bind(this, request)
     .then(request.action.allowed)

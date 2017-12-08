@@ -40,6 +40,7 @@ function getSocketIORouterAdapter(config: Object, router: Router) {
 
       debug('prepared request with', packet.data);
 
+      // $FlowFixMe
       return Promise
         .bind(router, [actionName, request, callback])
         .spread(router.dispatch);
