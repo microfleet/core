@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
-const { expect } = require('chai');
 const http = require('http');
 const Server = require('restify/lib/server');
+const { expect } = require('chai');
 const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Http server with \'restify\' handler suite', function testSuite() {

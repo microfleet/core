@@ -1,5 +1,6 @@
 const assert = require('assert');
 const Mservice = require('../../src');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('knex plugin', function testSuite() {
   it('should be able to throw error if plugin is not included', function test() {
@@ -23,13 +24,10 @@ describe('knex plugin', function testSuite() {
     return this.service
       .connect()
       .reflect()
-      .then(result => {
-        assert.ok(result.isFulfilled());
-
-        return Promise.resolve(result.value());
-      })
-      .spread(knex => {
-        assert.equal(knex.client.pool._count, 3);
+      .then(inspectPromise())
+      .spread((knex) => {
+        // default settings in
+        assert.ok(knex.client.pool._count >= 2 && knex.client.pool._count <= 4);
       });
   });
 
@@ -47,8 +45,8 @@ describe('knex plugin', function testSuite() {
     return this.service
       .close()
       .reflect()
-      .then(result => {
-        assert.ok(result.isFulfilled());
+      .then(inspectPromise())
+      .then(() => {
         assert.equal(this.service.knex.client.pool, undefined);
       });
   });
@@ -70,9 +68,15 @@ describe('knex plugin', function testSuite() {
     return service
       .connect()
       .reflect()
-      .then((inspection) => {
+      .then(inspectPromise(false))
+      .then((reason) => {
         // causes error because there are no migrations to execute
-        assert.equal(inspection.reason().path, '/src/migrations');
-      });
+        assert.equal(reason.path, '/src/migrations');
+      })
+      .finally(() => service.close());
   });
+
+  after('close', () => (
+    this.service && this.service.close()
+  ));
 });
