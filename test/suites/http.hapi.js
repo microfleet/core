@@ -62,6 +62,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         const client = SocketIOClient('http://0.0.0.0:3000');
         client.on('error', done);
         client.emit('echo', { message: 'foo' }, (error, response) => {
+          client.close();
           assert.equal(error, null);
           assert.deepEqual(response, { message: 'foo' });
           service.close().asCallback(done);

@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const { expect } = require('chai');
 const http = require('http');
 const Server = require('restify/lib/server');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Http server with \'restify\' handler suite', function testSuite() {
   const Mservice = require('../../src');
@@ -19,10 +20,7 @@ describe('Http server with \'restify\' handler suite', function testSuite() {
 
     return this.service.connect()
       .reflect()
-      .then((result) => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread((restifyServer) => {
         expect(restifyServer).to.be.instanceof(Server);
         expect(restifyServer.server).to.be.instanceof(http.Server);

@@ -1,4 +1,3 @@
-const Promise = require('bluebird');
 const express = require('express');
 const http = require('http');
 const path = require('path');
@@ -63,10 +62,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
   it('should be able to stop \'express\' http server', function test() {
     return this.service.close()
       .reflect()
-      .then((result) => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread(() => {
         expect(this.service.http.server.listening).to.be.eq(false);
       });
@@ -93,6 +89,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
       .then(() => {
         const client = SocketIOClient('http://0.0.0.0:3000');
         client.emit('echo', { message: 'foo' }, (error, response) => {
+          client.close();
           expect(error).to.be.equals(null);
           expect(response).to.be.deep.equals({ message: 'foo' });
           service.close().asCallback(done);
