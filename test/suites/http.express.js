@@ -1,9 +1,11 @@
-const { expect } = require('chai');
+const Promise = require('bluebird');
 const express = require('express');
 const http = require('http');
 const path = require('path');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
+const { expect } = require('chai');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Http server with \'express\' handler suite', function testSuite() {
   const Mservice = require('../../src');
@@ -16,21 +18,18 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           handler: 'express',
           handlerConfig: {
             properties: {
-              'x-powered-by': 'mservice test'
-            }
+              'x-powered-by': 'mservice test',
+            },
           },
           port: 3000,
-        }
+        },
       },
     });
 
     return this.service.connect()
       .reflect()
-      .then(result => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        return Promise.resolve(result.value());
-      })
-      .spread(server => {
+      .then(inspectPromise())
+      .spread((server) => {
         expect(server.handler).to.be.instanceof(Function);
         expect(server.server).to.be.instanceof(http.Server);
         expect(this.service.http.handler).to.be.instanceof(Function);
@@ -42,7 +41,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
   it('should can add routes after start', function test(done) {
     const application = this.service.http.handler;
     const router = express.Router();
-    router.use('/bar', function(req, res, next) {
+    router.use('/bar', (req, res, next) => {
       res.send('/bar route');
       next();
     });
@@ -51,7 +50,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
     http.get('http://0.0.0.0:3000/bar', (res) => {
       let body = '';
 
-      res.on('data', (chunk) => body += chunk);
+      res.on('data', (chunk) => { body += chunk; });
       res.on('end', () => {
         expect(body).to.be.equals('/bar route');
         done();
@@ -64,7 +63,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
   it('should be able to stop \'express\' http server', function test() {
     return this.service.close()
       .reflect()
-      .then(result => {
+      .then((result) => {
         expect(result.isFulfilled()).to.be.eq(true);
         return Promise.resolve(result.value());
       })
@@ -81,9 +80,9 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           attachSocketIO: true,
           handler: 'express',
           port: 3000,
-        }
+        },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       socketIO: global.SERVICES.socketIO,
@@ -98,7 +97,8 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           expect(response).to.be.deep.equals({ message: 'foo' });
           service.close().asCallback(done);
         });
-      });
+      })
+      .catch(done);
   });
 
   it('should be able to attach \'router\' plugin', () => {
@@ -113,7 +113,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           enabled: true,
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -138,7 +138,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
+        return request(options).then((response) => {
           expect(response.statusCode).to.be.equals(200);
           expect(response.body).to.be.deep.equals({ message: 'foo' });
 
@@ -159,7 +159,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           enabled: true,
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -185,7 +185,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
+        return request(options).then((response) => {
           expect(response.statusCode).to.be.equals(200);
           expect(response.body).to.be.deep.equals({ message: 'foo' });
 
@@ -207,7 +207,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -232,7 +232,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
+        return request(options).then((response) => {
           expect(response.statusCode).to.be.equals(200);
           expect(response.body).to.be.deep.equals({ message: 'foo' });
 
@@ -254,7 +254,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger : {
+      logger: {
         defaultLogger: true,
       },
       router: {
@@ -280,7 +280,7 @@ describe('Http server with \'express\' handler suite', function testSuite() {
           body: { message: 'foo' },
         };
 
-        return request(options).then(response => {
+        return request(options).then((response) => {
           expect(response.statusCode).to.be.equals(200);
           expect(response.body).to.be.deep.equals({ message: 'foo' });
 
