@@ -25,12 +25,13 @@ services:
     command: redis-server /etc/redis-sentinel/redis-sentinel.conf --sentinel
 
   rabbitmq:
+    ports:
+      - "15672:15672"
     expose:
       - "4369"
       - "5672"
-      - "15672"
       - "25672"
-    image: makeomatic/rabbitmq:3.6.9
+    image: makeomatic/rabbitmq:3.6.12
     container_name: rabbitmq
     hostname: rabbitmq
 
@@ -80,7 +81,7 @@ services:
       - redis
       - elasticsearch
       - cassandra
-    image: makeomatic/node:8.2.1-tester-glibc
+    image: makeomatic/node:9.3.0-tester-glibc
     container_name: tester
     command: tail -f /dev/null
     environment:

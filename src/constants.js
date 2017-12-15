@@ -31,7 +31,7 @@ exports.ActionTransport = {
  * Constants with connect types to control order of service bootstrap
  * @type {Object}
  */
-const ConnectorsTypes = exports.ConnectorsTypes = {
+const ConnectorTypes = exports.ConnectorsTypes = exports.ConnectorTypes = {
   essential: 'essential',
   database: 'database',
   migration: 'migration',
@@ -43,7 +43,7 @@ const ConnectorsTypes = exports.ConnectorsTypes = {
  * Plugin Types
  * @type {Object}
  */
-const PluginsTypes = exports.PluginsTypes = {
+const PluginTypes = exports.PluginsTypes = exports.PluginTypes = {
   essential: 'essential',
   database: 'database',
   transport: 'transport',
@@ -54,11 +54,11 @@ const PluginsTypes = exports.PluginsTypes = {
  * @type {Array}
  */
 exports.ConnectorsPriority = [
-  ConnectorsTypes.essential,
-  ConnectorsTypes.database,
-  ConnectorsTypes.migration,
-  ConnectorsTypes.transport,
-  ConnectorsTypes.application,
+  ConnectorTypes.essential,
+  ConnectorTypes.database,
+  ConnectorTypes.migration,
+  ConnectorTypes.transport,
+  ConnectorTypes.application,
 ];
 
 /**
@@ -66,7 +66,7 @@ exports.ConnectorsPriority = [
  * @type {Array}
  */
 exports.PluginsPriority = [
-  PluginsTypes.essential,
-  PluginsTypes.database,
-  PluginsTypes.transport,
+  PluginTypes.essential,
+  PluginTypes.database,
+  PluginTypes.transport,
 ];

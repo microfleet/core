@@ -74,9 +74,11 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
       service.socketIO.listen(server.listener);
     }
 
-    return Promise.resolve(server)
+    // $FlowFixMe
+    return Promise
+      .bind(server, server)
       .tap(initPlugins)
-      .tap(() => server.start())
+      .tap(server.start)
       .tap(() => {
         if (service._log) {
           service.log.info({ transport: 'http', http: 'hapi' }, 'listening on http://%s:%s', handlerConfig.server.address, handlerConfig.server.port);

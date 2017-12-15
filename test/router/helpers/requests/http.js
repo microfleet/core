@@ -1,28 +1,31 @@
 const Promise = require('bluebird');
-const request = require('request');
+const request = require('request-promise');
+const errors = require('request-promise/errors');
 
 function getHTTPRequest(options) {
-  function HTTPRequest(action, params) {
+  return (action, params, opts = {}) => {
     const requestOptions = {
-      uri: `${options.url}${action}`,
+      baseUrl: options.url,
       method: 'POST',
-      json: params,
+      simple: true,
+      ...options,
+      ...opts,
+      uri: action,
     };
 
-    return new Promise((resolve, reject) => {
-      const callback = (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          resolve(body);
-        } else {
-          reject(body);
-        }
-      };
+    // patch
+    delete requestOptions.url;
 
-      request(requestOptions, callback);
-    });
-  }
+    if (params) {
+      requestOptions.json = params;
+    } else {
+      requestOptions.json = true;
+    }
 
-  return HTTPRequest;
+    return request(requestOptions)
+      .promise()
+      .catch(errors.StatusCodeError, err => Promise.reject(err.response.body));
+  };
 }
 
 module.exports = getHTTPRequest;

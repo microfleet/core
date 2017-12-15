@@ -1,27 +1,32 @@
 /* eslint-disable max-len, new-cap, promise/catch-or-return */
-const { ActionTransport } = require('./../../src');
-const auditLog = require('./../../src/plugins/router/extensions/audit/log');
 const { expect } = require('chai');
 const Errors = require('common-errors');
-const schemaLessAction = require('./../../src/plugins/router/extensions/validate/schemaLessAction');
-const getAMQPRequest = require('./../router/helpers/requests/amqp');
-const getHTTPRequest = require('./../router/helpers/requests/http');
-const getSocketIORequest = require('./../router/helpers/requests/socketIO');
 const path = require('path');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
-const verify = require('./../router/helpers/verifyCase');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Router suite', function testSuite() {
-  const MService = require('../../src');
+  const Mservice = require('../../src');
+  const auditLog = require('../../src/plugins/router/extensions/audit/log');
+  const getAMQPRequest = require('../router/helpers/requests/amqp');
+  const getHTTPRequest = require('../router/helpers/requests/http');
+  const getSocketIORequest = require('../router/helpers/requests/socketIO');
+  const verify = require('../router/helpers/verifyCase');
+
+  const schemaLessAction = Mservice.routerExtension('validate/schemaLessAction');
+  const qsParser = Mservice.routerExtension('validate/query-string-parser');
+  const transportOptions = Mservice.routerExtension('validate/transport-options');
+
+  const { ActionTransport } = Mservice;
 
   it('should throw error if plugin is not included', function test() {
-    const service = new MService({ plugins: [] });
+    const service = new Mservice({ plugins: [] });
     expect(() => service.router).to.throw();
   });
 
-  it('should return response', function test(done) {
-    const service = new MService({
+  it('should return response', function test() {
+    const service = new Mservice({
       amqp: {
         transport: {
           connection: {
@@ -93,7 +98,8 @@ describe('Router suite', function testSuite() {
       validator: [path.resolve(__dirname, '../router/helpers/schemas')],
     });
 
-    service.connect()
+    return service
+      .connect()
       .then(() => {
         const AMQPRequest = getAMQPRequest(service.amqp);
         const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
@@ -165,32 +171,87 @@ describe('Router suite', function testSuite() {
           },
         };
 
-        Promise.map([
-          () => socketIORequest('not.exists', {}).reflect().then(verify(routeNotFound)),
-          () => socketIORequest('action.simple', {}).reflect().then(verify(authFailed)),
-          () => socketIORequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-          () => socketIORequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
-          () => socketIORequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-          () => HTTPRequest('/not/exists', {}).reflect().then(verify(routeNotFound)),
-          () => HTTPRequest('/action/simple', {}).reflect().then(verify(authFailed)),
-          () => HTTPRequest('/action/simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-          () => HTTPRequest('/action/simple', { token: true }).reflect().then(verify(accessDenied)),
-          () => HTTPRequest('/action/simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-          // non-existent action will be not processed by ms-amqp-transport
-          () => AMQPRequest('action.simple', {}).reflect().then(verify(authFailed)),
-          () => AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-          () => AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
-          () => AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-          () => AMQPRequest('action.retry', 10).reflect().then(verify(retryFail)),
-          () => AMQPRequest('action.retry', 3).reflect().then(verify(retrySuccess)),
-        ], handler => handler())
-          .then(() => service.close())
-          .asCallback(done);
+        return Promise
+          .all([
+            socketIORequest('not.exists', {}).reflect().then(verify(routeNotFound)),
+            socketIORequest('action.simple', {}).reflect().then(verify(authFailed)),
+            socketIORequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+            socketIORequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+            socketIORequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+            HTTPRequest('/not/exists', {}).reflect().then(verify(routeNotFound)),
+            HTTPRequest('/action/simple', {}).reflect().then(verify(authFailed)),
+            HTTPRequest('/action/simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+            HTTPRequest('/action/simple', { token: true }).reflect().then(verify(accessDenied)),
+            HTTPRequest('/action/simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+            // non-existent action will be not processed by ms-amqp-transport
+            AMQPRequest('action.simple', {}).reflect().then(verify(authFailed)),
+            AMQPRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+            AMQPRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+            AMQPRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+            AMQPRequest('action.retry', 10).reflect().then(verify(retryFail)),
+            AMQPRequest('action.retry', 3).reflect().then(verify(retrySuccess)),
+          ])
+          .finally(() => Promise.all([
+            service.close(),
+            socketIOClient.close(),
+          ]));
       });
   });
 
+  it('should be able to parse query string when present & perform validation', function test() {
+    const service = new Mservice({
+      http: {
+        server: {
+          handler: 'hapi',
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      plugins: ['validator', 'logger', 'router', 'http'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          prefix: 'action',
+          enabled: { qs: 'qs' },
+          transports: [ActionTransport.http],
+        },
+        extensions: {
+          enabled: ['preValidate', 'postRequest', 'preResponse', 'preRequest'],
+          register: [schemaLessAction, auditLog, qsParser, transportOptions],
+        },
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    });
+
+    const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' });
+    const rget = (qs, success = true, opts = {}) => (
+      HTTPRequest('/action/qs', null, { qs, ...opts })
+        .reflect()
+        .then(inspectPromise(success))
+    );
+
+    return service
+      .connect()
+      .then(() => (
+        Promise.all([
+          rget({ sample: 1, bool: true }),
+          rget({ sample: 'crap', bool: true }, false),
+          rget({ sample: 13, bool: 'invalid' }, false),
+          rget({ sample: 13, bool: '0' }),
+          rget({ sample: 13, bool: '0', oops: 'q' }, false),
+          rget({ sample: 13.4, bool: '0' }, false),
+          rget(null, false, { json: { sample: 13.4, bool: '0' }, method: 'post' }),
+        ])
+      ))
+      .finally(() => service.close());
+  });
+
   it('should be able to set schema from action name', function test() {
-    const service = new MService({
+    const service = new Mservice({
       amqp: {
         transport: {
           connection: {
@@ -245,18 +306,17 @@ describe('Router suite', function testSuite() {
           },
         };
 
-        return Promise.map(
-          [
-            () => AMQPRequest('action.withoutSchema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
-            () => AMQPRequest('action.withoutSchema', { foo: 42 }).reflect().then(verify(returnsResult)),
-          ],
-          handler => handler()
-        ).then(() => service.close());
+        return Promise
+          .all([
+            AMQPRequest('action.withoutSchema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+            AMQPRequest('action.withoutSchema', { foo: 42 }).reflect().then(verify(returnsResult)),
+          ])
+          .finally(() => service.close());
       });
   });
 
   it('should scan for nested routes', function test() {
-    const service = new MService({
+    const service = new Mservice({
       amqp: {
         transport: {
           connection: {
@@ -310,13 +370,11 @@ describe('Router suite', function testSuite() {
           },
         };
 
-        return Promise.map(
-          [
-            () => AMQPRequest('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
-            () => AMQPRequest('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
-          ],
-          handler => handler()
-        )
+        return Promise
+          .all([
+            AMQPRequest('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+            AMQPRequest('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
+          ])
           .then(() => service.close());
       });
   });

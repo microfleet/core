@@ -1,9 +1,9 @@
-const Promise = require('bluebird');
 const assert = require('assert');
+const AMQPTransport = require('@microfleet/transport-amqp');
+const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('AMQP suite', function testSuite() {
   const Mservice = require('../../src');
-  const AMQPTransport = require('@microfleet/transport-amqp');
 
   it('when service does not include `amqp` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });
@@ -17,9 +17,7 @@ describe('AMQP suite', function testSuite() {
     });
     return this.service.connect()
       .reflect()
-      .then((result) => {
-        return Promise.resolve(result.value());
-      })
+      .then(inspectPromise())
       .spread((amqp) => {
         assert.ok(amqp instanceof AMQPTransport);
         assert.doesNotThrow(() => this.service.amqp);

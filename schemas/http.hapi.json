@@ -7,10 +7,6 @@
             "default": {},
             "type": "object"
         },
-        "connection": {
-            "default": {},
-            "type": "object"
-        },
         "plugins": {
             "type": "object",
             "required": [
@@ -22,11 +18,11 @@
                     "items": {
                         "type": "object",
                         "required": [
-                            "register"
+                            "plugin"
                         ],
                         "additionalProperties": false,
                         "properties": {
-                            "register": {
+                            "plugin": {
                                 "anyOf": [
                                     {
                                         "type": "string",

@@ -13,7 +13,7 @@ export type PluginInterface = {
 
 export type Plugin = {
   name: string,
-  type: $Keys<typeof constants.PluginsTypes>,
+  type: $Values<typeof constants.PluginsTypes>,
   attach: (conf: Object, parentFile: string) => void | PluginInterface,
 };
 
@@ -22,9 +22,9 @@ export type MserviceError = Error & {
   statusCode: number,
 };
 
-export type TransportTypes = $Keys<typeof constants.ActionTransport>;
+export type TransportTypes = $Values<typeof constants.ActionTransport>;
 
-export type ConnectorsTypes = $Keys<typeof constants.ConnectorsTypes>;
+export type ConnectorsTypes = $Values<typeof constants.ConnectorsTypes>;
 
 export type HandlerProperties = typeof constants.CONNECTORS_PROPERTY | typeof constants.DESTRUCTORS_PROPERTY;
 

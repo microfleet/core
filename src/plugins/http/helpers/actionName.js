@@ -1,7 +1,9 @@
 // @flow
 function fromPathToName(path: string, prefix: string): string {
-  const slice = prefix.length ? prefix.length + 2 : 1;
-  return path.slice(slice).replace(/\//g, '.');
+  const length = prefix.length;
+  const start = length ? length + 2 : 1;
+  const end = path[path.length - 1] === '/' ? -1 : undefined;
+  return path.slice(start, end).replace(/\//g, '.');
 }
 
 function fromNameToPath(name: string, prefix: string): string {

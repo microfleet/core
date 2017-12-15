@@ -34,7 +34,7 @@ function validateAction(action: ServiceAction) {
   }
 
   if (is.array(action.transports) === false) {
-    throw new Errors.ValidationError('action.transports must be a array');
+    throw new Errors.ValidationError('action.transports must be an array');
   }
 }
 
@@ -75,11 +75,19 @@ function getRoutes(config: Object): RouteMap {
     // eslint-disable-next-line import/no-dynamic-require
     const action = require(path.resolve(config.directory, route));
 
+    // it mutates existing action, so use with caution and best
+    // explicitely supply the transports to support
     if (config.setTransportsAsDefault === true && action.transports === undefined) {
       action.transports = config.transports.slice(0);
     }
 
-    validateAction(action);
+    try {
+      validateAction(action);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to process action:', action);
+      throw e;
+    }
 
     // action name is the same as a route name
     action.actionName = enabled[route];
