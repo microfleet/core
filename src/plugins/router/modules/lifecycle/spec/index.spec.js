@@ -67,7 +67,7 @@ describe('router: module lifecycle', function suite() {
       .reflect()
       .then((inspection) => {
         const error = inspection.reason();
-        expect(error).to.be.equals('error: bar');
+        expect(error.message).to.be.equals('error: bar');
       });
   });
 
@@ -176,7 +176,7 @@ describe('router: module lifecycle', function suite() {
       enabled: ['postFoo'],
       register: [
         [
-          { point: 'postFoo', handler: (error, result) => Promise.resolve(['baz', result]) },
+          { point: 'postFoo', handler: (error, result) => [new Error('baz'), result] },
         ],
       ],
     });
@@ -194,7 +194,7 @@ describe('router: module lifecycle', function suite() {
       enabled: ['postFoo'],
       register: [
         [
-          { point: 'postFoo', handler: (error, result, foo, bar) => Promise.resolve([foo + bar]) },
+          { point: 'postFoo', handler: (error, result, foo, bar) => [new Error(foo + bar)] },
         ],
       ],
     });
@@ -203,7 +203,7 @@ describe('router: module lifecycle', function suite() {
     return moduleLifecycle('foo', handler, extensions, ['foo', 'bar'])
       .reflect()
       .then((inspection) => {
-        expect(inspection.value()).to.be.equals('foobar');
+        expect(inspection.reason().message).to.be.equals('foobar');
       });
   });
 });
