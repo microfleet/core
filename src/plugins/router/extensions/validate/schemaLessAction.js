@@ -11,7 +11,7 @@ module.exports = [
         return Promise.reject(error);
       }
 
-      const action = request.action;
+      const { action } = request;
 
       if (action.schema === undefined) {
         action.schema = action.actionName;

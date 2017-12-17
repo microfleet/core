@@ -36,7 +36,7 @@ function createRestifyServer(config: Object, service: Mservice): PluginInterface
       ))
       .then(() => service.emit('plugin:start:http', service.http))
       .then(() => {
-        const http = service.http;
+        const { http } = service;
         http.closeAsync = Promise.promisify(http.close, { context: http });
         http.destroyAsync = Promise.promisify(http.destroy, { context: http });
         return http;

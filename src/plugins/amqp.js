@@ -64,8 +64,10 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
 
   // initializes custom onComplete function
   if (config.retry && config.retry.enabled === true) {
-    assert.equal(config.transport.bindPersistantQueueToHeadersExchange, true,
-      'config.transport.bindPersistantQueueToHeadersExchange must be set to true');
+    assert.equal(
+      config.transport.bindPersistantQueueToHeadersExchange, true,
+      'config.transport.bindPersistantQueueToHeadersExchange must be set to true'
+    );
     assert.ok(config.retry.queue || config.transport.queue, '`retry.queue` or `transport.queue` must be truthy string');
     assert.equal(typeof config.transport.onComplete, 'undefined', 'transport.onComplete must be undefined');
     assert.equal(typeof config.transport.neck, 'number', 'neck must be set to >= 0');
@@ -76,10 +78,9 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     service.retryQueue = config.retry.queue || `x-delay-${config.transport.queue}`;
 
     // cache vars for faster access
-    const retry = config.retry;
+    const { retry } = config.retry;
+    const { predicate, maxRetries } = retry;
     const backoff = new Backoff({ qos: retry });
-    const predicate = retry.predicate;
-    const maxRetries = retry.maxRetries;
 
     /**
       * Composes onComplete handler for QoS enabled Subscriber.

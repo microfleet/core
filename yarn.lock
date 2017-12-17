@@ -62,15 +62,15 @@
     "@semantic-release/error" "^1.0.0"
     semver "^5.1.0"
 
-"@makeomatic/deploy@^4.1.8":
-  version "4.1.8"
-  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-4.1.8.tgz#94450b4e501ad9853977c688dcfdd3c4d631352f"
+"@makeomatic/deploy@^4.1.9":
+  version "4.1.9"
+  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-4.1.9.tgz#22066b3d1f939e617ada74e07c267591b211bbe6"
   dependencies:
     "@makeomatic/condition-semaphore" "^1.0.2"
     "@makeomatic/last-release-npm" "^1.0.1"
     bluebird "^3.5.1"
-    chrome-launcher "^0.8.1"
-    chrome-remote-interface "^0.25.3"
+    chrome-launcher "^0.10.0"
+    chrome-remote-interface "^0.25.4"
     death "^1.1.0"
     find-up "^2.1.0"
     github-post-release "^1.13.1"
@@ -1758,9 +1758,9 @@ chokidar@^1.2.0, chokidar@^1.6.1:
   optionalDependencies:
     fsevents "^1.0.0"
 
-chrome-launcher@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/chrome-launcher/-/chrome-launcher-0.8.1.tgz#e275b738376d294b3228dc32caf3ed7ee0405e57"
+chrome-launcher@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/chrome-launcher/-/chrome-launcher-0.10.0.tgz#4291ab1d20bb097da80b085e8c8c8e6b3e3d72c9"
   dependencies:
     "@types/core-js" "^0.9.41"
     "@types/mkdirp" "^0.3.29"
@@ -1771,7 +1771,7 @@ chrome-launcher@^0.8.1:
     mkdirp "0.5.1"
     rimraf "^2.6.1"
 
-chrome-remote-interface@^0.25.3:
+chrome-remote-interface@^0.25.4:
   version "0.25.4"
   resolved "https://registry.yarnpkg.com/chrome-remote-interface/-/chrome-remote-interface-0.25.4.tgz#3a84aa9ef053dc2fd25d3b4c30d7501cb5f73883"
   dependencies:
@@ -2708,17 +2708,17 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-config-airbnb-base@^11.3.1:
-  version "11.3.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-11.3.2.tgz#8703b11abe3c88ac7ec2b745b7fdf52e00ae680a"
+eslint-config-airbnb-base@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-12.1.0.tgz#386441e54a12ccd957b0a92564a4bafebd747944"
   dependencies:
     eslint-restricted-globals "^0.1.1"
 
-eslint-config-makeomatic@^1.0.1:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-makeomatic/-/eslint-config-makeomatic-1.1.0.tgz#94c7ccbe32e2f25a7bd1be26ecebb411218d6982"
+eslint-config-makeomatic@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-makeomatic/-/eslint-config-makeomatic-2.0.1.tgz#8ebf4255c50c6c41e46cfb0c54ef559ab477b25d"
   dependencies:
-    eslint-config-airbnb-base "^11.3.1"
+    eslint-config-airbnb-base "^12.1.0"
 
 eslint-config-standard-jsdoc@^0.3.2:
   version "0.3.2"
@@ -2761,9 +2761,16 @@ eslint-plugin-import@^2.8.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
 
-eslint-plugin-jsdoc@>=1.1.0, eslint-plugin-jsdoc@^3.2.0:
+eslint-plugin-jsdoc@>=1.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.2.0.tgz#16c41575745601f9b7d873a4b8fe6f54b9eccec2"
+  dependencies:
+    comment-parser "^0.4.2"
+    lodash "^4.17.4"
+
+eslint-plugin-jsdoc@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-3.3.0.tgz#fc28597d2d1754bd0fea5c201f0092418191a09c"
   dependencies:
     comment-parser "^0.4.2"
     lodash "^4.17.4"

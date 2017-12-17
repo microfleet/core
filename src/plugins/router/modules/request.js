@@ -10,7 +10,7 @@ const Promise = require('bluebird');
 function getAction(route: string, request: ServiceRequest): Promise<any> {
   debug('handler for module "request"');
   const service = this;
-  const transport = request.transport;
+  const { transport } = request;
 
   if (is.undefined(transport) === true) {
     return Promise.reject(new Errors.ArgumentError('"request" must have property "transport"'));
@@ -30,7 +30,7 @@ function getAction(route: string, request: ServiceRequest): Promise<any> {
 
 function requestHandler(route: string, request: ServiceRequest): Promise<any> {
   const service = this;
-  const extensions = service.router.extensions;
+  const { extensions } = service.router;
 
   return moduleLifecycle('request', getAction, extensions, [route, request], service);
 }

@@ -87,7 +87,7 @@
     "socketio-wildcard": "~2.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^4.1.8",
+    "@makeomatic/deploy": "^4.1.9",
     "@microfleet/transport-amqp": "^12.2.1",
     "babel-cli": "^6.23.0",
     "babel-eslint": "^8.0.3",
@@ -109,11 +109,11 @@
     "documentation": "^5.3.5",
     "elasticsearch": "^14.0.0",
     "eslint": "^4.13.1",
-    "eslint-config-makeomatic": "^1.0.1",
+    "eslint-config-makeomatic": "^2.0.1",
     "eslint-config-standard-jsdoc": "^0.3.2",
     "eslint-plugin-flowtype": "^2.40.1",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsdoc": "^3.2.0",
+    "eslint-plugin-jsdoc": "^3.3.0",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-promise": "^3.6.0",
     "express": "^4.16.2",

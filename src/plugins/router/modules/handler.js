@@ -15,7 +15,7 @@ function handler(request: ServiceRequest): Promise<any> {
     return Promise.reject(new Errors.NotImplementedError('Action must be a function'));
   }
 
-  const extensions = this.router.extensions;
+  const { extensions } = this.router;
   return moduleLifecycle('handler', request.action, extensions, [request], this);
 }
 

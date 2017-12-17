@@ -64,7 +64,8 @@ exports.attach = function attachElasticsearch(conf: Object = {}): PluginInterfac
         return Promise.reject(new Errors.NotPermittedError('elasticsearch was already started'));
       }
 
-      const instance = new Elasticsearch.Client({ ...opts,
+      const instance = new Elasticsearch.Client({
+        ...opts,
         defer: () => {
           const defer = {};
 

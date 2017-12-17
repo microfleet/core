@@ -27,7 +27,7 @@ const handleValidationError = (error) => {
 };
 
 function validate(request: ServiceRequest): Promise<*> {
-  const validator = this.validator;
+  const { validator } = this;
   const paramsKey = DATA_KEY_SELECTOR[request.method];
 
   return validator

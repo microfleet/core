@@ -59,6 +59,7 @@ exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: str
     schemas = conf;
   } else {
     validator = new Validator(schemasPath, conf.filter, conf.ajv);
+    // eslint-disable-next-line prefer-destructuring
     schemas = conf.schemas;
   }
 
@@ -74,7 +75,7 @@ exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: str
     schemas.forEach((_location) => {
       let dir;
       if (!path.isAbsolute(_location)) {
-        const length = stack.length;
+        const { length } = stack;
 
         // filter out the file itself
         let iterator = 0;

@@ -12,8 +12,8 @@ const { ActionTransport } = require('../../../constants');
 const { amqp } = ActionTransport;
 
 function getAMQPRouterAdapter(router: Router, config: Object) {
-  const onComplete = config.transport.onComplete;
-  const service = router.service;
+  const { onComplete } = config.transport;
+  const { service } = router;
   const wrapDispatch = is.fn(onComplete)
     ? (promise, actionName, raw) => promise
       .reflect()

@@ -15,7 +15,9 @@ const wrapPromise = (span: any, promise: any, callback: () => mixed | void) => (
   promise
     .catch((err) => {
       span.setTag(ERROR, true);
-      span.log({ event: 'error', 'error.object': err, message: err.message, stack: err.stack });
+      span.log({
+        event: 'error', 'error.object': err, message: err.message, stack: err.stack,
+      });
       throw err;
     })
     .finally(() => {
@@ -32,8 +34,7 @@ function reflectToProps(reflection) {
 
 function dispatch(route: string, request: ServiceRequest, callback: () => mixed | void): Promise<*> | void {
   const router = this;
-  const modules = router.modules;
-  const service = router.service;
+  const { modules, service } = router;
 
   debug('initiating request on route %s', route);
 

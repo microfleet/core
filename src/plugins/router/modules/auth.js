@@ -6,8 +6,6 @@ const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
-let strategies = [];
-
 const remapError = (error) => {
   if (error.constructor === AuthenticationRequired) {
     return Promise.reject(error);
@@ -16,12 +14,13 @@ const remapError = (error) => {
   return Promise.reject(new AuthenticationRequired(error.message, error));
 };
 
-function auth(request: ServiceRequest): Promise<any> {
+function auth(request: ServiceRequest, strategies: Object): Promise<any> {
+  // eslint-disable-next-line prefer-destructuring
   const action: ServiceAction = request.action;
   const authName = action.auth;
   const authStrategy = strategies[is.fn(authName) ? authName(request) : authName];
 
-  if (authStrategy === undefined) {
+  if (authStrategy == null) {
     throw new NotImplementedError(action.auth);
   }
 
@@ -41,21 +40,23 @@ function auth(request: ServiceRequest): Promise<any> {
   return promise.catch(remapError);
 }
 
-function authHandler(request: ServiceRequest): Promise<any> {
-  if (request.action === undefined) {
-    return Promise.reject(new ArgumentError('"request" must have property "action"'));
-  }
+function assignStrategies(strategies): Function {
+  return function authHandler(request: ServiceRequest): Promise<any> {
+    if (request.action === undefined) {
+      return Promise.reject(new ArgumentError('"request" must have property "action"'));
+    }
 
-  if (is.undefined(request.action.auth) === true) {
-    return Promise.resolve(request);
-  }
+    if (is.undefined(request.action.auth) === true) {
+      return Promise.resolve(request);
+    }
 
-  return moduleLifecycle('auth', auth, this.router.extensions, [request], this);
+    return moduleLifecycle('auth', auth, this.router.extensions, [request, strategies], this);
+  };
 }
 
 function getAuthHandler(config: Object): Function {
-  strategies = config.strategies;
-  return authHandler;
+  const strategies = Object.assign(Object.create(null), config.strategies);
+  return assignStrategies(strategies);
 }
 
 module.exports = getAuthHandler;

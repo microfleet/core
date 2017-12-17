@@ -24,7 +24,7 @@ exports.name = 'cassandra';
 exports.type = PluginsTypes.database;
 
 function factory(Cassandra, config) {
-  const models = config.service.models;
+  const { models } = config.service;
 
   if (is.string(models)) {
     const client = Cassandra;

@@ -4,7 +4,9 @@ import type { Router } from '../../../../router/factory';
 
 const { ActionTransport } = require('../../../../../constants');
 const { fromPathToName } = require('../../../helpers/actionName');
-const { AuthenticationRequiredError, ValidationError, NotPermittedError, NotFoundError } = require('common-errors');
+const {
+  AuthenticationRequiredError, ValidationError, NotPermittedError, NotFoundError,
+} = require('common-errors');
 const noop = require('lodash/noop');
 
 function getHTTPRouter(router: Router, config: Object) {

@@ -21,7 +21,7 @@ export type HapiIncomingMessage = IncomingMessage & {
 
 module.exports = function getHapiAdapter(service: Mservice, config: Object) {
   const Boom = _require('boom');
-  const router = service.router;
+  const { router } = service;
 
   const reformatError = (error) => {
     let statusCode;
@@ -43,6 +43,7 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
         statusCode = 404;
         break;
       case Errors.HttpStatusError:
+        // eslint-disable-next-line prefer-destructuring
         statusCode = error.statusCode;
         break;
       default:
@@ -68,7 +69,7 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
 
   return async function handler(request: HapiIncomingMessage) {
     const actionName = fromPathToName(request.path, config.prefix);
-    const headers = request.headers;
+    const { headers } = request;
 
     let parentSpan;
     if (service._tracer !== undefined) {

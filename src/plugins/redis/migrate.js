@@ -145,7 +145,7 @@ module.exports = async function performMigration(redis: Redis, service: Mservice
 
   // eslint-disable-next-line no-restricted-syntax
   for (const file of files) {
-    const final = file.final;
+    const { final } = file;
     assert(is.integer(+final), 'final version must be present and be an integer');
 
     if (is.string(file.script)) {
@@ -157,7 +157,7 @@ module.exports = async function performMigration(redis: Redis, service: Mservice
       // finalize content
       const script = appendLuaScript(final, file.min, file.script);
       const keys = [VERSION_KEY].concat(file.keys || []);
-      const args = file.args;
+      const { args } = file;
 
       debug('evaluating script after %s', currentVersion, script);
 

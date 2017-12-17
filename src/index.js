@@ -40,6 +40,14 @@ const constants = require('./constants');
 const defaultOpts = require('./defaults');
 
 /**
+ * Simple invocation that preserves context.
+ * @param {Function} fn - Function to invoke.
+ */
+function invoke(fn) {
+  return fn.call(this);
+}
+
+/**
  * @class Mservice
  */
 class Mservice extends EventEmitter {
@@ -276,7 +284,10 @@ class Mservice extends EventEmitter {
             return [];
           }
 
-          return Promise.map(connectors, func => func());
+          // $FlowFixMe
+          return Promise
+            .bind(this, connectors)
+            .map(invoke);
         }
       )
       .then(result => flatten(result))

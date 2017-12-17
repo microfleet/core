@@ -24,7 +24,7 @@ const defaultPlugins: Array<HapiPlugin> = [{
 function createHapiServer(config: Object, service: Mservice): PluginInterface {
   const Hapi = _require('hapi');
 
-  const handlerConfig = config.server.handlerConfig;
+  const { handlerConfig } = config.server;
   handlerConfig.server.address = config.server.host || '0.0.0.0';
   handlerConfig.server.port = config.server.port || 3000;
 

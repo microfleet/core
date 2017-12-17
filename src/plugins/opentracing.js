@@ -26,7 +26,7 @@ exports.type = PluginsTypes.essential;
  * @param {Object} settings - AMQP plugin configuration.
  */
 exports.attach = function attachOpentracing(settings: Object): void {
-  const initTracer = _require('jaeger-client').initTracer;
+  const { initTracer } = _require('jaeger-client');
 
   // optional validation with the plugin
   if (is.fn(this.validateSync)) {

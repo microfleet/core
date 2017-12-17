@@ -12,7 +12,7 @@ function attachSocketIORouter(socketIO: SocketIO, config: Object, router: Router
 
   // due to changes in socket.io@2.0.2 we must attach server before using .use for adding middleware
   // otherwise it crashes
-  const attach = socketIO.attach;
+  const { attach } = socketIO;
 
   // NOTE: overwrites listen & attach functions so that we can init middleware after we have connected
   // a server to socket.io instance

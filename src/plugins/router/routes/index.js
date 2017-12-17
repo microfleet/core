@@ -52,7 +52,7 @@ function getRoutes(config: Object): RouteMap {
     _all: Object.create(null),
   };
 
-  const enabled = config.enabled;
+  const { enabled } = config;
 
   // if enabled actions is empty load all actions from directory
   if (Object.keys(enabled).length === 0) {
