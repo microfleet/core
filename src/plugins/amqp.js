@@ -78,7 +78,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     service.retryQueue = config.retry.queue || `x-delay-${config.transport.queue}`;
 
     // cache vars for faster access
-    const { retry } = config.retry;
+    const { retry } = config;
     const { predicate, maxRetries } = retry;
     const backoff = new Backoff({ qos: retry });
 
