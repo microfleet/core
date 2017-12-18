@@ -255,7 +255,7 @@ class Mservice extends EventEmitter {
    * @returns {Promise<*>} Walks over registered connectors and emits ready event upon completion.
    */
   connect() {
-    return this._processAndEmit(this.getConnectors(), 'ready');
+    return this._processAndEmit(this.getConnectors(), 'ready', Mservice.ConnectorsPriority);
   }
 
   /**
@@ -263,7 +263,7 @@ class Mservice extends EventEmitter {
    * @returns {Promise} Walks over registered destructors and emits close event upon completion.
    */
   close() {
-    return this._processAndEmit(this.getDesturctors(), 'close');
+    return this._processAndEmit(this.getDesturctors(), 'close', Mservice.ConnectorsPriority.slice(0).reverse());
   }
 
   /**
@@ -271,26 +271,24 @@ class Mservice extends EventEmitter {
    * @private
    * @param {Object} collection - Object with namespaces for arbitrary handlers.
    * @param {string} event - Type of handlers that must be called.
+   * @param {Array<string>} [priority=Mservice.ConnectorsPriority] - Order to process collection.
    * @returns {Promise<*>} Result of the invocation.
    */
-  _processAndEmit(collection: Object, event: string) {
+  _processAndEmit(collection: Object, event: string, priority: Array<ConnectorsTypes> = Mservice.ConnectorsPriority) {
     return Promise
-      .mapSeries(
-        Mservice.ConnectorsPriority,
-        (connectorType) => {
-          const connectors = collection[connectorType];
+      .mapSeries(priority, (connectorType) => {
+        const connectors = collection[connectorType];
 
-          if (!connectors) {
-            return [];
-          }
-
-          // $FlowFixMe
-          return Promise
-            .bind(this, connectors)
-            .map(invoke);
+        if (!connectors) {
+          return [];
         }
-      )
-      .then(result => flatten(result))
+
+        // $FlowFixMe
+        return Promise
+          .bind(this, connectors)
+          .map(invoke);
+      })
+      .then(flatten)
       .tap(() => this.emit(event));
   }
 

@@ -79,7 +79,7 @@
     "ms-socket.io-adapter-amqp": "~5.x.x",
     "ms-validation": "~6.x.x",
     "pg": "~7.x.x",
-    "vision": "~4.x.x",
+    "vision": "~5.x.x",
     "raven": "~2.x.x",
     "restify": "~6.x.x",
     "server-destroy": "~1.x.x",
