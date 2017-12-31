@@ -1,6 +1,5 @@
 // @flow
 import typeof Mservice from '../../../../index';
-import type { PluginInterface } from '../../../../types';
 
 const Errors = require('common-errors');
 const attachRouter = require('./router/attach');

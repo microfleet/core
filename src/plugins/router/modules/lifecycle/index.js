@@ -1,7 +1,4 @@
 // @flow
-
-import type { LifecycleRequestType } from '../../../../types';
-
 const upperFirst = require('lodash/upperFirst');
 const debug = require('debug')('mservice:router:module:lifecycle');
 const is = require('is');

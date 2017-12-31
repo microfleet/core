@@ -1,7 +1,6 @@
 // @flow
 import type { IncomingMessage } from 'http';
 import typeof Mservice from '../../../../../index';
-import type { ServiceRequest } from '../../../../../types';
 
 const Promise = require('bluebird');
 const { FORMAT_HTTP_HEADERS } = require('opentracing');
@@ -80,7 +79,7 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       headers,
       params: request.payload,
       query: request.query,
-      method: request.method.toLowerCase(),
+      method: (request.method.toLowerCase(): any),
 
       // transport type
       transport: ActionTransport.http,
@@ -93,6 +92,9 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       // opentracing
       parentSpan,
       span: undefined,
+
+      // set to console
+      log: (console: any),
     };
 
     let response;

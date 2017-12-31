@@ -1,7 +1,5 @@
 // @flow
 
-import type { ServiceRequest } from '../../../../types';
-
 const Promise = require('bluebird');
 const { NotSupportedError } = require('common-errors');
 

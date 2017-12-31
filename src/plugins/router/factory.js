@@ -1,6 +1,5 @@
 // @flow
 import typeof Mservice from '../../index';
-import type { RouteMap } from '../../types';
 
 const dispatch = require('./dispatcher');
 const Extensions = require('./extensions');

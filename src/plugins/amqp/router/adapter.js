@@ -1,5 +1,4 @@
 // @flow
-import type { ServiceRequest } from '../../../types';
 import type { Router } from '../../router/factory';
 
 const Promise = require('bluebird');
@@ -45,6 +44,9 @@ function getAMQPRouterAdapter(router: Router, config: Object) {
       // pass raw span
       parentSpan: raw.span,
       span: undefined,
+
+      // set to console
+      log: (console: any),
     };
 
     const promise = dispatch(actionName, opts);

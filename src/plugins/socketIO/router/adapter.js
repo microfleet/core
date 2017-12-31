@@ -1,6 +1,5 @@
 // @flow
 import type EventEmitter from 'events';
-import type { ServiceRequest } from '../../../types';
 import type { Router } from '../../router/factory';
 
 const { ActionTransport } = require('../../../constants');
@@ -36,6 +35,9 @@ function getSocketIORouterAdapter(config: Object, router: Router) {
         // NOTE: not supported, opentracing parent span won't be defined here
         parentSpan: undefined,
         span: undefined,
+
+        // set to console
+        log: (console: any),
       };
 
       debug('prepared request with', packet.data);

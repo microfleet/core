@@ -1,6 +1,4 @@
 // @flow
-import type { ServiceAction, RouteMap } from '../../../types';
-
 const intersection = require('lodash/intersection');
 const glob = require('glob');
 const Errors = require('common-errors');

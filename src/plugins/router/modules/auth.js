@@ -1,6 +1,4 @@
 // @flow
-import type { ServiceRequest, ServiceAction } from '../../../types';
-
 const { AuthenticationRequired, NotImplementedError, ArgumentError } = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
@@ -14,26 +12,81 @@ const remapError = (error) => {
   return Promise.reject(new AuthenticationRequired(error.message, error));
 };
 
-function auth(request: ServiceRequest, strategies: Object): Promise<any> {
+const assignTo = (container, prop) => (value) => {
+  container[prop] = value ? { credentials: value } : value;
+};
+
+const setToNull = () => null;
+const reject = e => Promise.reject(e);
+const isObligatory = (strategy) => {
+  switch (strategy) {
+    case 'try':
+      return setToNull;
+
+    default:
+      return reject;
+  }
+};
+
+const retrieveStrategy = (request, strategies) => {
   // eslint-disable-next-line prefer-destructuring
   const action: ServiceAction = request.action;
-  const authName = action.auth;
-  const authStrategy = strategies[is.fn(authName) ? authName(request) : authName];
+  const authConfig = action.auth;
 
-  if (authStrategy == null) {
-    throw new NotImplementedError(action.auth);
+  // prepare vars
+  let getAuthName;
+  let passAuthError;
+  let authStrategy;
+
+  // new way of complex auth object
+  if (is.object(authConfig)) {
+    getAuthName = authConfig.name;
+    authStrategy = authConfig.strategy || 'required';
+    passAuthError = authConfig.passError || false;
+  } else {
+    getAuthName = authConfig;
+    authStrategy = 'required';
+    passAuthError = action.passAuthError || false;
+  }
+
+  // find name
+  const name = is.fn(getAuthName) ? getAuthName(request) : getAuthName;
+  const strategy = strategies[name];
+
+  // no strat - fail
+  if (strategy == null) {
+    return {
+      name,
+      strategy: null,
+      passAuthError,
+      authStrategy,
+    };
+  }
+
+  return {
+    name,
+    strategy,
+    passAuthError,
+    authStrategy,
+  };
+};
+
+function auth(request: ServiceRequest, strategies: Object): Promise<any> {
+  const authSchema = retrieveStrategy(request, strategies);
+
+  if (authSchema.strategy == null) {
+    return Promise.reject(new NotImplementedError(authSchema.name));
   }
 
   // $FlowFixMe
   const promise = Promise
     .bind(this, request)
-    .then(authStrategy)
-    .tap((credentials) => {
-      request.auth = { credentials };
-    })
+    .then(authSchema.strategy)
+    .catch(isObligatory(authSchema.authStrategy))
+    .tap(assignTo(request, 'auth'))
     .return(request);
 
-  if (action.passAuthError === true) {
+  if (authSchema.passAuthError === true) {
     return promise;
   }
 
@@ -42,11 +95,13 @@ function auth(request: ServiceRequest, strategies: Object): Promise<any> {
 
 function assignStrategies(strategies): Function {
   return function authHandler(request: ServiceRequest): Promise<any> {
-    if (request.action === undefined) {
+    const { action } = request;
+
+    if (action === undefined) {
       return Promise.reject(new ArgumentError('"request" must have property "action"'));
     }
 
-    if (is.undefined(request.action.auth) === true) {
+    if (is.undefined(action.auth) === true) {
       return Promise.resolve(request);
     }
 

@@ -1,6 +1,5 @@
 // @flow
 import type { Router } from './factory';
-import type { TransportTypes } from '../../types';
 
 const Errors = require('common-errors');
 const is = require('is');

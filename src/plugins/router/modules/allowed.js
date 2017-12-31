@@ -1,6 +1,4 @@
 // @flow
-import type { ServiceRequest } from '../../../types';
-
 const { NotPermittedError, ArgumentError } = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');

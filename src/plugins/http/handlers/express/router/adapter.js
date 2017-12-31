@@ -56,6 +56,9 @@ function getHTTPRouter(router: Router, config: Object) {
       // opentracing
       parentSpan: undefined,
       span: undefined,
+
+      // set to console
+      log: (console: any),
     }, callback);
   };
 }

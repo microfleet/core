@@ -1,5 +1,4 @@
 // @flow
-import type { ServiceRequest } from '../../types';
 
 /**
  * Project deps

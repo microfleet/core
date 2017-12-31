@@ -11,6 +11,7 @@
 
 [libs]
 flow-typed
+src/types.js
 
 [options]
 module.ignore_non_literal_requires=true

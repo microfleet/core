@@ -119,9 +119,7 @@ describe('Router suite', function testSuite() {
           verify: (error) => {
             try {
               expect(error.name).to.be.equals('AuthenticationRequiredError');
-              expect(error.message).to.be.equals(
-                'An attempt was made to perform an operation without authentication: Invalid token'
-              );
+              expect(error.message).to.be.equals('An attempt was made to perform an operation without authentication: Invalid token');
             } catch (e) {
               throw error;
             }
@@ -132,9 +130,7 @@ describe('Router suite', function testSuite() {
           expect: 'error',
           verify: (error) => {
             expect(error.name).to.be.equals('ValidationError');
-            expect(error.message).to.be.equals(
-              'action.simple validation failed: data.isAdmin should be boolean'
-            );
+            expect(error.message).to.be.equals('action.simple validation failed: data.isAdmin should be boolean');
           },
         };
 
@@ -142,9 +138,7 @@ describe('Router suite', function testSuite() {
           expect: 'error',
           verify: (error) => {
             expect(error.name).to.be.equals('NotPermittedError');
-            expect(error.message).to.be.equals(
-              'An attempt was made to perform an operation that is not permitted: You are not admin'
-            );
+            expect(error.message).to.be.equals('An attempt was made to perform an operation that is not permitted: You are not admin');
           },
         };
 
@@ -293,9 +287,7 @@ describe('Router suite', function testSuite() {
           expect: 'error',
           verify: (error) => {
             expect(error.name).to.be.equals('ValidationError');
-            expect(error.message).to.be.equals(
-              'withoutSchema validation failed: data.foo should be integer'
-            );
+            expect(error.message).to.be.equals('withoutSchema validation failed: data.foo should be integer');
           },
         };
 
@@ -357,9 +349,7 @@ describe('Router suite', function testSuite() {
           expect: 'error',
           verify: (error) => {
             expect(error.name).to.be.equals('ValidationError');
-            expect(error.message).to.be.equals(
-              'nested.test validation failed: data.foo should be integer'
-            );
+            expect(error.message).to.be.equals('nested.test validation failed: data.foo should be integer');
           },
         };
 

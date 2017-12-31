@@ -1,6 +1,4 @@
 // @flow
-import type { ServiceRequest } from '../../../types';
-
 const debug = require('debug')('mservice:router:module:request');
 const Errors = require('common-errors');
 const is = require('is');

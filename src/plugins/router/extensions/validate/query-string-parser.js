@@ -1,6 +1,4 @@
 // @flow
-import type { ServiceRequest } from '../../../../types';
-
 const parse = require('qs/lib/parse');
 const identity = require('lodash/identity');
 

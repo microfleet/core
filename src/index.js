@@ -6,18 +6,6 @@
  */
 
 /**
- * Types
- * @private
- */
-import type {
-  Plugin,
-  PluginInterface,
-  PluginConnector,
-  HandlerProperties,
-  ConnectorsTypes
-} from './types';
-
-/**
  * Third-party deps
  * @private
  */

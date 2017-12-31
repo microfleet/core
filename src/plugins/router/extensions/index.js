@@ -1,7 +1,4 @@
 // @flow
-
-import type { LifecycleRequestType } from '../../../types';
-
 const Errors = require('common-errors');
 const is = require('is');
 const Promise = require('bluebird');

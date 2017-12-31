@@ -1,5 +1,4 @@
 // @flow
-import type { PluginInterface } from '../types';
 import type { ValidateSync } from './validator';
 
 /**

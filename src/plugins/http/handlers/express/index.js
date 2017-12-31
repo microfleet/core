@@ -1,7 +1,6 @@
 // @flow
 import type { $Application } from 'express';
 import typeof Mservice from '../../../../index';
-import type { PluginInterface } from '../../../../types';
 
 const Errors = require('common-errors');
 const http = require('http');
@@ -15,7 +14,11 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
   const express = _require('express');
 
   const handler: $Application = express();
-  const server = http.createServer(handler);
+  const server: HttpServer = (http.createServer(handler): any);
+
+  // make sure we can destroy it
+  enableDestroy(server);
+
   const properties = config.server.handlerConfig && config.server.handlerConfig.properties;
 
   if (is.object(properties)) {
@@ -30,9 +33,6 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
     handler,
     server,
   };
-
-  // make sure we can destroy it
-  enableDestroy(server);
 
   function startServer() {
     if (server.listening === true) {
@@ -49,7 +49,7 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
 
     return Promise
       .fromCallback(callback => (
-        server.listen(config.server.port, config.server.host, callback)
+        server.listen(config.server, callback)
       ))
       .then(() => service.emit('plugin:start:http', service.http))
       .then(() => {
@@ -73,7 +73,7 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
     return service.http
       .server.closeAsync()
       .timeout(5000)
-      .catch(Promise.TimeoutError, () => server.destroyAsync())
+      .catch(Promise.TimeoutError, () => server.destroyAsync && server.destroyAsync())
       .then(() => service.emit('plugin:stop:http'));
   }
 

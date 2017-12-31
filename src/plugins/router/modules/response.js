@@ -1,6 +1,4 @@
 // @flow
-import type { ServiceRequest } from '../../../types';
-
 const Promise = require('bluebird');
 const moduleLifecycle = require('./lifecycle');
 const {
