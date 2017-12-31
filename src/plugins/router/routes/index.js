@@ -19,19 +19,26 @@ function validateAction(action: ServiceAction) {
     throw new Errors.ValidationError('action must be a function');
   }
 
-  if (is.defined(action.allowed) === true && is.fn(action.allowed) !== true) {
+  const {
+    allowed,
+    auth,
+    schema,
+    transports,
+  } = action;
+
+  if (is.defined(allowed) === true && is.fn(allowed) !== true) {
     throw new Errors.ValidationError('action.allowed must be a function');
   }
 
-  if (is.defined(action.auth) === true && is.string(action.auth) !== true) {
+  if (is.defined(auth) === true && (is.string(auth) !== true || is.object(auth) !== true)) {
     throw new Errors.ValidationError('action.auth must be a string');
   }
 
-  if (is.defined(action.schema) === true && is.string(action.schema) !== true) {
+  if (is.defined(schema) === true && is.string(schema) !== true) {
     throw new Errors.ValidationError('action.schema must be a string');
   }
 
-  if (is.array(action.transports) === false) {
+  if (is.array(transports) === false) {
     throw new Errors.ValidationError('action.transports must be an array');
   }
 }
