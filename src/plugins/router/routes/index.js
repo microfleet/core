@@ -30,8 +30,8 @@ function validateAction(action: ServiceAction) {
     throw new Errors.ValidationError('action.allowed must be a function');
   }
 
-  if (is.defined(auth) === true && (is.string(auth) !== true || is.object(auth) !== true)) {
-    throw new Errors.ValidationError('action.auth must be a string');
+  if (is.defined(auth) === true && (is.string(auth) === true || is.object(auth) === true) === false) {
+    throw new Errors.ValidationError('action.auth must be a string or an object');
   }
 
   if (is.defined(schema) === true && is.string(schema) !== true) {
