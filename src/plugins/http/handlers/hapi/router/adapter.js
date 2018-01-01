@@ -32,21 +32,21 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
       case Errors.AuthenticationRequiredError:
         statusCode = 401;
         break;
+
       case Errors.ValidationError:
         statusCode = 400;
         break;
+
       case Errors.NotPermittedError:
         statusCode = 403;
         break;
+
       case Errors.NotFoundError:
         statusCode = 404;
         break;
-      case Errors.HttpStatusError:
-        // eslint-disable-next-line prefer-destructuring
-        statusCode = error.statusCode;
-        break;
+
       default:
-        statusCode = 500;
+        statusCode = 'statusCode' in error ? error.statusCode : 500;
     }
 
     if (is.array(errors) && errors.length) {
