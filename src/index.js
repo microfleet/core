@@ -16,7 +16,6 @@ const forOwn = require('lodash/forOwn');
 const each = require('lodash/each');
 const flatten = require('lodash/flatten');
 const is = require('is');
-const stdout = require('stdout-stream');
 const partial = require('lodash/partial');
 const assert = require('assert');
 
@@ -154,9 +153,12 @@ class Mservice extends EventEmitter {
    * @returns {Promise<void>} Resolves when exit sequence has completed.
    */
   exit() {
-    stdout.write('received close signal...\n closing connections...\n');
+    if (this._log) {
+      this._log.info('received close signal...\n closing connections...\n');
+    }
+
     return this.close()
-      .timeout(1000)
+      .timeout(10000)
       .finally(() => {
         process.exit(0);
       });

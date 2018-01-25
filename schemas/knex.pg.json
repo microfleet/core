@@ -1,27 +1,31 @@
 {
-    "$id": "knex.pg",
-    "type": "object",
-    "required": [
-        "client",
-        "connection"
-    ],
-    "properties": {
-        "client": {
-            "type": "string",
-            "const": "pg"
-        },
-        "connection": {
-            "oneOf": [
-                {
-                    "type": "string"
-                },
-                {
-                    "type": "object"
-                }
-            ]
-        },
-        "searchPath": {
-            "type": "string"
+  "$id": "knex.pg",
+  "type": "object",
+  "required": [
+    "client",
+    "connection"
+  ],
+  "properties": {
+    "client": {
+      "type": "string",
+      "const": "pg"
+    },
+    "connection": {
+      "oneOf": [{
+        "type": "string"
+      }, {
+        "type": "object"
+      }]
+    },
+    "searchPath": {
+      "oneOf": [{
+        "type": "string"
+      }, {
+        "type": "array",
+        "items": {
+          "type": "string"
         }
+      }]
     }
+  }
 }
