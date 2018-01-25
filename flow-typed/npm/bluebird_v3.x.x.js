@@ -315,6 +315,6 @@ declare class Bluebird$Defer {
 }
 
 declare module 'bluebird' {
-  declare var exports: typeof Bluebird$Promise;
+  declare module.exports: typeof Bluebird$Promise;
   declare type Disposable<T> = Bluebird$Disposable<T>;
 }

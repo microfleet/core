@@ -1,7 +1,6 @@
 // @flow
 
-import typeof Redis from 'ioredis';
-
+const Redis = require('ioredis');
 const { ArgumentError } = require('common-errors');
 const glob = require('glob');
 const fs = require('fs');

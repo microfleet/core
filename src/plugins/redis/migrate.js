@@ -27,9 +27,9 @@
 // be performed on the main database during migration process
 //
 
-import typeof Redis from 'ioredis';
 import typeof Mservice from '../../index';
 
+const Redis = require('ioredis');
 const Promise = require('bluebird');
 const assert = require('assert');
 const glob = require('glob');
