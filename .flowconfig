@@ -6,6 +6,7 @@
 <PROJECT_ROOT>/node_modules/npmconf/test/fixtures/package.json
 <PROJECT_ROOT>/node_modules/findup/test/.*
 <PROJECT_ROOT>/node_modules/vision/test/.*
+<PROJECT_ROOT>/node_modules/protobufjs/.*
 
 [include]
 
