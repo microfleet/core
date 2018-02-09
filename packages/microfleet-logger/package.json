@@ -1,0 +1,44 @@
+{
+  "name": "@microfleet/logger",
+  "version": "10.2.4",
+  "description": "Abstract microservice core",
+  "main": "./lib/index.js",
+  "keywords": [
+    "microservice",
+    "microfleet",
+    "fleet",
+    "distributed",
+    "amqp",
+    "logger",
+    "http",
+    "redis",
+    "highload",
+    "docker"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "contributors": [
+    "Dmitry Gorbunov <me@tewi.tk> (http://tewi.tk)",
+    "Evgeny Poyarkov <eugene@makeomatic.ca>",
+    "Aleksandr Sorokin <imarkoffko@gmail.com>"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {
+    "@microfleet/core": "^10.2.4",
+    "@microfleet/utils": "^10.2.4",
+    "bunyan-sentry-stream": "^1.0.2",
+    "raven": "^2.3.0",
+    "stdout-stream": "^1.4.0"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 4.0.0"
+  }
+}

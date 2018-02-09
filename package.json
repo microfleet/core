@@ -125,6 +125,7 @@
     "jaeger-client": "^3.7.0",
     "json": "^9.0.6",
     "knex": "^0.14.2",
+    "lerna": "^2.8.0",
     "mocha": "^4.1.0",
     "ms-socket.io-adapter-amqp": "^5.0.0",
     "ms-validation": "^6.0.2",
