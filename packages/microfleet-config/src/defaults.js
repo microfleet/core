@@ -7,13 +7,13 @@ const constants = require('./constants');
  * This extension defaults schemas to the name of the action
  * @type {Function}
  */
-const autoSchema = require('@microfleet/router/src/extensions/validate/schemaLessAction');
+const autoSchema = require('@microfleet/plugin-router/src/extensions/validate/schemaLessAction');
 
 /**
  * Provides audit log for every performed action
  * @type {Function}
  */
-const auditLog = require('@microfleet/router/src/extensions/audit/log');
+const auditLog = require('@microfleet/plugin-router/src/extensions/audit/log');
 
 /**
  * Default configurations module

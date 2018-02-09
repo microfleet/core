@@ -1,4 +1,4 @@
-const { ActionTransport } = require('../../../../shared/constants');
+const { ActionTransport } = require('@microfleet/config').constants;
 const { expect } = require('chai');
 const getRoutes = require('..'); // TODO: correct path
 const path = require('path');

@@ -1,7 +1,7 @@
 {
-  "name": "@microfleet/config",
+  "name": "@microfleet/plugin-amqp",
   "version": "10.2.4",
-  "description": "Microfleet configuration",
+  "description": "Microfleet AMQP plugin",
   "main": "./lib/index.js",
   "keywords": [
     "microservice",
@@ -31,7 +31,16 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/plugin-router": "^10.2.4"
+    "@microfleet/config": "^10.2.4",
+    "@microfleet/plugin-router": "^10.2.4",
+    "@microfleet/utils": "^10.2.4",
+    "bluebird": "^3.5.1",
+    "is": "^3.2.1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "@microfleet/transport-amqp": "^12.3.2",
+    "common-errors": "^1.0.5"
   },
   "engines": {
     "node": ">= 8.9.0",

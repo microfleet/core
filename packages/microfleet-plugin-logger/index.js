@@ -15,7 +15,7 @@ const defaultConfig = {
 function streamsFactory(name, options) {
   switch (name) {
     case 'sentry': {
-      const sentryStreamFactory = require('./streams/sentry');
+      const sentryStreamFactory = require('./src/streams/sentry');
       return sentryStreamFactory(options);
     }
 

@@ -1,8 +1,8 @@
 {
-  "name": "@microfleet/logger",
+  "name": "@microfleet/plugin-router",
   "version": "10.2.4",
-  "description": "Abstract microservice core",
-  "main": "./lib/index.js",
+  "description": "Microfleet router plugin",
+  "main": "index.js",
   "keywords": [
     "microservice",
     "microfleet",
@@ -31,11 +31,19 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
+    "@microfleet/config": "^10.2.4",
     "@microfleet/core": "^10.2.4",
-    "@microfleet/utils": "^10.2.4",
-    "bunyan-sentry-stream": "^1.0.2",
-    "raven": "^2.3.0",
-    "stdout-stream": "^1.4.0"
+    "bluebird": "^3.5.1",
+    "debug": "^3.1.0",
+    "glob": "^7.1.1",
+    "is": "^3.2.1",
+    "lodash": "^4.17.4",
+    "opentracing": "^0.14.1"
+  },
+  "devDependencies": {
+    "@microfleet/transport-amqp": "^12.3.2",
+    "chai": "^4.1.1",
+    "common-errors": "^1.0.5"
   },
   "engines": {
     "node": ">= 8.9.0",

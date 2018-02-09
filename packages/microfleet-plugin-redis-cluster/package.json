@@ -1,7 +1,7 @@
 {
-  "name": "@microfleet/config",
+  "name": "@microfleet/plugin-redis-cluster",
   "version": "10.2.4",
-  "description": "Microfleet configuration",
+  "description": "Microfleet redis cluster plugin",
   "main": "./lib/index.js",
   "keywords": [
     "microservice",
@@ -31,7 +31,18 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/plugin-router": "^10.2.4"
+    "@microfleet/core": "^10.2.4",
+    "@microfleet/utils": "^10.2.4",
+    "bluebird": "^3.5.1",
+    "debug": "^3.1.0",
+    "glob": "^7.1.1",
+    "is": "^3.2.1",
+    "sort-by": "^1.1.1"
+  },
+  "devDependencies": {
+    "common-errors": "^1.0.5",
+    "ioredis": "^3.2.2",
+    "opentracing-js-ioredis": "^1.0.0"
   },
   "engines": {
     "node": ">= 8.9.0",

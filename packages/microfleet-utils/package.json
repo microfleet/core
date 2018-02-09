@@ -1,7 +1,7 @@
 {
   "name": "@microfleet/utils",
   "version": "10.2.4",
-  "description": "Abstract microservice core",
+  "description": "Microfleet utils",
   "main": "./lib/index.js",
   "keywords": [
     "microservice",

@@ -1,7 +1,7 @@
 {
-  "name": "@microfleet/config",
+  "name": "@microfleet/plugin-logger",
   "version": "10.2.4",
-  "description": "Microfleet configuration",
+  "description": "Microfleet logger plugin",
   "main": "./lib/index.js",
   "keywords": [
     "microservice",
@@ -31,7 +31,11 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/plugin-router": "^10.2.4"
+    "@microfleet/core": "^10.2.4",
+    "@microfleet/utils": "^10.2.4",
+    "bunyan-sentry-stream": "^1.0.2",
+    "raven": "^2.3.0",
+    "stdout-stream": "^1.4.0"
   },
   "engines": {
     "node": ">= 8.9.0",

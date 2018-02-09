@@ -32,6 +32,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@microfleet/config": "^10.2.4",
+    "@microfleet/plugin-router": "^10.2.4",
     "bluebird": "^3.5.1",
     "eventemitter3": "^3.0.0",
     "is": "^3.2.1",
@@ -39,7 +40,14 @@
     "stdout-stream": "^1.4.0"
   },
   "devDependencies": {
-    "common-errors": "^1.0.5"
+    "@microfleet/plugin-amqp": "^10.2.4",
+    "@microfleet/plugin-http": "^10.2.4",
+    "@microfleet/plugin-logger": "^10.2.4",
+    "@microfleet/plugin-redis-cluster": "^10.2.4",
+    "@microfleet/plugin-validator": "^10.2.4",
+    "@microfleet/transport-amqp": "^12.3.2",
+    "common-errors": "^1.0.5",
+    "ioredis": "^3.2.2"
   },
   "engines": {
     "node": ">= 8.9.0",

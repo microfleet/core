@@ -1,8 +1,8 @@
 {
-  "name": "@microfleet/router",
+  "name": "@microfleet/plugin-http",
   "version": "10.2.4",
-  "description": "Abstract microservice core",
-  "main": "index.js",
+  "description": "Microfleet HTTP plugin",
+  "main": "./lib/index.js",
   "keywords": [
     "microservice",
     "microfleet",
@@ -31,18 +31,24 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
+    "@microfleet/config": "^10.2.4",
     "@microfleet/core": "^10.2.4",
+    "@microfleet/plugin-validator": "^10.2.4",
+    "@microfleet/plugin-router": "^10.2.4",
+    "@microfleet/utils": "^10.2.4",
     "bluebird": "^3.5.1",
-    "debug": "^3.1.0",
-    "glob": "^7.1.1",
     "is": "^3.2.1",
     "lodash": "^4.17.4",
     "opentracing": "^0.14.1"
   },
   "devDependencies": {
-    "@microfleet/transport-amqp": "^12.3.2",
-    "chai": "^4.1.1",
-    "common-errors": "^1.0.5"
+    "body-parser": "^1.17.2",
+    "boom": "^7.1.1",
+    "common-errors": "^1.0.5",
+    "express": "^4.16.2",
+    "hapi": "^17.2.0",
+    "restify": "^6.3.4",
+    "server-destroy": "~1.x.x"
   },
   "engines": {
     "node": ">= 8.9.0",
