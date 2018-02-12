@@ -3,6 +3,10 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "version": "0.0.0-placeholder",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "compile": "babel -d ./lib ./src",
     "coverage:unit": "cross-env NODE_ENV=test nyc --report-dir ./coverage/unit-tests npm run test:unit",
