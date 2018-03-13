@@ -1,4 +1,4 @@
-const { ActionTransport } = require('../../../../../../../../');
+const { ActionTransport } = require('@microfleet/core');
 const Promise = require('bluebird');
 
 function FooAction() {

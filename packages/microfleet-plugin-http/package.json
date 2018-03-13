@@ -42,13 +42,20 @@
     "opentracing": "^0.14.1"
   },
   "devDependencies": {
+    "@makeomatic/deploy": "^4.1.9",
+    "@microfleet/plugin-logger": "^10.2.4",
+    "@microfleet/plugin-socket-io": "^10.2.4",
     "body-parser": "^1.17.2",
     "boom": "^7.1.1",
+    "chai": "^4.1.1",
+    "cheerio": "^1.0.0-rc.2",
     "common-errors": "^1.0.5",
     "express": "^4.16.2",
     "hapi": "^17.2.0",
     "restify": "^6.3.4",
-    "server-destroy": "~1.x.x"
+    "request-promise": "^4.2.1",
+    "server-destroy": "~1.x.x",
+    "socket.io-client": "^2.0.4"
   },
   "engines": {
     "node": ">= 8.9.0",

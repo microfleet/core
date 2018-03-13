@@ -1,0 +1,10 @@
+{
+  "id": "nested.test",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "foo": {
+      "type": "integer"
+    }
+  }
+}

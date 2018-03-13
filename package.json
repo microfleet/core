@@ -14,7 +14,7 @@
     "test": "yarn lint && yarn test:flow && yarn test:e2e",
     "test:unit": "mocha --recursive ./src",
     "test:flow": "flow",
-    "test:e2e": "yarn compile && mdep test run",
+    "test:e2e": "yarn compile && mdep test run --tests ./packages/microfleet-plugin-http/test/express.spec.js",
     "prepublishOnly": "yarn compile",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "simple-commit-message"

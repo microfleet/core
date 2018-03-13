@@ -1,6 +1,5 @@
-/* eslint-disable prefer-arrow-callback, promise/always-return */
 /* eslint-env node, mocha */
-
+/* eslint-disable prefer-arrow-callback, promise/always-return */
 const assert = require('assert');
 
 describe('Mservice suite', function testSuite() {

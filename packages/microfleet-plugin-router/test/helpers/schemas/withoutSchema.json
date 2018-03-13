@@ -1,0 +1,10 @@
+{
+  "id": "withoutSchema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "foo": {
+      "type": "integer"
+    }
+  }
+}

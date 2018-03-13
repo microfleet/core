@@ -33,9 +33,13 @@
   "dependencies": {
     "@microfleet/core": "^10.2.4",
     "@microfleet/utils": "^10.2.4",
-    "bunyan-sentry-stream": "^1.0.2",
-    "raven": "^2.3.0",
     "stdout-stream": "^1.4.0"
+  },
+  "devDependencies": {
+    "bunyan": "^1.8.12",
+    "bunyan-sentry-stream": "^1.0.2",
+    "common-errors": "^1.0.5",
+    "raven": "^2.3.0"
   },
   "engines": {
     "node": ">= 8.9.0",

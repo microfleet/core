@@ -39,6 +39,8 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
+    "@microfleet/core": "^10.2.4",
+    "@microfleet/plugin-opentracing": "^10.2.4",
     "@microfleet/transport-amqp": "^12.3.2",
     "common-errors": "^1.0.5"
   },
