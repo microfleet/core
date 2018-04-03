@@ -87,6 +87,7 @@ export type Migration = {
   min: number,
   args: Array<any>,
   script: any,
+  keys?: Array<string>,
 };
 
 /**

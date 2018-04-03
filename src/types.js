@@ -35,6 +35,7 @@ declare class HttpServer extends net$Server {
   maxHeadersCount: number;
   setTimeout(msecs: number, callback: Function): HttpServer;
   timeout: number;
+  listening?: boolean;
   destroy(callback?: (error: ?Error) => mixed): void;
   destroyAsync?: () => Promise<*>;
 }
@@ -45,7 +46,7 @@ declare type ConnectorsTypes = $Values<typeof constants.ConnectorsTypes>;
 
 declare type HandlerProperties = typeof constants.CONNECTORS_PROPERTY | typeof constants.DESTRUCTORS_PROPERTY;
 
-declare type RequestMethods = 'delete' | 'get' | 'head' | 'patch' | 'post' | 'put' | 'amqp' | 'socketio';
+declare type RequestMethods = 'delete' | 'get' | 'head' | 'patch' | 'post' | 'put' | 'amqp' | 'socketio' | 'internal';
 
 declare type LifecycleRequestType = 'preAllowed' | 'postAllowed'
   | 'preAuth' | 'postAuth'

@@ -25,6 +25,7 @@ exports.ActionTransport = {
   amqp: 'amqp',
   http: 'http',
   socketIO: 'socketIO',
+  internal: 'internal',
 };
 
 /**

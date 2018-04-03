@@ -364,6 +364,7 @@ describe('Router suite', function testSuite() {
           .all([
             AMQPRequest('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
             AMQPRequest('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
+            service.dispatch('nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
           ])
           .then(() => service.close());
       });
