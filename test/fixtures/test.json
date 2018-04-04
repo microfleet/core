@@ -1,4 +1,4 @@
 {
-  "id": "test-schema",
+  "$id": "test-schema",
   "type": "object"
 }

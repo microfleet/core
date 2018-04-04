@@ -1,5 +1,5 @@
 {
-  "id": "nested.test",
+  "$id": "nested.test",
   "type": "object",
   "additionalProperties": false,
   "properties": {
