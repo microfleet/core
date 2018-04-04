@@ -70,7 +70,7 @@ exports.attach = function attachRouter(config: Object): void {
   assert.ifError(service.validator.validateSync('router', config).error);
 
   config.routes.transports.forEach((transport) => {
-    if (service.config.plugins.includes(transport) === false) {
+    if (service.config.plugins.includes(transport) === false && transport !== internal) {
       throw new NotSupportedError(`transport ${transport}`);
     }
   });

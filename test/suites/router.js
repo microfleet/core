@@ -307,7 +307,7 @@ describe('Router suite', function testSuite() {
       });
   });
 
-  it('should scan for nested routes', function test() {
+  it('should scan for nested routes', async function test() {
     const service = new Mservice({
       amqp: {
         transport: {
@@ -328,7 +328,7 @@ describe('Router suite', function testSuite() {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
           prefix: 'action',
           setTransportsAsDefault: true,
-          transports: [ActionTransport.amqp],
+          transports: [ActionTransport.amqp, ActionTransport.internal],
         },
         extensions: {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
@@ -341,32 +341,28 @@ describe('Router suite', function testSuite() {
       validator: [path.resolve(__dirname, '../router/helpers/schemas')],
     });
 
-    return service.connect()
-      .then(() => {
-        const AMQPRequest = getAMQPRequest(service.amqp);
+    await service.connect();
+    const AMQPRequest = getAMQPRequest(service.amqp);
 
-        const validationFailed = {
-          expect: 'error',
-          verify: (error) => {
-            expect(error.name).to.be.equals('ValidationError');
-            expect(error.message).to.be.equals('nested.test validation failed: data.foo should be integer');
-          },
-        };
+    const validationFailed = {
+      expect: 'error',
+      verify: (error) => {
+        expect(error.name).to.be.equals('ValidationError');
+        expect(error.message).to.be.equals('nested.test validation failed: data.foo should be integer');
+      },
+    };
 
-        const returnsResult = {
-          expect: 'success',
-          verify: (result) => {
-            expect(result.foo).to.be.equals(42);
-          },
-        };
+    const returnsResult = {
+      expect: 'success',
+      verify: (result) => {
+        expect(result.foo).to.be.equals(42);
+      },
+    };
 
-        return Promise
-          .all([
-            AMQPRequest('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
-            AMQPRequest('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
-            service.dispatch('nested.test', { params: { foo: 42 } }).reflect().then(verify(returnsResult)),
-          ])
-          .then(() => service.close());
-      });
+    await AMQPRequest('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed));
+    await AMQPRequest('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult));
+    await service.dispatch('nested.test', { params: { foo: 42 } }).reflect().then(verify(returnsResult));
+
+    await service.close();
   });
 });

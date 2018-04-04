@@ -3,18 +3,7 @@ const Errors = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
-
-// based on this we validate input data
-const DATA_KEY_SELECTOR: any = Object.setPrototypeOf({
-  get: 'query',
-  delete: 'query',
-  head: 'query',
-  patch: 'params',
-  put: 'params',
-  post: 'params',
-  amqp: 'params',
-  socketio: 'params',
-}, null);
+const { DATA_KEY_SELECTOR } = require('../../../constants');
 
 const handleValidationError = (error) => {
   if (error.constructor === Errors.ValidationError) {

@@ -21,34 +21,47 @@ exports.DESTRUCTORS_PROPERTY = '_destructors';
  * Constants with possilble transport values
  * @type {Object}
  */
-exports.ActionTransport = {
+exports.ActionTransport = Object.setPrototypeOf({
   amqp: 'amqp',
   http: 'http',
   socketIO: 'socketIO',
   internal: 'internal',
-};
+}, null);
+
+// based on this we validate input data
+exports.DATA_KEY_SELECTOR = Object.setPrototypeOf(({
+  get: 'query',
+  delete: 'query',
+  head: 'query',
+  patch: 'params',
+  put: 'params',
+  post: 'params',
+  amqp: 'params',
+  socketio: 'params',
+  internal: 'params',
+}: ValidationObjectSelector), null);
 
 /**
  * Constants with connect types to control order of service bootstrap
  * @type {Object}
  */
-const ConnectorTypes = exports.ConnectorsTypes = exports.ConnectorTypes = {
+const ConnectorTypes = exports.ConnectorsTypes = exports.ConnectorTypes = Object.setPrototypeOf({
   essential: 'essential',
   database: 'database',
   migration: 'migration',
   transport: 'transport',
   application: 'application',
-};
+}, null);
 
 /**
  * Plugin Types
  * @type {Object}
  */
-const PluginTypes = exports.PluginsTypes = exports.PluginTypes = {
+const PluginTypes = exports.PluginsTypes = exports.PluginTypes = Object.setPrototypeOf({
   essential: 'essential',
   database: 'database',
   transport: 'transport',
-};
+}, null);
 
 /**
  * Default priority of connectors during bootstrap

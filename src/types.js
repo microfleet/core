@@ -46,7 +46,11 @@ declare type ConnectorsTypes = $Values<typeof constants.ConnectorsTypes>;
 
 declare type HandlerProperties = typeof constants.CONNECTORS_PROPERTY | typeof constants.DESTRUCTORS_PROPERTY;
 
-declare type RequestMethods = 'delete' | 'get' | 'head' | 'patch' | 'post' | 'put' | 'amqp' | 'socketio' | 'internal';
+declare type RequestMethods = $Keys<typeof constants.DATA_KEY_SELECTOR>;
+
+declare type ValidationObjectSelector = {
+  [key: RequestMethods]: 'query' | 'params'
+};
 
 declare type LifecycleRequestType = 'preAllowed' | 'postAllowed'
   | 'preAuth' | 'postAuth'
