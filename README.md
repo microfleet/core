@@ -15,6 +15,7 @@ Make sure that every minute you spend counts.
 [![Build Status](https://semaphoreci.com/api/v1/microfleet/core/branches/master/shields_badge.svg)](https://semaphoreci.com/microfleet/core)
 [![Code Climate](https://codeclimate.com/github/microfleet/core/badges/gpa.svg)](https://codeclimate.com/github/microfleet/core)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmicrofleet%2Fcore.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmicrofleet%2Fcore?ref=badge_shield)
 
 `yarn add @microfleet/core` or `npm i @microfleet/core`
 
@@ -238,3 +239,7 @@ Development of the @microfleet generously supported by contributions from indivi
 ### Current Supporters
 
 * [Makeomatic](https://makeomatic.ca)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmicrofleet%2Fcore.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmicrofleet%2Fcore?ref=badge_large)
