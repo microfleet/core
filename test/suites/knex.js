@@ -1,8 +1,9 @@
 const assert = require('assert');
-const Mservice = require('../../src');
 const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('knex plugin', function testSuite() {
+  const Mservice = require('../../src');
+
   it('should be able to throw error if plugin is not included', function test() {
     const service = new Mservice({ plugins: [] });
     assert.throws(() => service.knex);
@@ -27,7 +28,9 @@ describe('knex plugin', function testSuite() {
       .then(inspectPromise())
       .spread((knex) => {
         // default settings in
-        assert.ok(knex.client.pool._count >= 2 && knex.client.pool._count <= 4);
+        const { pool } = knex.client;
+        // this is from tarn (https://github.com/vincit/tarn.js)
+        assert.ok(pool.numUsed() + pool.numFree() + pool.numPendingCreates() >= 1, 'not enough connections');
       });
   });
 

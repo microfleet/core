@@ -1,6 +1,5 @@
 {
-  "sleep": 60,
-  "fail": "docker-compose -f ./test/docker-compose.yml logs",
+  "sleep": 30,
   "pre": [
     "yarn coverage:unit"
   ]

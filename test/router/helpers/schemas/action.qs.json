@@ -1,5 +1,5 @@
 {
-  "id": "action.qs",
+  "$id": "action.qs",
   "type": "object",
   "additionalProperties": false,
   "properties": {

@@ -4,9 +4,8 @@ const assert = require('assert');
 const Errors = require('common-errors');
 const { PluginsTypes } = require('../');
 
-const factory = _require('knex');
-
 function attachKnex(config: Object = {}) {
+  const factory = _require('knex');
   const service = this;
 
   if (this._log === undefined) {
