@@ -1,23 +1,36 @@
-const { expect } = require('chai');
-const Promise = require('bluebird');
+const assert = require('assert');
 
 function verify(caseObject) {
   return (inspection) => {
-    expect(inspection.isFulfilled() || inspection.isRejected()).to.be.equals(true);
+    assert(inspection.isFulfilled() || inspection.isRejected(), 'promise is pending');
 
     if (inspection.isFulfilled()) {
-      expect(caseObject.expect).to.be.equals('success');
-      caseObject.verify(inspection.value());
-      return Promise.resolve();
+      try {
+        assert.equal('success', caseObject.expect);
+        caseObject.verify(inspection.value());
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn(inspection.value());
+        throw e;
+      }
+
+      return null;
     }
 
     if (inspection.isRejected()) {
-      expect(caseObject.expect).to.be.equals('error');
-      caseObject.verify(inspection.reason());
-      return Promise.resolve();
+      try {
+        assert.equal('error', caseObject.expect);
+        caseObject.verify(inspection.reason());
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.warn(inspection.reason());
+        throw e;
+      }
+
+      return null;
     }
 
-    return Promise.reject();
+    throw new Error('unreacheable code');
   };
 }
 

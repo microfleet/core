@@ -1,5 +1,5 @@
 {
-  "id": "withoutSchema",
+  "$id": "withoutSchema",
   "type": "object",
   "additionalProperties": false,
   "properties": {

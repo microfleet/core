@@ -1,5 +1,5 @@
 {
-  "id": "action.simple",
+  "$id": "action.simple",
   "type": "object",
   "additionalProperties": false,
   "properties": {

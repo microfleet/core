@@ -218,7 +218,6 @@ class Mservice extends EventEmitter {
     // NOTE: this is slow, must use a more performant operation for actually
     // hot access to services
     Object.defineProperty(this, name, {
-      __proto__: null,
       enumerable: true,
       configurable: false,
       get: () => this._get(name),
