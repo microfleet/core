@@ -1,0 +1,17 @@
+{
+  "name": "@microfleet/validation",
+  "description": "microfleet validation plugin",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "rimraf ./lib && babel -d ./lib ./src",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@microfleet/utils-validation": "^0.0.0-placeholder"
+  }
+}

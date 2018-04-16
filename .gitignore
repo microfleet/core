@@ -32,5 +32,6 @@ schemas/add.json
 
 # compiled source code
 lib
+packages/*/lib
 .env
 .nyc_output

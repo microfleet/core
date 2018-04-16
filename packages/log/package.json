@@ -1,0 +1,23 @@
+{
+  "name": "@microfleet/log",
+  "description": "microfleet log utils",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "rimraf ./lib && babel -d ./lib ./src",
+    "test": "jest"
+  },
+  "dependencies": {
+    "abstract-logging": "^1.0.0",
+    "fast-json-parse": "^1.0.3",
+    "pino": "^4.16.1",
+    "pump": "^3.0.0",
+    "split2": "^2.2.0",
+    "stdout-stream": "^1.4.0",
+    "yargs": "^11.0.0"
+  }
+}

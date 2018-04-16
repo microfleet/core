@@ -1,0 +1,20 @@
+{
+  "name": "@microfleet/core",
+  "description": "microfleet core",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "rimraf ./lib && babel -d ./lib ./src",
+    "test": "exit 0"
+  },
+  "dependencies": {
+    "@microfleet/config": "^0.0.0-placeholder",
+    "@microfleet/log": "^0.0.0-placeholder",
+    "@microfleet/validation": "^0.0.0-placeholder",
+    "avvio": "^5.4.2"
+  }
+}

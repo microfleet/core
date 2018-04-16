@@ -1,0 +1,19 @@
+{
+  "name": "@microfleet/cli",
+  "description": "microfleet cli",
+  "version": "0.0.0-placeholder",
+  "bin": {
+    "mfleet": "./lib/mfleet.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "rimraf ./lib && babel -d ./lib ./src",
+    "test": "exit 0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "yargs": "^11.0.0"
+  }
+}

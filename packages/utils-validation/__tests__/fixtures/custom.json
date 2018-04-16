@@ -1,0 +1,15 @@
+{
+  "$id": "custom",
+  "type": "object",
+  "required": [ "string" ],
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "number": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false
+}

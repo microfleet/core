@@ -1,0 +1,21 @@
+{
+  "name": "@microfleet/utils-validation",
+  "description": "microfleet validation utils",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "rimraf ./lib && babel -d ./lib ./src",
+    "test": "jest"
+  },
+  "dependencies": {
+    "ajv": "^6.4.0",
+    "ajv-keywords": "^3.1.0",
+    "callsite": "^1.0.0",
+    "debug": "^3.1.0",
+    "glob": "^7.1.2"
+  }
+}

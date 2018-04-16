@@ -1,0 +1,19 @@
+{
+  "name": "@microfleet/config",
+  "description": "microfleet configuration utils",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepublishOnly": "rimraf ./lib && babel -d ./lib ./src",
+    "test": "jest"
+  },
+  "dependencies": {
+    "convict": "^4.2.0",
+    "stealthy-require": "^1.1.1",
+    "uuid": "^3.2.1"
+  }
+}
