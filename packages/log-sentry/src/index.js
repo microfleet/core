@@ -10,8 +10,40 @@ const omit = require('lodash.omit');
 const { signals } = require('os').constants;
 const { multistream } = require('pino-multi-stream');
 
+const levels = {
+  silent: Infinity,
+  fatal: 60,
+  error: 50,
+  warn: 40,
+  info: 30,
+  debug: 20,
+  trace: 10,
+};
+
 const yargs = require('yargs')
-  .option();
+  .option('dsn', {
+    description: 'sentry DSN to write to',
+    required: true,
+  })
+  .option('sentry', {
+    description: 'sentry configuration options - https://docs.sentry.io/clients/node/config/',
+    default: {},
+  })
+  .option('level', {
+    description: 'minimum log level',
+    type: 'number',
+    default: 30,
+    coerce(level) {
+      if (level in levels) {
+        return levels[level];
+      }
+
+      return level;
+    },
+  })
+  .config()
+  .help()
+  .version();
 
 function pinoSentry(opts) {
   // https://docs.sentry.io/clients/node/config/
@@ -29,6 +61,7 @@ function pinoSentry(opts) {
   function deserializeError(data) {
     if (data instanceof Error) return data;
 
+    // TODO: remap error according to serialization that we will have
     const error = new Error(data.message);
     error.name = data.name;
     error.stack = data.stack;
@@ -55,26 +88,29 @@ function pinoSentry(opts) {
   return { write };
 }
 
-function parseLine(line) {
-  const parsed = new Parse(line);
-  if (parsed.err) {
-    this.emit('unknown', line, parsed.err);
-    return undefined;
-  }
-
-  const { value } = parsed;
-  if (typeof value === 'string') {
-    // TODO .... havent been able to parse
-  } else {
-    // TODO ... havent
-  }
-
-  return value;
-}
-
 module.exports = pinoSentry;
 
 function start(opts) {
+  function parseLine(line) {
+    const parsed = new Parse(line);
+    if (parsed.err) {
+      this.emit('unknown', line, parsed.err);
+      return undefined;
+    }
+
+    const { value } = parsed;
+    if (typeof value === 'string') {
+      this.emit('unknown', line, value);
+      return undefined;
+    }
+
+    if (value.level < opts.level) {
+      return undefined;
+    }
+
+    return value;
+  }
+
   pump(process.stdin, split(parseLine), multistream([
     { stream: pinoSentry(opts) },
     { stream: stdout },

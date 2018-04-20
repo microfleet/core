@@ -3,6 +3,7 @@ const avvio = require('avvio');
 const mconfig = require('@microfleet/config');
 const mvalidation = require('@microfleet/validation');
 const mlog = require('@microfleet/log');
+const mrouter = require('@microfleet/router');
 const decorator = require('./decorate');
 const { State } = require('./constants');
 
@@ -36,6 +37,7 @@ function buildService(options = {}) {
   microfleet.register(mconfig, options);
   microfleet.register(mvalidation);
   microfleet.register(mlog);
+  microfleet.register(mrouter);
 
   return microfleet;
 }
