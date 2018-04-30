@@ -34,7 +34,15 @@
                                 ]
                             },
                             "options": {
-                                "type": "object",
+                                "anyOf": [
+                                    {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    {
+                                        "type": "object"
+                                    }
+                                ],
                                 "default": {}
                             }
                         }
