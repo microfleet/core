@@ -252,7 +252,7 @@ class Mservice extends EventEmitter {
    * @returns {Promise} Walks over registered destructors and emits close event upon completion.
    */
   close() {
-    return this._processAndEmit(this.getDesturctors(), 'close', Mservice.ConnectorsPriority.slice(0).reverse());
+    return this._processAndEmit(this.getDestructors(), 'close', Mservice.ConnectorsPriority.slice(0).reverse());
   }
 
   /**
@@ -324,7 +324,7 @@ class Mservice extends EventEmitter {
    * Returns registered destructors.
    * @returns {Object} Destructors.
    */
-  getDesturctors() {
+  getDestructors() {
     return this[constants.DESTRUCTORS_PROPERTY];
   }
 
