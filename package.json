@@ -108,7 +108,7 @@
     "codecov": "^3.0.0",
     "common-errors": "^1.0.5",
     "cross-env": "^5.1.4",
-    "documentation": "^6.1.0",
+    "documentation": "^7.0.0",
     "elasticsearch": "^14.2.2",
     "eslint": "^4.19.1",
     "eslint-config-makeomatic": "^2.0.1",
