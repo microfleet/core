@@ -112,21 +112,21 @@ function checkVersionError(error) {
  * @param  {Migration[]} scripts - Migrations to perform.
  * @returns {Promise<*>} Returns when migrations are performed.
  */
-module.exports = async function performMigration(redis: Redis, service: Mservice, scripts: Migration | Array<Migration>) {
-  let files;
+module.exports = async function performMigration(redis: Redis, service: Mservice, scripts: any) {
+  let files: Array<Migration>;
   if (is.string(scripts)) {
     debug('looking for files in %s', scripts);
-    // eslint-disable-next-line import/no-dynamic-require
-    files = glob.sync('*{.js,/}', { cwd: scripts }).map(script => require(`${scripts}/${script}`));
+    files = glob.sync('*{.js,/}', { cwd: scripts })
+      .map(script => require(`${scripts}/${script}`)); // eslint-disable-line import/no-dynamic-require
   } else if (is.array(scripts)) {
-    files = ((scripts: any): Array<Migration>);
+    files = scripts;
   } else {
     throw new Error('`scripts` arg must be either a directory with migrations or Migrations[]');
   }
 
   if (files.length === 0) {
     debug('no files found');
-    return Promise.resolve();
+    return undefined;
   }
 
   // sort in order of execution
@@ -141,7 +141,7 @@ module.exports = async function performMigration(redis: Redis, service: Mservice
 
   if (files.length === 0) {
     debug('no files found');
-    return Promise.resolve();
+    return undefined;
   }
 
   // eslint-disable-next-line no-restricted-syntax

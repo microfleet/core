@@ -1,7 +1,5 @@
-// @flow
-// flow-typed signature: a379340a5d360a5a86716b8e3ed03d31
-// flow-typed version: 3a109ae4bc/bluebird_v3.x.x/flow_>=v0.33.x
-
+// flow-typed signature: ce9b944ed3262e5ed19a132343a842df
+// flow-typed version: 1cb1933212/bluebird_v3.x.x/flow_>=v0.70.x
 /* eslint-disable no-use-before-define, promise/no-native, max-len, no-unused-vars */
 
 type Bluebird$RangeError = Error;
@@ -20,7 +18,7 @@ type Bluebird$MultiArgsOption = {
   multiArgs: boolean
 };
 type Bluebird$BluebirdConfig = {
-  warnings?: | boolean | { wForgottenReturn?: boolean },
+  warnings?: boolean,
   longStackTraces?: boolean,
   cancellation?: boolean,
   monitoring?: boolean
@@ -59,9 +57,7 @@ declare class Bluebird$Disposable<R> {}
 declare class Bluebird$Promise<+R> extends Promise<R> {
   static Defer: Class<Bluebird$Defer>;
   static PromiseInspection: Class<Bluebird$PromiseInspection<*>>;
-
   static TimeoutError: Bluebird$TimeoutError;
-
   static all<T, Elem: $Promisable<T>>(
     Promises: Iterable<Elem> | $Promisable<Iterable<Elem>>
   ): Bluebird$Promise<Array<T>>;
@@ -178,7 +174,6 @@ declare class Bluebird$Promise<+R> extends Promise<R> {
   ): (...args: any) => Bluebird$Promise<T>;
 
   static cast<T>(value: $Promisable<T>): Bluebird$Promise<T>;
-  // TODO: Reimplement bind
   // static bind(ctx: any): Bluebird$Promise<void>;
   static is(value: any): boolean;
   static longStackTraces(): void;
@@ -195,11 +190,17 @@ declare class Bluebird$Promise<+R> extends Promise<R> {
       reject: (error?: any) => void
     ) => mixed
   ): void;
+  then(onFulfill: null | void, onReject: null | void): Bluebird$Promise<R>;
   then<U>(
-    onFulfill?: (value: R) => $Promisable<U>,
-    onReject?: (error: any) => $Promisable<U>
+    onFulfill: null | void,
+    onReject: (error: any) => Promise<U> | U
+  ): Bluebird$Promise<R | U>;
+  then<U>(
+    onFulfill: (value: R) => Promise<U> | U,
+    onReject: null | void | ((error: any) => Promise<U> | U)
   ): Bluebird$Promise<U>;
-
+  catch(onReject: null | void): Promise<R>;
+  catch<U>(onReject?: (error: any) => $Promisable<U>): Bluebird$Promise<U>;
   catch<U, ErrorT: Error>(
     err: Class<ErrorT>,
     onReject: (error: ErrorT) => $Promisable<U>
@@ -215,7 +216,6 @@ declare class Bluebird$Promise<+R> extends Promise<R> {
     err3: Class<ErrorT>,
     onReject: (error: ErrorT) => $Promisable<U>
   ): Bluebird$Promise<U>;
-  catch<U>(onReject?: (error: any) => $Promisable<U>): Bluebird$Promise<U>;
   caught<U, ErrorT: Error>(
     err: Class<ErrorT>,
     onReject: (error: Error) => $Promisable<U>
@@ -306,6 +306,8 @@ declare class Bluebird$Promise<+R> extends Promise<R> {
     disposable: Bluebird$Disposable<T>,
     handler: (value: T) => $Promisable<A>
   ): Bluebird$Promise<A>;
+
+  suppressUnhandledRejections(): void;
 }
 
 declare class Bluebird$Defer {
@@ -316,5 +318,6 @@ declare class Bluebird$Defer {
 
 declare module 'bluebird' {
   declare module.exports: typeof Bluebird$Promise;
+
   declare type Disposable<T> = Bluebird$Disposable<T>;
 }
