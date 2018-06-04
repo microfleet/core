@@ -49,7 +49,7 @@ function validateAction(action: ServiceAction) {
  * @param {Object} config.enabled - Enabled routes list, mapped key as filename to value as route name. If empty - loads all routes.
  * @param {string} config.prefix - Routes prefix, useful for launching on a certain namespace.
  * @param {boolean} config.setTransportsAsDefault - Set action transports from config transports, so they don't need to be specified.
- * @param {String[]} config.transports - Enabled transports list.
+ * @param {string[]} config.transports - Enabled transports list.
  */
 function getRoutes(config: Object): RouteMap {
   // lack of prototype makes it easier to search for a key

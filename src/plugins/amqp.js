@@ -7,6 +7,7 @@
 const Promise = require('bluebird');
 const Errors = require('common-errors');
 const assert = require('assert');
+const identity = require('lodash/identity');
 const is = require('is');
 const _require = require('../utils/require');
 
@@ -186,8 +187,10 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   if (config.router && config.router.enabled === true) {
     verifyPossibility(service.router, ActionTransport.amqp);
     service.AMQPRouter = getAMQPRouterAdapter(service.router, config);
+    const { prefix } = config.router;
     // allow ms-amqp-transport to discover routes
-    config.transport.listen = Object.keys(service.router.routes.amqp);
+    config.transport.listen = Object.keys(service.router.routes.amqp)
+      .map(prefix ? route => `${prefix}.${route}` : identity);
   }
 
   return {
