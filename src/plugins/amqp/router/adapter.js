@@ -26,7 +26,7 @@ function getAMQPRouterAdapter(router: Router, config: Object) {
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Promise.promisify(router.dispatch, { context: router });
-  const prefix = get(config, 'router.prefix', '');
+  const prefix = get(config, 'router.prefix') ? `${config.router.prefix}.` : '';
   const prefixLength = prefix && prefix.length;
   const normalizeActionName = prefix
     ? routingKey => (
