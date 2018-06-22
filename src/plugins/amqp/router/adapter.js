@@ -4,6 +4,7 @@ import type { Router } from '../../router/factory';
 const Promise = require('bluebird');
 const is = require('is');
 const noop = require('lodash/noop');
+const get = require('lodash/get');
 const passThrough = require('lodash/identity');
 const { ActionTransport } = require('../../../constants');
 
@@ -25,9 +26,19 @@ function getAMQPRouterAdapter(router: Router, config: Object) {
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Promise.promisify(router.dispatch, { context: router });
+  const prefix = get(config, 'router.prefix', '');
+  const prefixLength = prefix && prefix.length;
+  const normalizeActionName = prefix
+    ? routingKey => (
+      routingKey.startsWith(prefix) === true
+        ? routingKey.substr(prefixLength)
+        : routingKey
+    )
+    : passThrough;
 
   return function AMQPRouterAdapter(params: mixed, properties: Object, raw: Object, next?: () => mixed) {
-    const actionName = properties.headers['routing-key'] || properties.routingKey;
+    const routingKey = properties.headers['routing-key'] || properties.routingKey;
+    const actionName = normalizeActionName(routingKey);
     const opts: ServiceRequest = {
       // input params
       params,

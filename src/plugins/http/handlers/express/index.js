@@ -14,7 +14,7 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
   const express = _require('express');
 
   const handler: $Application = express();
-  const server: HttpServer = (http.createServer(handler): any);
+  const server: HttpServer = (http.createServer((handler: any)): any);
 
   // make sure we can destroy it
   enableDestroy(server);
