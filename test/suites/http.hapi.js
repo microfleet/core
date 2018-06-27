@@ -270,6 +270,51 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       });
   });
 
+  it('should be able to pass custom options to hapi route', () => {
+    const service = new Mservice({
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
+      http: {
+        server: {
+          handler: 'hapi',
+          port: 3000,
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, './../hapi/helpers/actions'),
+          enabled: {
+            'hapi-raw-body': 'hapi-raw-body',
+          },
+          transports: ['http'],
+        },
+      },
+    });
+
+    return service
+      .connect()
+      .then(() =>
+        request({
+          method: 'POST',
+          resolveWithFullResponse: true,
+          simple: false,
+          uri: 'http://0.0.0.0:3000/hapi-raw-body',
+          body: '{"status":"😿"}',
+        })
+        .then((response) => {
+          assert.equal(response.statusCode, 200);
+          assert.deepEqual(response.body, '{"status":"😿"}');
+        })
+        .reflect()
+        .then(inspectPromise())
+        .then(() => service.close()));
+  });
+
   describe('should be able to use hapi\'s plugins', () => {
     const service = new Mservice({
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
