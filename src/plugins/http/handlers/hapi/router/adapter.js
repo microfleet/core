@@ -5,7 +5,6 @@ import typeof Mservice from '../../../../../index';
 const Promise = require('bluebird');
 const { FORMAT_HTTP_HEADERS } = require('opentracing');
 const { ActionTransport } = require('../../../../../constants');
-const { fromPathToName } = require('../../../helpers/actionName');
 const Errors = require('common-errors');
 const is = require('is');
 const noop = require('lodash/noop');
@@ -18,7 +17,7 @@ export type HapiIncomingMessage = IncomingMessage & {
   method: 'PUT' | 'DELETE' | 'GET' | 'POST' | 'PATCH' | 'HEAD',
 };
 
-module.exports = function getHapiAdapter(service: Mservice, config: Object) {
+module.exports = function getHapiAdapter(actionName: string, service: Mservice) {
   const Boom = _require('boom');
   const { router } = service;
 
@@ -67,7 +66,6 @@ module.exports = function getHapiAdapter(service: Mservice, config: Object) {
   const dispatch = Promise.promisify(router.dispatch, { context: router });
 
   return async function handler(request: HapiIncomingMessage) {
-    const actionName = fromPathToName(request.path, config.prefix);
     const { headers } = request;
 
     let parentSpan;
