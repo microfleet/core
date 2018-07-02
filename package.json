@@ -126,7 +126,7 @@
     "ioredis": "^3.2.2",
     "jaeger-client": "^3.10.0",
     "json": "^9.0.6",
-    "knex": "^0.14.6",
+    "knex": "^0.15.0",
     "mocha": "^5.2.0",
     "ms-socket.io-adapter-amqp": "^5.0.0",
     "ms-validation": "^7.1.0",
