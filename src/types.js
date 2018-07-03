@@ -77,6 +77,7 @@ declare type ServiceRequest = {
   transport: TransportTypes,
   transportRequest: Object | http$ClientRequest,
   action: ServiceAction,
+  locals: Object,
   auth?: Object,
   socket?: EventEmitter,
   parentSpan: any,

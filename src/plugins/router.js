@@ -41,6 +41,7 @@ const prepareRequest = (request: { params: Object, headers: Object }) => ({
   // make sure we standardize the request
   query: Object.create(null),
   transportRequest: Object.create(null),
+  locals: Object.create(null),
   // pass raw span
   parentSpan: undefined,
   span: undefined,

@@ -43,6 +43,7 @@ function getHTTPRouter(router: Router, config: Object) {
       params: request.body,
       query: request.query,
       headers: request.headers,
+      locals: Object.create(null),
       method: (request.method.toLowerCase(): any),
 
       // transport options

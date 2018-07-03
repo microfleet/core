@@ -78,6 +78,7 @@ module.exports = function getHapiAdapter(actionName: string, service: Mservice) 
       params: request.payload,
       query: request.query,
       method: (request.method.toLowerCase(): any),
+      locals: Object.create(null),
 
       // transport type
       transport: ActionTransport.http,

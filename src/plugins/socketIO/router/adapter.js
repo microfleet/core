@@ -21,6 +21,7 @@ function getSocketIORouterAdapter(config: Object, router: Router) {
         params,
         query: Object.create(null),
         headers: Object.create(null),
+        locals: Object.create(null),
         socket,
 
         // default method to the transport for similar interfaces

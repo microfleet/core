@@ -824,9 +824,9 @@ babel-core@^6.26.0:
     slash "^1.0.0"
     source-map "^0.5.7"
 
-babel-eslint@^8.2.3:
-  version "8.2.3"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-8.2.3.tgz#1a2e6681cc9bc4473c32899e59915e19cd6733cf"
+babel-eslint@^8.2.5:
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-8.2.5.tgz#dc2331c259d36782aa189da510c43dedd5adc7a3"
   dependencies:
     "@babel/code-frame" "7.0.0-beta.44"
     "@babel/traverse" "7.0.0-beta.44"
@@ -2846,9 +2846,9 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
-elasticsearch@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/elasticsearch/-/elasticsearch-15.0.0.tgz#d888ceb858bba30221b68698d72c54bdcfdf2fba"
+elasticsearch@^15.1.0:
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/elasticsearch/-/elasticsearch-15.1.0.tgz#c820c5c853d7455fd064e0349d5bd08ca22817fb"
   dependencies:
     agentkeepalive "^3.4.1"
     chalk "^1.0.0"
@@ -2993,9 +2993,9 @@ eslint-plugin-flowtype@^2.49.3:
   dependencies:
     lodash "^4.17.10"
 
-eslint-plugin-import@^2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.12.0.tgz#dad31781292d6664b25317fd049d2e2b2f02205d"
+eslint-plugin-import@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.13.0.tgz#df24f241175e312d91662dc91ca84064caec14ed"
   dependencies:
     contains-path "^0.1.0"
     debug "^2.6.8"
@@ -3839,9 +3839,9 @@ handlebars@^4.0.11, handlebars@^4.0.2:
   optionalDependencies:
     uglify-js "^2.6"
 
-hapi@^17.5.1:
-  version "17.5.1"
-  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.5.1.tgz#0e6ca5d3d908c4c96203221c9c246e23fce4b49b"
+hapi@^17.5.2:
+  version "17.5.2"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.5.2.tgz#9c5823cdcdd17e5621ebc8928aefb144d033caac"
   dependencies:
     accept "3.x.x"
     ammo "3.x.x"
@@ -4818,9 +4818,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-knex@^0.14.6:
-  version "0.14.6"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-0.14.6.tgz#ad57c4ef8fa1b51ebc8c37c2c9b483f6fb34e41e"
+knex@^0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-0.15.0.tgz#cc9bca03aab163cbe4a709ecee2fd0215099e55d"
   dependencies:
     babel-runtime "^6.26.0"
     bluebird "^3.5.1"
@@ -4830,12 +4830,10 @@ knex@^0.14.6:
     inherits "~2.0.3"
     interpret "^1.1.0"
     liftoff "2.5.0"
-    lodash "^4.17.5"
+    lodash "^4.17.10"
     minimist "1.2.0"
     mkdirp "^0.5.1"
     pg-connection-string "2.0.0"
-    readable-stream "2.3.6"
-    safe-buffer "^5.1.1"
     tarn "^1.1.4"
     tildify "1.2.0"
     uuid "^3.2.1"
@@ -6502,7 +6500,7 @@ read-pkg@^3.0.0:
     normalize-package-data "^2.3.2"
     path-type "^3.0.0"
 
-readable-stream@2.3.6, readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.2.9, readable-stream@^2.3.3, readable-stream@^2.3.5:
+readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.2.9, readable-stream@^2.3.3, readable-stream@^2.3.5:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   dependencies:

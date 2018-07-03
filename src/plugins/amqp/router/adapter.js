@@ -43,6 +43,7 @@ function getAMQPRouterAdapter(router: Router, config: Object) {
       // input params
       params,
       headers: properties,
+      locals: Object.create(null),
       // to provide similar interfaces
       transport: amqp,
       method: amqp,
