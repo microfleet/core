@@ -30,7 +30,7 @@
                         ]
                     },
                     "port": {
-                        "oneOf": [
+                        "anyOf": [
                             {
                                 "type": "integer"
                             },
