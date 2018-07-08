@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-dynamic-require, no-console */
+/* eslint-disable import/no-dynamic-require, import/no-unresolved,  no-console */
 // determine where we are running
-const cwd = process.cwd();
+const argv = require('yargs-parser')(process.argv.slice(2));
+
+// prepare variables
+const cwd = argv.cwd || process.cwd();
+const source = argv.src ? `${cwd}/${argv.src}` : `${cwd}/src`;
+const lib = argv.lib ? `${cwd}/${argv.lib}` : `${cwd}/lib`;
+const babel = argv.babel || 'babel-register';
 
 let Service;
 try {
-  require('babel-register');
+  if (argv.babel !== false) {
+    require(babel);
+  }
 
   // make a nice warning that we are running in production, but
   // have babel-register
@@ -14,9 +22,9 @@ try {
     console.warn('Service running in production mode, but `babel-register` was included');
   }
 
-  Service = require(`${cwd}/src`);
+  Service = require(source);
 } catch (e) {
-  Service = require(`${cwd}/lib`);
+  Service = require(lib);
 }
 
 // init service
