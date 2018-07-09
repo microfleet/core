@@ -29,8 +29,9 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
 
   const server = service._http = new Hapi.Server(handlerConfig.server);
 
+  let routerPlugin;
   if (config.router.enabled) {
-    attachRouter(service, server, config.router);
+    routerPlugin = attachRouter(service, config.router);
   }
 
   // eslint-disable-next-line no-shadow
@@ -48,6 +49,10 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
         plugin: './plugins/views',
         options: (handlerConfig.views: Object),
       });
+    }
+
+    if (routerPlugin !== undefined) {
+      plugins.push(routerPlugin);
     }
 
     const registrations = plugins.map((pluginObj) => {
