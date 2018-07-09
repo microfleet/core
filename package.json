@@ -111,7 +111,7 @@
     "cross-env": "^5.1.6",
     "documentation": "^8.0.0",
     "elasticsearch": "^15.1.1",
-    "eslint": "^4.19.1",
+    "eslint": "^5.0.0",
     "eslint-config-makeomatic": "^2.0.1",
     "eslint-config-standard-jsdoc": "^0.3.2",
     "eslint-plugin-flowtype": "^2.49.3",
