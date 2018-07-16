@@ -34,6 +34,9 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
     routerPlugin = attachRouter(service, config.router);
   }
 
+  // exposes microfleet inside the server for tighter integrations
+  server.decorate('server', 'microfleet', service);
+
   // eslint-disable-next-line no-shadow
   function initPlugins(server) {
     const { list, options } = handlerConfig.plugins;
