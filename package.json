@@ -112,7 +112,7 @@
     "documentation": "^8.0.1",
     "elasticsearch": "^15.1.1",
     "eslint": "^5.1.0",
-    "eslint-config-makeomatic": "^2.0.1",
+    "eslint-config-makeomatic": "^3.0.0",
     "eslint-config-standard-jsdoc": "^0.3.2",
     "eslint-plugin-flowtype": "^2.50.0",
     "eslint-plugin-import": "^2.13.0",
