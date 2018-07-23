@@ -90,7 +90,7 @@
     "socketio-wildcard": "~2.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^6.1.2",
+    "@makeomatic/deploy": "^7.0.0",
     "@microfleet/transport-amqp": "^13.1.0",
     "babel-cli": "^6.23.0",
     "babel-eslint": "^8.2.6",
