@@ -1,17 +1,17 @@
 // @flow
-const { NotPermittedError, ArgumentError } = require('common-errors');
+const { NotPermittedError, HttpStatusError, ArgumentError } = require('common-errors');
 const is = require('is');
 const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
 
-function allowed(request: ServiceRequest): Promise<ServiceRequest | NotPermittedError | ArgumentError> {
+function allowed(request: ServiceRequest): Promise<ServiceRequest | NotPermittedError | ArgumentError | HttpStatusError> {
   // $FlowFixMe
   return Promise
     .bind(this, request)
     .then(request.action.allowed)
     .return(request)
     .catch((error) => {
-      if (error.constructor === NotPermittedError) {
+      if (error.constructor === NotPermittedError || error.constructor === HttpStatusError) {
         return Promise.reject(error);
       }
 
