@@ -1,8 +1,8 @@
 // @flow
 const Errors = require('common-errors');
 const is = require('is');
-const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+const moduleLifecycle = require('./lifecycle');
 
 function handler(request: ServiceRequest): Promise<any> {
   if (request.action === undefined) {

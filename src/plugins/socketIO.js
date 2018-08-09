@@ -1,9 +1,9 @@
 // @flow
 const assert = require('assert');
-const attachRouter = require('./socketIO/router/attach');
 const debug = require('debug')('mservice:socketIO');
 const Errors = require('common-errors');
 const is = require('is');
+const attachRouter = require('./socketIO/router/attach');
 const _require = require('../utils/require');
 const { PluginsTypes } = require('../');
 

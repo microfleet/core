@@ -1,7 +1,7 @@
 // @flow
-const pkg = require('../../package.json');
 const semver = require('semver');
 const chalk = require('chalk');
+const pkg = require('../../package.json');
 
 /**
  * Performs require and validates that constraints are met.

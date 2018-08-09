@@ -1,8 +1,8 @@
 // @flow
 const Errors = require('common-errors');
 const is = require('is');
-const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+const moduleLifecycle = require('./lifecycle');
 const { DATA_KEY_SELECTOR } = require('../../../constants');
 
 const handleValidationError = (error) => {

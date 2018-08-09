@@ -7,6 +7,7 @@
 <PROJECT_ROOT>/node_modules/findup/test/.*
 <PROJECT_ROOT>/node_modules/vision/test/.*
 <PROJECT_ROOT>/node_modules/protobufjs/.*
+<PROJECT_ROOT>/node_modules/npm/node_modules/config-chain/.*
 
 [include]
 

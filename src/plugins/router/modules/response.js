@@ -1,7 +1,6 @@
 // @flow
 const { MSError } = require('@microfleet/transport-amqp/lib/utils/serialization');
 const Promise = require('bluebird');
-const moduleLifecycle = require('./lifecycle');
 const {
   AuthenticationRequiredError,
   ConnectionError,
@@ -14,6 +13,7 @@ const {
   ValidationError,
   Error: CError,
 } = require('common-errors');
+const moduleLifecycle = require('./lifecycle');
 
 function response(err: any, result: any) {
   const service = this;

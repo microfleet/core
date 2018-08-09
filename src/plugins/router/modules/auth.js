@@ -1,8 +1,8 @@
 // @flow
 const { AuthenticationRequired, NotImplementedError, ArgumentError } = require('common-errors');
 const is = require('is');
-const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+const moduleLifecycle = require('./lifecycle');
 
 const remapError = (error) => {
   if (error.constructor === AuthenticationRequired) {

@@ -2,12 +2,12 @@
 import type { IncomingMessage } from 'http';
 import typeof Mservice from '../../../../../index';
 
-const Promise = require('bluebird');
 const { FORMAT_HTTP_HEADERS } = require('opentracing');
-const { ActionTransport } = require('../../../../../constants');
+const Promise = require('bluebird');
 const Errors = require('common-errors');
 const is = require('is');
 const noop = require('lodash/noop');
+const { ActionTransport } = require('../../../../../constants');
 const _require = require('../../../../../utils/require');
 
 export type HapiIncomingMessage = IncomingMessage & {

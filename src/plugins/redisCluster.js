@@ -1,12 +1,12 @@
 // @flow
 const Errors = require('common-errors');
-const { PluginsTypes } = require('../');
 const Promise = require('bluebird');
 const is = require('is');
 const assert = require('assert');
+const debug = require('debug')('mservice:redisCluster');
+const { PluginsTypes } = require('../');
 const loadLuaScripts = require('./redis/utils.js');
 const migrate = require('./redis/migrate.js');
-const debug = require('debug')('mservice:redisCluster');
 const _require = require('../utils/require');
 
 /**

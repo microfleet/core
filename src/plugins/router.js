@@ -24,13 +24,16 @@ exports.type = PluginsTypes.essential;
  * @param  {Object<{ params: Object, headers: Object | Null }>} request - Service Request.
  * @returns {ServiceRequest} - Prepared service request.
  */
-const prepareRequest = (request: { params: Object, headers: Object }) => ({
+const prepareRequest = (request: { params: Object, headers: Object, locals: Object }) => ({
   // input params
   params: {
     ...request.params, // shallow-copy for in-same process editing
   },
   headers: {
     ...request.headers, // shallow-copy for in-same process editing
+  },
+  locals: {
+    ...request.locals, // shallow-copy for in-same process editing
   },
   // to provide similar interfaces
   transport: internal,
@@ -41,7 +44,6 @@ const prepareRequest = (request: { params: Object, headers: Object }) => ({
   // make sure we standardize the request
   query: Object.create(null),
   transportRequest: Object.create(null),
-  locals: Object.create(null),
   // pass raw span
   parentSpan: undefined,
   span: undefined,

@@ -2,10 +2,10 @@
 import type EventEmitter from 'events';
 import type { Router } from '../../router/factory';
 
-const { ActionTransport } = require('../../../constants');
 const Promise = require('bluebird');
 const noop = require('lodash/noop');
 const debug = require('debug')('mservice:router:socket.io');
+const { ActionTransport } = require('../../../constants');
 
 const { socketIO } = ActionTransport;
 

@@ -1,7 +1,7 @@
-const { ActionTransport } = require('../../../..');
 const { expect } = require('chai');
-const getRoutes = require('..');
 const path = require('path');
+const getRoutes = require('..');
+const { ActionTransport } = require('../../../..');
 
 describe('router: get routes', function suite() {
   it('should be able to get only enabled routes', (done) => {

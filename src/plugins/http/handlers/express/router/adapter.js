@@ -2,12 +2,15 @@
 import type { $Response, $Request } from 'express';
 import type { Router } from '../../../../router/factory';
 
+const noop = require('lodash/noop');
+const {
+  AuthenticationRequiredError,
+  ValidationError,
+  NotPermittedError,
+  NotFoundError,
+} = require('common-errors');
 const { ActionTransport } = require('../../../../../constants');
 const { fromPathToName } = require('../../../helpers/actionName');
-const {
-  AuthenticationRequiredError, ValidationError, NotPermittedError, NotFoundError,
-} = require('common-errors');
-const noop = require('lodash/noop');
 
 function getHTTPRouter(router: Router, config: Object) {
   return function HTTPRouter(request: $Request, response: $Response) {

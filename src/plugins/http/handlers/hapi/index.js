@@ -1,9 +1,9 @@
 // @flow
 import typeof Mservice from '../../../../index';
 
+const Promise = require('bluebird');
 const Errors = require('common-errors');
 const attachRouter = require('./router/attach');
-const Promise = require('bluebird');
 const _require = require('../../../../utils/require');
 
 export type HapiPlugin = {

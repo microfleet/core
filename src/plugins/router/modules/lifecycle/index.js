@@ -1,10 +1,10 @@
 // @flow
+const Promise = require('bluebird');
 const upperFirst = require('lodash/upperFirst');
 const debug = require('debug')('mservice:router:module:lifecycle');
 const is = require('is');
 const Errors = require('common-errors');
 const Extensions = require('../../extensions');
-const Promise = require('bluebird');
 
 export type PromiseFactory = (...args: Array<any>) => *;
 

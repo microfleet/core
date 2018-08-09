@@ -2,8 +2,8 @@
 const debug = require('debug')('mservice:router:module:request');
 const Errors = require('common-errors');
 const is = require('is');
-const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+const moduleLifecycle = require('./lifecycle');
 
 function getAction(route: string, request: ServiceRequest): Promise<any> {
   debug('handler for module "request"');

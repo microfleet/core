@@ -1,8 +1,8 @@
 const { expect } = require('chai');
-const moduleLifecycle = require('..');
-const Errors = require('common-errors');
-const Extensions = require('./../../../extensions');
 const Promise = require('bluebird');
+const Errors = require('common-errors');
+const moduleLifecycle = require('..');
+const Extensions = require('./../../../extensions');
 
 describe('router: module lifecycle', function suite() {
   it('should reject "module" argument error', function test() {

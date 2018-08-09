@@ -1,7 +1,7 @@
 // @flow
-const _require = require('../utils/require');
 const assert = require('assert');
 const Errors = require('common-errors');
+const _require = require('../utils/require');
 const { PluginsTypes } = require('../');
 
 function attachKnex(config: Object = {}) {

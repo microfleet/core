@@ -1,8 +1,8 @@
 // @flow
 const { NotPermittedError, HttpStatusError, ArgumentError } = require('common-errors');
 const is = require('is');
-const moduleLifecycle = require('./lifecycle');
 const Promise = require('bluebird');
+const moduleLifecycle = require('./lifecycle');
 
 function allowed(request: ServiceRequest): Promise<ServiceRequest | NotPermittedError | ArgumentError | HttpStatusError> {
   // $FlowFixMe
