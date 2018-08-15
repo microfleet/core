@@ -26,7 +26,7 @@ function createRestifyServer(config: Object, service: Mservice): PluginInterface
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketIO.listen(service.http);
+      service.socketIO.listen(service.http, service.config.socketIO.options);
     }
 
     return Promise

@@ -4,11 +4,12 @@ const raven = require('raven');
 const { SentryStream } = require('bunyan-sentry-stream');
 
 function sentryStreamFactory(config: Object) {
-  const { dns, level, options } = config;
+  const { level, options } = config;
 
-  assert(dns, '"dns" property must be set');
+  const dsn = config.dsn || config.dns;
+  assert(dsn, '"dsn" property must be set');
 
-  const client = new raven.Client(dns, options);
+  const client = new raven.Client(dsn, options);
 
   return {
     level: level || 'error',

@@ -44,7 +44,7 @@ function createExpressServer(config: Object, service: Mservice): PluginInterface
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketIO.listen(server);
+      service.socketIO.listen(server, service.config.socketIO.options);
     }
 
     return Promise

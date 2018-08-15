@@ -78,7 +78,7 @@ function createHapiServer(config: Object, service: Mservice): PluginInterface {
         return Promise.reject(new Errors.NotPermittedError('SocketIO plugin not found'));
       }
 
-      service.socketIO.listen(server.listener);
+      service.socketIO.listen(server.listener, service.config.socketIO.options);
     }
 
     // $FlowFixMe
