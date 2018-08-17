@@ -36,6 +36,13 @@
             },
             "type": "array",
             "uniqueItems": true
+        },
+        "enabledGenericActions": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
     }
 }

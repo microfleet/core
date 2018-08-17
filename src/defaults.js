@@ -83,6 +83,10 @@ exports.router = {
      * @type {Array}
      */
     transports: [constants.ActionTransport.http],
+
+    enabledGenericActions: [
+      'health',
+    ],
   },
   /**
    * Extensions configuration
