@@ -3,6 +3,14 @@ const is = require('is');
 const assert = require('assert');
 const { inspectPromise } = require('@makeomatic/deploy');
 
+function findHealthCheck(service, pluginName) {
+  const check = service
+    .getHealthChecks()
+    .find(i => i.name === pluginName);
+  assert(check);
+  return check;
+}
+
 describe('Redis suite', function testSuite() {
   const Mservice = require('../../src');
   const Redis = require('ioredis');
@@ -22,9 +30,13 @@ describe('Redis suite', function testSuite() {
     return this.service.connect()
       .reflect()
       .then(inspectPromise())
-      .spread((redis) => {
+      .spread(async (redis) => {
         assert(redis instanceof Cluster);
         assert.doesNotThrow(() => this.service.redis);
+
+        const check = findHealthCheck(this.service, 'redis');
+        const result = await check.handler();
+        assert(result);
       });
   });
 
@@ -49,10 +61,14 @@ describe('Redis suite', function testSuite() {
     return this.service.connect()
       .reflect()
       .then(inspectPromise())
-      .spread((redis) => {
+      .spread(async (redis) => {
         assert(redis instanceof Redis);
         assert(is.fn(redis['echo-woo']));
         assert.doesNotThrow(() => this.service.redis);
+
+        const check = findHealthCheck(this.service, 'redis');
+        const result = await check.handler();
+        assert(result);
       });
   });
 
@@ -63,6 +79,13 @@ describe('Redis suite', function testSuite() {
       .then((version) => {
         assert.equal(version, '10');
         return null;
+      });
+  });
+
+  it('able to fetch health status', function test() {
+    return this.service.getHealthStatus()
+      .then((res) => {
+        assert.equal(res.status, 'ok');
       });
   });
 

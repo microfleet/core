@@ -1,11 +1,8 @@
 const { ActionTransport } = require('../../../../constants');
 
-function GenericHealthCheck(): Object {
-  return {
-    data: {
-      status: 'ok',
-    },
-  };
+async function GenericHealthCheck(): Object {
+  const data = await this.getHealthStatus();
+  return { data };
 }
 
 // to avoid 'setTransportAsDefault: false' and make things obvious

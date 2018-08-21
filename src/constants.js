@@ -18,6 +18,12 @@ exports.CONNECTORS_PROPERTY = '_connectors';
 exports.DESTRUCTORS_PROPERTY = '_destructors';
 
 /**
+ * Health checks property
+ * @type {string}
+ */
+exports.HEALTH_CHECKS_PROPERTY = '_healthChecks';
+
+/**
  * Constants with possilble transport values
  * @type {Object}
  */
@@ -84,3 +90,6 @@ exports.PluginsPriority = [
   PluginTypes.database,
   PluginTypes.transport,
 ];
+
+exports.PLUGIN_STATUS_OK = 'ok';
+exports.PLUGIN_STATUS_FAIL = 'fail';

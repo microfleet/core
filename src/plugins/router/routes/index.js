@@ -95,7 +95,7 @@ function getRoutes(config: Object): RouteMap {
       const { route, routeKey } = GENERIC_ROUTES[action];
       enabled[route] = routeKey;
     } catch (e) {
-      console.error('Available generic routes are:', Object.keys(GENERIC_ROUTES));
+      this.log.error('Available generic routes are: %s', Object.keys(GENERIC_ROUTES));
       throw new Errors.ValidationError(`unknown generic route is requested: ${action}`);
     }
   }
@@ -118,8 +118,7 @@ function getRoutes(config: Object): RouteMap {
     try {
       validateAction(action);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to process action:', action);
+      this.log.warn('Failed to process action:', action);
       throw e;
     }
 

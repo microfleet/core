@@ -9,6 +9,7 @@ declare type PluginConnector = () => Promise<any>;
 declare type PluginInterface = {
   connect: PluginConnector,
   close: PluginConnector,
+  status?: PluginConnector,
 };
 
 declare type Plugin = {
@@ -99,4 +100,15 @@ declare type RouteMap = {
   [transport: TransportTypes]: {
     [routingKey: string]: ServiceAction,
   },
+};
+
+declare type PluginStatus = 'ok' | 'fail';
+declare type PluginHealthStatus = {
+  name: string,
+  status: PluginStatus,
+  error?: Error,
+};
+declare type PluginHealthCheck = {
+  name: string,
+  handler: Function,
 };

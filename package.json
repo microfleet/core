@@ -48,6 +48,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
+    "bluebird-retry": "^0.11.0",
     "callsite": "^1.0.0",
     "chalk": "^2.4.1",
     "death": "^1.1.0",

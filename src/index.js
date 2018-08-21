@@ -25,6 +25,7 @@ const assert = require('assert');
  */
 const constants = require('./constants');
 const defaultOpts = require('./defaults');
+const { PluginHealthCheck, getHealthStatus } = require('./utils/pluginHealthStatus');
 
 /**
  * Simple invocation that preserves context.
@@ -119,6 +120,9 @@ class Mservice extends EventEmitter {
 
     // init migrations
     this._migrators = {};
+
+    // init health status checkers
+    this._healthChecks = [];
 
     // bind onError
     this.onError = this._onError.bind(this);
@@ -298,7 +302,7 @@ class Mservice extends EventEmitter {
       return;
     }
 
-    const { connect, close } = ((expose: any): PluginInterface);
+    const { connect, status, close } = ((expose: any): PluginInterface);
     const type = Mservice.ConnectorsTypes[mod.type];
 
     assert(type, 'Plugin type must be equal to one of connectors type');
@@ -309,6 +313,10 @@ class Mservice extends EventEmitter {
 
     if (is.fn(close)) {
       this.addDestructor(type, close);
+    }
+
+    if (is.fn(status)) {
+      this.addHealthCheck(new PluginHealthCheck(mod.name, status));
     }
   }
 
@@ -329,6 +337,14 @@ class Mservice extends EventEmitter {
   }
 
   /**
+   * Returns registered health checks.
+   * @returns {Object} Health checks.
+   */
+  getHealthChecks() {
+    return this[constants.HEALTH_CHECKS_PROPERTY];
+  }
+
+  /**
    * Initializes connectors on the instance of Mservice.
    * @param {string} type - Connector type.
    * @param {Function} handler - Plugin connector.
@@ -344,6 +360,21 @@ class Mservice extends EventEmitter {
    */
   addDestructor(type: ConnectorsTypes, handler: PluginConnector) {
     this._addHandler(constants.DESTRUCTORS_PROPERTY, type, handler);
+  }
+
+  /**
+   * Initializes plugin health check.
+   * @param {Function} handler - Health check function.
+   */
+  addHealthCheck(handler: PluginHealthCheck) {
+    this[constants.HEALTH_CHECKS_PROPERTY].push(handler);
+  }
+
+  /**
+   * Asks for health status of registered plugins if it's possible, logs it and returns summary.
+   */
+  getHealthStatus() {
+    return getHealthStatus(this.getHealthChecks(), this._config.healthChecks);
   }
 
   // ***************************** Plugin section: private **************************************

@@ -12,7 +12,7 @@ const debug = require('debug')('mservice:lua');
  * @param {string} dir - Directory to scan for LUA scripts to load.
  * @param {Redis} redis - Redis connector instance.
  */
-module.exports = function loadLuaScripts(dir: string, redis: Redis) {
+exports.loadLuaScripts = function loadLuaScripts(dir: string, redis: Redis) {
   if (!path.isAbsolute(dir)) {
     throw new ArgumentError('config.scripts must be an absolute path');
   }
@@ -33,4 +33,10 @@ module.exports = function loadLuaScripts(dir: string, redis: Redis) {
         console.warn('script %s already defined', name);
       }
     });
+};
+
+exports.isStarted = function isStarted(service: Object, RedisType: Function) {
+  return () => (
+    service._redis && (service._redis instanceof RedisType)
+  );
 };
