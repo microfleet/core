@@ -55,6 +55,27 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
   const AMQPTransport = _require('@microfleet/transport-amqp');
   const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery');
 
+  const ERROR_NOT_STARTED = new Errors.NotPermittedError('amqp was not started');
+  const ERROR_NOT_HEALTHY = new Errors.ConnectionError('amqp is not healthy');
+
+  /**
+   * Check if the service has an amqp transport.
+   * @returns {boolean} A truthy value if the service has an instance of AMQPTransport.
+   */
+  const isStarted = () => (
+    service._amqp && service._amqp instanceof AMQPTransport
+  );
+
+  /**
+   * Check the state of a connection to the amqp server.
+   * @param {Object} amqp - Instance of AMQPTransport.
+   * @returns {boolean} A truthy value if a provided connection is open.
+   */
+  const isConnected = amqp => (
+    amqp._amqp && amqp._amqp.state === 'open'
+  );
+
+
   if (is.fn(service.validateSync)) {
     assert.ifError(service.validateSync('amqp', config).error);
   }
@@ -239,12 +260,27 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     },
 
     /**
+     * Health checker.
+     *
+     * Returns true if connection state is 'open', otherwise throws an error.
+     * Connection state depends on actual connection status, but it could be
+     * modified when a heartbeat message from a message broker is missed during
+     * a twice heartbeat interval.
+     * @returns {Promise<void>} A truthy value if all checks are passed.
+     */
+    async status() {
+      assert(isStarted(), ERROR_NOT_STARTED);
+      assert(isConnected(service._amqp), ERROR_NOT_HEALTHY);
+      return true;
+    },
+
+    /**
      * Generic AMQP disconnector.
      * @returns {Promise<void>} Closes connection to AMQP.
      */
     close: function disconnectFromAMQP() {
-      if (!service._amqp || !(service._amqp instanceof AMQPTransport)) {
-        return Promise.reject(new Errors.NotPermittedError('amqp was not started'));
+      if (!isStarted()) {
+        return Promise.reject(ERROR_NOT_STARTED);
       }
 
       const amqp = service._amqp;

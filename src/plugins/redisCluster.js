@@ -8,11 +8,10 @@ const { PluginsTypes } = require('../');
 const _require = require('../utils/require');
 
 const migrate = require('./redis/migrate.js');
-const { loadLuaScripts, isStarted } = require('./redis/utils');
+const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
 const {
   ERROR_NOT_STARTED,
   ERROR_ALREADY_STARTED,
-  ERROR_FAILED_HEALTH_CHECK,
 } = require('./redis/constants');
 
 /**
@@ -78,17 +77,9 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
 
     /**
      * @private
-     * @returns {Promise<PluginHealthStatus>} Returns current status of redis cluster.
+     * @returns {Promise} Returns current status of redis cluster.
      */
-    async status() {
-      assert(isClusterStarted(), ERROR_NOT_STARTED);
-
-      const res = await service._redis.cluster('info');
-      const isOk = typeof res === 'string' && res.indexOf('cluster_state:ok') >= 0;
-      assert(isOk, ERROR_FAILED_HEALTH_CHECK);
-
-      return true;
-    },
+    status: hasConnection.bind(service, isClusterStarted),
 
     /**
      * @private

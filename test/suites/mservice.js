@@ -3,6 +3,7 @@ const assert = require('assert');
 
 describe('Mservice suite', function testSuite() {
   const Mservice = require('../../src');
+  const constants = require('../../src/constants');
 
   it('creates service with no plugins', function test() {
     assert.doesNotThrow(() => new Mservice({ plugins: [] }));
@@ -86,10 +87,19 @@ describe('Mservice suite', function testSuite() {
       .reflect()
       .then((result) => {
         assert.ok(result.isFulfilled());
-        assert.deepEqual(result.value(), [
+        assert.deepStrictEqual(result.value(), [
           'chai with dorothy and chris',
         ]);
       });
+  });
+
+  it('able to return summary of health statuses of plugins', async function test() {
+    const registeredChecks = this.service.getHealthChecks();
+    const result = await this.service.getHealthStatus()
+
+    assert.strictEqual(result.status, constants.PLUGIN_STATUS_OK);
+    assert.strictEqual(result.failed.length, 0);
+    assert.strictEqual(result.alive.length, registeredChecks.length);
   });
 
   it('able to disconnect from all services', function test() {

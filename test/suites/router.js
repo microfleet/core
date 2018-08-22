@@ -430,6 +430,7 @@ describe('Router suite', function testSuite() {
       expect: 'success',
       verify: (result) => {
         expect(result.data.status).to.be.equals('ok');
+        expect(result.data.failed).to.have.lengthOf(0);
       },
     };
 

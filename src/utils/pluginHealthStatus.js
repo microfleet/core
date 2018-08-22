@@ -3,27 +3,30 @@ const retry = require('bluebird-retry');
 
 const { PLUGIN_STATUS_OK, PLUGIN_STATUS_FAIL } = require('../constants');
 
-function PluginHealthStatus(name: string, alive: boolean = true, error?: Error): PluginHealthStatus {
+function PluginHealthStatus(name: string, alive: boolean = true, error?: Error) {
   this.name = name;
   this.status = alive ? PLUGIN_STATUS_OK : PLUGIN_STATUS_FAIL;
   this.error = error;
 }
 
-function PluginHealthCheck(name: string, handler: Function): PluginHealthCheck {
-  return {
-    name,
-    handler,
-  };
+function PluginHealthCheck(name: string, handler: Function) {
+  this.name = name;
+  this.handler = handler;
 }
 
-const retryOpts = {
-  throw_original: true,
-};
-
+/**
+ * Walks thru attached status getters and returns a summary system state.
+ * @param {Array<PluginHealthCheck>} handlers - Array of plugin health checkers.
+ * @param {Object} _opts - Retry options.
+ * @returns {Promise<{status: string, alive: Array, failed: Array}>} A current service state.
+ */
 async function getHealthStatus(handlers: Array<PluginHealthCheck>, _opts: Object): Object {
+  // retry options
+  // https://www.npmjs.com/package/bluebird-retry
+  const opts = { ..._opts, throw_original: true };
   const alive = [];
   const failed = [];
-  const opts = { ...retryOpts, ..._opts };
+
 
   await Promise.each(handlers, async ({ name, handler }) => {
     try {

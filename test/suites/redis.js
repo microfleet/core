@@ -2,14 +2,7 @@ const path = require('path');
 const is = require('is');
 const assert = require('assert');
 const { inspectPromise } = require('@makeomatic/deploy');
-
-function findHealthCheck(service, pluginName) {
-  const check = service
-    .getHealthChecks()
-    .find(i => i.name === pluginName);
-  assert(check);
-  return check;
-}
+const { findHealthCheck } = require('../utils');
 
 describe('Redis suite', function testSuite() {
   const Mservice = require('../../src');
@@ -79,13 +72,6 @@ describe('Redis suite', function testSuite() {
       .then((version) => {
         assert.equal(version, '10');
         return null;
-      });
-  });
-
-  it('able to fetch health status', function test() {
-    return this.service.getHealthStatus()
-      .then((res) => {
-        assert.equal(res.status, 'ok');
       });
   });
 

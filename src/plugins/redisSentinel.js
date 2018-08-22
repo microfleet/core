@@ -4,8 +4,8 @@ const is = require('is');
 const assert = require('assert');
 const debug = require('debug')('mservice:redisSentinel');
 const { PluginsTypes } = require('../');
-const { loadLuaScripts, isStarted } = require('./redis/utils');
-const { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED, ERROR_FAILED_HEALTH_CHECK } = require('./redis/constants');
+const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
+const { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } = require('./redis/constants');
 const migrate = require('./redis/migrate');
 const _require = require('../utils/require');
 
@@ -72,16 +72,9 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
 
     /**
      * @private
-     * @returns {Promise<>} Returns current status of redis sentinel.
+     * @returns {Promise} Returns current status of redis sentinel.
      */
-    async status() {
-      assert(isRedisStarted(), ERROR_NOT_STARTED);
-
-      const ping = await service._redis.ping();
-      assert(ping, ERROR_FAILED_HEALTH_CHECK);
-
-      return true;
-    },
+    status: hasConnection.bind(service, isRedisStarted),
 
     /**
      * @private
