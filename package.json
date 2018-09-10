@@ -100,7 +100,7 @@
     "@babel/register": "^7.0.0-rc.1",
     "@makeomatic/deploy": "^7.0.1",
     "@microfleet/transport-amqp": "^13.1.2",
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^9.0.0",
     "babel-plugin-istanbul": "^5.0.0",
     "body-parser": "^1.18.3",
     "boom": "^7.2.0",
