@@ -5,6 +5,29 @@ const Errors = require('common-errors');
 const is = require('is');
 const path = require('path');
 
+function readRoutes(directory, callback) {
+  glob.sync('*.js', { cwd: directory, matchBase: true })
+    .forEach((file) => {
+      // remove .js from route
+      const route = file.slice(0, -3);
+
+      // replace / with . for route
+      const routeKey = route.split(path.sep).join('.');
+      return callback(route, routeKey);
+    });
+}
+
+const GENERIC_ROUTES = Object.create(null);
+const GENERIC_ROUTES_PATH = path.resolve(__dirname, 'generic');
+
+readRoutes(GENERIC_ROUTES_PATH, (filepath, action) => {
+  const route = path.resolve(GENERIC_ROUTES_PATH, filepath);
+  GENERIC_ROUTES[action] = {
+    route,
+    routeKey: `generic.${action}`,
+  };
+});
+
 /**
  * Validated that each discovered action conforms to composition rules.
  *
@@ -57,18 +80,24 @@ function getRoutes(config: Object): RouteMap {
     _all: Object.create(null),
   };
 
-  const { enabled } = config;
+  const { enabled, enabledGenericActions } = config;
 
   // if enabled actions is empty load all actions from directory
   if (Object.keys(enabled).length === 0) {
-    glob.sync('*.js', { cwd: config.directory, matchBase: true })
-      .forEach((file) => {
-        // remove .js from route
-        const route = file.slice(0, -3);
+    readRoutes(config.directory, (route, routeKey) => {
+      enabled[route] = routeKey;
+    });
+  }
 
-        // replace / with . for route
-        enabled[route] = route.split(path.sep).join('.');
-      });
+  // and select ONLY enabled generic actions
+  for (const action of enabledGenericActions) {
+    try {
+      const { route, routeKey } = GENERIC_ROUTES[action];
+      enabled[route] = routeKey;
+    } catch (e) {
+      this.log.error('Available generic routes are: %s', Object.keys(GENERIC_ROUTES));
+      throw new Errors.ValidationError(`unknown generic route is requested: ${action}`);
+    }
   }
 
   config.transports.forEach((transport) => {
@@ -89,8 +118,7 @@ function getRoutes(config: Object): RouteMap {
     try {
       validateAction(action);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to process action:', action);
+      this.log.warn('Failed to process action:', action);
       throw e;
     }
 

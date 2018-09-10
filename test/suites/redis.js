@@ -2,6 +2,7 @@ const path = require('path');
 const is = require('is');
 const assert = require('assert');
 const { inspectPromise } = require('@makeomatic/deploy');
+const { findHealthCheck } = require('../utils');
 
 describe('Redis suite', function testSuite() {
   const Mservice = require('../../src');
@@ -22,9 +23,13 @@ describe('Redis suite', function testSuite() {
     return this.service.connect()
       .reflect()
       .then(inspectPromise())
-      .spread((redis) => {
+      .spread(async (redis) => {
         assert(redis instanceof Cluster);
         assert.doesNotThrow(() => this.service.redis);
+
+        const check = findHealthCheck(this.service, 'redis');
+        const result = await check.handler();
+        assert(result);
       });
   });
 
@@ -49,10 +54,14 @@ describe('Redis suite', function testSuite() {
     return this.service.connect()
       .reflect()
       .then(inspectPromise())
-      .spread((redis) => {
+      .spread(async (redis) => {
         assert(redis instanceof Redis);
         assert(is.fn(redis['echo-woo']));
         assert.doesNotThrow(() => this.service.redis);
+
+        const check = findHealthCheck(this.service, 'redis');
+        const result = await check.handler();
+        assert(result);
       });
   });
 

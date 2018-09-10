@@ -1,18 +1,23 @@
 // @flow
+import typeof Mservice from '../../index';
 
-const Redis = require('ioredis');
-const { ArgumentError } = require('common-errors');
-const glob = require('glob');
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
+const assert = require('assert');
+const Redis = require('ioredis');
 const debug = require('debug')('mservice:lua');
+
+const { ArgumentError } = require('common-errors');
+
+const { ERROR_NOT_STARTED, ERROR_NOT_HEALTHY } = require('./constants');
 
 /**
  * Loads LUA script and defines it on the redis instance.
  * @param {string} dir - Directory to scan for LUA scripts to load.
  * @param {Redis} redis - Redis connector instance.
  */
-module.exports = function loadLuaScripts(dir: string, redis: Redis) {
+exports.loadLuaScripts = function loadLuaScripts(dir: string, redis: Redis) {
   if (!path.isAbsolute(dir)) {
     throw new ArgumentError('config.scripts must be an absolute path');
   }
@@ -33,4 +38,19 @@ module.exports = function loadLuaScripts(dir: string, redis: Redis) {
         console.warn('script %s already defined', name);
       }
     });
+};
+
+exports.isStarted = function isStarted(service: Mservice, RedisType: Redis | Redis.Cluster): Function {
+  return (): boolean => (
+    service._redis && (service._redis instanceof RedisType)
+  );
+};
+
+exports.hasConnection = async function hasConnection(hasRedis: () => mixed) {
+  assert(hasRedis(), ERROR_NOT_STARTED);
+
+  const ping = await this._redis.ping();
+  assert(ping, ERROR_NOT_HEALTHY);
+
+  return true;
 };

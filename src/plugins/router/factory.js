@@ -46,7 +46,7 @@ function getRouter(config: Object, service: Mservice): Router {
     service,
     dispatch,
     extensions: new Extensions(config.extensions),
-    routes: getRoutes(config.routes),
+    routes: getRoutes.call(service, config.routes),
     modules: {
       request: requestModule,
       auth: getAuthModule(config.auth),

@@ -365,4 +365,103 @@ describe('Router suite', function testSuite() {
 
     await service.close();
   });
+
+  it('should scan for generic routes', async function test() {
+    const service = new Mservice({
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      http: {
+        server: {
+          attachSocketIO: true,
+          handler: 'express',
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          prefix: 'action',
+          setTransportsAsDefault: true,
+          transports: [
+            ActionTransport.amqp,
+            ActionTransport.http,
+            ActionTransport.socketIO,
+            ActionTransport.internal,
+          ],
+          enabledGenericActions: ['health'],
+        },
+        extensions: {
+          enabled: ['preRequest', 'postRequest', 'preResponse'],
+          register: [
+            schemaLessAction,
+            auditLog,
+          ],
+        },
+      },
+      socketIO: {
+        router: {
+          enabled: true,
+        },
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    });
+
+    await service.connect();
+    const AMQPRequest = getAMQPRequest(service.amqp);
+    const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+    const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
+    const socketIORequest = getSocketIORequest(socketIOClient);
+
+    const returnsResult = {
+      expect: 'success',
+      verify: (result) => {
+        expect(result.data.status).to.be.equals('ok');
+        expect(result.data.failed).to.have.lengthOf(0);
+      },
+    };
+
+    await AMQPRequest('action.generic.health', {}).reflect().then(verify(returnsResult));
+    await service.dispatch('generic.health', {}).reflect().then(verify(returnsResult));
+    await HTTPRequest('/action/generic/health').reflect().then(verify(returnsResult));
+    await socketIORequest('action.generic.health', {}).reflect().then(verify(returnsResult));
+
+    await service.close();
+  });
+
+  it('should throw when unknown generic route is requested', async function test() {
+    const config = {
+      plugins: ['logger', 'validator', 'router'],
+      logger: {
+        defaultLogger: true,
+      },
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          prefix: 'action',
+          setTransportsAsDefault: true,
+          transports: [
+            ActionTransport.internal,
+          ],
+          enabledGenericActions: ['i-dont-know-you'],
+        },
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    };
+
+    expect(() => new Mservice(config)).to.throw(Errors.ValidationError);
+  });
 });

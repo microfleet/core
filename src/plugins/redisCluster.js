@@ -1,13 +1,18 @@
 // @flow
-const Errors = require('common-errors');
 const Promise = require('bluebird');
 const is = require('is');
 const assert = require('assert');
 const debug = require('debug')('mservice:redisCluster');
+
 const { PluginsTypes } = require('../');
-const loadLuaScripts = require('./redis/utils.js');
-const migrate = require('./redis/migrate.js');
 const _require = require('../utils/require');
+
+const migrate = require('./redis/migrate.js');
+const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
+const {
+  ERROR_NOT_STARTED,
+  ERROR_ALREADY_STARTED,
+} = require('./redis/constants');
 
 /**
  * Plugin name.
@@ -24,6 +29,7 @@ exports.type = PluginsTypes.database;
 exports.attach = function attachRedisCluster(conf: Object = {}) {
   const service = this;
   const { Cluster } = _require('ioredis');
+  const isClusterStarted = isStarted(service, Cluster);
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {
@@ -40,7 +46,7 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
      */
     connect: function connectRedis() {
       if (service._redis) {
-        return Promise.reject(new Errors.NotPermittedError('redis was already started'));
+        return Promise.reject(ERROR_ALREADY_STARTED);
       }
 
       const instance = new Cluster(conf.hosts, {
@@ -71,12 +77,16 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
 
     /**
      * @private
+     * @returns {Promise} Returns current status of redis cluster.
+     */
+    status: hasConnection.bind(service, isClusterStarted),
+
+    /**
+     * @private
      * @returns {Promise<void>} Closes redis connection.
      */
     close: function disconnectRedis() {
-      if (!service._redis || !(service._redis instanceof Cluster)) {
-        return Promise.reject(new Errors.NotPermittedError('redis was not started'));
-      }
+      assert(isClusterStarted(), ERROR_NOT_STARTED);
 
       return service
         ._redis

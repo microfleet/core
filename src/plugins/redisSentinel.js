@@ -1,11 +1,11 @@
 // @flow
-const Errors = require('common-errors');
 const Promise = require('bluebird');
 const is = require('is');
 const assert = require('assert');
 const debug = require('debug')('mservice:redisSentinel');
 const { PluginsTypes } = require('../');
-const loadLuaScripts = require('./redis/utils');
+const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
+const { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } = require('./redis/constants');
 const migrate = require('./redis/migrate');
 const _require = require('../utils/require');
 
@@ -29,6 +29,7 @@ exports.type = PluginsTypes.database;
 exports.attach = function attachRedisSentinel(conf: Object = {}) {
   const service = this;
   const Redis = _require('ioredis');
+  const isRedisStarted = isStarted(service, Redis);
 
   // optional validation with the plugin
   if (is.fn(service.validateSync)) {
@@ -45,7 +46,7 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
      */
     connect: function connectRedis() {
       if (service._redis) {
-        return Promise.reject(new Errors.NotPermittedError('redis was already started'));
+        return Promise.reject(ERROR_ALREADY_STARTED);
       }
 
       const instance = new Redis({ ...conf, lazyConnect: true });
@@ -71,12 +72,16 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
 
     /**
      * @private
+     * @returns {Promise} Returns current status of redis sentinel.
+     */
+    status: hasConnection.bind(service, isRedisStarted),
+
+    /**
+     * @private
      * @returns {Promise<void>} Closes redis connection.
      */
     close: function disconnectRedis() {
-      if (!service._redis || !(service._redis instanceof Redis)) {
-        return Promise.reject(new Errors.NotPermittedError('redis was not started'));
-      }
+      assert(isRedisStarted(), ERROR_NOT_STARTED);
 
       return service
         ._redis

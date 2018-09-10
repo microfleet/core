@@ -83,6 +83,10 @@ exports.router = {
      * @type {Array}
      */
     transports: [constants.ActionTransport.http],
+
+    enabledGenericActions: [
+      'health',
+    ],
   },
   /**
    * Extensions configuration
@@ -186,4 +190,14 @@ exports.opentracing = {
     serviceName: 'microfleet',
     disable: true,
   },
+};
+
+/**
+ * Health check retry options
+ * https://www.npmjs.com/package/bluebird-retry
+ * @type {{interval: number, max_tries: number}}
+ */
+exports.healthChecks = {
+  interval: 500,
+  max_tries: 3,
 };
