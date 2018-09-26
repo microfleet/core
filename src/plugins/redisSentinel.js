@@ -1,13 +1,17 @@
 // @flow
-const Promise = require('bluebird');
 const is = require('is');
 const assert = require('assert');
 const debug = require('debug')('mservice:redisSentinel');
+
 const { PluginsTypes } = require('../');
-const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
-const { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } = require('./redis/constants');
-const migrate = require('./redis/migrate');
 const _require = require('../utils/require');
+
+const migrate = require('./redis/migrate.js');
+const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
+const {
+  ERROR_NOT_STARTED,
+  ERROR_ALREADY_STARTED,
+} = require('./redis/constants');
 
 /**
  * Plugin name.
@@ -44,12 +48,13 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
      * @private
      * @returns {Promise<Redis>} Opens connection to Redis.
      */
-    connect: function connectRedis() {
-      if (service._redis) {
-        return Promise.reject(ERROR_ALREADY_STARTED);
-      }
+    async connect() {
+      assert(service._redis == null, ERROR_ALREADY_STARTED);
 
-      const instance = new Redis({ ...conf, lazyConnect: true });
+      const instance = new Redis({
+        ...conf,
+        lazyConnect: true,
+      });
 
       if (service._tracer) {
         const applyInstrumentation = _require('opentracing-js-ioredis');
@@ -62,12 +67,13 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
         loadLuaScripts(conf.luaScripts, instance);
       }
 
-      return instance.connect().then(() => {
-        service.addMigrator('redis', migrate, instance, service);
-        service._redis = instance;
-        service.emit('plugin:connect:redisSentinel', instance);
-        return instance;
-      });
+      await instance.connect();
+
+      service.addMigrator('redis', migrate, instance, service);
+      service._redis = instance;
+      service.emit('plugin:connect:redisSentinel', instance);
+
+      return instance;
     },
 
     /**
@@ -80,17 +86,15 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
      * @private
      * @returns {Promise<void>} Closes redis connection.
      */
-    close: function disconnectRedis() {
+    async close() {
       assert(isRedisStarted(), ERROR_NOT_STARTED);
 
-      return service
-        ._redis
+      await service._redis
         .quit()
-        .catchReturn({ message: 'Connection is closed.' }, null)
-        .tap(() => {
-          service._redis = null;
-          service.emit('plugin:close:redisSentinel');
-        });
+        .catchReturn({ message: 'Connection is closed.' }, null);
+
+      service._redis = null;
+      service.emit('plugin:close:redisSentinel');
     },
 
   };

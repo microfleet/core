@@ -1,5 +1,4 @@
 // @flow
-const Promise = require('bluebird');
 const is = require('is');
 const assert = require('assert');
 const debug = require('debug')('mservice:redisCluster');
@@ -26,6 +25,11 @@ exports.name = 'redis';
  */
 exports.type = PluginsTypes.database;
 
+/**
+ * Attaches Redis Cluster plugin.
+ * @param  {Object} [conf={}] - Configuration for Redis Cluster Connection.
+ * @returns {Object} Connections and Destructors.
+ */
 exports.attach = function attachRedisCluster(conf: Object = {}) {
   const service = this;
   const { Cluster } = _require('ioredis');
@@ -42,12 +46,10 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
 
     /**
      * @private
-     * @returns {Promise} Opens redis connection.
+     * @returns {Promise<Redis>} Opens redis connection.
      */
-    connect: function connectRedis() {
-      if (service._redis) {
-        return Promise.reject(ERROR_ALREADY_STARTED);
-      }
+    async connect() {
+      assert(service._redis == null, ERROR_ALREADY_STARTED);
 
       const instance = new Cluster(conf.hosts, {
         ...conf.options,
@@ -65,14 +67,13 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
         loadLuaScripts(conf.luaScripts, instance);
       }
 
-      return instance
-        .connect()
-        .then(() => {
-          service.addMigrator('redis', migrate, instance, service);
-          service._redis = instance;
-          service.emit('plugin:connect:redisCluster', instance);
-          return instance;
-        });
+      await instance.connect();
+
+      service.addMigrator('redis', migrate, instance, service);
+      service._redis = instance;
+      service.emit('plugin:connect:redisCluster', instance);
+
+      return instance;
     },
 
     /**
@@ -85,18 +86,15 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
      * @private
      * @returns {Promise<void>} Closes redis connection.
      */
-    close: function disconnectRedis() {
+    async close() {
       assert(isClusterStarted(), ERROR_NOT_STARTED);
 
-      return service
-        ._redis
+      await service._redis
         .quit()
-        .catchReturn({ message: 'Connection is closed.' }, null)
-        .tap(() => {
-          service._redis = null;
-          service.emit('plugin:close:redisCluster');
-        });
-    },
+        .catchReturn({ message: 'Connection is closed.' }, null);
 
+      service._redis = null;
+      service.emit('plugin:close:redisCluster');
+    },
   };
 };
