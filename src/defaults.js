@@ -201,3 +201,14 @@ exports.healthChecks = {
   interval: 500,
   max_tries: 3,
 };
+
+/**
+ * gRPC defaults
+ * @type {object}
+ */
+
+exports.gRPC = {
+  proto: {
+    definitions: path.resolve(process.cwd(), 'proto/definitions.proto'),
+  },
+}

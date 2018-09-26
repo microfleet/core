@@ -1,0 +1,14 @@
+syntax = "proto3";
+package test.hello;
+
+message HelloRequest {
+  int64 seq = 1;
+}
+
+message HelloResponse {
+  bool ack = 1;
+}
+
+service Foo {
+  rpc SayHey(stream HelloRequest) returns (stream HelloResponse);
+}

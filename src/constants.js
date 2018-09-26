@@ -32,6 +32,7 @@ exports.ActionTransport = Object.setPrototypeOf({
   http: 'http',
   socketIO: 'socketIO',
   internal: 'internal',
+  gRPC: 'gRPC',
 }, null);
 
 // based on this we validate input data
@@ -44,6 +45,7 @@ exports.DATA_KEY_SELECTOR = Object.setPrototypeOf(({
   post: 'params',
   amqp: 'params',
   socketio: 'params',
+  grpc: 'params',
   internal: 'params',
 }: ValidationObjectSelector), null);
 
@@ -93,3 +95,10 @@ exports.PluginsPriority = [
 
 exports.PLUGIN_STATUS_OK = 'ok';
 exports.PLUGIN_STATUS_FAIL = 'fail';
+
+exports.gRPCTypes = Object.setPrototypeOf({
+  unary: Symbol('unary'),
+  requestStream: Symbol('request-stream'),
+  responseStream: Symbol('response-stream'),
+  duplex: Symbol('duplex'),
+}, null);

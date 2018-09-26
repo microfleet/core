@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "hello.proto";
+
+package test.echo;
+
+message EchoRequest {
+  string text = 1;
+}
+
+message EchoResponse {
+  string text = 1;
+}
+
+service Test {
+  rpc Echo(EchoRequest) returns (EchoResponse) {};
+  rpc EchoClientStream(stream EchoRequest) returns (EchoResponse) {};
+  rpc EchoServerStream(EchoRequest) returns (stream EchoResponse) {};
+  rpc EchoDuplexStream(stream EchoRequest) returns (stream EchoResponse) {};
+  rpc Greet(HelloRequest) returns (HelloResponse) {};
+}

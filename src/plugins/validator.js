@@ -104,6 +104,7 @@ exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: str
   service.validate = (validator.validate: Validate);
   service.validateSync = (validator.validateSync: ValidateSync);
 
+
   // if we have schema called `config` - we will use it to validate
   if (validator.$ajv.getSchema('config')) {
     assert.ifError(service.validateSync('config', service.config).error);

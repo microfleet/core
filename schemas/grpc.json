@@ -1,0 +1,107 @@
+{
+  "$id": "gRPC",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "server",
+    "proto",
+    "implements"
+  ],
+  "properties": {
+    "implements": {
+      "description": "defines which of gRPC services this service implements",
+      "oneOf": [{
+        "type": "string",
+        "minLength": 1
+      }, {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      }]
+    },
+    "server": {
+      "type": "object",
+      "additionalProperties": false,
+      "default": {},
+      "properties": {
+        "address": {
+          "default": "0.0.0.0",
+          "type": "string"
+        },
+        "port": {
+          "default": 50051,
+          "type": "integer"
+        },
+        "ssl": {
+          "oneOf": [{
+            "type": "boolean",
+            "constant": false
+          }, {
+            "type": "object",
+            "description": "if enabled, creates secured grpc server credentials",
+            "additionalProperties": false,
+            "required": [
+              "privateKey",
+              "certChain"
+            ],
+            "properties": {
+              "rootCerts": {
+                "type": "string",
+                "description": "the path to Root CA certificates for validating client certificates",
+                "default": ""
+              },
+              "privateKey": {
+                "type": "string",
+                "description": "the path to the server's private key",
+                "minLength": 1
+              },
+              "certChain": {
+                "type": "string",
+                "description": "the path the server's certificate chain",
+                "minLength": 1
+              }
+            }
+          }]
+        }
+      }
+    },
+    "proto": {
+      "type": "object",
+      "description": "Protobuf configuration",
+      "additionalProperties": false,
+      "required": [
+        "definitions"
+      ],
+      "properties": {
+        "definitions": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object",
+          "descriptions": "See full list there: https://github.com/grpc/grpc-node/tree/master/packages/grpc-protobufjs",
+          "properties": {
+            "keepCase": {
+              "type": "boolean",
+              "default": true
+            },
+            "longs": {
+              "type": "string",
+              "default": "String"
+            },
+            "defaults": {
+              "type": "boolean",
+              "default": true
+            },
+            "oneofs": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      }
+    }
+  }
+}
