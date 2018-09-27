@@ -1,5 +1,5 @@
 {
-  "sleep": 30,
+  "sleep": 60,
   "pre": [
     "yarn coverage:unit"
   ]
