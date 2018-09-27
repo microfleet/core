@@ -32,7 +32,9 @@ exports.type = PluginsTypes.database;
  */
 exports.attach = function attachRedisCluster(conf: Object = {}) {
   const service = this;
-  const { Cluster } = _require('ioredis');
+  const Redis = _require('ioredis');
+  Redis.Promise = require('bluebird');
+  const { Cluster } = Redis;
   const isClusterStarted = isStarted(service, Cluster);
 
   // optional validation with the plugin

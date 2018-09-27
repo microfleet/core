@@ -33,6 +33,7 @@ exports.type = PluginsTypes.database;
 exports.attach = function attachRedisSentinel(conf: Object = {}) {
   const service = this;
   const Redis = _require('ioredis');
+  Redis.Promise = require('bluebird');
   const isRedisStarted = isStarted(service, Redis);
 
   // optional validation with the plugin
