@@ -133,7 +133,7 @@
     "ms-socket.io-adapter-amqp": "^5.0.0",
     "ms-validation": "^7.2.0",
     "nyc": "^13.0.1",
-    "opentracing-js-ioredis": "^1.0.0",
+    "opentracing-js-ioredis": "^2.0.1",
     "pg": "^7.4.3",
     "raven": "^2.6.4",
     "request": "^2.88.0",
