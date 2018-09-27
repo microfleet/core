@@ -21,7 +21,7 @@ patch-package
          _this.emit('node error', error);
      });
      this.slots = [];
-@@ -622,6 +626,10 @@ Cluster.prototype.getInfoFromNode = function (redis, callback) {
+@@ -622,6 +626,11 @@ Cluster.prototype.getInfoFromNode = function (redis, callback) {
  Cluster.prototype._readyCheck = function (callback) {
      this.cluster('info', function (err, res) {
          if (err) {
