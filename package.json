@@ -75,7 +75,7 @@
     "express": "~4.x.x",
     "express-cassandra": "~1.x.x",
     "hapi": ">= 17.x.x < 18",
-    "ioredis": "~3.x.x",
+    "ioredis": "~4.x.x",
     "jaeger-client": "~3.x.x",
     "knex": "~0.14.x",
     "opentracing-js-ioredis": "~1.x.x",
