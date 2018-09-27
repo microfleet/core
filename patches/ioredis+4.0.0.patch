@@ -21,3 +21,15 @@ patch-package
          _this.emit('node error', error);
      });
      this.slots = [];
+@@ -622,6 +626,10 @@ Cluster.prototype.getInfoFromNode = function (redis, callback) {
+ Cluster.prototype._readyCheck = function (callback) {
+     this.cluster('info', function (err, res) {
+         if (err) {
++            // so that it selects another node
++            if (err.message === utils.CONNECTION_CLOSED_ERROR_MSG) {
++              debug('retry _readyCheck');
++              return process.nextTick(this._readyCheck.bind(this), callback);
++            }
+             return callback(err);
+         }
+         if (typeof res !== 'string') {
