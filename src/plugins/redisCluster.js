@@ -6,13 +6,6 @@ const debug = require('debug')('mservice:redisCluster');
 const { PluginsTypes } = require('../');
 const _require = require('../utils/require');
 
-const migrate = require('./redis/migrate.js');
-const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
-const {
-  ERROR_NOT_STARTED,
-  ERROR_ALREADY_STARTED,
-} = require('./redis/constants');
-
 /**
  * Plugin name.
  * @type {string}
@@ -34,6 +27,14 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
   const service = this;
   const Redis = _require('ioredis');
   Redis.Promise = require('bluebird');
+
+  const migrate = require('./redis/migrate.js');
+  const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
+  const {
+    ERROR_NOT_STARTED,
+    ERROR_ALREADY_STARTED,
+  } = require('./redis/constants');
+
   const { Cluster } = Redis;
   const isClusterStarted = isStarted(service, Cluster);
 
