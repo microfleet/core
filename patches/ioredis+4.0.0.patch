@@ -31,7 +31,7 @@ patch-package
 +            // so that it selects another node
 +            if (err.message === utils.CONNECTION_CLOSED_ERROR_MSG) {
 +              debug('retry _readyCheck');
-+              return process.nextTick(self._readyCheck.bind(this), callback);
++              return process.nextTick(self._readyCheck.bind(self), callback);
 +            }
              return callback(err);
          }
