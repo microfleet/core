@@ -2,5 +2,6 @@
   "sleep": 60,
   "pre": [
     "yarn coverage:unit"
-  ]
+  ],
+  "fail": "docker logs rabbitmq; docker logs redis-cluster"
 }

@@ -95,7 +95,7 @@ describe('Mservice suite', function testSuite() {
 
   it('able to return summary of health statuses of plugins', async function test() {
     const registeredChecks = this.service.getHealthChecks();
-    const result = await this.service.getHealthStatus()
+    const result = await this.service.getHealthStatus();
 
     assert.strictEqual(result.status, constants.PLUGIN_STATUS_OK);
     assert.strictEqual(result.failed.length, 0);
