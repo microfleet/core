@@ -29,7 +29,7 @@
 
 import typeof Mservice from '../../index';
 
-const Redis = require('ioredis');
+const Redis = require('@makeomatic/ioredis');
 const Promise = require('bluebird');
 const assert = require('assert');
 const glob = require('glob');

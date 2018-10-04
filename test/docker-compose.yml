@@ -91,3 +91,4 @@ services:
     working_dir: /src
     volumes:
       - ${PWD}:/src
+      - ~/projects/ioredis:/src/node_modules/ioredis

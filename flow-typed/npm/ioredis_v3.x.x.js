@@ -15,7 +15,7 @@
     const redis = new Redis();
  =============================================== */
 
-declare module 'ioredis' {
+declare module '@makeomatic/ioredis' {
   declare class Commander extends events$EventEmitter {
     getBuiltinCommands(): string[];
     createBuiltinCommand(commandName: string): {};

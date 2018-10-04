@@ -6,7 +6,7 @@ const { findHealthCheck } = require('../utils');
 
 describe('Redis suite', function testSuite() {
   const Mservice = require('../../src');
-  const Redis = require('ioredis');
+  const Redis = require('@makeomatic/ioredis');
 
   const { Cluster } = Redis;
 

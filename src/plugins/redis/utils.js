@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const assert = require('assert');
-const Redis = require('ioredis');
+const Redis = require('@makeomatic/ioredis');
 const debug = require('debug')('mservice:lua');
 
 const { ArgumentError } = require('common-errors');
