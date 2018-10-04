@@ -53,8 +53,10 @@ exports.attach = function attachRedisSentinel(conf: Object = {}) {
       assert(service._redis == null, ERROR_ALREADY_STARTED);
 
       const instance = new Redis({
-        ...conf,
+        name: conf.name,
+        sentinels: conf.sentinels,
         lazyConnect: true,
+        ...conf.options,
       });
 
       if (service._tracer) {
