@@ -5,11 +5,10 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const assert = require('assert');
-const Redis = require('ioredis');
 const debug = require('debug')('mservice:lua');
-
 const { ArgumentError } = require('common-errors');
 
+const Redis = require('../../utils/ioredis');
 const { ERROR_NOT_STARTED, ERROR_NOT_HEALTHY } = require('./constants');
 
 /**

@@ -68,7 +68,7 @@ describe('Mservice suite', function testSuite() {
 
   it('able to connect to all services', function test() {
     const AMQPTransport = require('@microfleet/transport-amqp');
-    const { Cluster } = require('ioredis');
+    const { Cluster } = require('@makeomatic/ioredis');
 
     return this.service.connect().reflect()
       .then((result) => {
@@ -95,7 +95,7 @@ describe('Mservice suite', function testSuite() {
 
   it('able to return summary of health statuses of plugins', async function test() {
     const registeredChecks = this.service.getHealthChecks();
-    const result = await this.service.getHealthStatus()
+    const result = await this.service.getHealthStatus();
 
     assert.strictEqual(result.status, constants.PLUGIN_STATUS_OK);
     assert.strictEqual(result.failed.length, 0);
