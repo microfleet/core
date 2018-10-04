@@ -25,7 +25,7 @@ exports.type = PluginsTypes.database;
  */
 exports.attach = function attachRedisCluster(conf: Object = {}) {
   const service = this;
-  const Redis = _require('@makeomatic/ioredis');
+  const Redis = require('../utils/ioredis');
   Redis.Promise = require('bluebird');
 
   const migrate = require('./redis/migrate.js');
