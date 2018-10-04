@@ -1,9 +1,21 @@
 version: '2'
+
+networks:
+  files:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.18.238.0/24
+
 services:
   redis-cluster:
     image: makeomatic/redis-cluster:3.2.9
     hostname: redis-cluster
     container_name: redis-cluster
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.10
 
   redis:
     image: redis:3.2.12-alpine
@@ -11,6 +23,9 @@ services:
     hostname: redis
     expose:
       - "6379"
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.11
 
   redis-sentinel:
     links:
@@ -23,6 +38,9 @@ services:
     expose:
       - "26379"
     command: redis-server /etc/redis-sentinel/redis-sentinel.conf --sentinel
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.12
 
   rabbitmq:
     ports:
@@ -34,6 +52,9 @@ services:
     image: makeomatic/rabbitmq:3.6.12
     container_name: rabbitmq
     hostname: rabbitmq
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.13
 
   elasticsearch:
     expose:
@@ -56,6 +77,9 @@ services:
     mem_limit: 256m
     cap_add:
       - IPC_LOCK
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.14
 
   cassandra:
     image: cassandra:3.11
@@ -64,6 +88,9 @@ services:
     environment:
       MAX_HEAP_SIZE: 128m
       HEAP_NEWSIZE: 24m
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.15
 
   postgres:
     expose:
@@ -71,6 +98,9 @@ services:
     image: postgres:10.4-alpine
     container_name: pg
     hostname: pg
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.16
 
   tester:
     links:
@@ -92,3 +122,6 @@ services:
     volumes:
       - ${PWD}:/src
       - ~/projects/ioredis:/src/node_modules/ioredis
+    networks:
+      mservice:
+        ipv4_address: 172.18.238.17

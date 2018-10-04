@@ -1,13 +1,13 @@
 // make sure we have stack
 require('chai').config.includeStack = true;
-const { ActionTransport } = require('./../src');
 const cassandra = require('express-cassandra');
 const path = require('path');
+const { ActionTransport } = require('./../src');
 
 global.SERVICES = {
   redis: {
     hosts: [0, 1, 2].map(idx => ({
-      host: 'redis-cluster',
+      host: '172.18.238.10',
       port: 7000 + idx,
     })),
     options: {},
