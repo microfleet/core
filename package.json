@@ -12,9 +12,7 @@
     "test:flow": "flow",
     "test:e2e": "yarn compile && DEBUG=ioredis:* mdep test run",
     "prepublishOnly": "yarn compile",
-    "semantic-release": "semantic-release",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
-    "preparecommitmsg": "./node_modules/@makeomatic/deploy/git-hooks/prepare-commit-msg $GIT_PARAMS"
+    "semantic-release": "semantic-release"
   },
   "tags": [
     "microservice",
@@ -53,6 +51,7 @@
     "chalk": "^2.4.1",
     "death": "^1.1.0",
     "debug": "^4.0.1",
+    "event-to-promise": "^0.8.0",
     "eventemitter3": "^3.1.0",
     "glob": "^7.1.3",
     "is": "^3.2.1",
@@ -61,7 +60,7 @@
     "semver": "^5.5.1",
     "sort-by": "^1.1.1",
     "stdout-stream": "^1.4.1",
-    "yargs-parser": "^10.1.0"
+    "yargs-parser": "^11.0.0"
   },
   "peerDependencies": {
     "common-errors": "^1.x.x"
@@ -76,9 +75,10 @@
     "express-cassandra": "~1.x.x",
     "hapi": ">= 17.x.x < 18",
     "@makeomatic/ioredis": "~4.x.x",
+    "ioredis": "~3.x.x || ~4.x.x",
     "jaeger-client": "~3.x.x",
     "knex": "~0.14.x",
-    "opentracing-js-ioredis": "~2.x.x",
+    "opentracing-js-ioredis": "~1.x.x || ~2.x.x",
     "@microfleet/transport-amqp": ">= 13",
     "ms-socket.io-adapter-amqp": "~5.x.x",
     "ms-validation": "~7.x.x",
@@ -98,7 +98,7 @@
     "@babel/plugin-transform-strict-mode": "^7.0.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "@makeomatic/deploy": "^7.0.1",
+    "@makeomatic/deploy": "^8.0.1",
     "@makeomatic/ioredis": "^4.0.0",
     "@microfleet/transport-amqp": "^13.1.2",
     "babel-eslint": "10.0.1",
@@ -156,5 +156,11 @@
     "src/",
     "schemas/",
     "bin/"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "./node_modules/@makeomatic/deploy/git-hooks/prepare-commit-msg $HUSKY_GIT_PARAMS"
+    }
+  }
 }

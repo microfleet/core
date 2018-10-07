@@ -9,6 +9,7 @@ const Errors = require('common-errors');
 const assert = require('assert');
 const identity = require('lodash/identity');
 const is = require('is');
+const eventToPromise = require('event-to-promise');
 const _require = require('../utils/require');
 
 const { ActionTransport, PluginsTypes } = require('../constants');
@@ -113,7 +114,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
       * @param {string} actionName - In-flight action name.
       * @param {Object} message - An amqp-coffee raw message.
       */
-    config.transport.onComplete = function onComplete(err, data, actionName, message) {
+    config.transport.onComplete = async function onComplete(err, data, actionName, message) {
       const { properties } = message;
       const { headers } = properties;
 
@@ -180,28 +181,40 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
         retryMessageOptions.headers['x-original-correlation-id'] = correlationId;
       }
 
-      return service.amqp
-        .send(service.retryQueue, message.raw, retryMessageOptions)
-        .catch((e) => {
-          if (logger !== undefined) logger.error({ err: e }, 'Failed to queue retried message');
+      if (service._amqp == null) {
+        try {
+          const toWrap = eventToPromise.multi(service, ['plugin:connect:amqp'], [
+            'plugin:close:amqp',
+            'error',
+          ]);
+          await Promise.resolve(toWrap).timeout(10000);
+        } catch (e) {
           message.retry();
-          return Promise.reject(err);
-        })
-        .then(() => {
-          if (logger !== undefined) logger.debug('queued retry message');
-          message.ack();
+          return Promise.reject(e);
+        }
+      }
 
-          // enrich error
-          err.scheduledRetry = true;
+      try {
+        await service._amqp.send(service.retryQueue, message.raw, retryMessageOptions);
+      } catch (e) {
+        if (logger !== undefined) logger.error({ err: e }, 'Failed to queue retried message');
+        message.retry();
+        return Promise.reject(err);
+      }
 
-          // reset correlation id
-          // that way response will actually come, but won't be routed in the private router
-          // of the sender
-          properties.correlationId = NULL_UUID;
+      if (logger !== undefined) logger.debug('queued retry message');
+      message.ack();
 
-          // reject with an error, yet a retry will still occur
-          return Promise.reject(err);
-        });
+      // enrich error
+      err.scheduledRetry = true;
+
+      // reset correlation id
+      // that way response will actually come, but won't be routed in the private router
+      // of the sender
+      properties.correlationId = NULL_UUID;
+
+      // reject with an error, yet a retry will still occur
+      return Promise.reject(err);
     };
   }
 
@@ -220,43 +233,39 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
      * Generic AMQP Connector.
      * @returns {Promise<AMQPTransport>} Opens connection to AMQP.
      */
-    connect: function connectToAMQP() {
+    async connect() {
       if (service._amqp) {
         return Promise.reject(new Errors.NotPermittedError('amqp was already started'));
       }
 
       // if service.router is present - we will consume messages
       // if not - we will only create a client
-      return AMQPTransport
-        .connect({
-          ...config.transport,
-          tracer: service._tracer,
-          log: logger || null,
-        }, service.AMQPRouter)
-        .tap((amqp) => {
-          // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
-          if (config.retry && config.retry.enabled === true) {
-            // in case defaults were overwritten - throw here
-            assert.ok(amqp.config.headersExchange.exchange, 'transport.headersExchange.exchange must be set');
+      const amqp = service._amqp = await AMQPTransport.connect({
+        ...config.transport,
+        tracer: service._tracer,
+        log: logger || null,
+      }, service.AMQPRouter);
 
-            return amqp.createQueue({
-              queue: service.retryQueue,
-              autoDelete: false,
-              durable: true,
-              router: null,
-              arguments: {
-                'x-dead-letter-exchange': amqp.config.headersExchange.exchange,
-                'x-max-priority': 100, // to support proper priorities
-              },
-            });
-          }
+      // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
+      if (config.retry && config.retry.enabled === true) {
+        // in case defaults were overwritten - throw here
+        assert.ok(amqp.config.headersExchange.exchange, 'transport.headersExchange.exchange must be set');
 
-          return null;
-        })
-        .tap((amqp) => {
-          service._amqp = amqp;
-          service.emit('plugin:connect:amqp', amqp);
+        await amqp.createQueue({
+          queue: service.retryQueue,
+          autoDelete: false,
+          durable: true,
+          router: null,
+          arguments: {
+            'x-dead-letter-exchange': amqp.config.headersExchange.exchange,
+            'x-max-priority': 100, // to support proper priorities
+          },
         });
+      }
+
+      service.emit('plugin:connect:amqp', amqp);
+
+      return amqp;
     },
 
     /**
@@ -278,17 +287,14 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
      * Generic AMQP disconnector.
      * @returns {Promise<void>} Closes connection to AMQP.
      */
-    close: function disconnectFromAMQP() {
-      if (!isStarted()) {
-        return Promise.reject(ERROR_NOT_STARTED);
-      }
+    async close() {
+      assert(isStarted(), ERROR_NOT_STARTED);
 
       const amqp = service._amqp;
-      return amqp.close()
-        .tap(() => {
-          service._amqp = null;
-          service.emit('plugin:close:amqp');
-        });
+      await amqp.close();
+
+      service._amqp = null;
+      service.emit('plugin:close:amqp');
     },
 
   };
