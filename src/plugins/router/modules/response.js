@@ -13,6 +13,7 @@ const {
   ValidationError,
   Error: CError,
 } = require('common-errors');
+const { HttpStatusError: HttpError } = require('@microfleet/validation');
 const moduleLifecycle = require('./lifecycle');
 
 function response(err: any, result: any) {
@@ -24,6 +25,7 @@ function response(err: any, result: any) {
       case AuthenticationRequiredError:
       case ConnectionError:
       case HttpStatusError:
+      case HttpError:
       case NotImplementedError:
       case NotFoundError:
       case NotPermittedError:

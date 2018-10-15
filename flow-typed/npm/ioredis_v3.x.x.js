@@ -15,7 +15,7 @@
     const redis = new Redis();
  =============================================== */
 
-declare module '@makeomatic/ioredis' {
+declare module 'ioredis' {
   declare class Commander extends events$EventEmitter {
     getBuiltinCommands(): string[];
     createBuiltinCommand(commandName: string): {};
@@ -653,6 +653,8 @@ declare module '@makeomatic/ioredis' {
       options?: ClusterOptions
     ): void;
     nodes(role: string): Redis[];
+
+    [command: string]: (...args: Array<any>) => mixed
   }
 
   declare type ResCallbackT<R> = (err: Error, res: R) => void;
@@ -756,6 +758,7 @@ declare module '@makeomatic/ioredis' {
   };
 
   declare class RedisStatic extends Redis {
+    static Promise: any;
     static Cluster: Class<Cluster>;
     static Commander: Class<Commander>;
 

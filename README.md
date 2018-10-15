@@ -126,7 +126,7 @@ This includes common functionality plugins:
 
 #### Validator
 
-Based on [ms-validation](https://github.com/makeomatic/ms-validation) allows to easily validate input args based on json-schema.
+Based on [@microfleet/validation](https://github.com/microfleet/validation) allows to easily validate input args based on json-schema.
 Create directory `schemas` and populate it with schemas, where names correspond to actions.
 
 Adds following API to the microservice instance:

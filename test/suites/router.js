@@ -129,7 +129,7 @@ describe('Router suite', function testSuite() {
         const validationFailed = {
           expect: 'error',
           verify: (error) => {
-            expect(error.name).to.be.equals('ValidationError');
+            expect(error.name).to.be.equals('HttpStatusError');
             expect(error.message).to.be.equals('action.simple validation failed: data.isAdmin should be boolean');
           },
         };
@@ -286,7 +286,7 @@ describe('Router suite', function testSuite() {
         const validationFailed = {
           expect: 'error',
           verify: (error) => {
-            expect(error.name).to.be.equals('ValidationError');
+            expect(error.name).to.be.equals('HttpStatusError');
             expect(error.message).to.be.equals('withoutSchema validation failed: data.foo should be integer');
           },
         };
@@ -347,7 +347,7 @@ describe('Router suite', function testSuite() {
     const validationFailed = {
       expect: 'error',
       verify: (error) => {
-        expect(error.name).to.be.equals('ValidationError');
+        expect(error.name).to.be.equals('HttpStatusError');
         expect(error.message).to.be.equals('nested.test validation failed: data.foo should be integer');
       },
     };

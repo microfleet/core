@@ -37,7 +37,7 @@ const sortBy = require('sort-by');
 const path = require('path');
 const fs = require('fs');
 const debug = require('debug')('mservice:redis:migrate');
-const Redis = require('../../utils/ioredis');
+const Redis = require('ioredis');
 
 // some constant helpers
 const VERSION_KEY = 'version';

@@ -2,14 +2,14 @@
 /* eslint-disable promise/no-native */
 const path = require('path');
 const assert = require('assert');
-const { NotPermittedError } = require('common-errors');
 const callsite = require('callsite');
-const _require = require('../utils/require');
+const Validator = require('@microfleet/validation').default;
+const { NotPermittedError } = require('common-errors');
 const { PluginsTypes } = require('../');
 
 /**
  * Validator configuration, more details in
- * https://github.com/makeomatic/ms-validation
+ * https://github.com/microfleet/validation
  */
 export type ValidatorConfig = Array<string> | void | {
   filter: (filename: string) => boolean,
@@ -49,7 +49,6 @@ exports.type = PluginsTypes.essential;
  */
 exports.attach = function attachValidator(conf: ValidatorConfig, parentFile: string) {
   const service = this;
-  const Validator = _require('ms-validation');
   const schemasPath = '../../schemas';
   let validator;
   let schemas;

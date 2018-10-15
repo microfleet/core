@@ -1,16 +1,22 @@
 // @flow
-const Errors = require('common-errors');
+const { ArgumentError, Error } = require('common-errors');
+const { HttpStatusError } = require('@microfleet/validation');
 const is = require('is');
 const Promise = require('bluebird');
 const moduleLifecycle = require('./lifecycle');
 const { DATA_KEY_SELECTOR } = require('../../../constants');
 
+function validationSuccess(sanitizedParams) {
+  this.request[this.paramsKey] = sanitizedParams;
+  return this.request;
+}
+
 const handleValidationError = (error) => {
-  if (error.constructor === Errors.ValidationError) {
+  if (error.constructor === HttpStatusError) {
     throw error;
   }
 
-  throw new Errors.Error('internal validation error', error);
+  throw new Error('internal validation error', error);
 };
 
 function validate(request: ServiceRequest): Promise<*> {
@@ -19,16 +25,13 @@ function validate(request: ServiceRequest): Promise<*> {
 
   return validator
     .validate(request.action.schema, request[paramsKey])
-    .then((sanitizedParams) => {
-      request[paramsKey] = sanitizedParams;
-      return request;
-    })
-    .catch(handleValidationError);
+    .bind({ request, paramsKey })
+    .then(validationSuccess, handleValidationError);
 }
 
 function validateHandler(request: ServiceRequest): Promise<*> {
   if (request.action === undefined) {
-    return Promise.reject(new Errors.ArgumentError('"request" must have property "action"'));
+    return Promise.reject(new ArgumentError('"request" must have property "action"'));
   }
 
   if (is.undefined(request.action.schema) === true) {

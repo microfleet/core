@@ -8,7 +8,7 @@ const assert = require('assert');
 const debug = require('debug')('mservice:lua');
 const { ArgumentError } = require('common-errors');
 
-const Redis = require('../../utils/ioredis');
+const Redis = require('ioredis');
 const { ERROR_NOT_STARTED, ERROR_NOT_HEALTHY } = require('./constants');
 
 /**
@@ -16,7 +16,7 @@ const { ERROR_NOT_STARTED, ERROR_NOT_HEALTHY } = require('./constants');
  * @param {string} dir - Directory to scan for LUA scripts to load.
  * @param {Redis} redis - Redis connector instance.
  */
-exports.loadLuaScripts = function loadLuaScripts(dir: string, redis: Redis) {
+exports.loadLuaScripts = function loadLuaScripts(dir: string, redis: Redis | Redis.Cluster) {
   if (!path.isAbsolute(dir)) {
     throw new ArgumentError('config.scripts must be an absolute path');
   }
@@ -39,7 +39,7 @@ exports.loadLuaScripts = function loadLuaScripts(dir: string, redis: Redis) {
     });
 };
 
-exports.isStarted = function isStarted(service: Mservice, RedisType: Redis | Redis.Cluster): Function {
+exports.isStarted = function isStarted(service: Mservice, RedisType: Class<Redis | Redis.Cluster>): Function {
   return (): boolean => (
     service._redis && (service._redis instanceof RedisType)
   );

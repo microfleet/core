@@ -36,7 +36,7 @@ declare class HttpServer extends net$Server {
   maxHeadersCount: number;
   setTimeout(msecs: number, callback: Function): HttpServer;
   timeout: number;
-  listening?: boolean;
+  listening: boolean;
   destroy(callback?: (error: ?Error) => mixed): void;
   destroyAsync?: () => Promise<*>;
 }

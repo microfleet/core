@@ -111,7 +111,7 @@ services:
       - redis
       - elasticsearch
       - cassandra
-    image: makeomatic/node:10.11.0-tester-glibc
+    image: makeomatic/node:10.11.0-tester
     container_name: tester
     command: tail -f /dev/null
     environment:
@@ -121,7 +121,6 @@ services:
     working_dir: /src
     volumes:
       - ${PWD}:/src
-      - ~/projects/ioredis:/src/node_modules/ioredis
     networks:
       mservice:
         ipv4_address: 172.18.238.17
