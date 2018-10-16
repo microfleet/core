@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "declaration": true,
+    "alwaysStrict": true,
+    "sourceMap": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "allowSyntheticDefaultImports": true,
+    "composite": true
+  },
+  "exclude": [
+    "**/node_modules/**",
+    "lib",
+    "dist",
+    "*.test.ts"
+  ]
+}

@@ -1,0 +1,379 @@
+/**
+ * Microservice Abstract Class
+ * @module Microfleet
+ */
+
+import assert = require('assert');
+import Bluebird = require('bluebird');
+import EventEmitter = require('eventemitter3');
+import is = require('is');
+import partial = require('lodash.partial');
+import * as constants from './constants';
+import * as defaultOpts from './defaults';
+import {
+  HandlerProperties,
+  IPlugin,
+  IPluginInterface,
+  PluginConnector,
+  TConnectorsTypes,
+} from './types';
+import { getHealthStatus, PluginHealthCheck } from './utils/pluginHealthStatus';
+
+/**
+ * Simple invocation that preserves context.
+ * @param fn - Function to invoke.
+ */
+function invoke(this: any, fn: (...args: any[]) => any): any {
+  return fn.call(this);
+}
+
+const toArray = <T>(x: T): T[] => Array.isArray(x) ? x : [x];
+
+interface IStartStopTree {
+  [name: string]: PluginConnector[];
+}
+
+/**
+ * Constants with possilble transport values
+ * @memberof Microfleet
+ */
+export const ActionTransport = constants.ActionTransport;
+
+/**
+ * Constants with connect types to control order of service bootstrap
+ * @memberof Microfleet
+ */
+export const ConnectorsTypes = constants.ConnectorsTypes;
+
+/**
+ * Default priority of connectors during bootstrap
+ * @memberof Microfleet
+ */
+export const ConnectorsPriority = constants.ConnectorsPriority;
+
+/**
+ * Plugin Types
+ * @memberof Microfleet
+ */
+export const PluginTypes = constants.PluginTypes;
+
+/**
+ * Plugin boot priority
+ * @memberof Microfleet
+ */
+export const PluginsPriority = constants.PluginsPriority;
+
+/**
+ * Helper method to enable router extensions.
+ * @param name - Pass extension name to require.
+ * @returns Extension to router plugin.
+ */
+export const routerExtension = (name: string) => {
+  return require(`./plugins/router/extensions/${name}`);
+};
+
+/**
+ * @class Microfleet
+ */
+export class Microfleet extends EventEmitter {
+  public log?: any;
+  public config: any;
+  public migrators: any;
+  private [constants.CONNECTORS_PROPERTY]: IStartStopTree;
+  private [constants.DESTRUCTORS_PROPERTY]: IStartStopTree;
+  private [constants.HEALTH_CHECKS_PROPERTY]: any[];
+
+  /**
+   * @param [opts={}] - Overrides for configuration.
+   * @returns Instance of microservice.
+   */
+  constructor(opts: any = {}) {
+    super();
+
+    // init configuration
+    const config = this.config = { ...defaultOpts, ...opts };
+
+    // init migrations
+    this.migrators = Object.create(null);
+
+    // init health status checkers
+    this.healthChecks = [];
+
+    // init plugins
+    this.initPlugins(config);
+
+    // setup error listener
+    this.on('error', this.onError);
+
+    // setup hooks
+    for (const [eventName, hooks] of Object.entries(config.hooks)) {
+      for (const hook of toArray<any>(hooks)) {
+        this.on(eventName, hook);
+      }
+    }
+
+    if (config.sigterm) {
+      this.on('ready', () => {
+        process.on('SIGTERM', this.exit);
+      });
+
+      this.on('close', () => {
+        process.removeListener('SIGTERM', this.exit);
+      });
+    }
+  }
+
+  /**
+   * Asyncronously calls event listeners
+   * and waits for them to complete.
+   * This is a bit odd compared to normal event listeners,
+   * but works well for dynamically running async actions and waiting
+   * for them to complete.
+   *
+   * @param event - Hook name to be called during execution.
+   * @param args - Arbitrary args to pass to the hooks.
+   * @returns Result of invoked hook.
+   */
+  public hook(event: string, ...args: any[]) {
+    const listeners = this.listeners(event);
+
+    return Bluebird
+      .resolve(listeners)
+      .map((listener: (args: any[]) => any) => {
+        return listener.apply(this, args);
+      });
+  }
+
+  /**
+   * Adds migrators.
+   * @param name - Migrator name.
+   * @param fn - Migrator function to be invoked.
+   * @param args - Arbitrary args to be passed to fn later on.
+   */
+  public addMigrator(name: string, fn: () => any, ...args: any[]) {
+    this.migrators[name] = partial(fn, ...args);
+  }
+
+  /**
+   * Performs migration for a given database or throws if migrator is not present.
+   * @param  name - Name of the migration to invoke.
+   * @param  args - Extra args to pass to the migrator.
+   * @returns Result of the migration.
+   */
+  public migrate(name: string, ...args: any[]) {
+    const migrate = this.migrators[name];
+    assert(is.fn(migrate), `migrator ${name} not defined`);
+    return migrate(...args);
+  }
+
+  /**
+   * Generic connector for all of the plugins.
+   * @returns Walks over registered connectors and emits ready event upon completion.
+   */
+  public connect() {
+    return Bluebird
+      .resolve(this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority));
+  }
+
+  /**
+   * Generic cleanup function.
+   * @returns Walks over registered destructors and emits close event upon completion.
+   */
+  public close() {
+    return Bluebird
+      .resolve(this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse()));
+  }
+
+  // ****************************** Plugin section: public ************************************
+
+  /**
+   * Public function to init plugins.
+   *
+   * @param mod - Plugin module instance.
+   * @param mod.name - Plugin name.
+   * @param mod.attach - Plugin attach function.
+   * @param [conf] - Configuration in case it's not present in the core configuration object.
+   */
+  public initPlugin(mod: IPlugin, conf?: any) {
+    const expose = mod.attach.call(this, conf || this.config[mod.name], __filename);
+
+    if (!is.object(expose)) {
+      return;
+    }
+
+    const { connect, status, close } = expose as IPluginInterface;
+    const type = ConnectorsTypes[mod.type] as TConnectorsTypes;
+
+    assert(type, 'Plugin type must be equal to one of connectors type');
+
+    if (typeof connect === 'function') {
+      this.addConnector(type, connect);
+    }
+
+    if (typeof close === 'function') {
+      this.addDestructor(type, close);
+    }
+
+    if (typeof status === 'function') {
+      this.addHealthCheck(new PluginHealthCheck(mod.name, status));
+    }
+  }
+
+  /**
+   * Returns registered connectors.
+   * @returns Connectors.
+   */
+  public getConnectors() {
+    return this[constants.CONNECTORS_PROPERTY];
+  }
+
+  /**
+   * Returns registered destructors.
+   * @returns Destructors.
+   */
+  public getDestructors() {
+    return this[constants.DESTRUCTORS_PROPERTY];
+  }
+
+  /**
+   * Returns registered health checks.
+   * @returns Health checks.
+   */
+  public getHealthChecks() {
+    return this[constants.HEALTH_CHECKS_PROPERTY];
+  }
+
+  /**
+   * Initializes connectors on the instance of Microfleet.
+   * @param {string} type - Connector type.
+   * @param {Function} handler - Plugin connector.
+   */
+  public addConnector(type: TConnectorsTypes, handler: PluginConnector) {
+    this.addHandler(constants.CONNECTORS_PROPERTY, type, handler);
+  }
+
+  /**
+   * Initializes destructor on the instance of Microfleet.
+   * @param {string} type - Destructor type.
+   * @param {Function} handler - Plugin destructor.
+   */
+  public addDestructor(type: TConnectorsTypes, handler: PluginConnector) {
+    this.addHandler(constants.DESTRUCTORS_PROPERTY, type, handler);
+  }
+
+  /**
+   * Initializes plugin health check.
+   * @param {Function} handler - Health check function.
+   */
+  public addHealthCheck(handler: PluginHealthCheck) {
+    this[constants.HEALTH_CHECKS_PROPERTY].push(handler);
+  }
+
+  /**
+   * Asks for health status of registered plugins if it's possible, logs it and returns summary.
+   */
+  public getHealthStatus() {
+    return getHealthStatus(this.getHealthChecks(), this.config.healthChecks);
+  }
+
+  /**
+   * Overrides SIG* events and exits cleanly.
+   * @returns Resolves when exit sequence has completed.
+   */
+  private exit = async () => {
+    if (this.log) {
+      this.log.info('received close signal...\n closing connections...\n');
+    }
+
+    try {
+      await this.close().timeout(10000);
+    } catch (e) {
+      process.exit(128);
+    }
+  }
+
+  /**
+   * Helper for calling funcs and emitting event after.
+   * @private
+   * @param collection - Object with namespaces for arbitrary handlers.
+   * @param event - Type of handlers that must be called.
+   * @param [priority=Microfleet.ConnectorsPriority] - Order to process collection.
+   * @returns Result of the invocation.
+   */
+  private async processAndEmit(collection: any, event: string, priority = ConnectorsPriority) {
+    const responses = [];
+    for (const connectorType of priority) {
+      const connectors = collection[connectorType];
+      if (!connectors) {
+        continue;
+      }
+
+      responses.push(...await Bluebird.resolve(connectors as PluginConnector[]).bind(this).map(invoke));
+    }
+
+    this.emit(event);
+
+    return responses;
+  }
+
+  // ***************************** Plugin section: private **************************************
+
+  private addHandler(property: HandlerProperties, type: TConnectorsTypes, handler: PluginConnector) {
+    if (this[property] === undefined) {
+      this[property] = {};
+    }
+
+    if (this[property][type] === undefined) {
+      this[property][type] = [];
+    }
+
+    this[property][type].push(handler);
+  }
+
+  /**
+   * Initializes service plugins.
+   * @param {Object} config - Service plugins configuration.
+   * @private
+   */
+  private initPlugins(config: any) {
+    this[constants.CONNECTORS_PROPERTY] = Object.create(null);
+    this[constants.DESTRUCTORS_PROPERTY] = Object.create(null);
+
+    for (const pluginType of PluginsPriority) {
+      this[constants.CONNECTORS_PROPERTY][pluginType] = [];
+      this[constants.DESTRUCTORS_PROPERTY][pluginType] = [];
+    }
+
+    for (const plugin of config.plugins) {
+      this.initPlugin(require(`./plugins/${plugin}`));
+    }
+
+    this.emit('init');
+  }
+
+  /**
+   * Notifies about errors when no other listeners are present
+   * by throwing them.
+   * @param err - Error that was emitted by the service members.
+   */
+  private onError = (err: Error) => {
+    if (this.listeners('error').length > 1) {
+      return;
+    }
+
+    throw err;
+  }
+}
+
+export default Microfleet;
+
+// if there is no parent module we assume it's called as a binary
+if (!module.parent) {
+  const mservice = new Microfleet();
+  mservice
+    .connect()
+    .catch((err: Error) => {
+      mservice.log.fatal('Failed to start service', err);
+      setImmediate(() => { throw err; });
+    });
+}

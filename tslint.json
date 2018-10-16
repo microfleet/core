@@ -1,0 +1,26 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "package.json",
+      "packages/**/lib",
+      "**/node_modules/**/*"
+    ]
+  },
+  "jsRules": {},
+  "rules": {
+    "quotemark": {
+      "options": [
+        "single",
+        "avoid-escape"
+      ]
+    },
+    "no-bitwise": false,
+    "no-namespace": [true, "allow-declarations"],
+    "no-angle-bracket-type-assertion": false
+  },
+  "rulesDirectory": []
+}

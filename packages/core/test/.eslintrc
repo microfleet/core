@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "promise/always-return": 0
+  },
+  "env": {
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8
+  }
+}
