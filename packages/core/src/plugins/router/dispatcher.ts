@@ -1,21 +1,23 @@
-// @flow
+import Bluebird = require('bluebird');
+import _debug = require('debug');
+import is = require('is');
+import { Tags } from 'opentracing';
+import uuid = require('uuid');
+import { IServiceRequest } from '../../types';
+import { IMicrofleetRouter } from './factory';
 
-/**
- * Project deps
- * @private
- */
-const is = require('is');
-const Promise = require('bluebird');
-const uuid = require('uuid');
-const debug = require('debug')('mservice:router:dispatch');
-const { ERROR, COMPONENT } = require('opentracing').Tags;
+const debug = _debug('mservice:router:dispatch');
+const { ERROR, COMPONENT } = Tags;
 
-const wrapPromise = (span: any, promise: any, callback: () => mixed | void) => (
+const wrapPromise = (span: any, promise: any, callback?: () => any) => (
   promise
-    .catch((err) => {
+    .catch((err: Error) => {
       span.setTag(ERROR, true);
       span.log({
-        event: 'error', 'error.object': err, message: err.message, stack: err.stack,
+        'error.object': err,
+        'event': 'error',
+        'message': err.message,
+        'stack': err.stack,
       });
       throw err;
     })
@@ -25,13 +27,18 @@ const wrapPromise = (span: any, promise: any, callback: () => mixed | void) => (
     .asCallback(callback)
 );
 
-function reflectToProps(reflection) {
+function reflectToProps(this: IServiceRequest, reflection: Bluebird.Inspection<any>) {
   return reflection.isRejected()
     ? [reflection.reason(), undefined, this]
     : [null, reflection.value(), this];
 }
 
-function dispatch(route: string, request: ServiceRequest, callback: () => mixed | void): Promise<*> | void {
+function dispatch(
+  this: IMicrofleetRouter,
+  route: string,
+  request: IServiceRequest,
+  callback?: () => any,
+): Bluebird<any> | void {
   const router = this;
   const { modules, service } = router;
 
@@ -39,8 +46,8 @@ function dispatch(route: string, request: ServiceRequest, callback: () => mixed 
 
   // if we have installed tracer - init span
   let span;
-  if (service._tracer !== undefined) {
-    span = request.span = service._tracer.startSpan(`dispatch:${route}`, {
+  if (service.tracer !== undefined) {
+    span = request.span = service.tracer.startSpan(`dispatch:${route}`, {
       childOf: request.parentSpan,
       tags: {
         [COMPONENT]: request.transport,
@@ -48,15 +55,13 @@ function dispatch(route: string, request: ServiceRequest, callback: () => mixed 
     });
   }
 
-  if (service._log !== undefined) {
-    request.log = service._log.child({
-      reqId: uuid.v4(),
-    });
-  }
+  request.log = service.log.child({
+    reqId: uuid.v4(),
+  });
 
-  // $FlowFixMe
-  let result = Promise
-    .bind(service, [route, request])
+  let result = Bluebird
+    .resolve([route, request])
+    .bind(service)
     .spread(modules.request)
     .then(modules.auth)
     .then(modules.validate)
@@ -77,4 +82,4 @@ function dispatch(route: string, request: ServiceRequest, callback: () => mixed 
     : result.asCallback(callback);
 }
 
-module.exports = dispatch;
+export default dispatch;

@@ -1,8 +1,15 @@
-// @flow
-const parse = require('qs/lib/parse');
-const identity = require('lodash/identity');
+import identity = require('lodash/identity');
+import { parse } from 'qs';
+import { IServiceRequest } from '../../../../types';
 
-function preValidate(request: ServiceRequest) {
+type QSParserAugmentedAction = IServiceRequest & {
+  action: IServiceRequest['action'] & {
+    transformQuery?: (...args: any[]) => any,
+    transformOpts?: any,
+  },
+};
+
+function preValidate(request: QSParserAugmentedAction) {
   const { query } = request;
 
   // if present - remap, otherwise just noop
@@ -12,9 +19,9 @@ function preValidate(request: ServiceRequest) {
 
     // eslint-disable-next-line no-param-reassign
     request.query = transformQuery(parse(query, {
+      depth: 1,
       parameterLimit: 10,
       parseArrays: false,
-      depth: 1,
       ...transformOpts,
     }));
   }
@@ -22,7 +29,7 @@ function preValidate(request: ServiceRequest) {
   return request;
 }
 
-module.exports = [{
-  point: 'preValidate',
+export default [{
   handler: preValidate,
+  point: 'preValidate',
 }];

@@ -50,23 +50,21 @@ export type MserviceError = Error & {
   toJSON(): any;
 };
 
+export interface IAuthConfig {
+  name: string;
+  passAuthError: boolean;
+  strategy: string;
+}
+
 export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_PROPERTY;
-export type TransportTypes = $Keys<typeof ActionTransport>;
+export type TransportTypes = $Values<typeof ActionTransport>;
 export type TConnectorsTypes = $Keys<typeof ConnectorsTypes>;
 export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>;
-export type Middleware = (req: IServiceRequest) => PromiseLike<string>;
-
-export type LifecycleRequestType = 'preAllowed' | 'postAllowed'
-  | 'preAuth' | 'postAuth'
-  | 'preHandler' | 'postHandler'
-  | 'preRequest' | 'postRequest'
-  | 'preResponse' | 'postResponse'
-  | 'preValidate' | 'postValidate';
-
-export interface IServiceAction {
-  (...args: any[]): PromiseLike<any>;
+export type GetAuthName = (req: IServiceRequest) => string;
+export type ServiceActionStep = (...args: any[]) => PromiseLike<any>;
+export interface IServiceAction extends ServiceActionStep {
   allowed?: () => boolean | Promise<boolean>;
-  auth?: string | Middleware;
+  auth?: string | GetAuthName | IAuthConfig;
   passAuthError?: boolean;
   schema?: string;
   transports: TransportTypes[];
@@ -94,12 +92,6 @@ export interface IServiceRequest {
     warn(...args: any[]): void,
     error(...args: any[]): void,
     fatal(...args: any[]): void,
-  };
-}
-
-export interface IRouteMap {
-  [transport: string]: {
-    [routingKey: string]: IServiceAction,
   };
 }
 

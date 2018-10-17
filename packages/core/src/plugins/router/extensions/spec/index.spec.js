@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const Errors = require('common-errors');
-const Extensions = require('..');
+const Extensions = require('..').default;
 const Promise = require('bluebird');
 
 describe('router: extensions', function suite() {

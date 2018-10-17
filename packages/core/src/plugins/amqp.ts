@@ -1,59 +1,50 @@
-// @flow
-
-/**
- * Project deps
- * @private
- */
-const Promise = require('bluebird');
-const Errors = require('common-errors');
-const assert = require('assert');
-const identity = require('lodash/identity');
-const is = require('is');
-const eventToPromise = require('event-to-promise');
-const _require = require('../utils/require');
-
-const { ActionTransport, PluginsTypes } = require('../constants');
-const getAMQPRouterAdapter = require('./amqp/router/adapter');
-const verifyPossibility = require('./router/verifyAttachPossibility');
+import assert = require('assert');
+import Bluebird = require('bluebird');
+import Errors = require('common-errors');
+import eventToPromise = require('event-to-promise');
+import is = require('is');
+import { ActionTransport, Microfleet, PluginTypes } from '../';
+import _require from '../utils/require';
+import getAMQPRouterAdapter from './amqp/router/adapter';
+import verifyPossibility from './router/verifyAttachPossibility';
 
 /**
  * Helpers Section
  */
 const NULL_UUID = '00000000-0000-0000-0000-000000000000';
+const identity = <T>(arg: T) => arg;
 
 /**
  * Calculate priority based on message expiration time.
  * Logic behind it is to give each expiration a certain priority bucket
  * based on the amount of priority levels in the RabbitMQ queue.
- * @param {number} expiration - Current expiration (retry) time.
- * @param {number} maxExpiration - Max possible expiration (retry) time.
- * @returns {number} Queue Priority Level.
+ * @param expiration - Current expiration (retry) time.
+ * @param maxExpiration - Max possible expiration (retry) time.
+ * @returns Queue Priority Level.
  */
-function calculatePriority(expiration, maxExpiration) {
+function calculatePriority(expiration: number, maxExpiration: number) {
   const newExpiration = Math.min(expiration, maxExpiration);
   return 100 - Math.floor((newExpiration / maxExpiration) * 100);
 }
 
 /**
  * Plugin Name
- * @type {String}
  */
-exports.name = 'amqp';
+export const name = 'amqp';
 
 /**
  * Plugin Type
- * @type {String}
  */
-exports.type = PluginsTypes.transport;
+export const type = PluginTypes.transport;
 
 /**
  * Attaches plugin to the MService class.
  * @param {Object} config - AMQP plugin configuration.
  */
-exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
+export function attach(this: Microfleet, config: any = {}) {
   const service = this;
 
-  const AMQPTransport = _require('@microfleet/transport-amqp');
+  const AMQPTransport = _require('@microfleet/transport-amqp') as any;
   const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery');
 
   const ERROR_NOT_STARTED = new Errors.NotPermittedError('amqp was not started');
@@ -61,34 +52,33 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
 
   /**
    * Check if the service has an amqp transport.
-   * @returns {boolean} A truthy value if the service has an instance of AMQPTransport.
+   * @returns A truthy value if the service has an instance of AMQPTransport.
    */
   const isStarted = () => (
-    service._amqp && service._amqp instanceof AMQPTransport
+    service.amqp && service.amqp instanceof AMQPTransport
   );
 
   /**
    * Check the state of a connection to the amqp server.
-   * @param {Object} amqp - Instance of AMQPTransport.
-   * @returns {boolean} A truthy value if a provided connection is open.
+   * @param amqp - Instance of AMQPTransport.
+   * @returns A truthy value if a provided connection is open.
    */
-  const isConnected = amqp => (
-    amqp._amqp && amqp._amqp.state === 'open'
+  const isConnected = (amqp: typeof AMQPTransport) => (
+    amqp.amqp && amqp.amqp.state === 'open'
   );
 
-
-  if (is.fn(service.validateSync)) {
-    assert.ifError(service.validateSync('amqp', config).error);
+  if (is.fn(service.ifError)) {
+    service.ifError('amqp', config);
   }
 
   // init logger if service is enabled
-  const logger = service._log && service._log.child({ namespace: '@microfleet/transport-amqp' });
+  const logger = service.log && service.log.child({ namespace: '@microfleet/transport-amqp' });
 
   // initializes custom onComplete function
   if (config.retry && config.retry.enabled === true) {
     assert.equal(
       config.transport.bindPersistantQueueToHeadersExchange, true,
-      'config.transport.bindPersistantQueueToHeadersExchange must be set to true'
+      'config.transport.bindPersistantQueueToHeadersExchange must be set to true',
     );
     assert.ok(config.retry.queue || config.transport.queue, '`retry.queue` or `transport.queue` must be truthy string');
     assert.equal(typeof config.transport.onComplete, 'undefined', 'transport.onComplete must be undefined');
@@ -105,16 +95,16 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     const backoff = new Backoff({ qos: retry });
 
     /**
-      * Composes onComplete handler for QoS enabled Subscriber.
-      * Allows one to set custom fast-rejection policy.
-      * Relies on certain configuration options of the initialized service.
-      *
-      * @param {Error} err - Possible error.
-      * @param {Mixed} data - Anything that is a response.
-      * @param {string} actionName - In-flight action name.
-      * @param {Object} message - An amqp-coffee raw message.
-      */
-    config.transport.onComplete = async function onComplete(err, data, actionName, message) {
+     * Composes onComplete handler for QoS enabled Subscriber.
+     * Allows one to set custom fast-rejection policy.
+     * Relies on certain configuration options of the initialized service.
+     *
+     * @param err - Possible error.
+     * @param data - Anything that is a response.
+     * @param actionName - In-flight action name.
+     * @param message - An amqp-coffee raw message.
+     */
+    config.transport.onComplete = async (err: any, data: any, actionName: string, message: any) => {
       const { properties } = message;
       const { headers } = properties;
 
@@ -128,7 +118,10 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
       }
 
       if (!err) {
-        if (logger !== undefined) logger.info('Sent, ack: [%s]', actionName);
+        if (logger) {
+          logger.info('Sent, ack: [%s]', actionName);
+        }
+
         message.ack();
         return data;
       }
@@ -147,25 +140,27 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
           const logLevel = err.retryAttempt === 0 ? 'warn' : 'error';
           logger[logLevel]({ err, properties }, 'Failed: [%s]', actionName);
         }
-        return Promise.reject(err);
+        return Bluebird.reject(err);
       }
 
       // assume that predefined accounts must not fail - credentials are correct
-      if (logger !== undefined) logger.warn({ err, properties }, 'Retry: [%s]', actionName);
+      if (logger) {
+        logger.warn({ err, properties }, 'Retry: [%s]', actionName);
+      }
 
       // retry message options
       const expiration = backoff.get('qos', retryCount);
       const retryMessageOptions: any = {
-        skipSerialize: true,
         confirm: true,
-        mandatory: true,
         expiration: expiration.toString(),
-        priority: calculatePriority(expiration, retry.max),
         headers: {
           'routing-key': actionName,
-          'x-retry-count': retryCount,
           'x-original-error': String(err),
+          'x-retry-count': retryCount,
         },
+        mandatory: true,
+        priority: calculatePriority(expiration, retry.max),
+        skipSerialize: true,
       };
 
       // deal with special routing properties
@@ -181,28 +176,32 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
         retryMessageOptions.headers['x-original-correlation-id'] = correlationId;
       }
 
-      if (service._amqp == null) {
+      if (service.amqp == null) {
         try {
-          const toWrap = eventToPromise.multi(service, ['plugin:connect:amqp'], [
+          const toWrap = eventToPromise.multi(service as any, ['plugin:connect:amqp'], [
             'plugin:close:amqp',
             'error',
           ]);
-          await Promise.resolve(toWrap).timeout(10000);
+          await Bluebird.resolve(toWrap).timeout(10000);
         } catch (e) {
           message.retry();
-          return Promise.reject(e);
+          return Bluebird.reject(e);
         }
       }
 
       try {
-        await service._amqp.send(service.retryQueue, message.raw, retryMessageOptions);
+        await service.amqp.send(service.retryQueue, message.raw, retryMessageOptions);
       } catch (e) {
-        if (logger !== undefined) logger.error({ err: e }, 'Failed to queue retried message');
+        if (logger) {
+          logger.error({ err: e }, 'Failed to queue retried message');
+        }
         message.retry();
-        return Promise.reject(err);
+        return Bluebird.reject(err);
       }
 
-      if (logger !== undefined) logger.debug('queued retry message');
+      if (logger) {
+        logger.debug('queued retry message');
+      }
       message.ack();
 
       // enrich error
@@ -214,7 +213,7 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
       properties.correlationId = NULL_UUID;
 
       // reject with an error, yet a retry will still occur
-      return Promise.reject(err);
+      return Bluebird.reject(err);
     };
   }
 
@@ -224,26 +223,26 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
     const { prefix } = config.router;
     // allow ms-amqp-transport to discover routes
     config.transport.listen = Object.keys(service.router.routes.amqp)
-      .map(prefix ? route => `${prefix}.${route}` : identity);
+      .map(prefix ? (route) => `${prefix}.${route}` : identity);
   }
 
   return {
 
     /**
      * Generic AMQP Connector.
-     * @returns {Promise<AMQPTransport>} Opens connection to AMQP.
+     * @returns Opens connection to AMQP.
      */
     async connect() {
-      if (service._amqp) {
-        return Promise.reject(new Errors.NotPermittedError('amqp was already started'));
+      if (service.amqp) {
+        return Bluebird.reject(new Errors.NotPermittedError('amqp was already started'));
       }
 
       // if service.router is present - we will consume messages
       // if not - we will only create a client
-      const amqp = service._amqp = await AMQPTransport.connect({
+      const amqp = service.amqp = await AMQPTransport.connect({
         ...config.transport,
-        tracer: service._tracer,
         log: logger || null,
+        tracer: service.tracer,
       }, service.AMQPRouter);
 
       // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
@@ -252,14 +251,14 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
         assert.ok(amqp.config.headersExchange.exchange, 'transport.headersExchange.exchange must be set');
 
         await amqp.createQueue({
-          queue: service.retryQueue,
-          autoDelete: false,
-          durable: true,
-          router: null,
           arguments: {
             'x-dead-letter-exchange': amqp.config.headersExchange.exchange,
             'x-max-priority': 100, // to support proper priorities
           },
+          autoDelete: false,
+          durable: true,
+          queue: service.retryQueue,
+          router: null,
         });
       }
 
@@ -275,27 +274,26 @@ exports.attach = function attachAMQPPlugin(config: Object): PluginInterface {
      * Connection state depends on actual connection status, but it could be
      * modified when a heartbeat message from a message broker is missed during
      * a twice heartbeat interval.
-     * @returns {Promise<void>} A truthy value if all checks are passed.
+     * @returns A truthy value if all checks are passed.
      */
     async status() {
       assert(isStarted(), ERROR_NOT_STARTED);
-      assert(isConnected(service._amqp), ERROR_NOT_HEALTHY);
+      assert(isConnected(service.amqp), ERROR_NOT_HEALTHY);
       return true;
     },
 
     /**
      * Generic AMQP disconnector.
-     * @returns {Promise<void>} Closes connection to AMQP.
+     * @returns Closes connection to AMQP.
      */
     async close() {
       assert(isStarted(), ERROR_NOT_STARTED);
 
-      const amqp = service._amqp;
-      await amqp.close();
+      await service.amqp.close();
 
-      service._amqp = null;
+      service.amqp = null;
       service.emit('plugin:close:amqp');
     },
 
   };
-};
+}

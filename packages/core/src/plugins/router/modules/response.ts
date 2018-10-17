@@ -1,26 +1,26 @@
-// @flow
-const { MSError } = require('@microfleet/transport-amqp/lib/utils/serialization');
-const Promise = require('bluebird');
-const {
+import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization';
+import { HttpStatusError as HttpError } from '@microfleet/validation';
+import Bluebird = require('bluebird');
+import {
   AuthenticationRequiredError,
   ConnectionError,
+  Error as CError,
   HttpStatusError,
-  NotImplementedError,
   NotFoundError,
+  NotImplementedError,
   NotPermittedError,
   NotSupportedError,
   TimeoutError,
   ValidationError,
-  Error: CError,
-} = require('common-errors');
-const { HttpStatusError: HttpError } = require('@microfleet/validation');
-const moduleLifecycle = require('./lifecycle');
+} from 'common-errors';
+import { Microfleet } from '../../../';
+import { IServiceRequest } from '../../../types';
+import moduleLifecycle from './lifecycle';
 
-function response(err: any, result: any) {
+function response(this: Microfleet, err: Error | null, result: any) {
   const service = this;
 
   if (err) {
-    // eslint-disable-next-line default-case
     switch (err.constructor) {
       case AuthenticationRequiredError:
       case ConnectionError:
@@ -33,11 +33,10 @@ function response(err: any, result: any) {
       case TimeoutError:
       case ValidationError:
       case CError:
-        return Promise.reject(err);
+        return Bluebird.reject(err);
     }
 
     if (err.constructor === MSError) {
-      // eslint-disable-next-line default-case
       switch (err.name) {
         case 'AuthenticationRequiredError':
         case 'ConnectionError':
@@ -48,20 +47,20 @@ function response(err: any, result: any) {
         case 'NotSupportedError':
         case 'TimeoutError':
         case 'ValidationError':
-          return Promise.reject(err);
+          return Bluebird.reject(err);
       }
     }
 
     service.log.fatal('unexpected error', err);
-    return Promise.reject(new CError(`Something went wrong: ${err.message}`, err));
+    return Bluebird.reject(new CError(`Something went wrong: ${err.message}`, err));
   }
 
-  return Promise.resolve(result);
+  return Bluebird.resolve(result);
 }
 
-function responseHandler(params: [?Error, mixed, ServiceRequest]): Promise<*> {
+function responseHandler(this: Microfleet, params: [Error | null, any, IServiceRequest]) {
   const service = this;
-  return moduleLifecycle('response', response, service.router.extensions, (params: any), service);
+  return moduleLifecycle('response', response, service.router.extensions, params, service);
 }
 
-module.exports = responseHandler;
+export default responseHandler;

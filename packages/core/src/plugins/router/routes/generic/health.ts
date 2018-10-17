@@ -1,6 +1,6 @@
-const { ActionTransport } = require('../../../../constants');
+import { ActionTransport, Microfleet } from '../../../..';
 
-async function GenericHealthCheck(): Object {
+async function GenericHealthCheck(this: Microfleet) {
   const data = await this.getHealthStatus();
   return { data };
 }
@@ -13,4 +13,4 @@ GenericHealthCheck.transports = [
   ActionTransport.socketIO,
 ];
 
-module.exports = GenericHealthCheck;
+export default GenericHealthCheck;

@@ -1,34 +1,33 @@
-// @flow
-const is = require('is');
-const assert = require('assert');
-const debug = require('debug')('mservice:redisCluster');
+import assert = require('assert');
+import Bluebird = require('bluebird');
+import _debug = require('debug');
+import is = require('is');
+import { Microfleet, PluginTypes } from '../';
+import _require from '../utils/require';
 
-const { PluginsTypes } = require('../');
-const _require = require('../utils/require');
+const debug = _debug('mservice:redisCluster');
 
 /**
- * Plugin name.
- * @type {string}
+ * Plugin name
  */
-exports.name = 'redis';
+export const name = 'redis';
 
 /**
  * Plugin type
- * @type {string}
  */
-exports.type = PluginsTypes.database;
+export const type = PluginTypes.database;
 
 /**
  * Attaches Redis Cluster plugin.
- * @param  {Object} [conf={}] - Configuration for Redis Cluster Connection.
- * @returns {Object} Connections and Destructors.
+ * @param  [conf={}] - Configuration for Redis Cluster Connection.
+ * @returns Connections and Destructors.
  */
-exports.attach = function attachRedisCluster(conf: Object = {}) {
+export function attach(this: Microfleet, conf: any = {}) {
   const service = this;
-  const Redis = require('ioredis');
-  Redis.Promise = require('bluebird');
+  const Redis = _require('ioredis');
+  Redis.Promise = Bluebird;
 
-  const migrate = require('./redis/migrate.js');
+  const migrate = require('./redis/migrate');
   const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
   const {
     ERROR_NOT_STARTED,
@@ -39,17 +38,14 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
   const isClusterStarted = isStarted(service, Cluster);
 
   // optional validation with the plugin
-  if (is.fn(service.validateSync)) {
-    assert.ifError(service.validateSync('redisCluster', conf).error);
+  if (is.fn(service.ifError)) {
+    service.ifError('redisCluster', conf);
   }
-
-  debug('loading with config', conf);
 
   return {
 
     /**
-     * @private
-     * @returns {Promise<Redis>} Opens redis connection.
+     * @returns Opens redis connection.
      */
     async connect() {
       assert(service._redis == null, ERROR_ALREADY_STARTED);
@@ -80,14 +76,12 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
     },
 
     /**
-     * @private
-     * @returns {Promise} Returns current status of redis cluster.
+     * @returns Returns current status of redis cluster.
      */
     status: hasConnection.bind(service, isClusterStarted),
 
     /**
-     * @private
-     * @returns {Promise<void>} Closes redis connection.
+     * @returns Closes redis connection.
      */
     async close() {
       assert(isClusterStarted(), ERROR_NOT_STARTED);
@@ -100,4 +94,4 @@ exports.attach = function attachRedisCluster(conf: Object = {}) {
       service.emit('plugin:close:redisCluster');
     },
   };
-};
+}

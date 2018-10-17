@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const path = require('path');
-const getRoutes = require('..');
+const getRoutes = require('..').default;
 const { ActionTransport } = require('../../../..');
 
 describe('router: get routes', function suite() {

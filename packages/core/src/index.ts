@@ -84,6 +84,11 @@ export class Microfleet extends EventEmitter {
   private [constants.HEALTH_CHECKS_PROPERTY]: any[];
 
   /**
+   * Allow Extensions
+   */
+  [property: string]: any;
+
+  /**
    * @param [opts={}] - Overrides for configuration.
    * @returns Instance of microservice.
    */
