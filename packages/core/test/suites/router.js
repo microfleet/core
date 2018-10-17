@@ -459,7 +459,7 @@ describe('Router suite', function testSuite() {
       },
       http: {
         server: {
-          handler: 'express',
+          handler: 'hapi',
         },
         router: {
           enabled: true,
