@@ -11,10 +11,14 @@ export interface Routes {
   [name: string]: string
 }
 
+const filterDefinitions = (x: string) => !x.endsWith('.d.ts')
+
 function readRoutes(directory: string) {
-  return glob.sync('*.{js,ts}', { cwd: directory, matchBase: true })
+  return glob
+    .sync('*.{js,ts}', { cwd: directory, matchBase: true })
+    .filter(filterDefinitions)
     .map((file) => {
-      // remove .js from route
+      // remove .js/.ts from route
       const route = file.slice(0, -3)
 
       // replace / with . for route
