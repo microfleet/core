@@ -373,6 +373,7 @@ export class Microfleet extends EventEmitter {
   }
 }
 
+export * from './types';
 export default Microfleet;
 
 // if there is no parent module we assume it's called as a binary

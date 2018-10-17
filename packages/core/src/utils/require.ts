@@ -1,6 +1,27 @@
 import chalk from 'chalk';
 import semver = require('semver');
-import pkg = require('../../package.json');
+
+const pluginDependencies = {
+  '@microfleet/transport-amqp': '>= 13',
+  'body-parser': '~1.x.x',
+  'boom': '~7.x.x',
+  'bunyan': '~1.x.x',
+  'bunyan-sentry-stream': '~1.x.x',
+  'elasticsearch': '~14.x.x || ~15.x.x',
+  'express-cassandra': '~1.x.x',
+  'hapi': '>= 17.x.x < 18',
+  'ioredis': '~3.x.x || ~4.x.x',
+  'jaeger-client': '~3.x.x',
+  'knex': '~0.14.x',
+  'ms-socket.io-adapter-amqp': '~5.x.x',
+  'opentracing-js-ioredis': '~1.x.x || ~2.x.x',
+  'pg': '~7.x.x',
+  'raven': '~2.x.x',
+  'server-destroy': '~1.x.x',
+  'socket.io': '~2.x.x',
+  'socketio-wildcard': '~2.x.x',
+  'vision': '~5.x.x',
+};
 
 interface IPluginDep {
   [name: string]: string;
@@ -11,7 +32,7 @@ interface IPluginDep {
  * @param name - Name of the module to require.
  */
 export default function _require(name: string) {
-  const version = (pkg.pluginDependencies as IPluginDep)[name];
+  const version = (pluginDependencies as IPluginDep)[name];
   const depVersion = require(`${name}/package.json`).version;
 
   // print warning if we have incompatible version

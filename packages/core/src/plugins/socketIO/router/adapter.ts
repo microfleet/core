@@ -11,7 +11,7 @@ export interface ISocketIOMessage {
   data: [string, any, () => any | null];
 }
 
-function getSocketIORouterAdapter(config: any, router: IMicrofleetRouter) {
+function getSocketIORouterAdapter(_: any, router: IMicrofleetRouter) {
   return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
     socket.on('*', (packet: ISocketIOMessage) => {
       const [actionName, params, callback] = packet.data;

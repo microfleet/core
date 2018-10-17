@@ -16,14 +16,14 @@ import { ClientRequest } from 'http';
  * @desc get the union type of all the keys in an object type `T`
  * @see https://flow.org/en/docs/types/utilities/#toc-keys
  */
-export type $Keys<T extends object> = keyof T;
+type $Keys<T extends object> = keyof T;
 
 /**
  * $Values
  * @desc get the union type of all the values in an object type `T`
  * @see https://flow.org/en/docs/types/utilities/#toc-values
  */
-export type $Values<T extends object> = T[keyof T];
+type $Values<T extends object> = T[keyof T];
 
 /**
  * Generic PlguinConnect Interface

@@ -29,7 +29,6 @@
 import { Microfleet } from '../..';
 
 import assert = require('assert');
-import Bluebird = require('bluebird');
 import _debug = require('debug');
 import fs = require('fs');
 import glob = require('glob');

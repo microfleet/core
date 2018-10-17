@@ -1,4 +1,3 @@
-import assert = require('assert');
 import { NotImplementedError } from 'common-errors';
 import _debug = require('debug');
 import is = require('is');
