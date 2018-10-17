@@ -1,44 +1,44 @@
-import Bluebird = require('bluebird');
-import { NotSupportedError } from 'common-errors';
-import { IServiceRequest } from '../../../../types';
+import Bluebird = require('bluebird')
+import { NotSupportedError } from 'common-errors'
+import { IServiceRequest } from '../../../../types'
 
 export type TransportOptionsAugmentedRequest = IServiceRequest & {
   action: IServiceRequest['action'] & {
     transportsOptions: {
       [transport: string]: {
         methods: string[];
-      },
-    },
-  },
-};
+      }
+    }
+  }
+}
 
 function postRequest(error: Error, request: TransportOptionsAugmentedRequest) {
-  const result = Bluebird.resolve([error, request]);
+  const result = Bluebird.resolve([error, request])
 
   if (error) {
-    return result;
+    return result
   }
 
-  const { method, transport, action: { transportsOptions } } = request;
+  const { method, transport, action: { transportsOptions } } = request
 
   if (transportsOptions === undefined) {
-    return result;
+    return result
   }
 
-  const transportOptions = transportsOptions[transport];
+  const transportOptions = transportsOptions[transport]
 
   if (transportOptions === undefined) {
-    return result;
+    return result
   }
 
   if (transportOptions.methods.includes(method) === false) {
-    throw new NotSupportedError(`Route ${request.route} method ${method}`);
+    throw new NotSupportedError(`Route ${request.route} method ${method}`)
   }
 
-  return result;
+  return result
 }
 
 export default [{
   handler: postRequest,
   point: 'postRequest',
-}];
+}]

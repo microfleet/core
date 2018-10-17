@@ -1,7 +1,7 @@
-import is = require('is');
-import { Writable } from 'stream';
-import { Microfleet, PluginTypes } from '../';
-import _require from '../utils/require';
+import is = require('is')
+import { Writable } from 'stream'
+import { Microfleet, PluginTypes } from '../'
+import _require from '../utils/require'
 
 const defaultConfig = {
   debug: false,
@@ -9,48 +9,48 @@ const defaultConfig = {
   name: 'mservice',
   streams: {},
   trace: false,
-};
+}
 
-interface IStream {
-  level: string;
-  stream: Writable;
-  type?: string;
+interface LogStream {
+  level: string
+  stream: Writable
+  type?: string
 }
 
 function streamsFactory(streamName: string, options: any) {
   switch (streamName) {
     case 'sentry': {
-      const sentryStreamFactory = require('./logger/streams/sentry').default;
-      return sentryStreamFactory(options);
+      const sentryStreamFactory = require('./logger/streams/sentry').default
+      return sentryStreamFactory(options)
     }
 
     default:
-      return options;
+      return options
   }
 }
 
 /**
  * Plugin Type
  */
-export const type = PluginTypes.essential;
+export const type = PluginTypes.essential
 
 /**
  * Plugin Name
  */
-export const name = 'logger';
+export const name = 'logger'
 
 /**
  * Plugin init function.
  * @param  config - Logger configuration.
  */
 export function attach(this: Microfleet, config: any = {}) {
-  const service = this;
-  const { config: { name: applicationName } } = service;
-  const bunyan = _require('bunyan');
-  const stdout = require('stdout-stream') as Writable;
+  const service = this
+  const { config: { name: applicationName } } = service
+  const bunyan = _require('bunyan')
+  const stdout = require('stdout-stream') as Writable
 
   if (is.fn(service.ifError)) {
-    service.ifError('logger', config);
+    service.ifError('logger', config)
   }
 
   const {
@@ -59,36 +59,36 @@ export function attach(this: Microfleet, config: any = {}) {
     name: serviceName,
     streams: streamsConfig,
     trace,
-  } = Object.assign({}, defaultConfig, config);
+  } = Object.assign({}, defaultConfig, config)
 
   if (defaultLogger instanceof bunyan) {
-    service.log = defaultLogger;
-    return;
+    service.log = defaultLogger
+    return
   }
 
-  const streams: IStream[] = [];
+  const streams: LogStream[] = []
 
   if (trace === true) {
     streams.push({
       level: 'trace',
       stream: new bunyan.RingBuffer({ limit: 100 }),
       type: 'raw',
-    });
+    })
   }
 
   if (defaultLogger === true) {
     streams.push({
       level: debug ? 'debug' : 'info',
       stream: stdout,
-    });
+    })
   }
 
   for (const [streamName, streamConfig] of Object.entries(streamsConfig)) {
-    streams.push(streamsFactory(streamName, streamConfig));
+    streams.push(streamsFactory(streamName, streamConfig))
   }
 
   service.log = bunyan.createLogger({
-    name: applicationName || serviceName,
     streams,
-  });
+    name: applicationName || serviceName,
+  })
 }

@@ -1,49 +1,49 @@
-import Bluebird = require('bluebird');
-import Errors = require('common-errors');
-import _debug = require('debug');
-import is = require('is');
-import upperFirst = require('lodash/upperFirst');
-import Extensions, { LifecycleRequestType } from '../../extensions';
+import Bluebird = require('bluebird')
+import Errors = require('common-errors')
+import _debug = require('debug')
+import is = require('is')
+import upperFirst = require('lodash/upperFirst')
+import Extensions, { LifecycleRequestType } from '../../extensions'
 
-const debug = _debug('mservice:router:module:lifecycle');
-export type PromiseFactory = (...args: any[]) => PromiseLike<any>;
+const debug = _debug('mservice:router:module:lifecycle')
+export type PromiseFactory = (...args: any[]) => PromiseLike<any>
 
 function moduleLifecycle(
   module: string,
   promiseFactory: PromiseFactory,
   extensions: Extensions,
   args: any[],
-  context?: any,
+  context?: any
 ) {
   if (is.string(module) === false) {
-    return Bluebird.reject(new Errors.ArgumentError('module'));
+    return Bluebird.reject(new Errors.ArgumentError('module'))
   }
 
   if (is.fn(promiseFactory) === false) {
-    return Bluebird.reject(new Errors.ArgumentError('promiseFactory'));
+    return Bluebird.reject(new Errors.ArgumentError('promiseFactory'))
   }
 
   if ((extensions instanceof Extensions) === false) {
-    return Bluebird.reject(new Errors.ArgumentError('extensions'));
+    return Bluebird.reject(new Errors.ArgumentError('extensions'))
   }
 
   if (is.array(args) === false) {
-    return Bluebird.reject(new Errors.ArgumentError('args'));
+    return Bluebird.reject(new Errors.ArgumentError('args'))
   }
 
-  debug('lifecycle for module "%s"', module);
+  debug('lifecycle for module "%s"', module)
 
-  const upperFirstName = upperFirst(module);
-  const preModule = `pre${upperFirstName}` as LifecycleRequestType;
-  const postModule = `post${upperFirstName}` as LifecycleRequestType;
-  let result;
+  const upperFirstName = upperFirst(module)
+  const preModule = `pre${upperFirstName}` as LifecycleRequestType
+  const postModule = `post${upperFirstName}` as LifecycleRequestType
+  let result
 
   if (extensions.has(preModule)) {
     result = Bluebird.resolve([preModule, args, context])
       .bind(extensions)
-      .spread(extensions.exec);
+      .spread(extensions.exec)
   } else {
-    result = Bluebird.resolve(args);
+    result = Bluebird.resolve(args)
   }
 
   return result
@@ -51,21 +51,21 @@ function moduleLifecycle(
     .spread(promiseFactory)
     .reflect()
     .then((inspection) => {
-      let resultResponse = null;
-      let errorResponse = null;
+      let resultResponse = null
+      let errorResponse = null
 
       if (inspection.isFulfilled()) {
-        resultResponse = inspection.value();
+        resultResponse = inspection.value()
       } else {
-        errorResponse = inspection.reason();
+        errorResponse = inspection.reason()
       }
 
       if (extensions.has(postModule) === false) {
         if (errorResponse) {
-          return Bluebird.reject(errorResponse);
+          return Bluebird.reject(errorResponse)
         }
 
-        return resultResponse;
+        return resultResponse
       }
 
       return Bluebird
@@ -74,12 +74,12 @@ function moduleLifecycle(
         .spread(extensions.exec)
         .spread((error, response) => {
           if (error) {
-            return Bluebird.reject(error);
+            return Bluebird.reject(error)
           }
 
-          return response;
-        });
-    });
+          return response
+        })
+    })
 }
 
-export default moduleLifecycle;
+export default moduleLifecycle

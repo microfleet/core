@@ -5,7 +5,7 @@
   "module": "./lib/index.js",
   "version": "0.0.0-placeholder",
   "scripts": {
-    "lint": "tslint './src/**/*.ts' -c ../../tslint.json",
+    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn test:unit && yarn test:e2e",
     "test:unit": "mocha ./src/**/*.spec.ts",
     "test:e2e": "mdep test run",

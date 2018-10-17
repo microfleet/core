@@ -1,41 +1,41 @@
-import _debug = require('debug');
-import noop = require('lodash/noop');
-import { ActionTransport } from '../../..';
-import { IServiceRequest } from '../../../types';
-import { IMicrofleetRouter } from '../../router/factory';
+import _debug = require('debug')
+import noop = require('lodash/noop')
+import { ActionTransport } from '../../..'
+import { ServiceRequest } from '../../../types'
+import { MicrofleetRouter } from '../../router/factory'
 
-const debug = _debug('mservice:router:socket.io');
-const { socketIO } = ActionTransport;
+const debug = _debug('mservice:router:socket.io')
+const { socketIO } = ActionTransport
 
-export interface ISocketIOMessage {
-  data: [string, any, () => any | null];
+export interface SocketIOMessage {
+  data: [string, any, () => any | null]
 }
 
-function getSocketIORouterAdapter(_: any, router: IMicrofleetRouter) {
+function getSocketIORouterAdapter(_: any, router: MicrofleetRouter) {
   return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
-    socket.on('*', (packet: ISocketIOMessage) => {
-      const [actionName, params, callback] = packet.data;
-      const request: IServiceRequest = {
+    socket.on('*', (packet: SocketIOMessage) => {
+      const [actionName, params, callback] = packet.data
+      const request: ServiceRequest = {
+        socket,
+        params,
         action: noop as any,
         headers: Object.create(null),
         locals: Object.create(null),
         log: console as any,
         method: 'socketio',
-        params,
         parentSpan: undefined,
         query: Object.create(null),
         route: '',
-        socket,
         span: undefined,
         transport: socketIO,
         transportRequest: packet,
-      };
+      }
 
-      debug('prepared request with', packet.data);
+      debug('prepared request with', packet.data)
 
-      return router.dispatch.call(router, actionName, request, callback);
-    });
-  };
+      return router.dispatch.call(router, actionName, request, callback)
+    })
+  }
 }
 
-export default getSocketIORouterAdapter;
+export default getSocketIORouterAdapter

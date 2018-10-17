@@ -1,15 +1,15 @@
-import path = require('path');
-import * as constants from './constants';
+import path = require('path')
+import * as constants from './constants'
 
 /**
  * This extension defaults schemas to the name of the action
  */
-import autoSchema from './plugins/router/extensions/validate/schemaLessAction';
+import autoSchema from './plugins/router/extensions/validate/schemaLessAction'
 
 /**
  * Provides audit log for every performed action
  */
-import auditLog from './plugins/router/extensions/audit/log';
+import auditLog from './plugins/router/extensions/audit/log'
 
 /**
  * Default configurations module
@@ -31,7 +31,7 @@ export const logger = {
    * @type {boolean}
    */
   defaultLogger: true,
-};
+}
 
 /**
  * Default plugins that each service would likely require
@@ -42,7 +42,7 @@ export const plugins = [
   'logger',
   'router',
   'http',
-];
+]
 
 /**
  * Default Router configuration.
@@ -96,7 +96,7 @@ export const router = {
      */
     register: [autoSchema, auditLog],
   },
-};
+}
 
 /**
  * Default HTTP Plugin Configuration
@@ -134,12 +134,12 @@ export const http = {
      */
     prefix: 'mservice',
   },
-};
+}
 
 /**
  * Contains function definitions for service-specific hooks
  */
-export const hooks = {};
+export const hooks = {}
 
 /**
  * Contains amqp plugin configuration
@@ -159,12 +159,12 @@ export const amqp = {
   router: {
     enabled: false,
   },
-};
+}
 
 /**
  * Enables graceful handling of shutdown for supported plugins
  */
-export const sigterm = true;
+export const sigterm = true
 
 /**
  * Opentracing configuration
@@ -174,7 +174,7 @@ export const opentracing = {
     disable: true,
     serviceName: 'microfleet',
   },
-};
+}
 
 /**
  * Health check retry options
@@ -183,4 +183,4 @@ export const opentracing = {
 export const healthChecks = {
   interval: 500,
   max_tries: 3,
-};
+}

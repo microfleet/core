@@ -1,37 +1,37 @@
-import { ValidationError } from 'common-errors';
-import glob = require('glob');
-import is = require('is');
-import intersection = require('lodash.intersection');
-import path = require('path');
-import { Microfleet } from '../../../';
-import { IServiceAction } from '../../../types';
-import { IRouteMap } from '../factory';
+import { ValidationError } from 'common-errors'
+import glob = require('glob')
+import is = require('is')
+import intersection = require('lodash.intersection')
+import path = require('path')
+import { Microfleet } from '../../../'
+import { ServiceAction } from '../../../types'
+import { RouteMap } from '../factory'
 
-export interface IRoutes {
-  [name: string]: string;
+export interface Routes {
+  [name: string]: string
 }
 
 function readRoutes(directory: string) {
   return glob.sync('*.{js,ts}', { cwd: directory, matchBase: true })
     .map((file) => {
       // remove .js from route
-      const route = file.slice(0, -3);
+      const route = file.slice(0, -3)
 
       // replace / with . for route
-      const routeKey = route.split(path.sep).join('.');
-      return [route, routeKey];
-    });
+      const routeKey = route.split(path.sep).join('.')
+      return [route, routeKey]
+    })
 }
 
-const GENERIC_ROUTES = Object.create(null);
-const GENERIC_ROUTES_PATH = path.resolve(__dirname, 'generic');
+const GENERIC_ROUTES = Object.create(null)
+const GENERIC_ROUTES_PATH = path.resolve(__dirname, 'generic')
 
 for (const [filepath, action] of readRoutes(GENERIC_ROUTES_PATH)) {
-  const route = path.resolve(GENERIC_ROUTES_PATH, filepath);
+  const route = path.resolve(GENERIC_ROUTES_PATH, filepath)
   GENERIC_ROUTES[action] = {
     route,
     routeKey: `generic.${action}`,
-  };
+  }
 }
 
 /**
@@ -43,11 +43,11 @@ for (const [filepath, action] of readRoutes(GENERIC_ROUTES_PATH)) {
  * @param action.schema - Static property, if defined must reference json-schema.
  * @param action.transports - Static property, must be defined to show enabled transports for the method.
  */
-function validateAction(action: IServiceAction | { default: IServiceAction }): IServiceAction {
+function validateAction(action: ServiceAction | { default: ServiceAction }): ServiceAction {
   if (typeof action === 'object' && action && is.fn(action.default)) {
-    action = action.default;
+    action = action.default
   } else if (is.fn(action) === false) {
-    throw new ValidationError('action must be a function');
+    throw new ValidationError('action must be a function')
   }
 
   const {
@@ -55,25 +55,25 @@ function validateAction(action: IServiceAction | { default: IServiceAction }): I
     auth,
     schema,
     transports,
-  } = action as IServiceAction;
+  } = action as ServiceAction
 
   if (is.defined(allowed) === true && is.fn(allowed) !== true) {
-    throw new ValidationError('action.allowed must be a function');
+    throw new ValidationError('action.allowed must be a function')
   }
 
   if (is.defined(auth) === true && (is.string(auth) === true || is.object(auth) === true) === false) {
-    throw new ValidationError('action.auth must be a string or an object');
+    throw new ValidationError('action.auth must be a string or an object')
   }
 
   if (is.defined(schema) === true && is.string(schema) !== true) {
-    throw new ValidationError('action.schema must be a string');
+    throw new ValidationError('action.schema must be a string')
   }
 
   if (is.array(transports) === false) {
-    throw new ValidationError('action.transports must be an array');
+    throw new ValidationError('action.transports must be an array')
   }
 
-  return action as IServiceAction;
+  return action as ServiceAction
 }
 
 /**
@@ -86,69 +86,69 @@ function validateAction(action: IServiceAction | { default: IServiceAction }): I
  *  so they don't need to be specified.
  * @param config.transports - Enabled transports list.
  */
-function getRoutes(this: Microfleet, config: any): IRouteMap {
+function getRoutes(this: Microfleet, config: any): RouteMap {
   // lack of prototype makes it easier to search for a key
-  const routes: IRouteMap = {
+  const routes: RouteMap = {
     _all: Object.create(null),
-  };
+  }
 
-  const { enabled, enabledGenericActions } = config;
+  const { enabled, enabledGenericActions } = config
 
   // if enabled actions is empty load all actions from directory
   if (Object.keys(enabled).length === 0) {
     for (const [route, routeKey] of readRoutes(config.directory)) {
-      enabled[route] = routeKey;
+      enabled[route] = routeKey
     }
   }
 
   // and select ONLY enabled generic actions
   for (const action of enabledGenericActions) {
     try {
-      const { route, routeKey } = GENERIC_ROUTES[action];
-      enabled[route] = routeKey;
+      const { route, routeKey } = GENERIC_ROUTES[action]
+      enabled[route] = routeKey
     } catch (e) {
-      this.log.error('Available generic routes are: %s', Object.keys(GENERIC_ROUTES));
-      throw new ValidationError(`unknown generic route is requested: ${action}`);
+      this.log.error('Available generic routes are: %s', Object.keys(GENERIC_ROUTES))
+      throw new ValidationError(`unknown generic route is requested: ${action}`)
     }
   }
 
   for (const transport of config.transports) {
-    routes[transport] = Object.create(null);
+    routes[transport] = Object.create(null)
   }
 
-  for (const [route, postfix] of Object.entries(enabled as IRoutes)) {
-    const routingKey = config.prefix.length ? `${config.prefix}.${postfix}` : postfix;
-    const action = require(path.resolve(config.directory, route));
+  for (const [route, postfix] of Object.entries(enabled as Routes)) {
+    const routingKey = config.prefix.length ? `${config.prefix}.${postfix}` : postfix
+    const action = require(path.resolve(config.directory, route))
 
     // it mutates existing action, so use with caution and best
     // explicitely supply the transports to support
     if (config.setTransportsAsDefault === true && action.transports === undefined) {
-      action.transports = config.transports.slice(0);
+      action.transports = config.transports.slice(0)
     }
 
     try {
-      const extractedAction = validateAction(action);
+      const extractedAction = validateAction(action)
 
       // action name is the same as a route name
-      extractedAction.actionName = enabled[route];
+      extractedAction.actionName = enabled[route]
 
       // add action
-      routes._all[routingKey] = extractedAction;
+      routes._all[routingKey] = extractedAction
 
       for (const transport of intersection(config.transports as string[], extractedAction.transports as string[])) {
-        routes[transport][routingKey] = extractedAction;
+        routes[transport][routingKey] = extractedAction
       }
     } catch (e) {
-      this.log.warn('Failed to process action:', action);
-      throw e;
+      this.log.warn('Failed to process action:', action)
+      throw e
     }
   }
 
   // reset prototype for faster access along the way
-  Object.setPrototypeOf(routes, null);
+  Object.setPrototypeOf(routes, null)
 
   // cast to RouteMap
-  return routes;
+  return routes
 }
 
-export default getRoutes;
+export default getRoutes

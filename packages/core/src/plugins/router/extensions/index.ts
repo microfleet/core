@@ -1,31 +1,31 @@
-import Bluebird = require('bluebird');
-import Errors = require('common-errors');
-import is = require('is');
+import Bluebird = require('bluebird')
+import Errors = require('common-errors')
+import is = require('is')
 
 export type LifecycleRequestType = 'preAllowed' | 'postAllowed'
   | 'preAuth' | 'postAuth'
   | 'preHandler' | 'postHandler'
   | 'preRequest' | 'postRequest'
   | 'preResponse' | 'postResponse'
-  | 'preValidate' | 'postValidate';
+  | 'preValidate' | 'postValidate'
 
 /**
  * Type definitions
  */
-export interface IExtensionPlugin {
-  point: LifecycleRequestType;
-  handler(...args: any[]): any;
+export interface ExtensionPlugin {
+  point: LifecycleRequestType
+  handler(...args: any[]): any
 }
 
-export interface IExtensionsConfig {
-  enabled: string[];
-  register: IExtensionPlugin[][];
+export interface ExtensionsConfig {
+  enabled: string[]
+  register: ExtensionPlugin[][]
 }
 
-const toArray = <T>(arg: T) => Array.isArray(arg) ? arg : [arg];
+const toArray = <T>(arg: T) => Array.isArray(arg) ? arg : [arg]
 
 function walkOverHandlers(this: any, previousArgs: any, handler: (...args: any[]) => any) {
-  return handler.apply(this, toArray(previousArgs));
+  return handler.apply(this, toArray(previousArgs))
 }
 
 /**
@@ -36,25 +36,25 @@ function walkOverHandlers(this: any, previousArgs: any, handler: (...args: any[]
  */
 class Extensions {
   public extensions: {
-    [extensionName: string]: Array<() => any>,
-  };
-
-  constructor(config: IExtensionsConfig = { enabled: [], register: [] }) {
-    const { enabled, register } = config;
-    const extensions = Object.create(null);
-
-    for (const extension of enabled) {
-      extensions[extension] = [];
-    }
-
-    this.extensions = extensions;
-    this.autoRegister(register);
+    [extensionName: string]: Function[]
   }
 
-  public autoRegister(register: IExtensionPlugin[][]) {
+  constructor(config: ExtensionsConfig = { enabled: [], register: [] }) {
+    const { enabled, register } = config
+    const extensions = Object.create(null)
+
+    for (const extension of enabled) {
+      extensions[extension] = []
+    }
+
+    this.extensions = extensions
+    this.autoRegister(register)
+  }
+
+  public autoRegister(register: ExtensionPlugin[][]) {
     for (const extensions of register) {
       for (const extension of extensions) {
-        this.register(extension.point, extension.handler);
+        this.register(extension.point, extension.handler)
       }
     }
   }
@@ -65,8 +65,8 @@ class Extensions {
    * @returns True if exists.
    */
   public has(name: LifecycleRequestType) {
-    const handlers = this.extensions[name];
-    return handlers !== undefined && handlers.length > 0;
+    const handlers = this.extensions[name]
+    return handlers !== undefined && handlers.length > 0
   }
 
   /**
@@ -76,10 +76,10 @@ class Extensions {
    */
   public register(name: LifecycleRequestType, handler: (...args: any[]) => PromiseLike<any | never>) {
     if (this.extensions[name] === undefined) {
-      throw new Errors.NotSupportedError(name);
+      throw new Errors.NotSupportedError(name)
     }
 
-    this.extensions[name].push(handler);
+    this.extensions[name].push(handler)
   }
 
   /**
@@ -90,22 +90,22 @@ class Extensions {
    * @returns Result of the invocation.
    */
   public exec(name: string, args: any[] = [], context: any = null) {
-    const handlers = this.extensions[name];
+    const handlers = this.extensions[name]
 
     if (is.undefined(handlers) === true) {
-      return Bluebird.reject(new Errors.NotSupportedError(name));
+      return Bluebird.reject(new Errors.NotSupportedError(name))
     }
 
     if (Array.isArray(args) === false) {
-      return Bluebird.reject(new Errors.ArgumentError('"args" must be array'));
+      return Bluebird.reject(new Errors.ArgumentError('"args" must be array'))
     }
 
     return Bluebird
       .resolve(handlers)
       .bind(context)
       .reduce(walkOverHandlers, args)
-      .then(toArray);
+      .then(toArray)
   }
 }
 
-export default Extensions;
+export default Extensions

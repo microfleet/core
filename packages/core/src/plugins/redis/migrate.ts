@@ -26,20 +26,20 @@
 // be performed on the main database during migration process
 //
 
-import { Microfleet } from '../..';
+import { Microfleet } from '../..'
 
-import assert = require('assert');
-import _debug = require('debug');
-import fs = require('fs');
-import glob = require('glob');
-import Redis = require('ioredis');
-import is = require('is');
-import path = require('path');
-import sortBy = require('sort-by');
+import assert = require('assert')
+import _debug = require('debug')
+import fs = require('fs')
+import glob = require('glob')
+import Redis = require('ioredis')
+import is = require('is')
+import path = require('path')
+import sortBy = require('sort-by')
 
 // some constant helpers
-const VERSION_KEY = 'version';
-const debug = _debug('mservice:redis:migrate');
+const VERSION_KEY = 'version'
+const debug = _debug('mservice:redis:migrate')
 
 /**
  * This script is used to verify that we havent performed the transaction yet.
@@ -57,7 +57,7 @@ end
 if currentVersion < ${min} then
   return redis.error_reply('min version constraint failed');
 end
--- end check`;
+-- end check`
 
 /**
  * This script is used to put version after migration is complete.
@@ -66,7 +66,7 @@ end
  */
 const appendPostScript = (finalVersion: number) => `-- set current version
 return redis.call('set', KEYS[1], '${finalVersion}');
-`;
+`
 
 /**
  * This is the most common case of a single LUA script for migration.
@@ -79,14 +79,14 @@ const appendLuaScript = (finalVersion: number, min: number = 0, script: string) 
   appendPreScript(finalVersion, min),
   script,
   appendPostScript(finalVersion),
-].join('\n');
+].join('\n')
 
-export interface IMigration {
-  final: number;
-  min: number;
-  args: any[];
-  script: any;
-  keys?: string[];
+export interface Migration {
+  final: number
+  min: number
+  args: any[]
+  script: any
+  keys?: string[]
 }
 
 /**
@@ -95,13 +95,13 @@ export interface IMigration {
  * @returns Swallows certain error messages.
  */
 function checkVersionError(this: Microfleet, error: any) {
-  this.log.error(error);
+  this.log.error(error)
 
   if (error.message === 'migration already performed') {
-    return;
+    return
   }
 
-  throw error;
+  throw error
 }
 
 /**
@@ -112,78 +112,78 @@ function checkVersionError(this: Microfleet, error: any) {
  * @returns Returns when migrations are performed.
  */
 async function performMigration(redis: Redis.Redis, service: Microfleet, scripts: any) {
-  let files: IMigration[];
+  let files: Migration[]
   if (is.string(scripts)) {
-    debug('looking for files in %s', scripts);
+    debug('looking for files in %s', scripts)
     files = glob.sync('*{.js,/}', { cwd: scripts })
-      .map((script) => require(`${scripts}/${script}`)); // eslint-disable-line import/no-dynamic-require
+      .map(script => require(`${scripts}/${script}`)) // eslint-disable-line import/no-dynamic-require
   } else if (is.array(scripts)) {
-    files = scripts;
+    files = scripts
   } else {
-    throw new Error('`scripts` arg must be either a directory with migrations or Migrations[]');
+    throw new Error('`scripts` arg must be either a directory with migrations or Migrations[]')
   }
 
   if (files.length === 0) {
-    debug('no files found');
-    return undefined;
+    debug('no files found')
+    return undefined
   }
 
   // sort in order of execution
-  files.sort(sortBy('final', 'min'));
+  files.sort(sortBy('final', 'min'))
 
   // fetch current version and then remove unneeded migrations
-  const savedVersion = await redis.get(VERSION_KEY);
-  const currentVersion = parseInt(savedVersion || '0', 10);
+  const savedVersion = await redis.get(VERSION_KEY)
+  const currentVersion = parseInt(savedVersion || '0', 10)
 
   // ensure that all files have final > currentVersion
-  files = files.filter((file) => file.final > currentVersion);
+  files = files.filter(file => file.final > currentVersion)
 
   if (files.length === 0) {
-    debug('no files found');
-    return undefined;
+    debug('no files found')
+    return undefined
   }
 
   for (const file of files) {
-    const { final } = file;
-    assert(is.integer(+final), 'final version must be present and be an integer');
+    const { final } = file
+    assert(is.integer(+final), 'final version must be present and be an integer')
 
     if (is.string(file.script)) {
       // read file contents
       if (path.isAbsolute(file.script)) {
-        file.script = fs.readFileSync(file.script, 'utf8');
+        file.script = fs.readFileSync(file.script, 'utf8')
       }
 
       // finalize content
-      const script = appendLuaScript(final, file.min, file.script);
-      const keys = [VERSION_KEY].concat(file.keys || []);
-      const { args } = file;
+      const script = appendLuaScript(final, file.min, file.script)
+      const keys = [VERSION_KEY].concat(file.keys || [])
+      const { args } = file
 
-      debug('evaluating script after %s', currentVersion, script);
+      debug('evaluating script after %s', currentVersion, script)
 
       try {
         // eslint-disable-next-line no-await-in-loop
-        await redis.eval(script, keys.length, keys, args);
+        await redis.eval(script, keys.length, keys, args)
       } catch (error) {
-        checkVersionError.call(service, error);
+        checkVersionError.call(service, error)
       }
     } else if (is.fn(file.script)) {
       try {
         // eslint-disable-next-line no-await-in-loop
-        await redis.eval(appendPreScript(final, file.min), 1, [VERSION_KEY]);
+        await redis.eval(appendPreScript(final, file.min), 1, [VERSION_KEY])
         // must return promise
         // eslint-disable-next-line no-await-in-loop
-        await file.script(service);
+        await file.script(service)
         // eslint-disable-next-line no-await-in-loop
-        await redis.eval(appendPostScript(final), 1, [VERSION_KEY]);
+        await redis.eval(appendPostScript(final), 1, [VERSION_KEY])
       } catch (error) {
-        checkVersionError.call(service, error);
+        checkVersionError.call(service, error)
       }
     } else {
-      throw new Error('script must be a function if not a string');
+      throw new Error('script must be a function if not a string')
     }
   }
 
-  return true;
+  return true
 }
 
-export default performMigration;
+export default performMigration

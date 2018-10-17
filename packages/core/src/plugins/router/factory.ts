@@ -1,38 +1,38 @@
-import { Microfleet } from '../..';
-import { IServiceAction, ServiceActionStep } from '../../types';
-import dispatch from './dispatcher';
-import Extensions from './extensions';
-import allowedModule from './modules/allowed';
-import getAuthModule from './modules/auth';
-import handlerModule from './modules/handler';
-import requestModule from './modules/request';
-import getResponseHandler from './modules/response';
-import validateModule from './modules/validate';
-import getRoutes from './routes';
+import { Microfleet } from '../..'
+import { ServiceAction, ServiceActionStep } from '../../types'
+import dispatch from './dispatcher'
+import Extensions from './extensions'
+import allowedModule from './modules/allowed'
+import getAuthModule from './modules/auth'
+import handlerModule from './modules/handler'
+import requestModule from './modules/request'
+import getResponseHandler from './modules/response'
+import validateModule from './modules/validate'
+import getRoutes from './routes'
 
-export interface IRouteMap {
+export interface RouteMap {
   [transport: string]: {
-    [routingKey: string]: IServiceAction,
-  };
+    [routingKey: string]: ServiceAction
+  }
 }
 
 /**
  * Defines router signature
  */
-export interface IMicrofleetRouter {
-  config: any;
-  service: Microfleet;
-  dispatch: typeof dispatch;
-  extensions: Extensions;
-  routes: IRouteMap;
+export interface MicrofleetRouter {
+  config: any
+  service: Microfleet
+  dispatch: typeof dispatch
+  extensions: Extensions
+  routes: RouteMap
   modules: {
     request: ServiceActionStep,
     auth: ServiceActionStep,
     validate: ServiceActionStep,
     allowed: ServiceActionStep,
     handler: ServiceActionStep,
-    response: ServiceActionStep,
-  };
+    response: ServiceActionStep
+  }
 }
 
 /**
@@ -44,9 +44,10 @@ export interface IMicrofleetRouter {
  * @param service - Microfleet instance.
  * @returns Router instance.
  */
-function getRouter(config: any, service: Microfleet): IMicrofleetRouter {
-  const router: IMicrofleetRouter = {
+function getRouter(config: any, service: Microfleet): MicrofleetRouter {
+  const router: MicrofleetRouter = {
     config,
+    service,
     dispatch,
     extensions: new Extensions(config.extensions),
     modules: {
@@ -58,10 +59,9 @@ function getRouter(config: any, service: Microfleet): IMicrofleetRouter {
       validate: validateModule,
     },
     routes: getRoutes.call(service, config.routes),
-    service,
-  };
+  }
 
-  return router;
+  return router
 }
 
-export default getRouter;
+export default getRouter

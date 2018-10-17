@@ -1,7 +1,7 @@
-import * as MicrofleetES from './index';
+import * as MicrofleetES from './index'
 
-const { Microfleet, ...statics } = MicrofleetES;
+const { Microfleet, ...statics } = MicrofleetES
 
-Object.assign(Microfleet, statics);
+Object.assign(Microfleet, statics)
 
-export = Microfleet;
+export = Microfleet

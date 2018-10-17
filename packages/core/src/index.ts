@@ -3,65 +3,65 @@
  * @module Microfleet
  */
 
-import assert = require('assert');
-import Bluebird = require('bluebird');
-import EventEmitter = require('eventemitter3');
-import is = require('is');
-import partial = require('lodash.partial');
-import * as constants from './constants';
-import * as defaultOpts from './defaults';
+import assert = require('assert')
+import Bluebird = require('bluebird')
+import EventEmitter = require('eventemitter3')
+import is = require('is')
+import partial = require('lodash.partial')
+import * as constants from './constants'
+import * as defaultOpts from './defaults'
 import {
   HandlerProperties,
   IPlugin,
   IPluginInterface,
   PluginConnector,
-  TConnectorsTypes,
-} from './types';
-import { getHealthStatus, PluginHealthCheck } from './utils/pluginHealthStatus';
+  TConnectorsTypes
+} from './types'
+import { getHealthStatus, PluginHealthCheck } from './utils/pluginHealthStatus'
 
 /**
  * Simple invocation that preserves context.
  * @param fn - Function to invoke.
  */
 function invoke(this: any, fn: (...args: any[]) => any): any {
-  return fn.call(this);
+  return fn.call(this)
 }
 
-const toArray = <T>(x: T): T[] => Array.isArray(x) ? x : [x];
+const toArray = <T>(x: T): T[] => Array.isArray(x) ? x : [x]
 
-interface IStartStopTree {
-  [name: string]: PluginConnector[];
+interface StartStopTree {
+  [name: string]: PluginConnector[]
 }
 
 /**
  * Constants with possilble transport values
  * @memberof Microfleet
  */
-export const ActionTransport = constants.ActionTransport;
+export const ActionTransport = constants.ActionTransport
 
 /**
  * Constants with connect types to control order of service bootstrap
  * @memberof Microfleet
  */
-export const ConnectorsTypes = constants.ConnectorsTypes;
+export const ConnectorsTypes = constants.ConnectorsTypes
 
 /**
  * Default priority of connectors during bootstrap
  * @memberof Microfleet
  */
-export const ConnectorsPriority = constants.ConnectorsPriority;
+export const ConnectorsPriority = constants.ConnectorsPriority
 
 /**
  * Plugin Types
  * @memberof Microfleet
  */
-export const PluginTypes = constants.PluginTypes;
+export const PluginTypes = constants.PluginTypes
 
 /**
  * Plugin boot priority
  * @memberof Microfleet
  */
-export const PluginsPriority = constants.PluginsPriority;
+export const PluginsPriority = constants.PluginsPriority
 
 /**
  * Helper method to enable router extensions.
@@ -69,8 +69,8 @@ export const PluginsPriority = constants.PluginsPriority;
  * @returns Extension to router plugin.
  */
 export const routerExtension = (name: string) => {
-  return require(`./plugins/router/extensions/${name}`).default;
-};
+  return require(`./plugins/router/extensions/${name}`).default
+}
 
 /**
  * @class Microfleet
@@ -81,54 +81,54 @@ export class Microfleet extends EventEmitter {
    * Allow Extensions
    */
   [property: string]: any;
-  public log?: any;
-  public config: any;
-  public migrators: any;
-  public readonly plugins: string[];
-  public readonly [constants.CONNECTORS_PROPERTY]: IStartStopTree;
-  public readonly [constants.DESTRUCTORS_PROPERTY]: IStartStopTree;
-  public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[];
+  public log?: any
+  public config: any
+  public migrators: any
+  public readonly plugins: string[]
+  public readonly [constants.CONNECTORS_PROPERTY]: StartStopTree
+  public readonly [constants.DESTRUCTORS_PROPERTY]: StartStopTree
+  public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[]
 
   /**
    * @param [opts={}] - Overrides for configuration.
    * @returns Instance of microservice.
    */
   constructor(opts: any = {}) {
-    super();
+    super()
 
     // init configuration
-    const config = this.config = { ...defaultOpts, ...opts };
+    const config = this.config = { ...defaultOpts, ...opts }
 
     // init migrations
-    this.migrators = Object.create(null);
+    this.migrators = Object.create(null)
 
     // init health status checkers
-    this[constants.HEALTH_CHECKS_PROPERTY] = [];
+    this[constants.HEALTH_CHECKS_PROPERTY] = []
 
     // init plugins
-    this.plugins = [];
-    this[constants.CONNECTORS_PROPERTY] = Object.create(null);
-    this[constants.DESTRUCTORS_PROPERTY] = Object.create(null);
-    this.initPlugins(config);
+    this.plugins = []
+    this[constants.CONNECTORS_PROPERTY] = Object.create(null)
+    this[constants.DESTRUCTORS_PROPERTY] = Object.create(null)
+    this.initPlugins(config)
 
     // setup error listener
-    this.on('error', this.onError);
+    this.on('error', this.onError)
 
     // setup hooks
     for (const [eventName, hooks] of Object.entries(config.hooks)) {
       for (const hook of toArray<any>(hooks)) {
-        this.on(eventName, hook);
+        this.on(eventName, hook)
       }
     }
 
     if (config.sigterm) {
       this.on('ready', () => {
-        process.on('SIGTERM', this.exit);
-      });
+        process.on('SIGTERM', this.exit)
+      })
 
       this.on('close', () => {
-        process.removeListener('SIGTERM', this.exit);
-      });
+        process.removeListener('SIGTERM', this.exit)
+      })
     }
   }
 
@@ -144,13 +144,13 @@ export class Microfleet extends EventEmitter {
    * @returns Result of invoked hook.
    */
   public hook(event: string, ...args: any[]) {
-    const listeners = this.listeners(event);
+    const listeners = this.listeners(event)
 
     return Bluebird
       .resolve(listeners)
       .map((listener: (args: any[]) => any) => {
-        return listener.apply(this, args);
-      });
+        return listener.apply(this, args)
+      })
   }
 
   /**
@@ -160,7 +160,7 @@ export class Microfleet extends EventEmitter {
    * @param args - Arbitrary args to be passed to fn later on.
    */
   public addMigrator(name: string, fn: (...args: any[]) => any, ...args: any[]) {
-    this.migrators[name] = partial(fn, ...args);
+    this.migrators[name] = partial(fn, ...args)
   }
 
   /**
@@ -170,9 +170,9 @@ export class Microfleet extends EventEmitter {
    * @returns Result of the migration.
    */
   public migrate(name: string, ...args: any[]) {
-    const migrate = this.migrators[name];
-    assert(is.fn(migrate), `migrator ${name} not defined`);
-    return migrate(...args);
+    const migrate = this.migrators[name]
+    assert(is.fn(migrate), `migrator ${name} not defined`)
+    return migrate(...args)
   }
 
   /**
@@ -181,7 +181,7 @@ export class Microfleet extends EventEmitter {
    */
   public connect() {
     return Bluebird
-      .resolve(this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority));
+      .resolve(this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority))
   }
 
   /**
@@ -190,7 +190,7 @@ export class Microfleet extends EventEmitter {
    */
   public close() {
     return Bluebird
-      .resolve(this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse()));
+      .resolve(this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse()))
   }
 
   // ****************************** Plugin section: public ************************************
@@ -204,29 +204,29 @@ export class Microfleet extends EventEmitter {
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
   public initPlugin(mod: IPlugin, conf?: any) {
-    this.plugins.push(mod.name);
+    this.plugins.push(mod.name)
 
-    const expose = mod.attach.call(this, conf || this.config[mod.name], __filename);
+    const expose = mod.attach.call(this, conf || this.config[mod.name], __filename)
 
     if (!is.object(expose)) {
-      return;
+      return
     }
 
-    const { connect, status, close } = expose as IPluginInterface;
-    const type = ConnectorsTypes[mod.type] as TConnectorsTypes;
+    const { connect, status, close } = expose as IPluginInterface
+    const type = ConnectorsTypes[mod.type] as TConnectorsTypes
 
-    assert(type, 'Plugin type must be equal to one of connectors type');
+    assert(type, 'Plugin type must be equal to one of connectors type')
 
     if (typeof connect === 'function') {
-      this.addConnector(type, connect);
+      this.addConnector(type, connect)
     }
 
     if (typeof close === 'function') {
-      this.addDestructor(type, close);
+      this.addDestructor(type, close)
     }
 
     if (typeof status === 'function') {
-      this.addHealthCheck(new PluginHealthCheck(mod.name, status));
+      this.addHealthCheck(new PluginHealthCheck(mod.name, status))
     }
   }
 
@@ -235,7 +235,7 @@ export class Microfleet extends EventEmitter {
    * @returns Connectors.
    */
   public getConnectors() {
-    return this[constants.CONNECTORS_PROPERTY];
+    return this[constants.CONNECTORS_PROPERTY]
   }
 
   /**
@@ -243,7 +243,7 @@ export class Microfleet extends EventEmitter {
    * @returns Destructors.
    */
   public getDestructors() {
-    return this[constants.DESTRUCTORS_PROPERTY];
+    return this[constants.DESTRUCTORS_PROPERTY]
   }
 
   /**
@@ -251,7 +251,7 @@ export class Microfleet extends EventEmitter {
    * @returns Health checks.
    */
   public getHealthChecks() {
-    return this[constants.HEALTH_CHECKS_PROPERTY];
+    return this[constants.HEALTH_CHECKS_PROPERTY]
   }
 
   /**
@@ -260,7 +260,7 @@ export class Microfleet extends EventEmitter {
    * @param {Function} handler - Plugin connector.
    */
   public addConnector(type: TConnectorsTypes, handler: PluginConnector) {
-    this.addHandler(constants.CONNECTORS_PROPERTY, type, handler);
+    this.addHandler(constants.CONNECTORS_PROPERTY, type, handler)
   }
 
   /**
@@ -269,7 +269,7 @@ export class Microfleet extends EventEmitter {
    * @param {Function} handler - Plugin destructor.
    */
   public addDestructor(type: TConnectorsTypes, handler: PluginConnector) {
-    this.addHandler(constants.DESTRUCTORS_PROPERTY, type, handler);
+    this.addHandler(constants.DESTRUCTORS_PROPERTY, type, handler)
   }
 
   /**
@@ -277,18 +277,18 @@ export class Microfleet extends EventEmitter {
    * @param {Function} handler - Health check function.
    */
   public addHealthCheck(handler: PluginHealthCheck) {
-    this[constants.HEALTH_CHECKS_PROPERTY].push(handler);
+    this[constants.HEALTH_CHECKS_PROPERTY].push(handler)
   }
 
   /**
    * Asks for health status of registered plugins if it's possible, logs it and returns summary.
    */
   public getHealthStatus() {
-    return getHealthStatus(this.getHealthChecks(), this.config.healthChecks);
+    return getHealthStatus(this.getHealthChecks(), this.config.healthChecks)
   }
 
   public hasPlugin(name: string) {
-    return this.plugins.includes(name);
+    return this.plugins.includes(name)
   }
 
   /**
@@ -297,13 +297,13 @@ export class Microfleet extends EventEmitter {
    */
   private exit = async () => {
     if (this.log) {
-      this.log.info('received close signal...\n closing connections...\n');
+      this.log.info('received close signal...\n closing connections...\n')
     }
 
     try {
-      await this.close().timeout(10000);
+      await this.close().timeout(10000)
     } catch (e) {
-      process.exit(128);
+      process.exit(128)
     }
   }
 
@@ -316,29 +316,29 @@ export class Microfleet extends EventEmitter {
    * @returns Result of the invocation.
    */
   private async processAndEmit(collection: any, event: string, priority = ConnectorsPriority) {
-    const responses = [];
+    const responses = []
     for (const connectorType of priority) {
-      const connectors = collection[connectorType];
+      const connectors = collection[connectorType]
       if (!connectors) {
-        continue;
+        continue
       }
 
-      responses.push(...await Bluebird.resolve(connectors as PluginConnector[]).bind(this).map(invoke));
+      responses.push(...await Bluebird.resolve(connectors as PluginConnector[]).bind(this).map(invoke))
     }
 
-    this.emit(event);
+    this.emit(event)
 
-    return responses;
+    return responses
   }
 
   // ***************************** Plugin section: private **************************************
 
   private addHandler(property: HandlerProperties, type: TConnectorsTypes, handler: PluginConnector) {
     if (this[property][type] === undefined) {
-      this[property][type] = [];
+      this[property][type] = []
     }
 
-    this[property][type].push(handler);
+    this[property][type].push(handler)
   }
 
   /**
@@ -348,15 +348,15 @@ export class Microfleet extends EventEmitter {
    */
   private initPlugins(config: any) {
     for (const pluginType of PluginsPriority) {
-      this[constants.CONNECTORS_PROPERTY][pluginType] = [];
-      this[constants.DESTRUCTORS_PROPERTY][pluginType] = [];
+      this[constants.CONNECTORS_PROPERTY][pluginType] = []
+      this[constants.DESTRUCTORS_PROPERTY][pluginType] = []
     }
 
     for (const plugin of config.plugins) {
-      this.initPlugin(require(`./plugins/${plugin}`));
+      this.initPlugin(require(`./plugins/${plugin}`))
     }
 
-    this.emit('init');
+    this.emit('init')
   }
 
   /**
@@ -366,23 +366,23 @@ export class Microfleet extends EventEmitter {
    */
   private onError = (err: Error) => {
     if (this.listeners('error').length > 1) {
-      return;
+      return
     }
 
-    throw err;
+    throw err
   }
 }
 
-export * from './types';
-export default Microfleet;
+export * from './types'
+export default Microfleet
 
 // if there is no parent module we assume it's called as a binary
 if (!module.parent) {
-  const mservice = new Microfleet();
+  const mservice = new Microfleet()
   mservice
     .connect()
     .catch((err: Error) => {
-      mservice.log.fatal('Failed to start service', err);
-      setImmediate(() => { throw err; });
-    });
+      mservice.log.fatal('Failed to start service', err)
+      setImmediate(() => { throw err })
+    })
 }

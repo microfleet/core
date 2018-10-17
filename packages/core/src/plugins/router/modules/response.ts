@@ -1,6 +1,6 @@
-import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization';
-import { HttpStatusError as HttpError } from '@microfleet/validation';
-import Bluebird = require('bluebird');
+import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization'
+import { HttpStatusError as HttpError } from '@microfleet/validation'
+import Bluebird = require('bluebird')
 import {
   AuthenticationRequiredError,
   ConnectionError,
@@ -11,14 +11,14 @@ import {
   NotPermittedError,
   NotSupportedError,
   TimeoutError,
-  ValidationError,
-} from 'common-errors';
-import { Microfleet } from '../../../';
-import { IServiceRequest } from '../../../types';
-import moduleLifecycle from './lifecycle';
+  ValidationError
+} from 'common-errors'
+import { Microfleet } from '../../../'
+import { ServiceRequest } from '../../../types'
+import moduleLifecycle from './lifecycle'
 
 function response(this: Microfleet, err: Error | null, result: any) {
-  const service = this;
+  const service = this
 
   if (err) {
     switch (err.constructor) {
@@ -33,7 +33,7 @@ function response(this: Microfleet, err: Error | null, result: any) {
       case TimeoutError:
       case ValidationError:
       case CError:
-        return Bluebird.reject(err);
+        return Bluebird.reject(err)
     }
 
     if (err.constructor === MSError) {
@@ -47,20 +47,20 @@ function response(this: Microfleet, err: Error | null, result: any) {
         case 'NotSupportedError':
         case 'TimeoutError':
         case 'ValidationError':
-          return Bluebird.reject(err);
+          return Bluebird.reject(err)
       }
     }
 
-    service.log.fatal('unexpected error', err);
-    return Bluebird.reject(new CError(`Something went wrong: ${err.message}`, err));
+    service.log.fatal('unexpected error', err)
+    return Bluebird.reject(new CError(`Something went wrong: ${err.message}`, err))
   }
 
-  return Bluebird.resolve(result);
+  return Bluebird.resolve(result)
 }
 
-function responseHandler(this: Microfleet, params: [Error | null, any, IServiceRequest]) {
-  const service = this;
-  return moduleLifecycle('response', response, service.router.extensions, params, service);
+function responseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]) {
+  const service = this
+  return moduleLifecycle('response', response, service.router.extensions, params, service)
 }
 
-export default responseHandler;
+export default responseHandler
