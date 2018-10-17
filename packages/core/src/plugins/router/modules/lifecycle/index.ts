@@ -13,7 +13,7 @@ function moduleLifecycle(
   promiseFactory: PromiseFactory,
   extensions: Extensions,
   args: any[],
-  context: any,
+  context?: any,
 ) {
   if (is.string(module) === false) {
     return Bluebird.reject(new Errors.ArgumentError('module'));

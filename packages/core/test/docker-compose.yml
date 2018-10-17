@@ -111,16 +111,18 @@ services:
       - redis
       - elasticsearch
       - cassandra
-    image: makeomatic/node:10.11.0-tester
+    image: makeomatic/node:10.12.0-tester
     container_name: tester
     command: tail -f /dev/null
     environment:
       BLUEBIRD_DEBUG: '1'
       DEBUG: ${DEBUG}
       NODE_ENV: test
-    working_dir: /src
+      TS_NODE_TRANSPILE_ONLY: 'true'
+      TS_NODE_TYPE_CHECK: 'false'
+    working_dir: /src/packages/core
     volumes:
-      - ${PWD}:/src
+      - ../../../:/src
     networks:
       mservice:
         ipv4_address: 172.18.238.17

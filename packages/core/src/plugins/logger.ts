@@ -1,3 +1,4 @@
+import is = require('is');
 import { Writable } from 'stream';
 import { Microfleet, PluginTypes } from '../';
 import _require from '../utils/require';
@@ -62,7 +63,6 @@ export function attach(this: Microfleet, config: any = {}) {
 
   if (defaultLogger instanceof bunyan) {
     service.log = defaultLogger;
-
     return;
   }
 

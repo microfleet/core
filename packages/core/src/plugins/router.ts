@@ -48,8 +48,8 @@ const prepareRequest = (request: IServiceRequest): IServiceRequest => ({
 export function attach(this: Microfleet, config: any = {}) {
   const service = this;
 
-  assert(service.plugins.includes('log'), new NotFoundError('log module must be included'));
-  assert(service.plugins.includes('validator'), new NotFoundError('validator module must be included'));
+  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'));
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'));
   service.ifError('router', config);
 
   for (const transport of config.routes.transports) {

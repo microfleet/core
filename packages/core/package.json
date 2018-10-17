@@ -1,13 +1,13 @@
 {
   "name": "@microfleet/core",
   "description": "Abstract microservice core",
-  "main": "./lib/index.js",
+  "main": "./lib/microfleet.js",
+  "module": "./lib/index.js",
   "version": "0.0.0-placeholder",
   "scripts": {
-    "coverage:unit": "cross-env NODE_ENV=test nyc --report-dir ./coverage/unit-tests yarn test:unit",
-    "lint": "tslint -c ../../tslint.json ./src/**/*.ts",
-    "test": "yarn lint && yarn test:e2e",
-    "test:unit": "mocha --recursive ./src",
+    "lint": "tslint './src/**/*.ts' -c ../../tslint.json",
+    "test": "yarn lint && yarn test:unit && yarn test:e2e",
+    "test:unit": "mocha ./src/**/*.spec.ts",
     "test:e2e": "mdep test run",
     "compile": "tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
@@ -96,6 +96,7 @@
     "@types/bluebird": "^3.5.24",
     "@types/bluebird-retry": "^0.11.2",
     "@types/callsite": "^1.0.30",
+    "@types/chai": "^4.1.6",
     "@types/chalk": "^2.2.0",
     "@types/common-errors": "^1.0.0",
     "@types/debug": "^0.0.31",

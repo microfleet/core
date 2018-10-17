@@ -1,4 +1,3 @@
-/* eslint-disable max-len, new-cap, promise/catch-or-return */
 const { expect } = require('chai');
 const Errors = require('common-errors');
 const path = require('path');
@@ -7,8 +6,9 @@ const SocketIOClient = require('socket.io-client');
 const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Router suite', function testSuite() {
-  const Mservice = require('../../src');
-  const auditLog = require('../../src/plugins/router/extensions/audit/log');
+  require('../config');
+  const Mservice = require('../../src/microfleet');
+  const auditLog = Mservice.routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');
   const getHTTPRequest = require('../router/helpers/requests/http');
   const getSocketIORequest = require('../router/helpers/requests/socketIO');
@@ -223,7 +223,7 @@ describe('Router suite', function testSuite() {
 
     const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' });
     const rget = (qs, success = true, opts = {}) => (
-      HTTPRequest('/action/qs', null, { qs, ...opts })
+      HTTPRequest('/action/qs', null, Object.assign({ qs }, opts))
         .reflect()
         .then(inspectPromise(success))
     );

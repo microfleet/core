@@ -4,7 +4,7 @@ import is = require('is');
 import intersection = require('lodash.intersection');
 import path = require('path');
 import { Microfleet } from '../../../';
-import { IServiceRequest } from '../../../types';
+import { IServiceAction } from '../../../types';
 import { IRouteMap } from '../factory';
 
 export interface IRoutes {
@@ -12,7 +12,7 @@ export interface IRoutes {
 }
 
 function readRoutes(directory: string) {
-  return glob.sync('*.js', { cwd: directory, matchBase: true })
+  return glob.sync('*.{js,ts}', { cwd: directory, matchBase: true })
     .map((file) => {
       // remove .js from route
       const route = file.slice(0, -3);
@@ -37,14 +37,16 @@ for (const [filepath, action] of readRoutes(GENERIC_ROUTES_PATH)) {
 /**
  * Validated that each discovered action conforms to composition rules.
  *
- * @param {Function} action - Action definition.
- * @param {Function} action.allowed - Static property, if defined must be a function.
- * @param {string} action.auth - Static property, if defined must reference existing auth schema.
- * @param {string} action.schema - Static property, if defined must reference json-schema.
- * @param {Array} action.transports - Static property, must be defined to show enabled transports for the method.
+ * @param action - Action definition.
+ * @param action.allowed - Static property, if defined must be a function.
+ * @param action.auth - Static property, if defined must reference existing auth schema.
+ * @param action.schema - Static property, if defined must reference json-schema.
+ * @param action.transports - Static property, must be defined to show enabled transports for the method.
  */
-function validateAction(action: IServiceRequest['action']) {
-  if (is.fn(action) === false) {
+function validateAction(action: IServiceAction | { default: IServiceAction }): IServiceAction {
+  if (typeof action === 'object' && action && is.fn(action.default)) {
+    action = action.default;
+  } else if (is.fn(action) === false) {
     throw new ValidationError('action must be a function');
   }
 
@@ -53,7 +55,7 @@ function validateAction(action: IServiceRequest['action']) {
     auth,
     schema,
     transports,
-  } = action;
+  } = action as IServiceAction;
 
   if (is.defined(allowed) === true && is.fn(allowed) !== true) {
     throw new ValidationError('action.allowed must be a function');
@@ -70,6 +72,8 @@ function validateAction(action: IServiceRequest['action']) {
   if (is.array(transports) === false) {
     throw new ValidationError('action.transports must be an array');
   }
+
+  return action as IServiceAction;
 }
 
 /**
@@ -123,20 +127,20 @@ function getRoutes(this: Microfleet, config: any): IRouteMap {
     }
 
     try {
-      validateAction(action);
+      const extractedAction = validateAction(action);
+
+      // action name is the same as a route name
+      extractedAction.actionName = enabled[route];
+
+      // add action
+      routes._all[routingKey] = extractedAction;
+
+      for (const transport of intersection(config.transports as string[], extractedAction.transports as string[])) {
+        routes[transport][routingKey] = extractedAction;
+      }
     } catch (e) {
       this.log.warn('Failed to process action:', action);
       throw e;
-    }
-
-    // action name is the same as a route name
-    action.actionName = enabled[route];
-
-    // add action
-    routes._all[routingKey] = action;
-
-    for (const transport of intersection(config.transports as string[], action.transports as string[])) {
-      routes[transport][routingKey] = action;
     }
   }
 

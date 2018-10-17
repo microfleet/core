@@ -1,6 +1,5 @@
 import Validator from '@microfleet/validation';
 import ajv from 'ajv';
-import assert = require('assert');
 import callsite = require('callsite');
 import { NotPermittedError } from 'common-errors';
 import path = require('path');

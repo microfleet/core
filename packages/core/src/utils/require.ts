@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import semver = require('semver');
-import pkg from '../../package.json';
+import pkg = require('../../package.json');
 
 interface IPluginDep {
   [name: string]: string;

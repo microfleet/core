@@ -76,17 +76,18 @@ export const routerExtension = (name: string) => {
  * @class Microfleet
  */
 export class Microfleet extends EventEmitter {
-  public log?: any;
-  public config: any;
-  public migrators: any;
-  private [constants.CONNECTORS_PROPERTY]: IStartStopTree;
-  private [constants.DESTRUCTORS_PROPERTY]: IStartStopTree;
-  private [constants.HEALTH_CHECKS_PROPERTY]: any[];
 
   /**
    * Allow Extensions
    */
   [property: string]: any;
+  public log?: any;
+  public config: any;
+  public migrators: any;
+  public readonly plugins: string[];
+  public readonly [constants.CONNECTORS_PROPERTY]: IStartStopTree;
+  public readonly [constants.DESTRUCTORS_PROPERTY]: IStartStopTree;
+  public readonly [constants.HEALTH_CHECKS_PROPERTY]: any[];
 
   /**
    * @param [opts={}] - Overrides for configuration.
@@ -102,9 +103,12 @@ export class Microfleet extends EventEmitter {
     this.migrators = Object.create(null);
 
     // init health status checkers
-    this.healthChecks = [];
+    this[constants.HEALTH_CHECKS_PROPERTY] = [];
 
     // init plugins
+    this.plugins = [];
+    this[constants.CONNECTORS_PROPERTY] = Object.create(null);
+    this[constants.DESTRUCTORS_PROPERTY] = Object.create(null);
     this.initPlugins(config);
 
     // setup error listener
@@ -200,6 +204,8 @@ export class Microfleet extends EventEmitter {
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
   public initPlugin(mod: IPlugin, conf?: any) {
+    this.plugins.push(mod.name);
+
     const expose = mod.attach.call(this, conf || this.config[mod.name], __filename);
 
     if (!is.object(expose)) {
@@ -281,6 +287,10 @@ export class Microfleet extends EventEmitter {
     return getHealthStatus(this.getHealthChecks(), this.config.healthChecks);
   }
 
+  public hasPlugin(name: string) {
+    return this.plugins.includes(name);
+  }
+
   /**
    * Overrides SIG* events and exits cleanly.
    * @returns Resolves when exit sequence has completed.
@@ -324,10 +334,6 @@ export class Microfleet extends EventEmitter {
   // ***************************** Plugin section: private **************************************
 
   private addHandler(property: HandlerProperties, type: TConnectorsTypes, handler: PluginConnector) {
-    if (this[property] === undefined) {
-      this[property] = {};
-    }
-
     if (this[property][type] === undefined) {
       this[property][type] = [];
     }
@@ -341,9 +347,6 @@ export class Microfleet extends EventEmitter {
    * @private
    */
   private initPlugins(config: any) {
-    this[constants.CONNECTORS_PROPERTY] = Object.create(null);
-    this[constants.DESTRUCTORS_PROPERTY] = Object.create(null);
-
     for (const pluginType of PluginsPriority) {
       this[constants.CONNECTORS_PROPERTY][pluginType] = [];
       this[constants.DESTRUCTORS_PROPERTY][pluginType] = [];

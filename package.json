@@ -8,9 +8,9 @@
     "semantic-release": "semantic-release",
     "prebootstrap": "yarn --frozen-lockfile --check-files",
     "bootstrap": "lerna bootstrap -- --frozen-lockfile --check-files",
-    "lint": "lerna run lint",
+    "lint": "lerna run lint --stream",
     "pretest": "yarn lint",
-    "test": "lerna run test",
+    "test": "lerna run test --stream",
     "precompile": "yarn clean",
     "compile": "tsc -b packages/*/tsconfig.build.json",
     "clean": "rimraf packages/*/lib"

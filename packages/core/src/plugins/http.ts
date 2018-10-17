@@ -16,17 +16,19 @@ export const type = PluginTypes.transport;
  * @param config - HTTP handler configuration to attach.
  */
 export function attach(this: Microfleet, config: any) {
-  if (is.fn(this.ifError)) {
+  const service = this;
+
+  if (is.fn(service.ifError)) {
     // base config
-    this.ifError('http', config);
+    service.ifError('http', config);
 
     // server specific config
     if (config.server && config.server.handlerConfig) {
-      this.ifError(`http.${config.server.handler}`, config.server.handlerConfig);
+      service.ifError(`http.${config.server.handler}`, config.server.handlerConfig);
     }
   }
 
-  const handler = require(`./http/handlers/${config.server.handler}`);
+  const handler = require(`./http/handlers/${config.server.handler}`).default;
 
   return handler(config, this);
 }

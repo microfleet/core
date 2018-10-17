@@ -1,5 +1,5 @@
 import assert = require('assert');
-import Errors = require('common-errors');
+import { NotFoundError } from 'common-errors';
 import { Microfleet, PluginTypes } from '../';
 import _require from '../utils/require';
 
@@ -9,8 +9,8 @@ export function attach(this: Microfleet, config: any = {}) {
   const factory = _require('knex');
   const service = this;
 
-  assert(service.log, new Errors.NotFoundError('log module must be included'));
-  assert(service.validator, new Errors.NotFoundError('validator module must be included'));
+  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'));
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'));
 
   service.ifError('knex', config);
   service.ifError(`knex.${config.client}`, config);

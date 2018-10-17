@@ -14,7 +14,7 @@ export type LifecycleRequestType = 'preAllowed' | 'postAllowed'
  */
 export interface IExtensionPlugin {
   point: LifecycleRequestType;
-  handler(): any;
+  handler(...args: any[]): any;
 }
 
 export interface IExtensionsConfig {
@@ -30,9 +30,9 @@ function walkOverHandlers(this: any, previousArgs: any, handler: (...args: any[]
 
 /**
  * @class Extensions
- * @param {Object} config - Extensions configuration object.
- * @param {Array}  config.enabled - Enabled lifecycle events.
- * @param {Object} config.register - Extensions to register.
+ * @param config - Extensions configuration object.
+ * @param config.enabled - Enabled lifecycle events.
+ * @param config.register - Extensions to register.
  */
 class Extensions {
   public extensions: {
@@ -74,7 +74,7 @@ class Extensions {
    * @param {string} name - Name of the lifecycle event.
    * @param {Function} handler - Handler of the event.
    */
-  public register(name: LifecycleRequestType, handler: () => any) {
+  public register(name: LifecycleRequestType, handler: (...args: any[]) => PromiseLike<any | never>) {
     if (this.extensions[name] === undefined) {
       throw new Errors.NotSupportedError(name);
     }
@@ -93,11 +93,11 @@ class Extensions {
     const handlers = this.extensions[name];
 
     if (is.undefined(handlers) === true) {
-      return Promise.reject(new Errors.NotSupportedError(name));
+      return Bluebird.reject(new Errors.NotSupportedError(name));
     }
 
     if (Array.isArray(args) === false) {
-      return Promise.reject(new Errors.ArgumentError('"args" must be array'));
+      return Bluebird.reject(new Errors.ArgumentError('"args" must be array'));
     }
 
     return Bluebird

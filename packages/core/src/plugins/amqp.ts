@@ -64,7 +64,7 @@ export function attach(this: Microfleet, config: any = {}) {
    * @returns A truthy value if a provided connection is open.
    */
   const isConnected = (amqp: typeof AMQPTransport) => (
-    amqp.amqp && amqp.amqp.state === 'open'
+    amqp._amqp && amqp._amqp.state === 'open'
   );
 
   if (is.fn(service.ifError)) {

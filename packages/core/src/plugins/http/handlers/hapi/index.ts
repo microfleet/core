@@ -1,6 +1,7 @@
+import assert = require('assert');
 import Bluebird = require('bluebird');
 import { NotPermittedError } from 'common-errors';
-import { Plugin } from 'hapi';
+import { Plugin, Server } from 'hapi';
 import { Microfleet } from '../../../..';
 import { IPluginInterface } from '../../../../types';
 import _require from '../../../../utils/require';
@@ -21,13 +22,13 @@ const defaultPlugins: IHapiPlugin[] = [{
 }];
 
 function createHapiServer(config: any, service: Microfleet): IPluginInterface {
-  const Hapi = _require('hapi');
-
   const { handlerConfig } = config.server;
   handlerConfig.server.address = config.server.host || '0.0.0.0';
   handlerConfig.server.port = config.server.port || 3000;
 
-  const server = service.http = new Hapi.Server(handlerConfig.server);
+  assert(service.hasPlugin('logger'), 'must include logger plugin');
+
+  const server = service.http = new Server(handlerConfig.server);
 
   let routerPlugin: IHapiPlugin;
   if (config.router.enabled) {
@@ -35,7 +36,7 @@ function createHapiServer(config: any, service: Microfleet): IPluginInterface {
   }
 
   // exposes microfleet inside the server for tighter integrations
-  server.decorate('server', 'microfleet', service);
+  server.decorate('server', 'microfleet', service as any);
 
   async function initPlugins() {
     const { list, options } = handlerConfig.plugins;

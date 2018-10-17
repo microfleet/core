@@ -4,14 +4,15 @@ const cheerio = require('cheerio');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
 const assert = require('assert');
-const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Http server with \'hapi\' handler', function testSuite() {
-  const Mservice = require('../../src');
+  require('../config');
+  const Mservice = require('../../src/microfleet');
+  let service;
 
-  it('should starts \'hapi\' http server when plugin is included', function test() {
-    this.service = new Mservice({
-      plugins: ['validator', 'opentracing', 'http'],
+  it('should starts \'hapi\' http server when plugin is included', async () => {
+    service = new Mservice({
+      plugins: ['validator', 'logger', 'opentracing', 'http'],
       http: {
         server: {
           handler: 'hapi',
@@ -20,28 +21,22 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       },
     });
 
-    return this.service.connect()
-      .reflect()
-      .then(inspectPromise())
-      .spread((server) => {
-        assert.equal(server, this.service.http);
-        assert.equal(this.service.http.info.started !== undefined, true);
-        assert.equal(this.service.http.info.started > 0, true);
-      });
+    const [server] = await service.connect();
+
+    assert.equal(server, service.http);
+    assert.equal(service.http.info.started !== undefined, true);
+    assert.equal(service.http.info.started > 0, true);
   });
 
-  it('should be able to stop \'hapi\' http server', function test() {
-    return this.service.close()
-      .reflect()
-      .then(inspectPromise())
-      .then(() => {
-        assert.equal(this.service.http.info.started !== undefined, true);
-        assert.equal(this.service.http.info.started === 0, true);
-      });
+  it('should be able to stop \'hapi\' http server', async () => {
+    await service.close();
+
+    assert.equal(service.http.info.started !== undefined, true);
+    assert.equal(service.http.info.started === 0, true);
   });
 
-  it('should be able to attach \'socketIO\' plugin', function test(done) {
-    const service = new Mservice({
+  it('should be able to attach \'socketIO\' plugin', async () => {
+    service = new Mservice({
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http', 'socketIO'],
       http: {
         server: {
@@ -57,22 +52,22 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       router: global.SERVICES.router,
     });
 
-    service.connect()
-      .then(() => {
-        const client = SocketIOClient('http://0.0.0.0:3000');
-        client.on('error', done);
-        client.emit('echo', { message: 'foo' }, (error, response) => {
-          client.close();
-          assert.equal(error, null);
-          assert.deepEqual(response, { message: 'foo' });
-          service.close().asCallback(done);
-        });
-      })
-      .catch(done);
+    await service.connect();
+
+    await new Promise((resolve, reject) => {
+      const client = SocketIOClient('http://0.0.0.0:3000');
+      client.on('error', reject);
+      client.emit('echo', { message: 'foo' }, (error, response) => {
+        client.close();
+        assert.equal(error, null);
+        assert.deepEqual(response, { message: 'foo' });
+        service.close().then(resolve, reject);
+      });
+    });
   });
 
-  it('should be able to attach \'router\' plugin', () => {
-    const service = new Mservice({
+  it('should be able to attach \'router\' plugin', async () => {
+    service = new Mservice({
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -97,39 +92,36 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       },
     });
 
-    return service.connect()
-      .then(() => {
-        const options = {
-          json: true,
-          method: 'POST',
-          resolveWithFullResponse: true,
-          simple: false,
-          uri: 'http://0.0.0.0:3000/echo',
-          body: { message: 'foo' },
-        };
+    await service.connect();
 
-        return Promise
-          .all([
-            request(options).then((response) => {
-              assert.equal(response.statusCode, 200);
-              assert.deepEqual(response.body, { message: 'foo' });
-            }),
-            request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
-              assert.equal(response.statusCode, 404);
-              assert.equal(response.body.name, 'NotFoundError');
-              assert.deepEqual(response.body.message, 'Not Found: "route "not-found" not found"');
-            }),
-          ])
-          .reflect()
-          .then(inspectPromise())
-          .then(() => {
-            return service.close();
-          });
-      });
+    const options = {
+      json: true,
+      method: 'POST',
+      resolveWithFullResponse: true,
+      simple: false,
+      uri: 'http://0.0.0.0:3000/echo',
+      body: { message: 'foo' },
+    };
+
+    try {
+      await Promise.all([
+        request(options).then((response) => {
+          assert.equal(response.statusCode, 200);
+          assert.deepEqual(response.body, { message: 'foo' });
+        }),
+        request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
+          assert.equal(response.statusCode, 404);
+          assert.equal(response.body.name, 'NotFoundError');
+          assert.deepEqual(response.body.message, 'Not Found: "route "not-found" not found"');
+        }),
+      ]);
+    } finally {
+      await service.close();
+    }
   });
 
-  it('should be able to use \'router\' plugin prefix', () => {
-    const service = new Mservice({
+  it('should be able to use \'router\' plugin prefix', async () => {
+    service = new Mservice({
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -155,28 +147,28 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       },
     });
 
-    return service.connect()
-      .then(() => {
-        const options = {
-          json: true,
-          method: 'POST',
-          resolveWithFullResponse: true,
-          simple: false,
-          uri: 'http://0.0.0.0:3000/foo/bar/echo',
-          body: { message: 'foo' },
-        };
+    await service.connect();
 
-        return request(options).then((response) => {
-          assert.equal(response.statusCode, 200);
-          assert.deepEqual(response.body, { message: 'foo' });
+    const options = {
+      json: true,
+      method: 'POST',
+      resolveWithFullResponse: true,
+      simple: false,
+      uri: 'http://0.0.0.0:3000/foo/bar/echo',
+      body: { message: 'foo' },
+    };
 
-          return service.close();
-        });
-      });
+    try {
+      const response = await request(options);
+      assert.equal(response.statusCode, 200);
+      assert.deepEqual(response.body, { message: 'foo' });
+    } finally {
+      await service.close();
+    }
   });
 
-  it('should be able to use \'hapi\' plugin prefix', () => {
-    const service = new Mservice({
+  it('should be able to use \'hapi\' plugin prefix', async () => {
+    service = new Mservice({
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -202,28 +194,28 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       },
     });
 
-    return service.connect()
-      .then(() => {
-        const options = {
-          json: true,
-          method: 'POST',
-          resolveWithFullResponse: true,
-          simple: false,
-          uri: 'http://0.0.0.0:3000/foo/bar/echo',
-          body: { message: 'foo' },
-        };
+    await service.connect()
 
-        return request(options).then((response) => {
-          assert.equal(response.statusCode, 200);
-          assert.deepEqual(response.body, { message: 'foo' });
+    const options = {
+      json: true,
+      method: 'POST',
+      resolveWithFullResponse: true,
+      simple: false,
+      uri: 'http://0.0.0.0:3000/foo/bar/echo',
+      body: { message: 'foo' },
+    };
 
-          return service.close();
-        });
-      });
+    try {
+      const response = await request(options);
+      assert.equal(response.statusCode, 200);
+      assert.deepEqual(response.body, { message: 'foo' });
+    } finally {
+      await service.close();
+    }
   });
 
-  it('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', () => {
-    const service = new Mservice({
+  it('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', async () => {
+    service = new Mservice({
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -250,28 +242,28 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       },
     });
 
-    return service.connect()
-      .then(() => {
-        const options = {
-          json: true,
-          method: 'POST',
-          resolveWithFullResponse: true,
-          simple: false,
-          uri: 'http://0.0.0.0:3000/foo/bar/baz/foo/echo',
-          body: { message: 'foo' },
-        };
+    await service.connect();
 
-        return request(options).then((response) => {
-          assert.equal(response.statusCode, 200);
-          assert.deepEqual(response.body, { message: 'foo' });
+    const options = {
+      json: true,
+      method: 'POST',
+      resolveWithFullResponse: true,
+      simple: false,
+      uri: 'http://0.0.0.0:3000/foo/bar/baz/foo/echo',
+      body: { message: 'foo' },
+    };
 
-          return service.close();
-        });
-      });
+    try {
+      const response = await request(options);
+      assert.equal(response.statusCode, 200);
+      assert.deepEqual(response.body, { message: 'foo' });
+    } finally {
+      await service.close();
+    }
   });
 
-  it('should be able to pass custom options to hapi route', () => {
-    const service = new Mservice({
+  it('should be able to pass custom options to hapi route', async () => {
+    service = new Mservice({
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -296,58 +288,60 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       },
     });
 
-    return service
-      .connect()
-      .then(() =>
-        request({
-          method: 'POST',
-          resolveWithFullResponse: true,
-          simple: false,
-          uri: 'http://0.0.0.0:3000/hapi-raw-body',
-          body: '{"status":"😿"}',
-        })
-        .then((response) => {
-          assert.equal(response.statusCode, 200);
-          assert.deepEqual(response.body, '{"status":"😿"}');
-        })
-        .reflect()
-        .then(inspectPromise())
-        .then(() => service.close()));
+    await service.connect();
+
+    try {
+      const response = await request({
+        method: 'POST',
+        resolveWithFullResponse: true,
+        simple: false,
+        uri: 'http://0.0.0.0:3000/hapi-raw-body',
+        body: '{"status":"😿"}',
+      })
+
+      assert.equal(response.statusCode, 200);
+      assert.deepEqual(response.body, '{"status":"😿"}');
+    } finally {
+      await service.close();
+    }
   });
 
-  describe('should be able to use hapi\'s plugins', () => {
-    const service = new Mservice({
-      plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
-      http: {
-        server: {
-          handler: 'hapi',
-          port: 3000,
-          handlerConfig: {
-            views: {
-              engines: {
-                hbs: require('handlebars'),
+  describe('should be able to use hapi\'s plugins', async () => {
+    before(async () => {
+      service = new Mservice({
+        plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
+        http: {
+          server: {
+            handler: 'hapi',
+            port: 3000,
+            handlerConfig: {
+              views: {
+                engines: {
+                  hbs: require('handlebars'),
+                },
+                path: path.resolve(__dirname, './../hapi/templates'),
               },
-              path: path.resolve(__dirname, './../hapi/templates'),
             },
           },
+          router: {
+            enabled: true,
+            prefix: 'foo.bar',
+          },
+        },
+        logger: {
+          defaultLogger: true,
         },
         router: {
-          enabled: true,
-          prefix: 'foo.bar',
+          routes: {
+            directory: path.resolve(__dirname, './../hapi/helpers/actions'),
+            transports: ['http'],
+          },
         },
-      },
-      logger: {
-        defaultLogger: true,
-      },
-      router: {
-        routes: {
-          directory: path.resolve(__dirname, './../hapi/helpers/actions'),
-          transports: ['http'],
-        },
-      },
+      });
+
+      await service.connect();
     });
 
-    before(() => service.connect());
     after(() => service.close());
 
     it('should be able to send html view', () => {

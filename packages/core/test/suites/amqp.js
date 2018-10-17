@@ -5,29 +5,25 @@ const { inspectPromise } = require('@makeomatic/deploy');
 const { findHealthCheck } = require('../utils');
 
 describe('AMQP suite', function testSuite() {
-  const Mservice = require('../../src');
+  require('../config');
+  const Mservice = require('../../src/microfleet');
 
-  it('when service does not include `amqp` plugin, it emits an error or throws', function test() {
-    const service = new Mservice({ plugins: [] });
-    assert.throws(() => service.amqp);
-  });
+  let service;
 
-  it('able to connect to amqp when plugin is included', function test() {
-    this.service = new Mservice({
+  it('able to connect to amqp when plugin is included', async () => {
+    service = new Mservice({
       plugins: ['validator', 'opentracing', 'amqp'],
       amqp: global.SERVICES.amqp,
     });
-    return this.service.connect()
-      .reflect()
-      .then(inspectPromise())
-      .spread((amqp) => {
-        assert.ok(amqp instanceof AMQPTransport);
-        assert.doesNotThrow(() => this.service.amqp);
-      });
+
+    const [amqp] = await service.connect();
+
+    assert.ok(amqp instanceof AMQPTransport);
+    assert.doesNotThrow(() => service.amqp);
   });
 
-  it('able to check health', async function test() {
-    const { handler } = findHealthCheck(this.service, 'amqp');
+  it('able to check health', async () => {
+    const { handler } = findHealthCheck(service, 'amqp');
     // should be ok when service is connected
     const first = await handler();
     assert(first);
@@ -38,7 +34,7 @@ describe('AMQP suite', function testSuite() {
     assert(second);
 
     // close connection to the rabbitmq server
-    await this.service.amqp.close();
+    await service.amqp.close();
 
     // wait a while and ask again, should throw an error
     await Promise.delay(5000)
@@ -47,15 +43,11 @@ describe('AMQP suite', function testSuite() {
       .then(inspectPromise(false));
 
     // restore connection for further tests
-    await this.service.amqp.connect();
+    await service.amqp.connect();
   });
 
-  it('able to close connection to amqp', function test() {
-    return this.service.close()
-      .reflect()
-      .then((result) => {
-        assert.ok(result.isFulfilled());
-        assert.throws(() => this.service.amqp);
-      });
+  it('able to close connection to amqp', async () => {
+    await service.close();
+    assert(!service.amqp);
   });
 });

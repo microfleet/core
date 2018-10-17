@@ -39,7 +39,7 @@ export function attach(this: Microfleet, conf: any = {}) {
       debug: serviceLogger.debug.bind(serviceLogger),
       error: serviceLogger.error.bind(serviceLogger),
       info: serviceLogger.info.bind(serviceLogger),
-      warning: serviceLogger.warning.bind(serviceLogger),
+      warning: serviceLogger.warn.bind(serviceLogger),
       trace(method, requestUrl, body, responseBody, responseStatus) {
         serviceLogger.trace({
           body,

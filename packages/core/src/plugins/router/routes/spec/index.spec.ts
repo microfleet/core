@@ -1,16 +1,21 @@
-const { expect } = require('chai');
-const path = require('path');
-const getRoutes = require('..').default;
-const { ActionTransport } = require('../../../..');
+import { expect } from 'chai';
+import path = require('path');
+import getRoutes from '..';
+import { ActionTransport } from '../../../..';
 
-describe('router: get routes', function suite() {
-  it('should be able to get only enabled routes', (done) => {
+describe('router: get routes', () => {
+  const microfleet = { log: console } as any;
+
+  it('should be able to get only enabled routes', () => {
     const config = {
       directory: path.resolve(__dirname, 'examples/actions/simple'),
       enabled: {
-        baz: 'baz',
         bar: 'foo',
+        baz: 'baz',
       },
+      enabledGenericActions: [
+        'health',
+      ],
       prefix: 'action',
       transports: [
         ActionTransport.http,
@@ -18,12 +23,9 @@ describe('router: get routes', function suite() {
         ActionTransport.socketIO,
         ActionTransport.internal,
       ],
-      enabledGenericActions: [
-        'health',
-      ],
     };
 
-    const routes = getRoutes(config);
+    const routes = getRoutes.call(microfleet, config);
 
     expect(routes).to.be.an('object');
     expect(Object.keys(routes)).to.have.lengthOf(5);
@@ -65,20 +67,18 @@ describe('router: get routes', function suite() {
     expect(routes.internal).to.have.property('action.generic.health');
     expect(routes.internal['action.generic.health']).to.be.a('function');
     expect(Object.keys(routes.internal)).to.have.lengthOf(1);
-
-    done();
   });
 
-  it('should be able to get routes from directory', (done) => {
+  it('should be able to get routes from directory', () => {
     const config = {
       directory: path.resolve(__dirname, 'examples/actions/simple'),
       enabled: {},
+      enabledGenericActions: [],
       prefix: 'action',
       transports: [ActionTransport.socketIO],
-      enabledGenericActions: [],
     };
 
-    const routes = getRoutes(config);
+    const routes = getRoutes.call(microfleet, config);
 
     expect(routes).to.be.an('object');
     expect(Object.keys(routes)).to.have.lengthOf(2);
@@ -100,21 +100,19 @@ describe('router: get routes', function suite() {
     expect(routes.socketIO).to.have.property('action.baz');
     expect(routes.socketIO['action.baz']).to.be.a('function');
     expect(Object.keys(routes.socketIO)).to.have.lengthOf(2);
-
-    done();
   });
 
-  it('should be able to set default transports', (done) => {
+  it('should be able to set default transports', () => {
     const config = {
       directory: path.resolve(__dirname, 'examples/actions/withoutTransport'),
       enabled: {},
+      enabledGenericActions: [],
       prefix: 'action',
       setTransportsAsDefault: true,
       transports: [ActionTransport.socketIO],
-      enabledGenericActions: [],
     };
 
-    const routes = getRoutes(config);
+    const routes = getRoutes.call(microfleet, config);
 
     // socketIO routes
     expect(routes).to.have.property('socketIO');
@@ -122,7 +120,5 @@ describe('router: get routes', function suite() {
     expect(routes.socketIO['action.bar']).to.be.a('function');
     expect(routes.socketIO['action.bar'].actionName).to.be.equals('bar');
     expect(Object.keys(routes.socketIO)).to.have.lengthOf(1);
-
-    done();
   });
 });

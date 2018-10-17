@@ -1,11 +1,14 @@
 const Cassandra = require('express-cassandra');
 const cloneDeep = require('lodash/cloneDeep');
 const path = require('path');
+const assert = require('assert');
 const { expect } = require('chai');
-const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Cassandra suite', function testSuite() {
-  const Mservice = require('../../src');
+  require('../config');
+  const Mservice = require('../../src/microfleet');
+
+  let service;
 
   before('lookup ipv4', (done) => {
     const dns = require('dns');
@@ -20,46 +23,39 @@ describe('Cassandra suite', function testSuite() {
     });
   });
 
-  it('able to connect to cassandra when plugin is included', function test() {
-    this.service = new Mservice({
+  it('able to connect to cassandra when plugin is included', async () => {
+    service = new Mservice({
       plugins: ['validator', 'cassandra'],
       cassandra: global.SERVICES.cassandra,
     });
 
-    return this.service.connect()
-      .reflect()
-      .then(inspectPromise())
-      .spread((cassandra) => {
-        expect(cassandra).to.be.instanceof(Cassandra);
-        expect(cassandra.modelInstance).to.have.property('Foo');
-        expect(this.service.cassandra).to.be.instanceof(Cassandra);
-      });
+    const [cassandra] = await service.connect();
+
+    expect(cassandra).to.be.instanceof(Cassandra);
+    expect(cassandra.modelInstance).to.have.property('Foo');
+    expect(service.cassandra).to.be.instanceof(Cassandra);
   });
 
-  it('able to close connection to cassandra', function test() {
-    return this.service.close()
-      .reflect()
-      .then((result) => {
-        expect(result.isFulfilled()).to.be.eq(true);
-        expect(() => this.service.cassandra).to.throw();
-      });
+  it('able to close connection to cassandra', async () => {
+    await service.close();
+    assert(!service.cassandra);
   });
 
-  it('should load models from directory', function test() {
+  it('should load models from directory', async () => {
     const cassandraConfig = cloneDeep(global.SERVICES.cassandra);
     cassandraConfig.service.models = path.resolve(__dirname, '../cassandra/models');
 
-    this.service = new Mservice({
+    service = new Mservice({
       plugins: ['validator', 'cassandra'],
       cassandra: cassandraConfig,
     });
 
-    return this.service.connect()
-      .reflect()
-      .then(inspectPromise())
-      .spread((cassandra) => {
-        expect(cassandra.modelInstance).to.have.property('Bar');
-      })
-      .finally(() => this.service.close());
+    const [cassandra] = await service.connect();
+
+    try {
+      expect(cassandra.modelInstance).to.have.property('Bar');
+    } finally {
+      await service.close();
+    }
   });
 });

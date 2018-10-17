@@ -1,14 +1,13 @@
 const assert = require('assert');
-const { NotPermittedError } = require('common-errors');
 const bunyan = require('bunyan');
 
 describe('Logger suite', function testSuite() {
-  const Mservice = require('../../src');
+  require('../config');
+  const Mservice = require('../../src/microfleet');
 
   it('when service does not include `logger` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });
-
-    assert.throws(() => service.log, NotPermittedError);
+    assert(!service.log);
   });
 
   it('logger inits with output to stdout', function test() {

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
-      "@microfleet/*": ["./*/src"]
+      "@microfleet/*": ["./*/src", "../node_modules/@microfleet/*"]
     }
   }
 }

@@ -42,7 +42,7 @@ export function attach(this: Microfleet, config: any = {}) {
   }
 
   async function connectCassandra() {
-    assert(service.cassandra, new NotPermittedError('Cassandra was already started'));
+    assert(!service.cassandra, new NotPermittedError('Cassandra was already started'));
     const cassandra = await factory(Cassandra, config);
 
     service.cassandra = cassandra;
@@ -54,7 +54,7 @@ export function attach(this: Microfleet, config: any = {}) {
   async function disconnectCassandra() {
     const { cassandra } = service;
 
-    assert (!cassandra, new NotPermittedError('Cassandra was not started'));
+    assert(cassandra, new NotPermittedError('Cassandra was not started'));
 
     await cassandra.closeAsync();
 
