@@ -2,6 +2,7 @@ const { expect } = require('chai');
 const Errors = require('common-errors');
 const path = require('path');
 const assert = require('assert');
+const sinon = require('sinon');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 const { inspectPromise } = require('@makeomatic/deploy');
@@ -9,6 +10,7 @@ const { inspectPromise } = require('@makeomatic/deploy');
 describe('Router suite', function testSuite() {
   require('../config');
   const Mservice = require('../../src/microfleet');
+  const { PLUGIN_STATUS_FAIL } = require('../../src/constants');
   const auditLog = Mservice.routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');
   const getHTTPRequest = require('../router/helpers/requests/http');
@@ -441,6 +443,82 @@ describe('Router suite', function testSuite() {
     await socketIORequest('action.generic.health', {}).reflect().then(verify(returnsResult));
 
     await service.close();
+  });
+
+  it('should return an error when some service fails his healthcheck', async function test() {
+    const service = new Mservice({
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      http: {
+        server: {
+          handler: 'express',
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          prefix: 'action',
+          setTransportsAsDefault: true,
+          transports: [
+            ActionTransport.amqp,
+            ActionTransport.http,
+            ActionTransport.internal,
+          ],
+          enabledGenericActions: ['health'],
+        },
+        extensions: {
+          enabled: ['preRequest', 'postRequest', 'preResponse'],
+          register: [
+            schemaLessAction,
+            auditLog,
+          ],
+        },
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    });
+
+    const stub = sinon.stub(service, 'getHealthStatus');
+    stub.returns({
+      status: PLUGIN_STATUS_FAIL,
+      alive: [],
+      failed: [{
+        name: 'amqp',
+      }, {
+        name: 'http',
+      }],
+    });
+
+    await service.connect();
+    const AMQPRequest = getAMQPRequest(service.amqp);
+    const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+
+    const unhealthyState = {
+      expect: 'error',
+      verify: (error) => {
+        expect(error.status).to.be.equals(500);
+        expect(error.message).to.be.equals('Unhealthy due to following plugins: amqp, http');
+      },
+    };
+
+    await AMQPRequest('action.generic.health', {}).reflect().then(verify(unhealthyState));
+    await HTTPRequest('/action/generic/health').reflect().then(verify(unhealthyState));
+
+    stub.reset();
   });
 
   it('should throw when unknown generic route is requested', async function test() {
