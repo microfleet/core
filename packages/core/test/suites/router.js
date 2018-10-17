@@ -505,7 +505,7 @@ describe('Router suite', function testSuite() {
 
     await service.connect();
     const AMQPRequest = getAMQPRequest(service.amqp);
-    const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+    const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' });
 
     const unhealthyState = {
       expect: 'error',
