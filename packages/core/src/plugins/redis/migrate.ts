@@ -1,4 +1,3 @@
-// @flow
 // Provides sets of utils for perfoming migrations on redis database
 // It's essential to note that this is targeted at a single instance
 // In case of cluster one must ensure that you use keyPrefix, which would
@@ -27,26 +26,27 @@
 // be performed on the main database during migration process
 //
 
-import typeof Mservice from '../../index';
+import { Microfleet } from '../..';
 
-const Promise = require('bluebird');
-const assert = require('assert');
-const glob = require('glob');
-const is = require('is');
-const sortBy = require('sort-by');
-const path = require('path');
-const fs = require('fs');
-const debug = require('debug')('mservice:redis:migrate');
-const Redis = require('ioredis');
+import assert = require('assert');
+import Bluebird = require('bluebird');
+import _debug = require('debug');
+import fs = require('fs');
+import glob = require('glob');
+import Redis = require('ioredis');
+import is = require('is');
+import path = require('path');
+import sortBy = require('sort-by');
 
 // some constant helpers
 const VERSION_KEY = 'version';
+const debug = _debug('mservice:redis:migrate');
 
 /**
  * This script is used to verify that we havent performed the transaction yet.
- * @param  {number} finalVersion - This would be set in Redis after update.
- * @param  {number} [min=0] - Minimal version to apply this migration to.
- * @returns {string} Lua script for version verification.
+ * @param  finalVersion - This would be set in Redis after update.
+ * @param  [min=0] - Minimal version to apply this migration to.
+ * @returns Lua script for version verification.
  */
 const appendPreScript = (finalVersion: number, min: number = 0) => `-- check for ${finalVersion}
 local currentVersion = tonumber(redis.call('get', KEYS[1]) or 0);
@@ -62,8 +62,8 @@ end
 
 /**
  * This script is used to put version after migration is complete.
- * @param {number} finalVersion - This Would be set in redis after update.
- * @returns {string} Lua post-verification script.
+ * @param finalVersion - This Would be set in redis after update.
+ * @returns Lua post-verification script.
  */
 const appendPostScript = (finalVersion: number) => `-- set current version
 return redis.call('set', KEYS[1], '${finalVersion}');
@@ -71,10 +71,10 @@ return redis.call('set', KEYS[1], '${finalVersion}');
 
 /**
  * This is the most common case of a single LUA script for migration.
- * @param  {number} finalVersion - Sets version after upgrade.
- * @param  {number} [min=0] - Minimal version to apple migration to.
- * @param  {string} script - Userland LUA script.
- * @returns {string} Final Lua script.
+ * @param  finalVersion - Sets version after upgrade.
+ * @param  [min=0] - Minimal version to apple migration to.
+ * @param  script - Userland LUA script.
+ * @returns Final Lua script.
  */
 const appendLuaScript = (finalVersion: number, min: number = 0, script: string) => [
   appendPreScript(finalVersion, min),
@@ -82,20 +82,20 @@ const appendLuaScript = (finalVersion: number, min: number = 0, script: string) 
   appendPostScript(finalVersion),
 ].join('\n');
 
-export type Migration = {
-  final: number,
-  min: number,
-  args: Array<any>,
-  script: any,
-  keys?: Array<string>,
-};
+export interface IMigration {
+  final: number;
+  min: number;
+  args: any[];
+  script: any;
+  keys?: string[];
+}
 
 /**
  * Verifies current Redis schema version.
- * @param  {Error} error - Any error.
- * @returns {Void} Swallows certain error messages.
+ * @param  error - Any error.
+ * @returns Swallows certain error messages.
  */
-function checkVersionError(error) {
+function checkVersionError(this: Microfleet, error: any) {
   this.log.error(error);
 
   if (error.message === 'migration already performed') {
@@ -107,17 +107,17 @@ function checkVersionError(error) {
 
 /**
  * Perform migrations on the Redis database.
- * @param  {Redis} redis - Redis client.
- * @param  {Mservice} service - Mservice instance.
- * @param  {Migration[]} scripts - Migrations to perform.
- * @returns {Promise<*>} Returns when migrations are performed.
+ * @param  redis - Redis client.
+ * @param  service - Mservice instance.
+ * @param  scripts - Migrations to perform.
+ * @returns Returns when migrations are performed.
  */
-module.exports = async function performMigration(redis: Redis, service: Mservice, scripts: any) {
-  let files: Array<Migration>;
+async function performMigration(redis: Redis.Redis, service: Microfleet, scripts: any) {
+  let files: IMigration[];
   if (is.string(scripts)) {
     debug('looking for files in %s', scripts);
     files = glob.sync('*{.js,/}', { cwd: scripts })
-      .map(script => require(`${scripts}/${script}`)); // eslint-disable-line import/no-dynamic-require
+      .map((script) => require(`${scripts}/${script}`)); // eslint-disable-line import/no-dynamic-require
   } else if (is.array(scripts)) {
     files = scripts;
   } else {
@@ -134,17 +134,16 @@ module.exports = async function performMigration(redis: Redis, service: Mservice
 
   // fetch current version and then remove unneeded migrations
   const savedVersion = await redis.get(VERSION_KEY);
-  const currentVersion = parseInt(savedVersion || 0, 10);
+  const currentVersion = parseInt(savedVersion || '0', 10);
 
   // ensure that all files have final > currentVersion
-  files = files.filter(file => file.final > currentVersion);
+  files = files.filter((file) => file.final > currentVersion);
 
   if (files.length === 0) {
     debug('no files found');
     return undefined;
   }
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const file of files) {
     const { final } = file;
     assert(is.integer(+final), 'final version must be present and be an integer');
@@ -185,5 +184,7 @@ module.exports = async function performMigration(redis: Redis, service: Mservice
     }
   }
 
-  return Promise.resolve(true);
-};
+  return true;
+}
+
+export default performMigration;

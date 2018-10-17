@@ -17,14 +17,14 @@ try {
   }
 
   // make a nice warning that we are running in production, but
-  // have babel-register
+  // have <babel-like> stuff here
   if (process.env.NODE_ENV === 'production') {
-    console.warn('Service running in production mode, but `babel-register` was included');
+    console.warn('Service running in production mode, but `%s` was included', babel);
   }
 
-  Service = require(source).default;
+  Service = require(source).default || require(source);
 } catch (e) {
-  Service = require(lib).default;
+  Service = require(lib).default || require(lib);
 }
 
 // init service

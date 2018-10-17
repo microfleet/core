@@ -1,9 +1,8 @@
-// @flow
-const assert = require('assert');
-const raven = require('raven');
-const { SentryStream } = require('bunyan-sentry-stream');
+import assert = require('assert');
+import { SentryStream } from 'bunyan-sentry-stream';
+import raven = require('raven');
 
-function sentryStreamFactory(config: Object) {
+function sentryStreamFactory(config: any) {
   const { level, options } = config;
 
   const dsn = config.dsn || config.dns;
@@ -13,9 +12,9 @@ function sentryStreamFactory(config: Object) {
 
   return {
     level: level || 'error',
-    type: 'raw',
     stream: new SentryStream(client),
+    type: 'raw',
   };
 }
 
-module.exports = sentryStreamFactory;
+export default sentryStreamFactory;

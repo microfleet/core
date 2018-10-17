@@ -1,0 +1,95 @@
+import Bluebird = require('bluebird');
+import Errors = require('common-errors');
+import { Request } from 'hapi';
+import noop = require('lodash/noop');
+import { FORMAT_HTTP_HEADERS } from 'opentracing';
+import { ActionTransport, Microfleet } from '../../../../..';
+import { IServiceRequest, RequestMethods } from '../../../../../types';
+import _require from '../../../../../utils/require';
+import { IMicrofleetRouter } from '../../../../router/factory';
+
+export default function getHapiAdapter(actionName: string, service: Microfleet) {
+  const Boom = _require('boom');
+  const router = service.router as IMicrofleetRouter;
+
+  const reformatError = (error: any) => {
+    let statusCode;
+    let errorMessage;
+
+    const { errors } = error;
+
+    switch (error.constructor) {
+      case Errors.AuthenticationRequiredError:
+        statusCode = 401;
+        break;
+
+      case Errors.ValidationError:
+        statusCode = 400;
+        break;
+
+      case Errors.NotPermittedError:
+        statusCode = 403;
+        break;
+
+      case Errors.NotFoundError:
+        statusCode = 404;
+        break;
+
+      default:
+        statusCode = 'statusCode' in error ? error.statusCode : 500;
+    }
+
+    if (Array.isArray(errors) && errors.length) {
+      const [nestedError] = errors;
+      errorMessage = nestedError.text || nestedError.message || undefined;
+    }
+
+    const replyError = Boom.boomify(error, { statusCode, message: errorMessage });
+
+    if (error.name) {
+      replyError.output.payload.name = error.name;
+    }
+
+    return replyError;
+  };
+
+  // pre-wrap the function so that we do not need to actually do fromNode(next)
+  const dispatch = Bluebird.promisify(router.dispatch, { context: router });
+
+  return async function handler(request: Request) {
+    const { headers } = request;
+
+    let parentSpan;
+    if (service.tracer !== undefined) {
+      parentSpan = service.tracer.extract(headers, FORMAT_HTTP_HEADERS);
+    }
+
+    const serviceRequest: IServiceRequest = {
+      // defaults for consistent object map
+      // opentracing
+      // set to console
+      // transport type
+      action: noop as any,
+      headers,
+      locals: Object.create(null),
+      log: console as any,
+      method: request.method.toLowerCase() as RequestMethods,
+      params: request.payload,
+      parentSpan,
+      query: request.query,
+      route: '',
+      span: undefined,
+      transport: ActionTransport.http,
+      transportRequest: request,
+    };
+
+    let response;
+    try {
+      response = await dispatch(actionName, serviceRequest);
+    } catch (e) {
+      response = reformatError(e);
+    }
+
+    return response;
+  };
+}

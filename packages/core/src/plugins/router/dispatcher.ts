@@ -9,7 +9,7 @@ import { IMicrofleetRouter } from './factory';
 const debug = _debug('mservice:router:dispatch');
 const { ERROR, COMPONENT } = Tags;
 
-const wrapPromise = (span: any, promise: any, callback?: () => any) => (
+const wrapPromise = (span: any, promise: any, callback?: (err: any, result?: any) => void) => (
   promise
     .catch((err: Error) => {
       span.setTag(ERROR, true);
@@ -37,7 +37,7 @@ function dispatch(
   this: IMicrofleetRouter,
   route: string,
   request: IServiceRequest,
-  callback?: () => any,
+  callback?: (err: any, result?: any) => void,
 ): Bluebird<any> | void {
   const router = this;
   const { modules, service } = router;

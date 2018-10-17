@@ -4,6 +4,8 @@ import _debug = require('debug');
 import is = require('is');
 import { Microfleet, PluginTypes } from '../';
 import _require from '../utils/require';
+import migrate from './redis/migrate';
+import { hasConnection, isStarted, loadLuaScripts } from './redis/utils';
 
 const debug = _debug('mservice:redisCluster');
 
@@ -27,8 +29,6 @@ export function attach(this: Microfleet, conf: any = {}) {
   const Redis = _require('ioredis');
   Redis.Promise = Bluebird;
 
-  const migrate = require('./redis/migrate');
-  const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
   const {
     ERROR_NOT_STARTED,
     ERROR_ALREADY_STARTED,
@@ -48,28 +48,28 @@ export function attach(this: Microfleet, conf: any = {}) {
      * @returns Opens redis connection.
      */
     async connect() {
-      assert(service._redis == null, ERROR_ALREADY_STARTED);
+      assert(service.redis == null, ERROR_ALREADY_STARTED);
 
       const instance = new Cluster(conf.hosts, {
         ...conf.options,
         lazyConnect: true,
       });
 
-      if (service._tracer) {
+      if (service.tracer) {
         const applyInstrumentation = _require('opentracing-js-ioredis');
-        applyInstrumentation(service._tracer, instance);
+        applyInstrumentation(service.tracer, instance);
       }
 
       // attach to instance right away
       if (conf.luaScripts) {
         debug('attaching lua');
-        loadLuaScripts(conf.luaScripts, instance);
+        loadLuaScripts.call(service, conf.luaScripts, instance);
       }
 
       await instance.connect();
 
       service.addMigrator('redis', migrate, instance, service);
-      service._redis = instance;
+      service.redis = instance;
       service.emit('plugin:connect:redisCluster', instance);
 
       return instance;
@@ -86,11 +86,11 @@ export function attach(this: Microfleet, conf: any = {}) {
     async close() {
       assert(isClusterStarted(), ERROR_NOT_STARTED);
 
-      await service._redis
+      await service.redis
         .quit()
         .catchReturn({ message: 'Connection is closed.' }, null);
 
-      service._redis = null;
+      service.redis = null;
       service.emit('plugin:close:redisCluster');
     },
   };

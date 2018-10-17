@@ -4,6 +4,9 @@ import _debug = require('debug');
 import is = require('is');
 import { Microfleet, PluginTypes } from '../';
 import _require from '../utils/require';
+import { ERROR_ALREADY_STARTED, ERROR_NOT_STARTED } from './redis/constants';
+import migrate from './redis/migrate';
+import { hasConnection, isStarted, loadLuaScripts } from './redis/utils';
 
 const debug = _debug('mservice:redisSentinel');
 
@@ -27,9 +30,6 @@ export function attach(this: Microfleet, conf: any = {}) {
   const Redis = _require('ioredis');
   Redis.Promise = Bluebird;
 
-  const migrate = require('./redis/migrate');
-  const { loadLuaScripts, isStarted, hasConnection } = require('./redis/utils');
-  const { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } = require('./redis/constants');
   const isRedisStarted = isStarted(service, Redis);
 
   // optional validation with the plugin
@@ -46,7 +46,7 @@ export function attach(this: Microfleet, conf: any = {}) {
      * @returns Opens connection to Redis.
      */
     async connect() {
-      assert(service._redis == null, ERROR_ALREADY_STARTED);
+      assert(service.redis == null, ERROR_ALREADY_STARTED);
 
       const instance = new Redis({
         lazyConnect: true,
@@ -55,21 +55,21 @@ export function attach(this: Microfleet, conf: any = {}) {
         ...conf.options,
       });
 
-      if (service._tracer) {
+      if (service.tracer) {
         const applyInstrumentation = _require('opentracing-js-ioredis');
-        applyInstrumentation(service._tracer, instance);
+        applyInstrumentation(service.tracer, instance);
       }
 
       // attach to instance right away
       if (conf.luaScripts) {
         debug('attaching lua');
-        loadLuaScripts(conf.luaScripts, instance);
+        loadLuaScripts.call(service, conf.luaScripts, instance);
       }
 
       await instance.connect();
 
       service.addMigrator('redis', migrate, instance, service);
-      service._redis = instance;
+      service.redis = instance;
       service.emit('plugin:connect:redisSentinel', instance);
 
       return instance;
@@ -86,11 +86,11 @@ export function attach(this: Microfleet, conf: any = {}) {
     async close() {
       assert(isRedisStarted(), ERROR_NOT_STARTED);
 
-      await service._redis
+      await service.redis
         .quit()
         .catchReturn({ message: 'Connection is closed.' }, null);
 
-      service._redis = null;
+      service.redis = null;
       service.emit('plugin:close:redisSentinel');
     },
 

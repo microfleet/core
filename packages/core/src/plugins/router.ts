@@ -1,7 +1,5 @@
 import assert = require('assert');
 import { NotFoundError, NotSupportedError } from 'common-errors';
-import is = require('is');
-import noop = require('lodash/noop');
 import { ActionTransport, Microfleet, PluginTypes } from '../';
 import { IServiceRequest } from '../types';
 import getRouter from './router/factory';
@@ -33,7 +31,7 @@ const prepareRequest = (request: IServiceRequest): IServiceRequest => ({
   headers: { ...request.headers },
   locals: { ...request.locals },
   log: console as any,
-  method: internal,
+  method: internal as IServiceRequest['method'],
   params: { ...request.params },
   parentSpan: undefined,
   query: Object.create(null),
