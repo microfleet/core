@@ -515,8 +515,16 @@ describe('Router suite', function testSuite() {
       },
     };
 
+    const unhealthyStateHTTP = {
+      expect: 'error',
+      verify: (error) => {
+        expect(error.statusCode).to.be.equals(500);
+        expect(error.message).to.be.equals('An internal server error occurred');
+      },
+    }
+
     await AMQPRequest('action.generic.health', {}).reflect().then(verify(unhealthyState));
-    await HTTPRequest('/action/generic/health').reflect().then(verify(unhealthyState));
+    await HTTPRequest('/action/generic/health').reflect().then(verify(unhealthyStateHTTP));
 
     stub.reset();
   });

@@ -1,12 +1,23 @@
 import { HttpStatusError } from 'common-errors'
 import { PLUGIN_STATUS_FAIL } from '../../../../constants'
 import { ActionTransport, Microfleet } from '../../../..'
+import { ServiceRequest } from '../../../../types'
 
-async function genericHealthCheck(this: Microfleet) {
+const kUnhealthy = new HttpStatusError(500, 'unhealthy')
+
+async function genericHealthCheck(this: Microfleet, request: ServiceRequest) {
   const data = await this.getHealthStatus()
 
   if (PLUGIN_STATUS_FAIL === data.status) {
-    throw new HttpStatusError(500, `Unhealthy due to following plugins: ${data.failed.map(it => it.name).join(', ')}`)
+    switch (request.transport) {
+      case 'amqp':
+      case 'internal':
+        const plugins = data.failed.map(it => it.name).join(', ')
+        throw new HttpStatusError(500, `Unhealthy due to following plugins: ${plugins}`)
+
+      default:
+        throw kUnhealthy
+    }
   }
 
   return { data }

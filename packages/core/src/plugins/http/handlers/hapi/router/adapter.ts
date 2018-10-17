@@ -37,7 +37,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
         break
 
       default:
-        statusCode = 'statusCode' in error ? error.statusCode : 500
+        statusCode = error.statusCode || 500
     }
 
     if (Array.isArray(errors) && errors.length > 0) {
