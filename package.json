@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "semantic-release": "semantic-release",
+    "semantic-release": "lerna exec --concurrency 1 -- semantic-release -e semantic-release-monorepo",
     "prebootstrap": "yarn --frozen-lockfile --check-files",
     "bootstrap": "lerna bootstrap -- --frozen-lockfile --check-files",
     "lint": "lerna run lint --stream",
