@@ -20,7 +20,7 @@ interface IStream {
 function streamsFactory(streamName: string, options: any) {
   switch (streamName) {
     case 'sentry': {
-      const sentryStreamFactory = require('./logger/streams/sentry');
+      const sentryStreamFactory = require('./logger/streams/sentry').default;
       return sentryStreamFactory(options);
     }
 

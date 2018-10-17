@@ -1,3 +1,4 @@
+import { HttpStatusError } from '@microfleet/validation';
 import Bluebird = require('bluebird');
 import Errors = require('common-errors');
 import { Request } from 'hapi';
@@ -39,9 +40,13 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
         statusCode = 'statusCode' in error ? error.statusCode : 500;
     }
 
-    if (Array.isArray(errors) && errors.length) {
-      const [nestedError] = errors;
-      errorMessage = nestedError.text || nestedError.message || undefined;
+    if (Array.isArray(errors) && errors.length > 0) {
+      if (error.constructor === HttpStatusError) {
+        errorMessage = error.message ? undefined : errors.map((e) => `${e.field} ${e.message}`).join(';');
+      } else {
+        const [nestedError] = errors;
+        errorMessage = nestedError.text || nestedError.message || undefined;
+      }
     }
 
     const replyError = Boom.boomify(error, { statusCode, message: errorMessage });

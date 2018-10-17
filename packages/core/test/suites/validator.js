@@ -1,3 +1,4 @@
+const assert = require('assert');
 const { expect } = require('chai');
 
 describe('Validator suite', function testSuite() {
@@ -6,7 +7,7 @@ describe('Validator suite', function testSuite() {
 
   it('no `validator` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });
-    expect(() => service.validator).to.throw();
+    assert(!service.validator);
   });
 
   it('validator inits relative schema paths', function test() {

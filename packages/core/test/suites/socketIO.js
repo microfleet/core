@@ -1,3 +1,4 @@
+const assert = require('assert');
 const { expect } = require('chai');
 const AdapterTransport = require('ms-socket.io-adapter-amqp/lib/transport');
 const socketIO = require('socket.io');
@@ -9,7 +10,7 @@ describe('"socketIO" plugin', function testSuite() {
 
   it('should throw error when plugin isn\'t included', function test() {
     const service = new Mservice({ plugins: [] });
-    expect(() => service.socketIO).to.throw();
+    assert(!service.socketIO);
   });
 
   it('should create \'socketIO\' instance when plugin is included', function test() {

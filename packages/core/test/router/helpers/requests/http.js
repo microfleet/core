@@ -4,14 +4,13 @@ const errors = require('request-promise/errors');
 
 function getHTTPRequest(options) {
   return (action, params, opts = {}) => {
-    const requestOptions = {
+    const requestOptions = Object.assign({
       baseUrl: options.url,
       method: 'POST',
       simple: true,
-      ...options,
-      ...opts,
-      uri: action,
-    };
+    }, options, opts, {
+      uri: action
+    });
 
     // patch
     delete requestOptions.url;

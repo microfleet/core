@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const Errors = require('common-errors');
 const path = require('path');
+const assert = require('assert');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 const { inspectPromise } = require('@makeomatic/deploy');
@@ -22,7 +23,7 @@ describe('Router suite', function testSuite() {
 
   it('should throw error if plugin is not included', function test() {
     const service = new Mservice({ plugins: [] });
-    expect(() => service.router).to.throw();
+    assert(!service.router);
   });
 
   it('should return response', function test() {
@@ -53,7 +54,7 @@ describe('Router suite', function testSuite() {
       http: {
         server: {
           attachSocketIO: true,
-          handler: 'express',
+          handler: 'hapi',
         },
         router: {
           enabled: true,
@@ -381,7 +382,7 @@ describe('Router suite', function testSuite() {
       http: {
         server: {
           attachSocketIO: true,
-          handler: 'express',
+          handler: 'hapi',
         },
         router: {
           enabled: true,
@@ -422,7 +423,7 @@ describe('Router suite', function testSuite() {
 
     await service.connect();
     const AMQPRequest = getAMQPRequest(service.amqp);
-    const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+    const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' });
     const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
     const socketIORequest = getSocketIORequest(socketIOClient);
 

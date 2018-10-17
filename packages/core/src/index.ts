@@ -69,7 +69,7 @@ export const PluginsPriority = constants.PluginsPriority;
  * @returns Extension to router plugin.
  */
 export const routerExtension = (name: string) => {
-  return require(`./plugins/router/extensions/${name}`);
+  return require(`./plugins/router/extensions/${name}`).default;
 };
 
 /**
@@ -87,7 +87,7 @@ export class Microfleet extends EventEmitter {
   public readonly plugins: string[];
   public readonly [constants.CONNECTORS_PROPERTY]: IStartStopTree;
   public readonly [constants.DESTRUCTORS_PROPERTY]: IStartStopTree;
-  public readonly [constants.HEALTH_CHECKS_PROPERTY]: any[];
+  public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[];
 
   /**
    * @param [opts={}] - Overrides for configuration.

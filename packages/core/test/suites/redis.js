@@ -51,7 +51,7 @@ describe('Redis suite', function testSuite() {
 
   it('able to perform migrations', async () => {
     await service
-      .migrate('redis', '/src/test/fixtures/migrations');
+      .migrate('redis', '/src/packages/core/test/fixtures/migrations');
 
     const version = await service.redis.get('version');
     assert.equal(version, '10');

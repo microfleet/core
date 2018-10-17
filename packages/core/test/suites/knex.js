@@ -65,7 +65,7 @@ describe('knex plugin', function testSuite() {
     try {
       const reason = await service.connect().reflect().then(inspectPromise(false));
       // causes error because there are no migrations to execute
-      assert.equal(reason.path, '/src/migrations');
+      assert.equal(reason.path, '/src/packages/core/migrations', reason);
     } finally {
       await service.close();
     }
