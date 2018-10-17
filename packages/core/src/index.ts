@@ -12,8 +12,8 @@ import * as constants from './constants'
 import * as defaultOpts from './defaults'
 import {
   HandlerProperties,
-  IPlugin,
-  IPluginInterface,
+  Plugin,
+  PluginInterface,
   PluginConnector,
   TConnectorsTypes
 } from './types'
@@ -203,7 +203,7 @@ export class Microfleet extends EventEmitter {
    * @param mod.attach - Plugin attach function.
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
-  public initPlugin(mod: IPlugin, conf?: any) {
+  public initPlugin(mod: Plugin, conf?: any) {
     this.plugins.push(mod.name)
 
     const expose = mod.attach.call(this, conf || this.config[mod.name], __filename)
@@ -212,7 +212,7 @@ export class Microfleet extends EventEmitter {
       return
     }
 
-    const { connect, status, close } = expose as IPluginInterface
+    const { connect, status, close } = expose as PluginInterface
     const type = ConnectorsTypes[mod.type] as TConnectorsTypes
 
     assert(type, 'Plugin type must be equal to one of connectors type')

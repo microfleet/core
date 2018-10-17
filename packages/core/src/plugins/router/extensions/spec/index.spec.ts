@@ -1,11 +1,11 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import { NotSupportedError } from 'common-errors'
-import Extensions, { IExtensionsConfig } from '..'
+import Extensions, { ExtensionsConfig } from '..'
 
 describe('router: extensions', () => {
   it('should be able to auto register extension', async () => {
-    const config: IExtensionsConfig = {
+    const config: ExtensionsConfig = {
       enabled: [
         'preHandler',
         'postHandler',

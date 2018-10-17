@@ -239,11 +239,12 @@ export function attach(this: Microfleet, config: any = {}) {
 
       // if service.router is present - we will consume messages
       // if not - we will only create a client
-      const amqp = service.amqp = await AMQPTransport.connect({
+      const opts = {
         ...config.transport,
         log: logger || null,
         tracer: service.tracer,
-      },                                                      service.AMQPRouter)
+      }
+      const amqp = service.amqp = await AMQPTransport.connect(opts, service.AMQPRouter)
 
       // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
       if (config.retry && config.retry.enabled === true) {

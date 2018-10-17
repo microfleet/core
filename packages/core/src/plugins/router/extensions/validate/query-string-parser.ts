@@ -1,9 +1,9 @@
 import identity = require('lodash/identity')
 import { parse } from 'qs'
-import { IServiceRequest } from '../../../../types'
+import { ServiceRequest } from '../../../../types'
 
-type QSParserAugmentedAction = IServiceRequest & {
-  action: IServiceRequest['action'] & {
+type QSParserAugmentedAction = ServiceRequest & {
+  action: ServiceRequest['action'] & {
     transformQuery?: (...args: any[]) => any,
     transformOpts?: any
   }

@@ -4,7 +4,7 @@ import { ArgumentError, Error } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
 import { DATA_KEY_SELECTOR } from '../../../constants'
-import { IServiceRequest } from '../../../types'
+import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 function validationSuccess(this: any, sanitizedParams: any) {
@@ -20,7 +20,7 @@ const handleValidationError = (error: Error) => {
   throw new Error('internal validation error', error)
 }
 
-function validate(this: Microfleet, request: IServiceRequest) {
+function validate(this: Microfleet, request: ServiceRequest) {
   const { validator } = this
   const paramsKey = DATA_KEY_SELECTOR[request.method]
 
@@ -30,12 +30,12 @@ function validate(this: Microfleet, request: IServiceRequest) {
     .then(validationSuccess, handleValidationError)
 }
 
-function validateHandler(this: Microfleet, request: IServiceRequest)  {
+function validateHandler(this: Microfleet, request: ServiceRequest)  {
   if (request.action === undefined) {
     return Bluebird.reject(new ArgumentError('"request" must have property "action"'))
   }
 
-  if (is.undefined(request.action.schema) === true) {
+  if (is.undefined(request.action.schema)) {
     return Bluebird.resolve(request)
   }
 

@@ -1,6 +1,6 @@
-import { IServiceRequest } from '../../../../types'
+import { ServiceRequest } from '../../../../types'
 
-export type ServiceRequestWithSchema = IServiceRequest & {
+export type ServiceRequestWithSchema = ServiceRequest & {
   schema?: string;
 }
 

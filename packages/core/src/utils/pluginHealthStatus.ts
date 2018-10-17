@@ -39,10 +39,10 @@ export class PluginHealthCheck {
  * @param {Object} _opts - Retry options.
  * @returns {Promise<{status: string, alive: Array, failed: Array}>} A current service state.
  */
-export async function getHealthStatus(handlers: PluginHealthCheck[], opts: any): Promise<HealthStatus> {
+export async function getHealthStatus(handlers: PluginHealthCheck[], config: any): Promise<HealthStatus> {
   // retry options
   // https://www.npmjs.com/package/bluebird-retry
-  opts = { ...opts, throw_original: true }
+  const opts = { ...config, throw_original: true }
   const alive: PluginHealthStatus[] = []
   const failed: PluginHealthStatus[] = []
 

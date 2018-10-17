@@ -43,11 +43,14 @@ for (const [filepath, action] of readRoutes(GENERIC_ROUTES_PATH)) {
  * @param action.schema - Static property, if defined must reference json-schema.
  * @param action.transports - Static property, must be defined to show enabled transports for the method.
  */
-function validateAction(action: ServiceAction | { default: ServiceAction }): ServiceAction {
-  if (typeof action === 'object' && action && is.fn(action.default)) {
-    action = action.default
-  } else if (is.fn(action) === false) {
+function validateAction(actionLike: ServiceAction | { default: ServiceAction }): ServiceAction {
+  let action: ServiceAction
+  if (typeof actionLike === 'object' && actionLike && is.fn(actionLike.default)) {
+    action = actionLike.default
+  } else if (!is.fn(actionLike)) {
     throw new ValidationError('action must be a function')
+  } else {
+    action = actionLike as ServiceAction
   }
 
   const {
@@ -57,19 +60,19 @@ function validateAction(action: ServiceAction | { default: ServiceAction }): Ser
     transports,
   } = action as ServiceAction
 
-  if (is.defined(allowed) === true && is.fn(allowed) !== true) {
+  if (is.defined(allowed) && !is.fn(allowed)) {
     throw new ValidationError('action.allowed must be a function')
   }
 
-  if (is.defined(auth) === true && (is.string(auth) === true || is.object(auth) === true) === false) {
+  if (is.defined(auth) && !(is.string(auth) || is.object(auth))) {
     throw new ValidationError('action.auth must be a string or an object')
   }
 
-  if (is.defined(schema) === true && is.string(schema) !== true) {
+  if (is.defined(schema) && !is.string(schema)) {
     throw new ValidationError('action.schema must be a string')
   }
 
-  if (is.array(transports) === false) {
+  if (!Array.isArray(transports)) {
     throw new ValidationError('action.transports must be an array')
   }
 

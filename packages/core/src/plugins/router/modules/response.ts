@@ -1,3 +1,4 @@
+/* tslint:disable:switch-default */
 import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization'
 import { HttpStatusError as HttpError } from '@microfleet/validation'
 import Bluebird = require('bluebird')

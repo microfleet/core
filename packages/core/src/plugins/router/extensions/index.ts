@@ -36,7 +36,7 @@ function walkOverHandlers(this: any, previousArgs: any, handler: (...args: any[]
  */
 class Extensions {
   public extensions: {
-    [extensionName: string]: Function[]
+    [extensionName: string]: ExtensionPlugin['handler'][]
   }
 
   constructor(config: ExtensionsConfig = { enabled: [], register: [] }) {
@@ -92,11 +92,11 @@ class Extensions {
   public exec(name: string, args: any[] = [], context: any = null) {
     const handlers = this.extensions[name]
 
-    if (is.undefined(handlers) === true) {
+    if (is.undefined(handlers)) {
       return Bluebird.reject(new Errors.NotSupportedError(name))
     }
 
-    if (Array.isArray(args) === false) {
+    if (!Array.isArray(args)) {
       return Bluebird.reject(new Errors.ArgumentError('"args" must be array'))
     }
 

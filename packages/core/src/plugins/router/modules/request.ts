@@ -3,23 +3,23 @@ import { ArgumentError, NotFoundError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
 import { Microfleet } from '../../../'
-import { IServiceRequest } from '../../../types'
+import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 const debug = _debug('mservice:router:module:request')
 
-function getAction(this: Microfleet, route: string, request: IServiceRequest) {
+function getAction(this: Microfleet, route: string, request: ServiceRequest) {
   debug('handler for module "request"')
   const service = this
   const { transport } = request
 
-  if (is.undefined(transport) === true) {
+  if (is.undefined(transport)) {
     return Bluebird.reject(new ArgumentError('"request" must have property "transport"'))
   }
 
   const action = service.router.routes[transport][route]
 
-  if (is.undefined(action) === true) {
+  if (is.undefined(action)) {
     return Bluebird.reject(new NotFoundError(`route "${route}" not found`))
   }
 
@@ -29,7 +29,7 @@ function getAction(this: Microfleet, route: string, request: IServiceRequest) {
   return Bluebird.resolve(request)
 }
 
-function requestHandler(this: Microfleet, route: string, request: IServiceRequest) {
+function requestHandler(this: Microfleet, route: string, request: ServiceRequest) {
   const service = this
   const { extensions } = service.router
 

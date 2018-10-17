@@ -15,19 +15,19 @@ function moduleLifecycle(
   args: any[],
   context?: any
 ) {
-  if (is.string(module) === false) {
+  if (!is.string(module)) {
     return Bluebird.reject(new Errors.ArgumentError('module'))
   }
 
-  if (is.fn(promiseFactory) === false) {
+  if (!is.fn(promiseFactory)) {
     return Bluebird.reject(new Errors.ArgumentError('promiseFactory'))
   }
 
-  if ((extensions instanceof Extensions) === false) {
+  if (!(extensions instanceof Extensions)) {
     return Bluebird.reject(new Errors.ArgumentError('extensions'))
   }
 
-  if (is.array(args) === false) {
+  if (!is.array(args)) {
     return Bluebird.reject(new Errors.ArgumentError('args'))
   }
 
@@ -60,7 +60,7 @@ function moduleLifecycle(
         errorResponse = inspection.reason()
       }
 
-      if (extensions.has(postModule) === false) {
+      if (!extensions.has(postModule)) {
         if (errorResponse) {
           return Bluebird.reject(errorResponse)
         }

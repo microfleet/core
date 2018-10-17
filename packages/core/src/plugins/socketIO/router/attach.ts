@@ -1,9 +1,9 @@
 import { ActionTransport } from '../../..'
-import { IMicrofleetRouter } from '../../router/factory'
+import { MicrofleetRouter } from '../../router/factory'
 import verifyPossibility from '../../router/verifyAttachPossibility'
 import getSocketIORouterAdapter from './adapter'
 
-function attachSocketIORouter(socketIO: any, config: any, router: IMicrofleetRouter) {
+function attachSocketIORouter(socketIO: any, config: any, router: MicrofleetRouter) {
   verifyPossibility(router, ActionTransport.socketIO)
 
   // include adapter

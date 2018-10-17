@@ -9,7 +9,7 @@ import { MicrofleetRouter } from './factory'
  * @param  transportName - Transport name to attach handler to.
  */
 function verifyAttachPossibility(router: MicrofleetRouter, transportName: TransportTypes): void {
-  if (is.object(router) === false) {
+  if (!is.object(router)) {
     throw new NotFoundError('Module "router" not included')
   }
 

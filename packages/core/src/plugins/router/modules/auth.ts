@@ -2,7 +2,7 @@ import Bluebird = require('bluebird')
 import { ArgumentError, AuthenticationRequiredError, NotImplementedError } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
-import { IAuthConfig, IServiceRequest } from '../../../types'
+import { AuthConfig, ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 const remapError = (error: Error) => {
@@ -29,7 +29,7 @@ const isObligatory = (strategy: string) => {
   }
 }
 
-const retrieveStrategy = (request: IServiceRequest, strategies: any) => {
+const retrieveStrategy = (request: ServiceRequest, strategies: any) => {
   const { action } = request
   const authConfig = action.auth
 
@@ -40,9 +40,9 @@ const retrieveStrategy = (request: IServiceRequest, strategies: any) => {
 
   // new way of complex auth object
   if (is.object(authConfig)) {
-    getAuthName = (authConfig as IAuthConfig).name
-    authStrategy = (authConfig as IAuthConfig).strategy || 'required'
-    passAuthError = (authConfig as IAuthConfig).passAuthError || false
+    getAuthName = (authConfig as AuthConfig).name
+    authStrategy = (authConfig as AuthConfig).strategy || 'required'
+    passAuthError = (authConfig as AuthConfig).passAuthError || false
   } else {
     getAuthName = authConfig
     authStrategy = 'required'
@@ -73,7 +73,7 @@ const retrieveStrategy = (request: IServiceRequest, strategies: any) => {
   }
 }
 
-function auth(this: Microfleet, request: IServiceRequest, strategies: any) {
+function auth(this: Microfleet, request: ServiceRequest, strategies: any) {
   const authSchema = retrieveStrategy(request, strategies)
 
   if (authSchema.strategy == null) {
@@ -88,7 +88,7 @@ function auth(this: Microfleet, request: IServiceRequest, strategies: any) {
     .tap(assignTo(request, 'auth'))
     .return(request)
 
-  if (authSchema.passAuthError === true) {
+  if (authSchema.passAuthError) {
     return promise
   }
 
@@ -96,14 +96,14 @@ function auth(this: Microfleet, request: IServiceRequest, strategies: any) {
 }
 
 function assignStrategies(strategies: any) {
-  return function authHandler(this: Microfleet, request: IServiceRequest): PromiseLike<any> {
+  return function authHandler(this: Microfleet, request: ServiceRequest): PromiseLike<any> {
     const { action } = request
 
     if (action === undefined) {
       return Bluebird.reject(new ArgumentError('"request" must have property "action"'))
     }
 
-    if (is.undefined(action.auth) === true) {
+    if (is.undefined(action.auth)) {
       return Bluebird.resolve(request)
     }
 

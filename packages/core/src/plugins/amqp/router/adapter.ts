@@ -28,7 +28,7 @@ function getAMQPRouterAdapter(router: MicrofleetRouter, config: any) {
   const prefixLength = prefix ? prefix.length : 0
   const normalizeActionName = prefix
     ? (routingKey: string) => (
-      routingKey.startsWith(prefix) === true
+      routingKey.startsWith(prefix)
         ? routingKey.substr(prefixLength)
         : routingKey
     )

@@ -2,10 +2,10 @@ import Bluebird = require('bluebird')
 import { ArgumentError, HttpStatusError, NotPermittedError } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
-import { IServiceRequest } from '../../../types'
+import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
-function allowed(this: Microfleet, request: IServiceRequest) {
+function allowed(this: Microfleet, request: ServiceRequest) {
   return Bluebird
     .resolve(request)
     .bind(this)
@@ -23,12 +23,12 @@ function allowed(this: Microfleet, request: IServiceRequest) {
     })
 }
 
-function allowedHandler(this: Microfleet, request: IServiceRequest) {
+function allowedHandler(this: Microfleet, request: ServiceRequest) {
   if (request.action === undefined) {
     return Bluebird.reject(new ArgumentError('"request" must have property "action"'))
   }
 
-  if (is.undefined(request.action.allowed) === true) {
+  if (is.undefined(request.action.allowed)) {
     return Bluebird.resolve(request)
   }
 
