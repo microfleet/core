@@ -63,8 +63,8 @@
     "yargs-parser": "^11.0.0"
   },
   "peerDependencies": {
-    "common-errors": "^1.x.x",
-    "@microfleet/validation": "~8.x.x"
+    "@microfleet/validation": "~8.x.x",
+    "common-errors": "^1.x.x"
   },
   "pluginDependencies": {
     "body-parser": "~1.x.x",
@@ -98,7 +98,6 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@makeomatic/deploy": "^8.0.1",
-    "ioredis": "^4.0.0",
     "@microfleet/transport-amqp": "^13.1.2",
     "@microfleet/validation": "^8.0.0",
     "babel-eslint": "10.0.1",
@@ -126,6 +125,7 @@
     "flow-bin": "0.83.0",
     "handlebars": "^4.0.12",
     "hapi": "^17.6.0",
+    "ioredis": "^4.0.0",
     "jaeger-client": "^3.13.0",
     "json": "^9.0.6",
     "knex": "^0.15.2",
@@ -141,6 +141,7 @@
     "restify": "^7.2.0",
     "rimraf": "^2.6.1",
     "server-destroy": "~1.x.x",
+    "sinon": "^7.0.0",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "socketio-wildcard": "^2.0.0",
