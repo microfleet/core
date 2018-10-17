@@ -510,7 +510,7 @@ describe('Router suite', function testSuite() {
     const unhealthyState = {
       expect: 'error',
       verify: (error) => {
-        expect(error.status).to.be.equals(500);
+        expect(error.statusCode).to.be.equals(500);
         expect(error.message).to.be.equals('Unhealthy due to following plugins: amqp, http');
       },
     };
