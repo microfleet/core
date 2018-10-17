@@ -1,0 +1,13 @@
+{
+  "extends": "eslint:recommended",
+  "rules": {
+    "promise/always-return": 0
+  },
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8
+  }
+}

@@ -187,8 +187,6 @@ We've struggled to make sure that requests loop the same regardless of transport
 * [amqp](src/plugins/amqp.js) - AMQP transport based on [@microfleet/transport-amqp](https://github.com/microfleet/transport-amqp), requires RabbitMQ
 * [http](src/plugins/http.js):
   * [hapi.js](src/plugins/http/handlers/hapi) - hapi implementation, recommended for use
-  * [express.js](src/plugins/http/handlers/express) - express.js implementation
-  * [restify](src/plugins/http/handlers/restify) - restify implementation
 * [socket.io](src/plugins/socketIO.js) - enabled websockets on top of http, therefore, requires `http plugin` to be enabled
 
 ### Databases
