@@ -31,7 +31,7 @@ function postRequest(error: Error, request: TransportOptionsAugmentedRequest) {
     return result
   }
 
-  if (transportOptions.methods.includes(method) === false) {
+  if (!transportOptions.methods.includes(method)) {
     throw new NotSupportedError(`Route ${request.route} method ${method}`)
   }
 
