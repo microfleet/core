@@ -11,6 +11,7 @@
     "lint": "lerna run lint --stream",
     "pretest": "yarn lint",
     "test": "lerna run test --stream",
+    "posttest": "yarn compile",
     "precompile": "yarn clean",
     "compile": "tsc -b packages/*/tsconfig.build.json",
     "clean": "rimraf packages/*/lib"

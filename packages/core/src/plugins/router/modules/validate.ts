@@ -4,7 +4,7 @@ import { ArgumentError, Error } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
 import { DATA_KEY_SELECTOR } from '../../../constants'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequest, $Keys } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 function validationSuccess(this: any, sanitizedParams: any) {
@@ -22,7 +22,7 @@ const handleValidationError = (error: Error) => {
 
 function validate(this: Microfleet, request: ServiceRequest) {
   const { validator } = this
-  const paramsKey = DATA_KEY_SELECTOR[request.method]
+  const paramsKey = DATA_KEY_SELECTOR[request.method as $Keys<typeof DATA_KEY_SELECTOR>]
 
   return validator
     .validate(request.action.schema, request[paramsKey as 'query' | 'params'])

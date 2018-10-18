@@ -21,14 +21,14 @@ export { MicrofleetRouter } from './plugins/router'
  * @desc get the union type of all the keys in an object type `T`
  * @see https://flow.org/en/docs/types/utilities/#toc-keys
  */
-type $Keys<T extends object> = keyof T
+export type $Keys<T extends object> = keyof T
 
 /**
  * $Values
  * @desc get the union type of all the values in an object type `T`
  * @see https://flow.org/en/docs/types/utilities/#toc-values
  */
-type $Values<T extends object> = T[keyof T]
+export type $Values<T extends object> = T[keyof T]
 
 /**
  * Generic PlguinConnect Interface
