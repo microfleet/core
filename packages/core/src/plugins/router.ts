@@ -2,7 +2,7 @@ import assert = require('assert')
 import { NotFoundError, NotSupportedError } from 'common-errors'
 import { ActionTransport, Microfleet, PluginTypes } from '../'
 import { ServiceRequest } from '../types'
-import getRouter from './router/factory'
+import getRouter, { MicrofleetRouter } from './router/factory'
 
 const identity = <T>(arg: T) => arg
 const { internal } = ActionTransport
@@ -11,6 +11,7 @@ const { internal } = ActionTransport
  * Plugin Name
  */
 export const name = 'router'
+export { MicrofleetRouter }
 
 /**
  * Plugin Type

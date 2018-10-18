@@ -12,6 +12,11 @@ import {
 import { ClientRequest } from 'http'
 
 /**
+ * Expose Router Type
+ */
+export { MicrofleetRouter } from './plugins/router'
+
+/**
  * $Keys
  * @desc get the union type of all the keys in an object type `T`
  * @see https://flow.org/en/docs/types/utilities/#toc-keys
@@ -58,8 +63,8 @@ export interface AuthConfig {
 
 export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_PROPERTY
 export type TransportTypes = $Values<typeof ActionTransport>
-export type TConnectorsTypes = $Keys<typeof ConnectorsTypes>
-export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>
+export type TConnectorsTypes = $Values<typeof ConnectorsTypes>
+export type RequestMethods = $Values<typeof DATA_KEY_SELECTOR>
 export type GetAuthName = (req: ServiceRequest) => string
 export type ServiceActionStep = (...args: any[]) => PromiseLike<any>
 export interface ServiceAction extends ServiceActionStep {
