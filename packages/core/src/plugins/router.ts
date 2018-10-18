@@ -55,7 +55,7 @@ export function attach(this: Microfleet, config: any = {}) {
   service.ifError('router', config)
 
   for (const transport of config.routes.transports) {
-    if (service.config.plugins.includes(transport) === false && transport !== internal) {
+    if (!service.config.plugins.includes(transport) && transport !== internal) {
       throw new NotSupportedError(`transport ${transport}`)
     }
   }
