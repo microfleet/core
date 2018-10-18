@@ -85,6 +85,11 @@ export interface CoreOptions {
   name: string
 
   /**
+   * List of plugins to be enabled
+   */
+  plugins: string[]
+
+  /**
    * For now any property can be put on the main class
    */
   [property: string]: any
