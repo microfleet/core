@@ -12,6 +12,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should starts \'hapi\' http server when plugin is included', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'http'],
       http: {
         server: {
@@ -37,6 +38,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to attach \'socketIO\' plugin', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http', 'socketIO'],
       http: {
         server: {
@@ -68,6 +70,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to attach \'router\' plugin', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -122,6 +125,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to use \'router\' plugin prefix', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -169,6 +173,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to use \'hapi\' plugin prefix', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -216,6 +221,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -264,6 +270,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   it('should be able to pass custom options to hapi route', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
         server: {
@@ -309,6 +316,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   describe('should be able to use hapi\'s plugins', async () => {
     before(async () => {
       service = new Mservice({
+        name: 'tester',
         plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
         http: {
           server: {

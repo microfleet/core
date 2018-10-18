@@ -91,6 +91,11 @@ export const attach = function attachValidator(
   service.validateSync = validator.validateSync
   service.ifError = validator.ifError
 
+  // built-in configuration schema
+  if (validator.ajv.getSchema('microfleet.core')) {
+    service.ifError('microfleet.core', service.config)
+  }
+
   // if we have schema called `config` - we will use it to validate
   if (validator.ajv.getSchema('config')) {
     service.ifError('config', service.config)

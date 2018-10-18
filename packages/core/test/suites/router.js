@@ -28,6 +28,7 @@ describe('Router suite', function testSuite() {
 
   it('should return response', function test() {
     const service = new Mservice({
+      name: 'tester',
       amqp: {
         transport: {
           connection: {
@@ -195,6 +196,7 @@ describe('Router suite', function testSuite() {
 
   it('should be able to parse query string when present & perform validation', function test() {
     const service = new Mservice({
+      name: 'tester',
       http: {
         server: {
           handler: 'hapi',
@@ -247,6 +249,7 @@ describe('Router suite', function testSuite() {
 
   it('should be able to set schema from action name', function test() {
     const service = new Mservice({
+      name: 'tester',
       amqp: {
         transport: {
           connection: {
@@ -310,6 +313,7 @@ describe('Router suite', function testSuite() {
 
   it('should scan for nested routes', async function test() {
     const service = new Mservice({
+      name: 'tester',
       amqp: {
         transport: {
           connection: {
@@ -369,6 +373,7 @@ describe('Router suite', function testSuite() {
 
   it('should scan for generic routes', async function test() {
     const service = new Mservice({
+      name: 'tester',
       amqp: {
         transport: {
           connection: {
@@ -446,6 +451,7 @@ describe('Router suite', function testSuite() {
 
   it('should return an error when some service fails his healthcheck', async function test() {
     const service = new Mservice({
+      name: 'tester',
       amqp: {
         transport: {
           connection: {
@@ -530,6 +536,7 @@ describe('Router suite', function testSuite() {
 
   it('should throw when unknown generic route is requested', async function test() {
     const config = {
+      name: 'tester',
       plugins: ['logger', 'validator', 'router'],
       logger: {
         defaultLogger: true,

@@ -1,0 +1,13 @@
+{
+  "$id": "microfleet.core",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_\\-]{3,32}$",
+      "description": "service name"
+    }
+  }
+}

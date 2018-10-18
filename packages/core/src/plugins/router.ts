@@ -1,8 +1,9 @@
 import assert = require('assert')
 import { NotFoundError, NotSupportedError } from 'common-errors'
-import { ActionTransport, Microfleet, PluginTypes } from '../'
+import { ActionTransport, PluginTypes } from '../constants'
+import { Microfleet } from '../'
 import { ServiceRequest } from '../types'
-import getRouter, { MicrofleetRouter } from './router/factory'
+import { getRouter, MicrofleetRouter } from './router/factory'
 
 const identity = <T>(arg: T) => arg
 const { internal } = ActionTransport

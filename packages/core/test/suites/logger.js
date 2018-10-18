@@ -12,6 +12,7 @@ describe('Logger suite', function testSuite() {
 
   it('logger inits with output to stdout', function test() {
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
         defaultLogger: true,
@@ -25,6 +26,7 @@ describe('Logger suite', function testSuite() {
 
   it('logger inits with output to stdout: debug', function test() {
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
         defaultLogger: true,
@@ -39,6 +41,7 @@ describe('Logger suite', function testSuite() {
 
   it('logger inits with output to ringBuffer', function test() {
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
         defaultLogger: false,
@@ -54,6 +57,7 @@ describe('Logger suite', function testSuite() {
   it('should be able to init custom logger', function test() {
     const logger = bunyan.createLogger({ name: 'test' });
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
         defaultLogger: logger,
@@ -65,6 +69,7 @@ describe('Logger suite', function testSuite() {
 
   it('should be able to init sentry stream', function test() {
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
         streams: {

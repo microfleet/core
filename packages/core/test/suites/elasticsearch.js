@@ -8,13 +8,17 @@ describe('Elasticsearch suite', () => {
   let service;
 
   it('should throw an error when plugin isn\'t included', async () => {
-    service = new Mservice({ plugins: [] });
+    service = new Mservice({
+      name: 'tester',
+      plugins: [],
+    });
     assert(!service.elasticsearch);
   });
 
   it('when log type is set to `service` and service does not include `logger` plugin, it throws an error', async () => {
     assert.throws(() => {
       service = new Mservice({
+        name: 'tester',
         plugins: ['validator', 'elasticsearch'],
         elasticsearch: global.SERVICES.elasticsearch,
       });
@@ -23,6 +27,7 @@ describe('Elasticsearch suite', () => {
 
   it('able to connect to elasticsearch when plugin is included', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['logger', 'validator', 'elasticsearch'],
       elasticsearch: global.SERVICES.elasticsearch,
     });

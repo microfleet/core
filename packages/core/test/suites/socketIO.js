@@ -9,12 +9,13 @@ describe('"socketIO" plugin', function testSuite() {
   const { Microfleet: Mservice } = require('../../src');
 
   it('should throw error when plugin isn\'t included', function test() {
-    const service = new Mservice({ plugins: [] });
+    const service = new Mservice({ name: 'tester', plugins: [] });
     assert(!service.socketIO);
   });
 
   it('should create \'socketIO\' instance when plugin is included', function test() {
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'socketIO'],
       socketIO: {},
     });
@@ -23,6 +24,7 @@ describe('"socketIO" plugin', function testSuite() {
 
   it('should attach routes after start', function test(done) {
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'logger', 'router', 'socketIO'],
       socketIO: global.SERVICES.socketIO,
       router: global.SERVICES.router,
@@ -38,6 +40,7 @@ describe('"socketIO" plugin', function testSuite() {
 
   it('should be able to set up AMQP adapter', function test(done) {
     const service = new Mservice({
+      name: 'tester',
       plugins: ['validator', 'socketIO'],
       socketIO: {
         options: {

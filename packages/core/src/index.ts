@@ -77,16 +77,33 @@ export const routerExtension = (name: string) => {
   return require(`./plugins/router/extensions/${name}`).default
 }
 
+export interface CoreOptions {
+  /**
+   * Must uniquely identify service, will be used
+   * in implementing services extensively
+   */
+  name: string
+
+  /**
+   * For now any property can be put on the main class
+   */
+  [property: string]: any
+}
+
+export interface Microfleet {
+  config: CoreOptions
+}
+
 /**
  * @class Microfleet
  */
-export class Microfleet extends EventEmitter {
+export class Microfleet extends EventEmitter implements Microfleet {
   /**
    * Allow Extensions
    */
   [property: string]: any;
   public log?: any
-  public config: any
+  public config: CoreOptions
   public migrators: any
   public readonly plugins: string[]
   public readonly [constants.CONNECTORS_PROPERTY]: StartStopTree

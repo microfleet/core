@@ -6,32 +6,37 @@ describe('Mservice suite', function testSuite() {
   const { Microfleet: Mservice } = require('../../src');
   const constants = require('../../src/constants');
 
+  it('throws with no name defined', function test() {
+    assert.throws(() => new Mservice());
+  });
+
   it('creates service with no plugins', function test() {
-    assert.doesNotThrow(() => new Mservice({ plugins: [] }));
+    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: [] }));
   });
 
   it('creates service with default configuration', function test() {
-    assert.doesNotThrow(() => new Mservice());
+    assert.doesNotThrow(() => new Mservice({ name: 'tester' }));
   });
 
   it('creates service with validator enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ plugins: ['validator'] }));
+    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['validator'] }));
   });
 
   it('creates services with logger enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ plugins: ['logger'] }));
+    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['logger'] }));
   });
 
   it('creates service with amqp enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ plugins: ['amqp'] }));
+    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['amqp'] }));
   });
 
   it('creates service with redis enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ plugins: ['redisCluster'] }));
+    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['redisCluster'] }));
   });
 
   it('creates service with hooks enabled', function test() {
     assert.doesNotThrow(() => new Mservice({
+      name: 'tester',
       plugins: [],
       hooks: {
         'event:test': function eventTest() {
@@ -52,6 +57,7 @@ describe('Mservice suite', function testSuite() {
   it('creates service with all plugins enabled', function test() {
     assert.doesNotThrow(() => {
       this.service = new Mservice({
+        name: 'tester',
         plugins: ['validator', 'logger', 'amqp', 'redisCluster'],
         redis: global.SERVICES.redis,
         amqp: global.SERVICES.amqp,

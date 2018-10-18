@@ -6,13 +6,14 @@ describe('Validator suite', function testSuite() {
   const { Microfleet: Mservice } = require('../../src');
 
   it('no `validator` plugin, it emits an error or throws', function test() {
-    const service = new Mservice({ plugins: [] });
+    const service = new Mservice({ name: 'tester', plugins: [] });
     assert(!service.validator);
   });
 
   it('validator inits relative schema paths', function test() {
     expect(() => {
       this.service = new Mservice({
+        name: 'tester',
         plugins: ['validator'],
         validator: ['../fixtures'],
       });
@@ -32,6 +33,7 @@ describe('Validator suite', function testSuite() {
   it('validator throw on invalid config when `config` schema is present', function test() {
     expect(() => {
       this.service = new Mservice({
+        name: 'tester',
         plugins: ['validator'],
         validator: ['../fixtures'],
         invalid: 'mwhaha',
@@ -42,6 +44,7 @@ describe('Validator suite', function testSuite() {
   it('should be able to load config as object', () => {
     expect(() => {
       this.service = new Mservice({
+        name: 'tester',
         plugins: ['validator'],
         validator: {
           schemas: ['../fixtures'],

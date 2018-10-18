@@ -14,6 +14,7 @@ describe('knex plugin', function testSuite() {
 
   it('should be able to initialize', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['logger', 'validator', 'knex'],
       knex: {
         client: 'pg',
@@ -50,6 +51,7 @@ describe('knex plugin', function testSuite() {
 
   it('should be able to run migrations', async () => {
     service = new Mservice({
+      name: 'tester',
       plugins: ['logger', 'validator', 'knex'],
       knex: {
         client: 'pg',

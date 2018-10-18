@@ -44,7 +44,7 @@ export interface MicrofleetRouter {
  * @param service - Microfleet instance.
  * @returns Router instance.
  */
-function getRouter(config: any, service: Microfleet): MicrofleetRouter {
+export function getRouter(config: any, service: Microfleet): MicrofleetRouter {
   const router: MicrofleetRouter = {
     config,
     service,
