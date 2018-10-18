@@ -1,3 +1,11 @@
+## [13.0.1](https://github.com/microfleet/core/compare/v13.0.0...v13.0.1) (2018-10-18)
+
+
+### Bug Fixes
+
+* linter notice ([e157a82](https://github.com/microfleet/core/commit/e157a82))
+* re-release ([3449ff4](https://github.com/microfleet/core/commit/3449ff4))
+
 # [13.0.0](https://github.com/microfleet/core/compare/v12.0.1...v13.0.0) (2018-10-18)
 
 
