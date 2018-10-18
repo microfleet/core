@@ -5,7 +5,7 @@ const { findHealthCheck } = require('../utils');
 
 describe('Redis suite', function testSuite() {
   require('../config');
-  const Mservice = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src/microfleet');
   const Redis = require('ioredis');
 
   const { Cluster } = Redis;

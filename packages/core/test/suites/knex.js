@@ -3,7 +3,7 @@ const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('knex plugin', function testSuite() {
   require('../config');
-  const Mservice = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src/microfleet');
 
   let service;
 

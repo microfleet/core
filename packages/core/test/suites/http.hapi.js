@@ -7,7 +7,7 @@ const assert = require('assert');
 
 describe('Http server with \'hapi\' handler', function testSuite() {
   require('../config');
-  const Mservice = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src/microfleet');
   let service;
 
   it('should starts \'hapi\' http server when plugin is included', async () => {

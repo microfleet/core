@@ -4,7 +4,7 @@ const { expect } = require('chai');
 
 describe('Elasticsearch suite', () => {
   require('../config');
-  const Mservice = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src/microfleet');
   let service;
 
   it('should throw an error when plugin isn\'t included', async () => {
