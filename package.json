@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "semantic-release": "lerna exec --concurrency 1 -- semantic-release -e semantic-release-monorepo",
+    "semantic-release": "semantic-release",
     "prebootstrap": "yarn --frozen-lockfile --check-files",
     "bootstrap": "lerna bootstrap -- --frozen-lockfile --check-files",
     "lint": "lerna run lint --stream",
@@ -33,5 +33,6 @@
       "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
       "prepare-commit-msg": "./node_modules/@makeomatic/deploy/git-hooks/prepare-commit-msg $HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "version": "13.0.0"
 }
