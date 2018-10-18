@@ -34,49 +34,9 @@ interface StartStopTree {
 }
 
 /**
- * Constants with possilble transport values
- * @memberof Microfleet
- */
-export const ActionTransport = constants.ActionTransport
-
-/**
- * Constants with connect types to control order of service bootstrap
- * @memberof Microfleet
- */
-export const ConnectorsTypes = constants.ConnectorsTypes
-
-/**
- * Default priority of connectors during bootstrap
- * @memberof Microfleet
- */
-export const ConnectorsPriority = constants.ConnectorsPriority
-
-/**
- * Plugin Types
- * @memberof Microfleet
- */
-export const PluginTypes = constants.PluginTypes
-
-/**
- * Plugin boot priority
- * @memberof Microfleet
- */
-export const PluginsPriority = constants.PluginsPriority
-
-/**
- * Helper method to enable router extensions.
- * @param name - Pass extension name to require.
- * @returns Extension to router plugin.
- */
-export const routerExtension = (name: string) => {
-  return require(`./plugins/router/extensions/${name}`).default
-}
-
-/**
  * @class Microfleet
  */
 export class Microfleet extends EventEmitter {
-
   /**
    * Allow Extensions
    */
@@ -373,16 +333,46 @@ export class Microfleet extends EventEmitter {
   }
 }
 
-export * from './types'
+/**
+ * Default export for es modules
+ */
 export default Microfleet
 
-// if there is no parent module we assume it's called as a binary
-if (!module.parent) {
-  const mservice = new Microfleet()
-  mservice
-    .connect()
-    .catch((err: Error) => {
-      mservice.log.fatal('Failed to start service', err)
-      setImmediate(() => { throw err })
-    })
+/**
+ * Constants with possilble transport values
+ * @memberof Microfleet
+ */
+export const ActionTransport = constants.ActionTransport
+
+/**
+ * Constants with connect types to control order of service bootstrap
+ * @memberof Microfleet
+ */
+export const ConnectorsTypes = constants.ConnectorsTypes
+
+/**
+ * Default priority of connectors during bootstrap
+ * @memberof Microfleet
+ */
+export const ConnectorsPriority = constants.ConnectorsPriority
+
+/**
+ * Plugin Types
+ * @memberof Microfleet
+ */
+export const PluginTypes = constants.PluginTypes
+
+/**
+ * Plugin boot priority
+ * @memberof Microfleet
+ */
+export const PluginsPriority = constants.PluginsPriority
+
+/**
+ * Helper method to enable router extensions.
+ * @param name - Pass extension name to require.
+ * @returns Extension to router plugin.
+ */
+export const routerExtension = (name: string) => {
+  return require(`./plugins/router/extensions/${name}`).default
 }

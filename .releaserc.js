@@ -19,6 +19,7 @@ module.exports = {
     .map(require)
     .map(x => x.verifyConditions),
   prepare: [
+    '@semantic-release/changelog',
     '@semantic-release/npm',
     '@semantic-release/git'
   ],
