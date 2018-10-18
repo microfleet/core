@@ -11,13 +11,16 @@ import partial = require('lodash.partial')
 import * as constants from './constants'
 import * as defaultOpts from './defaults'
 import {
+  getHealthStatus,
+  PluginHealthCheck
+} from './utils/pluginHealthStatus'
+import {
   HandlerProperties,
   Plugin,
   PluginInterface,
   PluginConnector,
-  TConnectorsTypes
+  TConnectorsTypes,
 } from './types'
-import { getHealthStatus, PluginHealthCheck } from './utils/pluginHealthStatus'
 
 /**
  * Simple invocation that preserves context.
@@ -31,6 +34,47 @@ const toArray = <T>(x: T): T[] => Array.isArray(x) ? x : [x]
 
 interface StartStopTree {
   [name: string]: PluginConnector[]
+}
+
+export * from './types'
+
+/**
+ * Constants with possilble transport values
+ * @memberof Microfleet
+ */
+export const ActionTransport = constants.ActionTransport
+
+/**
+ * Constants with connect types to control order of service bootstrap
+ * @memberof Microfleet
+ */
+export const ConnectorsTypes = constants.ConnectorsTypes
+
+/**
+ * Default priority of connectors during bootstrap
+ * @memberof Microfleet
+ */
+export const ConnectorsPriority = constants.ConnectorsPriority
+
+/**
+ * Plugin Types
+ * @memberof Microfleet
+ */
+export const PluginTypes = constants.PluginTypes
+
+/**
+ * Plugin boot priority
+ * @memberof Microfleet
+ */
+export const PluginsPriority = constants.PluginsPriority
+
+/**
+ * Helper method to enable router extensions.
+ * @param name - Pass extension name to require.
+ * @returns Extension to router plugin.
+ */
+export const routerExtension = (name: string) => {
+  return require(`./plugins/router/extensions/${name}`).default
 }
 
 /**
@@ -331,45 +375,6 @@ export class Microfleet extends EventEmitter {
 
     throw err
   }
-}
-
-/**
- * Constants with possilble transport values
- * @memberof Microfleet
- */
-export const ActionTransport = constants.ActionTransport
-
-/**
- * Constants with connect types to control order of service bootstrap
- * @memberof Microfleet
- */
-export const ConnectorsTypes = constants.ConnectorsTypes
-
-/**
- * Default priority of connectors during bootstrap
- * @memberof Microfleet
- */
-export const ConnectorsPriority = constants.ConnectorsPriority
-
-/**
- * Plugin Types
- * @memberof Microfleet
- */
-export const PluginTypes = constants.PluginTypes
-
-/**
- * Plugin boot priority
- * @memberof Microfleet
- */
-export const PluginsPriority = constants.PluginsPriority
-
-/**
- * Helper method to enable router extensions.
- * @param name - Pass extension name to require.
- * @returns Extension to router plugin.
- */
-export const routerExtension = (name: string) => {
-  return require(`./plugins/router/extensions/${name}`).default
 }
 
 // if there is no parent module we assume it's called as a binary

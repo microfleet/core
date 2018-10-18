@@ -9,19 +9,17 @@ const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Router suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet: Mservice, routerExtension, ActionTransport } = require('../../src');
   const { PLUGIN_STATUS_FAIL } = require('../../src/constants');
-  const auditLog = Mservice.routerExtension('audit/log');
+  const auditLog = routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');
   const getHTTPRequest = require('../router/helpers/requests/http');
   const getSocketIORequest = require('../router/helpers/requests/socketIO');
   const verify = require('../router/helpers/verifyCase');
 
-  const schemaLessAction = Mservice.routerExtension('validate/schemaLessAction');
-  const qsParser = Mservice.routerExtension('validate/query-string-parser');
-  const transportOptions = Mservice.routerExtension('validate/transport-options');
-
-  const { ActionTransport } = Mservice;
+  const schemaLessAction = routerExtension('validate/schemaLessAction');
+  const qsParser = routerExtension('validate/query-string-parser');
+  const transportOptions = routerExtension('validate/transport-options');
 
   it('should throw error if plugin is not included', function test() {
     const service = new Mservice({ plugins: [] });
@@ -379,6 +377,7 @@ describe('Router suite', function testSuite() {
         },
         router: {
           enabled: true,
+          prefix: 'amqp',
         },
       },
       http: {
@@ -437,7 +436,7 @@ describe('Router suite', function testSuite() {
       },
     };
 
-    await AMQPRequest('action.generic.health', {}).reflect().then(verify(returnsResult));
+    await AMQPRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult));
     await service.dispatch('generic.health', {}).reflect().then(verify(returnsResult));
     await HTTPRequest('/action/generic/health').reflect().then(verify(returnsResult));
     await socketIORequest('action.generic.health', {}).reflect().then(verify(returnsResult));

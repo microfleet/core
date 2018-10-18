@@ -3,7 +3,7 @@ const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('knex plugin', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet: Mservice, ConnectorsTypes } = require('../../src');
 
   let service;
 
@@ -49,7 +49,7 @@ describe('knex plugin', function testSuite() {
   });
 
   it('should be able to run migrations', async () => {
-    const service = new Mservice({
+    service = new Mservice({
       plugins: ['logger', 'validator', 'knex'],
       knex: {
         client: 'pg',
@@ -58,7 +58,7 @@ describe('knex plugin', function testSuite() {
     });
 
     service.addConnector(
-      Mservice.ConnectorsTypes.migration,
+      ConnectorsTypes.migration,
       () => service.migrate('knex')
     );
 

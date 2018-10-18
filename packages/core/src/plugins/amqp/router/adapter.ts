@@ -25,8 +25,8 @@ function getAMQPRouterAdapter(router: MicrofleetRouter, config: any) {
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })
   const prefix = get(config, 'router.prefix', '')
-  const prefixLength = prefix ? prefix.length : 0
-  const normalizeActionName = prefix
+  const prefixLength = prefix ? prefix.length + 1 : 0
+  const normalizeActionName = prefixLength > 0
     ? (routingKey: string) => (
       routingKey.startsWith(prefix)
         ? routingKey.substr(prefixLength)
