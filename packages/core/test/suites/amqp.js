@@ -6,7 +6,7 @@ const { findHealthCheck } = require('../utils');
 
 describe('AMQP suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src');
 
   let service;
 

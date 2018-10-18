@@ -9,7 +9,7 @@ const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Router suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src');
   const { PLUGIN_STATUS_FAIL } = require('../../src/constants');
   const auditLog = Mservice.routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');

@@ -3,7 +3,7 @@ const { expect } = require('chai');
 
 describe('Validator suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src');
 
   it('no `validator` plugin, it emits an error or throws', function test() {
     const service = new Mservice({ plugins: [] });

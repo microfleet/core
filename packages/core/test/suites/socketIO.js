@@ -6,7 +6,7 @@ const socketIOClient = require('socket.io-client');
 
 describe('"socketIO" plugin', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src');
 
   it('should throw error when plugin isn\'t included', function test() {
     const service = new Mservice({ plugins: [] });

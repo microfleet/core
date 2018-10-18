@@ -3,7 +3,7 @@ const assert = require('assert');
 
 describe('Mservice suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src/microfleet');
+  const { Microfleet: Mservice } = require('../../src');
   const constants = require('../../src/constants');
 
   it('creates service with no plugins', function test() {
