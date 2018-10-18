@@ -1,8 +1,8 @@
 {
   "name": "@microfleet/core",
   "description": "Abstract microservice core",
-  "main": "./lib/microfleet.js",
-  "types": "./lib/microfleet.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "version": "13.0.1",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",

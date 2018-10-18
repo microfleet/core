@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-dynamic-require, import/no-unresolved,  no-console */
 // determine where we are running
 const argv = require('yargs-parser')(process.argv.slice(2));
 
 // prepare variables
 const cwd = argv.cwd || process.cwd();
 const source = argv.src ? `${cwd}/${argv.src}` : `${cwd}/src`;
-const lib = argv.lib ? `${cwd}/${argv.lib}` : `${cwd}/lib`;
 const babel = argv.babel || 'ts-node/register';
 
 let Service;
@@ -24,7 +22,8 @@ try {
 
   Service = require(source).default || require(source);
 } catch (e) {
-  Service = require(lib).default || require(lib);
+  // use package.json -> main
+  Service = require(cwd);
 }
 
 // init service
