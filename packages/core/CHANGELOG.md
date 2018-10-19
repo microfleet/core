@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.0.4](https://github.com/microfleet/core/compare/@microfleet/core-v13.0.3...@microfleet/core-v13.0.4) (2018-10-19)
+
+
+### Bug Fixes
+
+* ensure knex retries the connection several times ([fc3af6a](https://github.com/microfleet/core/commit/fc3af6a))
+
 # [@microfleet/core-v13.0.3](https://github.com/microfleet/core/compare/@microfleet/core-v13.0.2...@microfleet/core-v13.0.3) (2018-10-18)
 
 
