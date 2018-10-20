@@ -2,7 +2,7 @@ import _debug = require('debug')
 import noop = require('lodash/noop')
 import { ActionTransport } from '../../..'
 import { ServiceRequest } from '../../../types'
-import { MicrofleetRouter } from '../../router/factory'
+import { Router } from '../../router/factory'
 
 const debug = _debug('mservice:router:socket.io')
 const { socketIO } = ActionTransport
@@ -11,7 +11,7 @@ export interface SocketIOMessage {
   data: [string, any, () => any | null]
 }
 
-function getSocketIORouterAdapter(_: any, router: MicrofleetRouter) {
+function getSocketIORouterAdapter(_: any, router: Router) {
   return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
     socket.on('*', (packet: SocketIOMessage) => {
       const [actionName, params, callback] = packet.data

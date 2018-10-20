@@ -802,10 +802,10 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@makeomatic/deploy@^8.0.3":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-8.0.3.tgz#64dd429c1a524d94d4bfd17da5cf490846b03ba8"
-  integrity sha512-3gC3RFcePuZit3qhAbkx/DFcWSNYbfJScH9nny1ebfU2cYQPuyQ13C6JmvKsyKc3Jrl2YaOJPN84Vn3c232PHQ==
+"@makeomatic/deploy@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-8.1.1.tgz#1d3be007d3dd5ec18d93aa2cc395f7a127a62ac4"
+  integrity sha512-EDQcFeaT4qimPx1PnQi3eXcvzyLXjSnVHi1zmpFDuZsEL8Dh31GyLaffNtTk8FsfusLcXMXmksukmJyxWDnCUQ==
   dependencies:
     "@commitlint/cli" "^7.2.1"
     bluebird "^3.5.2"
@@ -815,12 +815,16 @@
     find-up "^3.0.0"
     glob "^7.1.3"
     husky "^1.1.2"
+    hyperid "^1.4.1"
     is "^3.2.1"
+    js-yaml "^3.12.0"
     lodash.get "^4.4.2"
+    lodash.merge "^4.6.1"
     lodash.set "^4.3.2"
     ms-conf "^3.3.1"
     npm-path "^2.0.4"
     pino "^5.8.0"
+    read-pkg "^4.0.1"
     rimraf "^2.6.2"
     semantic-release "15.9.x"
     shelljs "^0.8.2"
@@ -866,10 +870,10 @@
     pino "^4.17.6"
     uuid "^3.3.2"
 
-"@microfleet/validation@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@microfleet/validation/-/validation-8.0.0.tgz#400c5a956d14f5787676f7ff3a3feb4baa62295f"
-  integrity sha512-V41BhhQkQuoHWc37Bj/utsJ3NgJJJ0o3J1hQJAmxjtyfU92lf16FYezd/yysmVqNoZVm65tUpTqOrt00km3uew==
+"@microfleet/validation@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@microfleet/validation/-/validation-8.1.0.tgz#ff401ef44a2c3b472393a406b2289265913e77f7"
+  integrity sha512-iAjVRhlhD4NKbbkPpHArbrWUFIRZMm9Dec3Vvfp2Q6YsWtu/eamenJLUBAw0bnz0Dojn42Yhmcr6nkBgtVPMIw==
   dependencies:
     ajv "^6.5.4"
     ajv-keywords "^3.2.0"
@@ -1059,6 +1063,13 @@
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@types/boom/-/boom-7.2.0.tgz#19c36cbb5811a7493f0f2e37f31d42b28df1abc1"
   integrity sha512-HonbGsHFbskh9zRAzA6tabcw18mCOsSEOL2ibGAuVqk6e7nElcRmWO5L4UfIHpDbWBWw+eZYFdsQ1+MEGgpcVA==
+
+"@types/bunyan@^1.8.5":
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/@types/bunyan/-/bunyan-1.8.5.tgz#d992adbce8ed20cde634764bd8f269f29f703647"
+  integrity sha512-7n8ANtxh2c5A/NfCuv8cVtWcgSLdq76MQbtmbInpzXuPw4TSAReUJ+MGHK4m67I4zI3ynCJoABfaeHYJaYSeRg==
+  dependencies:
+    "@types/node" "*"
 
 "@types/callsite@^1.0.30":
   version "1.0.30"
@@ -4710,6 +4721,14 @@ husky@^1.1.2:
     read-pkg "^4.0.1"
     run-node "^1.0.0"
     slash "^2.0.0"
+
+hyperid@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/hyperid/-/hyperid-1.4.1.tgz#5df41b25a86171661b37534c3404655ae7657d29"
+  integrity sha512-rtuRoJyEPZZEGN25T1PC2/IYxdApJEYbBB+8e7vZMFnfhZV7HobkpUr7z1gZvcxqleg4OVg0YrMEtfmIoV85gQ==
+  dependencies:
+    uuid "^3.2.1"
+    uuid-parse "^1.0.0"
 
 iconv-lite@0.4.23:
   version "0.4.23"
@@ -10237,6 +10256,11 @@ util.promisify@^1.0.0:
   dependencies:
     define-properties "^1.1.2"
     object.getownpropertydescriptors "^2.0.3"
+
+uuid-parse@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/uuid-parse/-/uuid-parse-1.0.0.tgz#f4657717624b0e4b88af36f98d89589a5bbee569"
+  integrity sha1-9GV3F2JLDkuIrzb5jYlYmlu+5Wk=
 
 uuid@3.3.2, uuid@^3.0.1, uuid@^3.2.1, uuid@^3.3.2:
   version "3.3.2"

@@ -5,6 +5,16 @@ import { Microfleet } from '../../../'
 import { AuthConfig, ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
+export interface AuthStrategy {
+  (this: Microfleet, request: ServiceRequest): PromiseLike<any>
+}
+
+export interface AuthOptions {
+  strategies: {
+    [strategyName: string]: AuthStrategy
+  }
+}
+
 const remapError = (error: Error) => {
   if (error.constructor === AuthenticationRequiredError) {
     return Bluebird.reject(error)
@@ -29,7 +39,7 @@ const isObligatory = (strategy: string) => {
   }
 }
 
-const retrieveStrategy = (request: ServiceRequest, strategies: any) => {
+const retrieveStrategy = (request: ServiceRequest, strategies: AuthOptions['strategies']) => {
   const { action } = request
   const authConfig = action.auth
 
@@ -73,7 +83,7 @@ const retrieveStrategy = (request: ServiceRequest, strategies: any) => {
   }
 }
 
-function auth(this: Microfleet, request: ServiceRequest, strategies: any) {
+function auth(this: Microfleet, request: ServiceRequest, strategies: AuthOptions['strategies']) {
   const authSchema = retrieveStrategy(request, strategies)
 
   if (authSchema.strategy == null) {
@@ -111,7 +121,7 @@ function assignStrategies(strategies: any) {
   }
 }
 
-function getAuthHandler(config: any) {
+function getAuthHandler(config: AuthOptions) {
   const strategies = Object.assign(Object.create(null), config.strategies)
   return assignStrategies(strategies)
 }

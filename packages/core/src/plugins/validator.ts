@@ -21,6 +21,16 @@ export type ValidatorConfig = string[] | void | {
 export const name = 'validator'
 
 /**
+ * Defines service extension
+ */
+export interface ValidatorPlugin {
+  [name]: Validator
+  validate: Validator['validate']
+  validateSync: Validator['validateSync']
+  ifError:  Validator['ifError']
+}
+
+/**
  * Plugin Type
  */
 export const type = PluginTypes.essential
@@ -85,19 +95,19 @@ export const attach = function attachValidator(
     }
   }
 
+  // built-in configuration schema
+  if (validator.ajv.getSchema('microfleet.core')) {
+    service.config = validator.ifError('microfleet.core', service.config)
+  }
+
+  // if we have schema called `config` - we will use it to validate
+  if (validator.ajv.getSchema('config')) {
+    service.config = validator.ifError('config', service.config)
+  }
+
   // extend service
   service[name] = validator
   service.validate = validator.validate
   service.validateSync = validator.validateSync
   service.ifError = validator.ifError
-
-  // built-in configuration schema
-  if (validator.ajv.getSchema('microfleet.core')) {
-    service.ifError('microfleet.core', service.config)
-  }
-
-  // if we have schema called `config` - we will use it to validate
-  if (validator.ajv.getSchema('config')) {
-    service.ifError('config', service.config)
-  }
 }

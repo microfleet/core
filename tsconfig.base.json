@@ -18,6 +18,7 @@
     "**/node_modules/**",
     "lib",
     "dist",
-    "*.test.ts"
+    "*.test.ts",
+    "*.spec.ts"
   ]
 }

@@ -1,7 +1,9 @@
-import is = require('is')
-import { Writable } from 'stream'
+import assert = require('assert')
 import { Microfleet, PluginTypes } from '../'
-import _require from '../utils/require'
+import { ValidatorPlugin } from './validator'
+import { NotFoundError } from 'common-errors'
+import bunyan = require('bunyan')
+import stdout = require('stdout-stream')
 
 const defaultConfig = {
   debug: false,
@@ -9,12 +11,6 @@ const defaultConfig = {
   name: 'mservice',
   streams: {},
   trace: false,
-}
-
-interface LogStream {
-  level: string
-  stream: Writable
-  type?: string
 }
 
 function streamsFactory(streamName: string, options: any) {
@@ -40,18 +36,32 @@ export const type = PluginTypes.essential
 export const name = 'logger'
 
 /**
+ * Logger Plugin interface.
+ */
+export interface LoggerPlugin {
+  log: bunyan
+}
+
+export interface LoggerConfig {
+  defaultLogger: any
+  debug: boolean
+  name: string
+  trace: boolean
+  streams: {
+    [streamName: string]: any
+  }
+}
+
+/**
  * Plugin init function.
  * @param  config - Logger configuration.
  */
-export function attach(this: Microfleet, config: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerConfig>) {
   const service = this
   const { config: { name: applicationName } } = service
-  const bunyan = _require('bunyan')
-  const stdout = require('stdout-stream') as Writable
 
-  if (is.fn(service.ifError)) {
-    service.ifError('logger', config)
-  }
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  const config = service.ifError('logger', opts) as LoggerConfig
 
   const {
     debug,
@@ -66,7 +76,7 @@ export function attach(this: Microfleet, config: any = {}) {
     return
   }
 
-  const streams: LogStream[] = []
+  const streams: bunyan.Stream[] = []
 
   if (trace === true) {
     streams.push({

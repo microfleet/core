@@ -14,7 +14,7 @@ import { ClientRequest } from 'http'
 /**
  * Expose Router Type
  */
-export { MicrofleetRouter } from './plugins/router'
+export { Router } from './plugins/router'
 
 /**
  * $Keys

@@ -1,5 +1,6 @@
 import path = require('path')
 import * as constants from './constants'
+import { RouterConfig, LifecycleRequestType } from './plugins/router/factory'
 
 /**
  * This extension defaults schemas to the name of the action
@@ -47,36 +48,39 @@ export const plugins = [
 /**
  * Default Router configuration.
  */
-export const router = {
+export const router: Partial<RouterConfig> = {
   /**
    * Routes configuration
-   * @type {Object}
    */
   routes: {
     /**
      * Directory to scan for actions.
-     * @type {string}
      */
     directory: path.resolve(process.cwd(), 'src/actions'),
 
     /**
+     * When set to empty object, will scan directory
+     */
+    enabled: Object.create(null),
+
+    /**
      * Prefix for actions, it's added after transport-specific configuration
-     * @type {String}
      */
     prefix: '',
 
     /**
      * Sets transports defined here as default ones for action.
-     * @type {Boolean}
      */
     setTransportsAsDefault: true,
 
     /**
      * Initialize that array of transports
-     * @type {Array}
      */
     transports: [constants.ActionTransport.http],
 
+    /**
+     * Enables health action by default
+     */
     enabledGenericActions: [
       'health',
     ],
@@ -89,7 +93,7 @@ export const router = {
     /**
      * Enabled extension points
      */
-    enabled: ['postRequest', 'preRequest', 'preResponse'],
+    enabled: [LifecycleRequestType.postRequest, LifecycleRequestType.preRequest, LifecycleRequestType.preResponse],
 
     /**
      * Enabled plugins

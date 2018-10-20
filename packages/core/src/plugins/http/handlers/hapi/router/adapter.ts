@@ -7,11 +7,11 @@ import { FORMAT_HTTP_HEADERS } from 'opentracing'
 import { ActionTransport, Microfleet } from '../../../../..'
 import { ServiceRequest, RequestMethods } from '../../../../../types'
 import _require from '../../../../../utils/require'
-import { MicrofleetRouter } from '../../../../router/factory'
+import { Router } from '../../../../router/factory'
 
 export default function getHapiAdapter(actionName: string, service: Microfleet) {
   const Boom = _require('boom')
-  const router = service.router as MicrofleetRouter
+  const router = service.router as Router
 
   const reformatError = (error: any) => {
     let statusCode

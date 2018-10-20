@@ -14,10 +14,8 @@
         },
         "enabled": {
             "default": {},
-            "patternProperties": {
-                "^.*$": {
-                    "type": "string"
-                }
+            "additionalProperties": {
+                "type": "string"
             },
             "type": "object"
         },

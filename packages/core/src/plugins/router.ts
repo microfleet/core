@@ -3,7 +3,9 @@ import { NotFoundError, NotSupportedError } from 'common-errors'
 import { ActionTransport, PluginTypes } from '../constants'
 import { Microfleet } from '../'
 import { ServiceRequest } from '../types'
-import { getRouter, MicrofleetRouter } from './router/factory'
+import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
+import { ValidatorPlugin } from './validator'
+import { LoggerPlugin } from './logger'
 
 const identity = <T>(arg: T) => arg
 const { internal } = ActionTransport
@@ -12,7 +14,16 @@ const { internal } = ActionTransport
  * Plugin Name
  */
 export const name = 'router'
-export { MicrofleetRouter }
+export { Router, RouterConfig, LifecycleRequestType }
+
+/**
+ * Defines extension points of
+ * the router plugin
+ */
+export interface RouterPlugin {
+  router: Router
+  dispatch: Router['dispatch']
+}
 
 /**
  * Plugin Type
@@ -45,14 +56,14 @@ const prepareRequest = (request: ServiceRequest): ServiceRequest => ({
 
 /**
  * Enables router plugin.
- * @param {Object} config - Router configuration object.
+ * @param opts - Router configuration object.
  */
-export function attach(this: Microfleet, config: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & RouterPlugin, opts: Partial<RouterConfig>) {
   const service = this
 
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  service.ifError('router', config)
+  const config = service.ifError('router', opts) as RouterConfig
 
   for (const transport of config.routes.transports) {
     if (!service.config.plugins.includes(transport) && transport !== internal) {
@@ -60,7 +71,7 @@ export function attach(this: Microfleet, config: any = {}) {
     }
   }
 
-  this.router = getRouter(config, service)
+  const router = service.router = getRouter(config, service)
 
   const { prefix } = config.routes
   const assemble = prefix
@@ -68,8 +79,8 @@ export function attach(this: Microfleet, config: any = {}) {
     : identity
 
   // dispatcher
-  this.dispatch = (route: string, request: ServiceRequest) => {
-    const opts = prepareRequest(request)
-    return this.router.dispatch(assemble(route), opts)
+  service.dispatch = (route: string, request: ServiceRequest) => {
+    const msg = prepareRequest(request)
+    return router.dispatch(assemble(route), msg)
   }
 }

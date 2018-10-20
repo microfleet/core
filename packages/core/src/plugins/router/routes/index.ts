@@ -4,7 +4,7 @@ import is = require('is')
 import intersection = require('lodash.intersection')
 import path = require('path')
 import { Microfleet } from '../../../'
-import { ServiceAction } from '../../../types'
+import { ServiceAction, TransportTypes } from '../../../types'
 import { RouteMap } from '../factory'
 
 export interface Routes {
@@ -83,6 +83,17 @@ function validateAction(actionLike: ServiceAction | { default: ServiceAction }):
   return action as ServiceAction
 }
 
+export interface RoutesConfig {
+  directory: string
+  prefix: string
+  setTransportsAsDefault: boolean
+  transports: TransportTypes[]
+  enabled: {
+    [route: string]: string
+  }
+  enabledGenericActions: string[]
+}
+
 /**
  * @param config - Routes configuration object.
  * @param config.directory - Actions directory, will be glob scanned.
@@ -93,7 +104,7 @@ function validateAction(actionLike: ServiceAction | { default: ServiceAction }):
  *  so they don't need to be specified.
  * @param config.transports - Enabled transports list.
  */
-function getRoutes(this: Microfleet, config: any): RouteMap {
+function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
   // lack of prototype makes it easier to search for a key
   const routes: RouteMap = {
     _all: Object.create(null),

@@ -4,7 +4,7 @@ import is = require('is')
 import { Tags } from 'opentracing'
 import uuid = require('uuid')
 import { ServiceRequest } from '../../types'
-import { MicrofleetRouter } from './factory'
+import { Router } from './factory'
 
 const debug = _debug('mservice:router:dispatch')
 const { ERROR, COMPONENT } = Tags
@@ -34,7 +34,7 @@ function reflectToProps(this: ServiceRequest, reflection: Bluebird.Inspection<an
 }
 
 function dispatch(
-  this: MicrofleetRouter,
+  this: Router,
   route: string,
   request: ServiceRequest,
   callback?: (err: any, result?: any) => void
