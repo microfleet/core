@@ -46,7 +46,7 @@ export interface LoggerConfig {
   defaultLogger: any
   debug: boolean
   name: string
-  trace: boolean
+  trace?: boolean
   streams: {
     [streamName: string]: any
   }
@@ -78,7 +78,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
 
   const streams: bunyan.Stream[] = []
 
-  if (trace === true) {
+  if (trace) {
     streams.push({
       level: 'trace',
       stream: new bunyan.RingBuffer({ limit: 100 }),

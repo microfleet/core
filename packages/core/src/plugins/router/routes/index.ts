@@ -140,7 +140,7 @@ function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
 
     // it mutates existing action, so use with caution and best
     // explicitely supply the transports to support
-    if (config.setTransportsAsDefault === true && action.transports === undefined) {
+    if (config.setTransportsAsDefault && action.transports === undefined) {
       action.transports = config.transports.slice(0)
     }
 

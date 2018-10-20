@@ -15,7 +15,7 @@ function verifyAttachPossibility(router: Router, transportName: TransportTypes):
 
   const routesConfig = router.config.routes
 
-  if (routesConfig.transports.includes(transportName) === false) {
+  if (!routesConfig.transports.includes(transportName)) {
     throw new NotSupportedError(`${transportName} not in "router" module config`)
   }
 }
