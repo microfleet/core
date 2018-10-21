@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.1.2](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.1...@microfleet/core-v13.1.2) (2018-10-21)
+
+
+### Bug Fixes
+
+* enums in export declarations not preserved ([51d7110](https://github.com/microfleet/core/commit/51d7110))
+
 # [@microfleet/core-v13.1.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.0...@microfleet/core-v13.1.1) (2018-10-21)
 
 
