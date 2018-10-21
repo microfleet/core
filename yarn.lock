@@ -802,10 +802,10 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@makeomatic/deploy@^8.2.2":
-  version "8.2.2"
-  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-8.2.2.tgz#1fc3908b13900a66c28cf64365d02f709f31f2cf"
-  integrity sha512-06dZMKT75VGTyZR4Xe28B6zKvP+lN7nfN9uuhNu5SgB3DdMDf7afb3UB8A1msigRr7EQyyZGCUzyfa28j/IIwg==
+"@makeomatic/deploy@^8.2.3":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-8.2.3.tgz#91934d3231535f2aef21eab4bc47d9da5e48e66a"
+  integrity sha512-RhnkAZrAO4BPRI9jd/W29yZPSluIBvFnIlJBuqlWfPy7WtpRwipJfQOxQffvjygc265KF7OSE6orbumZKYPhVg==
   dependencies:
     "@commitlint/cli" "^7.2.1"
     bluebird "^3.5.2"
