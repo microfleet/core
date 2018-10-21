@@ -1,21 +1,25 @@
 import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import is = require('is')
+import { literal } from '../../../constants'
+import { $Values } from '../../../types'
 
-export enum LifecycleRequestType {
-  preAllowed = 'preAllowed',
-  postAllowed = 'postAllowed',
-  preAuth = 'preAuth' ,
-  postAuth = 'postAuth',
-  preHandler = 'preHandler',
-  postHandler = 'postHandler',
-  preRequest = 'preRequest' ,
-  postRequest = 'postRequest',
-  preResponse = 'preResponse' ,
-  postResponse = 'postResponse',
-  preValidate = 'preValidate' ,
-  postValidate = 'postValidate',
+export const LifecyclePoints = {
+  preAllowed: literal('preAllowed'),
+  postAllowed: literal('postAllowed'),
+  preAuth: literal('preAuth'),
+  postAuth: literal('postAuth'),
+  preHandler: literal('preHandler'),
+  postHandler: literal('postHandler'),
+  preRequest: literal('preRequest'),
+  postRequest: literal('postRequest'),
+  preResponse: literal('preResponse'),
+  postResponse: literal('postResponse'),
+  preValidate: literal('preValidate'),
+  postValidate: literal('postValidate'),
 }
+
+export type LifecycleRequestType = $Values<typeof LifecyclePoints>
 
 /**
  * Type definitions
@@ -26,7 +30,7 @@ export interface ExtensionPlugin {
 }
 
 export interface ExtensionsConfig {
-  enabled: string[]
+  enabled: LifecycleRequestType[]
   register: ExtensionPlugin[][]
 }
 

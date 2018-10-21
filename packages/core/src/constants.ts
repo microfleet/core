@@ -4,6 +4,12 @@
  * @module mservice:constants
  */
 
+/* Some helpers */
+export type Primitive = string | number | boolean | undefined | null
+export function literal<T extends Primitive>(value: T):T {
+  return value
+}
+
 /**
  * Connector property.
  */
@@ -23,43 +29,43 @@ export const HEALTH_CHECKS_PROPERTY = 'healthChecks'
  * Constants with possilble transport values
  */
 export const ActionTransport = {
-  amqp: 'amqp',
-  http: 'http',
-  internal: 'internal',
-  socketIO: 'socketIO',
+  amqp: literal('amqp'),
+  http: literal('http'),
+  internal: literal('internal'),
+  socketIO: literal('socketIO'),
 }
 
 // based on this we validate input data
 export const DATA_KEY_SELECTOR = {
-  amqp: 'params',
-  delete: 'query',
-  get: 'query',
-  head: 'query',
-  internal: 'params',
-  patch: 'params',
-  post: 'params',
-  put: 'params',
-  socketio: 'params',
+  amqp: literal('params'),
+  delete: literal('query'),
+  get: literal('query'),
+  head: literal('query'),
+  internal: literal('params'),
+  patch: literal('params'),
+  post: literal('params'),
+  put: literal('params'),
+  socketio: literal('params'),
 }
 
 /**
  * Constants with connect types to control order of service bootstrap
  */
-export enum ConnectorsTypes {
-  application = 'application',
-  database = 'database',
-  essential = 'essential',
-  migration = 'migration',
-  transport = 'transport',
+export const ConnectorsTypes = {
+  application: literal('application'),
+  database: literal('database'),
+  essential: literal('essential'),
+  migration: literal('migration'),
+  transport: literal('transport'),
 }
 
 /**
  * Plugin Types
  */
-export enum PluginTypes {
-  database = 'database',
-  essential = 'essential',
-  transport = 'transport',
+export const PluginTypes = {
+  database: literal('database'),
+  essential: literal('essential'),
+  transport: literal('transport'),
 }
 
 /**

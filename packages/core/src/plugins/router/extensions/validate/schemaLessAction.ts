@@ -1,12 +1,12 @@
 import { ServiceRequest } from '../../../../types'
-import { LifecycleRequestType } from '..'
+import { LifecyclePoints } from '..'
 
 export type ServiceRequestWithSchema = ServiceRequest & {
   schema?: string;
 }
 
 export default [{
-  point: LifecycleRequestType.postRequest,
+  point: LifecyclePoints.postRequest,
   async handler(error: Error, request: ServiceRequestWithSchema) {
     if (error) {
       throw error

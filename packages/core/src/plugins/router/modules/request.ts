@@ -2,13 +2,13 @@ import Bluebird = require('bluebird')
 import { ArgumentError, NotFoundError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
-import { Microfleet } from '../../../'
+import { Microfleet, RouterPlugin } from '../../../'
 import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 const debug = _debug('mservice:router:module:request')
 
-function getAction(this: Microfleet, route: string, request: ServiceRequest) {
+function getAction(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest) {
   debug('handler for module "request"')
   const service = this
   const { transport } = request

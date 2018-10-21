@@ -59,7 +59,7 @@ export interface PluginInterface {
 export interface Plugin {
   name: string
   priority: number
-  type: PluginTypes
+  type: $Values<typeof PluginTypes>
   attach(conf: any, parentFile: string): void | PluginInterface
 }
 
@@ -77,7 +77,7 @@ export interface AuthConfig {
 export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_PROPERTY
 export type TransportTypes = $Values<typeof ActionTransport>
 export type TConnectorsTypes = $Values<typeof ConnectorsTypes>
-export type RequestMethods = $Values<typeof DATA_KEY_SELECTOR>
+export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>
 export type GetAuthName = (req: ServiceRequest) => string
 export type ServiceActionStep = (...args: any[]) => PromiseLike<any>
 export interface ServiceAction extends ServiceActionStep {

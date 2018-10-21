@@ -1,18 +1,18 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import { NotSupportedError } from 'common-errors'
-import Extensions, { ExtensionsConfig, LifecycleRequestType } from '..'
+import Extensions, { ExtensionsConfig, LifecyclePoints } from '..'
 
 describe('router: extensions', () => {
   it('should be able to auto register extension', async () => {
     const config: ExtensionsConfig = {
       enabled: [
-        LifecycleRequestType.preHandler,
-        LifecycleRequestType.postHandler,
+        LifecyclePoints.preHandler,
+        LifecyclePoints.postHandler,
       ],
       register: [
         [
-          { point: LifecycleRequestType.postHandler, handler: Bluebird.resolve },
+          { point: LifecyclePoints.postHandler, handler: Bluebird.resolve },
         ],
       ],
     }
@@ -20,7 +20,7 @@ describe('router: extensions', () => {
     const extensions = new Extensions(config)
 
     assert.doesNotThrow(() => {
-      extensions.register(LifecycleRequestType.preHandler, () => Bluebird.reject(new Error('q')))
+      extensions.register(LifecyclePoints.preHandler, () => Bluebird.reject(new Error('q')))
     })
 
     await extensions.exec('postHandler', ['foo'])

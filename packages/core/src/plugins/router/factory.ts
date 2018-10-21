@@ -1,7 +1,7 @@
 import { Microfleet } from '../..'
 import { ServiceAction, ServiceActionStep } from '../../types'
 import dispatch from './dispatcher'
-import Extensions, { ExtensionsConfig, LifecycleRequestType } from './extensions'
+import Extensions, { ExtensionsConfig, LifecycleRequestType, LifecyclePoints } from './extensions'
 import allowedModule from './modules/allowed'
 import getAuthModule, { AuthOptions } from './modules/auth'
 import handlerModule from './modules/handler'
@@ -10,7 +10,7 @@ import getResponseHandler from './modules/response'
 import validateModule from './modules/validate'
 import getRoutes, { RoutesConfig } from './routes'
 
-export { LifecycleRequestType }
+export { LifecycleRequestType, LifecyclePoints }
 
 export interface RouteMap {
   [transport: string]: {

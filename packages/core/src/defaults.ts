@@ -1,6 +1,6 @@
 import path = require('path')
 import * as constants from './constants'
-import { RouterConfig, LifecycleRequestType } from './plugins/router/factory'
+import { RouterConfig, LifecyclePoints } from './plugins/router/factory'
 
 /**
  * This extension defaults schemas to the name of the action
@@ -93,7 +93,7 @@ export const router: Partial<RouterConfig> = {
     /**
      * Enabled extension points
      */
-    enabled: [LifecycleRequestType.postRequest, LifecycleRequestType.preRequest, LifecycleRequestType.preResponse],
+    enabled: [LifecyclePoints.postRequest, LifecyclePoints.preRequest, LifecyclePoints.preResponse],
 
     /**
      * Enabled plugins

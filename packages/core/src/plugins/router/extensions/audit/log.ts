@@ -1,7 +1,7 @@
 import is = require('is')
 import { Microfleet } from '../../../..'
 import { ServiceRequest, MserviceError } from '../../../../types'
-import { LifecycleRequestType } from '..'
+import { LifecyclePoints } from '..'
 
 export interface AuditLogExtension {
   auditLog: {
@@ -14,14 +14,14 @@ export type ServiceRequestWithAuditLog = ServiceRequest & AuditLogExtension
 
 export default [
   {
-    point: LifecycleRequestType.preRequest,
+    point: LifecyclePoints.preRequest,
     async handler(route: string, request: ServiceRequestWithAuditLog) {
       request.auditLog = { start: process.hrtime() }
       return [route, request]
     },
   },
   {
-    point: LifecycleRequestType.preResponse,
+    point: LifecyclePoints.preResponse,
     async handler(this: Microfleet, error: MserviceError | void, result: any, request: ServiceRequestWithAuditLog) {
       const service = this
       const execTime = request.auditLog.execTime = process.hrtime(request.auditLog.start)

@@ -1,7 +1,7 @@
 import Bluebird = require('bluebird')
 import { NotSupportedError } from 'common-errors'
 import { ServiceRequest } from '../../../../types'
-import { LifecycleRequestType } from '..'
+import { LifecyclePoints } from '..'
 
 export type TransportOptionsAugmentedRequest = ServiceRequest & {
   action: ServiceRequest['action'] & {
@@ -41,5 +41,5 @@ function postRequest(error: Error, request: TransportOptionsAugmentedRequest) {
 
 export default [{
   handler: postRequest,
-  point: LifecycleRequestType.postRequest,
+  point: LifecyclePoints.postRequest,
 }]

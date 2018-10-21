@@ -1,7 +1,7 @@
 import identity = require('lodash/identity')
 import { parse } from 'qs'
 import { ServiceRequest } from '../../../../types'
-import { LifecycleRequestType } from '..'
+import { LifecyclePoints } from '..'
 
 type QSParserAugmentedAction = ServiceRequest & {
   action: ServiceRequest['action'] & {
@@ -32,5 +32,5 @@ function preValidate(request: QSParserAugmentedAction) {
 
 export default [{
   handler: preValidate,
-  point: LifecycleRequestType.preValidate,
+  point: LifecyclePoints.preValidate,
 }]
