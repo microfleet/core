@@ -46,7 +46,8 @@ export interface PluginInterface {
 
 export interface Plugin {
   name: string
-  type: $Keys<typeof PluginTypes>
+  priority: number
+  type: PluginTypes
   attach(conf: any, parentFile: string): void | PluginInterface
 }
 

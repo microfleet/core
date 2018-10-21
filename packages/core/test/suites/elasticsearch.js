@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { ReferenceError } = require('common-errors');
+const { NotFoundError } = require('common-errors');
 const { expect } = require('chai');
 
 describe('Elasticsearch suite', () => {
@@ -22,13 +22,13 @@ describe('Elasticsearch suite', () => {
         plugins: ['validator', 'elasticsearch'],
         elasticsearch: global.SERVICES.elasticsearch,
       });
-    }, ReferenceError);
+    }, NotFoundError);
   });
 
   it('able to connect to elasticsearch when plugin is included', async () => {
     service = new Mservice({
       name: 'tester',
-      plugins: ['logger', 'validator', 'elasticsearch'],
+      plugins: ['validator', 'logger', 'elasticsearch'],
       elasticsearch: global.SERVICES.elasticsearch,
     });
 

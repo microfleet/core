@@ -402,11 +402,38 @@ export class Microfleet extends EventEmitter {
       this[constants.DESTRUCTORS_PROPERTY][pluginType] = []
     }
 
+    // require all modules
+    const plugins = []
     for (const plugin of config.plugins) {
-      this.initPlugin(require(`./plugins/${plugin}`))
+      plugins.push(require(`./plugins/${plugin}`))
+    }
+
+    // sort and ensure that they are attached based
+    // on their priority
+    plugins.sort(this.pluginComparator)
+
+    // call the .attach function
+    for (const plugin of plugins) {
+      this.initPlugin(plugin)
     }
 
     this.emit('init')
+  }
+
+  private pluginComparator(a: Plugin, b: Plugin): number {
+    const ap = PluginsPriority.indexOf(a.type)
+    const bp = PluginsPriority.indexOf(b.type)
+
+    // same plugin type, check priority
+    if (ap === bp) {
+      if (a.priority < b.priority) return -1
+      if (a.priority > b.priority) return 1
+      return 0
+    }
+
+    // different plugin types, sort based on it
+    if (ap < bp) return -1
+    return 1
   }
 
   /**

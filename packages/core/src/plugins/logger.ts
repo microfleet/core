@@ -1,5 +1,6 @@
 import assert = require('assert')
-import { Microfleet, PluginTypes } from '../'
+import { Microfleet } from '../'
+import { PluginTypes } from '../constants'
 import { ValidatorPlugin } from './validator'
 import { NotFoundError } from 'common-errors'
 import bunyan = require('bunyan')
@@ -29,6 +30,11 @@ function streamsFactory(streamName: string, options: any) {
  * Plugin Type
  */
 export const type = PluginTypes.essential
+
+/**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 10
 
 /**
  * Plugin Name

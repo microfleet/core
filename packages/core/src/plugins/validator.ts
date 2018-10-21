@@ -3,7 +3,8 @@ import ajv from 'ajv'
 import callsite = require('callsite')
 import { NotPermittedError } from 'common-errors'
 import path = require('path')
-import { Microfleet, PluginTypes } from '../'
+import { Microfleet } from '../'
+import { PluginTypes } from '../constants'
 
 /**
  * Validator configuration, more details in
@@ -34,6 +35,11 @@ export interface ValidatorPlugin {
  * Plugin Type
  */
 export const type = PluginTypes.essential
+
+/**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 0
 
 /**
  * Attaches initialized validator based on conf.

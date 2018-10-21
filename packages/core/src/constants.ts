@@ -45,21 +45,21 @@ export const DATA_KEY_SELECTOR = {
 /**
  * Constants with connect types to control order of service bootstrap
  */
-export const ConnectorsTypes = {
-  application: 'application',
-  database: 'database',
-  essential: 'essential',
-  migration: 'migration',
-  transport: 'transport',
+export enum ConnectorsTypes {
+  application = 'application',
+  database = 'database',
+  essential = 'essential',
+  migration = 'migration',
+  transport = 'transport',
 }
 
 /**
  * Plugin Types
  */
-export const PluginTypes = {
-  database: 'database',
-  essential: 'essential',
-  transport: 'transport',
+export enum PluginTypes {
+  database = 'database',
+  essential = 'essential',
+  transport = 'transport',
 }
 
 /**

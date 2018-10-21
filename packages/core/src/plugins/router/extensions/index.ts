@@ -2,7 +2,7 @@ import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import is = require('is')
 
-export const enum LifecycleRequestType {
+export enum LifecycleRequestType {
   preAllowed = 'preAllowed',
   postAllowed = 'postAllowed',
   preAuth = 'preAuth' ,

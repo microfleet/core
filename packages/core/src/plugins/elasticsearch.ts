@@ -1,9 +1,11 @@
 import assert = require('assert')
+import retry = require('bluebird-retry')
 import Bluebird = require('bluebird')
 import Errors = require('common-errors')
-import is = require('is')
-import { Microfleet, PluginTypes } from '../'
-import _require from '../utils/require'
+import Elasticsearch = require('elasticsearch')
+import { NotFoundError } from 'common-errors'
+import { Microfleet } from '../'
+import { PluginTypes } from '../constants'
 
 interface ElasticLogger {
   trace(...args: any[]): void
@@ -15,21 +17,19 @@ interface ElasticLogger {
   close(...args: any[]): void
 }
 
+/**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 0
 export const name = 'elasticsearch'
 export const type = PluginTypes.database
-export function attach(this: Microfleet, conf: any = {}) {
+export function attach(this: Microfleet, params: any = {}) {
   const service = this
-  const Elasticsearch = _require('elasticsearch')
 
-  // optional validation with the plugin
-  if (is.fn(service.ifError)) {
-    service.ifError('elasticsearch', conf)
-  }
+  assert(service.hasPlugin('logger'), new NotFoundError('logger module must be included'))
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  if (!service.log) {
-    throw new Errors.ReferenceError('\'logger\' plugin is required to use \'service\' logging')
-  }
-
+  const conf = service.ifError('elasticsearch', params)
   const { log, ...opts } = conf
   const { log: serviceLogger } = service
 
@@ -63,18 +63,19 @@ export function attach(this: Microfleet, conf: any = {}) {
 
       const instance = new Elasticsearch.Client({
         ...opts,
-        defer() {
-          const defer = Object.create(null)
-          defer.promise = new Bluebird((resolve, reject) => {
-            defer.resolve = resolve
-            defer.reject = reject
-          })
-          return defer
-        },
+        defer() { return Bluebird.defer() },
         log: Logger || log,
       })
 
-      await instance.nodes.info({ human: true })
+      await retry(instance.nodes.info, {
+        context: instance.nodes,
+        args: [{ nodeId: '', human: true }],
+        interval: 500,
+        backoff: 2,
+        max_interval: 5000,
+        timeout: 60000,
+        max_tries: 100,
+      })
 
       service.elasticsearch = instance
       service.emit('plugin:connect:elasticsearch', instance)

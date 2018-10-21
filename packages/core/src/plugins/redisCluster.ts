@@ -1,10 +1,10 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
-import is = require('is')
 import { Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import migrate from './redis/migrate'
+import { NotFoundError } from 'common-errors'
 import { hasConnection, isStarted, loadLuaScripts } from './redis/utils'
 
 const debug = _debug('mservice:redisCluster')
@@ -20,27 +20,26 @@ export const name = 'redis'
 export const type = PluginTypes.database
 
 /**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 0
+
+/**
  * Attaches Redis Cluster plugin.
  * @param  [conf={}] - Configuration for Redis Cluster Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet, conf: any = {}) {
+export function attach(this: Microfleet, opts: any = {}) {
   const service = this
   const Redis = _require('ioredis')
+  const { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } = require('./redis/constants')
+
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+
   Redis.Promise = Bluebird
-
-  const {
-    ERROR_NOT_STARTED,
-    ERROR_ALREADY_STARTED,
-  } = require('./redis/constants')
-
   const { Cluster } = Redis
   const isClusterStarted = isStarted(service, Cluster)
-
-  // optional validation with the plugin
-  if (is.fn(service.ifError)) {
-    service.ifError('redisCluster', conf)
-  }
+  const conf = service.ifError('redisCluster', opts)
 
   return {
 

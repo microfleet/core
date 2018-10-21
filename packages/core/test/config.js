@@ -7,7 +7,7 @@ const { ActionTransport } = require('../src');
 global.SERVICES = {
   redis: {
     hosts: [0, 1, 2].map(idx => ({
-      host: '172.18.238.10',
+      host: 'redis-cluster',
       port: 7000 + idx,
     })),
     options: {},
@@ -32,9 +32,8 @@ global.SERVICES = {
   },
   elasticsearch: {
     hosts: [
-      {
-        host: 'elasticsearch',
-      },
+      'http://elasticsearch:9200',
+      'http://elasticsearch:9200'
     ],
     log: {
       type: 'service',

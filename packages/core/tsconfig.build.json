@@ -6,5 +6,12 @@
   },
   "include": [
     "./src/**/*.ts"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "lib",
+    "dist",
+    "*.test.ts",
+    "*.spec.ts"
   ]
 }

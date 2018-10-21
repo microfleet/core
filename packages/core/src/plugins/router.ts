@@ -31,6 +31,11 @@ export interface RouterPlugin {
 export const type = PluginTypes.essential
 
 /**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 100
+
+/**
  * Fills gaps in default service request.
  * @param request - service request.
  * @returns Prepared service request.
