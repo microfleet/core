@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.1.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.0.4...@microfleet/core-v13.1.0) (2018-10-21)
+
+
+### Features
+
+* more ts types, upgrade all deps ([#290](https://github.com/microfleet/core/issues/290)) ([64a3aba](https://github.com/microfleet/core/commit/64a3aba))
+
 # [@microfleet/core-v13.0.4](https://github.com/microfleet/core/compare/@microfleet/core-v13.0.3...@microfleet/core-v13.0.4) (2018-10-19)
 
 
