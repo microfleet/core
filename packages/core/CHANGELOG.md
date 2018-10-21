@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.1.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.0...@microfleet/core-v13.1.1) (2018-10-21)
+
+
+### Bug Fixes
+
+* ts opts ([e0d92aa](https://github.com/microfleet/core/commit/e0d92aa))
+
 # [@microfleet/core-v13.1.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.0.4...@microfleet/core-v13.1.0) (2018-10-21)
 
 
