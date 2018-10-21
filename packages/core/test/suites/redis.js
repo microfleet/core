@@ -14,7 +14,7 @@ describe('Redis suite', function testSuite() {
   it('able to connect to redis when plugin is included', async () => {
     service = new Mservice({
       name: 'tester',
-      plugins: ['validator', 'opentracing', 'redisCluster'],
+      plugins: ['validator', 'opentracing', 'logger', 'redisCluster'],
       redis: global.SERVICES.redis,
     });
 
@@ -36,7 +36,7 @@ describe('Redis suite', function testSuite() {
   it('able to connect to redis sentinel when plugin is included', async () => {
     service = new Mservice({
       name: 'tester',
-      plugins: ['validator', 'opentracing', 'redisSentinel'],
+      plugins: ['validator', 'opentracing', 'logger', 'redisSentinel'],
       redis: Object.assign({}, global.SERVICES.redisSentinel, { luaScripts: path.resolve(__dirname, '../fixtures') }),
     });
 

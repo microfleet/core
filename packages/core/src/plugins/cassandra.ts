@@ -1,7 +1,10 @@
+import Bluebird = require('bluebird')
 import assert = require('assert')
-import { NotPermittedError } from 'common-errors'
+import retry = require('bluebird-retry')
+import { NotPermittedError, NotFoundError } from 'common-errors'
 import is = require('is')
-import { Microfleet, PluginTypes } from '../'
+import { Microfleet } from '../'
+import { PluginTypes } from '../constants'
 import _require from '../utils/require'
 
 /**
@@ -14,32 +17,55 @@ export const name = 'cassandra'
  */
 export const type = PluginTypes.database
 
-function factory(Cassandra: any, config: any) {
+/**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 0
+
+async function factory(Cassandra: any, config: any) {
   const { models } = config.service
 
   if (is.string(models)) {
+    Cassandra.setDirectory(models)
+
+    await retry(Cassandra.bindAsync, {
+      interval: 500,
+      backoff: 2,
+      max_interval: 5000,
+      timeout: 60000,
+      max_tries: 100,
+      args: [config.client],
+    })
+
     return Cassandra
-      .setDirectory(models)
-      .bindAsync(config.client)
-      .return(Cassandra)
   }
 
   const client = Cassandra.createClient(config.client)
 
+  await retry(client.initAsync, {
+    context: client,
+    interval: 500,
+    backoff: 2,
+    max_interval: 5000,
+    timeout: 60000,
+    max_tries: 100,
+  })
+
+  await Bluebird.mapSeries(Object.entries(models), ([modelName, model]) => {
+    const Model = client.loadSchema(modelName, model)
+    return Bluebird.fromCallback(next => Model.syncDB(next))
+  })
+
   return client
-    .connectAsync()
-    .return(Object.keys(models))
-    .map((modelName: string) => client.loadSchemaAsync(modelName, models[modelName]))
-    .return(client)
 }
 
-export function attach(this: Microfleet, config: any = {}) {
+export function attach(this: Microfleet, params: any = {}) {
   const service = this
   const Cassandra = _require('express-cassandra')
 
-  if (is.fn(service.ifError)) {
-    service.ifError('cassandra', config)
-  }
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+
+  const config = service.ifError('cassandra', params)
 
   async function connectCassandra() {
     assert(!service.cassandra, new NotPermittedError('Cassandra was already started'))

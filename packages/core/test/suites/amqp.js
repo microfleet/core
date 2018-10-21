@@ -13,7 +13,7 @@ describe('AMQP suite', function testSuite() {
   it('able to connect to amqp when plugin is included', async () => {
     service = new Mservice({
       name: 'tester',
-      plugins: ['validator', 'opentracing', 'amqp'],
+      plugins: ['logger', 'validator', 'opentracing', 'amqp'],
       amqp: global.SERVICES.amqp,
     });
 

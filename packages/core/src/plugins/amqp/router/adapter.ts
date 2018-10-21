@@ -4,12 +4,12 @@ import is = require('is')
 import noop = require('lodash/noop')
 import { ActionTransport } from '../../..'
 import { ServiceRequest } from '../../../types'
-import { MicrofleetRouter } from '../../router/factory'
+import { Router } from '../../router/factory'
 
 // cached var
 const { amqp } = ActionTransport
 
-function getAMQPRouterAdapter(router: MicrofleetRouter, config: any) {
+function getAMQPRouterAdapter(router: Router, config: any) {
   const { onComplete } = config.transport
   const { service } = router
   const wrapDispatch = is.fn(onComplete)

@@ -23,15 +23,19 @@ describe('Mservice suite', function testSuite() {
   });
 
   it('creates services with logger enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['logger'] }));
+    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['logger', 'validator'] }));
   });
 
   it('creates service with amqp enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['amqp'] }));
+    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['amqp', 'logger', 'validator'] }));
   });
 
   it('creates service with redis enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['redisCluster'] }));
+    assert.doesNotThrow(() => new Mservice({
+      name: 'tester',
+      plugins: ['logger', 'validator', 'redisCluster'],
+      redis: global.SERVICES.redis,
+    }));
   });
 
   it('creates service with hooks enabled', function test() {

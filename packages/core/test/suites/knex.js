@@ -18,7 +18,7 @@ describe('knex plugin', function testSuite() {
       plugins: ['logger', 'validator', 'knex'],
       knex: {
         client: 'pg',
-        connection: 'postgres://postgres@pg:5432/postgres',
+        connection: 'postgres://postgres@postgres:5432/postgres',
       },
     });
 
@@ -55,7 +55,7 @@ describe('knex plugin', function testSuite() {
       plugins: ['logger', 'validator', 'knex'],
       knex: {
         client: 'pg',
-        connection: 'postgres://postgres@pg:5432/postgres',
+        connection: 'postgres://postgres@postgres:5432/postgres',
       },
     });
 

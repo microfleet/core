@@ -3,7 +3,8 @@ import ajv from 'ajv'
 import callsite = require('callsite')
 import { NotPermittedError } from 'common-errors'
 import path = require('path')
-import { Microfleet, PluginTypes } from '../'
+import { Microfleet } from '../'
+import { PluginTypes } from '../constants'
 
 /**
  * Validator configuration, more details in
@@ -21,9 +22,24 @@ export type ValidatorConfig = string[] | void | {
 export const name = 'validator'
 
 /**
+ * Defines service extension
+ */
+export interface ValidatorPlugin {
+  [name]: Validator
+  validate: Validator['validate']
+  validateSync: Validator['validateSync']
+  ifError:  Validator['ifError']
+}
+
+/**
  * Plugin Type
  */
 export const type = PluginTypes.essential
+
+/**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 0
 
 /**
  * Attaches initialized validator based on conf.
@@ -85,19 +101,16 @@ export const attach = function attachValidator(
     }
   }
 
+  // built-in configuration schema
+  for (const schema of ['microfleet.core', 'config']) {
+    if (validator.ajv.getSchema(schema)) {
+      service.config = validator.ifError(schema, service.config)
+    }
+  }
+
   // extend service
   service[name] = validator
   service.validate = validator.validate
   service.validateSync = validator.validateSync
   service.ifError = validator.ifError
-
-  // built-in configuration schema
-  if (validator.ajv.getSchema('microfleet.core')) {
-    service.ifError('microfleet.core', service.config)
-  }
-
-  // if we have schema called `config` - we will use it to validate
-  if (validator.ajv.getSchema('config')) {
-    service.ifError('config', service.config)
-  }
 }

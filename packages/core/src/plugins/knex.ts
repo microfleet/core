@@ -4,17 +4,21 @@ import { Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import retry = require('bluebird-retry')
 
+/**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 0
 export const name = 'knex'
 export const type = PluginTypes.database
-export function attach(this: Microfleet, config: any = {}) {
+export function attach(this: Microfleet, params: any = {}) {
   const factory = _require('knex')
   const service = this
 
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  service.ifError('knex', config)
-  service.ifError(`knex.${config.client}`, config)
+  const opts = service.ifError('knex', params)
+  const config = service.ifError(`knex.${opts.client}`, opts)
 
   const knex = service.knex = factory(config)
 

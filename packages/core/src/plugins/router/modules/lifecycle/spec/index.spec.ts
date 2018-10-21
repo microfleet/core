@@ -1,16 +1,16 @@
 import Bluebird = require('bluebird')
 import { expect } from 'chai'
 import moduleLifecycle from '..'
-import Extensions from './../../../extensions'
+import Extensions, { LifecycleRequestType } from './../../../extensions'
 
 describe('router: module lifecycle', () => {
   it('should return error from "pre-handler"', async () => {
     const extensions = new Extensions({
-      enabled: ['preAuth'],
+      enabled: [LifecycleRequestType.preAuth],
       register: [
         [
-          { point: 'preAuth', handler: (foo, bar) => Bluebird.resolve([foo, bar]) },
-          { point: 'preAuth', handler: (_, bar) => Bluebird.reject(new Error(`error: ${bar}`)) },
+          { point: LifecycleRequestType.preAuth, handler: (foo, bar) => Bluebird.resolve([foo, bar]) },
+          { point: LifecycleRequestType.preAuth, handler: (_, bar) => Bluebird.reject(new Error(`error: ${bar}`)) },
         ],
       ],
     })
@@ -26,10 +26,10 @@ describe('router: module lifecycle', () => {
 
   it('should return result from handler with "pre-handler"', () => {
     const extensions = new Extensions({
-      enabled: ['preAuth'],
+      enabled: [LifecycleRequestType.preAuth],
       register: [
         [
-          { point: 'preAuth', handler: (_, bar) => Bluebird.resolve([bar, 'baz']) },
+          { point: LifecycleRequestType.preAuth, handler: (_, bar) => Bluebird.resolve([bar, 'baz']) },
         ],
       ],
     })
@@ -44,11 +44,11 @@ describe('router: module lifecycle', () => {
 
   it('should return result from handler with "pre-handler" that takes one argument', () => {
     const extensions = new Extensions({
-      enabled: ['preAuth'],
+      enabled: [LifecycleRequestType.preAuth],
       register: [
         [
-          { point: 'preAuth', handler: (request: string) => Bluebird.resolve(`${request} bar`) },
-          { point: 'preAuth', handler: (request: string) => Bluebird.resolve(`${request} baz`) },
+          { point: LifecycleRequestType.preAuth, handler: (request: string) => Bluebird.resolve(`${request} bar`) },
+          { point: LifecycleRequestType.preAuth, handler: (request: string) => Bluebird.resolve(`${request} baz`) },
         ],
       ],
     })
@@ -85,12 +85,15 @@ describe('router: module lifecycle', () => {
 
   it('should return error from post-handler', () => {
     const extensions = new Extensions({
-      enabled: ['postAuth'],
+      enabled: [LifecycleRequestType.postAuth],
       register: [
-        [
-          { point: 'postAuth', handler: (error, result) => Bluebird.resolve([error, result]) },
-          { point: 'postAuth', handler: (_, result) => Bluebird.reject(new Error(`error: ${result}`)) },
-        ],
+        [{
+          point: LifecycleRequestType.postAuth,
+          handler: (error, result) => Bluebird.resolve([error, result]),
+        }, {
+          point: LifecycleRequestType.postAuth,
+          handler: (_, result) => Bluebird.reject(new Error(`error: ${result}`)),
+        }],
       ],
     })
     const handler = (foo: any, bar: string) => Bluebird.resolve(`${foo}.${bar}`)
@@ -104,12 +107,12 @@ describe('router: module lifecycle', () => {
 
   it('should be able to modify result if no error returned from handler', () => {
     const extensions = new Extensions({
-      enabled: ['postAuth'],
+      enabled: [LifecycleRequestType.postAuth],
       register: [
         [
           {
             handler: (error, _) => Bluebird.resolve([error, 'baz']),
-            point: 'postAuth',
+            point: LifecycleRequestType.postAuth,
           },
         ],
       ],
@@ -125,11 +128,12 @@ describe('router: module lifecycle', () => {
 
   it('should be able to modify error returned from handler', () => {
     const extensions = new Extensions({
-      enabled: ['postAuth'],
+      enabled: [LifecycleRequestType.postAuth],
       register: [
-        [
-          { point: 'postAuth', handler: (_, result) => [new Error('baz'), result] },
-        ],
+        [{
+          point: LifecycleRequestType.postAuth,
+          handler: (_, result) => Bluebird.resolve([new Error('baz'), result]),
+        }],
       ],
     })
     const handler = (foo: string, bar: string) => Bluebird.reject(new Error(`${foo}.${bar}`))
@@ -143,11 +147,12 @@ describe('router: module lifecycle', () => {
 
   it('should be able to pass arguments to post-handler', () => {
     const extensions = new Extensions({
-      enabled: ['postAuth'],
+      enabled: [LifecycleRequestType.postAuth],
       register: [
-        [
-          { point: 'postAuth', handler: (_, __, foo, bar) => [new Error(foo + bar)] },
-        ],
+        [{
+          point: LifecycleRequestType.postAuth,
+          handler: (_, __, foo, bar) => Bluebird.resolve([new Error(foo + bar)]),
+        }],
       ],
     })
     const handler = (foo: string, bar: string) => Bluebird.resolve(`${foo}.${bar}`)

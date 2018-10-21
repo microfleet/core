@@ -2,7 +2,7 @@ import assert = require('assert')
 import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import eventToPromise = require('event-to-promise')
-import is = require('is')
+import { NotFoundError } from 'common-errors'
 import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
@@ -38,12 +38,21 @@ export const name = 'amqp'
 export const type = PluginTypes.transport
 
 /**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 0
+
+/**
  * Attaches plugin to the MService class.
  * @param {Object} config - AMQP plugin configuration.
  */
-export function attach(this: Microfleet, config: any = {}) {
+export function attach(this: Microfleet, opts: any = {}) {
   const service = this
 
+  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+
+  const config = service.ifError('amqp', opts)
   const AMQPTransport = _require('@microfleet/transport-amqp') as any
   const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery')
 
@@ -67,12 +76,8 @@ export function attach(this: Microfleet, config: any = {}) {
     amqp._amqp && amqp._amqp.state === 'open'
   )
 
-  if (is.fn(service.ifError)) {
-    service.ifError('amqp', config)
-  }
-
   // init logger if service is enabled
-  const logger = service.log && service.log.child({ namespace: '@microfleet/transport-amqp' })
+  const logger = service.log.child({ namespace: '@microfleet/transport-amqp' })
 
   // initializes custom onComplete function
   if (config.retry && config.retry.enabled === true) {
@@ -239,12 +244,12 @@ export function attach(this: Microfleet, config: any = {}) {
 
       // if service.router is present - we will consume messages
       // if not - we will only create a client
-      const opts = {
+      const connectionOptions = {
         ...config.transport,
         log: logger || null,
         tracer: service.tracer,
       }
-      const amqp = service.amqp = await AMQPTransport.connect(opts, service.AMQPRouter)
+      const amqp = service.amqp = await AMQPTransport.connect(connectionOptions, service.AMQPRouter)
 
       // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
       if (config.retry && config.retry.enabled === true) {

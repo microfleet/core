@@ -1,4 +1,5 @@
-import { NotImplementedError } from 'common-errors'
+import assert = require('assert')
+import { NotImplementedError, NotFoundError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
 import { Microfleet, PluginTypes } from '../'
@@ -11,20 +12,19 @@ interface AdaptersList {
   [name: string]: any
 }
 
-function attachSocketIO(this: Microfleet, config: any = {}) {
+function attachSocketIO(this: Microfleet, opts: any = {}) {
   debug('Attaching socketIO plugin')
   const service = this
   const AdapterFactory = _require('ms-socket.io-adapter-amqp')
   const SocketIO = _require('socket.io')
 
+  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+
   const adapters: AdaptersList = {
     amqp: (adapterOptions: any) => AdapterFactory.fromOptions(adapterOptions),
   }
 
-  if (is.fn(service.ifError)) {
-    service.ifError('socketIO', config)
-  }
-
+  const config = service.ifError('socketIO', opts)
   const { options, router } = config
   const { adapter } = options
 
@@ -45,6 +45,10 @@ function attachSocketIO(this: Microfleet, config: any = {}) {
   this.socketIO = socketIO
 }
 
+/**
+ * Relative priority inside the same plugin group type
+ */
+export const priority = 100
 export const attach = attachSocketIO
 export const name = 'socketIO'
 export const type = PluginTypes.transport

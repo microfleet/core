@@ -14,7 +14,7 @@ import { ClientRequest } from 'http'
 /**
  * Expose Router Type
  */
-export { MicrofleetRouter } from './plugins/router'
+export { Router } from './plugins/router'
 
 /**
  * $Keys
@@ -46,7 +46,8 @@ export interface PluginInterface {
 
 export interface Plugin {
   name: string
-  type: $Keys<typeof PluginTypes>
+  priority: number
+  type: PluginTypes
   attach(conf: any, parentFile: string): void | PluginInterface
 }
 

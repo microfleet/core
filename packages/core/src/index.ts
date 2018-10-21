@@ -21,6 +21,10 @@ import {
   PluginConnector,
   TConnectorsTypes,
 } from './types'
+import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
+import { LoggerPlugin, LoggerConfig } from './plugins/logger'
+import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
+export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }
 
 /**
  * Simple invocation that preserves context.
@@ -77,17 +81,29 @@ export const routerExtension = (name: string) => {
   return require(`./plugins/router/extensions/${name}`).default
 }
 
-export interface CoreOptions {
-  /**
-   * Must uniquely identify service, will be used
-   * in implementing services extensively
-   */
-  name: string
-
+/**
+ * Interface for optional params
+ */
+export interface ConfigurationOptional {
   /**
    * List of plugins to be enabled
    */
   plugins: string[]
+
+  /**
+   * Logger plugin configuration
+   */
+  logger: LoggerConfig
+
+  /**
+   * Validator plugin configuration
+   */
+  validator: ValidatorConfig
+
+  /**
+   * Router configuration
+   */
+  router: RouterConfig
 
   /**
    * For now any property can be put on the main class
@@ -95,19 +111,24 @@ export interface CoreOptions {
   [property: string]: any
 }
 
-export interface Microfleet {
-  config: CoreOptions
+/**
+ * Interface for required params
+ */
+export interface ConfigurationRequired {
+  /**
+   * Must uniquely identify service, will be used
+   * in implementing services extensively
+   */
+  name: string
 }
+
+export type CoreOptions = ConfigurationRequired
+  & ConfigurationOptional
 
 /**
  * @class Microfleet
  */
-export class Microfleet extends EventEmitter implements Microfleet {
-  /**
-   * Allow Extensions
-   */
-  [property: string]: any;
-  public log?: any
+export class Microfleet extends EventEmitter {
   public config: CoreOptions
   public migrators: any
   public readonly plugins: string[]
@@ -116,14 +137,19 @@ export class Microfleet extends EventEmitter implements Microfleet {
   public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[]
 
   /**
+   * Allow Extensions
+   */
+  [property: string]: any;
+
+  /**
    * @param [opts={}] - Overrides for configuration.
    * @returns Instance of microservice.
    */
-  constructor(opts: any = {}) {
+  constructor(opts: ConfigurationRequired & Partial<ConfigurationOptional>) {
     super()
 
     // init configuration
-    const config = this.config = { ...defaultOpts, ...opts }
+    this.config = { ...defaultOpts, ...opts } as any
 
     // init migrations
     this.migrators = Object.create(null)
@@ -135,19 +161,19 @@ export class Microfleet extends EventEmitter implements Microfleet {
     this.plugins = []
     this[constants.CONNECTORS_PROPERTY] = Object.create(null)
     this[constants.DESTRUCTORS_PROPERTY] = Object.create(null)
-    this.initPlugins(config)
+    this.initPlugins(this.config)
 
     // setup error listener
     this.on('error', this.onError)
 
     // setup hooks
-    for (const [eventName, hooks] of Object.entries(config.hooks)) {
+    for (const [eventName, hooks] of Object.entries(this.config.hooks)) {
       for (const hook of toArray<any>(hooks)) {
         this.on(eventName, hook)
       }
     }
 
-    if (config.sigterm) {
+    if (this.config.sigterm) {
       this.on('ready', () => {
         process.on('SIGTERM', this.exit)
       })
@@ -322,9 +348,7 @@ export class Microfleet extends EventEmitter implements Microfleet {
    * @returns Resolves when exit sequence has completed.
    */
   private exit = async () => {
-    if (this.log) {
-      this.log.info('received close signal...\n closing connections...\n')
-    }
+    this.log.info('received close signal...\n closing connections...\n')
 
     try {
       await this.close().timeout(10000)
@@ -372,17 +396,44 @@ export class Microfleet extends EventEmitter implements Microfleet {
    * @param {Object} config - Service plugins configuration.
    * @private
    */
-  private initPlugins(config: any) {
+  private initPlugins(config: CoreOptions) {
     for (const pluginType of PluginsPriority) {
       this[constants.CONNECTORS_PROPERTY][pluginType] = []
       this[constants.DESTRUCTORS_PROPERTY][pluginType] = []
     }
 
+    // require all modules
+    const plugins = []
     for (const plugin of config.plugins) {
-      this.initPlugin(require(`./plugins/${plugin}`))
+      plugins.push(require(`./plugins/${plugin}`))
+    }
+
+    // sort and ensure that they are attached based
+    // on their priority
+    plugins.sort(this.pluginComparator)
+
+    // call the .attach function
+    for (const plugin of plugins) {
+      this.initPlugin(plugin)
     }
 
     this.emit('init')
+  }
+
+  private pluginComparator(a: Plugin, b: Plugin): number {
+    const ap = PluginsPriority.indexOf(a.type)
+    const bp = PluginsPriority.indexOf(b.type)
+
+    // same plugin type, check priority
+    if (ap === bp) {
+      if (a.priority < b.priority) return -1
+      if (a.priority > b.priority) return 1
+      return 0
+    }
+
+    // different plugin types, sort based on it
+    if (ap < bp) return -1
+    return 1
   }
 
   /**
@@ -401,7 +452,7 @@ export class Microfleet extends EventEmitter implements Microfleet {
 
 // if there is no parent module we assume it's called as a binary
 if (!module.parent) {
-  const mservice = new Microfleet()
+  const mservice = new Microfleet({ name: 'cli' })
   mservice
     .connect()
     .catch((err: Error) => {

@@ -1,14 +1,16 @@
 import { Microfleet } from '../..'
 import { ServiceAction, ServiceActionStep } from '../../types'
 import dispatch from './dispatcher'
-import Extensions from './extensions'
+import Extensions, { ExtensionsConfig, LifecycleRequestType } from './extensions'
 import allowedModule from './modules/allowed'
-import getAuthModule from './modules/auth'
+import getAuthModule, { AuthOptions } from './modules/auth'
 import handlerModule from './modules/handler'
 import requestModule from './modules/request'
 import getResponseHandler from './modules/response'
 import validateModule from './modules/validate'
-import getRoutes from './routes'
+import getRoutes, { RoutesConfig } from './routes'
+
+export { LifecycleRequestType }
 
 export interface RouteMap {
   [transport: string]: {
@@ -16,11 +18,17 @@ export interface RouteMap {
   }
 }
 
+export interface RouterConfig {
+  auth: AuthOptions
+  extensions: ExtensionsConfig
+  routes: RoutesConfig
+}
+
 /**
  * Defines router signature
  */
-export interface MicrofleetRouter {
-  config: any
+export interface Router {
+  config: RouterConfig
   service: Microfleet
   dispatch: typeof dispatch
   extensions: Extensions
@@ -44,8 +52,8 @@ export interface MicrofleetRouter {
  * @param service - Microfleet instance.
  * @returns Router instance.
  */
-export function getRouter(config: any, service: Microfleet): MicrofleetRouter {
-  const router: MicrofleetRouter = {
+export function getRouter(config: RouterConfig, service: Microfleet): Router {
+  const router: Router = {
     config,
     service,
     dispatch,

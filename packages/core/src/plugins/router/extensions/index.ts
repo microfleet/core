@@ -2,19 +2,27 @@ import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import is = require('is')
 
-export type LifecycleRequestType = 'preAllowed' | 'postAllowed'
-  | 'preAuth' | 'postAuth'
-  | 'preHandler' | 'postHandler'
-  | 'preRequest' | 'postRequest'
-  | 'preResponse' | 'postResponse'
-  | 'preValidate' | 'postValidate'
+export enum LifecycleRequestType {
+  preAllowed = 'preAllowed',
+  postAllowed = 'postAllowed',
+  preAuth = 'preAuth' ,
+  postAuth = 'postAuth',
+  preHandler = 'preHandler',
+  postHandler = 'postHandler',
+  preRequest = 'preRequest' ,
+  postRequest = 'postRequest',
+  preResponse = 'preResponse' ,
+  postResponse = 'postResponse',
+  preValidate = 'preValidate' ,
+  postValidate = 'postValidate',
+}
 
 /**
  * Type definitions
  */
 export interface ExtensionPlugin {
   point: LifecycleRequestType
-  handler(...args: any[]): any
+  handler(...args: any[]): PromiseLike<any>
 }
 
 export interface ExtensionsConfig {
