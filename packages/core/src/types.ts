@@ -1,3 +1,5 @@
+/* tslint:disable:prefer-array-literal */
+
 import {
   ActionTransport,
   CONNECTORS_PROPERTY,
@@ -29,6 +31,16 @@ export type $Keys<T extends object> = keyof T
  * @see https://flow.org/en/docs/types/utilities/#toc-values
  */
 export type $Values<T extends object> = T[keyof T]
+
+/**
+ * DeepPartial
+ * @desc marks all nested properties as partial
+ */
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends Array<infer U>
+    ? Array<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer X> ? ReadonlyArray<DeepPartial<X>> : DeepPartial<T[P]>
+}
 
 /**
  * Generic PlguinConnect Interface

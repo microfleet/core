@@ -15,6 +15,7 @@ import {
   PluginHealthCheck
 } from './utils/pluginHealthStatus'
 import {
+  DeepPartial,
   HandlerProperties,
   Plugin,
   PluginInterface,
@@ -104,11 +105,6 @@ export interface ConfigurationOptional {
    * Router configuration
    */
   router: RouterConfig
-
-  /**
-   * For now any property can be put on the main class
-   */
-  [property: string]: any
 }
 
 /**
@@ -120,6 +116,11 @@ export interface ConfigurationRequired {
    * in implementing services extensively
    */
   name: string
+
+  /**
+   * For now any property can be put on the main class
+   */
+  [property: string]: any
 }
 
 export type CoreOptions = ConfigurationRequired
@@ -145,7 +146,7 @@ export class Microfleet extends EventEmitter {
    * @param [opts={}] - Overrides for configuration.
    * @returns Instance of microservice.
    */
-  constructor(opts: ConfigurationRequired & Partial<ConfigurationOptional>) {
+  constructor(opts: ConfigurationRequired & DeepPartial<ConfigurationOptional>) {
     super()
 
     // init configuration
