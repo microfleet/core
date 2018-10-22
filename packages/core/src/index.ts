@@ -10,6 +10,7 @@ import is = require('is')
 import partial = require('lodash.partial')
 import * as constants from './constants'
 import * as defaultOpts from './defaults'
+import { HttpStatusError } from '@microfleet/validation'
 import {
   getHealthStatus,
   PluginHealthCheck
@@ -259,7 +260,17 @@ export class Microfleet extends EventEmitter {
   public initPlugin(mod: Plugin, conf?: any) {
     this.plugins.push(mod.name)
 
-    const expose = mod.attach.call(this, conf || this.config[mod.name], __filename)
+    let expose: PluginInterface
+
+    try {
+      expose = mod.attach.call(this, conf || this.config[mod.name], __filename)
+    } catch (e) {
+      if (e.constructor === HttpStatusError) {
+        e.message = `[@microfleet/core] Could not attach ${mod.name}:\n${e.message}`
+      }
+
+      throw e
+    }
 
     if (!is.object(expose)) {
       return
