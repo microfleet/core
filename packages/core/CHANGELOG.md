@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.1.3](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.2...@microfleet/core-v13.1.3) (2018-10-22)
+
+
+### Bug Fixes
+
+* redisSentinel schema, more types ([62d1556](https://github.com/microfleet/core/commit/62d1556))
+
 # [@microfleet/core-v13.1.2](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.1...@microfleet/core-v13.1.2) (2018-10-21)
 
 
