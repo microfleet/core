@@ -1,13 +1,12 @@
 import assert = require('assert')
 import { NotFoundError, NotSupportedError } from 'common-errors'
-import { ActionTransport, PluginTypes } from '../constants'
+import { ActionTransport, PluginTypes, identity } from '../constants'
 import { Microfleet } from '../'
 import { ServiceRequest } from '../types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
 import { ValidatorPlugin } from './validator'
 import { LoggerPlugin } from './logger'
-
-const identity = <T>(arg: T) => arg
+import { object as isObject } from 'is'
 const { internal } = ActionTransport
 
 /**
@@ -36,6 +35,14 @@ export const type = PluginTypes.essential
 export const priority = 100
 
 /**
+ * Shallow copies object, pass-through everything else
+ */
+const shallowObjectClone = (prop: any) =>
+  isObject(prop)
+    ? Object.assign(Object.create(null), prop)
+    : prop
+
+/**
  * Fills gaps in default service request.
  * @param request - service request.
  * @returns Prepared service request.
@@ -46,8 +53,9 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
   // make sure we standardize the request
   // to provide similar interfaces
   action: null as any,
-  headers: { ...request.headers },
-  locals: { ...request.locals },
+  headers: shallowObjectClone(request.headers),
+  locals: shallowObjectClone(request.locals),
+  auth: shallowObjectClone(request.auth),
   log: console as any,
   method: internal as ServiceRequest['method'],
   params: { ...request.params },
