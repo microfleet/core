@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.2.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.4...@microfleet/core-v13.2.0) (2018-10-23)
+
+
+### Features
+
+* run all hooks of pipeline, regardless of action ([87cc941](https://github.com/microfleet/core/commit/87cc941))
+
 # [@microfleet/core-v13.1.4](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.3...@microfleet/core-v13.1.4) (2018-10-23)
 
 
