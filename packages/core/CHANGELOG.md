@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.2.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.2.0...@microfleet/core-v13.2.1) (2018-10-23)
+
+
+### Bug Fixes
+
+* allow dispatch to pass auth obj ([a1bea26](https://github.com/microfleet/core/commit/a1bea26))
+
 # [@microfleet/core-v13.2.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.4...@microfleet/core-v13.2.0) (2018-10-23)
 
 
