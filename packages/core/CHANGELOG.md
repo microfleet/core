@@ -1,3 +1,11 @@
+# [@microfleet/core-v13.1.4](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.3...@microfleet/core-v13.1.4) (2018-10-23)
+
+
+### Bug Fixes
+
+* service.dispatch types ([4ca8235](https://github.com/microfleet/core/commit/4ca8235))
+* update lock file ([706dc17](https://github.com/microfleet/core/commit/706dc17))
+
 # [@microfleet/core-v13.1.3](https://github.com/microfleet/core/compare/@microfleet/core-v13.1.2...@microfleet/core-v13.1.3) (2018-10-22)
 
 
