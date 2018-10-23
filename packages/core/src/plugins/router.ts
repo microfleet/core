@@ -22,7 +22,7 @@ export { Router, RouterConfig, LifecycleRequestType }
  */
 export interface RouterPlugin {
   router: Router
-  dispatch: Router['dispatch']
+  dispatch: (route: string, request: Partial<ServiceRequest>) => PromiseLike<any>
 }
 
 /**
@@ -40,7 +40,7 @@ export const priority = 100
  * @param request - service request.
  * @returns Prepared service request.
  */
-const prepareRequest = (request: ServiceRequest): ServiceRequest => ({
+const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
   // initiate action to ensure that we have prepared proto fo the object
   // input params
   // make sure we standardize the request
@@ -84,7 +84,7 @@ export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & Route
     : identity
 
   // dispatcher
-  service.dispatch = (route: string, request: ServiceRequest) => {
+  service.dispatch = (route: string, request: Partial<ServiceRequest>) => {
     const msg = prepareRequest(request)
     return router.dispatch(assemble(route), msg)
   }

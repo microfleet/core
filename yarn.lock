@@ -1159,10 +1159,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/hapi@^17.6.1":
-  version "17.6.1"
-  resolved "https://registry.yarnpkg.com/@types/hapi/-/hapi-17.6.1.tgz#006590e92d82bb5b1e20af6d4bc46898a8d43db2"
-  integrity sha512-Fk8j8INn131ws5kmqaMxYSlyg38iMjsQ2TbY2XMvWhPDfErFWBqTDJcB4jP8Hv68A5PaG9M1+nNWM3mHxTFg4Q==
+"@types/hapi@^17.6.2":
+  version "17.6.2"
+  resolved "https://registry.yarnpkg.com/@types/hapi/-/hapi-17.6.2.tgz#9de9e98f508975a1e4c04ee7e58b6aae565453c9"
+  integrity sha512-dRratHV2m74/WwLTa/v/wnHaFWzLhww9/DjrzzgAEhM3cKB2//O9jGsPjavIPthEnL4fPH8Ub5d5jr5qklManQ==
   dependencies:
     "@types/boom" "*"
     "@types/catbox" "*"
@@ -1192,10 +1192,10 @@
   resolved "https://registry.yarnpkg.com/@types/is/-/is-0.0.20.tgz#f4a582a0e9505555947a0ffa62e2c0900307717e"
   integrity sha512-013vMJ4cpYRm1GavhN8HqSKRWD/txm2BLcy/Qw9hAoSNJwp60ezLH+/QlX3JouGTPJcmxvbDUWGANxjS52jRaw==
 
-"@types/jest@^23.3.5":
-  version "23.3.5"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.5.tgz#870a1434208b60603745bfd214fc3fc675142364"
-  integrity sha512-3LI+vUC3Wju28vbjIjsTKakhMB8HC4l+tMz+Z8WRzVK+kmvezE5jcOvKtBpznWSI5KDLFo+FouUhpTKoekadCA==
+"@types/jest@^23.3.7":
+  version "23.3.7"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.7.tgz#77f9a4332ccf8db680a31818ade3ee454c831a79"
+  integrity sha512-N0p6mHrS0RHC3A9hHN4QH1RM2fGSb2E8rt6ONEK5xKSnyKtn/JAhr1VritkCn6cdyDBephVB80THqJGWzK8FAw==
 
 "@types/joi@*":
   version "13.6.1"
