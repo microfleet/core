@@ -3,7 +3,7 @@
   "coverage": false,
   "auto_compose": true,
   "node": "10.12.0",
-  "parallel": 4,
+  "parallel": 3,
   "services": [
     "redisSentinel",
     "redisCluster",
@@ -16,7 +16,7 @@
     "tester": {
       "working_dir": "/src/packages/core",
       "volumes": [
-        "${PWD}/../../:/src"
+        "${PWD}/../../:/src:cached"
       ],
       "environment": {
         "TS_NODE_TRANSPILE_ONLY": "true",
