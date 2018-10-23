@@ -6,11 +6,11 @@ import upperFirst = require('lodash/upperFirst')
 import Extensions, { LifecycleRequestType } from '../../extensions'
 
 const debug = _debug('mservice:router:module:lifecycle')
-export type PromiseFactory = (...args: any[]) => PromiseLike<any>
+export type ActionHandler = (...args: any[]) => any
 
 function moduleLifecycle(
   module: string,
-  promiseFactory: PromiseFactory,
+  promiseFactory: ActionHandler,
   extensions: Extensions,
   args: any[],
   context?: any

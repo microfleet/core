@@ -1,5 +1,6 @@
 import Bluebird = require('bluebird')
-import { ArgumentError, HttpStatusError, NotPermittedError } from 'common-errors'
+import { identity } from '../../../constants'
+import { HttpStatusError, NotPermittedError } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
 import { ServiceRequest } from '../../../types'
@@ -24,15 +25,11 @@ function allowed(this: Microfleet, request: ServiceRequest) {
 }
 
 function allowedHandler(this: Microfleet, request: ServiceRequest) {
-  if (request.action === undefined) {
-    return Bluebird.reject(new ArgumentError('"request" must have property "action"'))
-  }
+  const allowedFn = is.undefined(request.action.allowed)
+    ? identity
+    : allowed
 
-  if (is.undefined(request.action.allowed)) {
-    return Bluebird.resolve(request)
-  }
-
-  return moduleLifecycle('allowed', allowed, this.router.extensions, [request], this)
+  return moduleLifecycle('allowed', allowedFn, this.router.extensions, [request], this)
 }
 
 export default allowedHandler

@@ -1,4 +1,3 @@
-// tslint:disable variable-name
 /**
  * This file exports constants used throughout the project
  * @module mservice:constants
@@ -9,6 +8,11 @@ export type Primitive = string | number | boolean | undefined | null
 export function literal<T extends Primitive>(value: T):T {
   return value
 }
+
+/**
+ * Returns first arg that is passed to the function
+ */
+export const identity = <T>(arg: T) => arg
 
 /**
  * Connector property.
@@ -90,5 +94,3 @@ export const PluginsPriority = [
 
 export const PLUGIN_STATUS_OK = 'ok'
 export const PLUGIN_STATUS_FAIL = 'fail'
-
-// tslint:enable

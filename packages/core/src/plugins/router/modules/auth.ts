@@ -1,8 +1,9 @@
 import Bluebird = require('bluebird')
-import { ArgumentError, AuthenticationRequiredError, NotImplementedError } from 'common-errors'
+import { AuthenticationRequiredError, NotImplementedError } from 'common-errors'
 import is = require('is')
-import { Microfleet } from '../../../'
+import { Microfleet, RouterPlugin } from '../../../'
 import { AuthConfig, ServiceRequest } from '../../../types'
+import { identity } from '../../../constants'
 import moduleLifecycle from './lifecycle'
 
 export interface AuthStrategy {
@@ -105,19 +106,13 @@ function auth(this: Microfleet, request: ServiceRequest, strategies: AuthOptions
   return promise.catch(remapError)
 }
 
-function assignStrategies(strategies: any) {
-  return function authHandler(this: Microfleet, request: ServiceRequest): PromiseLike<any> {
-    const { action } = request
+function assignStrategies(strategies: AuthOptions['strategies']) {
+  return function authHandler(this: Microfleet & RouterPlugin, request: ServiceRequest): PromiseLike<any> {
+    const authFn = is.undefined(request.action.auth)
+      ? identity
+      : auth
 
-    if (action === undefined) {
-      return Bluebird.reject(new ArgumentError('"request" must have property "action"'))
-    }
-
-    if (is.undefined(action.auth)) {
-      return Bluebird.resolve(request)
-    }
-
-    return moduleLifecycle('auth', auth, this.router.extensions, [request, strategies], this)
+    return moduleLifecycle('auth', authFn, this.router.extensions, [request, strategies], this)
   }
 }
 

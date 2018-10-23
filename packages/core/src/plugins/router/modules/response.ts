@@ -14,11 +14,11 @@ import {
   TimeoutError,
   ValidationError
 } from 'common-errors'
-import { Microfleet } from '../../../'
+import { Microfleet, LoggerPlugin } from '../../../'
 import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
-function response(this: Microfleet, err: Error | null, result: any) {
+function response(this: Microfleet & LoggerPlugin, err: Error | null, result: any) {
   const service = this
 
   if (err) {

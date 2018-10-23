@@ -1,6 +1,6 @@
 import { HttpStatusError } from '@microfleet/validation'
 import Bluebird = require('bluebird')
-import { ArgumentError, Error } from 'common-errors'
+import { Error } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
 import { DATA_KEY_SELECTOR } from '../../../constants'
@@ -36,16 +36,16 @@ function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequest) {
     .then(validationSuccess, handleValidationError)
 }
 
-function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequest)  {
-  if (request.action === undefined) {
-    return Bluebird.reject(new ArgumentError('"request" must have property "action"'))
-  }
+function passThrough(request: ServiceRequest): ServiceRequest {
+  return request
+}
 
-  if (is.undefined(request.action.schema)) {
-    return Bluebird.resolve(request)
-  }
+function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequest): Bluebird<any>  {
+  const validateFn = is.undefined(request.action.schema)
+    ? passThrough
+    : validate
 
-  return moduleLifecycle('validate', validate, this.router.extensions, [request], this)
+  return moduleLifecycle('validate', validateFn, this.router.extensions, [request], this)
 }
 
 export default validateHandler

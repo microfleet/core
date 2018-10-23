@@ -19,17 +19,17 @@ function getAction(this: Microfleet & RouterPlugin, route: string, request: Serv
 
   const action = service.router.routes[transport][route]
 
-  if (is.undefined(action)) {
+  if (!is.fn(action)) {
     return Bluebird.reject(new NotFoundError(`route "${route}" not found`))
   }
 
   request.action = action
   request.route = route
 
-  return Bluebird.resolve(request)
+  return request
 }
 
-function requestHandler(this: Microfleet, route: string, request: ServiceRequest) {
+function requestHandler(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest) {
   const service = this
   const { extensions } = service.router
 
