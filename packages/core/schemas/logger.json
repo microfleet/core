@@ -17,14 +17,11 @@
         "sentry": {
           "type": "object",
           "properties": {
-            "dns": {
+            "dsn": {
               "type": "string"
             },
-            "level": {
+            "logLevel": {
               "type": "string"
-            },
-            "options": {
-              "type": "object"
             }
           }
         }

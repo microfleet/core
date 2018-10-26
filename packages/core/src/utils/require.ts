@@ -3,6 +3,7 @@ import semver = require('semver')
 
 const pluginDependencies = {
   '@microfleet/transport-amqp': '>= 13',
+  '@sentry/node': '~4.x.x',
   'body-parser': '~1.x.x',
   boom: '~7.x.x',
   bunyan: '~1.x.x',
@@ -16,7 +17,6 @@ const pluginDependencies = {
   'ms-socket.io-adapter-amqp': '~5.x.x',
   'opentracing-js-ioredis': '~1.x.x || ~2.x.x',
   pg: '~7.x.x',
-  raven: '~2.x.x',
   'server-destroy': '~1.x.x',
   'socket.io': '~2.x.x',
   'socketio-wildcard': '~2.x.x',

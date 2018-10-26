@@ -1,18 +1,17 @@
 import assert = require('assert')
 import { SentryStream } from 'bunyan-sentry-stream'
-import raven = require('raven')
+import * as Sentry from '@sentry/node'
 
 function sentryStreamFactory(config: any) {
-  const { level, options } = config
+  const { logLevel, dsn } = config
 
-  const dsn = config.dsn || config.dns
   assert(dsn, '"dsn" property must be set')
 
-  const client = new raven.Client(dsn, options)
+  Sentry.init(config)
 
   return {
-    level: level || 'error',
-    stream: new SentryStream(client),
+    level: logLevel || 'error',
+    stream: new SentryStream(Sentry),
     type: 'raw',
   }
 }
