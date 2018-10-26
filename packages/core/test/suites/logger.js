@@ -74,7 +74,7 @@ describe('Logger suite', function testSuite() {
       logger: {
         streams: {
           sentry: {
-            dns: 'https://api:key@sentry.io/1822',
+            dsn: 'https://api:key@sentry.io/1822',
           },
         },
       },

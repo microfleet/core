@@ -70,6 +70,7 @@
   "devDependencies": {
     "@microfleet/transport-amqp": "^13.1.2",
     "@microfleet/validation": "^8.1.0",
+    "@sentry/node": "^4.2.3",
     "@types/bluebird": "^3.5.24",
     "@types/bluebird-retry": "^0.11.2",
     "@types/bunyan": "^1.8.5",
@@ -89,7 +90,6 @@
     "@types/lodash.partial": "^4.2.4",
     "@types/node": "^10.11.7",
     "@types/qs": "^6.5.1",
-    "@types/raven": "^2.5.1",
     "@types/semver": "^5.5.0",
     "@types/uuid": "^3.4.4",
     "body-parser": "^1.18.3",
@@ -117,7 +117,6 @@
     "opentracing-js-ioredis": "^2.1.1",
     "patch-package": "^5.1.1",
     "pg": "^7.5.0",
-    "raven": "^2.6.4",
     "request": "^2.88.0",
     "request-promise": "^4.2.1",
     "rimraf": "^2.6.1",
