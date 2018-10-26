@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.3.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.2.1...@microfleet/core-v13.3.0) (2018-10-26)
+
+
+### Features
+
+* **log:** change library for setry (raven to sentry node) ([#291](https://github.com/microfleet/core/issues/291)) ([67345fe](https://github.com/microfleet/core/commit/67345fe))
+
 # [@microfleet/core-v13.2.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.2.0...@microfleet/core-v13.2.1) (2018-10-23)
 
 
