@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.3.2](https://github.com/microfleet/core/compare/@microfleet/core-v13.3.1...@microfleet/core-v13.3.2) (2018-10-27)
+
+
+### Bug Fixes
+
+* ensure bluebird gets its own copy with cancellation active ([0f246df](https://github.com/microfleet/core/commit/0f246df))
+
 # [@microfleet/core-v13.3.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.3.0...@microfleet/core-v13.3.1) (2018-10-27)
 
 
