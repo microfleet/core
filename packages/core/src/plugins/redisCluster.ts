@@ -1,6 +1,7 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
+import eventToPromise = require('event-to-promise')
 import { Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import migrate from './redis/migrate'
@@ -65,7 +66,16 @@ export function attach(this: Microfleet, opts: any = {}) {
         loadLuaScripts.call(service, conf.luaScripts, instance)
       }
 
-      await instance.connect()
+      const $conn = instance.connect() as Bluebird<void>
+      const $ready = eventToPromise(instance, 'ready', { ignoreErrors: true })
+      await Bluebird.race([$conn, $ready])
+
+      // cancel either promise
+      if ($conn.isPending()) {
+        $conn.cancel()
+      } else {
+        ($ready as any).cancel()
+      }
 
       service.addMigrator('redis', migrate, instance, service)
       service.redis = instance

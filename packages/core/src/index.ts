@@ -371,7 +371,7 @@ export class Microfleet extends EventEmitter {
 
   /**
    * Helper for calling funcs and emitting event after.
-   * @private
+   *
    * @param collection - Object with namespaces for arbitrary handlers.
    * @param event - Type of handlers that must be called.
    * @param [priority=Microfleet.ConnectorsPriority] - Order to process collection.
@@ -380,12 +380,12 @@ export class Microfleet extends EventEmitter {
   private async processAndEmit(collection: any, event: string, priority = ConnectorsPriority) {
     const responses = []
     for (const connectorType of priority) {
-      const connectors = collection[connectorType]
+      const connectors: PluginConnector[] | void = collection[connectorType]
       if (!connectors) {
         continue
       }
 
-      responses.push(...await Bluebird.resolve(connectors as PluginConnector[]).bind(this).map(invoke))
+      responses.push(...await Bluebird.resolve(connectors).bind(this).map(invoke))
     }
 
     this.emit(event)
