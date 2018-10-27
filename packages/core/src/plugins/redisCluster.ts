@@ -37,7 +37,12 @@ export function attach(this: Microfleet, opts: any = {}) {
 
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  Redis.Promise = Bluebird
+  // push out its own bluebird version and configure cancellation
+  Redis.Promise = Bluebird.getNewLibraryCopy()
+  Redis.Promise.config({
+    cancellation: true,
+  })
+
   const { Cluster } = Redis
   const isClusterStarted = isStarted(service, Cluster)
   const conf = service.ifError('redisCluster', opts)
