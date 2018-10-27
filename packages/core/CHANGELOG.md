@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.3.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.3.0...@microfleet/core-v13.3.1) (2018-10-27)
+
+
+### Bug Fixes
+
+* redisCluster endless connect ([de169d1](https://github.com/microfleet/core/commit/de169d1))
+
 # [@microfleet/core-v13.3.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.2.1...@microfleet/core-v13.3.0) (2018-10-26)
 
 
