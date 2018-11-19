@@ -84,7 +84,7 @@
     "@types/glob": "^7.1.1",
     "@types/hapi": "^17.6.2",
     "@types/ioredis": "^4.0.3",
-    "@types/is": "^0.0.20",
+    "@types/is": "^0.0.21",
     "@types/jest": "^23.3.7",
     "@types/lodash.intersection": "^4.4.4",
     "@types/lodash.partial": "^4.2.4",
