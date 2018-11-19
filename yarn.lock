@@ -1239,10 +1239,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/is@^0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@types/is/-/is-0.0.20.tgz#f4a582a0e9505555947a0ffa62e2c0900307717e"
-  integrity sha512-013vMJ4cpYRm1GavhN8HqSKRWD/txm2BLcy/Qw9hAoSNJwp60ezLH+/QlX3JouGTPJcmxvbDUWGANxjS52jRaw==
+"@types/is@^0.0.21":
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/@types/is/-/is-0.0.21.tgz#1f4b0afe428991564abbd890844eba2458bc83e6"
+  integrity sha512-j2v73mj4I47lOaA8r+5tknsgsqlRPDN224sS0Y7ORzlx3AXxqL6RhK/BRhEMP98RJIVW7WTnXZ9ZqQSNdWWuwg==
 
 "@types/jest@^23.3.7":
   version "23.3.7"
@@ -4030,11 +4030,6 @@ flexbuffer@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/flexbuffer/-/flexbuffer-0.0.6.tgz#039fdf23f8823e440c38f3277e6fef1174215b30"
   integrity sha1-A5/fI/iCPkQMOPMnfm/vEXQhWzA=
-
-flow-bin@0.83.0:
-  version "0.83.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.83.0.tgz#fd26f5f95758d7701264b3f9a1e1a3d4cbcab1a9"
-  integrity sha512-1K83EL/U9Gh0BaXPKkZe6TRizSmNSKx9Wuws1c8gh7DJEwiburtCxYT+4o7in1+GnNEm3CZWnbnVV8n9HMpiDA==
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
