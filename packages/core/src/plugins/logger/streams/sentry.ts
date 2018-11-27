@@ -7,7 +7,7 @@ function sentryStreamFactory(config: any) {
 
   assert(dsn, '"dsn" property must be set')
 
-  Sentry.init(config)
+  Sentry.init(Object.assign({ environment: process.env.NODE_ENV || 'development' }, config))
 
   return {
     level: logLevel || 'error',
