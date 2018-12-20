@@ -1,4 +1,3 @@
-import omit = require('lodash/omit')
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
 
@@ -6,13 +5,18 @@ import * as Sentry from '@sentry/node'
  * Sentry stream for Pino
  */
 class SentryStream {
+  private lastLevel?: number
+  private lastTime?: string
+  private lastMsg?: string
+  private lastObj?: any
+
   /**
    * Method call by Pino to save log record
    */
-  public write(record: any) {
+  public write(_: string) {
+    const record = this.lastObj
     const { err, tags } = record
-    const level = this.getSentryLevel(record)
-    const extra = omit(record, 'err', 'tags')
+    const level = this.getSentryLevel(this.lastLevel as number)
 
     Sentry.withScope((scope: Sentry.Scope) => {
       if (Array.isArray(tags)) {
@@ -25,18 +29,14 @@ class SentryStream {
         }
       }
 
-      if (extra) {
-        scope.setExtra('extra', extra)
-      }
-
-      if (level) {
-        scope.setLevel(level)
-      }
+      scope.setExtra('extra', this.lastObj)
+      scope.setExtra('captured', this.lastTime)
+      scope.setExtra('message', this.lastMsg)
 
       if (err) {
         Sentry.captureException(this.deserializeError(err))
       } else {
-        Sentry.captureMessage(record.msg)
+        Sentry.captureMessage(this.lastMsg || '<no-message>', level)
       }
     })
 
@@ -46,12 +46,8 @@ class SentryStream {
   /**
    * Convert Bunyan level number to Sentry level label.
    * Rule : >50=error ; 40=warning ; info otherwise
-   * @param  {Object} record Bunyan log record
-   * @return {String}        Sentry level
    */
-  getSentryLevel(record: any): Sentry.Severity {
-    const level = record.level as number
-
+  getSentryLevel(level: number): Sentry.Severity {
     if (level >= 50) return Sentry.Severity.Error
     if (level === 40) return Sentry.Severity.Warning
 
@@ -83,9 +79,21 @@ function sentryStreamFactory(config: Sentry.NodeOptions) {
 
   Sentry.init(config)
 
+  const dest = new SentryStream()
+  // @ts-ignore
+  dest[Symbol.for('pino.metadata')] = true
+
+  // rewire for testing purposes
+  if (process.env.NODE_ENV === 'test') {
+    // @ts-ignore
+    Sentry.captureException = console.info.bind(console, 'test>>>')
+    // @ts-ignore
+    Sentry.captureMessage = console.info.bind(console, 'test>>>')
+  }
+
   return {
     level: logLevel || 'error',
-    stream: new SentryStream(),
+    stream: dest,
   }
 }
 

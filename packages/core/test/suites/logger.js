@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const assert = require('assert');
 const pino = require('pino');
 
@@ -50,7 +51,7 @@ describe('Logger suite', function testSuite() {
     assert.deepEqual(service.log, logger);
   });
 
-  it('should be able to init sentry stream', function test() {
+  it('should be able to init sentry stream', async function test() {
     const service = new Mservice({
       name: 'tester',
       plugins: ['validator', 'logger'], // order is important
@@ -62,6 +63,13 @@ describe('Logger suite', function testSuite() {
         },
       },
     });
+
+    service.log.info({ sample: 'message', latency: 200 }, 'test')
+    service.log.debug({ sample: 'message', latency: 200 }, 'test')
+    service.log.debug({ sample: 'message', latency: 200 }, 'test')
+    service.log.error(new Error('crap'), 'test')
+
+    await Promise.delay(1000);
 
     assert.ok(service.log);
     assert.ok(typeof service.log.info === 'function');
