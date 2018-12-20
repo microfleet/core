@@ -86,7 +86,7 @@ function validateAction(actionLike: ServiceAction | { default: ServiceAction }):
 export interface RoutesConfig {
   directory: string
   prefix: string
-  setTransportsAsDefault: boolean
+  setTransportsAsDefault?: boolean
   transports: TransportTypes[]
   enabled: {
     [route: string]: string

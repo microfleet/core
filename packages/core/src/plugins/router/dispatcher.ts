@@ -35,8 +35,8 @@ function reflectToProps(this: ServiceRequest, reflection: Bluebird.Inspection<an
 
 export type RequestCallback = (err: any, result?: any) => void
 
-function dispatch(this: Router, route: string, request: ServiceRequest, callback: RequestCallback): void
 function dispatch(this: Router, route: string, request: ServiceRequest): Bluebird<any>
+function dispatch(this: Router, route: string, request: ServiceRequest, callback: RequestCallback): void
 function dispatch(this: Router, route: string, request: ServiceRequest, callback?: RequestCallback) {
   const router = this
   const { modules, service } = router

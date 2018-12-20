@@ -60,7 +60,7 @@ export interface Plugin {
   name: string
   priority: number
   type: $Values<typeof PluginTypes>
-  attach(conf: any, parentFile: string): void | PluginInterface
+  attach(conf: any, parentFile: string): PluginInterface | never
 }
 
 export type MserviceError = Error & {

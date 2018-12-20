@@ -3,18 +3,28 @@ import { Microfleet } from '../'
 import { PluginTypes } from '../constants'
 import { ValidatorPlugin } from './validator'
 import { NotFoundError } from 'common-errors'
-import bunyan = require('bunyan')
-import stdout = require('stdout-stream')
+import pino = require('pino')
+import pinoms = require('pino-multi-stream')
+import SonicBoom = require('sonic-boom')
+import every = require('lodash/every')
 
 const defaultConfig = {
   debug: false,
   defaultLogger: false,
   name: 'mservice',
   streams: {},
-  trace: false,
+  options: {
+    redact: {
+      paths: [
+        'headers.cookie',
+        'headers.authentication',
+        'params.password',
+      ],
+    },
+  },
 }
 
-function streamsFactory(streamName: string, options: any) {
+function streamsFactory(streamName: string, options: any): pinoms.Streams[0] {
   switch (streamName) {
     case 'sentry': {
       const sentryStreamFactory = require('./logger/streams/sentry').default
@@ -45,17 +55,24 @@ export const name = 'logger'
  * Logger Plugin interface.
  */
 export interface LoggerPlugin {
-  log: bunyan
+  log: pinoms.Logger
 }
 
 export interface LoggerConfig {
   defaultLogger: any
   debug: boolean
   name: string
-  trace?: boolean
+  options: pino.LoggerOptions
   streams: {
-    [streamName: string]: any
+    [streamName: string]: pinoms.Streams
   }
+}
+
+export const levels = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
+export const isCompatible = (obj: any) => {
+  return obj !== null
+    && typeof obj === 'object'
+    && every(exports.levels, (level: any) => typeof obj[level] === 'function')
 }
 
 /**
@@ -72,30 +89,22 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   const {
     debug,
     defaultLogger,
+    options,
     name: serviceName,
     streams: streamsConfig,
-    trace,
   } = Object.assign({}, defaultConfig, config)
 
-  if (defaultLogger instanceof bunyan) {
+  if (isCompatible(defaultLogger)) {
     service.log = defaultLogger
     return
   }
 
-  const streams: bunyan.Stream[] = []
-
-  if (trace) {
-    streams.push({
-      level: 'trace',
-      stream: new bunyan.RingBuffer({ limit: 100 }),
-      type: 'raw',
-    })
-  }
+  const streams: pinoms.Streams = []
 
   if (defaultLogger === true) {
     streams.push({
       level: debug ? 'debug' : 'info',
-      stream: stdout,
+      stream: new SonicBoom((process.stdout as any).fd) as any,
     })
   }
 
@@ -103,7 +112,8 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
     streams.push(streamsFactory(streamName, streamConfig))
   }
 
-  service.log = bunyan.createLogger({
+  service.log = pinoms({
+    ...options,
     streams,
     name: applicationName || serviceName,
   })

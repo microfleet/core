@@ -3,12 +3,13 @@ import noop = require('lodash/noop')
 import { ActionTransport } from '../../..'
 import { ServiceRequest } from '../../../types'
 import { Router } from '../../router/factory'
+import { RequestCallback } from '../../router/dispatcher'
 
 const debug = _debug('mservice:router:socket.io')
 const { socketIO } = ActionTransport
 
 export interface SocketIOMessage {
-  data: [string, any, () => any | null]
+  data: [string, any, RequestCallback]
 }
 
 function getSocketIORouterAdapter(_: any, router: Router) {
@@ -33,7 +34,7 @@ function getSocketIORouterAdapter(_: any, router: Router) {
 
       debug('prepared request with', packet.data)
 
-      return router.dispatch.call(router, actionName, request, callback)
+      router.dispatch.call(router, actionName, request, callback)
     })
   }
 }

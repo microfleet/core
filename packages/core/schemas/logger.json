@@ -11,6 +11,9 @@
     "debug": {
       "type": "boolean"
     },
+    "options": {
+      "type": "object"
+    },
     "streams": {
       "type": "object",
       "properties": {

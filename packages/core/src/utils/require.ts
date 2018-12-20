@@ -6,8 +6,6 @@ const pluginDependencies = {
   '@sentry/node': '~4.x.x',
   'body-parser': '~1.x.x',
   boom: '~7.x.x',
-  bunyan: '~1.x.x',
-  'bunyan-sentry-stream': '~1.x.x',
   elasticsearch: '~14.x.x || ~15.x.x',
   'express-cassandra': '~2.x.x',
   hapi: '>= 17.x.x < 18',

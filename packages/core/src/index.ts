@@ -202,7 +202,7 @@ export class Microfleet extends EventEmitter {
 
     return Bluebird
       .resolve(listeners)
-      .map((listener: (args: any[]) => any) => {
+      .map((listener: (this: Microfleet, ...args: any[]) => any) => {
         return listener.apply(this, args)
       })
   }
