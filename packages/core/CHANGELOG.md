@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.0...@microfleet/core-v13.4.1) (2018-12-20)
+
+
+### Bug Fixes
+
+* logging to sentry ([7e94a12](https://github.com/microfleet/core/commit/7e94a12))
+
 # [@microfleet/core-v13.4.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.3.2...@microfleet/core-v13.4.0) (2018-12-20)
 
 
