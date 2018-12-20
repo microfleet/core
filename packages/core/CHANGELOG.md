@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.3.2...@microfleet/core-v13.4.0) (2018-12-20)
+
+
+### Features
+
+* rework logger ([4e870fd](https://github.com/microfleet/core/commit/4e870fd))
+
 # [@microfleet/core-v13.3.2](https://github.com/microfleet/core/compare/@microfleet/core-v13.3.1...@microfleet/core-v13.3.2) (2018-10-27)
 
 
