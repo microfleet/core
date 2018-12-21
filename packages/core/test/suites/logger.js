@@ -70,6 +70,7 @@ describe('Logger suite', function testSuite() {
     service.log.error(new Error('crap'), 'test')
     service.log.error('failed to produce message', [], new Error('oops'))
     service.log.error('empty object?')
+    service.log.error('empty object?', new Error('somewhere'))
 
     await Promise.delay(1000);
 
