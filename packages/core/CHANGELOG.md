@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.2](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.1...@microfleet/core-v13.4.2) (2018-12-21)
+
+
+### Bug Fixes
+
+* crash on sentry logger ([e62c361](https://github.com/microfleet/core/commit/e62c361))
+
 # [@microfleet/core-v13.4.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.0...@microfleet/core-v13.4.1) (2018-12-20)
 
 
