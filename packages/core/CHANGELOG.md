@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.3](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.2...@microfleet/core-v13.4.3) (2018-12-21)
+
+
+### Bug Fixes
+
+* crash when sending sentry logs ([b918f38](https://github.com/microfleet/core/commit/b918f38))
+
 # [@microfleet/core-v13.4.2](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.1...@microfleet/core-v13.4.2) (2018-12-21)
 
 
