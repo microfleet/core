@@ -14,7 +14,7 @@ class SentryStream {
    * Method call by Pino to save log record
    */
   public write(_: string) {
-    const record = this.lastObj
+    const record = this.lastObj || Object.create(null)
     const { err, tags } = record
     const level = this.getSentryLevel(this.lastLevel as number)
 

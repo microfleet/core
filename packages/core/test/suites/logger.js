@@ -68,6 +68,8 @@ describe('Logger suite', function testSuite() {
     service.log.debug({ sample: 'message', latency: 200 }, 'test')
     service.log.debug({ sample: 'message', latency: 200 }, 'test')
     service.log.error(new Error('crap'), 'test')
+    service.log.error('failed to produce message', [], new Error('oops'))
+    service.log.error('empty object?')
 
     await Promise.delay(1000);
 
