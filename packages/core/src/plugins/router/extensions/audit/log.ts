@@ -34,6 +34,7 @@ export default [
         query: request.query,
         route: request.route,
         transport: request.transport,
+        response: undefined,
       }
 
       if (error) {
@@ -41,7 +42,11 @@ export default [
         const level = error.statusCode && error.statusCode < 400 ? 'info' : 'error'
         request.log[level](meta, 'Error performing operation', err)
       } else {
-        request.log.info(meta, 'completed operation', service.config.debug ? result : '')
+        if (service.config.debug) {
+          meta.response = result
+        }
+
+        request.log.info(meta, 'completed operation')
       }
 
       return [error, result]

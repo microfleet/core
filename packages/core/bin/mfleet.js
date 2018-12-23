@@ -34,7 +34,7 @@ service
   .connect()
   .asCallback((err) => {
     if (err) {
-      service.log.fatal('service crashed', err);
+      service.log.fatal({ err }, 'service crashed');
       throw err;
     }
 

@@ -1,44 +1,62 @@
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
+import path = require('path')
+import readPkgUp = require('read-pkg-up')
+import parentModule = require('parent-module')
+import lsmod = require('lsmod')
+
+// keys to be banned
+const BAN_LIST = {
+  msg: true,
+  time: true,
+  hostname: true,
+  name: true,
+  level: true,
+}
 
 /**
  * Sentry stream for Pino
  */
 class SentryStream {
-  private lastLevel?: number
-  private lastTime?: string
-  private lastMsg?: string
-  private lastObj?: any
-  private tmpObj = Object.create(null)
+  private release: string
+  private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
+  private modules?: any = lsmod()
+
+  constructor(opts: any) {
+    this.release = opts.release
+  }
 
   /**
    * Method call by Pino to save log record
+   * msg is a stringified set of data
    */
-  public write(_: string) {
-    const record = this.lastObj || this.tmpObj
-    const { err, tags } = record
-    const level = this.getSentryLevel(this.lastLevel as number)
+  public write(msg: string) {
+    const event = JSON.parse(msg)
+    const extra = Object.create(null)
 
-    Sentry.withScope((scope: Sentry.Scope) => {
-      if (Array.isArray(tags)) {
-        for (const tag of tags) {
-          scope.setTag(tag, tag)
-        }
-      } else if (tags && typeof tags === 'object') {
-        for (const [tag, value] of Object.entries<string>(tags)) {
-          scope.setTag(tag, value)
-        }
-      }
+    for (const [key, value] of Object.entries<any>(extra)) {
+      // @ts-ignore
+      if (BAN_LIST[key] === true) continue
+      extra[key] = value
+    }
 
-      scope.setExtra('extra', this.lastObj)
-      scope.setExtra('captured', this.lastTime)
-      scope.setExtra('message', this.lastMsg)
-
-      if (err) {
-        Sentry.captureException(this.deserializeError(err))
-      } else {
-        Sentry.captureMessage(this.lastMsg || '<no-message>', level)
-      }
+    Sentry.captureEvent({
+      extra,
+      message: event.msg,
+      timestamp: event.time,
+      level: this.getSentryLevel(event.level),
+      platform: 'node',
+      server_name: event.hostname,
+      logger: event.name,
+      release: this.release,
+      environment: this.env,
+      sdk: {
+        name: Sentry.SDK_NAME,
+        version: Sentry.SDK_VERSION,
+      },
+      modules: this.modules,
+      fingerprint: ['{{ default }}'],
+      stacktrace: event.err ? event.err.stack : event.stack,
     })
 
     return true
@@ -81,26 +99,16 @@ function sentryStreamFactory(config: Sentry.NodeOptions) {
   Sentry.init({
     ...config,
     defaultIntegrations: false,
-    integrations: [
-      new Sentry.Integrations.Dedupe(),
-      new Sentry.Integrations.InboundFilters(),
-      new Sentry.Integrations.ExtraErrorData(),
-      new Sentry.Integrations.SDKInformation(),
-      new Sentry.Integrations.Console(),
-      new Sentry.Integrations.Http(),
-      new Sentry.Integrations.OnUncaughtException(),
-      new Sentry.Integrations.OnUnhandledRejection(),
-      new Sentry.Integrations.LinkedErrors(),
-    ],
     ...process.env.NODE_ENV === 'test' && {
       integrations: [
         new Sentry.Integrations.Debug(),
-        new Sentry.Integrations.Modules(),
       ],
     },
   })
 
-  const dest = new SentryStream()
+  const dest = new SentryStream({
+    release: readPkgUp.sync({ cwd: path.dirname(parentModule()) }).pkg.version,
+  })
   // @ts-ignore
   dest[Symbol.for('pino.metadata')] = true
 

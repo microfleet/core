@@ -52,7 +52,7 @@ function response(this: Microfleet & LoggerPlugin, err: Error | null, result: an
       }
     }
 
-    service.log.fatal('unexpected error', err)
+    service.log.fatal({ err }, 'unexpected error')
     return Bluebird.reject(new CError(`Something went wrong: ${err.message}`, err))
   }
 
