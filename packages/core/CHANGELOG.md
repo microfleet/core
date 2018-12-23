@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.9](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.8...@microfleet/core-v13.4.9) (2018-12-23)
+
+
+### Bug Fixes
+
+* correct stacktrace order ([b1819f1](https://github.com/microfleet/core/commit/b1819f1))
+
 # [@microfleet/core-v13.4.8](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.7...@microfleet/core-v13.4.8) (2018-12-23)
 
 
