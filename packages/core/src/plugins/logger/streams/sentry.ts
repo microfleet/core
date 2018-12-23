@@ -38,24 +38,34 @@ class SentryStream {
       extra[key] = value
     }
 
-    Sentry.captureEvent({
-      extra,
-      message: event.msg,
-      timestamp: parseInt(event.time, 10),
-      level: this.getSentryLevel(event.level),
-      platform: 'node',
-      server_name: event.hostname,
-      logger: event.name,
-      release: this.release,
-      environment: this.env,
-      sdk: {
-        name: Sentry.SDK_NAME,
-        version: Sentry.SDK_VERSION,
-      },
-      modules: this.modules,
-      fingerprint: ['{{ default }}'],
-      stacktrace: event.err ? event.err.stack : event.stack,
-    })
+    (async () => {
+      let stacktrace = undefined
+      if (event.err && event.err.stack) {
+        try {
+          const stack = await Sentry.Parsers.extractStackFromError(event.err)
+          const frames = await Sentry.Parsers.parseStack(stack)
+          stacktrace = { frames }
+        } catch (e) { /* ignore */ }
+      }
+      Sentry.captureEvent({
+        extra,
+        stacktrace,
+        message: event.msg,
+        timestamp: parseInt(event.time, 10),
+        level: this.getSentryLevel(event.level),
+        platform: 'node',
+        server_name: event.hostname,
+        logger: event.name,
+        release: this.release,
+        environment: this.env,
+        sdk: {
+          name: Sentry.SDK_NAME,
+          version: Sentry.SDK_VERSION,
+        },
+        modules: this.modules,
+        fingerprint: ['{{ default }}'],
+      })
+    })()
 
     return true
   }
