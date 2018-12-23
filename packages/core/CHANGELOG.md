@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.6](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.5...@microfleet/core-v13.4.6) (2018-12-23)
+
+
+### Bug Fixes
+
+* stacktrace extraction ([6285d12](https://github.com/microfleet/core/commit/6285d12))
+
 # [@microfleet/core-v13.4.5](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.4...@microfleet/core-v13.4.5) (2018-12-23)
 
 
