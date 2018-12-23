@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.5](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.4...@microfleet/core-v13.4.5) (2018-12-23)
+
+
+### Bug Fixes
+
+* attaching extra data to error ([d43844e](https://github.com/microfleet/core/commit/d43844e))
+
 # [@microfleet/core-v13.4.4](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.3...@microfleet/core-v13.4.4) (2018-12-23)
 
 
