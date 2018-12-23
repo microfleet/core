@@ -1,8 +1,6 @@
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
-import path = require('path')
 import readPkgUp = require('read-pkg-up')
-import parentModule = require('parent-module')
 import lsmod = require('lsmod')
 
 // keys to be banned
@@ -34,7 +32,7 @@ class SentryStream {
     const event = JSON.parse(msg)
     const extra = Object.create(null)
 
-    for (const [key, value] of Object.entries<any>(extra)) {
+    for (const [key, value] of Object.entries<any>(event)) {
       // @ts-ignore
       if (BAN_LIST[key] === true) continue
       extra[key] = value
@@ -43,7 +41,7 @@ class SentryStream {
     Sentry.captureEvent({
       extra,
       message: event.msg,
-      timestamp: event.time,
+      timestamp: parseInt(event.time, 10),
       level: this.getSentryLevel(event.level),
       platform: 'node',
       server_name: event.hostname,
@@ -107,7 +105,7 @@ function sentryStreamFactory(config: Sentry.NodeOptions) {
   })
 
   const dest = new SentryStream({
-    release: readPkgUp.sync({ cwd: path.dirname(parentModule()) }).pkg.version,
+    release: readPkgUp.sync({ cwd: process.cwd() }).pkg.version,
   })
   // @ts-ignore
   dest[Symbol.for('pino.metadata')] = true
