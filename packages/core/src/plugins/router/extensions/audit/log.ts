@@ -40,13 +40,16 @@ export default [
       if (error) {
         const err = is.fn(error.toJSON) ? error.toJSON() : error.toString()
         const level = error.statusCode && error.statusCode < 400 ? 'info' : 'error'
+        // @ts-ignore
+        meta.err = error
+        // just pass data through
         request.log[level](meta, 'Error performing operation', err)
       } else {
         if (service.config.debug) {
           meta.response = result
         }
 
-        request.log.info(meta, 'completed operation')
+        request.log.info(meta, 'completed operation', request.action.actionName)
       }
 
       return [error, result]
