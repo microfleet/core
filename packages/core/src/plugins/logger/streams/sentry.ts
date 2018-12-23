@@ -12,6 +12,12 @@ const BAN_LIST = {
   level: true,
 }
 
+const {
+  extractStackFromError,
+  parseStack,
+  prepareFramesForEvent,
+} = Sentry.Parsers
+
 /**
  * Sentry stream for Pino
  */
@@ -42,9 +48,9 @@ class SentryStream {
       let stacktrace = undefined
       if (event.err && event.err.stack) {
         try {
-          const stack = await Sentry.Parsers.extractStackFromError(event.err)
-          const frames = await Sentry.Parsers.parseStack(stack)
-          stacktrace = { frames }
+          const stack = await extractStackFromError(event.err)
+          const frames = await parseStack(stack)
+          stacktrace = { frames: await prepareFramesForEvent(frames) }
         } catch (e) { /* ignore */ }
       }
       Sentry.captureEvent({
