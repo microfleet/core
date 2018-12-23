@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.8](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.7...@microfleet/core-v13.4.8) (2018-12-23)
+
+
+### Bug Fixes
+
+* improve audit logger ([5189838](https://github.com/microfleet/core/commit/5189838))
+
 # [@microfleet/core-v13.4.7](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.6...@microfleet/core-v13.4.7) (2018-12-23)
 
 
