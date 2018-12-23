@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.4.7](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.6...@microfleet/core-v13.4.7) (2018-12-23)
+
+
+### Bug Fixes
+
+* sentry timestamp value ([6a11b91](https://github.com/microfleet/core/commit/6a11b91))
+
 # [@microfleet/core-v13.4.6](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.5...@microfleet/core-v13.4.6) (2018-12-23)
 
 
