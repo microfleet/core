@@ -51,7 +51,7 @@ class SentryStream {
         extra,
         stacktrace,
         message: event.msg,
-        timestamp: parseInt(event.time, 10),
+        timestamp: event.time / 1e3,
         level: this.getSentryLevel(event.level),
         platform: 'node',
         server_name: event.hostname,
