@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.5.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.9...@microfleet/core-v13.5.0) (2019-01-15)
+
+
+### Features
+
+* **router:** options for disable some errors for audit log ([#297](https://github.com/microfleet/core/issues/297)) ([da43919](https://github.com/microfleet/core/commit/da43919))
+
 # [@microfleet/core-v13.4.9](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.8...@microfleet/core-v13.4.9) (2018-12-23)
 
 
