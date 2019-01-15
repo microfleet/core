@@ -98,7 +98,7 @@ export const router: Partial<RouterConfig> = {
     /**
      * Enabled plugins
      */
-    register: [autoSchema, auditLog],
+    register: [autoSchema, auditLog()],
   },
 }
 

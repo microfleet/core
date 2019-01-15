@@ -1,3 +1,4 @@
+const { Writable } = require('stream');
 const { expect } = require('chai');
 const Errors = require('common-errors');
 const path = require('path');
@@ -218,7 +219,7 @@ describe('Router suite', function testSuite() {
         },
         extensions: {
           enabled: ['preValidate', 'postRequest', 'preResponse', 'preRequest'],
-          register: [schemaLessAction, auditLog, qsParser, transportOptions],
+          register: [schemaLessAction, auditLog(), qsParser, transportOptions],
         },
       },
       validator: [path.resolve(__dirname, '../router/helpers/schemas')],
@@ -276,7 +277,7 @@ describe('Router suite', function testSuite() {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
             schemaLessAction,
-            auditLog,
+            auditLog(),
           ],
         },
       },
@@ -339,7 +340,7 @@ describe('Router suite', function testSuite() {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
             schemaLessAction,
-            auditLog,
+            auditLog(),
           ],
         },
       },
@@ -415,7 +416,7 @@ describe('Router suite', function testSuite() {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
             schemaLessAction,
-            auditLog,
+            auditLog(),
           ],
         },
       },
@@ -490,7 +491,7 @@ describe('Router suite', function testSuite() {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
             schemaLessAction,
-            auditLog,
+            auditLog(),
           ],
         },
       },
@@ -531,6 +532,7 @@ describe('Router suite', function testSuite() {
     await AMQPRequest('action.generic.health', {}).reflect().then(verify(unhealthyState));
     await HTTPRequest('/action/generic/health').reflect().then(verify(unhealthyStateHTTP));
 
+    await service.close();
     stub.reset();
   });
 
@@ -556,5 +558,81 @@ describe('Router suite', function testSuite() {
     };
 
     expect(() => new Mservice(config)).to.throw(Errors.ValidationError);
+  });
+
+  it('should be able to log error for unknown route', async function test() {
+    const spy = sinon.spy();
+    const spyWritable = new Writable({
+      write(chunk, encoding, callback) {
+        spy(JSON.parse(chunk));
+        callback();
+      },
+      decodeStrings: false,
+    });
+    const service = new Mservice({
+      name: 'tester',
+      http: { server: { handler: 'hapi' }, router: { enabled: true } },
+      logger: {
+        defaultLogger: true,
+        streams: {
+          spy: { level: 'error', stream: spyWritable },
+        },
+      },
+      plugins: ['validator', 'logger', 'router', 'http'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          setTransportsAsDefault: true,
+          transports: [ActionTransport.http],
+        },
+        extensions: { enabled: ['preRequest', 'preResponse'], register: [ auditLog() ] }
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    });
+    const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' });
+
+    await service.connect();
+    await HTTPRequest('/404').reflect();
+    await service.close();
+
+    assert.equal('NotFoundError', spy.getCall(0).args[0].err.type);
+  });
+
+  it('should be able to disable an error logging for unknown route', async function test() {
+    const spy = sinon.spy();
+    const spyWritable = new Writable({
+      write(chunk, encoding, callback) {
+        spy(JSON.parse(chunk));
+        callback();
+      },
+      decodeStrings: false,
+    });
+    const service = new Mservice({
+      name: 'tester',
+      http: { server: { handler: 'hapi' }, router: { enabled: true } },
+      logger: {
+        defaultLogger: true,
+        streams: {
+          spy: { level: 'info', stream: spyWritable },
+        },
+      },
+      plugins: ['validator', 'logger', 'router', 'http'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          setTransportsAsDefault: true,
+          transports: [ActionTransport.http],
+        },
+        extensions: { enabled: ['preRequest', 'preResponse'], register: [ auditLog({ disableLogErrorsForNames: ['NotFoundError'] }) ] }
+      },
+      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+    });
+    const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' });
+
+    await service.connect();
+    await HTTPRequest('/404').reflect();
+    await service.close();
+
+    assert.equal('NotFoundError', spy.getCall(1).args[0].err.type);
   });
 });
