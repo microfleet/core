@@ -180,6 +180,14 @@ export const opentracing = {
   },
 }
 
+export const prometheus = {
+  config: {
+    port: 9102,
+    path: '/metrics',
+    host: 'localhost'
+  },
+}
+
 /**
  * Health check retry options
  * https://www.npmjs.com/package/bluebird-retry
