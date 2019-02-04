@@ -2,7 +2,8 @@ import { Server/*, ResponseToolkit*/ } from 'hapi'
 import { Microfleet, PluginTypes } from '..'
 import _require from '../utils/require'
 const prometheus = require('prom-client')
-// import semver = require('semver')
+import readPkgUp = require('read-pkg-up')
+import semver = require('semver')
 
 /**
  * Plugin Name
@@ -30,18 +31,23 @@ export function attach(this: Microfleet, opts: any = {}) {
   const { port, path, host } = config
   const server = new Server({ host, port })
 
+  // register default metrics
   prometheus.register.clear()
   prometheus.collectDefaultMetrics()
-  // if (!prometheus.register.getSingleMetric('application_version_info')) {
-  //   const { version, major, minor, patch } = semver.parse(options.version)
-  //   const appVersion = new prometheus.Gauge({
-  //     name: 'application_version_info',
-  //     help: 'application version info',
-  //     labelNames: ['version', 'major', 'minor', 'patch']
-  //   })
-  //   appVersion.labels(`v${version}`, major, minor, patch).set(1)
-  // }
 
+  // register service version metric
+  if (!prometheus.register.getSingleMetric('application_version_info')) {
+    const pkgVersion = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
+    const parsedVersion = semver.parse(pkgVersion)
+    const appVersion = new prometheus.Gauge({
+      name: 'application_version_info',
+      help: 'application version info',
+      labelNames: ['version', 'major', 'minor', 'patch']
+    })
+    appVersion.labels(`v${parsedVersion!.version}`, parsedVersion!.major, parsedVersion!.minor, parsedVersion!.patch).set(1)
+  }
+
+  // handle requests for the metrics
   server.route({ method: 'GET', path, handler: () => {
     // h: ResponseToolkit
     // const data = prometheus.register.metrics()
