@@ -1,6 +1,5 @@
 import { createServer } from 'http'
 import { Microfleet, PluginTypes } from '..'
-import _require from '../utils/require'
 import readPkgUp = require('read-pkg-up')
 import semver = require('semver')
 
