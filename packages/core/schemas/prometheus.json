@@ -5,7 +5,7 @@
   "properties": {
     "config": {
       "type": "object",
-      "required": ["port", "path", "host"],
+      "required": ["port", "path"],
       "properties": {
         "port": {
           "type": "number",
@@ -16,12 +16,6 @@
           "type": "string",
           "description": "prometheus metrics path",
           "default": "/metrics",
-          "minLength": 1
-        },
-        "host": {
-          "type": "string",
-          "description": "prometheus listen host",
-          "default": "localhost",
           "minLength": 1
         }
       }

@@ -1,4 +1,4 @@
-import { Server, ResponseToolkit } from 'hapi'
+import { createServer } from 'http'
 import { Microfleet, PluginTypes } from '..'
 import _require from '../utils/require'
 import readPkgUp = require('read-pkg-up')
@@ -28,9 +28,8 @@ export function attach(this: Microfleet, opts: any = {}) {
 
   const prometheus = service.prometheus = require('prom-client')
 
-  const { config } = service.ifError('prometheus', opts)
-  const { port, path, host } = config
-  const server = new Server({ host, port })
+  const { config } = service.ifError(name, opts)
+  const { port, path } = config
 
   // register default metrics
   prometheus.register.clear()
@@ -48,28 +47,15 @@ export function attach(this: Microfleet, opts: any = {}) {
     appVersion.labels(`v${parsedVersion!.version}`, parsedVersion!.major, parsedVersion!.minor, parsedVersion!.patch).set(1)
   }
 
-  // handle requests for the metrics
-  const handler = (h: ResponseToolkit) => {
-    console.log(h)
-    // h: ResponseToolkit
-    // const data = prometheus.register.metrics()
-    // const res = h.response(data)
-    // res.header('Content-Type', prometheus.register.contentType)
-    // return res
-    return prometheus.register.metrics()
-  }
-  // const options = {
-  //   payload: {
-  //     defaultContentType: prometheus.register.contentType
-  //   }
-  // }
-
-  server.route({ method: 'GET', path, handler })
-
-  // 2do: catch amqp/http/...? requests converting them into metrics
-
-  server.start().catch(err => {
-    console.log(err)
-    process.exit()
-  })
+  // handle metric requests
+  createServer((req, res) => {
+    if (req.method === 'GET' && req.url === path) {
+      res.writeHead(200, {'Content-Type': prometheus.register.contentType })
+      res.write(prometheus.register.metrics())
+    } else {
+      res.writeHead(404, {'Content-Type': prometheus.register.contentType })
+      res.write('404 Not Found')
+    }
+    res.end()
+  }).listen(port)
 }
