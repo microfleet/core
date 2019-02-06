@@ -1,5 +1,5 @@
 import { createServer } from 'http'
-import { Microfleet, PluginTypes } from '..'
+import { Microfleet, PluginTypes, ConnectorsTypes } from '..'
 import readPkgUp = require('read-pkg-up')
 import semver = require('semver')
 
@@ -47,7 +47,7 @@ export function attach(this: Microfleet, opts: any = {}) {
   }
 
   // handle metric requests
-  createServer((req, res) => {
+  const server = createServer((req, res) => {
     if (req.method === 'GET' && req.url === path) {
       res.writeHead(200, { 'Content-Type': prometheus.register.contentType })
       res.write(prometheus.register.metrics())
@@ -56,5 +56,13 @@ export function attach(this: Microfleet, opts: any = {}) {
       res.write('404 Not Found')
     }
     res.end()
-  }).listen(port)
+  })
+
+  // init service on app start
+  service.addConnector(ConnectorsTypes.migration, async () => {
+    server.listen(port)
+  })
+  service.addDestructor(ConnectorsTypes.database, async () => {
+    server.close()
+  })
 }
