@@ -1,7 +1,8 @@
 import { createServer } from 'http'
-import { Microfleet, PluginTypes, ConnectorsTypes } from '..'
+import { Microfleet, PluginTypes } from '..'
 import readPkgUp = require('read-pkg-up')
 import semver = require('semver')
+import Bluebird = require('bluebird')
 
 /**
  * Plugin Name
@@ -11,7 +12,7 @@ export const name = 'prometheus'
 /**
  * Plugin Type
  */
-export const type = PluginTypes.essential
+export const type = PluginTypes.application
 
 /**
  * Relative priority inside the same plugin group type
@@ -42,13 +43,14 @@ export function attach(this: Microfleet, opts: any = {}) {
   // handle metric requests
   const server = createServer(createMetricHandler(prometheus, path))
 
-  // init service on app start
-  service.addConnector(ConnectorsTypes.migration, async () => {
-    server.listen(port)
-  })
-  service.addDestructor(ConnectorsTypes.database, async () => {
-    server.close()
-  })
+  return {
+    async connect() {
+      await Bluebird.fromCallback(next => server.listen(port, next))
+    },
+    async close() {
+      await Bluebird.fromCallback(next => server.close(next))
+    },
+  }
 }
 
 function createAppVersionMetric(prometheus: any) {

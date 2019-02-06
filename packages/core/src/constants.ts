@@ -67,6 +67,7 @@ export const ConnectorsTypes = {
  * Plugin Types
  */
 export const PluginTypes = {
+  application: literal('application'),
   database: literal('database'),
   essential: literal('essential'),
   transport: literal('transport'),
@@ -90,6 +91,7 @@ export const PluginsPriority = [
   PluginTypes.essential,
   PluginTypes.database,
   PluginTypes.transport,
+  PluginTypes.application,
 ]
 
 export const PLUGIN_STATUS_OK = 'ok'
