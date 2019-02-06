@@ -36,6 +36,6 @@ describe('prometheus plugin', function testSuite() {
   });
 
   after('close', () => (
-    service && service.close();
+    service && service.close()
   ));
 });
