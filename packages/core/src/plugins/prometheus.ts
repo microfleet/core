@@ -36,27 +36,11 @@ export function attach(this: Microfleet, opts: any = {}) {
 
   // register service version metric
   if (!prometheus.register.getSingleMetric('application_version_info')) {
-    const pkgVersion = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
-    const pv = semver.parse(pkgVersion)
-    const appVersion = new prometheus.Gauge({
-      name: 'application_version_info',
-      help: 'application version info',
-      labelNames: ['version', 'major', 'minor', 'patch'],
-    })
-    appVersion.labels(`v${pv!.version}`, pv!.major, pv!.minor, pv!.patch).set(1)
+    createAppVersionMetric(prometheus)
   }
 
   // handle metric requests
-  const server = createServer((req, res) => {
-    if (req.method === 'GET' && req.url === path) {
-      res.writeHead(200, { 'Content-Type': prometheus.register.contentType })
-      res.write(prometheus.register.metrics())
-    } else {
-      res.writeHead(404, { 'Content-Type': prometheus.register.contentType })
-      res.write('404 Not Found')
-    }
-    res.end()
-  })
+  const server = createServer(createMetricHandler(prometheus, path))
 
   // init service on app start
   service.addConnector(ConnectorsTypes.migration, async () => {
@@ -65,4 +49,28 @@ export function attach(this: Microfleet, opts: any = {}) {
   service.addDestructor(ConnectorsTypes.database, async () => {
     server.close()
   })
+}
+
+function createAppVersionMetric(prometheus: any) {
+  const pkgVersion = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
+  const pv = semver.parse(pkgVersion)
+  const appVersion = new prometheus.Gauge({
+    name: 'application_version_info',
+    help: 'application version info',
+    labelNames: ['version', 'major', 'minor', 'patch'],
+  })
+  appVersion.labels(`v${pv!.version}`, pv!.major, pv!.minor, pv!.patch).set(1)
+}
+
+function createMetricHandler(prometheus: any, path: string) {
+  return (req: any, res: any) => {
+    if (req.method === 'GET' && req.url === path) {
+      res.writeHead(200, { 'Content-Type': prometheus.register.contentType })
+      res.write(prometheus.register.metrics())
+    } else {
+      res.writeHead(404, { 'Content-Type': prometheus.register.contentType })
+      res.write('404 Not Found')
+    }
+    res.end()
+  }
 }
