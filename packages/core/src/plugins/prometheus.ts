@@ -37,22 +37,22 @@ export function attach(this: Microfleet, opts: any = {}) {
   // register service version metric
   if (!prometheus.register.getSingleMetric('application_version_info')) {
     const pkgVersion = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
-    const parsedVersion = semver.parse(pkgVersion)
+    const pv = semver.parse(pkgVersion)
     const appVersion = new prometheus.Gauge({
       name: 'application_version_info',
       help: 'application version info',
-      labelNames: ['version', 'major', 'minor', 'patch']
+      labelNames: ['version', 'major', 'minor', 'patch'],
     })
-    appVersion.labels(`v${parsedVersion!.version}`, parsedVersion!.major, parsedVersion!.minor, parsedVersion!.patch).set(1)
+    appVersion.labels(`v${pv!.version}`, pv!.major, pv!.minor, pv!.patch).set(1)
   }
 
   // handle metric requests
   createServer((req, res) => {
     if (req.method === 'GET' && req.url === path) {
-      res.writeHead(200, {'Content-Type': prometheus.register.contentType })
+      res.writeHead(200, { 'Content-Type': prometheus.register.contentType })
       res.write(prometheus.register.metrics())
     } else {
-      res.writeHead(404, {'Content-Type': prometheus.register.contentType })
+      res.writeHead(404, { 'Content-Type': prometheus.register.contentType })
       res.write('404 Not Found')
     }
     res.end()
