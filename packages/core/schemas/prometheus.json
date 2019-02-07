@@ -1,0 +1,24 @@
+{
+  "$id": "prometheus",
+  "type": "object",
+  "required": ["config"],
+  "properties": {
+    "config": {
+      "type": "object",
+      "required": ["port", "path"],
+      "properties": {
+        "port": {
+          "type": "number",
+          "description": "prometheus metrics port",
+          "default": 9102
+        },
+        "path": {
+          "type": "string",
+          "description": "prometheus metrics path",
+          "default": "/metrics",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

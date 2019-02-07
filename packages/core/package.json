@@ -122,6 +122,7 @@
     "opentracing-js-ioredis": "^2.1.2",
     "patch-package": "^5.1.1",
     "pg": "^7.6.0",
+    "prom-client": "^11.2.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.1",
     "rimraf": "^2.6.1",
