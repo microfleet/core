@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.6.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.5.0...@microfleet/core-v13.6.0) (2019-02-07)
+
+
+### Features
+
+* prometheus ([#303](https://github.com/microfleet/core/issues/303)) ([698fe21](https://github.com/microfleet/core/commit/698fe21))
+
 # [@microfleet/core-v13.5.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.4.9...@microfleet/core-v13.5.0) (2019-01-15)
 
 
