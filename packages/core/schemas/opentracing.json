@@ -30,6 +30,9 @@
             },
             "agentPort": {
               "type": "number"
+            },
+            "collectorEndpoint": {
+              "type": "string"
             }
           }
         },

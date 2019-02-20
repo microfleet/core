@@ -1,5 +1,6 @@
 import assert = require('assert')
 import { NotFoundError } from 'common-errors'
+import { FORMAT_HTTP_HEADERS } from 'opentracing'
 import { Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 
@@ -24,14 +25,20 @@ export const priority = 50
  */
 export function attach(this: Microfleet, opts: any = {}) {
   const service = this
-  const { initTracer } = _require('jaeger-client')
+  const { initTracer, ZipkinB3TextMapCodec } = _require('jaeger-client')
 
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   const settings = service.ifError('opentracing', opts)
 
   // init tracer
-  service.tracer = initTracer(settings.config, {
+  const tracer = service.tracer = initTracer(settings.config, {
     ...settings.options,
     logger: service.log,
   })
+
+  // support zipkin headers
+  // https://github.com/jaegertracing/jaeger-client-node#zipkin-compatibility
+  const codec = new ZipkinB3TextMapCodec({ urlEncoding: true })
+  tracer.registerInjector(FORMAT_HTTP_HEADERS, codec);
+  tracer.registerExtractor(FORMAT_HTTP_HEADERS, codec);
 }

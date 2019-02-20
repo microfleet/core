@@ -66,9 +66,8 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
 
     let parentSpan
     if (service.tracer !== undefined) {
-      parentSpan = service.tracer.extract(headers, FORMAT_HTTP_HEADERS)
+      parentSpan = service.tracer.extract(FORMAT_HTTP_HEADERS, headers)
     }
-
     const serviceRequest: ServiceRequest = {
       // defaults for consistent object map
       // opentracing
@@ -94,7 +93,6 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
     } catch (e) {
       response = reformatError(e)
     }
-
     return response
   }
 }
