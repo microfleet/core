@@ -84,13 +84,16 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
     }
 
     let response
+    let outputHeaders
     try {
       response = await dispatch(actionName, serviceRequest)
+      outputHeaders = response.headers
     } catch (e) {
       response = reformatError(e)
+      outputHeaders = response.output.headers //
     }
 
-    injectRequestHeaders(service.tracer, serviceRequest, response.headers)
+    injectRequestHeaders(service.tracer, serviceRequest, outputHeaders)
 
     return response
   }
