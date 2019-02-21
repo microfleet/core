@@ -93,6 +93,12 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
     } catch (e) {
       response = reformatError(e)
     }
+
+    // inject span headers to the response so trace wouldn't be lost
+    const { span } = serviceRequest
+    if (service.tracer !== undefined && span !== undefined) {
+      service.tracer.inject(span.context(), FORMAT_HTTP_HEADERS, response.headers)
+    }
     return response
   }
 }
