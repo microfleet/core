@@ -1,5 +1,5 @@
 import Bluebird = require('bluebird')
-import { ArgumentError, NotFoundError } from 'common-errors'
+import { ArgumentError, NotFoundError, HttpStatusError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
 import { Microfleet, RouterPlugin } from '../../../'
@@ -25,6 +25,11 @@ function getAction(this: Microfleet & RouterPlugin, route: string, request: Serv
 
   request.action = action
   request.route = route
+
+  const { maintenanceMode } = service.config
+  if (maintenanceMode && !action.readonly) {
+    return Bluebird.reject(new HttpStatusError(418, 'Server Maintenance'))
+  }
 
   return request
 }

@@ -8,6 +8,11 @@
       "type": "string",
       "pattern": "^[a-zA-Z0-9_\\-]{3,32}$",
       "description": "service name"
+    },
+    "maintenanceMode": {
+      "type": "boolean",
+      "default": false,
+      "description": "display 488 status message for actions not marked as readonly"
     }
   }
 }

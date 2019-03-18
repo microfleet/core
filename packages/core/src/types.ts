@@ -87,6 +87,7 @@ export interface ServiceAction extends ServiceActionStep {
   schema?: string
   transports: TransportTypes[]
   actionName: string
+  readonly?: boolean
 }
 
 export interface ServiceRequest {
