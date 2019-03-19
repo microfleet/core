@@ -16,7 +16,7 @@ const defaultConfig = {
   // there are no USER env variable in docker image
   // so we can set default value based on its absence
   // NOTE: not indended for production use
-  prettifyDefaultLogger: process.env.NODE_ENV !== 'production' && !!process.env.USER,
+  prettifyDefaultLogger: !(process.env.NODE_ENV === 'production' || !process.env.USER),
   name: 'mservice',
   streams: {},
   options: {
