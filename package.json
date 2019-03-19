@@ -17,7 +17,7 @@
     "clean": "rimraf packages/*/lib"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^8.2.3",
+    "@makeomatic/deploy": "^8.4.2",
     "@semantic-release/changelog": "^3.0.1",
     "@semantic-release/git": "^7.0.6",
     "lerna": "^3.8.0",

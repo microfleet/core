@@ -1049,10 +1049,10 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@makeomatic/deploy@^8.2.3":
-  version "8.4.1"
-  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-8.4.1.tgz#09e502dea13ad71be5f39e70fad66e77625f1e32"
-  integrity sha512-HYi3bGCgPoc2WFtru92xiZjXJay5MejOya8TX14tD737qE9HjoqIkTcfxdiW8ffam+79qGY5ELgfZYNm9z+Obg==
+"@makeomatic/deploy@^8.4.2":
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-8.4.2.tgz#35fd259911bccfaa08a97619fa5c874e02a620c7"
+  integrity sha512-yXd8Ml8522yVT6STCb6FsXRcUP0N436+V9Yj5akHK18LQF+t0aL5zqUADT03KvzOW+DbFUIXa+lNPclyMtOcEg==
   dependencies:
     "@commitlint/cli" "^7.2.1"
     bluebird "^3.5.3"
@@ -1071,7 +1071,7 @@
     ms-conf "^3.3.1"
     npm-path "^2.0.4"
     pino "^5.9.0"
-    read-pkg "^4.0.1"
+    read-pkg "^5.0.0"
     rimraf "^2.6.2"
     semantic-release "15.9.x"
     shelljs "^0.8.3"
@@ -8686,6 +8686,14 @@ read-pkg@^4.0.0, read-pkg@^4.0.1:
     normalize-package-data "^2.3.2"
     parse-json "^4.0.0"
     pify "^3.0.0"
+
+read-pkg@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-5.0.0.tgz#75449907ece8dfb89cbc76adcba2665316e32b94"
+  integrity sha512-OWufaRc67oJjcgrxckW/qO9q22iYzyiONh8h+GMcnOvSHAmhV1Dr3x+gyRjP+Qxc5jKupkSfoCQLS/98rDPh9A==
+  dependencies:
+    normalize-package-data "^2.3.2"
+    parse-json "^4.0.0"
 
 read@1, read@~1.0.1, read@~1.0.7:
   version "1.0.7"
