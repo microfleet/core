@@ -67,7 +67,7 @@
     "sonic-boom": "^0.7.1",
     "sort-by": "^1.1.1",
     "stdout-stream": "^1.4.1",
-    "yargs-parser": "^11.0.0"
+    "yargs-parser": "^13.0.0"
   },
   "peerDependencies": {
     "@microfleet/validation": "~8.x.x",
