@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.7.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.6.0...@microfleet/core-v13.7.0) (2019-03-19)
+
+
+### Features
+
+* log pretty ([#311](https://github.com/microfleet/core/issues/311)) ([4fc3715](https://github.com/microfleet/core/commit/4fc3715))
+
 # [@microfleet/core-v13.6.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.5.0...@microfleet/core-v13.6.0) (2019-02-07)
 
 
