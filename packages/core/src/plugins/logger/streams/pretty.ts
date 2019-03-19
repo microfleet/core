@@ -16,7 +16,7 @@ function prettyStreamFactory(config: any) {
       const line = pretty(chunk.toString())
       process.stdout.write(line)
       callback()
-    }
+    },
   })
 
   return {

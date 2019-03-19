@@ -9,7 +9,6 @@ import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
 const prettyStreamFactory = require('./logger/streams/pretty').default
 
-
 const defaultConfig = {
   debug: false,
   defaultLogger: false,
@@ -38,7 +37,6 @@ function streamsFactory(streamName: string, options: any): pinoms.Streams[0] {
     }
 
     case 'pretty': {
-      const prettyStreamFactory = require('./logger/streams/pretty').default
       return prettyStreamFactory(options)
     }
 
@@ -119,7 +117,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
     const getDefaultStream = () => {
       if (prettifyDefaultLogger) {
         const { stream } = prettyStreamFactory({
-          translateTime: true
+          translateTime: true,
         })
         return stream
       }
