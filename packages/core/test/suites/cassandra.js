@@ -26,7 +26,7 @@ describe('Cassandra suite', function testSuite() {
   it('able to connect to cassandra when plugin is included', async () => {
     service = new Mservice({
       name: 'tester',
-      plugins: ['validator', 'cassandra'],
+      plugins: ['logger', 'validator', 'cassandra'],
       cassandra: global.SERVICES.cassandra,
     });
 
@@ -48,7 +48,7 @@ describe('Cassandra suite', function testSuite() {
 
     service = new Mservice({
       name: 'tester',
-      plugins: ['validator', 'cassandra'],
+      plugins: ['logger', 'validator', 'cassandra'],
       cassandra: cassandraConfig,
     });
 

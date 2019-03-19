@@ -45,8 +45,24 @@ export function attach(this: Microfleet, opts: any = {}) {
 
   return {
     async connect() {
-      await Bluebird.fromCallback(next => server.listen(port, next))
+      let resolve: any
+      let reject: any
+      const listen = new Promise((_resolve, _reject) => {
+        resolve = _resolve
+        reject = _reject
+      })
+
+      try {
+        server.once('listening', resolve)
+        server.once('error', reject)
+        server.listen(port)
+        await listen
+      } finally {
+        server.removeListener('listening', resolve)
+        server.removeListener('error', reject)
+      }
     },
+
     async close() {
       await Bluebird.fromCallback(next => server.close(next))
     },

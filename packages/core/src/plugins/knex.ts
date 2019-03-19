@@ -1,6 +1,6 @@
 import assert = require('assert')
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes } from '../'
+import { Microfleet, PluginTypes, LoggerPlugin } from '../'
 import _require from '../utils/require'
 import retry = require('bluebird-retry')
 
@@ -10,7 +10,7 @@ import retry = require('bluebird-retry')
 export const priority = 0
 export const name = 'knex'
 export const type = PluginTypes.database
-export function attach(this: Microfleet, params: any = {}) {
+export function attach(this: Microfleet & LoggerPlugin, params: any = {}) {
   const factory = _require('knex')
   const service = this
 
@@ -23,8 +23,13 @@ export function attach(this: Microfleet, params: any = {}) {
   const knex = service.knex = factory(config)
 
   const establishConnection = async () => {
-    const result = await knex.raw('SELECT TRUE;')
-    assert.equal(result.rows[0].bool, true)
+    try {
+      const result = await knex.raw('SELECT TRUE;')
+      assert.equal(result.rows[0].bool, true)
+    } catch (err) {
+      this.log.warn({ err }, 'Failed to connect to PGSQL')
+      throw err
+    }
   }
 
   return {

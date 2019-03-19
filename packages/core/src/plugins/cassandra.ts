@@ -3,7 +3,7 @@ import assert = require('assert')
 import retry = require('bluebird-retry')
 import { NotPermittedError, NotFoundError } from 'common-errors'
 import is = require('is')
-import { Microfleet } from '../'
+import { Microfleet, LoggerPlugin } from '../'
 import { PluginTypes } from '../constants'
 import _require from '../utils/require'
 
@@ -22,34 +22,42 @@ export const type = PluginTypes.database
  */
 export const priority = 0
 
-async function factory(Cassandra: any, config: any) {
+async function factory(this: Microfleet & LoggerPlugin, Cassandra: any, config: any) {
   const { models } = config.service
+  const reconnectOpts = {
+    interval: 500,
+    backoff: 2,
+    max_interval: 5000,
+    timeout: 60000,
+    max_tries: 100,
+  }
+
+  const reportError = (connect: () => Promise<void>) => async () => {
+    try {
+      await connect()
+    } catch (e) {
+      this.log.warn({ err: e }, 'Failed to connect to cassandra')
+      throw e
+    }
+  }
 
   if (is.string(models)) {
     Cassandra.setDirectory(models)
 
-    await retry(Cassandra.bindAsync, {
-      interval: 500,
-      backoff: 2,
-      max_interval: 5000,
-      timeout: 60000,
-      max_tries: 100,
-      args: [config.client],
-    })
+    await retry(
+      reportError(async () => Cassandra.bindAsync(config.client)),
+      reconnectOpts
+    )
 
     return Cassandra
   }
 
   const client = Cassandra.createClient(config.client)
 
-  await retry(client.initAsync, {
-    context: client,
-    interval: 500,
-    backoff: 2,
-    max_interval: 5000,
-    timeout: 60000,
-    max_tries: 100,
-  })
+  await retry(
+    reportError(async () => client.initAsync()),
+    reconnectOpts
+  )
 
   await Bluebird.mapSeries(Object.entries(models), ([modelName, model]) => {
     const Model = client.loadSchema(modelName, model)
@@ -59,17 +67,18 @@ async function factory(Cassandra: any, config: any) {
   return client
 }
 
-export function attach(this: Microfleet, params: any = {}) {
+export function attach(this: Microfleet & LoggerPlugin, params: any = {}) {
   const service = this
   const Cassandra = _require('express-cassandra')
 
+  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   const config = service.ifError('cassandra', params)
 
   async function connectCassandra() {
     assert(!service.cassandra, new NotPermittedError('Cassandra was already started'))
-    const cassandra = await factory(Cassandra, config)
+    const cassandra = await factory.call(service, Cassandra, config)
 
     service.cassandra = cassandra
     service.emit('plugin:connect:cassandra', cassandra)
