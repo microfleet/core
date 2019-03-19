@@ -121,7 +121,7 @@
     "ms-socket.io-adapter-amqp": "^5.0.0",
     "nyc": "^13.1.0",
     "opentracing-js-ioredis": "^2.1.2",
-    "patch-package": "^5.1.1",
+    "patch-package": "^6.0.0",
     "pg": "^7.6.0",
     "prom-client": "^11.2.1",
     "request": "^2.88.0",
