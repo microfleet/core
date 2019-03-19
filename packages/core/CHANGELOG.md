@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.8.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.7.0...@microfleet/core-v13.8.0) (2019-03-19)
+
+
+### Features
+
+* maintenance mode ([#310](https://github.com/microfleet/core/issues/310)) ([1212b61](https://github.com/microfleet/core/commit/1212b61))
+
 # [@microfleet/core-v13.7.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.6.0...@microfleet/core-v13.7.0) (2019-03-19)
 
 
