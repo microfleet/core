@@ -109,7 +109,7 @@
     "common-errors": "^1.0.5",
     "cross-env": "^5.1.6",
     "elasticsearch": "^15.1.1",
-    "express-cassandra": "2.2.4",
+    "express-cassandra": "2.3.0",
     "handlebars": "^4.0.12",
     "hapi": "^17.6.0",
     "ioredis": "^4.2.0",
