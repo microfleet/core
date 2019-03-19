@@ -31,6 +31,11 @@ function streamsFactory(streamName: string, options: any): pinoms.Streams[0] {
       return sentryStreamFactory(options)
     }
 
+    case 'pretty': {
+      const prettyStreamFactory = require('./logger/streams/pretty').default
+      return prettyStreamFactory(options)
+    }
+
     default:
       return options
   }
