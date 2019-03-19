@@ -1,3 +1,10 @@
+# [@microfleet/core-v13.8.1](https://github.com/microfleet/core/compare/@microfleet/core-v13.8.0...@microfleet/core-v13.8.1) (2019-03-19)
+
+
+### Bug Fixes
+
+* update all deps ([ebc6661](https://github.com/microfleet/core/commit/ebc6661))
+
 # [@microfleet/core-v13.8.0](https://github.com/microfleet/core/compare/@microfleet/core-v13.7.0...@microfleet/core-v13.8.0) (2019-03-19)
 
 
