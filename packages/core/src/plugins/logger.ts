@@ -72,7 +72,6 @@ export interface LoggerPlugin {
 export interface LoggerConfig {
   defaultLogger: any
   prettifyDefaultLogger: boolean
-  pretty: boolean
   debug: boolean
   name: string
   options: pino.LoggerOptions
@@ -117,7 +116,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
 
   if (defaultLogger === true) {
     // return either human-readable logger or fast production-readt json logger
-    const getDefaultStream = (() => {
+    const getDefaultStream = () => {
       if (prettifyDefaultLogger) {
         const { stream } = prettyStreamFactory({
           translateTime: true
@@ -125,11 +124,11 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
         return stream
       }
       return new SonicBoom((process.stdout as any).fd) as any
-    })()
+    }
 
     streams.push({
       level: debug ? 'debug' : 'info',
-      stream: getDefaultStream,
+      stream: getDefaultStream(),
     })
   }
 
