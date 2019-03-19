@@ -635,4 +635,69 @@ describe('Router suite', function testSuite() {
 
     assert.equal('NotFoundError', spy.getCall(1).args[0].err.type);
   });
+
+  it('should return 418 in maintenance mode', async function test() {
+    const service = new Mservice({
+      name: 'tester',
+      plugins: ["logger", "validator", "router", "http", "amqp"],
+      maintenanceMode: true,
+      http: {
+        server: {
+          handler: 'hapi',
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions/maintenance'),
+          prefix: 'maintenance',
+          transports: [ActionTransport.http, ActionTransport.amqp],
+        },
+        extensions: {
+          enabled: ['preValidate', 'postRequest', 'preResponse', 'preRequest']
+        },
+      }
+    })
+
+    const maintenanceModeIsEnabled = {
+      expect: 'error',
+      verify: (error) => {
+        expect(error.statusCode).to.be.equals(418)
+        expect(error.name).to.be.equals('HttpStatusError')
+        expect(error.message).to.be.equals('Server Maintenance')
+      },
+    }
+    const resultIsReturned = {
+      expect: 'success',
+      verify: (result) => {
+        expect(result.success).to.be.equals(true);
+      },
+    }
+
+    await service.connect().then(async () => {
+      const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' })
+      return Promise
+      .all([
+        // trigger usual route which performs global state update
+        HTTPRequest('/maintenance/http', {}).reflect().then(verify(maintenanceModeIsEnabled)),
+        // trigger route marked as read-only
+        HTTPRequest('/maintenance/http-readonly', {}).reflect().then(verify(resultIsReturned)),
+        // trigger read-only route which triggers non-read-only one
+        HTTPRequest('/maintenance/http-amqp', {}).reflect().then(verify(maintenanceModeIsEnabled)),
+      ])
+    }).finally(() => service.close());
+  })
+
 });

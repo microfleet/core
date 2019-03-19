@@ -12,7 +12,7 @@
     "maintenanceMode": {
       "type": "boolean",
       "default": false,
-      "description": "display 488 status message for actions not marked as readonly"
+      "description": "display 418 status message for actions not marked as readonly"
     }
   }
 }
