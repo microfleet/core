@@ -61,6 +61,7 @@
     "opentracing": "^0.14.3",
     "pino": "^5.10.3",
     "pino-multi-stream": "^4.0.1",
+    "pino-pretty": "^2.5.0",
     "read-pkg-up": "^4.0.0",
     "semver": "^5.6.0",
     "sonic-boom": "^0.7.1",
@@ -133,6 +134,7 @@
     "socketio-wildcard": "^2.0.0",
     "ts-jest": "^23.10.4",
     "ts-node": "^7.0.1",
+    "tslint": "^5.14.0",
     "vision": "^5.4.4"
   },
   "engines": {

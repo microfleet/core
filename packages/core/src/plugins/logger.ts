@@ -7,10 +7,15 @@ import pino = require('pino')
 import pinoms = require('pino-multi-stream')
 import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
+const prettyStreamFactory = require('./logger/streams/pretty').default
 
 const defaultConfig = {
   debug: false,
   defaultLogger: false,
+  // there are no USER env variable in docker image
+  // so we can set default value based on its absence
+  // NOTE: not indended for production use
+  prettifyDefaultLogger: !(process.env.NODE_ENV === 'production' || !process.env.USER),
   name: 'mservice',
   streams: {},
   options: {
@@ -29,6 +34,10 @@ function streamsFactory(streamName: string, options: any): pinoms.Streams[0] {
     case 'sentry': {
       const sentryStreamFactory = require('./logger/streams/sentry').default
       return sentryStreamFactory(options)
+    }
+
+    case 'pretty': {
+      return prettyStreamFactory(options)
     }
 
     default:
@@ -60,6 +69,7 @@ export interface LoggerPlugin {
 
 export interface LoggerConfig {
   defaultLogger: any
+  prettifyDefaultLogger: boolean
   debug: boolean
   name: string
   options: pino.LoggerOptions
@@ -89,6 +99,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   const {
     debug,
     defaultLogger,
+    prettifyDefaultLogger,
     options,
     name: serviceName,
     streams: streamsConfig,
@@ -102,9 +113,20 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   const streams: pinoms.Streams = []
 
   if (defaultLogger === true) {
+    // return either human-readable logger or fast production-readt json logger
+    const getDefaultStream = () => {
+      if (prettifyDefaultLogger) {
+        const { stream } = prettyStreamFactory({
+          translateTime: true,
+        })
+        return stream
+      }
+      return new SonicBoom((process.stdout as any).fd) as any
+    }
+
     streams.push({
       level: debug ? 'debug' : 'info',
-      stream: new SonicBoom((process.stdout as any).fd) as any,
+      stream: getDefaultStream(),
     })
   }
 
