@@ -1,5 +1,4 @@
 const assert = require('assert');
-const { inspectPromise } = require('@makeomatic/deploy');
 const request = require('request-promise');
 
 describe('prometheus plugin', function testSuite() {

@@ -8,6 +8,7 @@ import Bluebird = require('bluebird')
 import EventEmitter = require('eventemitter3')
 import is = require('is')
 import partial = require('lodash.partial')
+import { union } from 'lodash'
 import * as constants from './constants'
 import * as defaultOpts from './defaults'
 import { HttpStatusError } from '@microfleet/validation'
@@ -404,6 +405,26 @@ export class Microfleet extends EventEmitter {
   }
 
   /**
+   * Creates array with uniq plugins
+   * @param {Object} config - Service plugins configuration.
+   * @private
+   */
+  private preparePluginsList(config: CoreOptions) {
+    const plugins = union(config.plugins, config.addPlugins || [])
+    // enure only one redis plugin is loaded (last one)
+    let redisFound = false
+    return plugins.reverse().filter((item) => {
+      if (item.startsWith('redis')) {
+        if (redisFound) {
+          return false
+        }
+        redisFound = true
+      }
+      return true
+    })
+  }
+
+  /**
    * Initializes service plugins.
    * @param {Object} config - Service plugins configuration.
    * @private
@@ -413,10 +434,10 @@ export class Microfleet extends EventEmitter {
       this[constants.CONNECTORS_PROPERTY][pluginType] = []
       this[constants.DESTRUCTORS_PROPERTY][pluginType] = []
     }
-
     // require all modules
     const plugins = []
-    for (const plugin of config.plugins) {
+    const pluginsList = this.preparePluginsList(config)
+    for (const plugin of pluginsList) {
       plugins.push(require(`./plugins/${plugin}`))
     }
 
