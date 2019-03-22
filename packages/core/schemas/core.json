@@ -27,6 +27,12 @@
         "type": "string"
       },
       "description": "additional plugins which will be added to existing list"
+    },
+    "connectTimeoutMs": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "description": "service will fall if it's not connected in reasonable amount of time",
+      "default": 60000
     }
   }
 }

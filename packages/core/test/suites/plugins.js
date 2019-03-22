@@ -27,8 +27,38 @@ describe('plugins system', function testSuite() {
 
     await service.connect()
     assert.ok(service.prometheus, 'expects service is connected with the sentinel config')
-  });
+  })
 
-  after(() => service.close())
+  it('should fall if plugin does not initialize', async () => {
+    const timeout = 1000
+    const config = {
+      name: 'timeout',
+      addPlugins: ['amqp'],
+      connectTimeoutMs: timeout,
+      amqp: {
+        transport: {
+          connection: {
+            host: 'localhost', // no AMQP service here so plugin will hang
+            port: 5672,
+          },
+        },
+      }
+    }
+
+    service = new Mservice(config)
+
+    async function connect() {
+      await service.connect(config)
+    }
+
+    await assert.rejects(connect, {
+      name: 'TimeoutError',
+      message: `unable to init plugins in ${timeout}ms`
+    })
+
+    service = null
+  })
+
+  afterEach(() => service && service.close())
 
 })

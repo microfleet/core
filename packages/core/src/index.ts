@@ -235,8 +235,10 @@ export class Microfleet extends EventEmitter {
    * @returns Walks over registered connectors and emits ready event upon completion.
    */
   public connect() {
+    const { connectTimeoutMs } = this.config
     return Bluebird
       .resolve(this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority))
+      .timeout(connectTimeoutMs, `unable to init plugins in ${connectTimeoutMs}ms`)
   }
 
   /**
