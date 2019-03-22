@@ -2,7 +2,7 @@
   "$id": "microfleet.core",
   "type": "object",
   "additionalProperties": true,
-  "required": ["name", "plugins"],
+  "required": ["name"],
   "properties": {
     "name": {
       "type": "string",
