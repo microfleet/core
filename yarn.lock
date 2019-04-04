@@ -1096,10 +1096,10 @@
     debug "^3.1.0"
     lodash "^4.17.10"
 
-"@microfleet/transport-amqp@^13.1.3":
-  version "13.1.3"
-  resolved "https://registry.yarnpkg.com/@microfleet/transport-amqp/-/transport-amqp-13.1.3.tgz#98bfba1a62b61b917663dc0bcf663dde7d0a8fdd"
-  integrity sha512-IB4xenKw3Rrkd5WyR0HXgcI9WpW/rJ9FsFSZv9Dtt4kg5hs+XsHJwVx+NPfHL8WHmf0aJ+VdHpsuWmMp/2zV1Q==
+"@microfleet/transport-amqp@^13.2.0":
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/@microfleet/transport-amqp/-/transport-amqp-13.2.0.tgz#b7b9048d248bdac5bb4205ed3252e01ec2545fa2"
+  integrity sha512-jrgxPimde6qMwL5qD2llJVlVCmwRjLJYcgu7XFUN8bJI91nUOR1GjdexeS7FkFJHgXkoOYvK/SCYYMdy+S3ntw==
   dependencies:
     "@microfleet/amqp-coffee" "^1.3.1"
     bluebird "^3.5.3"

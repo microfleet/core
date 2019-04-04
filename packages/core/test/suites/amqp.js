@@ -1,3 +1,4 @@
+const path = require('path');
 const Promise = require('bluebird');
 const assert = require('assert');
 const AMQPTransport = require('@microfleet/transport-amqp');
@@ -13,14 +14,60 @@ describe('AMQP suite', function testSuite() {
   it('able to connect to amqp when plugin is included', async () => {
     service = new Mservice({
       name: 'tester',
-      plugins: ['logger', 'validator', 'opentracing', 'amqp'],
-      amqp: global.SERVICES.amqp,
+      plugins: ['logger', 'validator', 'opentracing', 'router', 'amqp'],
+      amqp: {
+        ...global.SERVICES.amqp,
+        router: {
+          enabled: true,
+        }
+      },
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, './../amqp/helpers/actions'),
+          transports: ['amqp'],
+        },
+      },
     });
 
     const [amqp] = await service.connect();
 
     assert.ok(amqp instanceof AMQPTransport);
     assert.doesNotThrow(() => service.amqp);
+  });
+
+  it('able to send request and get simple response', async () => {
+    const { amqp } = service;
+    const result = await amqp.publishAndWait('success', null);
+
+    assert.deepEqual(result, { redirected: true });
+  });
+
+  it('able to set response header', async () => {
+    const { amqp } = service;
+    const result = await amqp.publishAndWait('success-set-header', null,  { simpleResponse: false });
+
+    assert.deepEqual(result, {
+      headers: {
+        timeout: 10000,
+        'x-wow-your-personal-header': 'wow so valuable'
+      },
+      data: { redirected: true }
+    });
+  });
+
+  it('able to remove response header', async () => {
+    const { amqp } = service;
+    const result = await amqp.publishAndWait('success-remove-header', null, { simpleResponse: false });
+
+    assert.deepEqual(result, {
+      headers: {
+        timeout: 10000,
+        'x-wow-your-personal-header': 'wow so valuable'
+      },
+      data: { redirected: true }
+    });
+
+    assert.strictEqual(result.headers['x-remove-me'], undefined);
   });
 
   it('able to check health', async () => {

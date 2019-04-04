@@ -32,6 +32,16 @@ function getSocketIORouterAdapter(_: any, router: Router) {
         transportRequest: packet,
       }
 
+      // Object.defineProperty(request, 'setHeader', {
+      //   // tslint:disable-next-line
+      //   value: (key: string, value: string) => { console.log(`SOCKET IO called setHeader(${key}, ${value})`) },
+      // })
+      //
+      // Object.defineProperty(request, 'getHeader', {
+      //   // tslint:disable-next-line
+      //   value: (key: string) => { console.log(`SOCKET IO called getHeader(${key})`) },
+      // })
+
       debug('prepared request with', packet.data)
 
       router.dispatch.call(router, actionName, request, callback)

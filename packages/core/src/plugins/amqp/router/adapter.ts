@@ -5,6 +5,7 @@ import noop = require('lodash/noop')
 import { ActionTransport } from '../../..'
 import { ServiceRequest } from '../../../types'
 import { Router } from '../../router/factory'
+import { kReplyHeaders } from '@microfleet/transport-amqp/lib/constants'
 
 // cached var
 const { amqp } = ActionTransport
@@ -18,6 +19,7 @@ function getAMQPRouterAdapter(router: Router, config: any) {
       .then((fate) => {
         const err = fate.isRejected() ? fate.reason() : null
         const data = fate.isFulfilled() ? fate.value() : null
+
         return onComplete.call(service, err, data, actionName, raw)
       })
     : (promise: Bluebird<any>) => promise
@@ -55,6 +57,25 @@ function getAMQPRouterAdapter(router: Router, config: any) {
       transport: amqp,
       transportRequest: Object.create(null),
     }
+
+    type ResponseHeaders = {
+      [key: string]: string
+    }
+    const responseHeaders: ResponseHeaders = {}
+
+    Object.defineProperty(opts, 'setHeader', {
+      value: (key: string, value: string) => {
+        responseHeaders[key] = value
+      },
+    })
+
+    Object.defineProperty(opts, 'removeHeader', {
+      value: (key: string) => {
+        delete responseHeaders[key]
+      },
+    })
+
+    raw.properties[kReplyHeaders] = responseHeaders
 
     const promise = dispatch(actionName, opts)
     const wrappedDispatch = (wrapDispatch as any)(promise, actionName, raw)
