@@ -76,7 +76,7 @@
   "devDependencies": {
     "@microfleet/transport-amqp": "^13.1.3",
     "@microfleet/validation": "^8.1.0",
-    "@sentry/node": "^4.4.2",
+    "@sentry/node": "^5.0.0",
     "@types/bluebird": "^3.5.25",
     "@types/bluebird-retry": "^0.11.2",
     "@types/callsite": "^1.0.30",
