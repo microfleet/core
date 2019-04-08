@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^8.4.4",
+    "conventional-changelog-cli": "^2.0.12",
     "lerna": "^3.13.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.15.0",
