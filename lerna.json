@@ -8,11 +8,7 @@
   "command": {
     "version": {
       "allowBranch": ["master"],
-      "message": "chore(release): publish %s",
-      "tagVersionPrefix": "$LERNA_PACKAGE_NAME-v"
-    },
-    "publish": {
-      "tagVersionPrefix": "$LERNA_PACKAGE_NAME-v"
+      "message": "chore(release): publish %s"
     }
   }
 }
