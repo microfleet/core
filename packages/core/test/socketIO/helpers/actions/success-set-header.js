@@ -6,6 +6,6 @@ function SuccessSetHeaderAction({ setResponseHeader }) {
   return { redirected: true };
 }
 
-SuccessSetHeaderAction.transports = [ActionTransport.amqp];
+SuccessSetHeaderAction.transports = [ActionTransport.socketIO];
 
 module.exports = SuccessSetHeaderAction;

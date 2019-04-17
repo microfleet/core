@@ -3,10 +3,10 @@ import { identity } from '../../../constants'
 import { HttpStatusError, NotPermittedError } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequestInterface } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
-function allowed(this: Microfleet, request: ServiceRequest) {
+function allowed(this: Microfleet, request: ServiceRequestInterface) {
   return Bluebird
     .resolve(request)
     .bind(this)
@@ -24,7 +24,7 @@ function allowed(this: Microfleet, request: ServiceRequest) {
     })
 }
 
-function allowedHandler(this: Microfleet, request: ServiceRequest) {
+function allowedHandler(this: Microfleet, request: ServiceRequestInterface) {
   const allowedFn = is.undefined(request.action.allowed)
     ? identity
     : allowed

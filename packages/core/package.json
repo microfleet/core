@@ -8,7 +8,7 @@
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn test:unit && yarn test:e2e",
     "test:unit": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_TYPE_CHECK=false mocha ./src/**/*.spec.ts",
-    "test:e2e": "mdep test run",
+    "test:e2e": "mdep test run -C",
     "compile": "tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
   },

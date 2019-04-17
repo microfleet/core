@@ -3,9 +3,10 @@ import get = require('get-value')
 import is = require('is')
 import noop = require('lodash/noop')
 import { ActionTransport } from '../../..'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequestInterface } from '../../../types'
 import { Router } from '../../router/factory'
 import { kReplyHeaders } from '@microfleet/transport-amqp/lib/constants'
+import { ServiceRequest } from '../../../utils/service-request'
 
 // cached var
 const { amqp } = ActionTransport
@@ -39,45 +40,24 @@ function getAMQPRouterAdapter(router: Router, config: any) {
   return function AMQPRouterAdapter(params: any, properties: any, raw: any, next?: () => any) {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
     const actionName = normalizeActionName(routingKey)
-    const opts: ServiceRequest = {
-      // initiate action to ensure that we have prepared proto fo the object
-      // input params
-      // make sure we standardize the request
-      // to provide similar interfaces
+    const serviceRequest = new ServiceRequest(
+      '',
       params,
-      action: noop as any,
-      headers: properties,
-      locals: Object.create(null),
-      log: console as any,
-      method: amqp as ServiceRequest['method'],
-      parentSpan: raw.span,
-      query: Object.create(null),
-      route: '',
-      span: undefined,
-      transport: amqp,
-      transportRequest: Object.create(null),
-    }
+      properties,
+      Object.create(null),
+      amqp as ServiceRequestInterface['method'],
+      amqp,
+      Object.create(null),
+      noop as any,
+      Object.create(null),
+      undefined,
+      raw.span,
+      console as any
+    )
 
-    type ResponseHeaders = {
-      [key: string]: string
-    }
-    const responseHeaders: ResponseHeaders = {}
+    raw.properties[kReplyHeaders] = serviceRequest.getResponseHeaders()
 
-    Object.defineProperty(opts, 'setHeader', {
-      value: (key: string, value: string) => {
-        responseHeaders[key] = value
-      },
-    })
-
-    Object.defineProperty(opts, 'removeHeader', {
-      value: (key: string) => {
-        delete responseHeaders[key]
-      },
-    })
-
-    raw.properties[kReplyHeaders] = responseHeaders
-
-    const promise = dispatch(actionName, opts)
+    const promise = dispatch(actionName, serviceRequest)
     const wrappedDispatch = (wrapDispatch as any)(promise, actionName, raw)
 
     // promise or callback

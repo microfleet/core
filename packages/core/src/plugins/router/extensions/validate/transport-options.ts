@@ -1,10 +1,10 @@
 import Bluebird = require('bluebird')
 import { NotSupportedError } from 'common-errors'
-import { ServiceRequest } from '../../../../types'
+import { ServiceRequestInterface } from '../../../../types'
 import { LifecyclePoints } from '..'
 
-export type TransportOptionsAugmentedRequest = ServiceRequest & {
-  action: ServiceRequest['action'] & {
+export type TransportOptionsAugmentedRequest = ServiceRequestInterface & {
+  action: ServiceRequestInterface['action'] & {
     transportsOptions: {
       [transport: string]: {
         methods: string[];

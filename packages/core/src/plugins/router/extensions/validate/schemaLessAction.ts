@@ -1,7 +1,7 @@
-import { ServiceRequest } from '../../../../types'
+import { ServiceRequestInterface } from '../../../../types'
 import { LifecyclePoints } from '..'
 
-export type ServiceRequestWithSchema = ServiceRequest & {
+export type ServiceRequestWithSchema = ServiceRequestInterface & {
   schema?: string;
 }
 

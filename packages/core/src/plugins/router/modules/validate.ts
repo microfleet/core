@@ -4,16 +4,16 @@ import { Error } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
 import { DATA_KEY_SELECTOR } from '../../../constants'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequestInterface } from '../../../types'
 import { ValidatorPlugin } from '../../validator'
 import moduleLifecycle from './lifecycle'
 
 type ValidationObject = {
-  request: ServiceRequest,
+  request: ServiceRequestInterface,
   paramsKey: 'query' | 'params',
 }
 
-function validationSuccess(this: ValidationObject, sanitizedParams: any): ServiceRequest {
+function validationSuccess(this: ValidationObject, sanitizedParams: any): ServiceRequestInterface {
   this.request[this.paramsKey] = sanitizedParams
   return this.request
 }
@@ -26,7 +26,7 @@ const handleValidationError = (error: Error) => {
   throw new Error('internal validation error', error)
 }
 
-function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequest) {
+function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequestInterface) {
   const { validator } = this
   const paramsKey = DATA_KEY_SELECTOR[request.method]
 
@@ -36,11 +36,11 @@ function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequest) {
     .then(validationSuccess, handleValidationError)
 }
 
-function passThrough(request: ServiceRequest): ServiceRequest {
+function passThrough(request: ServiceRequestInterface): ServiceRequestInterface {
   return request
 }
 
-function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequest): Bluebird<any>  {
+function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequestInterface): Bluebird<any>  {
   const validateFn = is.undefined(request.action.schema)
     ? passThrough
     : validate

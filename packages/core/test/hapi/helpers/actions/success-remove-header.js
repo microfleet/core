@@ -8,6 +8,6 @@ function SuccessRemoveHeaderAction({ setResponseHeader, removeResponseHeader }) 
   return { redirected: true };
 }
 
-SuccessRemoveHeaderAction.transports = [ActionTransport.amqp];
+SuccessRemoveHeaderAction.transports = [ActionTransport.http];
 
 module.exports = SuccessRemoveHeaderAction;

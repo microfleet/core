@@ -1,14 +1,15 @@
 import { HttpStatusError } from '@microfleet/validation'
 import Bluebird = require('bluebird')
 import Errors = require('common-errors')
-import { Request, ResponseToolkit, ResponseObject } from 'hapi'
+import { Request, ResponseObject, ResponseToolkit } from 'hapi'
 import noop = require('lodash/noop')
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
 import { ActionTransport, Microfleet } from '../../../../..'
-import { ServiceRequest, RequestMethods } from '../../../../../types'
+import { RequestMethods } from '../../../../../types'
 import _require from '../../../../../utils/require'
 import { Router } from '../../../../router/factory'
-import keys from 'lodash'
+import { ServiceRequest } from '../../../../../utils/service-request'
+import keys = require('lodash/keys')
 
 export default function getHapiAdapter(actionName: string, service: Microfleet) {
   const Boom = _require('boom')
@@ -70,57 +71,30 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
       parentSpan = service.tracer.extract(headers, FORMAT_HTTP_HEADERS)
     }
 
-    const serviceRequest: ServiceRequest = {
-      // defaults for consistent object map
-      // opentracing
-      // set to console
-      // transport type
+    const serviceRequest = new ServiceRequest(
+      '',
+      request.payload,
       headers,
+      request.query,
+      request.method.toLowerCase() as RequestMethods,
+      ActionTransport.http,
+      request,
+      noop as any,
+      Object.create(null),
+      undefined,
       parentSpan,
-      action: noop as any,
-      locals: Object.create(null),
-      log: console as any,
-      method: request.method.toLowerCase() as RequestMethods,
-      params: request.payload,
-      query: request.query,
-      route: '',
-      span: undefined,
-      transport: ActionTransport.http,
-      transportRequest: request,
-    }
+      console as any
+    )
 
-    // type ResponseHeaders = {
-    //   [key: string]: string
-    // }
-    // const responseHeaders: ResponseHeaders = {}
-    //
-    // Object.defineProperty(serviceRequest, 'setHeader', {
-    //   // tslint:disable-next-line
-    //   value: (key: string, value: string) => {
-    //     // tslint:disable-next-line
-    //
-    //
-    //     responseHeaders[key] = value
-    //   },
-    // })
-    //
-    // Object.defineProperty(serviceRequest, 'removeHeader', {
-    //   // tslint:disable-next-line
-    //   value: (key: string) => { delete responseHeaders[key] },
-    // })
-    //
-    // let response: ResponseObject
-    // try {
-    //   const responseData = await dispatch(actionName, serviceRequest)
-    //   response = h
-    //     .response(responseData)
-    //
-    //   keys(responseHeaders)
-    //     .map((title) => { response.header(title, responseHeaders[title]) })
+    let response: ResponseObject
 
-    let response
     try {
-      response = await dispatch(actionName, serviceRequest)
+      const responseData = await dispatch(actionName, serviceRequest)
+      response = h
+        .response(responseData)
+
+      keys(serviceRequest.getResponseHeaders())
+        .forEach((title) => { response.header(title, serviceRequest.getResponseHeader(title)) })
     } catch (e) {
       response = reformatError(e)
     }

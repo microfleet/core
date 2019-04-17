@@ -78,7 +78,7 @@ export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_
 export type TransportTypes = $Values<typeof ActionTransport>
 export type TConnectorsTypes = $Values<typeof ConnectorsTypes>
 export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>
-export type GetAuthName = (req: ServiceRequest) => string
+export type GetAuthName = (req: ServiceRequestInterface) => string
 export type ServiceActionStep = (...args: any[]) => PromiseLike<any>
 export interface ServiceAction extends ServiceActionStep {
   allowed?: () => boolean | Promise<boolean>
@@ -90,7 +90,7 @@ export interface ServiceAction extends ServiceActionStep {
   readonly?: boolean
 }
 
-export interface ServiceRequest {
+export interface ServiceRequestInterface {
   route: string
   params: any
   headers: any
@@ -112,6 +112,13 @@ export interface ServiceRequest {
     error(...args: any[]): void,
     fatal(...args: any[]): void
   }
+  setResponseHeader?: Function
+  removeResponseHeader?: Function
+  getResponseHeaders?: Function
+}
+
+export type ResponseHeaders = {
+  [key: string]: string
 }
 
 export type PluginStatus = typeof PLUGIN_STATUS_OK | typeof PLUGIN_STATUS_FAIL

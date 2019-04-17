@@ -1,6 +1,6 @@
 import is = require('is')
 import { Microfleet } from '../../../..'
-import { ServiceRequest, MserviceError } from '../../../../types'
+import { ServiceRequestInterface, MserviceError } from '../../../../types'
 import { LifecyclePoints, ExtensionPlugin } from '..'
 
 export interface AuditLogExtension {
@@ -10,7 +10,7 @@ export interface AuditLogExtension {
   }
 }
 
-export type ServiceRequestWithAuditLog = ServiceRequest & AuditLogExtension
+export type ServiceRequestWithAuditLog = ServiceRequestInterface & AuditLogExtension
 
 export type AuditLogExtensionParams = {
   disableLogErrorsForNames?: string[],

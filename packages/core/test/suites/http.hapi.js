@@ -110,13 +110,14 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       await Promise.all([
         request(options).then((response) => {
           assert.equal(response.statusCode, 200);
+          console.log('response body', response.body)
           assert.deepEqual(response.body, { message: 'foo' });
-        }),
+        }).catch(console.log),
         request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
           assert.equal(response.statusCode, 404);
           assert.equal(response.body.name, 'NotFoundError');
           assert.deepEqual(response.body.message, 'Not Found: "route "not-found" not found"');
-        }),
+        }).catch(console.log),,
       ]);
     } finally {
       await service.close();
@@ -311,6 +312,66 @@ describe('Http server with \'hapi\' handler', function testSuite() {
     } finally {
       await service.close();
     }
+  });
+
+  describe('should support editing response headers', async () => {
+    before(async () => {
+      service = new Mservice({
+        name: 'tester',
+        plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
+        http: {
+          server: {
+            handler: 'hapi',
+            port: 3000,
+          },
+          router: {
+            enabled: true,
+          },
+        },
+        logger: {
+          defaultLogger: true,
+        },
+        router: {
+          routes: {
+            directory: path.resolve(__dirname, './../hapi/helpers/actions'),
+            enabled: {
+              'success-set-header': 'success-set-header',
+              'success-remove-header': 'success-remove-header',
+            },
+            transports: ['http'],
+          },
+        },
+      });
+
+      await service.connect();
+    });
+
+    after(() => service.close());
+
+    it('should be able to set header', async () => {
+      const response = await request({
+        method: 'POST',
+        resolveWithFullResponse: true,
+        simple: false,
+        uri: 'http://0.0.0.0:3000/success-set-header',
+        body: '',
+      })
+
+      assert.strictEqual(response.headers['x-wow-your-personal-header'], 'wow so valuable');
+    });
+
+    it('should be able to remove header', async () => {
+      const response = await request({
+        method: 'POST',
+        resolveWithFullResponse: true,
+        simple: false,
+        uri: 'http://0.0.0.0:3000/success-remove-header',
+        body: '',
+      })
+
+      assert.strictEqual(response.headers['x-remove-me'], undefined);
+      assert.strictEqual(response.headers['x-wow-your-personal-header'], 'wow so valuable');
+    })
   });
 
   describe('should be able to use hapi\'s plugins', async () => {

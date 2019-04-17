@@ -3,7 +3,7 @@ import _debug = require('debug')
 import is = require('is')
 import { Tags } from 'opentracing'
 import uuid = require('uuid')
-import { ServiceRequest } from '../../types'
+import { ServiceRequestInterface } from '../../types'
 import { Router } from './factory'
 
 const debug = _debug('mservice:router:dispatch')
@@ -27,7 +27,7 @@ const wrapPromise = (span: any, promise: any, callback?: (err: any, result?: any
     .asCallback(callback)
 )
 
-function reflectToProps(this: ServiceRequest, reflection: Bluebird.Inspection<any>) {
+function reflectToProps(this: ServiceRequestInterface, reflection: Bluebird.Inspection<any>) {
   return reflection.isRejected()
     ? [reflection.reason(), undefined, this]
     : [null, reflection.value(), this]
@@ -35,9 +35,9 @@ function reflectToProps(this: ServiceRequest, reflection: Bluebird.Inspection<an
 
 export type RequestCallback = (err: any, result?: any) => void
 
-function dispatch(this: Router, route: string, request: ServiceRequest): Bluebird<any>
-function dispatch(this: Router, route: string, request: ServiceRequest, callback: RequestCallback): void
-function dispatch(this: Router, route: string, request: ServiceRequest, callback?: RequestCallback) {
+function dispatch(this: Router, route: string, request: ServiceRequestInterface): Bluebird<any>
+function dispatch(this: Router, route: string, request: ServiceRequestInterface, callback: RequestCallback): void
+function dispatch(this: Router, route: string, request: ServiceRequestInterface, callback?: RequestCallback) {
   const router = this
   const { modules, service } = router
 

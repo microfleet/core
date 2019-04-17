@@ -3,12 +3,12 @@ import { ArgumentError, NotFoundError, HttpStatusError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
 import { Microfleet, RouterPlugin } from '../../../'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequestInterface } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 const debug = _debug('mservice:router:module:request')
 
-function getAction(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest) {
+function getAction(this: Microfleet & RouterPlugin, route: string, request: ServiceRequestInterface) {
   debug('handler for module "request"')
   const service = this
   const { transport } = request
@@ -34,7 +34,7 @@ function getAction(this: Microfleet & RouterPlugin, route: string, request: Serv
   return request
 }
 
-function requestHandler(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest) {
+function requestHandler(this: Microfleet & RouterPlugin, route: string, request: ServiceRequestInterface) {
   const service = this
   const { extensions } = service.router
 

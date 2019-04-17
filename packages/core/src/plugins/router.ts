@@ -2,7 +2,7 @@ import assert = require('assert')
 import { NotFoundError, NotSupportedError } from 'common-errors'
 import { ActionTransport, PluginTypes, identity } from '../constants'
 import { Microfleet } from '../'
-import { ServiceRequest } from '../types'
+import { ServiceRequestInterface } from '../types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
 import { ValidatorPlugin } from './validator'
 import { LoggerPlugin } from './logger'
@@ -21,7 +21,7 @@ export { Router, RouterConfig, LifecycleRequestType }
  */
 export interface RouterPlugin {
   router: Router
-  dispatch: (route: string, request: Partial<ServiceRequest>) => PromiseLike<any>
+  dispatch: (route: string, request: Partial<ServiceRequestInterface>) => PromiseLike<any>
 }
 
 /**
@@ -47,7 +47,7 @@ const shallowObjectClone = (prop: any) =>
  * @param request - service request.
  * @returns Prepared service request.
  */
-const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
+const prepareRequest = (request: Partial<ServiceRequestInterface>): ServiceRequestInterface => ({
   // initiate action to ensure that we have prepared proto fo the object
   // input params
   // make sure we standardize the request
@@ -57,7 +57,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
   locals: shallowObjectClone(request.locals),
   auth: shallowObjectClone(request.auth),
   log: console as any,
-  method: internal as ServiceRequest['method'],
+  method: internal as ServiceRequestInterface['method'],
   params: { ...request.params },
   parentSpan: undefined,
   query: Object.create(null),
@@ -92,7 +92,7 @@ export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & Route
     : identity
 
   // dispatcher
-  service.dispatch = (route: string, request: Partial<ServiceRequest>) => {
+  service.dispatch = (route: string, request: Partial<ServiceRequestInterface>) => {
     const msg = prepareRequest(request)
     return router.dispatch(assemble(route), msg)
   }
