@@ -1962,7 +1962,7 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-args@^5.0.0:
+args@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/args/-/args-5.0.1.tgz#4bf298df90a4799a09521362c579278cc2fdd761"
   integrity sha512-1kqmFCFsPffavQFGt8OxJdIcETti99kySRUPMpOhaGjL6mRJn8HFU1OxKY5bMqfZKUwTQc1mZkAjmGYaVOHFtQ==
@@ -2334,7 +2334,7 @@ bounce@1.x.x:
     boom "7.x.x"
     hoek "6.x.x"
 
-bourne@1.x.x:
+bourne@1.x.x, bourne@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/bourne/-/bourne-1.1.2.tgz#e290b5bd7166635632eaf8ef12b006b2d4a75b83"
   integrity sha512-b2dgVkTZhkQirNMohgC00rWfpVqEi9y5tKM1k3JvoNx05ODtfQoPPd4js9CYFQoY0IM8LAmnJulEuWv74zjUOg==
@@ -4135,11 +4135,6 @@ fast-glob@^2.0.2, fast-glob@^2.2.6:
     is-glob "^4.0.0"
     merge2 "^1.2.3"
     micromatch "^3.1.10"
-
-fast-json-parse@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/fast-json-parse/-/fast-json-parse-1.0.3.tgz#43e5c61ee4efa9265633046b770fb682a7577c4d"
-  integrity sha512-FRWsaZRWEJ1ESVNbDWmsAlqDk96gPQezzLghafp5J4GUKjbCz3OkAHuZs5TuPEtkbVQERysLp9xv6c24fBm8Aw==
 
 fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
@@ -8411,20 +8406,20 @@ pino-multi-stream@^4.0.1:
   dependencies:
     pino "^5.11.1"
 
-pino-pretty@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-2.6.0.tgz#05e69e5d458e8b304936e0097045c38c382e7c27"
-  integrity sha512-0mrKDOCI35tb8Wjrg793ZE+AyFZYivUH7ekJdcd41RJik32BT7cgLsq/Kjh8+lvQa+Mx2PghptN1x0tsO2Trvw==
+pino-pretty@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/pino-pretty/-/pino-pretty-3.0.0.tgz#915a8fb6ecab609535809a08f3e3f0c70dc17409"
+  integrity sha512-OQCKEit08mVgTQbxBZHScNiwdodJIPgxKFPIStQBZXj09yg94h4OHsbgFCotwn7Ew26ASTbaW4CzWFpsBeynhA==
   dependencies:
-    args "^5.0.0"
-    chalk "^2.3.2"
+    args "^5.0.1"
+    bourne "^1.1.2"
+    chalk "^2.4.2"
     dateformat "^3.0.3"
-    fast-json-parse "^1.0.3"
     fast-safe-stringify "^2.0.6"
     jmespath "^0.15.0"
     pump "^3.0.0"
-    readable-stream "^3.0.6"
-    split2 "^3.0.0"
+    readable-stream "^3.3.0"
+    split2 "^3.1.1"
 
 pino-std-serializers@^2.3.0:
   version "2.3.0"
@@ -8860,10 +8855,19 @@ read@1, read@~1.0.1, read@~1.0.7:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readable-stream@^3.0.0, readable-stream@^3.0.6, readable-stream@^3.1.1:
+readable-stream@^3.0.0, readable-stream@^3.1.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.2.0.tgz#de17f229864c120a9f56945756e4f32c4045245d"
   integrity sha512-RV20kLjdmpZuTF1INEb9IA3L68Nmi+Ri7ppZqo78wj//Pn62fCoJyV9zalccNzDD/OuJpMG4f+pfMl8+L6QdGw==
+  dependencies:
+    inherits "^2.0.3"
+    string_decoder "^1.1.1"
+    util-deprecate "^1.0.1"
+
+readable-stream@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.3.0.tgz#cb8011aad002eb717bf040291feba8569c986fb9"
+  integrity sha512-EsI+s3k3XsW+fU8fQACLN59ky34AZ14LoeVZpYwmZvldCFo0r0gnelwF2TcMjLor/BTL5aDJVBMkss0dthToPw==
   dependencies:
     inherits "^2.0.3"
     string_decoder "^1.1.1"
@@ -9710,7 +9714,7 @@ split2@^2.0.0:
   dependencies:
     through2 "^2.0.2"
 
-split2@^3.0.0:
+split2@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/split2/-/split2-3.1.1.tgz#c51f18f3e06a8c4469aaab487687d8d956160bb6"
   integrity sha512-emNzr1s7ruq4N+1993yht631/JH+jaj0NYBosuKmLcq+JkGQ9MmTw1RB1fGaTCzUuseRIClrlSLHRNYGwWQ58Q==
