@@ -2,7 +2,6 @@ import { Microfleet } from '../../../..'
 import { ServiceRequest, MserviceError } from '../../../../types'
 import { LifecyclePoints, ExtensionPlugin } from '..'
 
-
 export interface MetricsExtension {
   metrics: {
     start: [number, number],
@@ -36,7 +35,7 @@ export default function metricObservabilityFactory(): ExtensionPlugin[] {
     },
     {
       point: LifecyclePoints.postResponse,
-      async handler(this: Microfleet, error: MserviceError, result: any, _: Error, __: any, request: ServiceRequestWithMetrics) {
+      async handler(this: Microfleet, e: MserviceError, r: any, _: Error, __: any, request: ServiceRequestWithMetrics) {
 
         const { metricMicrofleetDuration } = this
         const latency = diff(request.metrics.start)
@@ -44,16 +43,12 @@ export default function metricObservabilityFactory(): ExtensionPlugin[] {
           method: request.method,
           route: request.route,
           transport: request.transport,
-          statusCode: extractStatusCode(error),
-          status: error ? 'failed' : 'succeed',
+          statusCode: extractStatusCode(e),
+          status: e ? 'failed' : 'succeed',
         }
-        console.log(labels)
-        console.log(latency)
-
-        console.log(metricMicrofleetDuration)
         metricMicrofleetDuration.observe(labels, latency)
 
-        return [error, result]
+        return [e, r]
       },
     },
   ]
