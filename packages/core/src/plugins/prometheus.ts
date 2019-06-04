@@ -29,16 +29,16 @@ export function attach(this: Microfleet, opts: any = {}) {
   const prometheus = service.prometheus = require('prom-client')
 
   const { config } = service.ifError(name, opts)
-  const { port, path } = config
+  const { port, path, durationBuckets } = config
 
   // register default metrics
   prometheus.register.clear()
   prometheus.collectDefaultMetrics()
 
   // register service version metric
-  if (!prometheus.register.getSingleMetric('application_version_info')) {
-    createAppVersionMetric(prometheus)
-  }
+  createAppVersionMetric(prometheus)
+  // register methods latency histogram
+  service.metricMicrofleetDuration = createMethodsRequestsMetric(prometheus, durationBuckets)
 
   // handle metric requests
   const server = createServer(createMetricHandler(prometheus, path))
@@ -70,14 +70,31 @@ export function attach(this: Microfleet, opts: any = {}) {
 }
 
 function createAppVersionMetric(prometheus: any) {
-  const pkgVersion = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
-  const pv = semver.parse(pkgVersion)
-  const appVersion = new prometheus.Gauge({
-    name: 'application_version_info',
-    help: 'application version info',
-    labelNames: ['version', 'major', 'minor', 'patch'],
-  })
-  appVersion.labels(`v${pv!.version}`, pv!.major, pv!.minor, pv!.patch).set(1)
+  let metric = prometheus.register.getSingleMetric('application_version_info')
+  if (!metric) {
+    const pkgVersion = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
+    const pv = semver.parse(pkgVersion)
+    metric = new prometheus.Gauge({
+      name: 'application_version_info',
+      help: 'application version info',
+      labelNames: ['version', 'major', 'minor', 'patch'],
+    })
+    metric.labels(`v${pv!.version}`, pv!.major, pv!.minor, pv!.patch).set(1)
+  }
+  return metric
+}
+
+function createMethodsRequestsMetric(prometheus: any, buckets: number[]) {
+  let metric = prometheus.register.getSingleMetric('microfleet_request_duration_milliseconds')
+  if (!metric) {
+    metric = new prometheus.Histogram({
+      buckets,
+      name: 'microfleet_request_duration_milliseconds',
+      help: 'duration histogram of microfleet route requests',
+      labelNames: ['method', 'route', 'transport', 'status', 'statusCode'],
+    })
+  }
+  return metric
 }
 
 function createMetricHandler(prometheus: any, path: string) {
