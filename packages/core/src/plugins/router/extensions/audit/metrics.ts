@@ -7,7 +7,20 @@ function extractStatusCode(error: MserviceError): number {
   if (!error) {
     return 200
   }
-  return  error.statusCode || 500
+  switch (error.name) {
+    case 'AuthenticationRequiredError':
+      return 400
+    case 'ValidationError':
+      return 401
+    case 'NotPermittedError':
+      return 403
+    case 'NotFoundError':
+      return 404
+    case 'NotSupportedError':
+      return 405
+    default:
+      return error.statusCode || 500
+  }
 }
 
 function diff(start: [number, number]): number {
@@ -31,7 +44,6 @@ export default function metricObservabilityFactory(): ExtensionPlugin[] {
           route: request.route,
           transport: request.transport,
           statusCode: extractStatusCode(e),
-          status: e ? 'failed' : 'succeed',
         }
         metricMicrofleetDuration.observe(labels, latency)
 

@@ -90,7 +90,7 @@ function createMethodsRequestsMetric(prometheus: any, buckets: number[]) {
       buckets,
       name: 'microfleet_request_duration_milliseconds',
       help: 'duration histogram of microfleet route requests',
-      labelNames: ['method', 'route', 'transport', 'status', 'statusCode'],
+      labelNames: ['method', 'route', 'transport',  'statusCode'],
     })
   }
   return metric
