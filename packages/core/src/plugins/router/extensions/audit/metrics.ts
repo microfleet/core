@@ -41,6 +41,7 @@ export default function metricObservabilityFactory(): ExtensionPlugin[] {
         const latency = diff(request.started)
         const labels = {
           method: request.method,
+          // NOTE: route empty in case of 404 - should we extract real path from the `transportRequest` ?
           route: request.route,
           transport: request.transport,
           statusCode: extractStatusCode(e),

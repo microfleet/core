@@ -1,8 +1,21 @@
 import { createServer } from 'http'
+import assert = require('assert')
 import { Microfleet, PluginTypes } from '..'
 import { getVersion } from '../utils/packageInfo'
 import semver = require('semver')
 import Bluebird = require('bluebird')
+
+const usageError = `
+if "prometheus" and "router" plugins are used together - you have to  manually configure router handlers:
+
+const {
+  default: metricObservability
+} = require('@microfleet/core/lib/plugins/router/extensions/audit/metrics')
+config.router.extensions.enabled = ["preRequest", "postResponse"]
+config.router.extensions.register = [metricObservability()]
+
+In future we expect to handle it automatically :)
+`
 
 /**
  * Plugin Name
@@ -25,6 +38,11 @@ export const priority = 50
  */
 export function attach(this: Microfleet, opts: any = {}) {
   const service = this
+
+  if (service.config.plugins.includes('router')) {
+    const extensions = service.router.config.extensions || {}
+    assert(extensions.enabled.includes('preRequest') && extensions.enabled.includes('postResponse'), usageError)
+  }
 
   const prometheus = service.prometheus = require('prom-client')
 
