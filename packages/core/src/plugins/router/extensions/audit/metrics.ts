@@ -1,12 +1,7 @@
 import { Microfleet } from '../../../..'
 import { ServiceRequest, MserviceError } from '../../../../types'
 import { LifecyclePoints, ExtensionPlugin } from '..'
-
-export interface MetricsExtension {
-  metrics: {
-    start: [number, number],
-  }
-}
+import { storeRequestTimeFactory, ServiceRequestWithStart } from '../sharedHandlers'
 
 function extractStatusCode(error: MserviceError): number {
   if (!error) {
@@ -21,24 +16,16 @@ function diff(start: [number, number]): number {
   return parseInt(ms.toFixed(), 10)
 }
 
-export type ServiceRequestWithMetrics = ServiceRequest & MetricsExtension
-
 export default function metricObservabilityFactory(): ExtensionPlugin[] {
 
   return [
-    {
-      point: LifecyclePoints.preRequest,
-      async handler(route: string, request: ServiceRequestWithMetrics) {
-        request.metrics = { start: process.hrtime() }
-        return [route, request]
-      },
-    },
+    storeRequestTimeFactory(),
     {
       point: LifecyclePoints.postResponse,
-      async handler(this: Microfleet, e: MserviceError, r: any, _: Error, __: any, request: ServiceRequestWithMetrics) {
+      async handler(this: Microfleet, e: MserviceError, r: any, _: Error, __: any, request: ServiceRequestWithStart) {
 
         const { metricMicrofleetDuration } = this
-        const latency = diff(request.metrics.start)
+        const latency = diff(request.started)
         const labels = {
           method: request.method,
           route: request.route,
