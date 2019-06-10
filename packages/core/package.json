@@ -116,7 +116,7 @@
     "jaeger-client": "^3.15.0",
     "jest": "^24.8.0",
     "json": "^9.0.6",
-    "knex": "^0.16.3",
+    "knex": "^0.17.5",
     "mocha": "^6.1.4",
     "ms-socket.io-adapter-amqp": "^5.0.0",
     "nyc": "^13.1.0",
