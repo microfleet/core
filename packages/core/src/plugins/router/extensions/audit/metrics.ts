@@ -1,5 +1,5 @@
 import { Microfleet } from '../../../..'
-import { ServiceRequest, MserviceError } from '../../../../types'
+import { MserviceError } from '../../../../types'
 import { LifecyclePoints, ExtensionPlugin } from '..'
 import { storeRequestTimeFactory, ServiceRequestWithStart } from '../sharedHandlers'
 
