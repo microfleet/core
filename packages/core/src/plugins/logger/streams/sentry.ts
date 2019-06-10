@@ -12,11 +12,11 @@ const BAN_LIST = {
   level: true,
 }
 
-const {
+import {
   extractStackFromError,
   parseStack,
   prepareFramesForEvent,
-} = Sentry.Parsers
+} from '@sentry/node/dist/parsers'
 
 /**
  * Sentry stream for Pino
@@ -115,7 +115,7 @@ function sentryStreamFactory(config: Sentry.NodeOptions) {
     defaultIntegrations: false,
     ...process.env.NODE_ENV === 'test' && {
       integrations: [
-        new Sentry.Integrations.Debug(),
+        new Sentry.Integrations.Console(),
       ],
     },
   })
