@@ -1,6 +1,6 @@
 import { createServer } from 'http'
 import { Microfleet, PluginTypes } from '..'
-import readPkgUp = require('read-pkg-up')
+import { getVersion } from '../utils/packageInfo'
 import semver = require('semver')
 import Bluebird = require('bluebird')
 
@@ -72,8 +72,7 @@ export function attach(this: Microfleet, opts: any = {}) {
 function createAppVersionMetric(prometheus: any) {
   let metric = prometheus.register.getSingleMetric('application_version_info')
   if (!metric) {
-    const pkgVersion = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
-    const pv = semver.parse(pkgVersion)
+    const pv = semver.parse(getVersion())
     metric = new prometheus.Gauge({
       name: 'application_version_info',
       help: 'application version info',
