@@ -108,7 +108,7 @@
     "codecov": "^3.5.0",
     "common-errors": "^1.0.5",
     "cross-env": "^5.1.6",
-    "elasticsearch": "^15.1.1",
+    "elasticsearch": "^16.1.1",
     "express-cassandra": "2.3.0",
     "handlebars": "^4.1.2",
     "hapi": "^18.1.0",
