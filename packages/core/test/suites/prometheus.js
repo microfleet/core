@@ -32,6 +32,7 @@ describe('prometheus plugin', function testSuite() {
 
     const text = await request('http://0.0.0.0:9102/metrics');
     assert.ok(text.includes(`TYPE application_version_info gauge`))
+    assert.ok(text.includes(`TYPE microfleet_request_duration_milliseconds histogram`))
 
   });
 

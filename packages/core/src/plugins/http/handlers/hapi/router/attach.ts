@@ -24,7 +24,7 @@ export default function attachRouter(service: Microfleet, config: any): HapiPlug
             method: ['GET', 'POST'],
           }
 
-          const hapiTransportOptions = get(handler, 'transportOptions.handlers.hapi', Object.create(null))
+          const hapiTransportOptions = get(<object>handler, 'transportOptions.handlers.hapi', Object.create(null))
           const handlerOptions = omit(hapiTransportOptions, ['path', 'handler'])
 
           server.route(defaults(handlerOptions, defaultOptions))

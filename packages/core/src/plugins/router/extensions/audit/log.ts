@@ -1,16 +1,8 @@
 import is = require('is')
 import { Microfleet } from '../../../..'
-import { ServiceRequest, MserviceError } from '../../../../types'
+import { MserviceError } from '../../../../types'
 import { LifecyclePoints, ExtensionPlugin } from '..'
-
-export interface AuditLogExtension {
-  auditLog: {
-    start: [number, number],
-    execTime?: [number, number]
-  }
-}
-
-export type ServiceRequestWithAuditLog = ServiceRequest & AuditLogExtension
+import { storeRequestTimeFactory, ServiceRequestWithStart } from '../sharedHandlers'
 
 export type AuditLogExtensionParams = {
   disableLogErrorsForNames?: string[],
@@ -20,18 +12,12 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): E
   const disableLogErrorsForNames: string[] = params.disableLogErrorsForNames || []
 
   return [
-    {
-      point: LifecyclePoints.preRequest,
-      async handler(route: string, request: ServiceRequestWithAuditLog) {
-        request.auditLog = { start: process.hrtime() }
-        return [route, request]
-      },
-    },
+    storeRequestTimeFactory(),
     {
       point: LifecyclePoints.preResponse,
-      async handler(this: Microfleet, error: MserviceError | void, result: any, request: ServiceRequestWithAuditLog) {
+      async handler(this: Microfleet, error: MserviceError | void, result: any, request: ServiceRequestWithStart) {
         const service = this
-        const execTime = request.auditLog.execTime = process.hrtime(request.auditLog.start)
+        const execTime = request.executionTotal = process.hrtime(request.started)
 
         const meta = {
           headers: request.headers,

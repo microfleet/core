@@ -34,3 +34,5 @@ schemas/add.json
 lib
 .env
 .nyc_output
+
+*.tsbuildinfo

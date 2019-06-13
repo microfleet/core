@@ -1,7 +1,7 @@
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
-import readPkgUp = require('read-pkg-up')
 import lsmod = require('lsmod')
+import { getVersion } from '../../../utils/packageInfo'
 
 // keys to be banned
 const BAN_LIST = {
@@ -12,11 +12,11 @@ const BAN_LIST = {
   level: true,
 }
 
-const {
+import {
   extractStackFromError,
   parseStack,
   prepareFramesForEvent,
-} = Sentry.Parsers
+} from '@sentry/node/dist/parsers'
 
 /**
  * Sentry stream for Pino
@@ -115,13 +115,13 @@ function sentryStreamFactory(config: Sentry.NodeOptions) {
     defaultIntegrations: false,
     ...process.env.NODE_ENV === 'test' && {
       integrations: [
-        new Sentry.Integrations.Debug(),
+        new Sentry.Integrations.Console(),
       ],
     },
   })
 
   const dest = new SentryStream({
-    release: readPkgUp.sync({ cwd: process.cwd() }).pkg.version,
+    release: getVersion(),
   })
   // @ts-ignore
   dest[Symbol.for('pino.metadata')] = true
