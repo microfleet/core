@@ -1,3 +1,26 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [13.9.0](https://github.com/microfleet/core/compare/@microfleet/core@13.8.1...@microfleet/core@13.9.0) (2019-06-13)
+
+
+### Bug Fixes
+
+* fix lint errors ([50b599f](https://github.com/microfleet/core/commit/50b599f))
+* update sentry logger tests ([50f1ce2](https://github.com/microfleet/core/commit/50f1ce2))
+
+
+### Features
+
+* add tests ([0326a74](https://github.com/microfleet/core/commit/0326a74))
+* update minor dependencies ([2e7dda4](https://github.com/microfleet/core/commit/2e7dda4))
+
+
+
+
+
 ## 13.8.1 (2019-04-08)
 
 
@@ -48,6 +71,3 @@
 ### BREAKING CHANGES
 
 * restructured this to be a monorepo in an effort to separate all of the bundled plugins later on. For now all releases will be published under `@next` tag. Uses experimental semantic-release-monorepo to support independent versioning. Removed express & restify support from http adapters
-
-
-
