@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.9.1](https://github.com/microfleet/core/compare/@microfleet/core@13.9.0...@microfleet/core@13.9.1) (2019-06-13)
+
+
+### Bug Fixes
+
+* correct release publisher ([e90cb12](https://github.com/microfleet/core/commit/e90cb12))
+
+
+
+
+
 # [13.9.0](https://github.com/microfleet/core/compare/@microfleet/core@13.8.1...@microfleet/core@13.9.0) (2019-06-13)
 
 
