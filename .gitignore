@@ -36,3 +36,4 @@ lib
 .nyc_output
 
 *.tsbuildinfo
+.releaserc.json
