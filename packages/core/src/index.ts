@@ -214,6 +214,7 @@ export class Microfleet extends EventEmitter {
    * @param args - Arbitrary args to be passed to fn later on.
    */
   public addMigrator(name: string, fn: (...args: any[]) => any, ...args: any[]) {
+    // @ts-ignore
     this.migrators[name] = partial(fn, ...args)
   }
 

@@ -14,7 +14,7 @@
     "precompile": "yarn clean",
     "compile": "tsc -b packages/*/tsconfig.build.json",
     "clean": "rimraf packages/*/lib",
-    "semantic-release": "lerna publish --conventional-commits --github-release --yes"
+    "semantic-release": "lerna publish --conventional-commits --create-release=github --yes"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^8.4.4",
