@@ -50,7 +50,7 @@
     "death": "^1.1.0",
     "debug": "^4.1.0",
     "event-to-promise": "^0.8.0",
-    "eventemitter3": "^3.1.2",
+    "eventemitter3": "^4.0.0",
     "get-value": "^3.0.1",
     "glob": "^7.1.4",
     "is": "^3.3.0",
