@@ -3,7 +3,7 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "13.9.1",
+  "version": "14.0.0",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn test:unit && yarn test:e2e",
@@ -74,7 +74,9 @@
     "common-errors": "^1.x.x"
   },
   "devDependencies": {
+    "@hapi/boom": "^7.2.0",
     "@hapi/hapi": "^18.1.0",
+    "@hapi/vision": "^5.4.4",
     "@microfleet/transport-amqp": "^14.0.0",
     "@microfleet/validation": "^8.1.0",
     "@sentry/node": "^5.4.3",
@@ -102,7 +104,6 @@
     "@types/semver": "^6.0.1",
     "@types/sonic-boom": "^0.6.1",
     "@types/uuid": "^3.4.4",
-    "@hapi/boom": "^7.2.0",
     "chai": "^4.2.0",
     "cheerio": "^1.0.0-rc.3",
     "codecov": "^3.5.0",
@@ -133,8 +134,7 @@
     "socketio-wildcard": "^2.0.0",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "@hapi/vision": "^5.4.4"
+    "tslint": "^5.18.0"
   },
   "engines": {
     "node": ">= 8.9.0",

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [14.0.0](https://github.com/microfleet/core/compare/@microfleet/core@13.9.1...@microfleet/core@14.0.0) (2019-06-26)
+
+
+### Features
+
+* upgrade hapi to @hapi/hapi ([29ed9e3](https://github.com/microfleet/core/commit/29ed9e3))
+
+
+### BREAKING CHANGES
+
+* uses @hapi/hapi, @hapi/joi, etc
+
+
+
+
+
 ## [13.9.1](https://github.com/microfleet/core/compare/@microfleet/core@13.9.0...@microfleet/core@13.9.1) (2019-06-13)
 
 
