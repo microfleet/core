@@ -21,9 +21,9 @@
     "conventional-changelog-cli": "^2.0.21",
     "lerna": "^3.15.0",
     "rimraf": "^2.6.2",
-    "tslint": "^5.17.0",
+    "tslint": "^5.18.0",
     "tslint-config-blvd": "^1.2.1",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   },
   "husky": {
     "hooks": {

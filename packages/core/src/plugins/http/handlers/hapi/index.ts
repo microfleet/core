@@ -1,7 +1,7 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import { NotPermittedError } from 'common-errors'
-import { Plugin, Server } from 'hapi'
+import { Plugin, Server } from '@hapi/hapi'
 import { Microfleet } from '../../../..'
 import { PluginInterface } from '../../../../types'
 import _require from '../../../../utils/require'
@@ -45,7 +45,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
     if (handlerConfig.views) {
       plugins.push({
         options: {},
-        plugin: 'vision',
+        plugin: '@hapi/vision',
       })
 
       plugins.push({
@@ -84,7 +84,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
     await server.start()
 
     service.log.info(
-      { transport: 'http', http: 'hapi' },
+      { transport: 'http', http: '@hapi/hapi' },
       'listening on http://%s:%s',
       handlerConfig.server.address,
       handlerConfig.server.port

@@ -4,21 +4,20 @@ import semver = require('semver')
 const pluginDependencies = {
   '@microfleet/transport-amqp': '>= 13',
   '@sentry/node': '~4.x.x',
-  'body-parser': '~1.x.x',
-  boom: '~7.x.x',
+  '@hapi/boom': '~7.x.x',
   elasticsearch: '~14.x.x || ~15.x.x',
   'express-cassandra': '~2.x.x',
-  hapi: '>= 17.x.x < 18',
-  ioredis: '~3.x.x || ~4.x.x',
+  '@hapi/hapi': '>= 18.x.x < 19',
+  ioredis: '~4.x.x',
   'jaeger-client': '~3.x.x',
-  knex: '~0.15.x',
-  'ms-socket.io-adapter-amqp': '~5.x.x',
-  'opentracing-js-ioredis': '~1.x.x || ~2.x.x',
+  knex: '~0.17.x',
+  'ms-socket.io-adapter-amqp': '~6.x.x',
+  'opentracing-js-ioredis': '~2.x.x',
   pg: '~7.x.x',
   'server-destroy': '~1.x.x',
   'socket.io': '~2.x.x',
   'socketio-wildcard': '~2.x.x',
-  vision: '~5.x.x',
+  '@hapi/vision': '~5.x.x',
 }
 
 interface PluginDep {

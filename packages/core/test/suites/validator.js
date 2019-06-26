@@ -1,49 +1,48 @@
 const assert = require('assert');
-const { expect } = require('chai');
 
-describe('Validator suite', function testSuite() {
+describe('Validator suite', () => {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet } = require('../../src');
 
   it('no `validator` plugin, it emits an error or throws', function test() {
-    const service = new Mservice({ name: 'tester', plugins: [] });
+    const service = new Microfleet({ name: 'tester', plugins: [] });
     assert(!service.validator);
   });
 
   it('validator inits relative schema paths', function test() {
-    expect(() => {
-      this.service = new Mservice({
+    assert.doesNotThrow(() => {
+      this.service = new Microfleet({
         name: 'tester',
         plugins: ['validator'],
         validator: ['../fixtures'],
       });
-    }).to.not.throw();
+    })
 
-    expect(!!this.service.validator.ajv.getSchema('test-schema')).to.be.eq(true);
-    expect(!!this.service.validator.ajv.getSchema('config')).to.be.eq(true);
+    assert(!!this.service.validator.ajv.getSchema('test-schema'));
+    assert(!!this.service.validator.ajv.getSchema('config'));
   });
 
   it('validator exposes validate methods on the service', function test() {
-    expect(this.service).to.have.ownProperty('validate');
-    expect(this.service).to.have.ownProperty('validateSync');
-    expect(this.service.validate).to.be.a('function');
-    expect(this.service.validateSync).to.be.a('function');
+    assert(this.service.hasOwnProperty('validate'));
+    assert(this.service.hasOwnProperty('validateSync'));
+    assert(typeof this.service.validate === 'function');
+    assert(typeof this.service.validateSync === 'function');
   });
 
   it('validator throw on invalid config when `config` schema is present', function test() {
-    expect(() => {
-      this.service = new Mservice({
+    assert.throws(() => {
+      this.service = new Microfleet({
         name: 'tester',
         plugins: ['validator'],
         validator: ['../fixtures'],
         invalid: 'mwhaha',
       });
-    }).to.throw();
+    });
   });
 
   it('should be able to load config as object', () => {
-    expect(() => {
-      this.service = new Mservice({
+    assert.doesNotThrow(() => {
+      this.service = new Microfleet({
         name: 'tester',
         plugins: ['validator'],
         validator: {
@@ -53,10 +52,10 @@ describe('Validator suite', function testSuite() {
           },
         },
       });
-    }).to.not.throw();
+    });
 
-    expect(!!this.service.validator.ajv.getSchema('test-schema')).to.be.eq(true);
-    expect(this.service.validateSync('test-types-schema', '1').doc).to.be.eq('1');
-    expect(!!this.service.validator.ajv.getSchema('config')).to.be.eq(true);
+    assert(!!this.service.validator.ajv.getSchema('test-schema'));
+    assert.equal(this.service.validateSync('test-types-schema', '1').doc, '1');
+    assert(!!this.service.validator.ajv.getSchema('config'));
   });
 });

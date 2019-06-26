@@ -1,4 +1,4 @@
-import { Request, Server } from 'hapi'
+import { Request, Server } from '@hapi/hapi'
 
 export const name = 'view-wrapper'
 export const dependencies = 'vision'

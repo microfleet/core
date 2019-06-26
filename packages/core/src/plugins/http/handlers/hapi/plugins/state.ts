@@ -1,4 +1,4 @@
-import { Request, Server } from 'hapi'
+import { Request, Server } from '@hapi/hapi'
 
 export const name = 'mservice-state'
 export const version = '1.0.0'

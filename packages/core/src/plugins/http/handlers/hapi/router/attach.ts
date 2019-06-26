@@ -1,5 +1,5 @@
 import get = require('get-value')
-import { Request, Server } from 'hapi'
+import { Request, Server } from '@hapi/hapi'
 import defaults = require('lodash/defaults')
 import omit = require('lodash/omit')
 import { HapiPlugin } from '..'

@@ -1,7 +1,7 @@
 import { HttpStatusError } from '@microfleet/validation'
 import Bluebird = require('bluebird')
 import Errors = require('common-errors')
-import { Request } from 'hapi'
+import { Request } from '@hapi/hapi'
 import noop = require('lodash/noop')
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
 import { ActionTransport, Microfleet } from '../../../../..'
@@ -10,7 +10,7 @@ import _require from '../../../../../utils/require'
 import { Router } from '../../../../router/factory'
 
 export default function getHapiAdapter(actionName: string, service: Microfleet) {
-  const Boom = _require('boom')
+  const Boom = _require('@hapi/boom')
   const router = service.router as Router
 
   const reformatError = (error: any) => {

@@ -2,7 +2,7 @@
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,
-  "node": "10.14.1",
+  "node": "10.16.0",
   "parallel": 3,
   "services": [
     "redisSentinel",
