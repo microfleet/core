@@ -379,7 +379,7 @@ export class Microfleet extends EventEmitter {
    * @returns Result of the invocation.
    */
   private async processAndEmit(collection: any, event: string, priority = ConnectorsPriority) {
-    const responses = []
+    const responses: any[] = []
     for (const connectorType of priority) {
       const connectors: PluginConnector[] | void = collection[connectorType]
       if (!connectors) {
@@ -416,7 +416,7 @@ export class Microfleet extends EventEmitter {
     }
 
     // require all modules
-    const plugins = []
+    const plugins: Plugin[] = []
     for (const plugin of config.plugins) {
       plugins.push(require(`./plugins/${plugin}`))
     }

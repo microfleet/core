@@ -57,7 +57,7 @@ export const attach = function attachValidator(
   let validator: Validator
   let schemas
 
-  if (Array.isArray(conf) || conf === undefined) {
+  if (!conf || Array.isArray(conf)) {
     validator = new Validator(schemasPath)
     schemas = conf
   } else {
