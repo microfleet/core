@@ -2,6 +2,11 @@
 
 ### How does it work?
 
+#### Connector
+##### Connect
+##### Close
+##### Status
+
 ### Install
 
 ### Usage
