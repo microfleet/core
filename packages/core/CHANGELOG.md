@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.0.1](https://github.com/microfleet/core/compare/@microfleet/core@14.0.0...@microfleet/core@14.0.1) (2019-07-30)
+
+**Note:** Version bump only for package @microfleet/core
+
+
+
+
+
 # [14.0.0](https://github.com/microfleet/core/compare/@microfleet/core@13.9.1...@microfleet/core@14.0.0) (2019-06-26)
 
 
