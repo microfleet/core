@@ -32,16 +32,110 @@ yarn add @microfleet/transport-amqp
 ### Usage
 
 #### Enable plugin
-Add plugin name to the list of enabled plugins:
+Add plugin name to the list of enabled plugins. Enable the required dependencies as well:
 ```js
 // configs/plugins.js
 exports.plugins = [
-  //...
+  'validator',
+  'logger', 
   'amqp',
 ];
 ```
 
+#### Configure transport
+Let's start with connection. By default AMQP transport listens `localhost:5672`, for more connection options read 
+[the schema](https://github.com/microfleet/transport-amqp/blob/master/src/schema.js).
+```js
+exports.amqp = {
+  transport: {
+    connection: {
+      login: 'alice',
+      password: 'i-am-being-set-from-a-very-secure-place'
+    },
+  }
+}
+```
+#### Send messages using routing keys
+##### Publish
+Method `publish()` sends a message via routing key.
+
+###### Syntax
+```js
+amqp.publish(routingKey, message, publishOptions, [parentSpan])
+    .then(() => {
+      // sent
+    })
+    .catch((err) => {
+      // failed to send
+    })
+```
+
+###### Parameters
+  `routingKey` – Routing key (string)
+  `message` – Message to send (mixed)
+  `publishOptions` – [Publish options](./amqp/publish-options.md) (object)
+  `parentSpan` – Parent span (object, optional)
+  
+###### Return value
+A Promise, which could be resolved with `undefined`, or rejected with an error.
+
+##### Publish and wait
+Method `publishAndWait()` sends a message via routing key, as [`publish()`](#publish).
+
+###### Syntax
+```js
+amqp.publishAndWait(routingKey, message, publishOptions, [parentSpan])
+    .then((response) => {
+      // do whatever you want
+    })
+    .catch((err) => {
+      // either failed to send or response contained an error - work with it here
+    })
+```
+
+###### Parameters
+  `routingKey` – Routing key (string)
+  `message` – Message to send (mixed)
+  `publishOptions` –  [Publish options](./amqp/publish-options.md) (object)
+  `parentSpan` – Parent span (object, optional)
+
+###### Return value
+A Promise, which could be resolved with `undefined`, or rejected with an error. Resolving value depends on the 
+publish option `simpleResponse`.
+
+##### Send `amqp.send(queueName, message, publishOptions, [parentSpan])`
+Method `send()` allows you to send a message to a queue directly. . Otherwise it works similar to [`publish()`](#publish)
+
+###### Syntax
+```js
+amqp.send(queueName, message, publishOptions, [parentSpan])
+```
+
+###### Parameters
+  `queue` – Queue name (string)
+  `message` – Message to send (mixed)
+  `publishOptions` –  [Publish options](./amqp/publish-options.md) (object)
+  `parentSpan` – Parent span (object, optional)
+
+##### Send and wait `amqp.sendAndWait(queueName, message, publishOptions, [parentSpan])`
+Method `sendAndWait()` allows you to send a message to a queue directly. Otherwise it works similar to [`publishAndWait()`](#publish-and-wait)
+
+###### Syntax
+```js
+amqp.sendAndWait(queueName, message, publishOptions, [parentSpan])
+```
+
+###### Parameters
+  `queue` – Queue name (string)
+  `message` – Message to send (mixed)
+  `publishOptions` –  [Publish options](./amqp/publish-options.md) (object)
+  `parentSpan` – Parent span (object, optional)
+
+
 #### Enable router
+AMQP plugin could be used with the router, to make your application routes accessible by AMQP. It maps the routes to 
+the routing keys
+keys
 Register [Router Plugin](./router.md):
 ```js
 // configs/plugins.js

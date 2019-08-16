@@ -15,14 +15,16 @@ exports.plugins = [
 
 ## Plugin types
 Plugin types are
-| Name | Purpose |
+
+| Name          | Purpose |
+|---------------|---------|
 | `application` | What is application plugin |
-| `database` | All database connectors |
-| `essential` | Plugins that the core needs - `validator`, `logger`, `opentracing`, `router` |
-| `transport` | HTTP, AMQP - anything | 
+| `database`    | All database connectors |
+| `essential`   | Plugins that the core needs - `validator`, `logger`, `opentracing`, `router` |
+| `transport`   | HTTP, AMQP - anything | 
 
 ## Plugin priority
-Priority is just a number that is responsible for the priority within a group of plugins with same type.
+Priority is just a number that is responsible for the priority within a group of plugins with the same type.
 
 ## Connector
 Connector is a function that attaches plugin to a service and could provide following lifecycle methods:
@@ -37,4 +39,4 @@ Connector is a function that attaches plugin to a service and could provide foll
 
 ## Plugin list
 - [AMQP](plugins/amqp.md)
-- [Router](plugins/amqp.md)
+- [Router](plugins/router.md)
