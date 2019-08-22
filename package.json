@@ -17,13 +17,13 @@
     "semantic-release": "lerna publish --conventional-commits --create-release=github --yes"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^8.4.4",
-    "conventional-changelog-cli": "^2.0.21",
-    "lerna": "^3.15.0",
-    "rimraf": "^2.6.2",
-    "tslint": "^5.18.0",
+    "@makeomatic/deploy": "^8.4.5",
+    "conventional-changelog-cli": "^2.0.23",
+    "lerna": "^3.16.4",
+    "rimraf": "^3.0.0",
+    "tslint": "^5.19.0",
     "tslint-config-blvd": "^1.2.1",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "husky": {
     "hooks": {

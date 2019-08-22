@@ -1,4 +1,5 @@
 import assert = require('assert')
+import rfdc = require('rfdc')
 import { NotFoundError, NotSupportedError } from 'common-errors'
 import { ActionTransport, PluginTypes, identity } from '../constants'
 import { Microfleet } from '../'
@@ -43,6 +44,11 @@ const shallowObjectClone = (prop: any) =>
     : prop
 
 /**
+ * Allows to deep clone object
+ */
+const deepClone = rfdc()
+
+/**
  * Fills gaps in default service request.
  * @param request - service request.
  * @returns Prepared service request.
@@ -58,7 +64,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
   auth: shallowObjectClone(request.auth),
   log: console as any,
   method: internal as ServiceRequest['method'],
-  params: { ...request.params },
+  params: deepClone(request.params),
   parentSpan: undefined,
   query: Object.create(null),
   route: '',
