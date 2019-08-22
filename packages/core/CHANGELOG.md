@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.0.2](https://github.com/microfleet/core/compare/@microfleet/core@14.0.1...@microfleet/core@14.0.2) (2019-08-22)
+
+
+### Bug Fixes
+
+* clone params on dispatch ([10e56a2](https://github.com/microfleet/core/commit/10e56a2))
+* **dispatch:** work with nil-like dispatch ([af39b54](https://github.com/microfleet/core/commit/af39b54))
+
+
+
+
+
 ## [14.0.1](https://github.com/microfleet/core/compare/@microfleet/core@14.0.0...@microfleet/core@14.0.1) (2019-07-30)
 
 **Note:** Version bump only for package @microfleet/core
