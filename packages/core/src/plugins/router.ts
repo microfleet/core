@@ -64,7 +64,9 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
   auth: shallowObjectClone(request.auth),
   log: console as any,
   method: internal as ServiceRequest['method'],
-  params: deepClone(request.params),
+  params: request.params != null
+    ? deepClone(request.params)
+    : Object.create(null),
   parentSpan: undefined,
   query: Object.create(null),
   route: '',
