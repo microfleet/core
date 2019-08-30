@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import semver = require('semver')
 
 const pluginDependencies = {
-  '@microfleet/transport-amqp': '>= 13',
+  '@microfleet/transport-amqp': '>= 15',
   '@sentry/node': '~4.x.x',
   '@hapi/boom': '~7.x.x',
   elasticsearch: '~14.x.x || ~15.x.x',
