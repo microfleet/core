@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.0.3](https://github.com/microfleet/core/compare/@microfleet/core@14.0.2...@microfleet/core@14.0.3) (2019-08-30)
+
+
+### Bug Fixes
+
+* update dependencies ([984135a](https://github.com/microfleet/core/commit/984135a))
+* **http:** set default handler to hapi ([#330](https://github.com/microfleet/core/issues/330)) ([b83b4bd](https://github.com/microfleet/core/commit/b83b4bd))
+
+
+
+
+
 ## [14.0.2](https://github.com/microfleet/core/compare/@microfleet/core@14.0.1...@microfleet/core@14.0.2) (2019-08-22)
 
 
