@@ -18,7 +18,7 @@
                     "type": "boolean"
                 },
                 "handler": {
-                    "default": "express",
+                    "default": "hapi",
                     "type": "string"
                 },
                 "handlerConfig": {

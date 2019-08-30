@@ -144,7 +144,7 @@ Creates bunyan logger, with streams based on passed configuration and extends mi
 
 Initializes router, which scans folders for actions and builds routing tree for for enabled transports.
 Router controls request lifecycle, which tries to mimic hapi.js lifecycle as closely as possible, with unified interface for multiple transports.
-Currently supports `AMQP` (`@microfleet/transport-amqp`), `HTTP` (`hapi.js`, `express.js,` `restify`) and `Socket.IO`.
+Currently supports `AMQP` (`@microfleet/transport-amqp`), `HTTP` (`hapi.js`) and `Socket.IO`.
 Default sensible configurations are provided.
 
 Stock configuration looks for all `**/*.js` files in `src/actions` directory, enables `hapi.js` based HTTP handler on port 3000.
