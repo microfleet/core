@@ -1,5 +1,5 @@
 ## AMQP Plugin
-[future reference](https://github.com/microfleet/transport-amqp)
+Based on [Transport AMQP](https://github.com/microfleet/transport-amqp) library.
 
 ### Info
 | Parameter     | Value       |
@@ -43,7 +43,7 @@ exports.plugins = [
 ```
 
 #### Configure transport
-Let's start with connection. By default AMQP transport listens `localhost:5672`, for more connection options read 
+Let's start with connection. By default AMQP transport listens on `localhost:5672`, for more connection options read 
 [the schema](https://github.com/microfleet/transport-amqp/blob/master/src/schema.js).
 ```js
 exports.amqp = {
@@ -104,7 +104,7 @@ A Promise, which could be resolved with `undefined`, or rejected with an error. 
 publish option `simpleResponse`.
 
 ##### Send `amqp.send(queueName, message, publishOptions, [parentSpan])`
-Method `send()` allows you to send a message to a queue directly. . Otherwise it works similar to [`publish()`](#publish)
+Method `send()` allows you to send a message to a queue directly. Otherwise it works similar to [`publish()`](#publish).
 
 ###### Syntax
 ```js
@@ -134,8 +134,8 @@ amqp.sendAndWait(queueName, message, publishOptions, [parentSpan])
 
 #### Enable router
 AMQP plugin could be used with the router, to make your application routes accessible by AMQP. It maps the routes to 
-the routing keys
-keys
+the routing keys.
+
 Register [Router Plugin](./router.md):
 ```js
 // configs/plugins.js
