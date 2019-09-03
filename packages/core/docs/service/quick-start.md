@@ -56,11 +56,11 @@ yarn mfleet
 This should print:
 ```sh
 yarn run v1.16.0
-$ /Users/belkinadasha/Projects/microfleet-demo-app/node_modules/.bin/mfleet
-[2019-08-30 14:50:10.198 +0000] INFO  (demo-app/8832 on you.local): listening on http://0.0.0.0:3000
+$ ~/demo-app/node_modules/.bin/mfleet
+[...] INFO  (demo-app/8832 on you.local): listening on http://0.0.0.0:3000
     transport: "http"
     http: "@hapi/hapi"
-[2019-08-30 14:50:10.207 +0000] INFO  (demo-app/8832 on you.local): service started
+[...] INFO  (demo-app/8832 on you.local): service started
 ```
 
 Make your first request:
