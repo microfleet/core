@@ -47,12 +47,12 @@ for (const [filepath, action] of readRoutes(GENERIC_ROUTES_PATH)) {
  * @param action.schema - Static property, if defined must reference json-schema.
  * @param action.transports - Static property, must be defined to show enabled transports for the method.
  */
-function validateAction(actionLike: ServiceAction | { default: ServiceAction }): ServiceAction {
+function validateAction(actionLike: ServiceAction | { default: ServiceAction }, route: string): ServiceAction {
   let action: ServiceAction
   if (typeof actionLike === 'object' && actionLike && is.fn(actionLike.default)) {
     action = actionLike.default
   } else if (!is.fn(actionLike)) {
-    throw new ValidationError('action must be a function')
+    throw new ValidationError(`action in ${route} must be a function`)
   } else {
     action = actionLike as ServiceAction
   }
@@ -65,19 +65,19 @@ function validateAction(actionLike: ServiceAction | { default: ServiceAction }):
   } = action as ServiceAction
 
   if (is.defined(allowed) && !is.fn(allowed)) {
-    throw new ValidationError('action.allowed must be a function')
+    throw new ValidationError(`action.allowed in ${route} must be a function`)
   }
 
   if (is.defined(auth) && !(is.string(auth) || is.object(auth))) {
-    throw new ValidationError('action.auth must be a string or an object')
+    throw new ValidationError(`action.auth in ${route} must be a string or an object`)
   }
 
   if (is.defined(schema) && !is.string(schema)) {
-    throw new ValidationError('action.schema must be a string')
+    throw new ValidationError(`action.schema in ${route} must be a string`)
   }
 
   if (!Array.isArray(transports)) {
-    throw new ValidationError('action.transports must be an array')
+    throw new ValidationError(`action.transports in ${route} must be an array`)
   }
 
   return action as ServiceAction
@@ -145,7 +145,7 @@ function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
     }
 
     try {
-      const extractedAction = validateAction(action)
+      const extractedAction = validateAction(action, route)
 
       // action name is the same as a route name
       extractedAction.actionName = enabled[route]
