@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [14.0.5](https://github.com/microfleet/core/compare/@microfleet/core@14.0.4...@microfleet/core@14.0.5) (2019-09-16)
+
+
+### Bug Fixes
+
+* define action route in validateAction ValidationError ([#332](https://github.com/microfleet/core/issues/332)) ([ea63995](https://github.com/microfleet/core/commit/ea63995))
+
+
+
+
+
 ## [14.0.4](https://github.com/microfleet/core/compare/@microfleet/core@14.0.3...@microfleet/core@14.0.4) (2019-09-11)
 
 
