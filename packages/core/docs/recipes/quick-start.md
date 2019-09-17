@@ -1,9 +1,42 @@
 # Quick start guide
 
+## Installation
 Install core and essential deps:
 ```sh
 yarn add @microfleet/core uuid common-errors @microfleet/transport-amqp @microfleet/validation @hapi/hapi
 ```
+
+Create an `index.js` file under `src` directory:
+```js
+const { Microfleet } = require('@microfleet/core');
+
+class DemoApp extends Microfleet {
+ constructor() {
+   super({
+     name: 'demo-app',
+   });
+ }
+}
+
+module.exports = DemoApp;
+```
+
+Let's check that you have installed all necessary dependencies and try to start the server:
+```sh
+yarn mfleet
+```
+
+This should print:
+```sh
+yarn run v1.16.0
+$ ~/demo-app/node_modules/.bin/mfleet
+[...] INFO  (demo-app/92477 on you.local): listening on http://0.0.0.0:3000
+    transport: "http"
+    http: "@hapi/hapi"
+[...] INFO  (demo-app/92477 on you.local): service started
+```
+
+## Configuring the app
 
 src/index.js:
 ```js

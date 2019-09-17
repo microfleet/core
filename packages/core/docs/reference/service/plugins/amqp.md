@@ -172,9 +172,57 @@ exports.amqp = {
 };
 ```
 
+Make the actions folder observable by router plugin.
+
 #### Specify exchange queue
+Transport AMQP library allows you to set up a permanent consumption queue. To make the queue to be created configure its 
+name:  
+```js
+exports.amqp = {
+  transport: {
+    queue: 'your-queue-name',
+  }
+}
+```
 
 #### Configure router prefix
+To prefix all observable endpoints with a path segment, set the `prefix` value:
+```js
+exports.amqp = {
+  router: {
+    enabled: true,
+    prefix: 'internal'
+  }
+}
+```
+
+Now, if you have an action that previously could have been invoked internally by calling
+`this.amqp.publishAndWait('foo')`:
+```js
+// actions/foo.js
+const { ActionTransport } = require('@microfleet/core');
+
+async function fooAction() {
+  return 'foo';
+}
+
+fooAction.transports = [ActionTransport.amqp];
+
+module.exports = fooAction;
+```
+
+```js
+// actions/request-some-internal-endpoint.js
+const { ActionTransport } = require('@microfleet/core');
+
+async function requestSomeInternalEndpointAction() {
+  return await this.amqp.publishAndWait('internal.foo')
+}
+
+requestSomeInternalEndpointAction.transports = [ActionTransport.http];
+
+module.exports = requestSomeInternalEndpointAction;
+```
 
 #### Enable retry
 `transport.onComplete` should not be defined
@@ -204,8 +252,6 @@ exports.amqp = {
   },
 }
 ```
-
-#### Enable decorators
 
 #### Full configuration example
 [Schema](../../../schemas/amqp.json)
@@ -247,8 +293,3 @@ exports.amqp = {
   }
 }
 ```
-
-### Debugging
-[future reference](../plugins.md#debugging)
-
-
