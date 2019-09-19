@@ -48,9 +48,9 @@ class SentryStream {
       let stacktrace = undefined
       if (event.err && event.err.stack) {
         try {
-          const stack = await extractStackFromError(event.err)
+          const stack = extractStackFromError(event.err)
           const frames = await parseStack(stack)
-          stacktrace = { frames: await prepareFramesForEvent(frames) }
+          stacktrace = { frames: prepareFramesForEvent(frames) }
         } catch (e) { /* ignore */ }
       }
       Sentry.captureEvent({
