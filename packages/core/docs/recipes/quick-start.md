@@ -118,7 +118,7 @@ $ mkdir test
 
 ## Ensure service starts
 
-Create file `demo.js`:
+Create file `test/demo.js`:
 ```js
 const DemoApp = require('../index');
 
@@ -166,11 +166,12 @@ yarn add -D request-promise
 yarn add -D request
 ```
 
-Add a test:
+Add a test to `test/demo.js`:
 ```js
-// demo.js
+// test/demo.js
 const rp = require('request-promise');
 const assert = require('assert');
+const DemoApp = require('../index'); 
 
 describe('server', () => {
   // it('should be able to start', async () => {...}); 
