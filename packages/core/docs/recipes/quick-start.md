@@ -105,3 +105,93 @@ This should print:
 Hello, world!
 ```
 
+# Testing
+Install [Mocha testing library](https://mochajs.org):
+```sh
+yarn add -D mocha
+```
+
+Create directory for tests from your project root:
+```sh
+$ mkdir test
+```
+
+## Ensure service starts
+
+Create file `demo.js`:
+```js
+const DemoApp = require('../index');
+
+describe('server', () => {
+  it('should be able to start', async () => {
+    const demoApp = new DemoApp();
+    await demoApp.connect();
+    await demoApp.close();
+  });
+});
+```
+
+Run:
+```sh
+$ ./node_modules/mocha/bin/mocha
+```
+
+This should print:
+```sh
+ server
+[...] INFO  (demo-app/6714 on you.local): listening on http://0.0.0.0:3000
+    transport: "http"
+    http: "@hapi/hapi"
+    ✓ should be able to start (611ms)
+
+
+  1 passing (619ms)
+```
+
+Add `test` script to the `package.json`:
+```
+"scripts": {
+  "test": "mocha"
+}
+```
+
+Run once again:
+```sh
+yarn test
+```
+
+## Ensure service is able to greet the world
+```sh
+yarn add -D request-promise
+yarn add -D request
+```
+
+Add a test:
+```js
+// demo.js
+const rp = require('request-promise');
+const assert = require('assert');
+
+describe('server', () => {
+  // it('should be able to start', async () => {...}); 
+  
+  it('should say hello world', async () => {
+      const demoApp = new DemoApp();
+      await demoApp.connect();
+  
+      try {
+        const response = await rp({
+          uri: 'http://0.0.0.0:3000/demo',
+        });
+        assert(response, 'Hello, world');
+      } finally {
+        await demoApp.close();
+      }
+    });
+});
+```
+
+Check it out bu running:
+```sh
+yarn test
+```
