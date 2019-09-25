@@ -14,7 +14,7 @@ describe('Validator suite', () => {
       this.service = new Microfleet({
         name: 'tester',
         plugins: ['validator'],
-        validator: ['../fixtures'],
+        validator: { schemas: ['../fixtures'] },
       });
     })
 
@@ -34,7 +34,7 @@ describe('Validator suite', () => {
       this.service = new Microfleet({
         name: 'tester',
         plugins: ['validator'],
-        validator: ['../fixtures'],
+        validator: { schemas: ['../fixtures'] },
         invalid: 'mwhaha',
       });
     });

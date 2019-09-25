@@ -1,6 +1,7 @@
 import path = require('path')
 import * as constants from './constants'
 import { RouterConfig, LifecyclePoints } from './plugins/router/factory'
+import { ValidatorConfig } from './plugins/validator'
 
 /**
  * This extension defaults schemas to the name of the action
@@ -16,6 +17,16 @@ import auditLog from './plugins/router/extensions/audit/log'
  * Default configurations module
  * @module mservice:defaults
  */
+
+export const validator: Partial<ValidatorConfig> = {
+  schemasInitPath: '../../schemas',
+  schemas: [],
+  serviceConfigSchemaIds: ['microfleet.core', 'config'],
+  filter: null,
+  ajv: {
+    strictKeywords: true,
+  },
+}
 
 /**
  * Settigs for Logger plugin
@@ -136,7 +147,7 @@ export const http = {
      * Will be used as <http.router.prefix>/<router.routes.prefix>/<actionName>
      * If any of the prefixes are empty strings - they are omitted
      */
-    prefix: 'mservice',
+    prefix: '',
   },
 }
 

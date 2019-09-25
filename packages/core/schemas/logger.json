@@ -1,5 +1,5 @@
 {
-  "name": "logger",
+  "$id": "logger",
   "type": "object",
   "properties": {
     "defaultLogger": {

@@ -80,9 +80,10 @@ describe('Router suite', function testSuite() {
             ActionTransport.socketIO,
           ],
         },
+        extensions: { register: [] },
         auth: {
           strategies: {
-            token(request) {
+            token: function token(request) {
               return Promise
                 .resolve(request.params.token)
                 .then((token) => {
@@ -98,8 +99,10 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
+
+    console.log(JSON.stringify(service.config))
 
     return service
       .connect()
@@ -222,7 +225,7 @@ describe('Router suite', function testSuite() {
           register: [schemaLessAction, auditLog(), qsParser, transportOptions],
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' });
@@ -281,7 +284,7 @@ describe('Router suite', function testSuite() {
           ],
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     return service.connect()
@@ -344,7 +347,7 @@ describe('Router suite', function testSuite() {
           ],
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     await service.connect();
@@ -425,7 +428,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     await service.connect();
@@ -495,7 +498,7 @@ describe('Router suite', function testSuite() {
           ],
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     const stub = sinon.stub(service, 'getHealthStatus');
@@ -554,7 +557,7 @@ describe('Router suite', function testSuite() {
           enabledGenericActions: ['i-dont-know-you'],
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     };
 
     expect(() => new Mservice(config)).to.throw(Errors.ValidationError);
@@ -587,7 +590,7 @@ describe('Router suite', function testSuite() {
         },
         extensions: { enabled: ['preRequest', 'preResponse'], register: [ auditLog() ] }
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
     const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' });
 
@@ -625,7 +628,7 @@ describe('Router suite', function testSuite() {
         },
         extensions: { enabled: ['preRequest', 'preResponse'], register: [ auditLog({ disableLogErrorsForNames: ['NotFoundError'] }) ] }
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
     const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' });
 
@@ -639,7 +642,7 @@ describe('Router suite', function testSuite() {
   it('should return 418 in maintenance mode', async function test() {
     const service = new Mservice({
       name: 'tester',
-      plugins: ["logger", "validator", "router", "http", "amqp"],
+      plugins: ['logger', 'validator', 'router', 'http', 'amqp'],
       maintenanceMode: true,
       http: {
         server: {
@@ -666,7 +669,8 @@ describe('Router suite', function testSuite() {
           transports: [ActionTransport.http, ActionTransport.amqp],
         },
         extensions: {
-          enabled: ['preValidate', 'postRequest', 'preResponse', 'preRequest']
+          enabled: ['preValidate', 'postRequest', 'preResponse', 'preRequest'],
+          register: [],
         },
       }
     })
@@ -699,5 +703,4 @@ describe('Router suite', function testSuite() {
       ])
     }).finally(() => service.close());
   })
-
 });
