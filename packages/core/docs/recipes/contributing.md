@@ -12,6 +12,7 @@ Feature documentation may contain three parts:
 You may implement the feature in our demo application first, to provide some basic working example. It may be an action 
 handler that demonstrates how to use some plugin. It should be covered with necessary and sufficient tests.
 
+
 1. Clone or fork [Microfleet Demo App repository](https://github.com/microfleet/create-microfleet-app)
 2. Implement feature, cover it with tests
 3. Make a pull request with description of the feature
@@ -23,6 +24,7 @@ Otherwise, describe a minimum working scenario. The recipe may also contain the 
 you're on the right way, to ensure every step moves you forward. You may also provide a troubleshooting guide for 
 implementing this feature.
 
+
 1. Clone or fork [Microfleet Core repository](https://github.com/microfleet/core)
 2. Add a recipe to the [Recipes docs directory](https://github.com/microfleet/core/tree/master/packages/core/docs/recipes)
 3. Enlist it into the [Recipes table of contents](https://github.com/microfleet/core/blob/master/packages/core/docs/recipes.md)
@@ -33,6 +35,7 @@ Example: [Quick start recipe](https://github.com/microfleet/core/blob/master/pac
 ### Make necessary config references
 After you are done with a recipe, you should ensure every mentioned config setting has at least its description, 
 containing the setting name, value type and add links to recipes to provide some feature context.
+
 
 1. Clone or fork [Microfleet Core repository](https://github.com/microfleet/core)
 2. Add a reference to the [References docs directory](https://github.com/microfleet/core/tree/master/packages/core/docs/reference)
