@@ -9,6 +9,7 @@ import requestModule from './modules/request'
 import getResponseHandler from './modules/response'
 import validateModule from './modules/validate'
 import getRoutes, { RoutesConfig } from './routes'
+import getRequestCountTracker, { RequestCountTracker } from './requestTracker'
 
 export { LifecycleRequestType, LifecyclePoints }
 
@@ -33,6 +34,7 @@ export interface Router {
   dispatch: typeof dispatch
   extensions: Extensions
   routes: RouteMap
+  requestCountTracker: RequestCountTracker,
   modules: {
     request: ServiceActionStep,
     auth: ServiceActionStep,
@@ -57,6 +59,7 @@ export function getRouter(config: RouterConfig, service: Microfleet): Router {
     config,
     service,
     dispatch,
+    requestCountTracker: getRequestCountTracker(service),
     extensions: new Extensions(config.extensions),
     modules: {
       allowed: allowedModule,

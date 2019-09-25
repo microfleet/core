@@ -2,10 +2,10 @@ import assert = require('assert')
 import Bluebird = require('bluebird')
 import { NotPermittedError } from 'common-errors'
 import { Plugin, Server } from '@hapi/hapi'
-import { Microfleet } from '../../../..'
+import { ActionTransport, Microfleet } from '../../../..'
 import { PluginInterface } from '../../../../types'
-import _require from '../../../../utils/require'
 import attachRouter from './router/attach'
+import { waitRequestsToFinish, getRequestCount } from '../../../router/requestTracker'
 
 export interface HapiPlugin {
   plugin: string | Plugin<any>
@@ -90,17 +90,30 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
       handlerConfig.server.port
     )
 
-    service.emit('plugin:start:http', server)
-
     return server
   }
 
+  function requestCount() {
+    return getRequestCount(service, ActionTransport.http)
+  }
+
   async function stopServer() {
-    await server.stop()
+    const { started } = server.info
+
+    if (started) {
+      /* Socket depends on Http transport. Wait for its requests here */
+      if (config.server.attachSocketIO) {
+        await waitRequestsToFinish(service, ActionTransport.socketIO)
+      }
+
+      await server.stop()
+      await waitRequestsToFinish(service, ActionTransport.http)
+    }
     service.emit('plugin:stop:http', server)
   }
 
   return {
+    requestCount,
     close: stopServer,
     connect: startServer,
   }

@@ -10,6 +10,8 @@ import hapiRouterAdapter from './adapter'
 
 export default function attachRouter(service: Microfleet, config: any): HapiPlugin {
   verifyPossibility(service.router, ActionTransport.http)
+  const { http } = ActionTransport
+  const { router } = service
 
   return {
     plugin: {
@@ -39,6 +41,26 @@ export default function attachRouter(service: Microfleet, config: any): HapiPlug
             return handler(request)
           },
         })
+
+        /* Hapi not emitting request event */
+        /* Using Extension */
+        const onRequest = (_:any, h:any) => {
+          router.requestCountTracker.increase(http)
+          return h.continue
+        }
+
+        /* But emit's 'response' event */
+        const onResponse = () => {
+          router.requestCountTracker.decrease(http)
+        }
+
+        const onStop = () => {
+          server.events.removeListener('response', onResponse)
+        }
+
+        server.ext('onRequest', onRequest)
+        server.events.on('response', onResponse)
+        server.events.on('stop', onStop)
       },
     },
   }

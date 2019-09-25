@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 const request = require('request-promise');
 const SocketIOClient = require('socket.io-client');
 const assert = require('assert');
+const sinon = require('sinon');
 
 describe('Http server with \'hapi\' handler', function testSuite() {
   require('../config');

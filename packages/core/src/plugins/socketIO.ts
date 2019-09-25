@@ -2,9 +2,10 @@ import assert = require('assert')
 import { NotImplementedError, NotFoundError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
-import { Microfleet, PluginTypes } from '../'
+import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import attachRouter from './socketIO/router/attach'
+import { getRequestCount } from './router/requestTracker'
 
 const debug = _debug('mservice:socketIO')
 
@@ -43,8 +44,11 @@ function attachSocketIO(this: Microfleet, opts: any = {}) {
   }
 
   this.socketIO = socketIO
-}
 
+  return {
+    requestCount: () => getRequestCount(service, ActionTransport.socketIO),
+  }
+}
 /**
  * Relative priority inside the same plugin group type
  */

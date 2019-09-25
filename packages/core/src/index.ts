@@ -139,6 +139,8 @@ export class Microfleet extends EventEmitter {
   public readonly [constants.DESTRUCTORS_PROPERTY]: StartStopTree
   public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[]
 
+  public stopping: boolean
+
   /**
    * Allow Extensions
    */
@@ -151,6 +153,7 @@ export class Microfleet extends EventEmitter {
   constructor(opts: ConfigurationRequired & DeepPartial<ConfigurationOptional>) {
     super()
 
+    this.stopping = false
     // init configuration
     this.config = defaultsDeep(opts, defaultOpts) as any
 
@@ -178,11 +181,8 @@ export class Microfleet extends EventEmitter {
 
     if (this.config.sigterm) {
       this.on('ready', () => {
-        process.on('SIGTERM', this.exit)
-      })
-
-      this.on('close', () => {
-        process.removeListener('SIGTERM', this.exit)
+        process.once('SIGTERM', this.exit)
+        process.once('SIGINT', this.exit)
       })
     }
   }
@@ -245,6 +245,7 @@ export class Microfleet extends EventEmitter {
    * @returns Walks over registered destructors and emits close event upon completion.
    */
   public close() {
+    this.stopping = true
     return Bluebird
       .resolve(this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse()))
   }
@@ -365,8 +366,10 @@ export class Microfleet extends EventEmitter {
     this.log.info('received close signal...\n closing connections...\n')
 
     try {
-      await this.close().timeout(10000)
+      await this.close().timeout(5000)
+      this.log.info('Bye!...\n')
     } catch (e) {
+      this.log.error({ error: e }, 'Unable to shutdown')
       process.exit(128)
     }
   }
