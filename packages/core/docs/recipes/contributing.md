@@ -13,7 +13,7 @@ You may implement the feature in our demo application first, to provide some bas
 handler that demonstrates how to use some plugin. It should be covered with necessary and sufficient tests.
 
 1. Clone or fork [Microfleet Demo App repository](https://github.com/microfleet/create-microfleet-app)
-2. Implement feature, cover it with test
+2. Implement feature, cover it with tests
 3. Make a pull request with description of the feature
 
 ### Create a recipe 
@@ -31,7 +31,7 @@ implementing this feature.
 Example: [Quick start recipe](https://github.com/microfleet/core/blob/master/packages/core/docs/recipes/quick-start.md)
 
 ### Make necessary config references
-After you are done with a recipe, you should add ensure every mentioned config setting has at least its description, 
+After you are done with a recipe, you should ensure every mentioned config setting has at least its description, 
 containing the setting name, value type and add links to recipes to provide some feature context.
 
 1. Clone or fork [Microfleet Core repository](https://github.com/microfleet/core)
