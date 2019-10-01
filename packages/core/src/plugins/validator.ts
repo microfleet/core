@@ -16,9 +16,8 @@ const { isArray } = Array
  * https://github.com/microfleet/validation
  */
 export type ValidatorConfig = {
-  schemasInitPath: string
-  filter: ((filename: string) => boolean) | null
   schemas: string[]
+  filter: ((filename: string) => boolean) | null
   serviceConfigSchemaIds: string[]
   ajv: ajv.Options
 }
@@ -66,15 +65,14 @@ export const attach = function attachValidator(
   const service = this
   // for relative paths
   const stack = callsite()
-  const { schemasInitPath, schemas, serviceConfigSchemaIds, filter, ajv: ajvConfig } = config
+  const { schemas, serviceConfigSchemaIds, filter, ajv: ajvConfig } = config
 
-  strictEqual(isString(schemasInitPath) && schemasInitPath.length !== 0, true, configError('schemasInitPath'))
   strictEqual(isArray(schemas), true, configError('schemas'))
   strictEqual(isArray(serviceConfigSchemaIds), true, configError('serviceConfigSchemaIds'))
   strictEqual(filter === null || isFunction(filter), true, configError('filter'))
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
-  const validator = new Validator(schemasInitPath, filter, ajvConfig)
+  const validator = new Validator('../../schemas', filter, ajvConfig)
 
   // Note that schemas with same file name will be overwritten
   for (const location of schemas) {
