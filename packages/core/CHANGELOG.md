@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.0.0](https://github.com/microfleet/core/compare/@microfleet/core@14.1.2...@microfleet/core@15.0.0) (2019-10-01)
+
+
+### Features
+
+* refactor config for validator plugin ([#339](https://github.com/microfleet/core/issues/339)) ([7ed49f4](https://github.com/microfleet/core/commit/7ed49f4))
+
+
+### BREAKING CHANGES
+
+* reworked validator plugin to allow stricter validation and decoupling of plugins. This is a first breaking change in a series. Consider this major version unstable. Next version will be LTS and continue to adhere to semver
+
+
+
+
+
 ## [14.1.2](https://github.com/microfleet/core/compare/@microfleet/core@14.1.1...@microfleet/core@14.1.2) (2019-09-25)
 
 **Note:** Version bump only for package @microfleet/core
