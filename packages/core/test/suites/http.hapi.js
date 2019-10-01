@@ -19,6 +19,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           handler: 'hapi',
           port: 3000,
         },
+        router: {
+          enabled: false,
+        },
       },
     });
 
@@ -45,6 +48,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           attachSocketIO: true,
           handler: 'hapi',
           port: 3000,
+        },
+        router: {
+          enabled: false,
         },
       },
       logger: {
@@ -92,6 +98,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           },
           transports: ['http'],
         },
+        extensions: { register: [] },
       },
     });
 
@@ -148,6 +155,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'foo.bar',
           transports: ['http'],
         },
+        extensions: { register: [] },
       },
     });
 
@@ -196,6 +204,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           },
           transports: ['http'],
         },
+        extensions: { register: [] },
       },
     });
 
@@ -245,6 +254,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'baz.foo',
           transports: ['http'],
         },
+        extensions: { register: [] },
       },
     });
 
@@ -292,6 +302,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           },
           transports: ['http'],
         },
+        extensions: { register: [] },
       },
     });
 
@@ -344,6 +355,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
             directory: path.resolve(__dirname, './../hapi/helpers/actions'),
             transports: ['http'],
           },
+          extensions: { register: [] },
         },
       });
 

@@ -26,6 +26,7 @@ import {
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { LoggerPlugin, LoggerConfig } from './plugins/logger'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
+import defaultsDeep from './utils/defaults-deep'
 export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }
 
 /**
@@ -151,7 +152,7 @@ export class Microfleet extends EventEmitter {
     super()
 
     // init configuration
-    this.config = { ...defaultOpts, ...opts } as any
+    this.config = defaultsDeep(opts, defaultOpts) as any
 
     // init migrations
     this.migrators = Object.create(null)

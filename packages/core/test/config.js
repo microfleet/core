@@ -89,6 +89,9 @@ global.SERVICES = {
       },
       transports: [ActionTransport.socketIO],
     },
+    extensions: {
+      register: [],
+    },
   },
   socketIO: {
     router: {
