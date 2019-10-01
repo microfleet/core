@@ -21,7 +21,7 @@ class DemoApp extends Microfleet {
 module.exports = DemoApp;
 ```
 
-Let's check that you have installed all necessary dependencies and try to start the server:
+Let's check that you have installed all the necessary dependencies and try to start the server:
 ```sh
 yarn mfleet
 ```
@@ -81,7 +81,7 @@ demoAction.transports = [ActionTransport.http];
 module.exports = demoAction;
 ```
 
-Start service
+Start the service
 ```sh
 yarn mfleet
 ```
@@ -111,12 +111,12 @@ Install [Mocha testing library](https://mochajs.org):
 yarn add -D mocha
 ```
 
-Create directory for tests from your project root:
+Create a directory for tests from your project root:
 ```sh
 $ mkdir test
 ```
 
-## Ensure service starts
+## Ensure the service starts
 
 Create file `test/demo.js`:
 ```js
@@ -160,10 +160,10 @@ Run once again:
 yarn test
 ```
 
-## Ensure service is able to greet the world
+## Ensure the service is able to greet the world
 ```sh
 yarn add -D request-promise
-yarn add -D request
+yarn add -D assert
 ```
 
 Add a test to `test/demo.js`:
@@ -192,7 +192,7 @@ describe('server', () => {
 });
 ```
 
-Check it out bu running:
+Check it out by running:
 ```sh
 yarn test
 ```
