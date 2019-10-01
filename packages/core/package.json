@@ -109,7 +109,7 @@
     "cheerio": "^1.0.0-rc.3",
     "codecov": "^3.5.0",
     "common-errors": "^1.0.5",
-    "cross-env": "^5.2.1",
+    "cross-env": "^6.0.0",
     "elasticsearch": "^16.3.0",
     "express-cassandra": "2.3.2",
     "handlebars": "^4.2.0",
