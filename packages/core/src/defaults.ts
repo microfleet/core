@@ -19,7 +19,6 @@ import auditLog from './plugins/router/extensions/audit/log'
  */
 
 export const validator: Partial<ValidatorConfig> = {
-  schemasInitPath: '../../schemas',
   schemas: [],
   serviceConfigSchemaIds: ['microfleet.core', 'config'],
   filter: null,
