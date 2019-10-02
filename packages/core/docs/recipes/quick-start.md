@@ -8,6 +8,7 @@ yarn add @microfleet/core uuid common-errors @microfleet/transport-amqp @microfl
 
 Create an `index.js` file under `src` directory:
 ```js
+//src/index.js
 const { Microfleet } = require('@microfleet/core');
 
 class DemoApp extends Microfleet {
@@ -19,6 +20,15 @@ class DemoApp extends Microfleet {
 }
 
 module.exports = DemoApp;
+```
+
+Set this file as a primary entry point in `package.json`:
+```json
+{
+  //...
+  "main": "src/index.js",
+  //...
+}
 ```
 
 Let's check that you have installed all necessary dependencies and try to start the server:
@@ -48,18 +58,7 @@ class DemoApp extends Microfleet {
    super({
      name: 'demo-app',
      router: {
-       routes: {
-         directory: path.resolve(__dirname, './actions'),
-         transports: [ActionTransport.http],
-       },
-     },
-     http: {
-       server: {
-         handler: 'hapi',
-       },
-       router: {
-         enabled: true,
-       },
+       extensions: { register: [] }, // this line disables some core features that we don't need yet
      },
    });
  }
@@ -120,7 +119,7 @@ $ mkdir test
 
 Create file `test/demo.js`:
 ```js
-const DemoApp = require('../index');
+const DemoApp = require('../src');
 
 describe('server', () => {
   it('should be able to start', async () => {
@@ -171,7 +170,7 @@ Add a test to `test/demo.js`:
 // test/demo.js
 const rp = require('request-promise');
 const assert = require('assert');
-const DemoApp = require('../index'); 
+const DemoApp = require('../src'); 
 
 describe('server', () => {
   // it('should be able to start', async () => {...}); 
