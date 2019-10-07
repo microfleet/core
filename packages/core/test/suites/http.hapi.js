@@ -40,6 +40,37 @@ describe('Http server with \'hapi\' handler', function testSuite() {
     assert.equal(service.http.info.started === 0, true);
   });
 
+  it('should be able to stop and wait for requests on hapi and socketIO', async () => {
+    service = new Mservice({
+      name: 'tester',
+      plugins: ['validator', 'logger', 'opentracing', 'router', 'http', 'socketIO'],
+      http: {
+        server: {
+          attachSocketIO: true,
+          handler: 'hapi',
+          port: 3000,
+        },
+        router: {
+          enabled: false,
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      socketIO: global.SERVICES.socketIO,
+      router: global.SERVICES.router,
+    });
+
+    await service.connect();
+
+    const waitRequestFinishSpy = sinon.spy(service.router.requestCountTracker, 'waitForRequests');
+
+    await service.close();
+
+    assert(waitRequestFinishSpy.calledTwice === true, 'should wait for requests');
+    waitRequestFinishSpy.restore();
+  });
+
   it('should be able to attach \'socketIO\' plugin', async () => {
     service = new Mservice({
       name: 'tester',

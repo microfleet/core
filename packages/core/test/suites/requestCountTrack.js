@@ -1,9 +1,127 @@
-const { Writable } = require('stream');
-const { expect } = require('chai');
+
+const Promise = require('bluebird');
 const path = require('path');
 const assert = require('assert');
 const sinon = require('sinon');
 const SocketIOClient = require('socket.io-client');
+
+const RequestCountTracker = require("../../src/plugins/router/requestTracker");
+
+describe('UnitTest router #requestCountTracker', () => {
+  const { Microfleet: Mservice, ActionTransport } = require('../../src');
+
+  describe('router enabled', () => {
+    let rt;
+    let clock;
+    let service;
+
+    before('start service', async () => {
+      service = new Mservice({
+        name: 'tester',
+        plugins: ['router', 'http', 'logger', 'validator'],
+        router: {
+          routes: {
+            directory: path.resolve(__dirname, '../router/helpers/actions'),
+            setTransportsAsDefault: true,
+            transports: [
+              ActionTransport.http,
+            ],
+          },
+        },
+        validator: { schemas: ['../router/helpers/schemas'] },
+      });
+
+      await service.connect();
+
+      rt = service.router.requestCountTracker;
+    });
+
+    after('stop service', async () => {
+      await service.close();
+    });
+
+    describe('instance methods', () => {
+      before('fake timers', () => {
+        clock = sinon.useFakeTimers(Date.now());
+      });
+
+      after('restore time', () => {
+        clock.restore();
+      });
+
+      it('increase connection count', () => {
+        rt.increase('mytransport');
+        const count = rt.get('mytransport');
+        assert(count === 1, 'should increase counter')
+      });
+
+      it('decrease connection count', () => {
+        rt.decrease('mytransport');
+        const count = rt.get('mytransport');
+        assert( count === 0, 'should increase counter')
+      });
+
+      it('waits for request count drop and emits event', async () => {
+        const stub = sinon.stub();
+
+        rt.increase('transport');
+        service.stopping = true;
+
+        service.on('plugin:drain:transport', stub);
+
+        const decreaseRequestCount = async () => {
+          clock.tick(500);
+          rt.decrease('transport');
+        };
+
+        const waitClose = async () => {
+          await rt.waitForRequests('transport');
+        };
+
+        await Promise.all([waitClose(), decreaseRequestCount()]);
+
+        assert(stub.called === true, 'should fire event');
+
+      });
+    });
+
+    describe('helper methods', () => {
+      it('returns request count', () => {
+        rt.increase('fooTransport');
+        const count = RequestCountTracker.getRequestCount(service, 'fooTransport');
+        assert(count === 1, 'should return request count');
+      });
+
+      it('calls instance waitForEventMethod', async () => {
+        const rt = service.router.requestCountTracker;
+        const stubed = sinon.stub(rt, 'waitForRequests');
+
+        await RequestCountTracker.waitForRequestsToFinish(service, 'barTransport');
+        assert(stubed.callCount === 1, 'should call instance method using helper');
+      });
+    });
+  });
+
+  describe('no router plugin', () => {
+    let service;
+
+    before('start service', async () => {
+      service = new Mservice({ name: 'tester', plugins: ['logger', 'validator'] });
+      await service.connect();
+    });
+
+    after('stop service', async () => {
+      await service.close();
+    });
+
+    describe('helper methods', () => {
+      it('returns request count as 0', () => {
+        const count = RequestCountTracker.getRequestCount(service, 'fooTransport');
+        assert(count === 0);
+      });
+    });
+  })
+});
 
 describe('RequestCountTracking suite', async function testSuite() {
   require('../config');
@@ -139,8 +257,8 @@ describe('RequestCountTracking suite', async function testSuite() {
     const returnsResult = {
       expect: 'success',
       verify: (result) => {
-        expect(result.data.status).to.be.equals('ok');
-        expect(result.data.failed).to.have.lengthOf(0);
+        assert(result.data.status ==='ok');
+        assert(result.data.failed.length === 0);
       },
     };
 

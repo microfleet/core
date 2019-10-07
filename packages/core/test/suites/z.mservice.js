@@ -1,5 +1,6 @@
 /* eslint-disable prefer-arrow-callback */
 const assert = require('assert');
+const sinon = require('sinon');
 
 describe('Mservice suite', function testSuite() {
   require('../config');
