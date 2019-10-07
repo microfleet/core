@@ -5,7 +5,7 @@ import is = require('is')
 import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import attachRouter from './socketIO/router/attach'
-import { getRequestCount } from './router/requestTracker'
+import * as RequestTracker from './router/requestTracker'
 
 const debug = _debug('mservice:socketIO')
 
@@ -46,7 +46,7 @@ function attachSocketIO(this: Microfleet, opts: any = {}) {
   this.socketIO = socketIO
 
   return {
-    requestCount: () => getRequestCount(service, ActionTransport.socketIO),
+    getRequestCount: () => RequestTracker.getRequestCount(service, ActionTransport.socketIO),
   }
 }
 /**

@@ -5,7 +5,7 @@ import { Plugin, Server } from '@hapi/hapi'
 import { ActionTransport, Microfleet } from '../../../..'
 import { PluginInterface } from '../../../../types'
 import attachRouter from './router/attach'
-import { waitRequestsToFinish, getRequestCount } from '../../../router/requestTracker'
+import * as RequestTracker from '../../../router/requestTracker'
 
 export interface HapiPlugin {
   plugin: string | Plugin<any>
@@ -93,8 +93,8 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
     return server
   }
 
-  function requestCount() {
-    return getRequestCount(service, ActionTransport.http)
+  function getRequestCount() {
+    return RequestTracker.getRequestCount(service, ActionTransport.http)
   }
 
   async function stopServer() {
@@ -103,17 +103,17 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
     if (started) {
       /* Socket depends on Http transport. Wait for its requests here */
       if (config.server.attachSocketIO) {
-        await waitRequestsToFinish(service, ActionTransport.socketIO)
+        await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketIO)
       }
 
       await server.stop()
-      await waitRequestsToFinish(service, ActionTransport.http)
+      await RequestTracker.waitForRequestsToFinish(service, ActionTransport.http)
     }
     service.emit('plugin:stop:http', server)
   }
 
   return {
-    requestCount,
+    getRequestCount,
     close: stopServer,
     connect: startServer,
   }

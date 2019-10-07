@@ -7,7 +7,7 @@ import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
 import verifyPossibility from './router/verifyAttachPossibility'
-import { getRequestCount, waitRequestsToFinish } from './router/requestTracker'
+import * as RequestTracker from './router/requestTracker'
 
 /**
  * Helpers Section
@@ -289,8 +289,8 @@ export function attach(this: Microfleet, opts: any = {}) {
       return true
     },
 
-    requestCount() {
-      return getRequestCount(service, ActionTransport.amqp)
+    getRequestCount() {
+      return RequestTracker.getRequestCount(service, ActionTransport.amqp)
     },
 
     /**
@@ -302,7 +302,7 @@ export function attach(this: Microfleet, opts: any = {}) {
 
       await service.amqp.closeAllConsumers()
 
-      await waitRequestsToFinish(service, ActionTransport.amqp)
+      await RequestTracker.waitForRequestsToFinish(service, ActionTransport.amqp)
       await service.amqp.close()
 
       service.amqp = null

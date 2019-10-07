@@ -10,7 +10,7 @@ export interface RequestCountTracker {
   increase: (transport: string) => void,
   decrease: (transport: string) => void,
   get: (transport: string) => number,
-  waitRequests: (transport: string) => PromiseLike<any> | void,
+  waitForRequests: (transport: string) => PromiseLike<any> | void,
 }
 
 /**
@@ -18,10 +18,10 @@ export interface RequestCountTracker {
  * @param service
  * @param transport
  */
-export async function waitRequestsToFinish(service: Microfleet, transport: string) {
+export async function waitForRequestsToFinish(service: Microfleet, transport: string) {
   if (service.hasPlugin('router')) {
     const { requestCountTracker } = service.router
-    await requestCountTracker.waitRequests(transport)
+    await requestCountTracker.waitForRequests(transport)
   }
 }
 
@@ -54,7 +54,7 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      * Wait requests finish for specified transport
      * @param transport
      */
-    waitRequests: (transport: string): PromiseLike<any> => {
+    waitForRequests: (transport: string): PromiseLike<any> => {
       const event = `plugin:drain:${transport}`
 
       if (requestCount(transport) === 0) {

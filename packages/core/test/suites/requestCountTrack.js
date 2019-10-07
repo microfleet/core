@@ -4,7 +4,6 @@ const path = require('path');
 const assert = require('assert');
 const sinon = require('sinon');
 const SocketIOClient = require('socket.io-client');
-const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('RequestCountTracking suite', async function testSuite() {
   require('../config');
@@ -45,7 +44,7 @@ describe('RequestCountTracking suite', async function testSuite() {
           enabled: true,
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     await service.connect();
@@ -123,7 +122,7 @@ describe('RequestCountTracking suite', async function testSuite() {
           enabled: true,
         },
       },
-      validator: [path.resolve(__dirname, '../router/helpers/schemas')],
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     await service.connect();
