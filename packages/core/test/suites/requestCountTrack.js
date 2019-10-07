@@ -58,7 +58,17 @@ describe('UnitTest router #requestCountTracker', () => {
       it('decrease connection count', () => {
         rt.decrease('mytransport');
         const count = rt.get('mytransport');
-        assert( count === 0, 'should increase counter')
+        assert( count === 0, 'should increase counter');
+
+        let error;
+        try {
+          rt.decrease('mytransport');
+        } catch(e) {
+          error = e;
+        }
+
+        assert.ok(error, 'should be an error');
+        assert(error instanceof RangeError);
       });
 
       it('waits for request count drop and emits event', async () => {

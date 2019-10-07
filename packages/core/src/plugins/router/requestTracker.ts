@@ -80,7 +80,12 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      */
     decrease: (transport:string) => {
       registry[transport] -= 1
-      if (service.stopping && requestCount(transport) <= 0) {
+
+      if (registry[transport] < 0) {
+        throw new RangeError('request count is out of bounds')
+      }
+
+      if (service.stopping && requestCount(transport) === 0) {
         service.emit(`plugin:drain:${transport}`)
       }
     },
