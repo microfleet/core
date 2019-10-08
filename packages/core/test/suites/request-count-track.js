@@ -5,7 +5,7 @@ const assert = require('assert');
 const sinon = require('sinon');
 const SocketIOClient = require('socket.io-client');
 
-const RequestCountTracker = require("../../src/plugins/router/requestTracker");
+const RequestCountTracker = require("../../src/plugins/router/request-tracker");
 
 describe('UnitTest router #requestCountTracker', () => {
   const { Microfleet: Mservice, ActionTransport } = require('../../src');
@@ -16,9 +16,13 @@ describe('UnitTest router #requestCountTracker', () => {
     let service;
 
     before('start service', async () => {
+      /**
+       * Changing service port to 3001 to AVOID same port usage when tests run parallel
+       */
       service = new Mservice({
         name: 'tester',
         plugins: ['router', 'http', 'logger', 'validator'],
+        http: { server: { handler: 'hapi', port: 3001 }},
         router: {
           routes: {
             directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -85,7 +89,7 @@ describe('UnitTest router #requestCountTracker', () => {
         };
 
         const waitClose = async () => {
-          await rt.waitForRequests('transport');
+          await rt.waitForRequestsToFinish('transport');
         };
 
         await Promise.all([waitClose(), decreaseRequestCount()]);
@@ -104,7 +108,7 @@ describe('UnitTest router #requestCountTracker', () => {
 
       it('calls instance waitForEventMethod', async () => {
         const rt = service.router.requestCountTracker;
-        const stubed = sinon.stub(rt, 'waitForRequests');
+        const stubed = sinon.stub(rt, 'waitForRequestsToFinish');
 
         await RequestCountTracker.waitForRequestsToFinish(service, 'barTransport');
         assert(stubed.callCount === 1, 'should call instance method using helper');

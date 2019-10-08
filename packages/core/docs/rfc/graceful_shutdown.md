@@ -35,7 +35,7 @@ Sometimes `router` plugin is not enabled in service, these methods checking whet
 - **increase(transport: string)** - Increases `transport` request count.
 - **decrease(transport: string)** - Decreases `transport` request count and emits `plugin:drain:${transport}`
     event when `service.stopping` flag set to `true` and `requestCount` is 0. 
-- **waitForRequests(transport: string)** - Waits for `drain` event and returns promise.
+- **waitForRequestsToFinish(transport: string)** - Waits for `drain` event and returns promise.
 
 
 

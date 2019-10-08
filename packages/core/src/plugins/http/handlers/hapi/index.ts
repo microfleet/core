@@ -5,7 +5,7 @@ import { Plugin, Server } from '@hapi/hapi'
 import { ActionTransport, Microfleet } from '../../../..'
 import { PluginInterface } from '../../../../types'
 import attachRouter from './router/attach'
-import * as RequestTracker from '../../../router/requestTracker'
+import * as RequestTracker from '../../../router/request-tracker'
 
 export interface HapiPlugin {
   plugin: string | Plugin<any>

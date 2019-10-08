@@ -5,7 +5,7 @@ import is = require('is')
 import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import attachRouter from './socketIO/router/attach'
-import * as RequestTracker from './router/requestTracker'
+import * as RequestTracker from './router/request-tracker'
 
 const debug = _debug('mservice:socketIO')
 

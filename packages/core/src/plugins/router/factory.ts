@@ -9,7 +9,7 @@ import requestModule from './modules/request'
 import getResponseHandler from './modules/response'
 import validateModule from './modules/validate'
 import getRoutes, { RoutesConfig } from './routes'
-import getRequestCountTracker, { RequestCountTracker } from './requestTracker'
+import getRequestCountTracker, { RequestCountTracker } from './request-tracker'
 
 export { LifecycleRequestType, LifecyclePoints }
 

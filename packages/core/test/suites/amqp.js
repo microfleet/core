@@ -61,7 +61,7 @@ describe('AMQP suite', function testSuite() {
     const closeSpy = sinon.spy(service, 'close');
     const consumerSpy = sinon.spy(amqp, 'closeAllConsumers');
 
-    const waitRequestFinishSpy = sinon.spy(service.router.requestCountTracker, 'waitForRequests');
+    const waitRequestFinishSpy = sinon.spy(service.router.requestCountTracker, 'waitForRequestsToFinish');
 
     await service.close();
     assert(!service.amqp);

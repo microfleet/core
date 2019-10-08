@@ -63,7 +63,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
     await service.connect();
 
-    const waitRequestFinishSpy = sinon.spy(service.router.requestCountTracker, 'waitForRequests');
+    const waitRequestFinishSpy = sinon.spy(service.router.requestCountTracker, 'waitForRequestsToFinish');
 
     await service.close();
 

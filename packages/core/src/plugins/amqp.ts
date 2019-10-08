@@ -7,7 +7,7 @@ import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
 import verifyPossibility from './router/verifyAttachPossibility'
-import * as RequestTracker from './router/requestTracker'
+import * as RequestTracker from './router/request-tracker'
 
 /**
  * Helpers Section
