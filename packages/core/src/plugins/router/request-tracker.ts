@@ -39,14 +39,11 @@ export function getRequestCount(service: Microfleet, transport: string) {
 }
 
 export default function getRequestCountTracker(service: Microfleet): RequestCountTracker {
-  const registry:RequestCountRegistry = {}
+  const registry:RequestCountRegistry = Object.create({})
+  const { router: routerConfig } = service.config
 
-  /**
-   * Get request count for specified transport
-   * @param transport
-   */
-  function requestCount(transport: string): number {
-    return registry.hasOwnProperty(transport) ? registry[transport] : 0
+  for (const transport of routerConfig.routes.transports) {
+    registry[transport] = 0
   }
 
   return {
@@ -56,8 +53,7 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      */
     waitForRequestsToFinish: (transport: string): PromiseLike<any> => {
       const event = `plugin:drain:${transport}`
-
-      if (requestCount(transport) === 0) {
+      if (registry[transport] === 0) {
         return Promise.resolve()
       }
       return eventToPromise(service as any, event)
@@ -68,9 +64,6 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      * @param transport
      */
     increase: (transport:string) => {
-      if (!registry.hasOwnProperty(transport)) {
-        registry[transport] = 0
-      }
       registry[transport] += 1
     },
 
@@ -79,17 +72,16 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      * @param transport
      */
     decrease: (transport:string) => {
-      registry[transport] -= 1
-
-      if (registry[transport] < 0) {
+      if (registry[transport] - 1 < 0) {
         throw new RangeError('request count is out of bounds')
       }
 
-      if (service.stopping && requestCount(transport) === 0) {
+      registry[transport] -= 1
+      if (service.stopping && registry[transport] === 0) {
         service.emit(`plugin:drain:${transport}`)
       }
     },
 
-    get: requestCount,
+    get: (transport: string) => registry[transport],
   }
 }

@@ -24,17 +24,10 @@ function getAMQPRouterAdapter(router: Router, config: any) {
       })
     : (promise: Bluebird<any>) => promise
 
-  const countRequests = (fn: onCompleteCallback) => {
-    return (promise: Bluebird<any>, actionName: string, raw: any) => {
-      return fn(promise, actionName, raw)
-        .tap(() => {
-          router.requestCountTracker.decrease(amqp)
-        })
-        .tapCatch(() => {
-          router.requestCountTracker.decrease(amqp)
-        })
-    }
-  }
+  const decreaseCounter = () => router.requestCountTracker.decrease(amqp)
+  const countRequests = (fn: onCompleteCallback) => (promise: Bluebird<any>, actionName: string, raw: any) => (
+    fn(promise, actionName, raw).tap(decreaseCounter).tapCatch(decreaseCounter)
+  )
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })

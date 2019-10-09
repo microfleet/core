@@ -24,7 +24,7 @@ const defaultPlugins: HapiPlugin[] = [{
 function createHapiServer(config: any, service: Microfleet): PluginInterface {
   const { handlerConfig } = config.server
   handlerConfig.server.address = config.server.host || '0.0.0.0'
-  handlerConfig.server.port = config.server.port || 3000
+  handlerConfig.server.port = config.server.port ? config.server.port : 0
 
   assert(service.hasPlugin('logger'), 'must include logger plugin')
 
@@ -87,7 +87,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
       { transport: 'http', http: '@hapi/hapi' },
       'listening on http://%s:%s',
       handlerConfig.server.address,
-      handlerConfig.server.port
+      server.info.port
     )
 
     return server
@@ -105,9 +105,8 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
       if (config.server.attachSocketIO) {
         await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketIO)
       }
-
+      /* Server waits for connection finish eanyway */
       await server.stop()
-      await RequestTracker.waitForRequestsToFinish(service, ActionTransport.http)
     }
     service.emit('plugin:stop:http', server)
   }

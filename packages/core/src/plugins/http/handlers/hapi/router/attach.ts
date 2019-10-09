@@ -1,5 +1,5 @@
 import get = require('get-value')
-import { Request, Server } from '@hapi/hapi'
+import { Request, ResponseToolkit, Server } from '@hapi/hapi'
 import defaults = require('lodash/defaults')
 import omit = require('lodash/omit')
 import { HapiPlugin } from '..'
@@ -44,7 +44,7 @@ export default function attachRouter(service: Microfleet, config: any): HapiPlug
 
         /* Hapi not emitting request event */
         /* Using Extension */
-        const onRequest = (_:any, h:any) => {
+        const onRequest = (_: Request, h: ResponseToolkit) => {
           router.requestCountTracker.increase(http)
           return h.continue
         }
