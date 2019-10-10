@@ -28,13 +28,7 @@ describe('router requestCountTracker', () => {
     let service;
 
     before('start service', async () => {
-      service = new FakeService({
-        router: {
-          routes: {
-            transports: ['http'],
-          },
-        },
-      }, true);
+      service = new FakeService({}, true);
 
       rt = service.router.requestCountTracker;
 

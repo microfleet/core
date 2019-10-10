@@ -1,14 +1,9 @@
-
-const Promise = require('bluebird');
 const path = require('path');
 const assert = require('assert');
 const sinon = require('sinon');
 const SocketIOClient = require('socket.io-client');
 
-const { Microfleet: Mservice, ActionTransport } = require('../../../src');
-
 describe('service request count', async function testSuite() {
-  //require('../../config');
   const { Microfleet: Mservice, routerExtension, ActionTransport } = require('../../../src');
   const auditLog = routerExtension('audit/log');
   const getAMQPRequest = require('../../router/helpers/requests/amqp');

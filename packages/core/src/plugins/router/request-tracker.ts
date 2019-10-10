@@ -1,16 +1,16 @@
-import { Microfleet } from '../../'
+import { Microfleet, ActionTransport, TransportTypes } from '../../'
 
 const eventToPromise = require('event-to-promise')
 
-interface RequestCountRegistry {
-  [transport: string]: number,
+type RequestCountRegistry = {
+  [P in TransportTypes]: number
 }
 
 export interface RequestCountTracker {
-  increase: (transport: string) => void,
-  decrease: (transport: string) => void,
-  get: (transport: string) => number,
-  waitForRequestsToFinish: (transport: string) => PromiseLike<any> | void,
+  increase: (transport: TransportTypes) => void,
+  decrease: (transport: TransportTypes) => void,
+  get: (transport: TransportTypes) => number,
+  waitForRequestsToFinish: (transport: TransportTypes) => Promise<any> | void,
 }
 
 /**
@@ -18,7 +18,7 @@ export interface RequestCountTracker {
  * @param service
  * @param transport
  */
-export async function waitForRequestsToFinish(service: Microfleet, transport: string) {
+export async function waitForRequestsToFinish(service: Microfleet, transport: TransportTypes) {
   if (service.hasPlugin('router')) {
     const { requestCountTracker } = service.router
     await requestCountTracker.waitForRequestsToFinish(transport)
@@ -30,7 +30,7 @@ export async function waitForRequestsToFinish(service: Microfleet, transport: st
  * @param service
  * @param transport
  */
-export function getRequestCount(service: Microfleet, transport: string) {
+export function getRequestCount(service: Microfleet, transport: TransportTypes) {
   if (service.hasPlugin('router')) {
     const { requestCountTracker } = service.router
     return requestCountTracker.get(transport)
@@ -40,9 +40,9 @@ export function getRequestCount(service: Microfleet, transport: string) {
 
 export default function getRequestCountTracker(service: Microfleet): RequestCountTracker {
   const registry:RequestCountRegistry = Object.create({})
-  const { router: routerConfig } = service.config
+  const availableTransports = Object.values(ActionTransport)
 
-  for (const transport of routerConfig.routes.transports) {
+  for (const transport of availableTransports) {
     registry[transport] = 0
   }
 
@@ -51,7 +51,7 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      * Wait requests finish for specified transport
      * @param transport
      */
-    waitForRequestsToFinish: (transport: string): PromiseLike<any> => {
+    waitForRequestsToFinish: (transport: TransportTypes): Promise<any> => {
       const event = `plugin:drain:${transport}`
       if (registry[transport] === 0) {
         return Promise.resolve()
@@ -63,7 +63,7 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      * Increase request count for specified transport
      * @param transport
      */
-    increase: (transport:string) => {
+    increase: (transport: TransportTypes) => {
       registry[transport] += 1
     },
 
@@ -71,7 +71,7 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      * Decrease request count for specified transport
      * @param transport
      */
-    decrease: (transport:string) => {
+    decrease: (transport: TransportTypes) => {
       if (registry[transport] - 1 < 0) {
         throw new RangeError('request count is out of bounds')
       }
@@ -82,6 +82,6 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
       }
     },
 
-    get: (transport: string) => registry[transport],
+    get: (transport: TransportTypes) => registry[transport],
   }
 }

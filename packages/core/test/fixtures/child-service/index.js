@@ -1,7 +1,7 @@
 const path = require('path');
 const _ = require('ts-node/register');
 
-const { Microfleet: Mservice, routerExtension, ActionTransport } = require('../../../src');
+const { Microfleet: Mservice, ActionTransport } = require('../../../src');
 
 const service = new Mservice({
   name: 'tester',

@@ -90,6 +90,8 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
       server.info.port
     )
 
+    service.emit('plugin:start:http', server)
+
     return server
   }
 
@@ -102,10 +104,11 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
 
     if (started) {
       /* Socket depends on Http transport. Wait for its requests here */
+      /* Call of socketIO.close() causes all active connections close */
       if (config.server.attachSocketIO) {
         await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketIO)
       }
-      /* Server waits for connection finish eanyway */
+      /* Server waits for connection finish anyway */
       await server.stop()
     }
     service.emit('plugin:stop:http', server)
