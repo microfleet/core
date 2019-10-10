@@ -39,7 +39,7 @@ export function getRequestCount(service: Microfleet, transport: TransportTypes) 
 }
 
 export default function getRequestCountTracker(service: Microfleet): RequestCountTracker {
-  const registry:RequestCountRegistry = Object.create({})
+  const registry:RequestCountRegistry = Object.create(null)
   const availableTransports = Object.values(ActionTransport)
 
   for (const transport of availableTransports) {
@@ -53,7 +53,7 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      */
     waitForRequestsToFinish: (transport: TransportTypes): Promise<any> => {
       const event = `plugin:drain:${transport}`
-      if (registry[transport] === 0) {
+      if (!registry[transport]) {
         return Promise.resolve()
       }
       return eventToPromise(service as any, event)
@@ -72,12 +72,12 @@ export default function getRequestCountTracker(service: Microfleet): RequestCoun
      * @param transport
      */
     decrease: (transport: TransportTypes) => {
-      if (registry[transport] - 1 < 0) {
+      if ((registry[transport] || 0) - 1 < 0) {
         throw new RangeError('request count is out of bounds')
       }
 
       registry[transport] -= 1
-      if (service.stopping && registry[transport] === 0) {
+      if (service.stopping && !registry[transport]) {
         service.emit(`plugin:drain:${transport}`)
       }
     },
