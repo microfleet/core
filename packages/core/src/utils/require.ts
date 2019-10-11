@@ -4,7 +4,7 @@ import semver = require('semver')
 const pluginDependencies = {
   '@microfleet/transport-amqp': '>= 15',
   '@sentry/node': '~4.x.x',
-  '@hapi/boom': '~7.x.x',
+  '@hapi/boom': '~7.x.x || ~8.x.x',
   elasticsearch: '~14.x.x || ~15.x.x',
   'express-cassandra': '~2.x.x',
   '@hapi/hapi': '>= 18.x.x < 19',
