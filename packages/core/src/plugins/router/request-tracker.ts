@@ -25,12 +25,12 @@ export class RequestCountTracker {
    * Wait requests finish for specified transport
    * @param transport
    */
-  waitForRequestsToFinish(transport: TransportTypes): Promise<any> {
+  async waitForRequestsToFinish(transport: TransportTypes): Promise<void> {
     const event = `plugin:drain:${transport}`
     if (!this.registry[transport]) {
       return Promise.resolve()
     }
-    return eventToPromise(this.service as any, event)
+    return eventToPromise(this.service, event)
   }
 
   /**
@@ -46,12 +46,12 @@ export class RequestCountTracker {
    * @param transport
    */
   decrease(transport: TransportTypes) {
-    if ((this.registry[transport] || 0) - 1 < 0) {
+    if ((this.registry[transport]) - 1 < 0) {
       throw new RangeError('request count is out of bounds')
     }
 
     this.registry[transport] -= 1
-    if (this.service.stopping && !this.registry[transport]) {
+    if (!this.registry[transport]) {
       this.service.emit(`plugin:drain:${transport}`)
     }
   }

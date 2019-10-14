@@ -46,7 +46,7 @@ function attachSocketIO(this: Microfleet, opts: any = {}) {
   this.socketIO = socketIO
 
   return {
-    getRequestCount: () => RequestTracker.getRequestCount(service, ActionTransport.socketIO),
+    getRequestCount: RequestTracker.getRequestCount.bind(undefined, service, ActionTransport.socketIO),
   }
 }
 /**

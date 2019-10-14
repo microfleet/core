@@ -139,8 +139,6 @@ export class Microfleet extends EventEmitter {
   public readonly [constants.DESTRUCTORS_PROPERTY]: StartStopTree
   public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[]
 
-  public stopping: boolean
-
   /**
    * Allow Extensions
    */
@@ -153,7 +151,6 @@ export class Microfleet extends EventEmitter {
   constructor(opts: ConfigurationRequired & DeepPartial<ConfigurationOptional>) {
     super()
 
-    this.stopping = false
     // init configuration
     this.config = defaultsDeep(opts, defaultOpts) as any
 
@@ -245,7 +242,6 @@ export class Microfleet extends EventEmitter {
    * @returns Walks over registered destructors and emits close event upon completion.
    */
   public close() {
-    this.stopping = true
     return Bluebird
       .resolve(this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse()))
   }
