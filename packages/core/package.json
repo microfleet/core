@@ -115,6 +115,7 @@
     "handlebars": "^4.4.3",
     "ioredis": "^4.14.1",
     "jaeger-client": "^3.17.0",
+    "get-port": "^5.0.0",
     "jest": "^24.9.0",
     "json": "^9.0.6",
     "knex": "^0.17.0",

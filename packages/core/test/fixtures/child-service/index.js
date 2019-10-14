@@ -21,7 +21,7 @@ const service = new Mservice({
     server: {
       attachSocketIO: true,
       handler: 'hapi',
-      port: 0,
+      port: parseInt(process.argv[2]),
     },
     router: {
       enabled: true,
@@ -59,12 +59,7 @@ const service = new Mservice({
 
 
 (async () => {
-  service.on('ready', () => {
-    process.send({
-      ready: true,
-      port: service.http.info.port,
-    });
-  });
-
+  console.log(process.argv);
   await service.connect();
+  console.debug({ childServiceReady: true })
 })();
