@@ -3,16 +3,37 @@ import { Request, ResponseToolkit, Server } from '@hapi/hapi'
 import defaults = require('lodash/defaults')
 import omit = require('lodash/omit')
 import { HapiPlugin } from '..'
-import { ActionTransport, Microfleet } from '../../../../..'
+import { ActionTransport, Microfleet, Router } from '../../../../..'
 import verifyPossibility from '../../../../router/verifyAttachPossibility'
 import { fromNameToPath, fromPathToName } from '../../../helpers/actionName'
 import hapiRouterAdapter from './adapter'
 
+function attachRequestCountEvents(server: Server, router: Router) {
+  const { http } = ActionTransport
+
+  /* Hapi not emitting request event */
+  /* Using Extension */
+  const onRequest = (_: Request, h: ResponseToolkit) => {
+    router.requestCountTracker.increase(http)
+    return h.continue
+  }
+
+  /* But emit's 'response' event */
+  const onResponse = () => {
+    router.requestCountTracker.decrease(http)
+  }
+
+  const onStop = () => {
+    server.events.removeListener('response', onResponse)
+  }
+
+  server.ext('onRequest', onRequest)
+  server.events.on('response', onResponse)
+  server.events.on('stop', onStop)
+}
+
 export default function attachRouter(service: Microfleet, config: any): HapiPlugin {
   verifyPossibility(service.router, ActionTransport.http)
-  const { http } = ActionTransport
-  const { router } = service
-
   return {
     plugin: {
       name: 'microfleetRouter',
@@ -42,25 +63,7 @@ export default function attachRouter(service: Microfleet, config: any): HapiPlug
           },
         })
 
-        /* Hapi not emitting request event */
-        /* Using Extension */
-        const onRequest = (_: Request, h: ResponseToolkit) => {
-          router.requestCountTracker.increase(http)
-          return h.continue
-        }
-
-        /* But emit's 'response' event */
-        const onResponse = () => {
-          router.requestCountTracker.decrease(http)
-        }
-
-        const onStop = () => {
-          server.events.removeListener('response', onResponse)
-        }
-
-        server.ext('onRequest', onRequest)
-        server.events.on('response', onResponse)
-        server.events.on('stop', onStop)
+        attachRequestCountEvents(server, service.router)
       },
     },
   }

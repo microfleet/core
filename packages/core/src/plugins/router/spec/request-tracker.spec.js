@@ -11,7 +11,7 @@ class FakeService extends EventEmitter {
     this.config = config;
     if (router) {
       this.router = {
-        requestCountTracker: RequestCountTracker.default(this)
+        requestCountTracker: new RequestCountTracker.RequestCountTracker(this)
       }
     }
   }

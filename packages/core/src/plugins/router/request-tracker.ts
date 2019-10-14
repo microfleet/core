@@ -6,11 +6,59 @@ type RequestCountRegistry = {
   [P in TransportTypes]: number
 }
 
-export interface RequestCountTracker {
-  increase: (transport: TransportTypes) => void,
-  decrease: (transport: TransportTypes) => void,
-  get: (transport: TransportTypes) => number,
-  waitForRequestsToFinish: (transport: TransportTypes) => Promise<any> | void,
+export class RequestCountTracker {
+  registry: RequestCountRegistry
+  service: Microfleet
+
+  constructor(service: Microfleet) {
+    this.registry = Object.create(null)
+    const availableTransports = Object.values(ActionTransport)
+
+    this.service = service
+
+    for (const transport of availableTransports) {
+      this.registry[transport] = 0
+    }
+  }
+
+  /**
+   * Wait requests finish for specified transport
+   * @param transport
+   */
+  waitForRequestsToFinish(transport: TransportTypes): Promise<any> {
+    const event = `plugin:drain:${transport}`
+    if (!this.registry[transport]) {
+      return Promise.resolve()
+    }
+    return eventToPromise(this.service as any, event)
+  }
+
+  /**
+   * Increase request count for specified transport
+   * @param transport
+   */
+  increase(transport: TransportTypes) {
+    this.registry[transport] += 1
+  }
+
+  /**
+   * Decrease request count for specified transport
+   * @param transport
+   */
+  decrease(transport: TransportTypes) {
+    if ((this.registry[transport] || 0) - 1 < 0) {
+      throw new RangeError('request count is out of bounds')
+    }
+
+    this.registry[transport] -= 1
+    if (this.service.stopping && !this.registry[transport]) {
+      this.service.emit(`plugin:drain:${transport}`)
+    }
+  }
+
+  get(transport: TransportTypes) {
+    return this.registry[transport]
+  }
 }
 
 /**
@@ -36,52 +84,4 @@ export function getRequestCount(service: Microfleet, transport: TransportTypes) 
     return requestCountTracker.get(transport)
   }
   return 0
-}
-
-export default function getRequestCountTracker(service: Microfleet): RequestCountTracker {
-  const registry:RequestCountRegistry = Object.create(null)
-  const availableTransports = Object.values(ActionTransport)
-
-  for (const transport of availableTransports) {
-    registry[transport] = 0
-  }
-
-  return {
-    /**
-     * Wait requests finish for specified transport
-     * @param transport
-     */
-    waitForRequestsToFinish: (transport: TransportTypes): Promise<any> => {
-      const event = `plugin:drain:${transport}`
-      if (!registry[transport]) {
-        return Promise.resolve()
-      }
-      return eventToPromise(service as any, event)
-    },
-
-    /**
-     * Increase request count for specified transport
-     * @param transport
-     */
-    increase: (transport: TransportTypes) => {
-      registry[transport] += 1
-    },
-
-    /**
-     * Decrease request count for specified transport
-     * @param transport
-     */
-    decrease: (transport: TransportTypes) => {
-      if ((registry[transport] || 0) - 1 < 0) {
-        throw new RangeError('request count is out of bounds')
-      }
-
-      registry[transport] -= 1
-      if (service.stopping && !registry[transport]) {
-        service.emit(`plugin:drain:${transport}`)
-      }
-    },
-
-    get: (transport: TransportTypes) => registry[transport],
-  }
 }
