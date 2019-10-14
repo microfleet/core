@@ -161,9 +161,9 @@ yarn test
 ```
 
 ## Ensure the service is able to greet the world
+
 ```sh
-yarn add -D request-promise
-yarn add -D assert
+yarn add -D request request-promise
 ```
 
 Add a test to `test/demo.js`:
