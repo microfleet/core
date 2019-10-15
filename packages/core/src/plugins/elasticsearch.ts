@@ -4,7 +4,7 @@ import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import Elasticsearch = require('elasticsearch')
 import { NotFoundError } from 'common-errors'
-import { Microfleet } from '../'
+import { Microfleet, PluginInterface } from '../'
 import { PluginTypes } from '../constants'
 
 interface ElasticLogger {
@@ -23,7 +23,7 @@ interface ElasticLogger {
 export const priority = 0
 export const name = 'elasticsearch'
 export const type = PluginTypes.database
-export function attach(this: Microfleet, params: any = {}) {
+export function attach(this: Microfleet, params: any = {}): PluginInterface {
   const service = this
 
   assert(service.hasPlugin('logger'), new NotFoundError('logger module must be included'))

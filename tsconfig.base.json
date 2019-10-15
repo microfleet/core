@@ -11,9 +11,10 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
-    "composite": true,
     "resolveJsonModule": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "composite": true,
+    "declaration": true
   },
   "exclude": [
     "**/node_modules/**",

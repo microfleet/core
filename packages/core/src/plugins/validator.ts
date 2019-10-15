@@ -31,7 +31,9 @@ export const name = 'validator'
  * Defines service extension
  */
 export interface ValidatorPlugin {
-  [name]: Validator
+  validator: Validator & {
+    addLocation(location: string): void
+  }
   validate: Validator['validate']
   validateSync: Validator['validateSync']
   ifError:  Validator['ifError']
@@ -73,9 +75,7 @@ export const attach = function attachValidator(
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
   const validator = new Validator('../../schemas', filter, ajvConfig)
-
-  // Note that schemas with same file name will be overwritten
-  for (const location of schemas) {
+  const addLocation = (location: string) => {
     strictEqual(isString(location) && location.length !== 0, true, configError('schemas'))
 
     let dir
@@ -103,6 +103,11 @@ export const attach = function attachValidator(
     validator.init(dir)
   }
 
+  // Note that schemas with same file name will be overwritten
+  for (const location of schemas) {
+    addLocation(location)
+  }
+
   // built-in configuration schema
   for (const schema of serviceConfigSchemaIds) {
     strictEqual(isString(schema) && schema.length !== 0, true, configError('serviceConfigSchemaIds'))
@@ -114,6 +119,7 @@ export const attach = function attachValidator(
 
   // extend service
   service[name] = validator
+  service[name].addLocation = addLocation
   service.validate = validator.validate
   service.validateSync = validator.validateSync
   service.ifError = validator.ifError

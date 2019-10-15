@@ -3,20 +3,20 @@
  * @module Microfleet
  */
 
-import assert = require('assert')
+import { strict as assert } from 'assert'
 import Bluebird = require('bluebird')
 import EventEmitter = require('eventemitter3')
 import is = require('is')
 import partial = require('lodash.partial')
 import * as constants from './constants'
 import * as defaultOpts from './defaults'
+import { DeepPartial } from 'ts-essentials'
 import { HttpStatusError } from '@microfleet/validation'
 import {
   getHealthStatus,
   PluginHealthCheck
 } from './utils/pluginHealthStatus'
 import {
-  DeepPartial,
   HandlerProperties,
   Plugin,
   PluginInterface,
@@ -81,7 +81,7 @@ export const PluginsPriority = constants.PluginsPriority
  * @returns Extension to router plugin.
  */
 export const routerExtension = (name: string) => {
-  return require(`./plugins/router/extensions/${name}`).default
+  return require(require.resolve(`./plugins/router/extensions/${name}`)).default
 }
 
 /**
@@ -164,10 +164,10 @@ export class Microfleet extends EventEmitter {
     this.plugins = []
     this[constants.CONNECTORS_PROPERTY] = Object.create(null)
     this[constants.DESTRUCTORS_PROPERTY] = Object.create(null)
-    this.initPlugins(this.config)
 
     // setup error listener
     this.on('error', this.onError)
+    this.initPlugins(this.config)
 
     // setup hooks
     for (const [eventName, hooks] of Object.entries(this.config.hooks)) {
@@ -198,14 +198,15 @@ export class Microfleet extends EventEmitter {
    * @param args - Arbitrary args to pass to the hooks.
    * @returns Result of invoked hook.
    */
-  public hook(event: string, ...args: any[]) {
+  public async hook(event: string, ...args: any[]) {
     const listeners = this.listeners(event)
+    const work = []
 
-    return Bluebird
-      .resolve(listeners)
-      .map((listener: (this: Microfleet, ...args: any[]) => any) => {
-        return listener.apply(this, args)
-      })
+    for (const listener of listeners.values()) {
+      work.push(listener.apply(this, args))
+    }
+
+    return Promise.all(work)
   }
 
   /**
@@ -235,18 +236,16 @@ export class Microfleet extends EventEmitter {
    * Generic connector for all of the plugins.
    * @returns Walks over registered connectors and emits ready event upon completion.
    */
-  public connect() {
-    return Bluebird
-      .resolve(this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority))
+  public async connect() {
+    return this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority)
   }
 
   /**
    * Generic cleanup function.
    * @returns Walks over registered destructors and emits close event upon completion.
    */
-  public close() {
-    return Bluebird
-      .resolve(this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse()))
+  public async close() {
+    return this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse())
   }
 
   // ****************************** Plugin section: public ************************************
@@ -259,7 +258,7 @@ export class Microfleet extends EventEmitter {
    * @param mod.attach - Plugin attach function.
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
-  public initPlugin(mod: Plugin, conf?: any) {
+  public initPlugin<T extends object>(mod: Plugin<T>, conf?: any) {
     this.plugins.push(mod.name)
 
     let expose: PluginInterface
@@ -300,7 +299,7 @@ export class Microfleet extends EventEmitter {
    * Returns registered connectors.
    * @returns Connectors.
    */
-  public getConnectors() {
+  public getConnectors(): StartStopTree {
     return this[constants.CONNECTORS_PROPERTY]
   }
 
@@ -308,7 +307,7 @@ export class Microfleet extends EventEmitter {
    * Returns registered destructors.
    * @returns Destructors.
    */
-  public getDestructors() {
+  public getDestructors(): StartStopTree {
     return this[constants.DESTRUCTORS_PROPERTY]
   }
 
@@ -316,7 +315,7 @@ export class Microfleet extends EventEmitter {
    * Returns registered health checks.
    * @returns Health checks.
    */
-  public getHealthChecks() {
+  public getHealthChecks(): PluginHealthCheck[] {
     return this[constants.HEALTH_CHECKS_PROPERTY]
   }
 
@@ -365,7 +364,10 @@ export class Microfleet extends EventEmitter {
     this.log.info('received close signal...\n closing connections...\n')
 
     try {
-      await this.close().timeout(10000)
+      await Promise.race([
+        this.close(),
+        Bluebird.delay(10000).throw(new Bluebird.TimeoutError('failed to close after 10 seconds')),
+      ])
     } catch (e) {
       process.exit(128)
     }
@@ -417,9 +419,16 @@ export class Microfleet extends EventEmitter {
     }
 
     // require all modules
-    const plugins = []
+    const plugins: Plugin[] = []
     for (const plugin of config.plugins) {
-      plugins.push(require(`./plugins/${plugin}`))
+      const paths = [`./plugins/${plugin}`, `@microfleet/plugin-${plugin}`]
+      const pluginModule: Plugin | null = paths.reduce(resolveModule, null)
+
+      if (pluginModule === null) {
+        throw new Error(`failed to init ${plugin}`)
+      }
+
+      plugins.push(pluginModule)
     }
 
     // sort and ensure that they are attached based
@@ -434,7 +443,7 @@ export class Microfleet extends EventEmitter {
     this.emit('init')
   }
 
-  private pluginComparator(a: Plugin, b: Plugin): number {
+  private pluginComparator(a: Plugin<any>, b: Plugin<any>): number {
     const ap = PluginsPriority.indexOf(a.type)
     const bp = PluginsPriority.indexOf(b.type)
 
@@ -461,6 +470,18 @@ export class Microfleet extends EventEmitter {
     }
 
     throw err
+  }
+}
+
+function resolveModule<T>(cur: T | null, path: string): T | null {
+  if (cur != null) {
+    return cur
+  }
+
+  try {
+    return require(require.resolve(path))
+  } catch (e) {
+    return null
   }
 }
 
