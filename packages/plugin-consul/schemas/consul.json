@@ -1,0 +1,83 @@
+{
+  "$id": "consul",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "base": {
+      "type": "object",
+      "default": {},
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "secure": {
+          "type": "boolean"
+        },
+        "ca": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defaults": {
+          "$ref": "#/definitions/common"
+        }
+      }
+    },
+    "lock": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "session": {
+          "anyOf": [{
+            "type": "string"
+          }, {
+            "type": "object"
+          }]
+        },
+        "value": {
+          "type": "string"
+        },
+        "lockwaittime": {
+          "type": "string"
+        },
+        "lockretrytime": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "common": {
+      "type": "object",
+      "properties": {
+        "consistent": {
+          "type": "boolean"
+        },
+        "dc": {
+          "type": "string"
+        },
+        "stale": {
+          "type": "boolean"
+        },
+        "token": {
+          "type": "string"
+        },
+        "wait": {
+          "type": "string"
+        },
+        "wan": {
+          "type": "boolean"
+        },
+        "timeout": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
