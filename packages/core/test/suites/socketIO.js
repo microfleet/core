@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const assert = require('assert');
 const { expect } = require('chai');
 const AdapterTransport = require('ms-socket.io-adapter-amqp/lib/transport');
@@ -34,7 +35,7 @@ describe('"socketIO" plugin', function testSuite() {
     client.emit('echo', { message: 'foo' }, (error, response) => {
       expect(error).to.be.equals(null);
       expect(response).to.be.deep.equals({ message: 'foo' });
-      service.close().asCallback(done);
+      Promise.resolve(service.close()).asCallback(done);
     });
   });
 

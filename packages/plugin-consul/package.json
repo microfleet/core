@@ -8,7 +8,7 @@
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:e2e",
     "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml",
-    "compile": "tsc -b ./tsconfig.build.json",
+    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
   },
   "tags": [
@@ -36,6 +36,7 @@
     "@types/consul": "^0.23.33",
     "@types/jest": "^24.0.19",
     "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
     "ts-essentials": "^3.0.2",
     "ts-jest": "^24.1.0"
   },

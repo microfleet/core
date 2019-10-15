@@ -9,7 +9,7 @@
     "test": "yarn lint && yarn compile && yarn test:unit && yarn test:e2e",
     "test:unit": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_TYPE_CHECK=false mocha ./src/**/*.spec.ts",
     "test:e2e": "mdep test run",
-    "compile": "tsc -b ./tsconfig.build.json",
+    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
   },
   "tags": [

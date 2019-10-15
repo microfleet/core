@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow-callback */
 const assert = require('assert');
 
 describe('Mservice suite', function testSuite() {
@@ -77,31 +76,20 @@ describe('Mservice suite', function testSuite() {
     });
   });
 
-  it('able to connect to all services', function test() {
+  it('able to connect to all services', async function test() {
     const AMQPTransport = require('@microfleet/transport-amqp');
     const { Cluster } = require('ioredis');
 
-    return this.service.connect().reflect()
-      .then((result) => {
-        assert.ok(result.isFulfilled());
-        return result.value();
-      })
-      .spread((redis, amqp) => {
-        assert(redis instanceof Cluster);
-        assert(amqp instanceof AMQPTransport);
-      });
+    const [redis, amqp] = await this.service.connect();
+
+    assert(redis instanceof Cluster);
+    assert(amqp instanceof AMQPTransport);
   });
 
-  it('init hooks and waits for their completion', function test() {
-    return this.service
-      .hook('masala', 'dorothy', 'chris')
-      .reflect()
-      .then((result) => {
-        assert.ok(result.isFulfilled());
-        assert.deepStrictEqual(result.value(), [
-          'chai with dorothy and chris',
-        ]);
-      });
+  it('init hooks and waits for their completion', async function test() {
+    const result = await this.service.hook('masala', 'dorothy', 'chris');
+
+    assert.deepStrictEqual(result, ['chai with dorothy and chris']);
   });
 
   it('able to return summary of health statuses of plugins', async function test() {
@@ -113,12 +101,7 @@ describe('Mservice suite', function testSuite() {
     assert.strictEqual(result.alive.length, registeredChecks.length);
   });
 
-  it('able to disconnect from all services', function test() {
-    return this.service
-      .close()
-      .reflect()
-      .then((result) => {
-        assert.ok(result.isFulfilled());
-      });
+  it('able to disconnect from all services', async function test() {
+    await this.service.close();
   });
 });
