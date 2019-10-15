@@ -9,6 +9,8 @@ import { Router } from '../../router/factory'
 // cached var
 const { amqp } = ActionTransport
 
+type onCompleteCallback = (promise: Bluebird<any>, actionName: string, raw: any) => Bluebird<any>
+
 function getAMQPRouterAdapter(router: Router, config: any) {
   const { onComplete } = config.transport
   const { service } = router
@@ -21,6 +23,11 @@ function getAMQPRouterAdapter(router: Router, config: any) {
         return onComplete.call(service, err, data, actionName, raw)
       })
     : (promise: Bluebird<any>) => promise
+
+  const decreaseCounter = () => router.requestCountTracker.decrease(amqp)
+  const countRequests = (fn: onCompleteCallback) => (promise: Bluebird<any>, actionName: string, raw: any) => (
+    fn(promise, actionName, raw).tap(decreaseCounter).tapCatch(decreaseCounter)
+  )
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })
@@ -37,6 +44,9 @@ function getAMQPRouterAdapter(router: Router, config: any) {
   return function AMQPRouterAdapter(params: any, properties: any, raw: any, next?: () => any) {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
     const actionName = normalizeActionName(routingKey)
+
+    router.requestCountTracker.increase(amqp)
+
     const opts: ServiceRequest = {
       // initiate action to ensure that we have prepared proto fo the object
       // input params
@@ -57,7 +67,8 @@ function getAMQPRouterAdapter(router: Router, config: any) {
     }
 
     const promise = dispatch(actionName, opts)
-    const wrappedDispatch = (wrapDispatch as any)(promise, actionName, raw)
+    const wrappedWithConnCounter = countRequests(wrapDispatch)
+    const wrappedDispatch = (wrappedWithConnCounter as any)(promise, actionName, raw)
 
     // promise or callback
     return wrappedDispatch.asCallback(next)

@@ -1,20 +1,28 @@
 const Promise = require('bluebird');
 const assert = require('assert');
+const sinon = require('sinon');
 const AMQPTransport = require('@microfleet/transport-amqp');
 const { inspectPromise } = require('@makeomatic/deploy');
 const { findHealthCheck } = require('../utils');
 
 describe('AMQP suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet: Mservice, ActionTransport } = require('../../src');
 
   let service;
 
   it('able to connect to amqp when plugin is included', async () => {
     service = new Mservice({
       name: 'tester',
-      plugins: ['logger', 'validator', 'opentracing', 'amqp'],
+      plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
       amqp: global.SERVICES.amqp,
+      router: {
+        routes: {
+          transports: [
+            ActionTransport.amqp,
+          ],
+        },
+      },
     });
 
     const [amqp] = await service.connect();
@@ -47,8 +55,18 @@ describe('AMQP suite', function testSuite() {
     await service.amqp.connect();
   });
 
-  it('able to close connection to amqp', async () => {
+  it('able to close connection to amqp and consumers', async () => {
+    const { amqp } = service;
+
+    const closeSpy = sinon.spy(service, 'close');
+    const consumerSpy = sinon.spy(amqp, 'closeAllConsumers');
+
+    const waitRequestFinishSpy = sinon.spy(service.router.requestCountTracker, 'waitForRequestsToFinish');
+
     await service.close();
     assert(!service.amqp);
+    assert(consumerSpy.called);
+    assert(consumerSpy.calledAfter(waitRequestFinishSpy));
+    assert(consumerSpy.calledAfter(closeSpy));
   });
 });

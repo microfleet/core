@@ -178,11 +178,8 @@ export class Microfleet extends EventEmitter {
 
     if (this.config.sigterm) {
       this.on('ready', () => {
-        process.on('SIGTERM', this.exit)
-      })
-
-      this.on('close', () => {
-        process.removeListener('SIGTERM', this.exit)
+        process.once('SIGTERM', this.exit)
+        process.once('SIGINT', this.exit)
       })
     }
   }
@@ -365,8 +362,10 @@ export class Microfleet extends EventEmitter {
     this.log.info('received close signal...\n closing connections...\n')
 
     try {
-      await this.close().timeout(10000)
+      await this.close().timeout(5000)
+      this.log.info('Bye!...\n')
     } catch (e) {
+      this.log.error({ error: e }, 'Unable to shutdown')
       process.exit(128)
     }
   }

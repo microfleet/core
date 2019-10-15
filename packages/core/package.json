@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:unit && yarn test:e2e",
-    "test:unit": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_TYPE_CHECK=false mocha ./src/**/*.spec.ts",
+    "test:unit": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_TYPE_CHECK=false mocha ./src/**/*.spec.?s",
     "test:e2e": "mdep test run",
     "compile": "tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
@@ -115,6 +115,7 @@
     "handlebars": "^4.4.3",
     "ioredis": "^4.14.1",
     "jaeger-client": "^3.17.0",
+    "get-port": "^5.0.0",
     "jest": "^24.9.0",
     "json": "^9.0.6",
     "knex": "^0.17.0",
