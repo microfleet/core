@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const SocketIOClient = require('socket.io-client');
 
 describe('service request count', () => {
-  const { Microfleet: Mservice, routerExtension, ActionTransport } = require('../..');
+  const { Microfleet, routerExtension, ActionTransport } = require('../..');
   const auditLog = routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');
   const getHTTPRequest = require('../router/helpers/requests/http');
@@ -14,7 +14,7 @@ describe('service request count', () => {
   const schemaLessAction = routerExtension('validate/schemaLessAction');
 
   it('counts requests on unknown routes', async () => {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       http: { server: { handler: 'hapi', attachSocketIO: true, port: 0 }, router: { enabled: true } },
       logger: {
@@ -62,7 +62,7 @@ describe('service request count', () => {
   });
 
   it('counts requests on existing routes', async () => {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       amqp: {
         transport: {
@@ -91,7 +91,7 @@ describe('service request count', () => {
       plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
       router: {
         routes: {
-          directory: path.resolve(__dirname, '../../router/helpers/actions'),
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
           prefix: 'action',
           setTransportsAsDefault: true,
           transports: [

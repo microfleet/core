@@ -4,15 +4,15 @@ const pino = require('pino');
 
 describe('Logger suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../..');
+  const { Microfleet } = require('../..');
 
   it('when service does not include `logger` plugin, it emits an error or throws', function test() {
-    const service = new Mservice({ plugins: [] });
+    const service = new Microfleet({ plugins: [] });
     assert(!service.log);
   });
 
   it('logger inits with output to stdout', function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
@@ -25,7 +25,7 @@ describe('Logger suite', function testSuite() {
   });
 
   it('logger inits with output to stdout: debug', function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
@@ -40,7 +40,7 @@ describe('Logger suite', function testSuite() {
 
   it('should be able to init custom logger', function test() {
     const logger = pino({ name: 'test' });
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {
@@ -52,7 +52,7 @@ describe('Logger suite', function testSuite() {
   });
 
   it('should be able to init sentry stream', async function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'], // order is important
       logger: {

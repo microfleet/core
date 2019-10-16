@@ -7,12 +7,12 @@ const { findHealthCheck } = require('../utils');
 
 describe('AMQP suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice, ActionTransport } = require('../../src');
+  const { Microfleet, ActionTransport } = require('../..');
 
   let service;
 
   it('able to connect to amqp when plugin is included', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
       amqp: global.SERVICES.amqp,

@@ -6,12 +6,12 @@ const assert = require('assert');
 const sinon = require('sinon');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
-const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('Router suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice, routerExtension, ActionTransport } = require('../../src');
-  const { PLUGIN_STATUS_FAIL } = require('../../src/constants');
+  const {
+    Microfleet, routerExtension, ActionTransport, PLUGIN_STATUS_FAIL,
+  } = require('../..');
   const auditLog = routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');
   const getHTTPRequest = require('../router/helpers/requests/http');
@@ -23,12 +23,12 @@ describe('Router suite', function testSuite() {
   const transportOptions = routerExtension('validate/transport-options');
 
   it('should throw error if plugin is not included', function test() {
-    const service = new Mservice({ plugins: [] });
+    const service = new Microfleet({ plugins: [] });
     assert(!service.router);
   });
 
   it('should return response', function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       amqp: {
         transport: {
@@ -195,8 +195,8 @@ describe('Router suite', function testSuite() {
       });
   });
 
-  it('should be able to parse query string when present & perform validation', function test() {
-    const service = new Mservice({
+  it('should be able to parse query string when present & perform validation', async function test() {
+    const service = new Microfleet({
       name: 'tester',
       http: {
         server: {
@@ -226,30 +226,30 @@ describe('Router suite', function testSuite() {
     });
 
     const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' });
-    const rget = (qs, success = true, opts = {}) => (
-      HTTPRequest('/action/qs', null, { qs, ...opts })
-        .reflect()
-        .then(inspectPromise(success))
-    );
+    const rget = (qs, success = true, opts = {}) => {
+      const req = HTTPRequest('/action/qs', null, { qs, ...opts });
+      return success ? req : assert.rejects(req);
+    };
 
-    return service
-      .connect()
-      .then(() => (
-        Promise.all([
-          rget({ sample: 1, bool: true }),
-          rget({ sample: 'crap', bool: true }, false),
-          rget({ sample: 13, bool: 'invalid' }, false),
-          rget({ sample: 13, bool: '0' }),
-          rget({ sample: 13, bool: '0', oops: 'q' }, false),
-          rget({ sample: 13.4, bool: '0' }, false),
-          rget(null, false, { json: { sample: 13.4, bool: '0' }, method: 'post' }),
-        ])
-      ))
-      .finally(() => service.close());
+    await service.connect();
+
+    try {
+      await Promise.all([
+        rget({ sample: 1, bool: true }),
+        rget({ sample: 'crap', bool: true }, false),
+        rget({ sample: 13, bool: 'invalid' }, false),
+        rget({ sample: 13, bool: '0' }),
+        rget({ sample: 13, bool: '0', oops: 'q' }, false),
+        rget({ sample: 13.4, bool: '0' }, false),
+        rget(null, false, { json: { sample: 13.4, bool: '0' }, method: 'post' }),
+      ]);
+    } finally {
+      await service.close();
+    }
   });
 
   it('should be able to set schema from action name', function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       amqp: {
         transport: {
@@ -313,7 +313,7 @@ describe('Router suite', function testSuite() {
   });
 
   it('should scan for nested routes', async function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       amqp: {
         transport: {
@@ -373,7 +373,7 @@ describe('Router suite', function testSuite() {
   });
 
   it('should scan for generic routes', async function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       amqp: {
         transport: {
@@ -451,7 +451,7 @@ describe('Router suite', function testSuite() {
   });
 
   it('should return an error when some service fails his healthcheck', async function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       amqp: {
         transport: {
@@ -557,7 +557,7 @@ describe('Router suite', function testSuite() {
       validator: { schemas: ['../router/helpers/schemas'] },
     };
 
-    expect(() => new Mservice(config)).to.throw(Errors.ValidationError);
+    expect(() => new Microfleet(config)).to.throw(Errors.ValidationError);
   });
 
   it('should be able to log error for unknown route', async function test() {
@@ -569,7 +569,7 @@ describe('Router suite', function testSuite() {
       },
       decodeStrings: false,
     });
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       http: { server: { handler: 'hapi' }, router: { enabled: true } },
       logger: {
@@ -607,7 +607,7 @@ describe('Router suite', function testSuite() {
       },
       decodeStrings: false,
     });
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       http: { server: { handler: 'hapi' }, router: { enabled: true } },
       logger: {
@@ -637,7 +637,7 @@ describe('Router suite', function testSuite() {
   });
 
   it('should return 418 in maintenance mode', async function test() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'router', 'http', 'amqp'],
       maintenanceMode: true,

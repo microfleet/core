@@ -2,7 +2,7 @@ import get = require('get-value')
 import { Request, ResponseToolkit, Server } from '@hapi/hapi'
 import defaults = require('lodash/defaults')
 import omit = require('lodash/omit')
-import { HapiPlugin } from '..'
+import { HapiPlugin } from '../'
 import { ActionTransport, Microfleet, Router } from '../../../../..'
 import verifyPossibility from '../../../../router/verifyAttachPossibility'
 import { fromNameToPath, fromPathToName } from '../../../helpers/actionName'

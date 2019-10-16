@@ -3,17 +3,17 @@ const request = require('request-promise');
 
 describe('prometheus plugin', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet } = require('../..');
 
   let service;
 
   it('should be able to throw error if plugin is not included', async () => {
-    service = new Mservice({ plugins: [] });
+    service = new Microfleet({ plugins: [] });
     assert(!service.prometheus);
   });
 
   it('should be able to initialize', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'prometheus'],
     });
@@ -22,7 +22,7 @@ describe('prometheus plugin', function testSuite() {
   });
 
   it('should be able to provide metrics', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'prometheus'],
     });

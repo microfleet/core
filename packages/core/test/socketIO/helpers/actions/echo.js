@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const { ActionTransport } = require('./../../../..');
+const { ActionTransport } = require('../../../..');
 
 function EchoAction(request) {
   return Promise.resolve(request.params);

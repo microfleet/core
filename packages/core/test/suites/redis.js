@@ -5,14 +5,14 @@ const { findHealthCheck } = require('../utils');
 
 describe('Redis suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet } = require('../..');
   const Redis = require('ioredis');
 
   const { Cluster } = Redis;
   let service;
 
   it('able to connect to redis when plugin is included', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'opentracing', 'logger', 'redisCluster'],
       redis: global.SERVICES.redis,
@@ -34,7 +34,7 @@ describe('Redis suite', function testSuite() {
   });
 
   it('able to connect to redis sentinel when plugin is included', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'opentracing', 'logger', 'redisSentinel'],
       redis: { ...global.SERVICES.redisSentinel, luaScripts: path.resolve(__dirname, '../fixtures') },

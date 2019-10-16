@@ -2,7 +2,7 @@ const assert = require('assert');
 
 describe('Validator suite', () => {
   require('../config');
-  const { Microfleet } = require('../../src');
+  const { Microfleet } = require('../..');
 
   it('no `validator` plugin, it emits an error or throws', function test() {
     const service = new Microfleet({ name: 'tester', plugins: [] });

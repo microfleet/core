@@ -2,10 +2,12 @@ const Promise = require('bluebird');
 const path = require('path');
 const assert = require('assert');
 const childProcess = require('child_process');
+const split2 = require('split2');
+const { once } = require('events');
 
 const getFreePort = require('get-port');
 const SocketIOClient = require('socket.io-client');
-const { Microfleet: Mservice } = require('../../');
+const { Microfleet } = require('../..');
 
 const getAMQPRequest = require('../router/helpers/requests/amqp');
 const getHTTPRequest = require('../router/helpers/requests/http');
@@ -17,9 +19,7 @@ class ChildServiceRunner {
   constructor(command) {
     this.cmd = command;
     this.serviceStarted = false;
-    this.preStartStdout = [];
     this.stdout = [];
-    this.preStartStderr = [];
     this.stderr = [];
   }
 
@@ -32,44 +32,41 @@ class ChildServiceRunner {
       env: { ...process.env, DEBUG: '*' },
     });
 
-    subProcess.stderr.on('data', (data) => {
-      const strData = data;
-      const buffer = this.serviceStarted ? this.stderr : this.preStartStderr;
-      buffer.push(strData);
+    const { stderr, stdout } = subProcess;
+
+    stderr.pipe(split2()).on('data', (line) => {
+      this.stderr.push(line);
     });
 
-    this.processClosed = new Promise((resolve, reject) => {
-      subProcess.on('close', (code) => {
-        if (code > 0) {
-          reject(new Error(code));
-          return;
-        }
-
-        resolve({ code });
-      });
+    stdout.pipe(split2()).on('data', (line) => {
+      this.stdout.push(line);
+      if (line.includes('childServiceReady')) {
+        this.serviceStarted = true;
+        subProcess.emit('ready');
+      }
     });
 
-    await new Promise((resolve) => {
-      subProcess.stdout.on('data', (data) => {
-        const strData = data.toString();
-        const buffer = this.serviceStarted ? this.stdout : this.preStartStdout;
-        buffer.push(strData);
+    this.processClosed = once(subProcess, 'close');
 
-        if (strData.includes('childServiceReady')) {
-          this.serviceStarted = true;
-          resolve();
-        }
-      });
-    })
-      .timeout(60000);
+    try {
+      await Promise.race([
+        once(subProcess, 'ready'),
+        Promise.delay(10000).throw(new Promise.TimeoutError()),
+      ]);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.info(this.stdout.join('\n'));
+      throw new Error(this.stderr.join('\n'));
+    }
 
     this.process = subProcess;
     this.port = freePort;
+
     return { process: subProcess, port: freePort };
   }
 
   async getServiceConnectors() {
-    const service = new Mservice({
+    const service = new Microfleet({
       name: 'requester',
       plugins: ['amqp', 'logger', 'validator'],
       amqp: {

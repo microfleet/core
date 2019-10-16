@@ -1,8 +1,7 @@
 const path = require('path');
+const { Microfleet, ActionTransport } = require('../../..');
 
-const { Microfleet: Mservice, ActionTransport } = require('../../..');
-
-const service = new Mservice({
+const service = new Microfleet({
   name: 'tester',
   sigterm: true,
   amqp: {
@@ -53,16 +52,16 @@ const service = new Mservice({
       enabled: true,
     },
   },
-  validator: { schemas: ['../router/helpers/schemas'] },
+  validator: { schemas: ['../../router/helpers/schemas'] },
 });
 
-/* eslint-disable no-console */
 (async () => {
   try {
     process.stdout.write(`${JSON.stringify(process.argv)}\n`);
     await service.connect();
     process.stdout.write(`${JSON.stringify({ childServiceReady: true })}\n`);
   } catch (e) {
+    /* eslint-disable no-console */
     console.error(e);
     process.exit(128);
   }

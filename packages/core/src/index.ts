@@ -85,6 +85,14 @@ export const routerExtension = (name: string) => {
 }
 
 /**
+ * Healthcheck statuses
+ */
+export {
+  PLUGIN_STATUS_OK,
+  PLUGIN_STATUS_FAIL
+} from './constants'
+
+/**
  * Interface for optional params
  */
 export interface ConfigurationOptional {

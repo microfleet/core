@@ -1,8 +1,7 @@
-const { ActionTransport } = require('../../../../../src');
+const { ActionTransport } = require('../../../../..');
 
 module.exports = async function handler() {
-  return { success: true }
-}
+  return { success: true };
+};
 
-
-module.exports.transports = [ActionTransport.http]
+module.exports.transports = [ActionTransport.http];

@@ -1,5 +1,5 @@
-const { ActionTransport } = require('./../../../../src');
 const Promise = require('bluebird');
+const { ActionTransport } = require('../../../..');
 
 function LongAction(request) {
   const { params } = request;
@@ -9,8 +9,8 @@ function LongAction(request) {
     this.log.debug('delayed response', { params });
     return {
       success: true,
-        params
-    }
+      params,
+    };
   });
 }
 

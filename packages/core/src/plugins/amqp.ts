@@ -68,6 +68,10 @@ export function attach(this: Microfleet, opts: any = {}) {
     service.amqp && service.amqp instanceof AMQPTransport
   )
 
+  const waitForRequestsToFinish = () => {
+    return RequestTracker.waitForRequestsToFinish(service, ActionTransport.amqp)
+  }
+
   /**
    * Check the state of a connection to the amqp server.
    * @param amqp - Instance of AMQPTransport.
@@ -293,10 +297,6 @@ export function attach(this: Microfleet, opts: any = {}) {
       return RequestTracker.getRequestCount(service, ActionTransport.amqp)
     },
 
-    waitForRequestsToFinish() {
-      return RequestTracker.waitForRequestsToFinish(service, ActionTransport.amqp)
-    },
-
     /**
      * Generic AMQP disconnector.
      * @returns Closes connection to AMQP.
@@ -305,7 +305,7 @@ export function attach(this: Microfleet, opts: any = {}) {
       assert(isStarted(), ERROR_NOT_STARTED)
 
       await service.amqp.closeAllConsumers()
-      await service.waitForRequestsToFinish()
+      await waitForRequestsToFinish()
       await service.amqp.close()
 
       service.amqp = null
