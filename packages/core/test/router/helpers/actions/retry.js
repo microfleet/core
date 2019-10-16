@@ -1,4 +1,4 @@
-const { ActionTransport } = require('./../../../../src');
+const { ActionTransport } = require('./../../../..');
 
 /**
  * Custom action that rejects based on params.

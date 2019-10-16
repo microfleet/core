@@ -1,7 +1,7 @@
-const { ActionTransport } = require('../../../../../src');
+const { ActionTransport } = require('../../../../..');
 
 module.exports = function handler() {
-  return { success: true }
-}
+  return { success: true };
+};
 
-module.exports.transports = [ActionTransport.amqp]
+module.exports.transports = [ActionTransport.amqp];

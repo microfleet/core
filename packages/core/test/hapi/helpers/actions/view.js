@@ -1,4 +1,4 @@
-const { ActionTransport } = require('./../../../../src');
+const { ActionTransport } = require('./../../../..');
 
 function ViewAction(request) {
   return request.transportRequest.sendView('view', request.params);

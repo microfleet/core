@@ -1,11 +1,10 @@
 import assert = require('assert')
-import Bluebird = require('bluebird')
 import { NotPermittedError } from 'common-errors'
 import { Plugin, Server } from '@hapi/hapi'
-import { Microfleet } from '../../../..'
+import { ActionTransport, Microfleet } from '../../../..'
 import { PluginInterface } from '../../../../types'
-import _require from '../../../../utils/require'
 import attachRouter from './router/attach'
+import * as RequestTracker from '../../../router/request-tracker'
 
 export interface HapiPlugin {
   plugin: string | Plugin<any>
@@ -24,7 +23,7 @@ const defaultPlugins: HapiPlugin[] = [{
 function createHapiServer(config: any, service: Microfleet): PluginInterface {
   const { handlerConfig } = config.server
   handlerConfig.server.address = config.server.host || '0.0.0.0'
-  handlerConfig.server.port = config.server.port || 3000
+  handlerConfig.server.port = config.server.port ? config.server.port : 0
 
   assert(service.hasPlugin('logger'), 'must include logger plugin')
 
@@ -74,7 +73,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
   async function startServer() {
     if (config.server.attachSocketIO) {
       if (!service.socketIO) {
-        return Bluebird.reject(new NotPermittedError('SocketIO plugin not found'))
+        throw new NotPermittedError('SocketIO plugin not found')
       }
 
       service.socketIO.listen(server.listener, service.config.socketIO.options)
@@ -87,7 +86,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
       { transport: 'http', http: '@hapi/hapi' },
       'listening on http://%s:%s',
       handlerConfig.server.address,
-      handlerConfig.server.port
+      server.info.port
     )
 
     service.emit('plugin:start:http', server)
@@ -95,12 +94,28 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
     return server
   }
 
+  function getRequestCount() {
+    return RequestTracker.getRequestCount(service, ActionTransport.http)
+  }
+
   async function stopServer() {
-    await server.stop()
+    const { started } = server.info
+
+    if (started) {
+      /* Socket depends on Http transport. Wait for its requests here */
+      /* Call of socketIO.close() causes all active connections close */
+      if (config.server.attachSocketIO) {
+        await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketIO)
+      }
+
+      /* Server waits for connection finish anyway */
+      await server.stop()
+    }
     service.emit('plugin:stop:http', server)
   }
 
   return {
+    getRequestCount,
     close: stopServer,
     connect: startServer,
   }
