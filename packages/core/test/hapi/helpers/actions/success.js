@@ -1,4 +1,4 @@
-const { ActionTransport } = require('./../../../../src');
+const { ActionTransport } = require('./../../../..');
 
 function SuccessAction() {
   return { redirected: true };

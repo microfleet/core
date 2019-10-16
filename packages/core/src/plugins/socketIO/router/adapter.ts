@@ -12,9 +12,22 @@ export interface SocketIOMessage {
   data: [string, any, RequestCallback]
 }
 
+/* Decrease request count on response */
+function wrapCallback(router: Router, callback: RequestCallback) {
+  return (err: any, result?: any) => {
+    router.requestCountTracker.decrease(socketIO)
+    if (callback) {
+      callback(err, result)
+    }
+  }
+}
+
 function getSocketIORouterAdapter(_: any, router: Router) {
   return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
     socket.on('*', (packet: SocketIOMessage) => {
+      /* Increase request count on message */
+      router.requestCountTracker.increase(socketIO)
+
       const [actionName, params, callback] = packet.data
       const request: ServiceRequest = {
         socket,
@@ -33,8 +46,8 @@ function getSocketIORouterAdapter(_: any, router: Router) {
       }
 
       debug('prepared request with', packet.data)
-
-      router.dispatch.call(router, actionName, request, callback)
+      const wrappedCallback = wrapCallback(router, callback)
+      router.dispatch.call(router, actionName, request, wrappedCallback)
     })
   }
 }

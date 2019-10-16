@@ -11,7 +11,7 @@ const { amqp } = ActionTransport
 
 function getAMQPRouterAdapter(router: Router, config: any) {
   const { onComplete } = config.transport
-  const { service } = router
+  const { service, requestCountTracker } = router
   const wrapDispatch = is.fn(onComplete)
     ? (promise: Bluebird<any>, actionName: string, raw: any) => promise
       .reflect()
@@ -21,6 +21,9 @@ function getAMQPRouterAdapter(router: Router, config: any) {
         return onComplete.call(service, err, data, actionName, raw)
       })
     : (promise: Bluebird<any>) => promise
+
+  const decreaseCounter = () => requestCountTracker.decrease(amqp)
+  const increaseCounter = () => requestCountTracker.increase(amqp)
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })
@@ -34,9 +37,10 @@ function getAMQPRouterAdapter(router: Router, config: any) {
     )
     : (routingKey: string) => routingKey
 
-  return function AMQPRouterAdapter(params: any, properties: any, raw: any, next?: () => any) {
+  return async (params: any, properties: any, raw: any, next?: () => any): Promise<any> => {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
     const actionName = normalizeActionName(routingKey)
+
     const opts: ServiceRequest = {
       // initiate action to ensure that we have prepared proto fo the object
       // input params
@@ -56,11 +60,14 @@ function getAMQPRouterAdapter(router: Router, config: any) {
       transportRequest: Object.create(null),
     }
 
-    const promise = dispatch(actionName, opts)
-    const wrappedDispatch = (wrapDispatch as any)(promise, actionName, raw)
-
-    // promise or callback
-    return wrappedDispatch.asCallback(next)
+    increaseCounter()
+    try {
+      const promise = dispatch(actionName, opts)
+      const wrappedDispatch = wrapDispatch(promise, actionName, raw)
+      return await wrappedDispatch.asCallback(next)
+    } finally {
+      decreaseCounter()
+    }
   }
 }
 

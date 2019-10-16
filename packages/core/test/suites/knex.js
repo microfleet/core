@@ -2,17 +2,17 @@ const assert = require('assert');
 
 describe('knex plugin', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice, ConnectorsTypes } = require('../../src');
+  const { Microfleet, ConnectorsTypes } = require('../..');
 
   let service;
 
   it('should be able to throw error if plugin is not included', async () => {
-    service = new Mservice({ plugins: [] });
+    service = new Microfleet({ plugins: [] });
     assert(!service.knex);
   });
 
   it('should be able to initialize', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'knex'],
       knex: {
@@ -49,7 +49,7 @@ describe('knex plugin', function testSuite() {
   });
 
   it('should be able to run migrations', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'knex'],
       knex: {

@@ -1,7 +1,6 @@
-const { ActionTransport } = require('./../../../../src');
+const { ActionTransport } = require('./../../../..');
 
 function rawBodyAction({ transportRequest }) {
-
   if (Buffer.isBuffer(transportRequest.payload)) {
     return transportRequest.payload;
   }

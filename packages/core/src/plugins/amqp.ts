@@ -7,6 +7,7 @@ import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
 import verifyPossibility from './router/verifyAttachPossibility'
+import * as RequestTracker from './router/request-tracker'
 
 /**
  * Helpers Section
@@ -66,6 +67,10 @@ export function attach(this: Microfleet, opts: any = {}) {
   const isStarted = () => (
     service.amqp && service.amqp instanceof AMQPTransport
   )
+
+  const waitForRequestsToFinish = () => {
+    return RequestTracker.waitForRequestsToFinish(service, ActionTransport.amqp)
+  }
 
   /**
    * Check the state of a connection to the amqp server.
@@ -288,6 +293,10 @@ export function attach(this: Microfleet, opts: any = {}) {
       return true
     },
 
+    getRequestCount() {
+      return RequestTracker.getRequestCount(service, ActionTransport.amqp)
+    },
+
     /**
      * Generic AMQP disconnector.
      * @returns Closes connection to AMQP.
@@ -295,6 +304,8 @@ export function attach(this: Microfleet, opts: any = {}) {
     async close() {
       assert(isStarted(), ERROR_NOT_STARTED)
 
+      await service.amqp.closeAllConsumers()
+      await waitForRequestsToFinish()
       await service.amqp.close()
 
       service.amqp = null

@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.0.3](https://github.com/microfleet/core/compare/@microfleet/core@15.0.2...@microfleet/core@15.0.3) (2019-10-16)
+
+**Note:** Version bump only for package @microfleet/core
+
+
+
+
+
+## [15.0.2](https://github.com/microfleet/core/compare/@microfleet/core@15.0.1...@microfleet/core@15.0.2) (2019-10-11)
+
+
+### Bug Fixes
+
+* ugprades all deps, fixes breaking changes ([8b9d572](https://github.com/microfleet/core/commit/8b9d572))
+
+
+
+
+
 ## [15.0.1](https://github.com/microfleet/core/compare/@microfleet/core@15.0.0...@microfleet/core@15.0.1) (2019-10-02)
 
 

@@ -4,13 +4,14 @@ const errors = require('request-promise/errors');
 
 function getHTTPRequest(options) {
   return (action, params, opts = {}) => {
-    const requestOptions = Object.assign({
+    const requestOptions = {
       baseUrl: options.url,
       method: 'POST',
       simple: true,
-    }, options, opts, {
-      uri: action
-    });
+      ...options,
+      ...opts,
+      uri: action,
+    };
 
     // patch
     delete requestOptions.url;
@@ -23,7 +24,7 @@ function getHTTPRequest(options) {
 
     return request(requestOptions)
       .promise()
-      .catch(errors.StatusCodeError, err => Promise.reject(err.response.body));
+      .catch(errors.StatusCodeError, (err) => Promise.reject(err.response.body));
   };
 }
 

@@ -2,7 +2,7 @@ const assert = require('assert');
 
 describe('Validator suite', () => {
   require('../config');
-  const { Microfleet } = require('../../src');
+  const { Microfleet } = require('../..');
 
   it('no `validator` plugin, it emits an error or throws', function test() {
     const service = new Microfleet({ name: 'tester', plugins: [] });
@@ -16,15 +16,15 @@ describe('Validator suite', () => {
         plugins: ['validator'],
         validator: { schemas: ['../fixtures'] },
       });
-    })
+    });
 
     assert(!!this.service.validator.ajv.getSchema('test-schema'));
     assert(!!this.service.validator.ajv.getSchema('config'));
   });
 
   it('validator exposes validate methods on the service', function test() {
-    assert(this.service.hasOwnProperty('validate'));
-    assert(this.service.hasOwnProperty('validateSync'));
+    assert(this.service.validate);
+    assert(this.service.validateSync);
     assert(typeof this.service.validate === 'function');
     assert(typeof this.service.validateSync === 'function');
   });

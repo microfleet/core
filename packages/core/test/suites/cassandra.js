@@ -6,7 +6,7 @@ const { expect } = require('chai');
 
 describe('Cassandra suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet } = require('../..');
 
   let service;
 
@@ -24,7 +24,7 @@ describe('Cassandra suite', function testSuite() {
   });
 
   it('able to connect to cassandra when plugin is included', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'cassandra'],
       cassandra: global.SERVICES.cassandra,
@@ -46,7 +46,7 @@ describe('Cassandra suite', function testSuite() {
     const cassandraConfig = cloneDeep(global.SERVICES.cassandra);
     cassandraConfig.service.models = path.resolve(__dirname, '../cassandra/models');
 
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'cassandra'],
       cassandra: cassandraConfig,

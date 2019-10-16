@@ -1,13 +1,14 @@
 {
-  "extends": "eslint:recommended",
-  "rules": {
-    "promise/always-return": 0
-  },
+  "extends": "makeomatic",
   "env": {
     "mocha": true,
     "node": true
   },
-  "parserOptions": {
-    "ecmaVersion": 8
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".js"]
+      }
+    }
   }
 }

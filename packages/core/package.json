@@ -3,11 +3,11 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "15.0.1",
+  "version": "15.0.3",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:unit && yarn test:e2e",
-    "test:unit": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_TYPE_CHECK=false mocha ./src/**/*.spec.ts",
+    "test:unit": "TS_NODE_TRANSPILE_ONLY=true mocha ./src/**/*.spec.?s",
     "test:e2e": "mdep test run",
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "bluebird": "^3.7.0",
+    "bluebird": "^3.7.1",
     "bluebird-retry": "^0.11.0",
     "callsite": "^1.0.0",
     "chalk": "^2.4.1",
@@ -102,7 +102,6 @@
     "@types/pino": "^5.8.12",
     "@types/pino-multi-stream": "^3.1.2",
     "@types/qs": "^6.5.3",
-    "@types/read-pkg-up": "^6.0.0",
     "@types/semver": "^6.0.2",
     "@types/sonic-boom": "^0.7.0",
     "@types/uuid": "^3.4.5",
@@ -113,7 +112,9 @@
     "consul": "^0.36.0",
     "cross-env": "^6.0.3",
     "elasticsearch": "^16.4.0",
+    "eslint-config-makeomatic": "^3.1.0",
     "express-cassandra": "2.3.2",
+    "get-port": "^5.0.0",
     "handlebars": "^4.4.3",
     "ioredis": "^4.14.1",
     "jaeger-client": "^3.17.0",
@@ -135,6 +136,7 @@
     "socket.io-client": "^2.3.0",
     "socketio-wildcard": "^2.0.0",
     "ts-essentials": "^3.0.2",
+    "split2": "^3.1.1",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0"
   },

@@ -44,6 +44,7 @@ export interface PluginInterface {
   connect: PluginConnector
   close: PluginConnector
   status?: PluginConnector
+  getRequestCount?: PluginConnector
 }
 
 export interface Plugin<T = {}> {

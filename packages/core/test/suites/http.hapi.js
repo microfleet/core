@@ -7,11 +7,11 @@ const assert = require('assert');
 
 describe('Http server with \'hapi\' handler', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
+  const { Microfleet } = require('../..');
   let service;
 
   it('should starts \'hapi\' http server when plugin is included', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'http'],
       http: {
@@ -40,7 +40,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   });
 
   it('should be able to attach \'socketIO\' plugin', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http', 'socketIO'],
       http: {
@@ -69,13 +69,13 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         client.close();
         assert.equal(error, null);
         assert.deepEqual(response, { message: 'foo' });
-        service.close().then(resolve, reject);
+        service.close().then(resolve).catch(reject);
       });
     });
   });
 
   it('should be able to attach \'router\' plugin', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
@@ -118,11 +118,13 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         request(options).then((response) => {
           assert.equal(response.statusCode, 200);
           assert.deepEqual(response.body, { message: 'foo' });
+          return null;
         }),
-        request(Object.assign({}, options, { uri: 'http://0.0.0.0:3000/not-found' })).then((response) => {
+        request({ ...options, uri: 'http://0.0.0.0:3000/not-found' }).then((response) => {
           assert.equal(response.statusCode, 404);
           assert.equal(response.body.name, 'NotFoundError');
           assert.deepEqual(response.body.message, 'Not Found: "route "not-found" not found"');
+          return null;
         }),
       ]);
     } finally {
@@ -131,7 +133,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   });
 
   it('should be able to use \'router\' plugin prefix', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
@@ -180,7 +182,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   });
 
   it('should be able to use \'hapi\' plugin prefix', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
@@ -208,7 +210,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
       },
     });
 
-    await service.connect()
+    await service.connect();
 
     const options = {
       json: true,
@@ -229,7 +231,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   });
 
   it('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
@@ -279,7 +281,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
   });
 
   it('should be able to pass custom options to hapi route', async () => {
-    service = new Mservice({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
       http: {
@@ -315,7 +317,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         simple: false,
         uri: 'http://0.0.0.0:3000/hapi-raw-body',
         body: '{"status":"😿"}',
-      })
+      });
 
       assert.equal(response.statusCode, 200);
       assert.deepEqual(response.body, '{"status":"😿"}');
@@ -326,7 +328,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
 
   describe('should be able to use hapi\'s plugins', async () => {
     before(async () => {
-      service = new Mservice({
+      service = new Microfleet({
         name: 'tester',
         plugins: ['validator', 'logger', 'opentracing', 'router', 'http'],
         http: {

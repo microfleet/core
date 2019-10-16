@@ -1,36 +1,35 @@
 const assert = require('assert');
 
-describe('Mservice suite', function testSuite() {
+describe('Microfleet suite', function testSuite() {
   require('../config');
-  const { Microfleet: Mservice } = require('../../src');
-  const constants = require('../../src/constants');
+  const { Microfleet, PLUGIN_STATUS_OK } = require('../..');
 
   it('throws with no name defined', function test() {
-    assert.throws(() => new Mservice());
+    assert.throws(() => new Microfleet());
   });
 
   it('creates service with no plugins', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: [] }));
+    assert.doesNotThrow(() => new Microfleet({ name: 'tester', plugins: [] }));
   });
 
   it('creates service with default configuration', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester' }));
+    assert.doesNotThrow(() => new Microfleet({ name: 'tester' }));
   });
 
   it('creates service with validator enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['validator'] }));
+    assert.doesNotThrow(() => new Microfleet({ name: 'tester', plugins: ['validator'] }));
   });
 
   it('creates services with logger enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['logger', 'validator'] }));
+    assert.doesNotThrow(() => new Microfleet({ name: 'tester', plugins: ['logger', 'validator'] }));
   });
 
   it('creates service with amqp enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({ name: 'tester', plugins: ['amqp', 'logger', 'validator'] }));
+    assert.doesNotThrow(() => new Microfleet({ name: 'tester', plugins: ['amqp', 'logger', 'validator'] }));
   });
 
   it('creates service with redis enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({
+    assert.doesNotThrow(() => new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'redisCluster'],
       redis: global.SERVICES.redis,
@@ -38,7 +37,7 @@ describe('Mservice suite', function testSuite() {
   });
 
   it('creates service with hooks enabled', function test() {
-    assert.doesNotThrow(() => new Mservice({
+    assert.doesNotThrow(() => new Microfleet({
       name: 'tester',
       plugins: [],
       hooks: {
@@ -59,7 +58,7 @@ describe('Mservice suite', function testSuite() {
 
   it('creates service with all plugins enabled', function test() {
     assert.doesNotThrow(() => {
-      this.service = new Mservice({
+      this.service = new Microfleet({
         name: 'tester',
         plugins: ['validator', 'logger', 'amqp', 'redisCluster'],
         redis: global.SERVICES.redis,
@@ -96,7 +95,7 @@ describe('Mservice suite', function testSuite() {
     const registeredChecks = this.service.getHealthChecks();
     const result = await this.service.getHealthStatus();
 
-    assert.strictEqual(result.status, constants.PLUGIN_STATUS_OK);
+    assert.strictEqual(result.status, PLUGIN_STATUS_OK);
     assert.strictEqual(result.failed.length, 0);
     assert.strictEqual(result.alive.length, registeredChecks.length);
   });

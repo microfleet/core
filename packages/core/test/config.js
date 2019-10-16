@@ -2,11 +2,11 @@
 require('chai').config.includeStack = true;
 const cassandra = require('express-cassandra');
 const path = require('path');
-const { ActionTransport } = require('../src');
+const { ActionTransport } = require('..');
 
 global.SERVICES = {
   redis: {
-    hosts: [0, 1, 2].map(idx => ({
+    hosts: [0, 1, 2].map((idx) => ({
       host: 'redis-cluster',
       port: 7000 + idx,
     })),
@@ -33,7 +33,7 @@ global.SERVICES = {
   elasticsearch: {
     hosts: [
       'http://elasticsearch:9200',
-      'http://elasticsearch:9200'
+      'http://elasticsearch:9200',
     ],
     log: {
       type: 'service',
