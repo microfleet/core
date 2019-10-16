@@ -3,17 +3,17 @@ const assert = require('assert');
 const sinon = require('sinon');
 const SocketIOClient = require('socket.io-client');
 
-describe('service request count', async function testSuite() {
-  const { Microfleet: Mservice, routerExtension, ActionTransport } = require('../../../src');
+describe('service request count', () => {
+  const { Microfleet: Mservice, routerExtension, ActionTransport } = require('../..');
   const auditLog = routerExtension('audit/log');
-  const getAMQPRequest = require('../../router/helpers/requests/amqp');
-  const getHTTPRequest = require('../../router/helpers/requests/http');
-  const getSocketIORequest = require('../../router/helpers/requests/socketIO');
-  const verify = require('../../router/helpers/verifyCase');
+  const getAMQPRequest = require('../router/helpers/requests/amqp');
+  const getHTTPRequest = require('../router/helpers/requests/http');
+  const getSocketIORequest = require('../router/helpers/requests/socketIO');
+  const verify = require('../router/helpers/verifyCase');
 
   const schemaLessAction = routerExtension('validate/schemaLessAction');
 
-  it('counts requests on unknown routes', async function test() {
+  it('counts requests on unknown routes', async () => {
     const service = new Mservice({
       name: 'tester',
       http: { server: { handler: 'hapi', attachSocketIO: true, port: 0 }, router: { enabled: true } },
@@ -23,21 +23,21 @@ describe('service request count', async function testSuite() {
       plugins: ['validator', 'logger', 'router', 'http', 'socketIO'],
       router: {
         routes: {
-          directory: path.resolve(__dirname, '../../router/helpers/actions'),
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
           setTransportsAsDefault: true,
           transports: [
             ActionTransport.http,
             ActionTransport.socketIO,
           ],
         },
-        extensions: { enabled: ['preRequest', 'preResponse'], register: [ auditLog() ] }
+        extensions: { enabled: ['preRequest', 'preResponse'], register: [auditLog()] },
       },
       socketIO: {
         router: {
           enabled: true,
         },
       },
-      validator: { schemas: ['../../router/helpers/schemas'] },
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     await service.connect();
@@ -61,7 +61,7 @@ describe('service request count', async function testSuite() {
     await service.close();
   });
 
-  it('counts requests on existing routes', async function testSuite() {
+  it('counts requests on existing routes', async () => {
     const service = new Mservice({
       name: 'tester',
       amqp: {
@@ -115,7 +115,7 @@ describe('service request count', async function testSuite() {
           enabled: true,
         },
       },
-      validator: { schemas: ['../../router/helpers/schemas'] },
+      validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     await service.connect();
@@ -136,7 +136,7 @@ describe('service request count', async function testSuite() {
     const returnsResult = {
       expect: 'success',
       verify: (result) => {
-        assert(result.data.status ==='ok');
+        assert(result.data.status === 'ok');
         assert(result.data.failed.length === 0);
       },
     };

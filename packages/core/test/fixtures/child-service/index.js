@@ -1,7 +1,6 @@
 const path = require('path');
-const _ = require('ts-node/register');
 
-const { Microfleet: Mservice, ActionTransport } = require('../../../src');
+const { Microfleet: Mservice, ActionTransport } = require('../../..');
 
 const service = new Mservice({
   name: 'tester',
@@ -21,7 +20,7 @@ const service = new Mservice({
     server: {
       attachSocketIO: true,
       handler: 'hapi',
-      port: parseInt(process.argv[2]),
+      port: parseInt(process.argv[2], 10),
     },
     router: {
       enabled: true,
@@ -45,7 +44,7 @@ const service = new Mservice({
       enabledGenericActions: ['health'],
     },
     extensions: {
-      enabled: [ 'postRequest'],
+      enabled: ['postRequest'],
       register: [],
     },
   },
@@ -54,12 +53,17 @@ const service = new Mservice({
       enabled: true,
     },
   },
-  validator: { schemas: ['../../router/helpers/schemas'] },
+  validator: { schemas: ['../router/helpers/schemas'] },
 });
 
-
+/* eslint-disable no-console */
 (async () => {
-  console.log(process.argv);
-  await service.connect();
-  console.debug({ childServiceReady: true })
+  try {
+    process.stdout.write(`${JSON.stringify(process.argv)}\n`);
+    await service.connect();
+    process.stdout.write(`${JSON.stringify({ childServiceReady: true })}\n`);
+  } catch (e) {
+    console.error(e);
+    process.exit(128);
+  }
 })();

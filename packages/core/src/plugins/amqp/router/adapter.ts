@@ -9,11 +9,9 @@ import { Router } from '../../router/factory'
 // cached var
 const { amqp } = ActionTransport
 
-type onCompleteCallback = (promise: Bluebird<any>, actionName: string, raw: any) => Bluebird<any>
-
 function getAMQPRouterAdapter(router: Router, config: any) {
   const { onComplete } = config.transport
-  const { service } = router
+  const { service, requestCountTracker } = router
   const wrapDispatch = is.fn(onComplete)
     ? (promise: Bluebird<any>, actionName: string, raw: any) => promise
       .reflect()
@@ -24,10 +22,8 @@ function getAMQPRouterAdapter(router: Router, config: any) {
       })
     : (promise: Bluebird<any>) => promise
 
-  const decreaseCounter = () => router.requestCountTracker.decrease(amqp)
-  const countRequests = (fn: onCompleteCallback) => (promise: Bluebird<any>, actionName: string, raw: any) => (
-    fn(promise, actionName, raw).tap(decreaseCounter).tapCatch(decreaseCounter)
-  )
+  const decreaseCounter = () => requestCountTracker.decrease(amqp)
+  const increaseCounter = () => requestCountTracker.increase(amqp)
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })
@@ -41,11 +37,9 @@ function getAMQPRouterAdapter(router: Router, config: any) {
     )
     : (routingKey: string) => routingKey
 
-  return function AMQPRouterAdapter(params: any, properties: any, raw: any, next?: () => any) {
+  return async (params: any, properties: any, raw: any, next?: () => any): Promise<any> => {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
     const actionName = normalizeActionName(routingKey)
-
-    router.requestCountTracker.increase(amqp)
 
     const opts: ServiceRequest = {
       // initiate action to ensure that we have prepared proto fo the object
@@ -66,12 +60,14 @@ function getAMQPRouterAdapter(router: Router, config: any) {
       transportRequest: Object.create(null),
     }
 
-    const promise = dispatch(actionName, opts)
-    const wrappedWithConnCounter = countRequests(wrapDispatch)
-    const wrappedDispatch = (wrappedWithConnCounter as any)(promise, actionName, raw)
-
-    // promise or callback
-    return wrappedDispatch.asCallback(next)
+    increaseCounter()
+    try {
+      const promise = dispatch(actionName, opts)
+      const wrappedDispatch = wrapDispatch(promise, actionName, raw)
+      return await wrappedDispatch.asCallback(next)
+    } finally {
+      decreaseCounter()
+    }
   }
 }
 

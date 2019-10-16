@@ -1,5 +1,4 @@
 const assert = require('assert');
-const { inspectPromise } = require('@makeomatic/deploy');
 const request = require('request-promise');
 
 describe('prometheus plugin', function testSuite() {
@@ -31,9 +30,8 @@ describe('prometheus plugin', function testSuite() {
     await service.connect();
 
     const text = await request('http://0.0.0.0:9102/metrics');
-    assert.ok(text.includes(`TYPE application_version_info gauge`))
-    assert.ok(text.includes(`TYPE microfleet_request_duration_milliseconds histogram`))
-
+    assert.ok(text.includes('TYPE application_version_info gauge'));
+    assert.ok(text.includes('TYPE microfleet_request_duration_milliseconds histogram'));
   });
 
   after('close', () => (

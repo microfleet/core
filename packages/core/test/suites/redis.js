@@ -18,7 +18,7 @@ describe('Redis suite', function testSuite() {
       redis: global.SERVICES.redis,
     });
 
-    const [redis] = await service.connect()
+    const [redis] = await service.connect();
 
     assert(redis instanceof Cluster);
     assert(service.redis);
@@ -37,7 +37,7 @@ describe('Redis suite', function testSuite() {
     service = new Mservice({
       name: 'tester',
       plugins: ['validator', 'opentracing', 'logger', 'redisSentinel'],
-      redis: Object.assign({}, global.SERVICES.redisSentinel, { luaScripts: path.resolve(__dirname, '../fixtures') }),
+      redis: { ...global.SERVICES.redisSentinel, luaScripts: path.resolve(__dirname, '../fixtures') },
     });
 
     const [redis] = await service.connect();

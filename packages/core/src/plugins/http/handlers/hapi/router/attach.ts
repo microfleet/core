@@ -10,17 +10,18 @@ import hapiRouterAdapter from './adapter'
 
 function attachRequestCountEvents(server: Server, router: Router) {
   const { http } = ActionTransport
+  const { requestCountTracker } = router
 
   /* Hapi not emitting request event */
   /* Using Extension */
   const onRequest = (_: Request, h: ResponseToolkit) => {
-    router.requestCountTracker.increase(http)
+    requestCountTracker.increase(http)
     return h.continue
   }
 
   /* But emit's 'response' event */
   const onResponse = () => {
-    router.requestCountTracker.decrease(http)
+    requestCountTracker.decrease(http)
   }
 
   const onStop = () => {
@@ -34,6 +35,7 @@ function attachRequestCountEvents(server: Server, router: Router) {
 
 export default function attachRouter(service: Microfleet, config: any): HapiPlugin {
   verifyPossibility(service.router, ActionTransport.http)
+
   return {
     plugin: {
       name: 'microfleetRouter',

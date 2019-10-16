@@ -83,13 +83,12 @@ describe('Router suite', function testSuite() {
         extensions: { register: [] },
         auth: {
           strategies: {
-            token: function token(request) {
-              return Promise
-                .resolve(request.params.token)
-                .then((token) => {
-                  if (token) return 'User';
-                  throw new Errors.AuthenticationRequiredError('Invalid token');
-                });
+            async token(request) {
+              if (request.params.token) {
+                return 'User';
+              }
+
+              throw new Errors.AuthenticationRequiredError('Invalid token');
             },
           },
         },
@@ -101,8 +100,6 @@ describe('Router suite', function testSuite() {
       },
       validator: { schemas: ['../router/helpers/schemas'] },
     });
-
-    console.log(JSON.stringify(service.config))
 
     return service
       .connect()
@@ -230,7 +227,7 @@ describe('Router suite', function testSuite() {
 
     const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' });
     const rget = (qs, success = true, opts = {}) => (
-      HTTPRequest('/action/qs', null, Object.assign({ qs }, opts))
+      HTTPRequest('/action/qs', null, { qs, ...opts })
         .reflect()
         .then(inspectPromise(success))
     );
@@ -530,7 +527,7 @@ describe('Router suite', function testSuite() {
         expect(error.statusCode).to.be.equals(500);
         expect(error.message).to.be.equals('An internal server error occurred');
       },
-    }
+    };
 
     await AMQPRequest('action.generic.health', {}).reflect().then(verify(unhealthyState));
     await HTTPRequest('/action/generic/health').reflect().then(verify(unhealthyStateHTTP));
@@ -588,7 +585,7 @@ describe('Router suite', function testSuite() {
           setTransportsAsDefault: true,
           transports: [ActionTransport.http],
         },
-        extensions: { enabled: ['preRequest', 'preResponse'], register: [ auditLog() ] }
+        extensions: { enabled: ['preRequest', 'preResponse'], register: [auditLog()] },
       },
       validator: { schemas: ['../router/helpers/schemas'] },
     });
@@ -626,7 +623,7 @@ describe('Router suite', function testSuite() {
           setTransportsAsDefault: true,
           transports: [ActionTransport.http],
         },
-        extensions: { enabled: ['preRequest', 'preResponse'], register: [ auditLog({ disableLogErrorsForNames: ['NotFoundError'] }) ] }
+        extensions: { enabled: ['preRequest', 'preResponse'], register: [auditLog({ disableLogErrorsForNames: ['NotFoundError'] })] },
       },
       validator: { schemas: ['../router/helpers/schemas'] },
     });
@@ -672,35 +669,35 @@ describe('Router suite', function testSuite() {
           enabled: ['preValidate', 'postRequest', 'preResponse', 'preRequest'],
           register: [],
         },
-      }
-    })
+      },
+    });
 
     const maintenanceModeIsEnabled = {
       expect: 'error',
       verify: (error) => {
-        expect(error.statusCode).to.be.equals(418)
-        expect(error.name).to.be.equals('HttpStatusError')
-        expect(error.message).to.be.equals('Server Maintenance')
+        expect(error.statusCode).to.be.equals(418);
+        expect(error.name).to.be.equals('HttpStatusError');
+        expect(error.message).to.be.equals('Server Maintenance');
       },
-    }
+    };
     const resultIsReturned = {
       expect: 'success',
       verify: (result) => {
         expect(result.success).to.be.equals(true);
       },
-    }
+    };
 
     await service.connect().then(async () => {
-      const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' })
+      const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' });
       return Promise
-      .all([
+        .all([
         // trigger usual route which performs global state update
-        HTTPRequest('/maintenance/http', {}).reflect().then(verify(maintenanceModeIsEnabled)),
-        // trigger route marked as read-only
-        HTTPRequest('/maintenance/http-readonly', {}).reflect().then(verify(resultIsReturned)),
-        // trigger read-only route which triggers non-read-only one
-        HTTPRequest('/maintenance/http-amqp', {}).reflect().then(verify(maintenanceModeIsEnabled)),
-      ])
+          HTTPRequest('/maintenance/http', {}).reflect().then(verify(maintenanceModeIsEnabled)),
+          // trigger route marked as read-only
+          HTTPRequest('/maintenance/http-readonly', {}).reflect().then(verify(resultIsReturned)),
+          // trigger read-only route which triggers non-read-only one
+          HTTPRequest('/maintenance/http-amqp', {}).reflect().then(verify(maintenanceModeIsEnabled)),
+        ]);
     }).finally(() => service.close());
-  })
+  });
 });

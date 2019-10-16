@@ -1,5 +1,4 @@
 import assert = require('assert')
-import Bluebird = require('bluebird')
 import { NotPermittedError } from 'common-errors'
 import { Plugin, Server } from '@hapi/hapi'
 import { ActionTransport, Microfleet } from '../../../..'
@@ -74,7 +73,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
   async function startServer() {
     if (config.server.attachSocketIO) {
       if (!service.socketIO) {
-        return Bluebird.reject(new NotPermittedError('SocketIO plugin not found'))
+        throw new NotPermittedError('SocketIO plugin not found')
       }
 
       service.socketIO.listen(server.listener, service.config.socketIO.options)
@@ -108,6 +107,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
       if (config.server.attachSocketIO) {
         await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketIO)
       }
+
       /* Server waits for connection finish anyway */
       await server.stop()
     }

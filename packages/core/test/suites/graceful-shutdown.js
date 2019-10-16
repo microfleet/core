@@ -1,19 +1,17 @@
-
 const Promise = require('bluebird');
 const path = require('path');
 const assert = require('assert');
-const expect = require('chai').expect;
 const childProcess = require('child_process');
 
 const getFreePort = require('get-port');
 const SocketIOClient = require('socket.io-client');
-const { Microfleet: Mservice } = require('../../../src');
+const { Microfleet: Mservice } = require('../../');
 
-const getAMQPRequest = require('../../router/helpers/requests/amqp');
-const getHTTPRequest = require('../../router/helpers/requests/http');
-const getSocketIORequest = require('../../router/helpers/requests/socketIO');
+const getAMQPRequest = require('../router/helpers/requests/amqp');
+const getHTTPRequest = require('../router/helpers/requests/http');
+const getSocketIORequest = require('../router/helpers/requests/socketIO');
 
-const childServiceFile = path.resolve(__dirname, '../../fixtures/child-service/index.js');
+const childServiceFile = path.resolve(__dirname, '../fixtures/child-service/index.js');
 
 class ChildServiceRunner {
   constructor(command) {
@@ -35,18 +33,23 @@ class ChildServiceRunner {
     });
 
     subProcess.stderr.on('data', (data) => {
-      const strData = data.toString();
+      const strData = data;
       const buffer = this.serviceStarted ? this.stderr : this.preStartStderr;
       buffer.push(strData);
     });
 
     this.processClosed = new Promise((resolve, reject) => {
       subProcess.on('close', (code) => {
-        code > 0 ? reject({code}) : resolve({code});
-      })
+        if (code > 0) {
+          reject(new Error(code));
+          return;
+        }
+
+        resolve({ code });
+      });
     });
 
-    return new Promise((resolve) => {
+    await new Promise((resolve) => {
       subProcess.stdout.on('data', (data) => {
         const strData = data.toString();
         const buffer = this.serviceStarted ? this.stdout : this.preStartStdout;
@@ -58,12 +61,11 @@ class ChildServiceRunner {
         }
       });
     })
-    .timeout(60000)
-    .then((data) => {
-      this.process = subProcess;
-      this.port = freePort;
-      return { process: subProcess, port: freePort};
-    });
+      .timeout(60000);
+
+    this.process = subProcess;
+    this.port = freePort;
+    return { process: subProcess, port: freePort };
   }
 
   async getServiceConnectors() {
@@ -79,6 +81,7 @@ class ChildServiceRunner {
         },
       },
     });
+
     await service.connect();
 
     const socketIOClient = SocketIOClient(`http://0.0.0.0:${this.getPort()}`, {
@@ -89,19 +92,20 @@ class ChildServiceRunner {
       amqp: getAMQPRequest(service.amqp),
       http: getHTTPRequest({ url: `http://0.0.0.0:${this.getPort()}` }),
       socketIO: getSocketIORequest(socketIOClient),
-    }
+    };
   }
 
-  async kill(signal = 'SIGTERM',wait = false) {
+  async kill(signal = 'SIGTERM', wait = false) {
     assert(this.serviceStarted, 'No service started');
     if (wait) await Promise.delay(200);
-    process.kill(this.process.pid, 'SIGTERM');
+    process.kill(this.process.pid, signal);
   }
 
   getPort() {
     assert(this.serviceStarted, 'No service started');
     return this.port;
   }
+
   async getStdout() {
     await this.processClosed;
     return this.stdout;
@@ -113,7 +117,7 @@ class ChildServiceRunner {
   }
 }
 
-describe('service graceful shutdown', async function testSuite() {
+describe('service graceful shutdown', () => {
   let childService;
 
   beforeEach('start Child Service', async () => {
@@ -121,71 +125,76 @@ describe('service graceful shutdown', async function testSuite() {
     await childService.start();
   });
 
-  it('receives SIGTERM event', async function() {
+  it('receives SIGTERM event', async () => {
     await childService.kill('SIGTERM');
     const output = await childService.getStdout();
 
-    expect(output.some(s => s.includes('Bye!...'))).to.be.true;
+    assert(output.some((s) => s.includes('Bye!...')));
   });
 
-  it('receives SIGINT event', async function() {
+  it('receives SIGINT event', async () => {
     await childService.kill('SIGINT');
     const output = await childService.getStdout();
 
-    expect(output.some(s => s.includes('Bye!...'))).to.be.true;
+    assert(output.some((s) => s.includes('Bye!...')));
   });
 
-  it('should wait for amqp request when shutting down', async function () {
+  it('should wait for amqp request when shutting down', async () => {
     const serviceConnector = await childService.getServiceConnectors();
 
-    const reqFn = async () => {
-      return serviceConnector.amqp('amqp.action.long-running', {
-        pause: 999,
-      });
-    };
+    const [serviceResponse] = await Promise.all([
+      serviceConnector.amqp('amqp.action.long-running', { pause: 999 }),
+      childService.kill('SIGTERM', true),
+    ]);
 
-    const [serviceResponse] = await Promise.all([reqFn(), childService.kill('SIGTERM', true)]);
-
-    assert(serviceResponse, 'should respond to action');
-    assert(serviceResponse.success);
-
-    const output = await childService.getStdout();
-
-    expect(output.some(s => s.includes('"namespace":"@microfleet/transport-amqp","msg":"closing consumer tester-'))).to.be.true;
-    expect(output.some(s => s.includes('"msg":"closed consumer"'))).to.be.true;
-  });
-
-  it('should wait for http request when shutting down', async function () {
-    const serviceConnector = await childService.getServiceConnectors();
-
-    const reqFn = async () => {
-      return serviceConnector.http('/action.long-running', {
-        pause: 1000,
-      });
-    };
-
-    const [serviceResponse] = await Promise.all([reqFn(), childService.kill('SIGTERM', true)]);
     assert(serviceResponse, 'should respond to action');
     assert(serviceResponse.success);
   });
 
-  it('should wait for socketIO request', async function () {
+  it('should wait for http request when shutting down', async () => {
     const serviceConnector = await childService.getServiceConnectors();
 
-    const reqFnSocket = async () => {
-      return serviceConnector.socketIO('action.long-running', {
-        pause: 500,
-      });
-    };
+    const [serviceResponse] = await Promise.all([
+      serviceConnector.http('/action.long-running', { pause: 1000 }),
+      childService.kill('SIGTERM', true),
+    ]);
 
-    const [serviceResponseSocket] = await Promise.all([reqFnSocket(), childService.kill('SIGTERM', true)]);
+    assert(serviceResponse, 'should respond to action');
+    assert(serviceResponse.success);
+  });
+
+  it('should wait for socketIO request', async () => {
+    const serviceConnector = await childService.getServiceConnectors();
+
+    const [serviceResponseSocket] = await Promise.all([
+      serviceConnector.socketIO('action.long-running', { pause: 500 }),
+      childService.kill('SIGTERM', true),
+    ]);
 
     assert(serviceResponseSocket, 'should respond to action');
     assert(serviceResponseSocket.success);
+  });
 
-    const output = await childService.getStderr();
+  it('should wait for multiple requests to finish', async () => {
+    const serviceConnector = await childService.getServiceConnectors();
+    const actions = [
+      () => serviceConnector.amqp('amqp.action.long-running', { pause: 999 }),
+      () => serviceConnector.http('/action.long-running', { pause: 1000 }),
+      () => serviceConnector.socketIO('action.long-running', { pause: 500 }),
+    ];
 
-    expect(output.some(s => s.includes('socket.io:client client close with reason forced close'))).to.be.true;
-    expect(output.some(s => s.includes('engine closing webSocketServer'))).to.be.true;
+    const responses = await Promise.all([
+      ...Array.from({ length: 100 })
+        .map(() => Math.floor(Math.random() * actions.length))
+        .map((i) => actions[i]()),
+      childService.kill('SIGTERM', true),
+    ]);
+
+    responses.pop();
+    responses.every((resp) => {
+      assert(resp, 'should respond to action');
+      assert(resp.success);
+      return true;
+    });
   });
 });

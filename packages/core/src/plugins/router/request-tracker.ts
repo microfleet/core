@@ -1,6 +1,5 @@
 import { Microfleet, ActionTransport, TransportTypes } from '../../'
-
-const eventToPromise = require('event-to-promise')
+import { once } from 'events'
 
 type RequestCountRegistry = {
   [P in TransportTypes]: number
@@ -27,10 +26,11 @@ export class RequestCountTracker {
    */
   async waitForRequestsToFinish(transport: TransportTypes): Promise<void> {
     const event = `plugin:drain:${transport}`
-    if (!this.registry[transport]) {
-      return Promise.resolve()
+    if (this.registry[transport] === 0) {
+      return
     }
-    return eventToPromise(this.service, event)
+
+    await once(this.service as any, event)
   }
 
   /**
@@ -46,12 +46,10 @@ export class RequestCountTracker {
    * @param transport
    */
   decrease(transport: TransportTypes) {
-    if ((this.registry[transport]) - 1 < 0) {
-      throw new RangeError('request count is out of bounds')
-    }
+    const { registry } = this
+    registry[transport] -= 1
 
-    this.registry[transport] -= 1
-    if (!this.registry[transport]) {
+    if (registry[transport] === 0) {
       this.service.emit(`plugin:drain:${transport}`)
     }
   }
