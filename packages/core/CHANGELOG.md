@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.1.0](https://github.com/microfleet/core/compare/@microfleet/core@15.0.3...@microfleet/core@15.1.0) (2019-10-16)
+
+
+### Features
+
+* graceful reload ([#347](https://github.com/microfleet/core/issues/347)) ([349deb5](https://github.com/microfleet/core/commit/349deb5b5d054bc0fc21decba57518cdb5091348))
+
+
+
+
+
 ## [15.0.3](https://github.com/microfleet/core/compare/@microfleet/core@15.0.2...@microfleet/core@15.0.3) (2019-10-16)
 
 **Note:** Version bump only for package @microfleet/core
