@@ -94,7 +94,7 @@ class ChildServiceRunner {
 
   async kill(signal = 'SIGTERM', wait = false) {
     assert(this.serviceStarted, 'No service started');
-    if (wait) await Promise.delay(200);
+    if (wait) await Promise.delay(500);
     process.kill(this.process.pid, signal);
   }
 
