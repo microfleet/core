@@ -86,6 +86,7 @@
     "@types/callsite": "^1.0.30",
     "@types/chai": "^4.2.3",
     "@types/common-errors": "^1.0.0",
+    "@types/consul": "^0.23.33",
     "@types/debug": "^4.1.5",
     "@types/elasticsearch": "^5.0.35",
     "@types/event-to-promise": "^0.7.0",
@@ -94,7 +95,7 @@
     "@types/hapi__hapi": "^18.0.2",
     "@types/ioredis": "^4.0.18",
     "@types/is": "^0.0.21",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^24.0.19",
     "@types/lodash.intersection": "^4.4.4",
     "@types/lodash.partial": "^4.2.4",
     "@types/node": "^12.7.12",
@@ -108,6 +109,7 @@
     "cheerio": "^1.0.0-rc.3",
     "codecov": "^3.6.1",
     "common-errors": "^1.0.5",
+    "consul": "^0.36.0",
     "cross-env": "^6.0.3",
     "elasticsearch": "^16.4.0",
     "eslint-config-makeomatic": "^3.1.0",
@@ -116,7 +118,6 @@
     "handlebars": "^4.4.3",
     "ioredis": "^4.14.1",
     "jaeger-client": "^3.17.0",
-    "jest": "^24.9.0",
     "json": "^9.0.6",
     "knex": "^0.17.0",
     "mocha": "^6.2.1",
@@ -134,13 +135,13 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "socketio-wildcard": "^2.0.0",
+    "ts-essentials": "^3.0.2",
     "split2": "^3.1.1",
-    "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0"
   },
   "engines": {
-    "node": ">= 8.9.0",
+    "node": ">= 10.15.0",
     "npm": ">= 4.0.0"
   },
   "files": [

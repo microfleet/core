@@ -12,7 +12,7 @@
     "test": "lerna run test --stream",
     "posttest": "yarn compile",
     "precompile": "yarn clean",
-    "compile": "tsc -b packages/*/tsconfig.build.json",
+    "compile": "lerna run compile --stream",
     "clean": "rimraf packages/*/lib",
     "semantic-release": "lerna publish --conventional-commits --create-release=github --yes"
   },
@@ -21,6 +21,7 @@
     "conventional-changelog-cli": "^2.0.25",
     "lerna": "^3.18.1",
     "rimraf": "^3.0.0",
+    "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "tslint-config-blvd": "^1.2.1",
     "typescript": "^3.6.4"

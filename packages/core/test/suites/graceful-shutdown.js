@@ -94,7 +94,7 @@ class ChildServiceRunner {
 
   async kill(signal = 'SIGTERM', wait = false) {
     assert(this.serviceStarted, 'No service started');
-    if (wait) await Promise.delay(200);
+    if (wait) await Promise.delay(500);
     process.kill(this.process.pid, signal);
   }
 
@@ -126,14 +126,14 @@ describe('service graceful shutdown', () => {
     await childService.kill('SIGTERM');
     const output = await childService.getStdout();
 
-    assert(output.some((s) => s.includes('Bye!...')));
+    assert(output.some((s) => s.includes('received close signal')));
   });
 
   it('receives SIGINT event', async () => {
     await childService.kill('SIGINT');
     const output = await childService.getStdout();
 
-    assert(output.some((s) => s.includes('Bye!...')));
+    assert(output.some((s) => s.includes('received close signal')));
   });
 
   it('should wait for amqp request when shutting down', async () => {

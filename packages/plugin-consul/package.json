@@ -1,0 +1,52 @@
+{
+  "name": "@microfleet/plugin-consul",
+  "description": "hashicorp consul adapter",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
+    "test": "yarn lint && yarn compile && yarn test:e2e",
+    "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml",
+    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
+    "prepublishOnly": "yarn compile"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "consul",
+    "leader-election"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "path": "packages/plugin-consul"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~15.x.x"
+  },
+  "devDependencies": {
+    "@microfleet/core": "15.x.x",
+    "@types/consul": "^0.23.33",
+    "@types/jest": "^24.0.19",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "ts-essentials": "^3.0.2",
+    "ts-jest": "^24.1.0"
+  },
+  "engines": {
+    "node": ">= 10.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

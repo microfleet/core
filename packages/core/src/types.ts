@@ -33,16 +33,6 @@ export type $Keys<T extends object> = keyof T
 export type $Values<T extends object> = T[keyof T]
 
 /**
- * DeepPartial
- * @desc marks all nested properties as partial
- */
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends Array<infer U>
-    ? Array<DeepPartial<U>>
-    : T[P] extends ReadonlyArray<infer X> ? ReadonlyArray<DeepPartial<X>> : DeepPartial<T[P]>
-}
-
-/**
  * Generic PlguinConnect Interface
  */
 export type PluginConnector = () => PromiseLike<any>
@@ -57,11 +47,11 @@ export interface PluginInterface {
   getRequestCount?: PluginConnector
 }
 
-export interface Plugin {
+export interface Plugin<T = {}> {
   name: string
   priority: number
   type: $Values<typeof PluginTypes>
-  attach(conf: any, parentFile: string): PluginInterface | never
+  attach(conf: T, parentFile: string): PluginInterface | never
 }
 
 export type MserviceError = Error & {

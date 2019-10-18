@@ -1,5 +1,4 @@
 const assert = require('assert');
-const { inspectPromise } = require('@makeomatic/deploy');
 
 describe('knex plugin', function testSuite() {
   require('../config');
@@ -65,9 +64,9 @@ describe('knex plugin', function testSuite() {
     );
 
     try {
-      const reason = await service.connect().reflect().then(inspectPromise(false));
-      // causes error because there are no migrations to execute
-      assert.equal(reason.path, '/src/packages/core/migrations', reason);
+      await assert.rejects(service.connect(), {
+        path: '/src/packages/core/migrations'
+      });
     } finally {
       await service.close();
     }
