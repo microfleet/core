@@ -10,7 +10,8 @@
     "test:unit": "TS_NODE_TRANSPILE_ONLY=true mocha ./src/**/*.spec.?s",
     "test:e2e": "mdep test run",
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
-    "prepublishOnly": "yarn compile"
+    "prepublishOnly": "yarn compile; cp ../../README.md ./README.md",
+    "postpublish": "rm README.md"
   },
   "tags": [
     "microservice",
@@ -26,7 +27,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/microfleet/core.git"
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/core"
   },
   "bin": {
     "mfleet": "./bin/mfleet.js"
