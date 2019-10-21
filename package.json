@@ -17,7 +17,7 @@
     "semantic-release": "lerna publish --conventional-commits --create-release=github --yes"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^9.3.1",
+    "@makeomatic/deploy": "^9.3.2",
     "conventional-changelog-cli": "^2.0.25",
     "lerna": "^3.18.1",
     "rimraf": "^3.0.0",

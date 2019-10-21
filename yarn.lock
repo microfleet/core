@@ -1484,10 +1484,10 @@
     alce "1.x.x"
     yargs "14.0.0"
 
-"@makeomatic/deploy@^9.3.1":
-  version "9.3.1"
-  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-9.3.1.tgz#48642512c0041077d60aa7790ab221053361cac1"
-  integrity sha512-hcmeFBiXUQ6tXVb2FQREPKneTS8p30XRHtRDhN+aDhgX7fl+SskkA7VNHHV+rgszjoEosFBDlyad8bs5doyPNg==
+"@makeomatic/deploy@^9.3.2":
+  version "9.3.2"
+  resolved "https://registry.yarnpkg.com/@makeomatic/deploy/-/deploy-9.3.2.tgz#3c3a5b6a6006999b0daf8b49f1f62520996a7c08"
+  integrity sha512-9oNXSPCXOTAr6xtV4q15TnZPGEb943UmBvplc0xXh3NfqRanJKW/VU6BQ7SRsvB3omGVBR55DWVqAlhfA0CpEw==
   dependencies:
     "@commitlint/cli" "^8.2.0"
     bluebird "^3.7.1"
@@ -5399,10 +5399,21 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-handlebars@^4.1.2, handlebars@^4.4.0, handlebars@^4.4.3:
+handlebars@^4.1.2, handlebars@^4.4.0:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.4.3.tgz#180bae52c1d0e9ec0c15d7e82a4362d662762f6e"
   integrity sha512-B0W4A2U1ww3q7VVthTKfh+epHx+q4mCt6iK+zEAzbMBpWQAwxCeKxEGpj/1oQTpzPXDNSOG7hmG14TsISH50yw==
+  dependencies:
+    neo-async "^2.6.0"
+    optimist "^0.6.1"
+    source-map "^0.6.1"
+  optionalDependencies:
+    uglify-js "^3.1.4"
+
+handlebars@^4.4.5:
+  version "4.4.5"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.4.5.tgz#1b1f94f9bfe7379adda86a8b73fb570265a0dddd"
+  integrity sha512-0Ce31oWVB7YidkaTq33ZxEbN+UDxMMgThvCe8ptgQViymL5DPis9uLdTA13MiRPhgvqyxIegugrP97iK3JeBHg==
   dependencies:
     neo-async "^2.6.0"
     optimist "^0.6.1"
@@ -7695,10 +7706,10 @@ mkdirp@*, mkdirp@0.5.1, mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0,
   dependencies:
     minimist "0.0.8"
 
-mocha@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-6.2.1.tgz#da941c99437da9bac412097859ff99543969f94c"
-  integrity sha512-VCcWkLHwk79NYQc8cxhkmI8IigTIhsCwZ6RTxQsqK6go4UvEhzJkYuHm8B2YtlSxcYq2fY+ucr4JBwoD6ci80A==
+mocha@^6.2.2:
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-6.2.2.tgz#5d8987e28940caf8957a7d7664b910dc5b2fea20"
+  integrity sha512-FgDS9Re79yU1xz5d+C4rv1G7QagNGHZ+iXF81hO8zY35YZZcLEsJVfFolfsqKFWunATEvNzMK0r/CwWd/szO9A==
   dependencies:
     ansi-colors "3.2.3"
     browser-stdout "1.3.1"

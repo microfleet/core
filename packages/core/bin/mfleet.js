@@ -26,17 +26,17 @@ try {
   Service = require(cwd);
 }
 
-// init service
-const service = new Service();
-
-// connect
-service
-  .connect()
-  .asCallback((err) => {
-    if (err) {
-      service.log.fatal({ err }, 'service crashed');
+// init service as there is no top-level async/await
+(async () => {
+  try {
+    const service = new Service();
+    await service.connect();
+  } catch (err) {
+    service.log.fatal({ err }, 'service crashed');
+    return setImmediate(() => {
       throw err;
-    }
+    });
+  }
 
-    service.log.info('service started');
-  });
+  service.log.info('service started');
+})();
