@@ -27,9 +27,9 @@ try {
 }
 
 // init service as there is no top-level async/await
+const service = new Service();
 (async () => {
   try {
-    const service = new Service();
     await service.connect();
   } catch (err) {
     service.log.fatal({ err }, 'service crashed');
