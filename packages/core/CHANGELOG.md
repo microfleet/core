@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.2.3](https://github.com/microfleet/core/compare/@microfleet/core@15.2.2...@microfleet/core@15.2.3) (2019-10-21)
+
+
+### Bug Fixes
+
+* **bin:** correctly reference service ([c367259](https://github.com/microfleet/core/commit/c36725986e7c1776ffbf038549e56d1f66e3f4e4))
+
+
+
+
+
 ## [15.2.2](https://github.com/microfleet/core/compare/@microfleet/core@15.2.1...@microfleet/core@15.2.2) (2019-10-21)
 
 
