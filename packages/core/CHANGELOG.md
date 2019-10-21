@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.2.2](https://github.com/microfleet/core/compare/@microfleet/core@15.2.1...@microfleet/core@15.2.2) (2019-10-21)
+
+
+### Bug Fixes
+
+* mfleet binary for native promises ([3dee040](https://github.com/microfleet/core/commit/3dee040d1ed2a595fae8bb3e7dd6e1e7dc7c38cc))
+
+
+
+
+
 ## [15.2.1](https://github.com/microfleet/core/compare/@microfleet/core@15.2.0...@microfleet/core@15.2.1) (2019-10-18)
 
 **Note:** Version bump only for package @microfleet/core
