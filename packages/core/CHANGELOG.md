@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.3.0](https://github.com/microfleet/core/compare/@microfleet/core@15.2.3...@microfleet/core@15.3.0) (2019-10-21)
+
+
+### Features
+
+* externalize knex to a separate plugin ([#349](https://github.com/microfleet/core/issues/349)) ([705aa42](https://github.com/microfleet/core/commit/705aa424a7685a994e742a946eef2d2c28067e79))
+
+
+
+
+
 ## [15.2.3](https://github.com/microfleet/core/compare/@microfleet/core@15.2.2...@microfleet/core@15.2.3) (2019-10-21)
 
 
