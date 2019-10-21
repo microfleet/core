@@ -1,8 +1,8 @@
 import assert = require('assert')
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, LoggerPlugin } from '../'
-import _require from '../utils/require'
+import { Microfleet, PluginTypes, LoggerPlugin } from '@microfleet/core'
 import retry = require('bluebird-retry')
+import Knex = require('knex')
 
 /**
  * Relative priority inside the same plugin group type
@@ -10,17 +10,26 @@ import retry = require('bluebird-retry')
 export const priority = 0
 export const name = 'knex'
 export const type = PluginTypes.database
-export function attach(this: Microfleet & LoggerPlugin, params: any = {}) {
-  const factory = _require('knex')
+export interface KnexPlugin {
+  knex: Knex
+}
+
+export function attach(
+  this: Microfleet & LoggerPlugin,
+  params: Knex.Config | string = {}
+) {
   const service = this
 
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  const opts = service.ifError('knex', params)
-  const config = service.ifError(`knex.${opts.client}`, opts)
+  // load local schemas
+  service.validator.addLocation('../schemas')
 
-  const knex = service.knex = factory(config)
+  const opts = service.ifError('knex', params)
+  const config: Knex.Config = service.ifError(`knex.${opts.client}`, opts)
+
+  const knex = service.knex = Knex(config)
 
   const establishConnection = async () => {
     try {

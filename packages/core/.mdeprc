@@ -2,13 +2,12 @@
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,
-  "node": "10.16.3",
+  "node": "12",
   "parallel": 3,
   "services": [
     "redisSentinel",
     "redisCluster",
     "rabbitmq",
-    "postgres",
     "elasticsearch",
     "cassandra"
   ],
