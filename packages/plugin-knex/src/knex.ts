@@ -1,4 +1,5 @@
 import assert = require('assert')
+import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface } from '@microfleet/core'
 import retry = require('bluebird-retry')
@@ -59,7 +60,7 @@ export function attach(
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  service.validator.addLocation('../schemas')
+  service.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const opts = service.ifError('knex', params)
   const config: Knex.Config = service.ifError(`knex.${opts.client}`, opts)

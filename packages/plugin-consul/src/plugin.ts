@@ -1,4 +1,5 @@
 import { once } from 'events'
+import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
 import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin, LoggerPlugin } from '@microfleet/core'
@@ -53,7 +54,7 @@ export const attach = function attachValidator(
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  service.validator.addLocation('../schemas')
+  service.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const config = service.ifError(name, opts) as ConsulConfig
   const base = { ...config.base, promisify: true }
