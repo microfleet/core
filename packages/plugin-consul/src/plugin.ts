@@ -10,7 +10,7 @@ import consul = require('consul')
  */
 export type ConsulConfig = {
   base: consul.ConsulOptions;
-  lock: consul.Lock.Options;
+  lock: Partial<consul.Lock.Options>;
 }
 
 /**
