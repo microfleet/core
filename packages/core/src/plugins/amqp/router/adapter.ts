@@ -37,7 +37,7 @@ function getAMQPRouterAdapter(router: Router, config: any) {
     )
     : (routingKey: string) => routingKey
 
-  return async (params: any, properties: any, raw: any, next?: () => any): Promise<any> => {
+  return async (params: any, properties: any, raw: any, next: (...args: any[]) => void = noop): Promise<any> => {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
     const actionName = normalizeActionName(routingKey)
 
@@ -63,11 +63,12 @@ function getAMQPRouterAdapter(router: Router, config: any) {
     increaseCounter()
     try {
       const promise = dispatch(actionName, opts)
-      const wrappedDispatch = wrapDispatch(promise, actionName, raw)
-      return await wrappedDispatch.asCallback(next)
-    } finally {
-      decreaseCounter()
+      const response = await wrapDispatch(promise, actionName, raw)
+      setImmediate(next, null, response)
+    } catch (e) {
+      setImmediate(next, e)
     }
+    decreaseCounter()
   }
 }
 
