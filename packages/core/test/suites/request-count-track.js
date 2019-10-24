@@ -127,7 +127,6 @@ describe('service request count', () => {
     const preRequestSpy = sinon.spy(requestCountTracker, 'increase');
     const postResponseSpy = sinon.spy(requestCountTracker, 'decrease');
 
-
     const AMQPRequest = getAMQPRequest(service.amqp);
     const HTTPRequest = getHTTPRequest({ method: 'get', url: serviceUrl });
     const socketIOClient = SocketIOClient(serviceUrl);

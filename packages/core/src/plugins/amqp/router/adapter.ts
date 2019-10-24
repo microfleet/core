@@ -68,7 +68,7 @@ function getAMQPRouterAdapter(router: Router, config: any) {
     } catch (e) {
       setImmediate(next, e)
     }
-    decreaseCounter()
+    setImmediate(decreaseCounter)
   }
 }
 
