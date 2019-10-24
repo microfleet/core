@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^15.3.0",
-    "@types/consul": "^0.23.33",
+    "@types/consul": "^0.23.34",
     "@types/jest": "^24.0.19",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
