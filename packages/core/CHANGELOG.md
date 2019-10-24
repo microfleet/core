@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.3.1](https://github.com/microfleet/core/compare/@microfleet/core@15.3.0...@microfleet/core@15.3.1) (2019-10-24)
+
+
+### Bug Fixes
+
+* **amqp:** avoid unhandled promise rejections ([#350](https://github.com/microfleet/core/issues/350)) ([76b7739](https://github.com/microfleet/core/commit/76b77393dfd925969c4d7378fe29a6fef95f01e7))
+
+
+
+
+
 # [15.3.0](https://github.com/microfleet/core/compare/@microfleet/core@15.2.3...@microfleet/core@15.3.0) (2019-10-21)
 
 
