@@ -2,7 +2,7 @@
 
 ## Before start
 
-First of all, you must go through Quick Start.
+First of all, you must go through [Quick Start Guide](quick-start.md).
 
 ## Configuring Authentication
 
