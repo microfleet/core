@@ -70,11 +70,21 @@ const config = {
 Define action option `auth`: 
 
 ```js
-ProtectedAction.auth = {
-  name: 'demoStrategy', // name of strategy defined in src/auth/strategies
-  strategy: 'required', // default is required, also can be try. That can allow to skip authentificate
-  passAuthError: true, // allow to handle auth error ???
+const { ActionTransport } = require('@microfleet/core');
+
+function protectedAction() {
+  return 'Hello, world by authentificated user!\n';
 }
+
+protectedAction.auth = {
+  name: 'demoStrategy',
+  strategy: 'required',
+  passAuthError: true,
+};
+protectedAction.transports = [ActionTransport.http];
+
+module.exports = protectedAction;
+
 ```
 
 ## Ensure the service is able to greet the world
