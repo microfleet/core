@@ -1,6 +1,6 @@
 # Redis Cluster Plugin
 The plugin allows connecting to Redis Server working in Cluster mode.
-Internals of this plugin heavily lay on [`ioredis`](https://github.com/luin/ioredis) package with [`BluebirdJs`](#) as default Promise engine.
+Internals of this plugin heavily lay on [`ioredis`](https://github.com/luin/ioredis) package with [`BluebirdJs`](http://bluebirdjs.com/) as default Promise engine.
 
 ## Dependencies
 NPM Packages:
@@ -34,5 +34,5 @@ Other plugins:
 |--------|------|-------------|
 | `options` | Object | Configuration options passed to `ioredis` connect method. For further information see [Cluster connection options](https://github.com/luin/ioredis/blob/master/API.md#Cluster) and [Connection options](https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options).|
 | `hosts` | Array | List of Redis Cluster servers to connect. See [ioredis Custer](https://github.com/luin/ioredis#cluster).|
-| `luaScripts` | String | Path to LUA scripts directory. These script will automatically loaded into `ioredis` instance. |
+| `luaScripts` | String | Path to LUA scripts directory. |
 

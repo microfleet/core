@@ -1,7 +1,7 @@
-# Use of redis{Cluster|Sentinel} plugins
+# Use of redisCluster or redisSentinel plugins
 Please read [redisCluster](../reference/redis/cluster.md) and [redisSentinel](../reference/redis/sentinel.md) plugins reference first.
 
-## Recipies:
+## Recipes:
 * [Redis Cluster](#connect-to-redis-cluster)
 * [Redis Sentinel](#connect-to-redis-sentinel)
 * [HTTP action with Redis command](#create-action-using-redis-family-plugins)
@@ -25,9 +25,7 @@ Connect to Redis Cluster with nodes running on the same server but with differen
 exports.redis = {
   options: {
     keyPrefix: '{myPrefix}',
-    dropBufferSupport: false,
   },
-  luaScripts: '/path/to/my/cool-lua-scripts/',
   hosts: Array.from({ length: 3 }).map((_, i) => ({
     host: '172.16.0.10',
     port: 7000 + i,
@@ -54,9 +52,7 @@ Connect to Redis Sentinel running on local server:
 exports.redis = {
   options: {
     keyPrefix: '{myPrefix}',
-    dropBufferSupport: false,
   },
-  luaScripts: '/path/to/my/cool-lua-scripts/',
   name: 'redis-group-name'
   sentinels: [{
     { host: "localhost", port: 26379 },
@@ -67,7 +63,7 @@ exports.redis = {
 ## Create Action using Redis Family plugins
 Get Members from SET `my-key` and return them on HTTP Request:
 ```js
-// actions/redisAction.js
+// src/actions/redisAction.js
 const { ActionTransport } = require('@microfleet/core');
 
 function redisGetAction() {
@@ -84,6 +80,7 @@ module.exports = redisGetAction;
 When you need to initialize additional modules that use Redis or perform some additional actions, you may initialize them when `plugin:connect:redis*` event emitted from `MicrofleetService`:
 
 ```js
+// src/my-service.js
 class MyService extends Microfleet {
   constructor(config) {
     super(config)

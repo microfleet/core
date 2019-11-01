@@ -1,6 +1,6 @@
 # Redis Sentinel Plugin
 The plugin allows connecting to Redis Server working with Sentinel.
-Internals of this plugin heavily lay on [`ioredis`](https://github.com/luin/ioredis) package with [`BluebirdJs`](#) as default Promise engine.
+Internals of this plugin heavily lay on [`ioredis`](https://github.com/luin/ioredis) package with [`BluebirdJs`](http://bluebirdjs.com) as default Promise engine.
 
 ## Dependencies
 NPM packages:
@@ -36,4 +36,4 @@ Plugin depends on other plugins:
 | `options` | Object | Configuration options passed to `ioredis` connect method. For further information see [Connection options](https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options)|
 | `sentinels` | Array | List of Redis Sentinels to connect. See [ioredis Sentinel](https://github.com/luin/ioredis#sentinel)  |
 | `name` | Group name of the Redis instances on Sentinel |
-| `luaScripts` | String | Path to LUA scripts directory. These script will automatically loaded into `ioredis` instance. |
+| `luaScripts` | String | Path to LUA scripts directory. |
