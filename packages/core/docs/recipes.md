@@ -1,8 +1,10 @@
 # Recipes
 
 - [Quick start guide](recipes/quick-start.md)
-- [Structure](recipes/structure.md)
+- [Configuration](recipes/configuration.md)
+- [Recommended structure](recipes/structure.md)
 - [Authentication](recipes/authentication.md)
 - [Connect to Redis](recipes/redis.md)
 - [Validation](recipes/validation.md)
 - [Testing](recipes/testing.md)
+- [Maintenance mode](recipes/maintenance.md)

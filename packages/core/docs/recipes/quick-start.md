@@ -196,3 +196,6 @@ Check it out by running:
 ```sh
 yarn test
 ```
+
+# Next steps
+- [Configuration](configuration.md)
