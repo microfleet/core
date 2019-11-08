@@ -134,6 +134,21 @@ module.exports = createTodo;
 
 ```
 
+Now you may start your microservice and check that validation is working:
+
+```console
+$@> curl http://0.0.0.0:3000/todo/create -H "Content-Type: application/json" -X POST --data '{"todo":{"name" : "foo"}}' | jq
+```
+And the response is goint to be like:
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "todo.create validation failed: data.todo should have required property 'state'",
+  "name": "HttpStatusError"
+}
+```
+
 ### Query string validation
 In some cases, you will need to validate incoming Query string parameters.
 `Microfleet` parsing your QS parameters, BUT not doing type conversion, so the default is `string`.
@@ -199,10 +214,29 @@ listTodo.transformQuery = (query) => {
 module.exports = listTodo;
 ```
 
+Now you may start your microservice and check that validation is working:
+
+```console
+$@> curl http://0.0.0.0:3000/todo/list?page=10&hidden=2 | jq
+```
+And the response is goint to be like:
+
+```json
+{
+  "statusCode": 400,
+  "error": "Bad Request",
+  "message": "todo.list validation failed: data.hidden should be boolean",
+  "name": "HttpStatusError"
+}
+```
+
 ## Object validation
 The `Validator` plugin exports it's methods into `Service` instance. You can access validation methods by calling `validate`, `validateSync` etc. Available methods and properties described in [API Reference](../reference/service/plugins/validator.md).
 
+Let's create action that validates passed `TODO` Object and returns result:
+
 ```js
+// src/actions/todo/validate.js
 const { ActionTransport } = require('@microfleet/core');
 
 function validateTodo(request) {
@@ -220,4 +254,33 @@ function validateTodo(request) {
 
 validateTodo.transports = [ActionTransport.http];
 module.exports = validateTodo;
+```
+
+Now you may start your microservice and check that validation is working:
+
+```console
+$@> curl http://0.0.0.0:3000/todo/validate -H "Content-Type: application/json" -X POST --data '{"todo":{"name" : "foo"}}' | jq
+```
+And the response is goint to be like:
+```json
+{
+  "validationError": {
+    "status": 400,
+    "statusCode": 400,
+    "status_code": 400,
+    "name": "HttpStatusError",
+    "message": "objects.todo validation failed: data should have required property 'state'",
+    "errors": [
+      {
+        "status": 400,
+        "statusCode": 400,
+        "status_code": 400,
+        "name": "HttpStatusError",
+        "message": "should have required property 'state'",
+        "field": ""
+      }
+    ]
+  }
+}
+
 ```
