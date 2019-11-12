@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@0.2.2...@microfleet/plugin-consul@0.3.0) (2019-11-12)
+
+
+### Features
+
+* **couchdb:** plugin for couchdb ([#358](https://github.com/microfleet/core/issues/358)) ([a9fe2ac](https://github.com/microfleet/core/commit/a9fe2ac3a3559908bf3f2d873a0e621051d71886))
+
+
+
+
+
 ## [0.2.2](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@0.2.1...@microfleet/plugin-consul@0.2.2) (2019-10-24)
 
 
