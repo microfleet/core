@@ -633,7 +633,12 @@ describe('Router suite', function testSuite() {
     await HTTPRequest('/404').reflect();
     await service.close();
 
-    assert.equal('NotFoundError', spy.getCall(1).args[0].err.type);
+    const errorCallArgs = spy.getCalls()
+      .map((x) => x.args && x.args[0])
+      .filter(Boolean)
+      .find((x) => !!x.err);
+
+    assert.equal('NotFoundError', errorCallArgs.err.type);
   });
 
   it('should return 418 in maintenance mode', async function test() {

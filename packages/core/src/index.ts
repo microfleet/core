@@ -29,14 +29,6 @@ import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/rout
 import defaultsDeep from './utils/defaults-deep'
 export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }
 
-/**
- * Simple invocation that preserves context.
- * @param fn - Function to invoke.
- */
-function invoke(this: any, fn: (...args: any[]) => any): any {
-  return fn.call(this)
-}
-
 const toArray = <T>(x: T): T[] => Array.isArray(x) ? x : [x]
 
 interface StartStopTree {
@@ -146,6 +138,7 @@ export class Microfleet extends EventEmitter {
   public readonly [constants.CONNECTORS_PROPERTY]: StartStopTree
   public readonly [constants.DESTRUCTORS_PROPERTY]: StartStopTree
   public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[]
+  private connectorToPlugin: Map<PluginConnector, string>
 
   /**
    * Allow Extensions
@@ -164,6 +157,7 @@ export class Microfleet extends EventEmitter {
 
     // init migrations
     this.migrators = Object.create(null)
+    this.connectorToPlugin = new Map()
 
     // init health status checkers
     this[constants.HEALTH_CHECKS_PROPERTY] = []
@@ -264,7 +258,7 @@ export class Microfleet extends EventEmitter {
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
   public initPlugin<T extends object>(mod: Plugin<T>, conf?: any) {
-    this.plugins.push(mod.name)
+    const pluginName = mod.name
 
     let expose: PluginInterface
 
@@ -278,6 +272,8 @@ export class Microfleet extends EventEmitter {
       throw e
     }
 
+    this.plugins.push(pluginName)
+
     if (!is.object(expose)) {
       return
     }
@@ -288,11 +284,11 @@ export class Microfleet extends EventEmitter {
     assert(type, 'Plugin type must be equal to one of connectors type')
 
     if (typeof connect === 'function') {
-      this.addConnector(type, connect)
+      this.addConnector(type, connect, pluginName)
     }
 
     if (typeof close === 'function') {
-      this.addDestructor(type, close)
+      this.addDestructor(type, close, pluginName)
     }
 
     if (typeof status === 'function') {
@@ -326,20 +322,22 @@ export class Microfleet extends EventEmitter {
 
   /**
    * Initializes connectors on the instance of Microfleet.
-   * @param {string} type - Connector type.
-   * @param {Function} handler - Plugin connector.
+   * @param type - Connector type.
+   * @param handler - Plugin connector.
+   * @param plugin - name of the plugin, optional.
    */
-  public addConnector(type: TConnectorsTypes, handler: PluginConnector) {
-    this.addHandler(constants.CONNECTORS_PROPERTY, type, handler)
+  public addConnector(type: TConnectorsTypes, handler: PluginConnector, plugin?: string) {
+    this.addHandler(constants.CONNECTORS_PROPERTY, type, handler, plugin)
   }
 
   /**
    * Initializes destructor on the instance of Microfleet.
-   * @param {string} type - Destructor type.
-   * @param {Function} handler - Plugin destructor.
+   * @param type - Destructor type.
+   * @param handler - Plugin destructor.
+   * @param plugin - name of the plugin, optional.
    */
-  public addDestructor(type: TConnectorsTypes, handler: PluginConnector) {
-    this.addHandler(constants.DESTRUCTORS_PROPERTY, type, handler)
+  public addDestructor(type: TConnectorsTypes, handler: PluginConnector, plugin?: string) {
+    this.addHandler(constants.DESTRUCTORS_PROPERTY, type, handler, plugin)
   }
 
   /**
@@ -395,7 +393,18 @@ export class Microfleet extends EventEmitter {
         continue
       }
 
-      responses.push(...await Bluebird.resolve(connectors).bind(this).map(invoke))
+      for (const handler of connectors) {
+        const pluginName = this.connectorToPlugin.get(handler)
+        if (this.log) {
+          this.log.info({ pluginName, connectorType }, event)
+        }
+
+        responses.push(await handler.call(this))
+
+        if (this.log) {
+          this.log.info({ pluginName, connectorType }, event)
+        }
+      }
     }
 
     this.emit(event)
@@ -405,12 +414,16 @@ export class Microfleet extends EventEmitter {
 
   // ***************************** Plugin section: private **************************************
 
-  private addHandler(property: HandlerProperties, type: TConnectorsTypes, handler: PluginConnector) {
+  private addHandler(property: HandlerProperties, type: TConnectorsTypes, handler: PluginConnector, plugin?: string) {
     if (this[property][type] === undefined) {
       this[property][type] = []
     }
 
     this[property][type].push(handler)
+
+    if (plugin) {
+      this.connectorToPlugin.set(handler, plugin)
+    }
   }
 
   /**
@@ -487,6 +500,10 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
   try {
     return require(require.resolve(path))
   } catch (e) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
+      console.error(e) // tslint:disable-line:no-console
+    }
+
     return null
   }
 }
