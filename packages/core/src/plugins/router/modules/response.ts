@@ -1,6 +1,7 @@
 /* tslint:disable:switch-default */
 import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization'
 import { HttpStatusError as HttpError } from '@microfleet/validation'
+import { boomify } from '@hapi/boom'
 import Bluebird = require('bluebird')
 import {
   AuthenticationRequiredError,
@@ -52,7 +53,7 @@ function response(this: Microfleet & LoggerPlugin, err: Error | null, result: an
       }
     }
 
-    service.log.fatal({ err }, 'unexpected error')
+    service.log.fatal({ err: boomify(err) }, 'unexpected error')
     return Bluebird.reject(new CError(`Something went wrong: ${err.message}`, err))
   }
 

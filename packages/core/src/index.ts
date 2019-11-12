@@ -138,7 +138,7 @@ export class Microfleet extends EventEmitter {
   public readonly [constants.CONNECTORS_PROPERTY]: StartStopTree
   public readonly [constants.DESTRUCTORS_PROPERTY]: StartStopTree
   public readonly [constants.HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[]
-  private connectorToPlugin: Map<any, string>
+  private connectorToPlugin: Map<PluginConnector, string>
 
   /**
    * Allow Extensions
@@ -500,7 +500,7 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
   try {
     return require(require.resolve(path))
   } catch (e) {
-    if (!e.message.includes('Cannot find module')) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
       console.error(e) // tslint:disable-line:no-console
     }
 
