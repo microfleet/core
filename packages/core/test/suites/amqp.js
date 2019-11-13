@@ -2,7 +2,6 @@ const Promise = require('bluebird');
 const assert = require('assert');
 const sinon = require('sinon');
 const AMQPTransport = require('@microfleet/transport-amqp');
-const { inspectPromise } = require('@makeomatic/deploy');
 const { findHealthCheck } = require('../utils');
 
 describe('AMQP suite', function testSuite() {
@@ -46,10 +45,7 @@ describe('AMQP suite', function testSuite() {
     await service.amqp.close();
 
     // wait a while and ask again, should throw an error
-    await Promise.delay(5000)
-      .then(handler)
-      .reflect()
-      .then(inspectPromise(false));
+    await assert.rejects(Promise.delay(5000).then(handler));
 
     // restore connection for further tests
     await service.amqp.connect();
