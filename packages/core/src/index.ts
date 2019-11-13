@@ -396,13 +396,13 @@ export class Microfleet extends EventEmitter {
       for (const handler of connectors) {
         const pluginName = this.connectorToPlugin.get(handler)
         if (this.log) {
-          this.log.info({ pluginName, connectorType }, event)
+          this.log.info({ pluginName, connectorType, event }, 'started')
         }
 
         responses.push(await handler.call(this))
 
         if (this.log) {
-          this.log.info({ pluginName, connectorType }, event)
+          this.log.info({ pluginName, connectorType, event }, 'completed')
         }
       }
     }
