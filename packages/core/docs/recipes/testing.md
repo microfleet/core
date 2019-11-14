@@ -92,18 +92,18 @@ After this, you will be able to run your tests using the `yarn test:docker` comm
 ## 1. Install `mdep` binary
 First of all, you need to install the `@makeomatic/deploy` package, which provides `mdep` CLI command.
 
-```bash
-$#: npm install --save @makeomatic/deploy
-$#: npm install --save-dev cross-env
-$#: npm install --save-dev nyc
-$#: npm install --save-dev @babel/core @babel/register babel-plugin-istanbul babel-plugin-transform-strict-mode
+```console
+u:~$ npm install --save @makeomatic/deploy
+u:~$ npm install --save-dev cross-env
+u:~$ npm install --save-dev nyc
+u:~$ npm install --save-dev @babel/core @babel/register babel-plugin-istanbul babel-plugin-transform-strict-mode
 ```
 
 The package adds `husky` and `semantic-release` packages into your `package.json` and adds Git Commit message validation hook.
 
 Now you can check that installation is successful by running:
 ```console
-$: npx mdep --help
+u:~$ npx mdep --help
 mdep <command>
 
 Commands:
@@ -131,12 +131,12 @@ Options:
 After `mdep` tool installed, you can initialize your test environment with `babel`, `mocha` and `docker-compose`:
 
 ```console
-$: npx mdep test init
+u:~$ npx mdep test init
 ```
 Now if you check your source tree you will see that generic test environment created:
 
 ```console
-$: git status
+u:~$ git status
 ...
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
@@ -151,9 +151,7 @@ Untracked files:
 The `docker-compose.yml` file already has one service defined. This service will be used to run your tests using the `mdep test run` command. Now you can check that your tests can run in a Dockerized environment using Node.js image defined inside of your `test/docker-compose.yml`. You can find all available `Tester` images on [this page](https://hub.docker.com/r/makeomatic/node/tags).
 
 ```console
-$: mdep test run -t test/demo.js 
-yarn run v1.19.1
-$ /yourApp/node_modules/.bin/mdep test run -t test/demo.js
+u:~$ npx mdep test run -t test/demo.js
 docker-compose version 1.21.0, build unknown
 Found 1 test files
 "/usr/bin/docker-compose" -f ./test/docker-compose.yml up -d
@@ -169,8 +167,6 @@ docker exec 49b46a101d54361732e096e8a72660af748d92f0e71ec723a3cddc275ef2d40e /bi
   server
     ✓ should be able to start (523ms)
     ✓ should say hello world (132ms)
-
-
 
   2 passing (668ms)
 
@@ -188,8 +184,6 @@ The DEBUG variable is not set. Defaulting to a blank string.
 Stopping tester ... done
 Removing tester ... done
 Removing network test_default
-Done in 16.14s.
-
 ```
 
 ## 3. Update your package.json
