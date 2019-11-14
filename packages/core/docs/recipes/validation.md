@@ -20,7 +20,7 @@ exports.plugins = [
 ### 2. Plugin configuration
 Define plugin configuration inside your configuration folder:
 ```js
-// src/configs/validator.js or src/configs/core.js
+// src/configs/validator.js
 exports.validator = {
   schemas: ['../schemas'],
 }
@@ -139,7 +139,7 @@ Now you may start your microservice and check that validation is working:
 ```console
 $@> curl http://0.0.0.0:3000/todo/create -H "Content-Type: application/json" -X POST --data '{"todo":{"name" : "foo"}}' | jq
 ```
-And the response is goint to be like:
+And the response is going to be like:
 ```json
 {
   "statusCode": 400,
@@ -149,89 +149,8 @@ And the response is goint to be like:
 }
 ```
 
-### Query string validation
-In some cases, you will need to validate incoming Query string parameters.
-`Microfleet` parsing your QS parameters, BUT not doing type conversion, so the default is `string`.
-
-If you want to perform typed validation, you must enable an additional Router extension called `query-string-parser`.
-
-#### 1. Enable `query-string-parser`
-Update your configuration for `Router`:
-  * Add `query-string-parser` plugin.
-  * Enable `preValidate` event.
-```js
-const { routerExtension } = require('@microfleet/core');
-const qsValidator = routerExtension('validate/query-string-parser');
-
-exports.router = {
-  extensions: {
-    enabled: [ 'preValidate' ],
-    register: [ qsValidator ],
-  },
-};
-```
-
-#### 2. Create `/todo/list` action
-Our Service will respond to `GET https://localhost:3000/todo/list?page=10&hidden=1`.
-Assuming that `page` should have type `integer` and `hidden` will accept `0|1|true|false` converted to `boolean`. 
-
-Let's create new file `src/actions/todo/list` with contents:
-```js
-const { ActionTransport } = require('@microfleet/core');
-
-function listTodo(request) {
-  // Well here should be `list` code, but we will respond with object containing our query parameters
-  return { query : request.query};
-}
-
-listTodo.schema = 'todo.list';
-listTodo.transports = [ActionTransport.http];
-// Our action responds only on GET method.
-listTodo.transportsOptions = {
-  [ActionTransport.http]: {
-    methods: ['get'],
-  },
-};
-
-// Function used by `query-string-parser` to transform incoming QS parameters.
-listTodo.transformQuery = (query) => {
-  query.page *= 1;
-  switch (query.hidden) {
-    case 'true':
-    case '1':
-      query.hidden = true;
-      break;
-
-    case 'false':
-    case '0':
-      query.hidden = false;
-      break;
-    default:
-      query.hidden = null;
-  }
-  return query;
-};
-module.exports = listTodo;
-```
-
-Now you may start your microservice and check that validation is working:
-
-```console
-$@> curl http://0.0.0.0:3000/todo/list?page=10&hidden=2 | jq
-```
-And the response is goint to be like:
-
-```json
-{
-  "statusCode": 400,
-  "error": "Bad Request",
-  "message": "todo.list validation failed: data.hidden should be boolean",
-  "name": "HttpStatusError"
-}
-```
-
 ## Object validation
-The `Validator` plugin exports it's methods into `Service` instance. You can access validation methods by calling `validate`, `validateSync` etc. Available methods and properties described in [API Reference](../reference/service/plugins/validator.md).
+The `Validator` plugin exports its methods into `Service` instance. You can access validation methods by calling `validate`, `validateSync` etc. Available methods and properties described in [API Reference](../reference/service/plugins/validator.md).
 
 Let's create action that validates passed `TODO` Object and returns result:
 
@@ -261,7 +180,7 @@ Now you may start your microservice and check that validation is working:
 ```console
 $@> curl http://0.0.0.0:3000/todo/validate -H "Content-Type: application/json" -X POST --data '{"todo":{"name" : "foo"}}' | jq
 ```
-And the response is goint to be like:
+And the response is going to be like:
 ```json
 {
   "validationError": {
