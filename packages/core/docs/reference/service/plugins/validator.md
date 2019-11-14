@@ -24,6 +24,10 @@ These methods available after Plugin initialization under `service` namespace:
 | `validateSync(schemaName, object)` | Reference to `validator.validateSync` method. |
 | `ifError(schemaName, object)` | Reference to `validator.ifError` method. |
 
+** `schemaName` value can be:
+* `"$id"` property defined in `schema.json`.
+* Validator Generated: `schemas/foo/bar.json` -> `foo.bar`.
+
 ## Configuration
 
  Parameter | Type | Required | Default | Description

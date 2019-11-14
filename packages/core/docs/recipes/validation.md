@@ -36,7 +36,6 @@ All schemas are defined using [JSON Schema Standart](https://json-schema.org/spe
 ```json
 // schemas/objects/todo.json
 {
-  "$id": "objects.todo",
   "type": "object",
   "required": [
     "name",
@@ -65,7 +64,6 @@ Schemas defined in this section used in further validation.
 ```json
 // schemas/todo.create.json
 {
-  "$id": "todo.create",
   "type": "object",
   "required": [
     "todo"
@@ -81,7 +79,6 @@ Schemas defined in this section used in further validation.
 ```json
 // schemas/todo.list.json
 {
-  "$id": "todo.list",
   "type": "object",
   "required": [
     "page",
