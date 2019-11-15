@@ -1,7 +1,7 @@
 # Validator plugin
 Please read [this document](../reference/service/plugins/validator.md) for additional configuration and API reference.
 
-In this recipe, we will set up the `Validator` plugin and try to perform validation of simple `TODO` object using the Request validation and generic validation API calls.
+In this recipe, we will set up the `Validator` plugin and try to perform validation of simple `todo` object using the Request validation and generic validation API calls.
 
 * [Service configuration](#service-configuration)
 * [Object validation](#object-validation)
@@ -9,7 +9,7 @@ In this recipe, we will set up the `Validator` plugin and try to perform validat
 
 
 ## Service configuration
-Fist of all, you need to enable and configure the `Validator` plugin.
+First of all, you need to enable and configure the `Validator` plugin.
 
 Enable the plugin by adding it into `config.plugins`:
 ```js
@@ -33,7 +33,7 @@ All schemas from `${ProjectRoot}/schemas` are loaded into the validator and avai
 The `Validator` plugin exports its methods into the `Service` instance. You can access validation methods by calling `validate`, `validateSync` etc. Available methods and properties are described in the [API Reference](../reference/service/plugins/validator.md).
 All schemas defined using [JSON Schema Standart](https://json-schema.org/specification.html) and all validation keywords before `draft-07`.
 
-As mentioned before, our service will consume and validate `TODO` object, so we have to define its validation schema:
+As it was mentioned before, our service will consume and validate `todo` object, so we have to define its validation schema:
 ```json
 // schemas/objects/todo.json
 {
@@ -66,7 +66,7 @@ $user: DEBUG=ms-validation* yarn start
   ms-validation adding schema [objects.todo], /create-microfleet-app/schemas/objects/todo.json with id choice of $id: [objects.todo] vs defaultName: [objects.todo] +1ms
 ```
 
-After this you can create `action` that validates passed `TODO` Object and returns the result:
+After this you can create action that validates passed `todo` Object and returns the result:
 
 ```js
 // src/actions/todo/validate.js
@@ -123,7 +123,7 @@ The `Validator` plugin can perform automatic validation of the request object us
 
 Let's create an action that responds to POST `http://localhost/todo/create` URL and validates Request Body using `todo.create` schema.
 
-First, you need to define a schema describing Request Body that accepted by your action:
+First, you need to define a schema describing Request Body that is accepted by your action:
 ```json
 // schemas/todo.create.json
 {
@@ -140,14 +140,14 @@ First, you need to define a schema describing Request Body that accepted by your
 }
 ```
 
-And create new `action`:
+And create new action:
 ```js
 // src/actions/todo/create.js
 const { ActionTransport } = require('@microfleet/core');
 
 function createTodo(request) {
   const { todo } = request.params;
-  // Create our new TODO....
+  // Create our new `todo`....
   return { ok: { todo }};
 }
 
@@ -159,7 +159,7 @@ createTodo.schema = 'todo.create';
 module.exports = createTodo;
 ```
 
-As you can see, `action` has a new  `schema` property defined. This property instructs the `Validator` plugin that this action needs to be validated. 
+As you can see, action has a new  `schema` property defined. This property instructs the `Validator` plugin that this action needs to be validated. 
 
 Now you may start your microservice and check that validation is working:
 
