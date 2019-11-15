@@ -4,7 +4,7 @@ This recipe intended for Newbies, so if you are one of the Guru's that have thei
 
 Not every test you develop could be run on your local PC because they require additional Software such as Database Brokers or other services.
 
-These recipes do not attempt to become the Full Solution and try to show some simple appliances.
+These recipe is not intended to provide the full solution, just highlights the basic usecase.
 
 # Contents
 * [Test Using plain `docker-compose`](#simple-docker-compose)
@@ -99,7 +99,7 @@ u:~$ npm install --save-dev nyc
 u:~$ npm install --save-dev @babel/core @babel/register babel-plugin-istanbul babel-plugin-transform-strict-mode
 ```
 
-The package adds `husky` and `semantic-release` packages into your `package.json` and adds Git Commit message validation hook.
+The package adds `husky` and `semantic-release` packages into your `package.json` and adds Git commit message validation hook.
 
 Now you can check that installation is successful by running:
 ```console
@@ -121,14 +121,13 @@ Options:
   --repository, --repo        docker repository to use   [default: "makeomatic"]
   --version, -v               version of the project to build [default: "1.0.0"]
   --pkg                       package json path
-  [default: "/home/pajgo/Desktop/makeomatic/microfleet/create-microfleet-app/pac
-                                                                     kage.json"]
+                                [default: "/create-microfleet-app/package.json"]
   --help                      Show help                                [boolean]
 
 ```
 
 ## 2. Init Test environment
-After `mdep` tool installed, you can initialize your test environment with `babel`, `mocha` and `docker-compose`:
+After the `mdep` tool is installed, you can initialize your test environment with `babel`, `mocha` and `docker-compose`:
 
 ```console
 u:~$ npx mdep test init
@@ -148,7 +147,7 @@ Untracked files:
 	test/mocha.opts           - Mocha configuration
 ```
 
-The `docker-compose.yml` file already has one service defined. This service will be used to run your tests using the `mdep test run` command. Now you can check that your tests can run in a Dockerized environment using Node.js image defined inside of your `test/docker-compose.yml`. You can find all available `Tester` images on [this page](https://hub.docker.com/r/makeomatic/node/tags).
+The `docker-compose.yml` file already has one service defined. This service is going to be used to run your tests using the `mdep test run` command. Now you can check that your tests can run in a Dockerized environment using Node.js image defined inside of your `test/docker-compose.yml`. You can find all available `Tester` images on [this page](https://hub.docker.com/r/makeomatic/node/tags).
 
 ```console
 u:~$ npx mdep test run -t test/demo.js
