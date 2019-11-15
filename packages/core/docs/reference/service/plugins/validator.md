@@ -11,10 +11,10 @@ NPM Packages:
 
 | Method | Description |
 |--------|-------------|
-| `attach(service: Microfleet, config, parentFile)` | Register plugin for Microfleet `service` with provided [`config`](#configuration) and use `parentFile` directory as pointer to the application root directory.|
+| `attach(service: Microfleet, config, parentFile)` | Register plugin for Microfleet `service` with provided [`config`](#configuration) and use `parentFile` directory as a pointer to the application root directory.|
 
 ## Exported Methods and Properties
-These methods available after Plugin initialization under `service` namespace:
+These methods are available after Plugin initialization under the `service` namespace:
 
 | Method | Description | 
 |--------|-------------|
@@ -32,8 +32,8 @@ These methods available after Plugin initialization under `service` namespace:
 
  Parameter | Type | Required | Default | Description
  --- | --- | --- | --- | ---
- `schemas` | `string[]` | `no` | `[]` | Paths for schemas
+`schemas` | `string[]` | `no` | `[]` | Schemas path
 `filter` | `Function` | `no` | `null` | Function to filter schemas filenames
 `serviceConfigSchemaIds` | `string[]` | `no` | `['microfleet.core', 'config']` | Validate that schemas after initialization of validator
-`ajv` | `Object` | `no` | `{ strictKeywords: true }` | Config for [`Ajv`](https://ajv.js.org/#options) library
+`ajv` | `Object` | `no` | `{ strictKeywords: true }` | [`Ajv`](https://ajv.js.org/#options) validator config
 
