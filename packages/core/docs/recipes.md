@@ -5,3 +5,4 @@
 - [Authentication](recipes/authentication.md)
 - [Connect to Redis](recipes/redis.md)
 - [Validation](recipes/validation.md)
+- [Testing](recipes/testing.md)
