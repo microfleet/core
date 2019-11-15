@@ -44,7 +44,9 @@ They are grouped by plugins.
 4. Add links to the recipe and feature implementation pull request if you have made it.
 5. Make a pull request that states what scope of documentation you have covered 
 
-Example: [AMQP Plugin config reference](https://github.com/microfleet/core/blob/master/packages/core/docs/reference/service/plugins/amqp.md)
+Examples: 
+* [AMQP Plugin config reference](https://github.com/microfleet/core/blob/master/packages/core/docs/reference/service/plugins/amqp.md)
+* [Redis Plugin reference](../reference/service/plugins/redis/cluster.md)
 
 ### Full feature documentation example
 No really good example yet. Let's make it! 
