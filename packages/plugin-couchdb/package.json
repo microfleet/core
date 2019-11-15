@@ -1,26 +1,28 @@
 {
-  "name": "@microfleet/plugin-consul",
-  "description": "hashicorp consul adapter",
+  "name": "@microfleet/plugin-couchdb",
+  "description": "couchdb adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.3.1",
+  "version": "0.1.1",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:e2e",
-    "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml",
+    "test:e2e": "mdep test run",
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
-    "prepublishOnly": "yarn compile"
+    "prepublishOnly": "yarn compile",
+    "semantic-release": "semantic-release"
   },
   "tags": [
     "microservice",
     "microfleet",
-    "consul",
-    "leader-election"
+    "knex",
+    "sql",
+    "postgresql"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/microfleet/core.git",
-    "directory": "packages/plugin-consul"
+    "directory": "packages/plugin-couchdb"
   },
   "author": "Vitaly Aminev <v@makeomatic.ca>",
   "license": "MIT",
@@ -31,13 +33,15 @@
   "peerDependencies": {
     "@microfleet/core": "~15.x.x"
   },
+  "dependencies": {
+    "nano": "apache/couchdb-nano#4fed1e50488479596e4b2e440d96040c2dc72e36"
+  },
   "devDependencies": {
+    "@makeomatic/deploy": "^9.4.1",
     "@microfleet/core": "^15.4.1",
-    "@types/consul": "^0.23.34",
     "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
-    "ts-essentials": "^3.0.4",
     "ts-jest": "^24.1.0"
   },
   "engines": {
@@ -48,5 +52,11 @@
     "lib/",
     "src/",
     "schemas/"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "./node_modules/@makeomatic/deploy/git-hooks/prepare-commit-msg $HUSKY_GIT_PARAMS"
+    }
+  }
 }

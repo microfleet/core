@@ -3,7 +3,7 @@
   "description": "knex - universal *sql adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.1.2",
+  "version": "0.2.1",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:e2e",
@@ -33,12 +33,12 @@
     "@microfleet/core": "~15.x.x"
   },
   "dependencies": {
-    "knex": "^0.19.5",
+    "knex": "^0.20.1",
     "pg": "^7.12.1"
   },
   "devDependencies": {
-    "@microfleet/core": "^15.3.1",
-    "@types/jest": "^24.0.19",
+    "@microfleet/core": "^15.4.1",
+    "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0"

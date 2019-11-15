@@ -1,0 +1,70 @@
+{
+  "$id": "couchdb",
+  "type": "object",
+  "required": [
+    "connection",
+    "database"
+  ],
+  "properties": {
+    "connection": {
+      "anyOf": [{
+        "type": "string",
+        "format": "uri"
+      }, {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "cookie": {
+            "type": "string"
+          },
+          "requestDefaults": {
+            "type": "object"
+          },
+          "parseUrl": {
+            "type": "boolean"
+          }
+        }
+      }]
+    },
+    "database": {
+      "type": "string"
+    },
+    "indexDefinitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["index", "name"],
+        "properties": {
+          "index": {
+            "type": "object",
+            "properties": {
+              "fields": {
+                "anyOf": [{
+                  "type": "string"
+                }, {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [{
+                      "type": "string"
+                    }, {
+                      "type": "object",
+                      "minProperties": 1,
+                      "maxProperties": 1,
+                      "additionalProperties": {
+                        "type": "string",
+                        "enum": ["asc", "desc"]
+                      }
+                    }]
+                  }
+                }]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
