@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.5.0](https://github.com/microfleet/core/compare/@microfleet/core@15.4.1...@microfleet/core@15.5.0) (2019-11-15)
+
+
+### Features
+
+* redis docs ([8ed8093](https://github.com/microfleet/core/commit/8ed80935a299bda08511a5147978a7a2a38694aa))
+* redis docs ([e6eed5a](https://github.com/microfleet/core/commit/e6eed5aab303aa90907d93cf5acde20a03105973))
+* redis docs ([c046432](https://github.com/microfleet/core/commit/c046432b992fef93288b6e414f85049eda03bde1))
+
+
+
+
+
 ## [15.4.1](https://github.com/microfleet/core/compare/@microfleet/core@15.4.0...@microfleet/core@15.4.1) (2019-11-13)
 
 
