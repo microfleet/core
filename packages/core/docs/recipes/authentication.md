@@ -1,21 +1,30 @@
 # Authentication
 
-## Before start
+## Requirements
 
 This recipe assumes that you are already familiar with the [quick start guide](quick-start.md) and the [configuration](configuration.md) recipe.
 
 ## Configuring Authentication
 
-#### Configure strategy
+#### Define strategy
 
-```sh
-└── src                              # application source code
-    └── auth                         # authentication strategies directory
-        ├── index.js                 # exports strategies
-        └── strategies
-            └── demo.js      # demo strategy
+Define function `demo`, she will serve as auth middleware. We can check request credentials and identify user. Function accepts request argument and return user credentials.
+
+```js
+function demo(request) {
+  const { action } = request
+  const { auth } = action
+  const { strategy = REQUIRED_STRATEGY } = auth
+  const { authorization } = request.headers
+  
+  /* validate request credentials */
+  /* identify user */
+  
+  return {} // return object with user data
+}
 ```
 
+Completed strategy:
 ```js
 // demo.js
 const { HttpStatusError } = require('common-errors')
@@ -72,6 +81,18 @@ function demo(request) {
 module.exports = demo
 ```
 
+#### Save strategy
+
+```sh
+└── src                              # application source code
+    └── auth                         # authentication strategies directory
+        ├── index.js                 # exports strategies
+        └── strategies
+            └── demo.js      # demo strategy
+```
+
+
+
 #### Define strategies in config
 
 config.js
@@ -91,11 +112,16 @@ module.exports = {
 
 ```
 
-
 #### Configure Action
 
 Define action option `auth`: 
+```js
+protectedAction.auth = {
+  name: 'demo',
+}
+```
 
+Completed action:
 ```js
 const { ActionTransport } = require('@microfleet/core')
 
@@ -112,7 +138,9 @@ protectedAction.transports = [ActionTransport.http]
 module.exports = protectedAction
 ```
 
-## Ensure the service is able to greet the world
+In action we have access to user data, returned by strategy in `request.auth.credentials`.
+
+## Ensure that the Authentication is working
 
 Add a test to `test/protected.js`:
 ```js
