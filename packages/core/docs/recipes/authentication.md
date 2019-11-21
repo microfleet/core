@@ -2,7 +2,7 @@
 
 ## Before start
 
-First of all, you must go through [Quick Start Guide](quick-start.md).
+This recipe assumes that you are already familiar with the [quick start guide](quick-start.md) and the [configuration](configuration.md) recipe.
 
 ## Configuring Authentication
 
