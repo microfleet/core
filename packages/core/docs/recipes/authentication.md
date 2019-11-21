@@ -13,55 +13,82 @@ This recipe assumes that you are already familiar with the [quick start guide](q
     └── auth                         # authentication strategies directory
         ├── index.js                 # exports strategies
         └── strategies
-            └── demoStrategy.js      # demo strategy
+            └── demo.js      # demo strategy
 ```
 
 ```js
-// demoStrategy.js
-const { HttpStatusError } = require('common-errors');
+// demo.js
+const { HttpStatusError } = require('common-errors')
 
-function verifyToken(token) {
-  const validToken = !!token; // check token structure, check token on exist
+const { REQUIRED_STRATEGY } = require('../../constants')
 
-  if (!validToken) {
-    throw new HttpStatusError(403, 'Invalid Token');
-  }
+const users = {
+  1: {
+    id: 1,
+    name: 'Demo User',
+  },
 }
 
-function demoStrategy(request) {
-  const { action } = request;
-  const { auth } = action;
-  const { strategy = 'required' } = auth;
-  const { authorization } = request.headers;
-
-  if (authorization) {
-    const [auth, token] = authorization.split(/\s+/, 2); // Authorization: Bearer [token]
-    return verifyToken(token)
+function verifyToken(authType, token) {
+  if (authType !== 'Bearer') {
+    throw new HttpStatusError(403, 'Invalid auth type')
   }
 
-  if (strategy === 'required') {
-    throw new HttpStatusError(401, 'Credentials Required');
+  const [body, userId] = token.split(':', 2)
+
+  if (body !== 'demo' || !userId) {
+    throw new HttpStatusError(403, 'Malformed Token')
   }
+
+  return userId
 }
 
-module.exports = demoStrategy;
+function demo(request) {
+  const { action } = request
+  const { auth } = action
+  const { strategy = REQUIRED_STRATEGY } = auth
+  const { authorization } = request.headers
+
+  if (strategy === REQUIRED_STRATEGY && !authorization) {
+    throw new HttpStatusError(401, 'Credentials Required')
+  }
+
+  const [authType, token] = authorization.split(/\s+/, 2) // Authorization: Bearer [token]
+
+  if (!auth || !token) {
+    throw new HttpStatusError(403, 'Invalid Token')
+  }
+
+  const userId = verifyToken(authType, token)
+  const user = users[userId]
+
+  if (!user) {
+    throw new HttpStatusError(401, 'You don\'t have permission to access')
+  }
+
+  return { user }
+}
+
+module.exports = demo
 ```
 
 #### Define strategies in config
 
 config.js
 ```
-const { demoStrategy } = require('./auth');
+const { demo } = require('./auth')
 
-const config = {
-  name: 'demo-app',
+module.exports = {
+  ...
   router: {
-    extensions: { register: [] },
+    ...
     auth: {
-      strategies: { demoStrategy },
-    },
-  },
+      strategies: { demo }
+    }
+  }
+  ...
 }
+
 ```
 
 
@@ -70,66 +97,63 @@ const config = {
 Define action option `auth`: 
 
 ```js
-const { ActionTransport } = require('@microfleet/core');
+const { ActionTransport } = require('@microfleet/core')
 
-function protectedAction() {
-  return 'Hello, world by authentificated user!\n';
+function protectedAction(request) {
+  const { user } = request.auth.credentials
+  return `Hello, world by ${user.name}!`
 }
 
 protectedAction.auth = {
-  name: 'demoStrategy',
-  strategy: 'required',
-  passAuthError: true,
-};
-protectedAction.transports = [ActionTransport.http];
+  name: 'demo',
+}
+protectedAction.transports = [ActionTransport.http]
 
-module.exports = protectedAction;
-
+module.exports = protectedAction
 ```
 
 ## Ensure the service is able to greet the world
 
 Add a test to `test/protected.js`:
 ```js
-const assert = require('assert');
-const rp = require('request-promise');
-const DemoApp = require('../src');
+const assert = require('assert')
+const rp = require('request-promise')
+const DemoApp = require('../src')
 
 describe('Server process protected action:', () => {
-  const demoApp = new DemoApp();
+  const demoApp = new DemoApp()
 
-  before(() => demoApp.connect());
-  after(() => demoApp.close());
+  before(() => demoApp.connect())
+  after(() => demoApp.close())
 
   it('allow with valid credentials', async () => {
     const response = await rp({
       uri: 'http://0.0.0.0:3000/protected',
       headers: {
-        authorization: `Bearer some-valid-token`
-      }
-    });
+        authorization: 'Bearer demo:1',
+      },
+    })
 
-    assert(response);
-  });
+    assert.strictEqual(response, 'Hello, world by Demo User!')
+  })
 
   it('reject without credentials', async () => {
     const request = rp({
       uri: 'http://0.0.0.0:3000/protected',
-    });
+    })
 
-    await assert.rejects(request, 'Credentials Required');
-  });
+    await assert.rejects(request)
+  })
 
   it('reject with invalid credentials', async () => {
     const request = rp({
       uri: 'http://0.0.0.0:3000/protected',
       headers: {
-        authorization: `invalid-token`
-      }
-    });
+        authorization: 'invalid-token',
+      },
+    })
 
-    await assert.rejects(request, 'Invalid Token');
-  });
-});
-
+    await assert.rejects(request)
+  })
+})
 ```
