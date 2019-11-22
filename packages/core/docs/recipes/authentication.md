@@ -88,7 +88,7 @@ module.exports = demo
     └── auth                         # authentication strategies directory
         ├── index.js                 # exports strategies
         └── strategies
-            └── demo.js      # demo strategy
+            └── demo.js              # demo strategy
 ```
 
 
