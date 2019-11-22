@@ -8,7 +8,7 @@ This recipe assumes that you are already familiar with the [quick start guide](q
 
 #### Define strategy
 
-Define function `demo`, she will serve as auth middleware. We can check request credentials and identify user. Function accepts request argument and return user credentials.
+Define `demo` function, it will serve as an auth middleware. Inside of it we can check request credentials and identify the user. Let this function accept request as an argument and return user credentials.
 
 ```js
 function demo(request) {
