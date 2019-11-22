@@ -1,7 +1,12 @@
 # Configuration reference
 
-- [Core config](recipes/core.md)
+- [Core](reference/core.md)
+- [Plugins](reference/plugins.md)
+- [HTTP](reference/plugins/http.md)
+- [AMQP](reference/plugins/amqp.md)
+- [Logger](reference/plugins/logger.md)
+- [Router](reference/plugins/router.md)
+- [Validator](reference/plugins/validator.md)
 - Redis Family plugins
-  * [Redis Sentinel](reference/service/plugins/redis/sentinel.md)
-  * [Redis Cluster](reference/service/plugins/redis/cluster.md)
-- [Validator Plugin](reference/service/plugins/validator)
+  * [Redis Sentinel](reference/plugins/redis/sentinel.md)
+  * [Redis Cluster](reference/plugins/redis/cluster.md)
