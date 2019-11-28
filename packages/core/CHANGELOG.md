@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.6.0](https://github.com/microfleet/core/compare/@microfleet/core@15.5.2...@microfleet/core@15.6.0) (2019-11-28)
+
+
+### Features
+
+* added Authentication doc ([#353](https://github.com/microfleet/core/issues/353)) ([08012a9](https://github.com/microfleet/core/commit/08012a9374cca894a2bc746cacdda89810fd76a9))
+
+
+
+
+
 ## [15.5.2](https://github.com/microfleet/core/compare/@microfleet/core@15.5.1...@microfleet/core@15.5.2) (2019-11-22)
 
 **Note:** Version bump only for package @microfleet/core
