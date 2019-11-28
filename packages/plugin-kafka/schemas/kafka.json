@@ -1,0 +1,21 @@
+{
+  "$id": "kafka",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "connection",
+    "database"
+  ],
+  "properties": {
+    "conf": {
+      "type": "object",
+      "properties": {
+        "metadata.broker.list": {
+          "type": "string"
+        },
+        "required": [ "metadata.broker.list" ]
+      }
+    }
+  }
+}
+  

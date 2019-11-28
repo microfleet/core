@@ -1,0 +1,36 @@
+{
+  "name": "@microfleet/plugin-kafka",
+  "description": "Apache Kafka adapter for microfleet",
+  "version": "0.1.0",
+  "scripts": {
+    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
+    "test": "yarn lint && yarn compile && yarn test:e2e",
+    "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml -C",
+    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
+    "prepublishOnly": "yarn compile"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "apache",
+    "kafka"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-kafka"
+  },
+  "author": "Tigran Avetisyan <tigranavetisyan94@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~15.x.x"
+  },
+  "dependencies": {
+    "@microfleet/core": "^15.5.1",
+    "node-rdkafka": "^2.7.4"
+  }
+}
