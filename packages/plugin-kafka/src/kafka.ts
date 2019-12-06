@@ -92,4 +92,5 @@ export function attach(
   const conf: GlobalConfig = service.ifError(name, params)
 
   service[name] = new KafkaFactory(conf)
+  return service[name]
 }
