@@ -3,19 +3,14 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "connection",
-    "database"
+    "metadata.broker.list"
   ],
   "properties": {
-    "conf": {
-      "type": "object",
-      "properties": {
-        "metadata.broker.list": {
-          "type": "string"
-        },
-        "required": [ "metadata.broker.list" ]
-      }
+    "metadata.broker.list": {
+      "type": "string"
+    },
+    "group.id": {
+      "type": "string"
     }
   }
 }
-  

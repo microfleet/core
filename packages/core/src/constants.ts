@@ -37,7 +37,6 @@ export const ActionTransport = {
   http: literal('http'),
   internal: literal('internal'),
   socketIO: literal('socketIO'),
-  kafka: literal('kafka'),
 }
 
 // based on this we validate input data

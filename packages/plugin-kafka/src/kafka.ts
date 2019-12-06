@@ -1,9 +1,20 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface } from '@microfleet/core'
-// import retry = require('bluebird-retry')
-import * as Kafka from 'node-rdkafka'
+import { Microfleet, PluginTypes, LoggerPlugin } from '@microfleet/core'
+import {
+  ProducerStream,
+  ConsumerStream,
+  createWriteStream,
+  createReadStream,
+} from 'node-rdkafka'
+
+import {
+  GlobalConfig,
+  TopicConfig,
+  ProducerStreamOptions,
+  ConsumerStreamOptions,
+} from './types'
 
 /**
  * Relative priority inside the same plugin group type
@@ -12,26 +23,21 @@ export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
 
-export type TopicConfig = {
-  topicName: string;
-}
-
-type GlobalConfig = {
-  'metadata.broker.list': string;
-}
-
-type Config = {
-  globalConf: GlobalConfig;
-  topicConf?: TopicConfig;
-}
-
 /**
  * Defines service extension
  */
 export interface KafkaPlugin {
   globalConf: GlobalConfig
-  createConsumer: (topicConf?: TopicConfig) => Kafka.KafkaConsumer
-  createProducer: (topicConf?: TopicConfig) => Kafka.Producer
+  createConsumer: (
+    streamOptions: ConsumerStreamOptions,
+    globalConf?: GlobalConfig,
+    topicConf?: TopicConfig
+  ) => ConsumerStream
+  createProducer: (
+    streamOptions: ProducerStreamOptions,
+    globalConf?: GlobalConfig,
+    topicConf?: TopicConfig
+  ) => ProducerStream
 }
 
 export class KafkaFactory implements KafkaPlugin {
@@ -40,38 +46,40 @@ export class KafkaFactory implements KafkaPlugin {
     this.globalConf = globalConf
   }
 
-  createConsumer(topicConf?: TopicConfig): Kafka.KafkaConsumer {
-    return new Kafka.KafkaConsumer(this.globalConf, topicConf)
+  createConsumer(
+    streamOptions: ConsumerStreamOptions,
+    globalConf?: Partial<GlobalConfig>,
+    topicConf?: TopicConfig
+  ): ConsumerStream {
+    const consumerStream = createReadStream(
+      { ...this.globalConf, ...globalConf },
+      topicConf,
+      streamOptions
+    )
+    return consumerStream
   }
 
-  createProducer(topicConf?: TopicConfig): Kafka.Producer {
-    return new Kafka.Producer(this.globalConf, topicConf)
+  createProducer(
+    streamOptions: ProducerStreamOptions,
+    globalConf?: Partial<GlobalConfig>,
+    topicConf?: TopicConfig
+  ): ProducerStream {
+    const producerStream = createWriteStream(
+      { ...this.globalConf, ...globalConf },
+      topicConf,
+      streamOptions
+    )
+    return producerStream
   }
 }
 
 /**
- * Defines closure
+ * Plugin init function.
+ * @param params - Kafka configuration.
  */
-const startupHandlers = (
-  service: Microfleet,
-  globalConf: GlobalConfig
-): PluginInterface => ({
-  async connect() {
-    assert(!service[name], 'kafka has already been initialized')
-
-    service[name] = new KafkaFactory(globalConf)
-    return service[name]
-  },
-
-  async close() {
-    service[name] = null
-    service.emit(`plugin:close:${name}`, service[name])
-  },
-})
-
 export function attach(
   this: Microfleet & LoggerPlugin,
-  params: Config
+  params: GlobalConfig
 ) {
   const service = this
 
@@ -81,7 +89,7 @@ export function attach(
   // load local schemas
   service.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const globalConfig: GlobalConfig = service.ifError(name, params)
+  const conf: GlobalConfig = service.ifError(name, params)
 
-  return startupHandlers(service, globalConfig)
+  service[name] = new KafkaFactory(conf)
 }

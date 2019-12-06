@@ -32,5 +32,8 @@
   "dependencies": {
     "@microfleet/core": "^15.5.1",
     "node-rdkafka": "^2.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.14"
   }
 }
