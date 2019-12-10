@@ -3,6 +3,7 @@ import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import eventToPromise = require('event-to-promise')
 import { NotFoundError } from 'common-errors'
+import get = require('get-value')
 import { ActionTransport, Microfleet, PluginTypes } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
@@ -103,6 +104,7 @@ export function attach(this: Microfleet, opts: any = {}) {
     const { retry } = config
     const { predicate, maxRetries } = retry
     const backoff = new Backoff({ qos: retry })
+    const prefix = get(config, 'router.prefix', '')
 
     /**
      * Composes onComplete handler for QoS enabled Subscriber.
@@ -160,11 +162,12 @@ export function attach(this: Microfleet, opts: any = {}) {
 
       // retry message options
       const expiration = backoff.get('qos', retryCount)
+      const routingKey = prefix ? `${prefix}.${actionName}` : actionName
       const retryMessageOptions: any = {
         confirm: true,
         expiration: expiration.toString(),
         headers: {
-          'routing-key': actionName,
+          'routing-key': routingKey,
           'x-original-error': String(err),
           'x-retry-count': retryCount,
         },
