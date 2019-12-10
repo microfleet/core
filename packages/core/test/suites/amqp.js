@@ -174,7 +174,7 @@ describe('AMQP suite: prefixed routing', function testSuite() {
   });
 });
 
-describe('AMQP suite: retry', function testSuite() {
+describe('AMQP suite: retry + amqp router prefix', function testSuite() {
   require('../config');
   const { Microfleet, ActionTransport } = require('../..');
 
@@ -264,6 +264,110 @@ describe('AMQP suite: retry', function testSuite() {
 
     await assert.rejects(
       amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 3 }),
+      {
+        message: 'Fake connection error first three times',
+        name: 'ConnectionError',
+        generateMessage: null,
+        global_initialize: undefined,
+        inner_error: undefined,
+        isOperational: true,
+        retryAttempt: 3
+      }
+    );
+  });
+});
+
+describe('AMQP suite: retry + amqp router prefix + router prefix', function testSuite() {
+  require('../config');
+  const { Microfleet, ActionTransport } = require('../..');
+
+  let service;
+  before(async function () {
+    const failedActionEmulator = [{
+      point: 'preHandler',
+      async handler(request) {
+        const { failAtRetryCount } = request.params;
+        const { headers } = request.headers;
+        const retryCount = headers['x-retry-count'] || 0;
+        if (retryCount <= failAtRetryCount) {
+          throw new Errors.ConnectionError('Fake connection error first three times');
+        }
+        return [request];
+      },
+    }];
+
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
+      amqp: {
+        transport: {
+          ...global.SERVICES.amqp.transport,
+          queue: 'test-queue',
+          bindPersistantQueueToHeadersExchange: true,
+          neck: 10,
+        },
+        router: {
+          enabled: true,
+          prefix: 'amqp-prefix',
+        },
+        retry: {
+          enabled: true,
+          min: 100,
+          max: 30 * 60 * 1000,
+          factor: 1.2,
+          maxRetries: 3, // 3 attempts only
+          predicate(error, actionName) {
+            if (actionName === 'router-prefix.echo') {
+              return false;
+            }
+
+            return true;
+          },
+        },
+      },
+      router: {
+        extensions: {
+          enabled: ['preHandler'],
+          register: [failedActionEmulator]
+        },
+        routes: {
+          prefix: 'router-prefix',
+          directory: path.resolve(__dirname, '../amqp/helpers/actions'),
+          transports: [
+            ActionTransport.amqp,
+          ],
+        },
+      },
+    });
+    await service.connect();
+  });
+  after(async function () {
+    await service.close();
+
+    service = null;
+  });
+
+  it('able to attach amqp plugin with configured retry', async () => {
+    const { amqp } = service;
+
+    assert.ok(amqp instanceof AMQPTransport);
+    assert.doesNotThrow(() => service.amqp);
+  });
+
+  it ('able to successfully retry action dispatch', async () => {
+    const { amqp } = service;
+
+    const response = await amqp
+      .publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 2 });
+
+    assert.deepStrictEqual(response, { failAtRetryCount: 2 });
+  });
+
+  it ('able to fail when retry count exceeds max retry attempt count', async () => {
+    const { amqp } = service;
+
+    await assert.rejects(
+      amqp.publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 3 }),
       {
         message: 'Fake connection error first three times',
         name: 'ConnectionError',
