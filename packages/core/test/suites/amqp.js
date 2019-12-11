@@ -1,30 +1,17 @@
 const Promise = require('bluebird');
 const assert = require('assert');
 const sinon = require('sinon');
-const path = require('path');
 const AMQPTransport = require('@microfleet/transport-amqp');
-const Errors = require('common-errors');
 const { findHealthCheck } = require('../utils');
 
 describe('AMQP suite: lifecycle', function testSuite() {
-  require('../config');
-  const { Microfleet, ActionTransport } = require('../..');
+  const { Microfleet } = require('../..');
+  const { basicSetupConfig } = require('../amqp/helpers/stubs/config');
 
   let service;
 
   it('able to connect to amqp when plugin is included', async () => {
-    service = new Microfleet({
-      name: 'tester',
-      plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
-      amqp: global.SERVICES.amqp,
-      router: {
-        routes: {
-          transports: [
-            ActionTransport.amqp,
-          ],
-        },
-      },
-    });
+    service = new Microfleet(basicSetupConfig);
 
     const [amqp] = await service.connect();
 
@@ -70,31 +57,12 @@ describe('AMQP suite: lifecycle', function testSuite() {
 });
 
 describe('AMQP suite: basic routing', function testSuite() {
-  require('../config');
-  const { Microfleet, ActionTransport } = require('../..');
+  const { Microfleet } = require('../..');
+  const { withEnabledRouting } = require('../amqp/helpers/stubs/config');
 
   let service;
   before(async function () {
-    service = new Microfleet({
-      name: 'tester',
-      plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
-      amqp: {
-        ...global.SERVICES.amqp,
-        router: {
-          enabled: true,
-          prefix: '',
-        },
-      },
-      router: {
-        extensions: { register: [] },
-        routes: {
-          directory: path.resolve(__dirname, '../amqp/helpers/actions'),
-          transports: [
-            ActionTransport.amqp,
-          ],
-        },
-      },
-    });
+    service = new Microfleet(withEnabledRouting);
     await service.connect();
   });
   after(async function () {
@@ -114,7 +82,7 @@ describe('AMQP suite: basic routing', function testSuite() {
     const { amqp: amqpRoutes } = service.router.routes;
 
     assert.ok(typeof amqpRoutes.echo === 'function');
-  })
+  });
 
   it ('able to dispatch action and return response', async () => {
     const { amqp } = service;
@@ -126,31 +94,12 @@ describe('AMQP suite: basic routing', function testSuite() {
 });
 
 describe('AMQP suite: prefixed routing', function testSuite() {
-  require('../config');
-  const { Microfleet, ActionTransport } = require('../..');
+  const { Microfleet } = require('../..');
+  const { withAmqpRouterPrefixSpecified } = require('../amqp/helpers/stubs/config');
 
   let service;
   before(async function () {
-    service = new Microfleet({
-      name: 'tester',
-      plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
-      amqp: {
-        ...global.SERVICES.amqp,
-        router: {
-          enabled: true,
-          prefix: 'amqp-prefix',
-        },
-      },
-      router: {
-        extensions: { register: [] },
-        routes: {
-          directory: path.resolve(__dirname, '../amqp/helpers/actions'),
-          transports: [
-            ActionTransport.amqp,
-          ],
-        },
-      },
-    });
+    service = new Microfleet(withAmqpRouterPrefixSpecified);
     await service.connect();
   });
   after(async function () {
@@ -175,66 +124,12 @@ describe('AMQP suite: prefixed routing', function testSuite() {
 });
 
 describe('AMQP suite: retry + amqp router prefix', function testSuite() {
-  require('../config');
-  const { Microfleet, ActionTransport } = require('../..');
+  const { Microfleet } = require('../..');
+  const { withRetryAndAmqpRouterPrefixSpecified } = require('../amqp/helpers/stubs/config');
 
   let service;
   before(async function () {
-    const failedActionEmulator = [{
-      point: 'preHandler',
-      async handler(request) {
-        const { failAtRetryCount } = request.params;
-        const { headers } = request.headers;
-        const retryCount = headers['x-retry-count'] || 0;
-        if (retryCount <= failAtRetryCount) {
-          throw new Errors.ConnectionError('Fake connection error first three times');
-        }
-        return [request];
-      },
-    }];
-
-    service = new Microfleet({
-      name: 'tester',
-      plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
-      amqp: {
-        transport: {
-          ...global.SERVICES.amqp.transport,
-          queue: 'test-queue',
-          bindPersistantQueueToHeadersExchange: true,
-          neck: 10,
-        },
-        router: {
-          enabled: true,
-          prefix: 'amqp-prefix',
-        },
-        retry: {
-          enabled: true,
-          min: 100,
-          max: 30 * 60 * 1000,
-          factor: 1.2,
-          maxRetries: 3, // 3 attempts only
-          predicate(error, actionName) {
-            if (actionName === 'echo') {
-              return false;
-            }
-
-            return true;
-          },
-        },
-      },
-      router: {
-        extensions: {
-          enabled: ['preHandler'],
-          register: [failedActionEmulator]
-        },
-        routes: {
-          directory: path.resolve(__dirname, '../amqp/helpers/actions'),
-          transports: [
-            ActionTransport.amqp,
-          ],
-        },
-      },
-    });
+    service = new Microfleet(withRetryAndAmqpRouterPrefixSpecified);
     await service.connect();
   });
   after(async function () {
@@ -278,67 +173,12 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
 });
 
 describe('AMQP suite: retry + amqp router prefix + router prefix', function testSuite() {
-  require('../config');
-  const { Microfleet, ActionTransport } = require('../..');
+  const { Microfleet } = require('../..');
+  const { withRetryAndAmqpRouterPrefixAndCommonRouterPrefixSpecified } = require('../amqp/helpers/stubs/config');
 
   let service;
   before(async function () {
-    const failedActionEmulator = [{
-      point: 'preHandler',
-      async handler(request) {
-        const { failAtRetryCount } = request.params;
-        const { headers } = request.headers;
-        const retryCount = headers['x-retry-count'] || 0;
-        if (retryCount <= failAtRetryCount) {
-          throw new Errors.ConnectionError('Fake connection error first three times');
-        }
-        return [request];
-      },
-    }];
-
-    service = new Microfleet({
-      name: 'tester',
-      plugins: ['logger', 'validator', 'opentracing', 'amqp', 'router'],
-      amqp: {
-        transport: {
-          ...global.SERVICES.amqp.transport,
-          queue: 'test-queue',
-          bindPersistantQueueToHeadersExchange: true,
-          neck: 10,
-        },
-        router: {
-          enabled: true,
-          prefix: 'amqp-prefix',
-        },
-        retry: {
-          enabled: true,
-          min: 100,
-          max: 30 * 60 * 1000,
-          factor: 1.2,
-          maxRetries: 3, // 3 attempts only
-          predicate(error, actionName) {
-            if (actionName === 'router-prefix.echo') {
-              return false;
-            }
-
-            return true;
-          },
-        },
-      },
-      router: {
-        extensions: {
-          enabled: ['preHandler'],
-          register: [failedActionEmulator]
-        },
-        routes: {
-          prefix: 'router-prefix',
-          directory: path.resolve(__dirname, '../amqp/helpers/actions'),
-          transports: [
-            ActionTransport.amqp,
-          ],
-        },
-      },
-    });
+    service = new Microfleet(withRetryAndAmqpRouterPrefixAndCommonRouterPrefixSpecified);
     await service.connect();
   });
   after(async function () {
