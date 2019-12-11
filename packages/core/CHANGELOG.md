@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.6.1](https://github.com/microfleet/core/compare/@microfleet/core@15.6.0...@microfleet/core@15.6.1) (2019-12-11)
+
+
+### Bug Fixes
+
+* **amqp:** consider router prefix on retry ([7827741](https://github.com/microfleet/core/commit/78277414206870a082acae29911b68890af945f7))
+
+
+
+
+
 # [15.6.0](https://github.com/microfleet/core/compare/@microfleet/core@15.5.2...@microfleet/core@15.6.0) (2019-11-28)
 
 

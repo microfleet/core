@@ -3,7 +3,7 @@
   "description": "couchdb adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:e2e",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^9.4.1",
-    "@microfleet/core": "^15.6.0",
+    "@microfleet/core": "^15.6.1",
     "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
