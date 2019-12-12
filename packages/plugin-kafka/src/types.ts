@@ -2,7 +2,6 @@ export type GlobalConfig = {
   'metadata.broker.list': string;
   'group.id': string;
   'enable.auto.commit'?: boolean;
-  'auto.commit.interval.ms'?: number;
   [key: string]: any;
 }
 
