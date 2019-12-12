@@ -11,6 +11,7 @@ import {
 
 import {
   GlobalConfig,
+  ProducerGlobalConfig,
   TopicConfig,
   ProducerStreamOptions,
   ConsumerStreamOptions,
@@ -28,14 +29,14 @@ export const type = PluginTypes.transport
  */
 export interface KafkaPlugin {
   globalConf: GlobalConfig
-  createConsumer: (
+  createConsumerStream: (
     streamOptions: ConsumerStreamOptions,
-    globalConf?: GlobalConfig,
+    conf?: GlobalConfig,
     topicConf?: TopicConfig
   ) => ConsumerStream
-  createProducer: (
+  createProducerStream: (
     streamOptions: ProducerStreamOptions,
-    globalConf?: GlobalConfig,
+    conf?: ProducerGlobalConfig,
     topicConf?: TopicConfig
   ) => ProducerStream
 }
@@ -46,26 +47,26 @@ export class KafkaFactory implements KafkaPlugin {
     this.globalConf = globalConf
   }
 
-  createConsumer(
+  createConsumerStream(
     streamOptions: ConsumerStreamOptions,
-    globalConf?: Partial<GlobalConfig>,
+    conf?: Partial<GlobalConfig>,
     topicConf?: TopicConfig
   ): ConsumerStream {
     const consumerStream = createReadStream(
-      { ...this.globalConf, ...globalConf },
+      { ...this.globalConf, ...conf },
       topicConf,
       streamOptions
     )
     return consumerStream
   }
 
-  createProducer(
+  createProducerStream(
     streamOptions: ProducerStreamOptions,
-    globalConf?: Partial<GlobalConfig>,
+    conf?: ProducerGlobalConfig,
     topicConf?: TopicConfig
   ): ProducerStream {
     const producerStream = createWriteStream(
-      { ...this.globalConf, ...globalConf },
+      { ...this.globalConf, ...conf },
       topicConf,
       streamOptions
     )

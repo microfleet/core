@@ -10,6 +10,12 @@ export type TopicConfig = {
   topicName?: string;
 }
 
+export type ProducerGlobalConfig = {
+  'batch.num.messages'?: number;
+  'queue.buffering.max.ms'?: number;
+  [key: string]: any;
+}
+
 export type ProducerStreamOptions = {
   pollInterval?: number;
   topic?: string;
