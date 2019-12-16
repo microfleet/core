@@ -66,7 +66,7 @@
     "pino-pretty": "^3.3.0",
     "read-pkg-up": "^7.0.0",
     "rfdc": "^1.1.4",
-    "semver": "^6.3.0",
+    "semver": "^7.0.0",
     "sonic-boom": "^0.7.6",
     "sort-by": "^1.1.1",
     "stdout-stream": "^1.4.1",
