@@ -1,17 +1,27 @@
 {
   "$id": "kafka",
   "type": "object",
-  "additionalProperties": false,
+  "additionalProperties": true,
   "required": [
-    "metadata.broker.list",
-    "group.id"
+    "connection"
   ],
   "properties": {
-    "metadata.broker.list": {
-      "type": "string"
+    "connection": {
+      "type": "object",
+      "required": [
+        "metadata.broker.list"
+      ]
     },
-    "group.id": {
-      "type": "string"
+    "consumer": {
+      "type": "object",
+      "required": [
+        "connection",
+        "stream",
+        "commitTimeout"
+      ]
+    },
+    "producer": {
+      "type": "object"
     }
   }
 }

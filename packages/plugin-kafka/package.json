@@ -31,9 +31,12 @@
   },
   "dependencies": {
     "@microfleet/core": "^15.5.1",
-    "node-rdkafka": "^2.7.4"
+    "log-update": "^3.3.0",
+    "node-rdkafka": "^2.7.4",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "@types/node": "^12.12.14"
+    "@types/node": "^12.12.14",
+    "toxiproxy-node-client": "^2.0.6"
   }
 }

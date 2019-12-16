@@ -2,20 +2,12 @@ import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import { Microfleet, PluginTypes, LoggerPlugin } from '@microfleet/core'
-import {
-  ProducerStream,
-  ConsumerStream,
-  createWriteStream,
-  createReadStream,
-} from 'node-rdkafka'
 
 import {
-  GlobalConfig,
-  ProducerGlobalConfig,
-  TopicConfig,
-  ProducerStreamOptions,
-  ConsumerStreamOptions,
+  KafkaConfig,
 } from './types'
+
+import { KafkaFactory } from './factory'
 
 /**
  * Relative priority inside the same plugin group type
@@ -25,62 +17,12 @@ export const name = 'kafka'
 export const type = PluginTypes.transport
 
 /**
- * Defines service extension
- */
-export interface KafkaPlugin {
-  globalConf: GlobalConfig
-  createConsumerStream: (
-    streamOptions: ConsumerStreamOptions,
-    conf?: GlobalConfig,
-    topicConf?: TopicConfig
-  ) => ConsumerStream
-  createProducerStream: (
-    streamOptions: ProducerStreamOptions,
-    conf?: ProducerGlobalConfig,
-    topicConf?: TopicConfig
-  ) => ProducerStream
-}
-
-export class KafkaFactory implements KafkaPlugin {
-  globalConf: GlobalConfig
-  constructor(globalConf: GlobalConfig) {
-    this.globalConf = globalConf
-  }
-
-  createConsumerStream(
-    streamOptions: ConsumerStreamOptions,
-    conf?: Partial<GlobalConfig>,
-    topicConf?: TopicConfig
-  ): ConsumerStream {
-    const consumerStream = createReadStream(
-      { ...this.globalConf, ...conf },
-      topicConf,
-      streamOptions
-    )
-    return consumerStream
-  }
-
-  createProducerStream(
-    streamOptions: ProducerStreamOptions,
-    conf?: ProducerGlobalConfig,
-    topicConf?: TopicConfig
-  ): ProducerStream {
-    const producerStream = createWriteStream(
-      { ...this.globalConf, ...conf },
-      topicConf,
-      streamOptions
-    )
-    return producerStream
-  }
-}
-
-/**
  * Plugin init function.
  * @param params - Kafka configuration.
  */
 export function attach(
   this: Microfleet & LoggerPlugin,
-  params: GlobalConfig
+  params: KafkaConfig
 ) {
   const service = this
 
@@ -90,8 +32,8 @@ export function attach(
   // load local schemas
   service.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const conf: GlobalConfig = service.ifError(name, params)
+  const conf: KafkaConfig = service.ifError(name, params)
 
-  service[name] = new KafkaFactory(conf)
+  service[name] = new KafkaFactory(service, conf)
   return service[name]
 }
