@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@0.1.6...@microfleet/plugin-couchdb@0.2.0) (2019-12-17)
+
+
+### Features
+
+* allow to load lua scripts from multiple paths ([6a9cb38](https://github.com/microfleet/core/commit/6a9cb38a7c29a360739451f215b706762496f46b))
+
+
+
+
+
 ## [0.1.6](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@0.1.5...@microfleet/plugin-couchdb@0.1.6) (2019-12-11)
 
 **Note:** Version bump only for package @microfleet/plugin-couchdb

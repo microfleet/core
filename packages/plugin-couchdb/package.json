@@ -3,7 +3,7 @@
   "description": "couchdb adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:e2e",
@@ -36,7 +36,7 @@
     "nano": "apache/couchdb-nano#4fed1e50488479596e4b2e440d96040c2dc72e36"
   },
   "devDependencies": {
-    "@microfleet/core": "^15.6.1",
+    "@microfleet/core": "^15.7.0",
     "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",

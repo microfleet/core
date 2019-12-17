@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [15.7.0](https://github.com/microfleet/core/compare/@microfleet/core@15.6.1...@microfleet/core@15.7.0) (2019-12-17)
+
+
+### Features
+
+* allow to load lua scripts from multiple paths ([6a9cb38](https://github.com/microfleet/core/commit/6a9cb38a7c29a360739451f215b706762496f46b))
+
+
+
+
+
 ## [15.6.1](https://github.com/microfleet/core/compare/@microfleet/core@15.6.0...@microfleet/core@15.6.1) (2019-12-11)
 
 
