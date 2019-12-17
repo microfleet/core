@@ -37,8 +37,8 @@
     "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
-    "ts-essentials": "^3.0.4",
-    "ts-jest": "^24.1.0"
+    "ts-essentials": "^4.0.0",
+    "ts-jest": "^24.2.0"
   },
   "engines": {
     "node": ">= 10.15.0",

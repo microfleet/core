@@ -33,15 +33,15 @@
     "@microfleet/core": "~15.x.x"
   },
   "dependencies": {
-    "knex": "^0.20.1",
-    "pg": "^7.12.1"
+    "knex": "^0.20.4",
+    "pg": "^7.14.0"
   },
   "devDependencies": {
     "@microfleet/core": "^15.6.1",
     "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
-    "ts-jest": "^24.1.0"
+    "ts-jest": "^24.2.0"
   },
   "engines": {
     "node": ">= 10.15.0",

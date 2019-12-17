@@ -9,8 +9,7 @@
     "test": "yarn lint && yarn compile && yarn test:e2e",
     "test:e2e": "mdep test run",
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
-    "prepublishOnly": "yarn compile",
-    "semantic-release": "semantic-release"
+    "prepublishOnly": "yarn compile"
   },
   "tags": [
     "microservice",
@@ -37,12 +36,11 @@
     "nano": "apache/couchdb-nano#4fed1e50488479596e4b2e440d96040c2dc72e36"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^9.4.1",
     "@microfleet/core": "^15.6.1",
     "@types/jest": "^24.0.23",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
-    "ts-jest": "^24.1.0"
+    "ts-jest": "^24.2.0"
   },
   "engines": {
     "node": ">= 10.15.0",
@@ -52,11 +50,5 @@
     "lib/",
     "src/",
     "schemas/"
-  ],
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-      "prepare-commit-msg": "./node_modules/@makeomatic/deploy/git-hooks/prepare-commit-msg $HUSKY_GIT_PARAMS"
-    }
-  }
+  ]
 }

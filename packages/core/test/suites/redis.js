@@ -37,7 +37,10 @@ describe('Redis suite', function testSuite() {
     service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'opentracing', 'logger', 'redisSentinel'],
-      redis: { ...global.SERVICES.redisSentinel, luaScripts: path.resolve(__dirname, '../fixtures') },
+      redis: {
+        ...global.SERVICES.redisSentinel,
+        luaScripts: [path.resolve(__dirname, '../fixtures')],
+      },
     });
 
     const [redis] = await service.connect();

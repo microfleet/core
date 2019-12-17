@@ -1,39 +1,56 @@
 import { Microfleet } from '../..'
 
-import assert = require('assert')
+import { promisify } from 'util'
+import { strict as assert } from 'assert'
 import { ArgumentError } from 'common-errors'
 import _debug = require('debug')
 import fs = require('fs')
-import glob = require('glob')
+import _glob = require('glob')
 import path = require('path')
 import { ERROR_NOT_HEALTHY, ERROR_NOT_STARTED } from './constants'
 
 const debug = _debug('mservice:lua')
+const glob = promisify(_glob)
+const readFile = promisify(fs.readFile)
+
 /**
  * Loads LUA script and defines it on the redis instance.
  * @param dir - Directory to scan for LUA scripts to load.
  * @param redis - Redis connector instance.
  */
-export function loadLuaScripts(this: Microfleet, dir: string, redis: any) {
-  if (!path.isAbsolute(dir)) {
-    throw new ArgumentError('config.scripts must be an absolute path')
-  }
+export async function loadLuaScripts(
+  ctx: Microfleet,
+  dir: string | string[],
+  redis: any
+) {
+  // NOTE: this is a concious decision to use await serially
+  // so that it's easier to debug
+  // Operations that happen here are a one-off during script startup
+  // process and gains from reading files in parallel IMO aren't
+  // worth extra complexity
 
-  debug('loading form %s', dir)
+  const locations = Array.isArray(dir) ? dir : [dir]
 
-  return glob
-    .sync('*.lua', { cwd: dir })
-    .forEach((scriptName) => {
-      const lua = fs.readFileSync(`${dir}/${scriptName}`, 'utf8')
+  for (const location of locations) {
+    if (!path.isAbsolute(location)) {
+      throw new ArgumentError('config.scripts must be an absolute path')
+    }
+
+    debug('loading from %s', location)
+
+    const scripts = await glob('*.lua', { cwd: location })
+    for (const scriptName of scripts) {
+      const lua = await readFile(`${location}/${scriptName}`, 'utf8')
       const name = path.basename(scriptName, '.lua')
       debug('attaching %s', name)
       if (typeof redis[name] === 'undefined') {
         // NOTICE: make sure that you pass number of keys as first arg when supplying function
         redis.defineCommand(name, { lua })
       } else {
-        this.log.warn('script %s already defined', name)
+        ctx.log.warn('script %s already defined', name)
       }
-    })
+    }
+  }
 }
 
 export function isStarted(service: Microfleet, RedisType: any) {
