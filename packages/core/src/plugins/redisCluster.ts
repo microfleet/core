@@ -68,7 +68,7 @@ export function attach(this: Microfleet, opts: any = {}) {
       // attach to instance right away
       if (conf.luaScripts) {
         debug('attaching lua')
-        loadLuaScripts.call(service, conf.luaScripts, instance)
+        await loadLuaScripts(service, conf.luaScripts, instance)
       }
 
       const $conn = instance.connect() as Bluebird<void>

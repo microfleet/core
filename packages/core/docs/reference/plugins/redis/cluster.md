@@ -34,5 +34,4 @@ Other plugins:
 |--------|------|-------------|
 | `options` | Object | Configuration options passed to `ioredis` connect method. For further information see [Cluster connection options](https://github.com/luin/ioredis/blob/master/API.md#Cluster) and [Connection options](https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options).|
 | `hosts` | Array | List of Redis Cluster servers to connect. See [ioredis Custer](https://github.com/luin/ioredis#cluster).|
-| `luaScripts` | String | Path to LUA scripts directory. |
-
+| `luaScripts` | `String|String[]` | Path to LUA scripts directory. |
