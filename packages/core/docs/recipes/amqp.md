@@ -80,7 +80,7 @@ $ mfleet
 
 ## Communication between `Microfleet` based services
 
-When plugin successfully enabled, we can try to send messages to other services.
+When plugin is successfully enabled, we can try to send messages to other services.
 For now, our service will perform requests to itself using AMQP.
 
 *If you need to create a service that only retrieves data from another service, you can omit all `router` configuration.
