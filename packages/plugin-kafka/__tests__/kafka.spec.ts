@@ -87,12 +87,10 @@ describe('connect stubbed', () => {
     const kafka: KafkaFactory = service.kafka
 
     const streamToClose = await kafka.createProducerStream(
-      { objectMode: false, topic: 'otherTopicBar' },
-      { 'client.id': 'trackstream-group' }
+      { objectMode: false, topic: 'otherTopicBar' }
     )
     const streamToCloseToo = await kafka.createConsumerStream(
-      { topics: 'otherTopicBar' },
-      { 'client.id': 'trackstream-group' }
+      { topics: 'otherTopicBar' }
     )
     expect(kafka._streams.size).toEqual(2)
 
@@ -140,7 +138,7 @@ describe('connected', () => {
 
   test('consume/produce no-auto-commit', async () => {
     const topic = 'test-no-auto-consume-produce'
-    const messagesToPublish = 10
+    const messagesToPublish = 5
 
     const messageIterable = getMessageIterable(messagesToPublish)
     const messageStream = Readable.from(messageIterable.messagesToSend(topic), { autoDestroy: true })
