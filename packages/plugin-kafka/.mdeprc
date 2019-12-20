@@ -7,7 +7,7 @@
   "test_framework": "jest --config ../../jest.config.js --runTestsByPath",
   "tests": "__tests__/*.spec.ts",
   "arbitrary_exec": ["node scripts/rebuild-kafka.js"],
-  "sleep": 5,
+  "sleep": 10,
   "extras": {
     "tester": {
       "working_dir": "/src/packages/plugin-kafka",

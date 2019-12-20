@@ -1,17 +1,17 @@
-
-// https://docs.confluent.io/current/installation/configuration/producer-configs.html
-// https://docs.confluent.io/current/installation/configuration/consumer-configs.html
-// https://docs.confluent.io/current/installation/configuration/topic-configs.html
-
-export type KafkaConfig = {
-  connection: ConnectionConfig
-  producer?: ProducerConfig
-  consumer?: ConsumerConfig
+export type GlobalConfig = KafkaConfig & {
+  connectTimeout: number;
 }
 
-export type ConnectionConfig = {
-  'metadata.broker.list': string
-  [key: string]: any
+export type KafkaConfig = {
+  'metadata.broker.list': string;
+  'group.id': string;
+  'enable.auto.commit'?: boolean;
+  [key: string]: any;
+}
+
+export type TopicConfig = {
+  'auto.offset.reset': string,
+  [key: string]: any;
 }
 
 export type ConsumerConfig = {
@@ -34,7 +34,7 @@ export type ProducerConfig = {
 }
 
 export type ConsumerStreamOptions = {
-  autoClose?: boolean;
+  topics?: string | string[];
   waitInterval?: number;
   fetchSize?: number;
   timeout?: number;

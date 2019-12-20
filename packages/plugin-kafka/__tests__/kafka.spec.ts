@@ -1,21 +1,31 @@
 /**
  * @jest-environment node
  */
-jest.setTimeout(30000)
-
 import { Microfleet } from '@microfleet/core'
-import { KafkaFactory } from '../src/factory'
-import { KafkaConfig } from '../src/types'
-import { Consumer } from '../src/stream/consumer'
-import { Producer } from '../src/stream/producer'
-import { Promise } from 'bluebird'
+import { KafkaPlugin, KafkaFactory } from '../lib/kafka'
+import { ConsumerStream, ProducerStream, KafkaConsumer, Producer } from 'node-rdkafka'
+import { promisify } from 'util'
+import { pipeline, Readable } from 'stream'
 
-describe('#kafka', () => {
+const kConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
+const kProducerStream = require('node-rdkafka/lib/producer-stream')
 
-  const testKafkaConfig: KafkaConfig = {
-    connection: {
+import sinon, { stub } from 'sinon'
+
+let service: Microfleet | Microfleet & KafkaPlugin
+let producer: ProducerStream
+let consumer: ConsumerStream
+
+// const wait = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+beforeEach(async () => {
+  service = new Microfleet({
+    name: 'tester',
+    plugins: ['logger', 'validator', 'kafka'],
+    kafka: {
+      connectTimeout: 1000,
       'metadata.broker.list': 'kafka:9092',
-      // debug: 'all',
+      'group.id': 'test-group',
     },
     producer: {
       deliveryTimeout: 5000,
@@ -61,175 +71,159 @@ describe('#kafka', () => {
     expect(service.kafka).toBeDefined()
   })
 
-  describe('configuration', () => {
-    it('rejects if config empty', async () => {
-      const service = getService({})
-      await expect(service).rejects.toThrow(/kafka validation failed/)
+afterEach(async () => {
+  await service.close()
+})
+
+// use dirty stubbing because rdkafka don't likes fast connects and disconnects
+// and starts rejecting with LibrdKafkaError { message: 'Local: Erroneous state',
+//   code: -172,
+//   errno: -172,
+//   origin: 'kafka'
+// }
+
+describe('connect stubbed', () => {
+  let consumerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], KafkaConsumer>
+  let producerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], Producer>
+  let consumerStreamStub: sinon.SinonStub<any[], any>
+  let producerStreamStub: sinon.SinonStub<any[], any>
+
+  beforeAll(() => {
+    consumerStub = stub(KafkaConsumer.prototype, 'connect')
+    producerStub = stub(Producer.prototype, 'connect')
+
+    consumerStreamStub = stub(kConsumerStream.prototype, 'connect')
+    producerStreamStub = stub(kProducerStream.prototype, 'connect')
+
+    consumerStreamStub.returns(42)
+    producerStreamStub.returns(42)
+    // @ts-ignore
+    consumerStub.callsFake((metadataOptions?: any, cb?: ((err: any, data: any) => any) | undefined) => {
+      cb!(null, {})
     })
-
-    it('rejects if connecton section empty ', async () => {
-      const service = getService({ consumer: testKafkaConfig.consumer, producer: testKafkaConfig.producer })
-
-      const ex = await expect(service).rejects
-      ex.toThrow(/required property 'connection'/)
-    })
-
-    describe('consumer', () => {
-      it('rejects if subconfig empty ', async () => {
-        const service = getService({ consumer: { connection: {}, stream: {}, topicConfig: {} } })
-
-        const ex = await expect(service).rejects
-        ex.toThrow(/property 'connection'/)
-        ex.toThrow(/required property 'commitTimeout'/)
-      })
-    })
-
-    describe('producer', () => {
-      it('rejects if producer section empty', async () => {
-        const service = getService({ })
-
-        const ex = await expect(service).rejects
-        ex.toThrow(/property 'connection'/)
-      })
-    })
-  })
-
-  describe('consumer', () => {
-    let service: Microfleet
-    let consumer: Consumer
-
-    beforeAll(async () => {
-      console.debug('config', testKafkaConfig)
-      service = await getService(testKafkaConfig)
-    })
-
-    afterAll(async () => {
-      await service.close()
-    })
-
-    afterEach(async () => {
-      if (consumer.close) {
-        await consumer.close()
-      }
-    })
-
-    it('establishes connection', async () => {
-      consumer = new Consumer(service, testKafkaConfig)
-      await expect(consumer.connect()).resolves.toEqual(undefined)
-    })
-
-    it('throws an error on connection fail', async () => {
-      const conf = {
-        ...testKafkaConfig,
-        connection: {
-          ...testKafkaConfig.connection,
-          'metadata.broker.list': 'foo1',
-        },
-      }
-
-      consumer = new Consumer(service, conf)
-      await expect(consumer.connect(1000)).rejects.toThrow(/Local: Broker transport failure/)
-    })
-
-    it('consume: panics on invalid topic parameter', async () => {
-      consumer = new Consumer(service, testKafkaConfig)
-      await consumer.connect()
-      // @ts-ignore we need this
-      expect(() => consumer.consume()).toThrow(/\"topics\" argument must be a string, regex, or an array/)
-    })
-
-    it('consume: panics if not connected', async() => {
-      consumer = new Consumer(service, testKafkaConfig)
-      expect(() => consumer.consume('foo_topic')).toThrow(new Error('Consumer not connected'))
+    // @ts-ignore
+    producerStub.callsFake((metadataOptions?: any, cb?: ((err: any, data: any) => any) | undefined) => {
+      cb!(null, {})
     })
   })
 
-  describe('producer', () => {
-    let service: Microfleet
-    let producer: Producer
-
-    beforeAll(async () => {
-      service = await getService(testKafkaConfig)
-    })
-
-    afterAll(async () => {
-      await service.close()
-    })
-
-    afterEach(async () => {
-      if (producer.close) {
-        await producer.close()
-      }
-    })
-
-    it('establishes connection', async () => {
-      producer = new Producer(service, testKafkaConfig)
-      await expect(producer.connect()).resolves.toEqual(undefined)
-    })
-
-    it('throws an error on connection fail', async () => {
-      const consumer = new Producer(service, {
-        ...testKafkaConfig,
-        connection: {
-          ...testKafkaConfig.connection,
-          'metadata.broker.list': 'foo1',
-        },
-      })
-      await expect(consumer.connect(1000)).rejects.toEqual(new Error('Local: Broker transport failure'))
-    })
+  afterAll(() => {
+    consumerStub.restore()
+    producerStub.restore()
+    consumerStreamStub.restore()
+    producerStreamStub.restore()
   })
 
-  describe('stream', () => {
-    let service:Microfleet
+  test('should be able to create a producer', async () => {
+    producer = await service.kafka.createProducerStream({ objectMode: false, topic: 'testBoo' }, { 'client.id': 'produce-group' })
+    expect(producer).toBeDefined()
+  })
 
-    beforeAll(async () => {
-      service = await getService(testKafkaConfig)
-    })
+  test('should be able to create a consumer', async () => {
+    consumer = await service.kafka.createConsumerStream({ topics: ['test'] },  { 'client.id': 'consume-group' })
+    expect(consumer).toBeDefined()
+  })
 
-    afterAll(async () => {
-      await service.close()
-    })
+  test('tracks streams ', async () => {
+    const kafka: KafkaFactory = service.kafka
 
-    it('able to produce and consume message', async() => {
-      const kafka: KafkaFactory = service.kafka
+    const streamToClose = await kafka.createProducerStream(
+      { objectMode: false, topic: 'otherTopicBar' },
+      { 'client.id': 'trackstream-group' }
+    )
+    const streamToCloseToo = await kafka.createConsumerStream(
+      { topics: 'otherTopicBar' },
+      { 'client.id': 'trackstream-group' }
+    )
+    expect(kafka._streams.size).toEqual(2)
 
-      const producer = kafka.createProducer()
-      const consumer = kafka.createConsumer()
+    await promisify(streamToClose.close.bind(streamToClose))()
+    expect(kafka._streams.size).toEqual(1)
 
-      await consumer.connect()
-      await producer.connect()
+    await promisify(streamToCloseToo.close.bind(streamToCloseToo))()
+    expect(kafka._streams.size).toEqual(0)
+  })
 
-      const readData = async () => {
-        const readMsgs = []
-        const stream = consumer.consume('test-topic')
-        for await (const d of stream) {
-          await consumer.commitMessage(d)
-          console.debug('commit', d)
-          readMsgs.push(d)
-          if (readMsgs.length === 3) {
-            break
-          }
+  test('closes streams on service shutdown', async () => {
+    const kafka: KafkaFactory = service.kafka
+    await kafka.createProducerStream(
+      { objectMode: false, topic: 'otherTopicBar' }
+    )
+    await kafka.createConsumerStream(
+      { topics: 'otherTopicBar' }
+    )
+
+    await service.close()
+    expect(kafka._streams.size).toEqual(0)
+  })
+
+})
+
+describe('connected', () => {
+  function getMessageIterable(count: number) {
+    const sentMessages: any[] = []
+    function *messagesToSend(topic: string) {
+      for (let i = 0; i < count; i += 1) {
+        const message =  {
+          topic,
+          value: Buffer.from(`message ${i} at ${Date.now()}`),
         }
-        return readMsgs
+        sentMessages.push(message)
+        yield message
       }
+    }
 
-      const writeData = async () => {
-        for await (const msg of  ['hello-1', 'hello-2', 'hello-3']) {
-          await producer.write('test-topic', Buffer.from(msg))
-          console.debug('send', msg)
+    return {
+      sentMessages,
+      messagesToSend,
+    }
+  }
+
+  test('consume/produce no-auto-commit', async () => {
+    const topic = 'test-no-auto-consume-produce'
+    const messagesToPublish = 10
+
+    const messageIterable = getMessageIterable(messagesToPublish)
+    const messageStream = Readable.from(messageIterable.messagesToSend(topic), { autoDestroy: true })
+
+    producer = await service.kafka.createProducerStream({ objectMode: true, pollInterval: 10 }, {
+      'group.id': 'other-group',
+    })
+
+    consumer = await service.kafka.createConsumerStream(
+      { topics: topic, streamAsBatch: true, fetchSize: 10 },
+      {
+        debug: 'consumer',
+        'auto.commit.enable': false,
+        'client.id': 'someid',
+        'group.id': 'other-group',
+      },
+      {
+        'auto.offset.reset': 'earliest',
+      }
+    )
+
+    const pipelinePromise = promisify(pipeline)
+    const receivedMessages:any[] = []
+
+    const consumeFn = async () => {
+      for await (const incommingMessage of consumer) {
+        const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+        receivedMessages.push(...messages)
+        consumer.consumer.commitMessageSync(messages.pop())
+        if (receivedMessages.length >= messagesToPublish) {
+          await promisify(consumer.close.bind(consumer))()
         }
       }
+    }
 
-      // we need some to retrieve messages
-      const pauseAndCloseStream = Promise.delay(5000).then(consumer.close.bind(consumer))
-      const [data] = await Promise.all([readData(), writeData().then(() => pauseAndCloseStream)])
+    await pipelinePromise(messageStream, producer)
 
-      expect(data).toHaveLength(3)
+    await Promise.race([
+      consumeFn(),
+      new Promise(resolve => setTimeout(() => { consumer.close(); resolve() }, 5000)),
+    ])
 
-      await producer.close()
-      await consumer.close()
-
-    })
+    expect(receivedMessages).toHaveLength(messagesToPublish)
   })
-
 })
