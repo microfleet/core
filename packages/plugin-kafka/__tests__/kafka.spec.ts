@@ -27,49 +27,8 @@ beforeEach(async () => {
       'metadata.broker.list': 'kafka:9092',
       'group.id': 'test-group',
     },
-    producer: {
-      deliveryTimeout: 5000,
-      stream: {
-        pollInterval: 100,
-      },
-      topicConfig: {
-        'message.timeout.ms': 1000,
-        'request.required.acks': 1,
-      },
-    },
-    consumer: {
-      commitTimeout: 5000,
-      connection: {
-        'enable.auto.commit': true,
-        'group.id': 'test-group',
-      },
-      stream: {
-        fetchSize: 1,
-        waitInterval: 100,
-      },
-      topicConfig: {
-        // 'auto.offset.reset': 'earliest',
-      },
-    },
-  }
-
-  async function getService(kafkaConfig: any): Promise<Microfleet> {
-    const srv = new Microfleet({
-      name: 'kafka-test',
-      plugins: ['validator', 'logger', 'kafka'],
-      logger: {
-        defaultLogger: true,
-      },
-      kafka: kafkaConfig,
-    })
-    await srv.connect()
-    return srv
-  }
-
-  it('attaches', async () => {
-    const service = await getService(testKafkaConfig)
-    expect(service.kafka).toBeDefined()
   })
+})
 
 afterEach(async () => {
   await service.close()

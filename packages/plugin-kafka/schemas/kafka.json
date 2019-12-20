@@ -3,25 +3,15 @@
   "type": "object",
   "additionalProperties": true,
   "required": [
-    "connection"
+    "metadata.broker.list",
+    "group.id"
   ],
   "properties": {
-    "connection": {
-      "type": "object",
-      "required": [
-        "metadata.broker.list"
-      ]
+    "metadata.broker.list": {
+      "type": "string"
     },
-    "consumer": {
-      "type": "object",
-      "required": [
-        "connection",
-        "stream",
-        "commitTimeout"
-      ]
-    },
-    "producer": {
-      "type": "object"
+    "group.id": {
+      "type": "string"
     }
   }
 }

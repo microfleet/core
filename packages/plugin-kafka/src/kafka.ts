@@ -14,7 +14,6 @@ import {
 
 import {
   GlobalConfig,
-  ProducerGlobalConfig,
   TopicConfig,
   ProducerStreamOptions,
   ConsumerStreamOptions,
@@ -46,7 +45,7 @@ export interface KafkaPlugin {
   ) => Promise<ConsumerStream>
   createProducerStream: (
     streamOptions: ProducerStreamOptions,
-    conf?: ProducerGlobalConfig,
+    conf?: KafkaConfig,
     topicConf?: TopicConfig
   ) => Promise<ProducerStream>
   close: () => Promise<void>
@@ -59,7 +58,7 @@ export class KafkaFactory implements KafkaPlugin {
   connectTimeout: number
   _streams: Set<AnyStream>
 
-  constructor(globalConf: GlobalConfig) {
+  constructor(globalConf: KafkaConfig) {
     const { connectTimeout, ...rdConfig } = globalConf
     this.rdConfig = rdConfig
     this.connectTimeout = connectTimeout || 4999
@@ -89,7 +88,7 @@ export class KafkaFactory implements KafkaPlugin {
   }
 
   async createProducerStream(
-    opts: ProducerStreamOptions, conf?: ProducerGlobalConfig, topicConf?: TopicConfig
+    opts: ProducerStreamOptions, conf?: KafkaConfig, topicConf?: TopicConfig
   ): Promise<ProducerStream> {
     const producerConfig = { ...this.rdConfig, ...conf, dr_cb: true }
     const producer = new Producer(producerConfig, topicConf)
@@ -139,6 +138,6 @@ export function attach(
 
   const conf: KafkaConfig = service.ifError(name, params)
 
-  service[name] = new KafkaFactory(service, conf)
+  service[name] = new KafkaFactory(conf)
   return service[name]
 }
