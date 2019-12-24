@@ -1,14 +1,17 @@
 /**
  * @jest-environment node
  */
+
+// tests long running
+jest.setTimeout(10000)
+
 import { Microfleet } from '@microfleet/core'
 import { KafkaPlugin, KafkaFactory } from '../lib/kafka'
 import { ConsumerStream, ProducerStream, KafkaConsumer, Producer } from 'node-rdkafka'
 import { promisify } from 'util'
 import { pipeline, Readable } from 'stream'
 
-const kConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
-const kProducerStream = require('node-rdkafka/lib/producer-stream')
+const RdKafkaError = require('node-rdkafka/lib/error')
 
 import sinon, { stub } from 'sinon'
 
@@ -23,7 +26,7 @@ beforeEach(async () => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
-      connectTimeout: 1000,
+      debug: 'consumer,cgrp,topic,fetch',
       'metadata.broker.list': 'kafka:9092',
       'group.id': 'test-group',
     },
@@ -34,52 +37,14 @@ afterEach(async () => {
   await service.close()
 })
 
-// use dirty stubbing because rdkafka don't likes fast connects and disconnects
-// and starts rejecting with LibrdKafkaError { message: 'Local: Erroneous state',
-//   code: -172,
-//   errno: -172,
-//   origin: 'kafka'
-// }
-
-describe('connect stubbed', () => {
-  let consumerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], KafkaConsumer>
-  let producerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], Producer>
-  let consumerStreamStub: sinon.SinonStub<any[], any>
-  let producerStreamStub: sinon.SinonStub<any[], any>
-
-  beforeAll(() => {
-    consumerStub = stub(KafkaConsumer.prototype, 'connect')
-    producerStub = stub(Producer.prototype, 'connect')
-
-    consumerStreamStub = stub(kConsumerStream.prototype, 'connect')
-    producerStreamStub = stub(kProducerStream.prototype, 'connect')
-
-    consumerStreamStub.returns(42)
-    producerStreamStub.returns(42)
-    // @ts-ignore
-    consumerStub.callsFake((metadataOptions?: any, cb?: ((err: any, data: any) => any) | undefined) => {
-      cb!(null, {})
-    })
-    // @ts-ignore
-    producerStub.callsFake((metadataOptions?: any, cb?: ((err: any, data: any) => any) | undefined) => {
-      cb!(null, {})
-    })
-  })
-
-  afterAll(() => {
-    consumerStub.restore()
-    producerStub.restore()
-    consumerStreamStub.restore()
-    producerStreamStub.restore()
-  })
-
+describe('connect', () => {
   test('should be able to create a producer', async () => {
-    producer = await service.kafka.createProducerStream({ objectMode: false, topic: 'testBoo' }, { 'client.id': 'produce-group' })
+    producer = await service.kafka.createProducerStream({ objectMode: false, topic: 'testBoo' })
     expect(producer).toBeDefined()
   })
 
   test('should be able to create a consumer', async () => {
-    consumer = await service.kafka.createConsumerStream({ topics: ['test'] },  { 'client.id': 'consume-group' })
+    consumer = await service.kafka.createConsumerStream({ topics: ['test'] })
     expect(consumer).toBeDefined()
   })
 
@@ -87,36 +52,82 @@ describe('connect stubbed', () => {
     const kafka: KafkaFactory = service.kafka
 
     const streamToClose = await kafka.createProducerStream(
-      { objectMode: false, topic: 'otherTopicBar' }
+      { objectMode: false, topic: 'otherTopicBar' },
+      { 'group.id': 'track-group' },
+      {}
     )
     const streamToCloseToo = await kafka.createConsumerStream(
-      { topics: 'otherTopicBar' }
+      { topics: 'otherTopicBar' },
+      { 'group.id': 'track-group' },
+      { 'auto.offset.reset': 'earliest' }
     )
-    expect(kafka._streams.size).toEqual(2)
+
+    expect(kafka.getStreams().size).toEqual(2)
 
     await promisify(streamToClose.close.bind(streamToClose))()
-    expect(kafka._streams.size).toEqual(1)
+    expect(kafka.getStreams().size).toEqual(1)
 
     await promisify(streamToCloseToo.close.bind(streamToCloseToo))()
-    expect(kafka._streams.size).toEqual(0)
+    expect(kafka.getStreams().size).toEqual(0)
   })
 
   test('closes streams on service shutdown', async () => {
     const kafka: KafkaFactory = service.kafka
+
     await kafka.createProducerStream(
-      { objectMode: false, topic: 'otherTopicBar' }
+      { objectMode: false, topic: 'otherTopicBaz' },
+      { 'group.id': 'track-close-group' }
     )
+
     await kafka.createConsumerStream(
-      { topics: 'otherTopicBar' }
+      { topics: 'otherTopicBaz' },
+      { 'group.id': 'track-close-group' },
+      { 'auto.offset.reset': 'earliest' }
     )
 
     await service.close()
-    expect(kafka._streams.size).toEqual(0)
+
+    expect(kafka.getStreams().size).toEqual(0)
   })
 
 })
 
-describe('connected', () => {
+describe('connect error stubbed', () => {
+  let consumerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], KafkaConsumer>
+  let producerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], Producer>
+
+  beforeAll(() => {
+    consumerStub = stub(KafkaConsumer.prototype, 'connect')
+    producerStub = stub(Producer.prototype, 'connect')
+
+    function fakeConnect(_?: any, cb?: ((err: any, data: any) => any)) {
+      cb!(new RdKafkaError(-195), {})
+    }
+
+    // @ts-ignore
+    consumerStub.callsFake(fakeConnect)
+    // @ts-ignore
+    producerStub.callsFake(fakeConnect)
+  })
+
+  afterAll(() => {
+    consumerStub.restore()
+    producerStub.restore()
+  })
+
+  test('should be able to create a producer', async () => {
+    const createPromise = service.kafka.createProducerStream({ objectMode: false, topic: 'testBoo' })
+    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
+  })
+
+  test('should be able to create a consumer', async () => {
+    const createPromise = service.kafka.createConsumerStream({ topics: ['test'], connectOptions: { timeout: 1000 } },  { 'client.id': 'consume-group' })
+    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
+  })
+
+})
+
+describe('connected to broker', () => {
   function getMessageIterable(count: number) {
     const sentMessages: any[] = []
     function *messagesToSend(topic: string) {
@@ -178,7 +189,7 @@ describe('connected', () => {
 
     await Promise.race([
       consumeFn(),
-      new Promise(resolve => setTimeout(() => { consumer.close(); resolve() }, 5000)),
+      new Promise(resolve => setTimeout(() => { consumer.close(); resolve() }, 7000)),
     ])
 
     expect(receivedMessages).toHaveLength(messagesToPublish)

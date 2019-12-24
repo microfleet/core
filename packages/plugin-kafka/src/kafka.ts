@@ -4,25 +4,21 @@ import { NotFoundError } from 'common-errors'
 import { Microfleet, PluginTypes, LoggerPlugin } from '@microfleet/core'
 import { promisify } from 'util'
 import debugLog from 'debug'
+import { once } from 'events'
 
 import {
   ProducerStream,
   ConsumerStream,
-  KafkaConsumer,
-  Producer,
+  createReadStream,
+  createWriteStream,
 } from 'node-rdkafka'
 
 import {
-  GlobalConfig,
   TopicConfig,
   ProducerStreamOptions,
   ConsumerStreamOptions,
   KafkaConfig,
 } from './types'
-
-// Library hides consumer whe using typescript
-const kConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
-const kProducerStream = require('node-rdkafka/lib/producer-stream')
 
 const debug = debugLog('plugin-kafka')
 
@@ -37,7 +33,7 @@ export const type = PluginTypes.transport
  * Defines service extension
  */
 export interface KafkaPlugin {
-  rdConfig: KafkaConfig
+  rdKafkaConfig: KafkaConfig
   createConsumerStream: (
     streamOptions: ConsumerStreamOptions,
     conf?: KafkaConfig,
@@ -54,69 +50,79 @@ export interface KafkaPlugin {
 type AnyStream = ConsumerStream | ProducerStream
 
 export class KafkaFactory implements KafkaPlugin {
-  rdConfig: KafkaConfig
-  connectTimeout: number
-  _streams: Set<AnyStream>
+  rdKafkaConfig: KafkaConfig
+  private _streams: Set<AnyStream>
 
-  constructor(globalConf: KafkaConfig) {
-    const { connectTimeout, ...rdConfig } = globalConf
-    this.rdConfig = rdConfig
-    this.connectTimeout = connectTimeout || 4999
+  constructor(config: KafkaConfig) {
+    this.rdKafkaConfig = config
     this._streams = new Set<AnyStream>()
   }
 
-  async connectClient(client: KafkaConsumer | Producer, timeout?: number) {
-    const connectClient = promisify(client.connect.bind(client))
+  async connectStream(stream: AnyStream) {
+    const client = Object.prototype.hasOwnProperty.call(stream, 'consumer')
+    ? (stream as ConsumerStream).consumer
+    : (stream as ProducerStream).producer
+
+    const connectError = once(stream, 'error')
+    const connectSuccess = once(client, 'ready')
+
+    const [raceResult] = await Promise.race([connectError, connectSuccess])
+
+    if (raceResult instanceof Error) {
+      throw raceResult
+    }
+
+    // We don't need this listener further
+    const errorListener = stream.listeners('error')[0] as (...args: any[]) => void
+    stream.removeListener('error', errorListener)
+
+    // Kafka debugging
     client.on('event.log', (log: any) => {
       debug(`[${log.severity}](${log.fac}): ${log.message}`)
     })
-    await connectClient({
-      allTopics: true,
-      timeout: timeout || 5000,
-    })
-  }
 
-  async createConsumerStream(
-    opts: ConsumerStreamOptions, conf?: Partial<GlobalConfig>, topicConf?: TopicConfig
-  ): Promise<ConsumerStream> {
-    const consumerConfig = { ...this.rdConfig, ...conf, offset_commit_cb: true }
-    const consumer = new KafkaConsumer(consumerConfig, topicConf)
-    await this.connectClient(consumer)
-    const stream = new kConsumerStream(consumer, opts)
-    this.assignEventHandlers(stream)
-    return stream
-  }
-
-  async createProducerStream(
-    opts: ProducerStreamOptions, conf?: KafkaConfig, topicConf?: TopicConfig
-  ): Promise<ProducerStream> {
-    const producerConfig = { ...this.rdConfig, ...conf, dr_cb: true }
-    const producer = new Producer(producerConfig, topicConf)
-    await this.connectClient(producer)
-    const stream = new kProducerStream(producer, opts)
-    this.assignEventHandlers(stream)
-    return stream
-  }
-
-  assignEventHandlers(stream: AnyStream) {
-    this._streams.add(stream)
     stream.on('close', () => {
       if (this._streams.has(stream)) {
         this._streams.delete(stream)
       }
     })
+
+    this._streams.add(stream)
+  }
+
+  async createConsumerStream(
+    opts: ConsumerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
+  ): Promise<ConsumerStream> {
+    const consumerConfig = { ...this.rdKafkaConfig, ...conf, offset_commit_cb: true }
+
+    const stream = createReadStream(consumerConfig, topicConf, opts)
+    await this.connectStream(stream)
+
+    return stream
+  }
+
+  async createProducerStream(
+    opts: ProducerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
+  ): Promise<ProducerStream> {
+    const producerConfig = { ...this.rdKafkaConfig, ...conf, dr_msg_cb: true }
+
+    const stream = createWriteStream(producerConfig, topicConf, opts)
+    await this.connectStream(stream)
+
+    return stream
   }
 
   async close(this: Microfleet) {
-    const streamsToClean: Promise<void>[] = []
     const kafka = this[name]
-
-    kafka._streams.forEach((stream: AnyStream) => {
-      const closePromise = promisify<void>(stream.close.bind(stream))
-      streamsToClean.push(closePromise())
-    })
-
+    const streamsToClean = [...kafka._streams.values()]
+      .map((stream: AnyStream) => {
+        return promisify(stream.close.bind(stream))()
+      })
     await Promise.all(streamsToClean)
+  }
+
+  getStreams() {
+    return this._streams
   }
 }
 
