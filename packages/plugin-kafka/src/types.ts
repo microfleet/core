@@ -15,7 +15,6 @@ export type ConsumerStreamOptions = {
   topics?: string | string[];
   waitInterval?: number;
   fetchSize?: number;
-  timeout?: number;
   connectOptions?: StreamConnectOptions;
 }
 

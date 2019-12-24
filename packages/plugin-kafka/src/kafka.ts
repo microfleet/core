@@ -73,8 +73,8 @@ export class KafkaFactory implements KafkaPlugin {
     }
 
     // We don't need this listener further
-    const errorListener = stream.listeners('error')[0] as (...args: any[]) => void
-    stream.removeListener('error', errorListener)
+    const [errorListener] = stream.listeners('error')
+    stream.removeListener('error', errorListener as (...args: any[]) => void)
 
     // Kafka debugging
     client.on('event.log', (log: any) => {
@@ -93,7 +93,7 @@ export class KafkaFactory implements KafkaPlugin {
   async createConsumerStream(
     opts: ConsumerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
   ): Promise<ConsumerStream> {
-    const consumerConfig = { ...this.rdKafkaConfig, ...conf, offset_commit_cb: true }
+    const consumerConfig = { ...this.rdKafkaConfig, ...conf }
 
     const stream = createReadStream(consumerConfig, topicConf, opts)
     await this.connectStream(stream)
@@ -104,7 +104,7 @@ export class KafkaFactory implements KafkaPlugin {
   async createProducerStream(
     opts: ProducerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
   ): Promise<ProducerStream> {
-    const producerConfig = { ...this.rdKafkaConfig, ...conf, dr_msg_cb: true }
+    const producerConfig = { ...this.rdKafkaConfig, ...conf }
 
     const stream = createWriteStream(producerConfig, topicConf, opts)
     await this.connectStream(stream)
