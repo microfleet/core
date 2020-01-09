@@ -14,7 +14,7 @@ const defaultConfig = {
   defaultLogger: false,
   // there are no USER env variable in docker image
   // so we can set default value based on its absence
-  // NOTE: not indended for production use
+  // NOTE: not intended for production usage
   prettifyDefaultLogger: !(process.env.NODE_ENV === 'production' || !process.env.USER),
   name: 'mservice',
   streams: {},
@@ -113,7 +113,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   const streams: pinoms.Streams = []
 
   if (defaultLogger === true) {
-    // return either human-readable logger or fast production-readt json logger
+    // return either human-readable logger or fast production-ready json logger
     const getDefaultStream = () => {
       if (prettifyDefaultLogger) {
         const { stream } = prettyStreamFactory({
