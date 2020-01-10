@@ -2,7 +2,8 @@ import { once } from 'events'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
-import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin, LoggerPlugin } from '@microfleet/core'
+import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/plugin-logger'
 import consul = require('consul')
 
 /**
@@ -41,7 +42,7 @@ export const priority = 0
 /**
  * Attaches initialized validator based on conf.
  * Provides `validate` and `validateSync` methods.
- * @param conf - Validator Configuration Object.
+ * @param opts - Validator Configuration Object.
  * @param parentFile - From which file this plugin was invoked.
  */
 export const attach = function attachValidator(

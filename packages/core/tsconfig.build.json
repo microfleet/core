@@ -8,6 +8,9 @@
     "./src/*.ts",
     "./src/**/*.ts"
   ],
+  "references": [{
+    "path": "../plugin-logger/tsconfig.build.json"
+  }],
   "exclude": [
     "**/node_modules/**",
     "lib",

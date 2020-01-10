@@ -15,7 +15,8 @@ import {
   TimeoutError,
   ValidationError
 } from 'common-errors'
-import { Microfleet, LoggerPlugin } from '../../../'
+import { Microfleet } from '../../../'
+import { LoggerPlugin } from '@microfleet/logger-plugin'
 import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 

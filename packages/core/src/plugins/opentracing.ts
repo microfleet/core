@@ -20,7 +20,7 @@ export const priority = 50
 
 /**
  * Attaches plugin to the MService class.
- * @param settings - AMQP plugin configuration.
+ * @param opts - AMQP plugin configuration.
  */
 export function attach(this: Microfleet, opts: any = {}) {
   const service = this

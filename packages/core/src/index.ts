@@ -24,7 +24,7 @@ import {
   TConnectorsTypes,
 } from './types'
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
-import { LoggerPlugin, LoggerConfig } from './plugins/logger'
+import { LoggerPlugin, LoggerConfig } from '@microfleet/plugin-logger'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
 export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }

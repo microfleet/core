@@ -1,9 +1,9 @@
 import assert = require('assert')
 import { Microfleet, PluginTypes, ValidatorPlugin } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
-import pino = require('pino')
-import pinoms = require('pino-multi-stream')
-import SonicBoom = require('sonic-boom')
+import pino from 'pino'
+import pinoms from 'pino-multi-stream'
+import SonicBoom from 'sonic-boom'
 import every = require('lodash/every')
 const prettyStreamFactory = require('./logger/streams/pretty').default
 

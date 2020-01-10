@@ -19,7 +19,6 @@
     "fleet",
     "distributed",
     "amqp",
-    "logger",
     "http",
     "redis",
     "highload",
