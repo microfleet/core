@@ -1,7 +1,5 @@
 import assert = require('assert')
-import { Microfleet } from '../'
-import { PluginTypes } from '../constants'
-import { ValidatorPlugin } from './validator'
+import { Microfleet, PluginTypes, ValidatorPlugin } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
 import pino = require('pino')
 import pinoms = require('pino-multi-stream')
@@ -74,7 +72,7 @@ export interface LoggerConfig {
   name: string
   options: pino.LoggerOptions
   streams: {
-    [streamName: string]: pinoms.Streams | any
+    [streamName: string]: pinoms.Streams
   }
 }
 
@@ -87,7 +85,7 @@ export const isCompatible = (obj: any) => {
 
 /**
  * Plugin init function.
- * @param  config - Logger configuration.
+ * @param  opts - Logger configuration.
  */
 export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerConfig>) {
   const service = this
