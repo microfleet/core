@@ -1,5 +1,5 @@
-const Promise = require('bluebird')
-const pino = require('pino')
+import Bluebird = require('bluebird')
+import pino from 'pino'
 import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
 
@@ -74,7 +74,7 @@ describe('Logger suite', () => {
     service.log.error({ err: new Error('somewhere') }, 'empty object?')
     service.log.error({ err: new Error('fatal') }, 'unexpected error')
 
-    await Promise.delay(1000)
+    await Bluebird.delay(1000)
 
     assert.ok(service.log)
     assert.ok(typeof service.log.info === 'function')
