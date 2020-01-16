@@ -1,6 +1,6 @@
 # Use of the AMQP Plugin
 
-For communication between different services, you can use a lot of protocols. In this recipe, we will try to use the AMQP Protocol plugin to communicate our service and configure the message resending in case of errors.
+For communication between different services, you can use a lot of protocols. In this recipe, we will try to use the AMQP Protocol plugin to communicate with our service and configure the message resending in case of errors.
 
 * [Service configuration](#service-configuration)
 * [Communication](#communication-between-microfleet-based-services)
@@ -62,10 +62,7 @@ exports.amqp = {
 Now you can start your service and check that the connection to AMQP broker was successful:
 
 ```console
-$user@: yarn start
-yarn start
-yarn run v1.19.1
-$ mfleet
+$user@: yarn mfleet
 [2019-11-28 13:15:10.310 +0000] INFO  (demo-app/4190 on localhost): ready
     pluginName: "amqp"
     connectorType: "transport"
@@ -123,9 +120,7 @@ exports.amqp = {
 Now you can start your service and check that the configuration was successful:
 
 ```console
-$user: yarn start
-yarn run v1.19.1
-$ mfleet
+$user@: yarn mfleet
 ...
 [2019-11-28 14:43:38.585 +0000] INFO  (demo-app/13051 on localhost): connected to rabbit@my-rabbit v3.8.1
     namespace: "@microfleet/transport-amqp"
@@ -235,7 +230,7 @@ These methods provide the same functionality as the methods described before.
 As a final step, we can start our service and check that everything is working:
 
 ```console
-$user@: yarn start
+$user@: yarn mfleet
 ...
 [2019-11-28 15:08:23.183 +0000] DEBUG (demo-app/14661 on localhost): bound `ready` to establishConsumer
     namespace: "@microfleet/transport-amqp"
