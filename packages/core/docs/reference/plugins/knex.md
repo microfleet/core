@@ -38,5 +38,5 @@ Other plugins:
 
 ## Configuration
 
-There is no plugin specific configuration options.
+There are no plugin-specific configuration options. All options passed directly to the Knex.
 Please read [this page](http://knexjs.org/#Installation-client) to find Knex configuration options.

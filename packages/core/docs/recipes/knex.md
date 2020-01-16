@@ -9,7 +9,7 @@ This plugin supports Migrations, but we will discuss their appliance in the next
 ## Prerequisites
 
 * Please read [Knex](http://knexjs.org/) documentation in case you didn't hear anything about Knex.
-* Installed `PostgreSQL` server. Please see [this page](https://www.rabbitmq.com/download.html). Further, you can use other AMQP Servers.
+* Installed `PostgreSQL` server. Please see [this page](https://www.postgresql.org/download/).
 * Some basic SQL and PostgreSQL operation knowledge.
 
 If you don't want to install the PostgreSQL server into your system, you may use Docker:
