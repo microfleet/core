@@ -17,24 +17,24 @@ Other plugins:
 
 ## Methods
 
-| Method | Description |
-|--------|-------------|
-| `attach(service: Microfleet, opts = {})` | Register plugin for Microfleet `service` with provided `options`.|
+| Method                                   | Description                                                       |
+| ---------------------------------------- | ----------------------------------------------------------------- |
+| `attach(service: Microfleet, opts = {})` | Register plugin for Microfleet `service` with provided `options`. |
 
 ## Lifecycle Methods
 
-| Method | Description |
-|--------|--|
-| `connect()`| Initiates Knex and connects to SQL server. |
-| `status()` | Get plugin health status. |
-| `close()`  | Disconnects from SQL server and deregisters plugin from Microfleet service. |
+| Method      | Description                                           |
+| ----------- | ----------------------------------------------------- |
+| `connect()` | Initiates Knex and connects to SQL server.            |
+| `status()`  | Get plugin health status.                             |
+| `close()`   | Disconnects from SQL server and closes Knex instance. |
 
 ## Events
 
-| Event name | When  |
-|------------|-------|
-| `plugin:connect:knex` | Plugin started and connected to Redis Successfully. |
-| `plugin:close:knex` | Plugin closed connection to the Redis . |
+| Event name            | When                                                    |
+| --------------------- | ------------------------------------------------------- |
+| `plugin:connect:knex` | Plugin has started and connected to Redis successfully. |
+| `plugin:close:knex`   | Plugin closed connection to Redis.                      |
 
 ## Configuration
 

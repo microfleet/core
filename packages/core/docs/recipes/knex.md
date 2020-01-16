@@ -1,6 +1,6 @@
 # Use of the Knex Plugin
 
-Almost every microservice should use some relational or object databases to its data. In this recipe, we will try to use `Knex Plugin` to provide simple CRUD operations on data stored inside the `PostgreSQL` database.
+Almost every microservice needs to use some relational or object databases for its data. In this recipe, we will try to use `Knex Plugin` to provide simple CRUD operations over data stored inside the `PostgreSQL` database.
 
 This plugin supports Migrations, but we will discuss their appliance in the next recipes.
 
@@ -9,7 +9,7 @@ This plugin supports Migrations, but we will discuss their appliance in the next
 ## Prerequisites
 
 * Please read [Knex](http://knexjs.org/) documentation in case you didn't hear anything about Knex.
-* Installed `PostgreSQL` server. Please see [this page](https://www.rabbitmq.com/download.html) . Further, you can use other AMQP Servers.
+* Installed `PostgreSQL` server. Please see [this page](https://www.rabbitmq.com/download.html). Further, you can use other AMQP Servers.
 * Some basic SQL and PostgreSQL operation knowledge.
 
 If you don't want to install the PostgreSQL server into your system, you may use Docker:
@@ -238,5 +238,3 @@ postgres=# select * from todos;
 
 postgres=#
 ```
-
-That's it, please don't forget about writing tests for your code!
