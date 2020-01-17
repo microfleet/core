@@ -27,7 +27,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
-<<<<<<< HEAD
   toxy:
     image: shopify/toxiproxy
     ports:
@@ -41,17 +40,5 @@ services:
   tester:
     links:
       - toxy:kafka
-
-  kafka-manager:
-    image: kafkamanager/kafka-manager
-    depends_on:
-      - zookeeper
-    environment:
-      ZK_HOSTS: 'zookeeper:2181'
-    ports:
-      - "9000:9000"
-=======
-  tester:
     environment:
       DEBUG: ${DEBUG}
->>>>>>> fix: rebuild without hoc

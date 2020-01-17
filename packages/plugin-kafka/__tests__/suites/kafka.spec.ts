@@ -1,25 +1,13 @@
-/**
- * @jest-environment node
- */
-
-// tests long running
-jest.setTimeout(10000)
-
 import { Microfleet } from '@microfleet/core'
-import { KafkaPlugin, KafkaFactory } from '../lib/kafka'
-import { ConsumerStream, ProducerStream, KafkaConsumer, Producer } from 'node-rdkafka'
+import { KafkaPlugin, KafkaFactory } from '../../src'
+import { ConsumerStream, ProducerStream } from 'node-rdkafka'
 import { promisify } from 'util'
 import { pipeline, Readable } from 'stream'
-
-const RdKafkaError = require('node-rdkafka/lib/error')
-
-import sinon, { stub } from 'sinon'
+import { Toxiproxy } from 'toxiproxy-node-client'
 
 let service: Microfleet | Microfleet & KafkaPlugin
 let producer: ProducerStream
 let consumer: ConsumerStream
-
-// const wait = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 beforeEach(async () => {
   service = new Microfleet({
@@ -92,47 +80,12 @@ describe('connect', () => {
 
 })
 
-describe('connect error stubbed', () => {
-  let consumerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], KafkaConsumer>
-  let producerStub: sinon.SinonStub<[any?, (((err: any, data: any) => any) | undefined)?], Producer>
-
-  beforeAll(() => {
-    consumerStub = stub(KafkaConsumer.prototype, 'connect')
-    producerStub = stub(Producer.prototype, 'connect')
-
-    function fakeConnect(_?: any, cb?: ((err: any, data: any) => any)) {
-      cb!(new RdKafkaError(-195), {})
-    }
-
-    // @ts-ignore
-    consumerStub.callsFake(fakeConnect)
-    // @ts-ignore
-    producerStub.callsFake(fakeConnect)
-  })
-
-  afterAll(() => {
-    consumerStub.restore()
-    producerStub.restore()
-  })
-
-  test('should be able to create a producer', async () => {
-    const createPromise = service.kafka.createProducerStream({ objectMode: false, topic: 'testBoo' })
-    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
-  })
-
-  test('should be able to create a consumer', async () => {
-    const createPromise = service.kafka.createConsumerStream({ topics: ['test'], connectOptions: { timeout: 1000 } },  { 'client.id': 'consume-group' })
-    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
-  })
-
-})
-
 describe('connected to broker', () => {
   function getMessageIterable(count: number) {
     const sentMessages: any[] = []
-    function *messagesToSend(topic: string) {
+    function* messagesToSend(topic: string) {
       for (let i = 0; i < count; i += 1) {
-        const message =  {
+        const message = {
           topic,
           value: Buffer.from(`message ${i} at ${Date.now()}`),
         }
@@ -172,7 +125,7 @@ describe('connected to broker', () => {
     )
 
     const pipelinePromise = promisify(pipeline)
-    const receivedMessages:any[] = []
+    const receivedMessages: any[] = []
 
     const consumeFn = async () => {
       for await (const incommingMessage of consumer) {
@@ -193,5 +146,42 @@ describe('connected to broker', () => {
     ])
 
     expect(receivedMessages).toHaveLength(messagesToPublish)
+  })
+})
+
+describe('connect error toxy', () => {
+  const toxiproxy = new Toxiproxy('http://toxy:8474')
+
+  const setProxyEnabled = async (enabled: boolean) => {
+    const proxy = await toxiproxy.get('kafka-proxy')
+    proxy.enabled = enabled
+    await proxy.update()
+  }
+
+  beforeEach(async () => {
+    await setProxyEnabled(false)
+  })
+
+  afterEach(async () => {
+    await setProxyEnabled(true)
+  })
+
+  it('producer connection timeout', async () => {
+    const createPromise = service.kafka.createProducerStream(
+      { objectMode: false, topic: 'testBoo', connectOptions: { timeout: 200 } },
+      { 'client.id': 'consume-group-offline' }
+    )
+    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
+  })
+
+  it('consumer connection timeout', async () => {
+    const createPromise = service.kafka.createConsumerStream(
+      {
+        topics: ['test'],
+        connectOptions: { timeout: 200 },
+      },
+      { 'client.id': 'consume-group-offline' }
+    )
+    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
   })
 })
