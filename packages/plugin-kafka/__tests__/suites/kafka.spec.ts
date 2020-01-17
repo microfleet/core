@@ -133,7 +133,6 @@ describe('connected to broker', () => {
 
     for await (const incommingMessage of consumer) {
       const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-      console.debug('received messages', messages)
       receivedMessages.push(...messages)
       consumer.consumer.commitMessageSync(messages.pop())
 

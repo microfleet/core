@@ -2,16 +2,18 @@ import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import { Microfleet, PluginTypes, LoggerPlugin } from '@microfleet/core'
-import { promisify } from 'util'
 import debugLog from 'debug'
-import { once } from 'events'
+import { promisifyAll, map } from 'bluebird'
 
 import {
+  KafkaConsumer,
+  Producer as KafkaProducer,
   ProducerStream,
   ConsumerStream,
-  createReadStream,
-  createWriteStream,
 } from 'node-rdkafka'
+
+promisifyAll(KafkaConsumer.prototype)
+promisifyAll(KafkaProducer.prototype)
 
 import {
   TopicConfig,
@@ -21,6 +23,18 @@ import {
 } from './types'
 
 const debug = debugLog('plugin-kafka')
+
+/**
+ * Library hides consumer whe using typescript
+ * https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
+ * But direct consumer creation was requested in
+ * https://github.com/microfleet/core/pull/362#discussion_r367773758
+ */
+const kConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
+const kProducerStream = require('node-rdkafka/lib/producer-stream')
+
+promisifyAll(kConsumerStream.prototype)
+promisifyAll(kProducerStream.prototype)
 
 /**
  * Relative priority inside the same plugin group type
@@ -63,19 +77,6 @@ export class KafkaFactory implements KafkaPlugin {
     ? (stream as ConsumerStream).consumer
     : (stream as ProducerStream).producer
 
-    const connectError = once(stream, 'error')
-    const connectSuccess = once(client, 'ready')
-
-    const [raceResult] = await Promise.race([connectError, connectSuccess])
-
-    if (raceResult instanceof Error) {
-      throw raceResult
-    }
-
-    // We don't need this listener further
-    const [errorListener] = stream.listeners('error')
-    stream.removeListener('error', errorListener as (...args: any[]) => void)
-
     // Kafka debugging
     client.on('event.log', (log: any) => {
       debug(`[${log.severity}](${log.fac}): ${log.message}`)
@@ -94,10 +95,12 @@ export class KafkaFactory implements KafkaPlugin {
     opts: ConsumerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
   ): Promise<ConsumerStream> {
     const consumerConfig = { ...this.rdKafkaConfig, ...conf }
+    const consumer = new KafkaConsumer(consumerConfig, topicConf)
 
-    const stream = createReadStream(consumerConfig, topicConf, opts)
-    await this.connectStream(stream)
+    await consumer.connectAsync(opts.connectOptions)
 
+    const stream = new kConsumerStream(consumer, opts)
+    this.connectStream(stream)
     return stream
   }
 
@@ -105,20 +108,19 @@ export class KafkaFactory implements KafkaPlugin {
     opts: ProducerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
   ): Promise<ProducerStream> {
     const producerConfig = { ...this.rdKafkaConfig, ...conf }
+    const producer = new KafkaProducer(producerConfig, topicConf)
 
-    const stream = createWriteStream(producerConfig, topicConf, opts)
-    await this.connectStream(stream)
+    await producer.connectAsync(opts.connectOptions)
+
+    const stream = new kProducerStream(producer, opts)
+    this.connectStream(stream)
 
     return stream
   }
 
   async close(this: Microfleet) {
     const kafka = this[name]
-    const streamsToClean = [...kafka._streams.values()]
-      .map((stream: AnyStream) => {
-        return promisify(stream.close.bind(stream))()
-      })
-    await Promise.all(streamsToClean)
+    await map(kafka._streams.values(), (stream: AnyStream) => stream.closeAsync())
   }
 
   getStreams() {
