@@ -77,7 +77,7 @@
     "common-errors": "^1.x.x"
   },
   "devDependencies": {
-    "@hapi/boom": "^8.0.1",
+    "@hapi/boom": "^9.0.0",
     "@hapi/hapi": "^18.4.0",
     "@hapi/vision": "^5.5.4",
     "@microfleet/transport-amqp": "^15.1.4",
