@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:e2e",
-    "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml -C",
+    "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml",
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
   },

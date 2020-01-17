@@ -112,7 +112,7 @@ describe('connected to broker', () => {
     })
 
     consumer = await service.kafka.createConsumerStream(
-      { topics: topic, streamAsBatch: true, fetchSize: 10 },
+      { topics: topic, streamAsBatch: true, fetchSize: 5 },
       {
         debug: 'consumer',
         'auto.commit.enable': false,
@@ -120,6 +120,8 @@ describe('connected to broker', () => {
         'group.id': 'other-group',
       },
       {
+        // it's smth like a hack for kafka
+        // otherwise consumer stream starts reading from last available offset
         'auto.offset.reset': 'earliest',
       }
     )
@@ -127,23 +129,19 @@ describe('connected to broker', () => {
     const pipelinePromise = promisify(pipeline)
     const receivedMessages: any[] = []
 
-    const consumeFn = async () => {
-      for await (const incommingMessage of consumer) {
-        const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-        receivedMessages.push(...messages)
-        consumer.consumer.commitMessageSync(messages.pop())
-        if (receivedMessages.length >= messagesToPublish) {
-          await promisify(consumer.close.bind(consumer))()
-        }
-      }
-    }
-
     await pipelinePromise(messageStream, producer)
 
-    await Promise.race([
-      consumeFn(),
-      new Promise(resolve => setTimeout(() => { consumer.close(); resolve() }, 7000)),
-    ])
+    for await (const incommingMessage of consumer) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      console.debug('received messages', messages)
+      receivedMessages.push(...messages)
+      consumer.consumer.commitMessageSync(messages.pop())
+
+      // we must close consumer manually, otherwise test isn't able to exist 'for await' loop
+      if (receivedMessages.length >= messagesToPublish) {
+        await promisify(consumer.close.bind(consumer))()
+      }
+    }
 
     expect(receivedMessages).toHaveLength(messagesToPublish)
   })
