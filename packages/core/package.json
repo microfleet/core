@@ -79,7 +79,7 @@
   "devDependencies": {
     "@hapi/boom": "^8.0.1",
     "@hapi/hapi": "^18.4.0",
-    "@hapi/vision": "^5.5.4",
+    "@hapi/vision": "^6.0.0",
     "@microfleet/transport-amqp": "^15.1.4",
     "@microfleet/validation": "^8.1.2",
     "@sentry/node": "^5.10.2",
