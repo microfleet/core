@@ -32,17 +32,12 @@ exports.kafka = {
 
 Microfleet Kafka Plugin extends service interface with the following methods:
 
-### service.kafka.createClient(ClientClass, connectionOverride, topicOptions): KafkaConsumer | KafkaProducer
-
-Creates `KafkaConsumer|KafkaProducer` and returns.
-
-
-### async service.kafka.createReadStream(streamOpts, connectionOverride, topicOptions): Readable
+### async service.kafka.createReadStream({ streamOpts, conf, topic }): Readable
 
 Initializes Kafka consumer using provided params and creates a Readable stream.
 Detailed docs here - https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
 
-### async service.kafka.createWriteStream(streamOpts, connectionOverride, topicOptions): Writable
+### async service.kafka.createWriteStream({ streamOpts, conf, topic }): Writable
 
 Initializes Kafka producer using provided params and creates a Writable stream.
 Detailed docs here - https://blizzard.github.io/node-rdkafka/current/ProducerStream.html
@@ -52,8 +47,8 @@ Detailed docs here - https://blizzard.github.io/node-rdkafka/current/ProducerStr
 For information about parameters passed to the interface methods:
 
 * `streamOpts` - See [this](https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html) or [this](https://blizzard.github.io/node-rdkafka/current/ProducerStream.html) pages
-* `connectionOverride` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
-* `topicOptions` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md#topic-configuration-properties)
+* `conf` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
+* `topic` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md#topic-configuration-properties)
 
 ## Example
 
