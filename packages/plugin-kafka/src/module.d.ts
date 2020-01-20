@@ -1,4 +1,5 @@
 import { Client, Producer, KafkaConsumer, ProducerStream, ConsumerStream } from 'node-rdkafka'
+import { ConnectOptions } from './types'
 
 declare module 'node-rdkafka' {
   interface ProducerStream extends Writable {
@@ -10,7 +11,7 @@ declare module 'node-rdkafka' {
   }
 
   interface Client extends NodeJS.EventEmitter {
-    connectAsync(metadataOptions?: any): Promise<this>
+    connectAsync(metadataOptions: ConnectOptions): Promise<this>
     disconnectAsync(): Promise<this>
     disconnectAsync(timeout: number): Promise<this>
   }

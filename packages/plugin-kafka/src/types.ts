@@ -5,7 +5,7 @@ export type KafkaConfig = {
   [key: string]: any
 }
 
-export type StreamConnectOptions = {
+export type ConnectOptions = {
   allTopics?: boolean;
   timeout?: number;
   topics?: string;
@@ -15,7 +15,7 @@ export type ConsumerStreamOptions = {
   topics?: string | string[];
   waitInterval?: number;
   fetchSize?: number;
-  connectOptions?: StreamConnectOptions;
+  connectOptions?: ConnectOptions;
 }
 
 export type ProducerStreamOptions = {
@@ -23,7 +23,7 @@ export type ProducerStreamOptions = {
   autoClose?: boolean;
   objectMode?: boolean;
   topic?: string;
-  connectOptions?: StreamConnectOptions;
+  connectOptions?: ConnectOptions;
 }
 
 export type TopicConfig = {

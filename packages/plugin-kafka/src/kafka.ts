@@ -9,7 +9,10 @@ import {
   Producer as KafkaProducer,
   ProducerStream,
   ConsumerStream,
+  Client as KafkaClient,
 } from 'node-rdkafka'
+
+export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream }
 
 promisifyAll(KafkaConsumer.prototype)
 promisifyAll(KafkaProducer.prototype)
@@ -60,23 +63,85 @@ export interface KafkaPlugin {
   close: () => Promise<void>
 }
 
-type AnyStream = ConsumerStream | ProducerStream
+export type KafkaStream = ConsumerStream | ProducerStream
+export type StreamOptions<T> = T extends ConsumerStream
+    ? ConsumerStreamOptions
+    : never
+  | T extends ProducerStream
+    ? ProducerStreamOptions
+    : never
 
 export class KafkaFactory implements KafkaPlugin {
   rdKafkaConfig: KafkaConfig
-  private _streams: Set<AnyStream>
+  private _streams: Set<KafkaStream>
+  private _connections: Set<KafkaClient>
   private service: Microfleet & LoggerPlugin
 
   constructor(service: Microfleet & LoggerPlugin, config: KafkaConfig) {
     this.rdKafkaConfig = config
-    this._streams = new Set<AnyStream>()
+    this._streams = new Set<KafkaStream>()
+    this._connections = new Set<KafkaClient>()
     this.service = service
   }
 
-  async connectStream(stream: AnyStream) {
-    const client = Object.prototype.hasOwnProperty.call(stream, 'consumer')
-    ? (stream as ConsumerStream).consumer
-    : (stream as ProducerStream).producer
+  async createConsumerStream(
+    opts: ConsumerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
+  ): Promise<ConsumerStream> {
+    const consumer = this.getClient(KafkaConsumer, conf, topicConf)
+    await consumer.connectAsync(opts.connectOptions || {})
+    return this.getStream<ConsumerStream>(kConsumerStream, consumer, opts)
+  }
+
+  async createProducerStream(
+    opts: ProducerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
+  ): Promise<ProducerStream> {
+    const producer = this.getClient(KafkaProducer, conf, topicConf)
+    await producer.connectAsync(opts.connectOptions || {})
+    return this.getStream<ProducerStream>(kProducerStream, producer, opts)
+  }
+
+  public getClient<T extends KafkaClient>(
+    clientClass: new (c?: Partial<KafkaConfig>, tc?: TopicConfig) => T,
+    conf?: Partial<KafkaConfig>,
+    topicConf?: TopicConfig
+  ): T {
+    const config = { ...this.rdKafkaConfig, ...conf }
+    const client = new clientClass(config, topicConf)
+    this.assignClientEvents(client)
+
+    return client
+  }
+
+  public getStream<T extends KafkaStream>(
+    streamClass: new (c: KafkaClient, o: StreamOptions<T>) => T,
+    client: KafkaClient,
+    opts: StreamOptions<T>
+  ): T {
+    const stream = new streamClass(client, opts)
+    this.registerStream(stream)
+    return stream
+  }
+
+  public getStreams() {
+    return this._streams
+  }
+
+  public getConnections() {
+    return this._connections
+  }
+
+  async close(this: Microfleet) {
+    const kafka = this[name]
+    // Some connections will be already closed by streams
+    await map(kafka._streams.values(), (stream: KafkaStream) => stream.closeAsync())
+    // Close other connections
+    await map(kafka._connections.values(), (connection: KafkaClient) => connection.disconnectAsync())
+  }
+
+  private assignClientEvents(client: KafkaClient) {
+    client.on('ready', () => {
+      this.registerClient(client)
+    })
 
     client.on('event.log', (log: any) => {
       this.service.log[getLogFnName(log.severity)](log)
@@ -85,51 +150,24 @@ export class KafkaFactory implements KafkaPlugin {
     client.on('event.error', (log: any) => {
       this.service.log.error(log)
     })
+  }
 
+  private registerClient(client: KafkaClient) {
+    client.on('disconnected', () => {
+      this._connections.delete(client)
+    })
+
+    this._connections.add(client)
+  }
+
+  private registerStream(stream: KafkaStream) {
     stream.on('close', () => {
-      if (this._streams.has(stream)) {
-        this._streams.delete(stream)
-      }
+      this._streams.delete(stream)
     })
 
     this._streams.add(stream)
   }
 
-  async createConsumerStream(
-    opts: ConsumerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
-  ): Promise<ConsumerStream> {
-    const consumerConfig = { ...this.rdKafkaConfig, ...conf }
-    const consumer = new KafkaConsumer(consumerConfig, topicConf)
-
-    await consumer.connectAsync(opts.connectOptions)
-
-    const stream = new kConsumerStream(consumer, opts)
-    this.connectStream(stream)
-    return stream
-  }
-
-  async createProducerStream(
-    opts: ProducerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
-  ): Promise<ProducerStream> {
-    const producerConfig = { ...this.rdKafkaConfig, ...conf }
-    const producer = new KafkaProducer(producerConfig, topicConf)
-
-    await producer.connectAsync(opts.connectOptions)
-
-    const stream = new kProducerStream(producer, opts)
-    this.connectStream(stream)
-
-    return stream
-  }
-
-  async close(this: Microfleet) {
-    const kafka = this[name]
-    await map(kafka._streams.values(), (stream: AnyStream) => stream.closeAsync())
-  }
-
-  getStreams() {
-    return this._streams
-  }
 }
 
 /**

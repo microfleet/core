@@ -1,6 +1,5 @@
 import { Microfleet } from '@microfleet/core'
-import { KafkaPlugin, KafkaFactory } from '../../src'
-import { ConsumerStream, ProducerStream } from 'node-rdkafka'
+import { KafkaPlugin, KafkaFactory, ConsumerStream, ProducerStream, KafkaConsumer, KafkaProducer } from '../../src'
 import { promisify } from 'util'
 import { pipeline, Readable } from 'stream'
 import { Toxiproxy } from 'toxiproxy-node-client'
@@ -27,13 +26,58 @@ afterEach(async () => {
 
 describe('connect', () => {
   test('should be able to create a producer', async () => {
+    const kf: KafkaFactory = service.kafka
+    const client = kf.getClient(KafkaProducer, {}, {})
+    await client.connectAsync({ allTopics: true })
+    expect(client.isConnected()).toBeTruthy()
+  })
+
+  test('should be able to create a consumer', async () => {
+    const kf: KafkaFactory = service.kafka
+    const client = kf.getClient(KafkaConsumer, { 'group.id': 'prod-create-group', }, {})
+    await client.connectAsync({ allTopics: true })
+    expect(client.isConnected()).toBeTruthy()
+  })
+
+  test('should be able to create a producer stream', async () => {
     producer = await service.kafka.createProducerStream({ objectMode: false, topic: 'testBoo' })
     expect(producer).toBeDefined()
   })
 
-  test('should be able to create a consumer', async () => {
+  test('should be able to create a consumer stream', async () => {
     consumer = await service.kafka.createConsumerStream({ topics: ['test'] })
     expect(consumer).toBeDefined()
+  })
+})
+
+describe('conn-track', () => {
+  test('tracks connections', async () => {
+    const kafka: KafkaFactory = service.kafka
+
+    const client = kafka.getClient(KafkaConsumer, { 'group.id' : 'track-conn-group', })
+    const secondClient = kafka.getClient(KafkaProducer)
+
+    await Promise.all([client.connectAsync({}), secondClient.connectAsync({})])
+
+    expect(kafka.getConnections().size).toEqual(2)
+
+    await client.disconnectAsync()
+    expect(kafka.getConnections().size).toEqual(1)
+
+    await secondClient.disconnectAsync()
+    expect(kafka.getConnections().size).toEqual(0)
+  })
+
+  test('closes connections on service shutdown', async () => {
+    const kafka: KafkaFactory = service.kafka
+
+    const client = kafka.getClient(KafkaConsumer, { 'group.id': 'track-conn-close-group', })
+    const secondClient = kafka.getClient(KafkaProducer)
+
+    await Promise.all([client.connectAsync({}), secondClient.connectAsync({})])
+    await service.close()
+
+    expect(kafka.getConnections().size).toEqual(0)
   })
 
   test('tracks streams ', async () => {
@@ -52,10 +96,10 @@ describe('connect', () => {
 
     expect(kafka.getStreams().size).toEqual(2)
 
-    await promisify(streamToClose.close.bind(streamToClose))()
+    await streamToClose.closeAsync()
     expect(kafka.getStreams().size).toEqual(1)
 
-    await promisify(streamToCloseToo.close.bind(streamToCloseToo))()
+    await streamToCloseToo.closeAsync()
     expect(kafka.getStreams().size).toEqual(0)
   })
 
