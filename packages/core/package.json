@@ -111,7 +111,7 @@
     "cheerio": "^1.0.0-rc.3",
     "codecov": "^3.6.1",
     "common-errors": "^1.0.5",
-    "consul": "^0.36.0",
+    "consul": "^0.37.0",
     "cross-env": "^6.0.3",
     "elasticsearch": "^16.5.0",
     "eslint-config-makeomatic": "^4.0.0",
