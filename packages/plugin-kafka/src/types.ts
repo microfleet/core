@@ -8,13 +8,14 @@ export type KafkaConfig = {
 export type ConnectOptions = {
   allTopics?: boolean;
   timeout?: number;
-  topics?: string;
+  topics?: string | string[] | ((metadata: any) => string[]);
 }
 
 export type ConsumerStreamOptions = {
   topics?: string | string[];
   waitInterval?: number;
   fetchSize?: number;
+  streamAsBatch?: boolean;
   connectOptions?: ConnectOptions;
 }
 

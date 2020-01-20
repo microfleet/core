@@ -59,33 +59,21 @@ For information about parameters passed to the interface methods:
 
 ```js
 
-consumer = service.kafka.createClient(KafkaConsumer)
-await consumer.connect({})
-consumer.on('data', (message) => {
-  // process message
+// OR
+producerStream = await service.kafka.createProducerStream({
+  streamOptions: { objectMode: true, pollInterval: 10 },
+  conf: {'group.id': 'other-group'},
 })
-consumer.consume([ 'some topics list' ])
 
-// OR
-producer = service.kafka.createClient(KafkaProducer)
-await producer.connect({})
-producer.produce('topic', partition, data)
-
-// OR
-producerStream = await service.kafka.createProducerStream(
-  { objectMode: true, pollInterval: 10 },
-  {'group.id': 'other-group'},
-)
-
-consumerStream = await service.kafka.createConsumerStream(
-  { topics: topic, streamAsBatch: true, fetchSize: 10 },
-  {
+consumerStream = await service.kafka.createConsumerStream({
+  streamOptions: { topics: topic, streamAsBatch: true, fetchSize: 10 },
+  conf: {
     debug: 'consumer',
     'auto.commit.enable': false,
     'client.id': 'someid',
     'group.id': 'other-group',
   },
-  {
+  topic: {
     'auto.offset.reset': 'earliest',
   }
 )
