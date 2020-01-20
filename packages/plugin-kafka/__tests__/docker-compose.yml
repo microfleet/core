@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    ports:
+      - "2181:2181"
+    expose:
+      - "2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    expose:
+      - "9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_HOSTNAME: kafka
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
+  toxy:
+    image: shopify/toxiproxy
+    ports:
+      - "8474:8474"
+    volumes:
+      - '${PWD}/__tests__/docker-configs:/config'
+    command:
+      - '-host=0.0.0.0'
+      - '-config=/config/toxy.json'
+
+  tester:
+    links:
+      - toxy:kafka
+    environment:
+      DEBUG: ${DEBUG}
