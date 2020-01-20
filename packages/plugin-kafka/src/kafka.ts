@@ -2,7 +2,6 @@ import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import { Microfleet, PluginTypes, LoggerPlugin } from '@microfleet/core'
-import debugLog from 'debug'
 import { promisifyAll, map } from 'bluebird'
 
 import {
@@ -22,10 +21,10 @@ import {
   KafkaConfig,
 } from './types'
 
-const debug = debugLog('plugin-kafka')
+import { getLogFnName } from './log-mapping'
 
 /**
- * Library hides consumer whe using typescript
+ * Library hides consumer when using typescript
  * https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
  * But direct consumer creation was requested in
  * https://github.com/microfleet/core/pull/362#discussion_r367773758
@@ -66,10 +65,12 @@ type AnyStream = ConsumerStream | ProducerStream
 export class KafkaFactory implements KafkaPlugin {
   rdKafkaConfig: KafkaConfig
   private _streams: Set<AnyStream>
+  private service: Microfleet & LoggerPlugin
 
-  constructor(config: KafkaConfig) {
+  constructor(service: Microfleet & LoggerPlugin, config: KafkaConfig) {
     this.rdKafkaConfig = config
     this._streams = new Set<AnyStream>()
+    this.service = service
   }
 
   async connectStream(stream: AnyStream) {
@@ -77,9 +78,12 @@ export class KafkaFactory implements KafkaPlugin {
     ? (stream as ConsumerStream).consumer
     : (stream as ProducerStream).producer
 
-    // Kafka debugging
     client.on('event.log', (log: any) => {
-      debug(`[${log.severity}](${log.fac}): ${log.message}`)
+      this.service.log[getLogFnName(log.severity)](log)
+    })
+
+    client.on('event.error', (log: any) => {
+      this.service.log.error(log)
     })
 
     stream.on('close', () => {
@@ -146,6 +150,6 @@ export function attach(
 
   const conf: KafkaConfig = service.ifError(name, params)
 
-  service[name] = new KafkaFactory(conf)
+  service[name] = new KafkaFactory(service, conf)
   return service[name]
 }
