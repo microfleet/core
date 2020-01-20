@@ -27,14 +27,14 @@ afterEach(async () => {
 describe('connect', () => {
   test('should be able to create a producer', async () => {
     const kf: KafkaFactory = service.kafka
-    const client = kf.getClient(KafkaProducer, {}, {})
+    const client = kf.createClient(KafkaProducer, {}, {})
     await client.connectAsync({ allTopics: true })
     expect(client.isConnected()).toBeTruthy()
   })
 
   test('should be able to create a consumer', async () => {
     const kf: KafkaFactory = service.kafka
-    const client = kf.getClient(KafkaConsumer, { 'group.id': 'prod-create-group', }, {})
+    const client = kf.createClient(KafkaConsumer, { 'group.id': 'prod-create-group', }, {})
     await client.connectAsync({ allTopics: true })
     expect(client.isConnected()).toBeTruthy()
   })
@@ -54,8 +54,8 @@ describe('conn-track', () => {
   test('tracks connections', async () => {
     const kafka: KafkaFactory = service.kafka
 
-    const client = kafka.getClient(KafkaConsumer, { 'group.id' : 'track-conn-group', })
-    const secondClient = kafka.getClient(KafkaProducer)
+    const client = kafka.createClient(KafkaConsumer, { 'group.id' : 'track-conn-group', })
+    const secondClient = kafka.createClient(KafkaProducer)
 
     await Promise.all([client.connectAsync({}), secondClient.connectAsync({})])
 
@@ -71,8 +71,8 @@ describe('conn-track', () => {
   test('closes connections on service shutdown', async () => {
     const kafka: KafkaFactory = service.kafka
 
-    const client = kafka.getClient(KafkaConsumer, { 'group.id': 'track-conn-close-group', })
-    const secondClient = kafka.getClient(KafkaProducer)
+    const client = kafka.createClient(KafkaConsumer, { 'group.id': 'track-conn-close-group', })
+    const secondClient = kafka.createClient(KafkaProducer)
 
     await Promise.all([client.connectAsync({}), secondClient.connectAsync({})])
     await service.close()

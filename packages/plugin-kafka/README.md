@@ -32,6 +32,11 @@ exports.kafka = {
 
 Microfleet Kafka Plugin extends service interface with the following methods:
 
+### service.kafka.createClient(ClientClass, connectionOverride, topicOptions): KafkaConsumer | KafkaProducer
+
+Creates `KafkaConsumer|KafkaProducer` and returns.
+
+
 ### async service.kafka.createReadStream(streamOpts, connectionOverride, topicOptions): Readable
 
 Initializes Kafka consumer using provided params and creates a Readable stream.
@@ -53,12 +58,26 @@ For information about parameters passed to the interface methods:
 ## Example
 
 ```js
-producer = await service.kafka.createProducerStream(
+
+consumer = service.kafka.createClient(KafkaConsumer)
+await consumer.connect({})
+consumer.on('data', (message) => {
+  // process message
+})
+consumer.consume([ 'some topics list' ])
+
+// OR
+producer = service.kafka.createClient(KafkaProducer)
+await producer.connect({})
+producer.produce('topic', partition, data)
+
+// OR
+producerStream = await service.kafka.createProducerStream(
   { objectMode: true, pollInterval: 10 },
   {'group.id': 'other-group'},
 )
 
-consumer = await service.kafka.createConsumerStream(
+consumerStream = await service.kafka.createConsumerStream(
   { topics: topic, streamAsBatch: true, fetchSize: 10 },
   {
     debug: 'consumer',
@@ -72,13 +91,13 @@ consumer = await service.kafka.createConsumerStream(
 )
 
 // and then
-producer.write({
+producerStream.write({
   topic,
   value: Buffer.from(`message at ${Date.now()}`),
 }, cb)
 
 // or
-producer.write(Buffer.from(`message at ${Date.now()}`), cb)
+producerStream.write(Buffer.from(`message at ${Date.now()}`), cb)
 
 for await (const message of consumer) {
   // process message

@@ -60,6 +60,11 @@ export interface KafkaPlugin {
     conf?: KafkaConfig,
     topicConf?: TopicConfig
   ) => Promise<ProducerStream>
+  createClient: <T extends KafkaClient>(
+    clientClass: new (c?: Partial<KafkaConfig>, tc?: TopicConfig) => T,
+    conf?: Partial<KafkaConfig>,
+    topicConf?: TopicConfig
+  ) => T
   close: () => Promise<void>
 }
 
@@ -87,20 +92,20 @@ export class KafkaFactory implements KafkaPlugin {
   async createConsumerStream(
     opts: ConsumerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
   ): Promise<ConsumerStream> {
-    const consumer = this.getClient(KafkaConsumer, conf, topicConf)
+    const consumer = this.createClient(KafkaConsumer, conf, topicConf)
     await consumer.connectAsync(opts.connectOptions || {})
-    return this.getStream<ConsumerStream>(kConsumerStream, consumer, opts)
+    return this.createStream<ConsumerStream>(kConsumerStream, consumer, opts)
   }
 
   async createProducerStream(
     opts: ProducerStreamOptions, conf?: Partial<KafkaConfig>, topicConf?: TopicConfig
   ): Promise<ProducerStream> {
-    const producer = this.getClient(KafkaProducer, conf, topicConf)
+    const producer = this.createClient(KafkaProducer, conf, topicConf)
     await producer.connectAsync(opts.connectOptions || {})
-    return this.getStream<ProducerStream>(kProducerStream, producer, opts)
+    return this.createStream<ProducerStream>(kProducerStream, producer, opts)
   }
 
-  public getClient<T extends KafkaClient>(
+  createClient<T extends KafkaClient>(
     clientClass: new (c?: Partial<KafkaConfig>, tc?: TopicConfig) => T,
     conf?: Partial<KafkaConfig>,
     topicConf?: TopicConfig
@@ -112,22 +117,19 @@ export class KafkaFactory implements KafkaPlugin {
     return client
   }
 
-  public getStream<T extends KafkaStream>(
+  createStream<T extends KafkaStream>(
     streamClass: new (c: KafkaClient, o: StreamOptions<T>) => T,
     client: KafkaClient,
     opts: StreamOptions<T>
   ): T {
     const stream = new streamClass(client, opts)
-    this.registerStream(stream)
+    this._streams.add(stream)
+
+    stream.on('close', () => {
+      this._streams.delete(stream)
+    })
+
     return stream
-  }
-
-  public getStreams() {
-    return this._streams
-  }
-
-  public getConnections() {
-    return this._connections
   }
 
   async close(this: Microfleet) {
@@ -138,9 +140,21 @@ export class KafkaFactory implements KafkaPlugin {
     await map(kafka._connections.values(), (connection: KafkaClient) => connection.disconnectAsync())
   }
 
+  getStreams() {
+    return this._streams
+  }
+
+  getConnections() {
+    return this._connections
+  }
+
   private assignClientEvents(client: KafkaClient) {
     client.on('ready', () => {
-      this.registerClient(client)
+      this._connections.add(client)
+    })
+
+    client.on('disconnected', () => {
+      this._connections.delete(client)
     })
 
     client.on('event.log', (log: any) => {
@@ -151,23 +165,6 @@ export class KafkaFactory implements KafkaPlugin {
       this.service.log.error(log)
     })
   }
-
-  private registerClient(client: KafkaClient) {
-    client.on('disconnected', () => {
-      this._connections.delete(client)
-    })
-
-    this._connections.add(client)
-  }
-
-  private registerStream(stream: KafkaStream) {
-    stream.on('close', () => {
-      this._streams.delete(stream)
-    })
-
-    this._streams.add(stream)
-  }
-
 }
 
 /**
