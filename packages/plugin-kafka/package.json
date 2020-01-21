@@ -9,6 +9,8 @@
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
   },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "tags": [
     "microservice",
     "microfleet",
