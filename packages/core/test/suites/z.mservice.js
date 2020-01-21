@@ -9,11 +9,13 @@ describe('Microfleet suite', function testSuite() {
   });
 
   it('creates service with no plugins', function test() {
-    assert.doesNotThrow(() => new Microfleet({ name: 'tester', plugins: [] }));
+    // eslint-disable-next-line no-new
+    new Microfleet({ name: 'tester', plugins: [] });
   });
 
   it('creates service with default configuration', function test() {
-    assert.doesNotThrow(() => new Microfleet({ name: 'tester' }));
+    // eslint-disable-next-line no-new
+    new Microfleet({ name: 'tester' });
   });
 
   it('creates service with validator enabled', function test() {

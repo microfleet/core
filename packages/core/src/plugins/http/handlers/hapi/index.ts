@@ -1,6 +1,7 @@
 import assert = require('assert')
 import { NotPermittedError } from 'common-errors'
 import { Plugin, Server } from '@hapi/hapi'
+import Joi = require('@hapi/joi')
 import { ActionTransport, Microfleet } from '../../../..'
 import { PluginInterface } from '../../../../types'
 import attachRouter from './router/attach'
@@ -28,6 +29,8 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
   assert(service.hasPlugin('logger'), 'must include logger plugin')
 
   const server = service.http = new Server(handlerConfig.server)
+
+  server.validator(Joi)
 
   let routerPlugin: HapiPlugin
   if (config.router.enabled) {
