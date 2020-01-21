@@ -147,7 +147,7 @@ export class KafkaFactory implements KafkaPlugin {
     })
 
     client.on('event.log', (eventData: any) => {
-      log[getLogFnName(eventData.severity)]({ eventData }, 'kalka event.log')
+      log[getLogFnName(eventData.severity)]({ eventData }, 'kafka event.log')
     })
 
     client.on('event.error', (err: Error) => {
