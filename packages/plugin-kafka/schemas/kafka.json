@@ -1,0 +1,17 @@
+{
+  "$id": "kafka",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "metadata.broker.list",
+    "group.id"
+  ],
+  "properties": {
+    "metadata.broker.list": {
+      "type": "string"
+    },
+    "group.id": {
+      "type": "string"
+    }
+  }
+}

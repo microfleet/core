@@ -1,29 +1,28 @@
 {
-  "name": "@microfleet/plugin-couchdb",
-  "description": "couchdb adapter for microfleet",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "version": "1.0.0",
+  "name": "@microfleet/plugin-kafka",
+  "description": "Apache Kafka adapter for microfleet",
+  "version": "1.0.1",
   "scripts": {
     "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint && yarn compile && yarn test:e2e",
-    "test:e2e": "mdep test run",
+    "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml",
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
     "prepublishOnly": "yarn compile"
   },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "tags": [
     "microservice",
     "microfleet",
-    "knex",
-    "sql",
-    "postgresql"
+    "apache",
+    "kafka"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/microfleet/core.git",
-    "directory": "packages/plugin-couchdb"
+    "directory": "packages/plugin-kafka"
   },
-  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "author": "Tigran Avetisyan <tigranavetisyan94@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/microfleet/core/issues"
@@ -33,22 +32,16 @@
     "@microfleet/core": "~15.x.x"
   },
   "dependencies": {
-    "nano": "apache/couchdb-nano#4fed1e50488479596e4b2e440d96040c2dc72e36"
+    "@microfleet/core": "^16.0.0",
+    "bluebird": "^3.7.2",
+    "log-update": "^3.3.0",
+    "node-rdkafka": "^2.7.4",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@microfleet/core": "^16.0.0",
-    "@types/jest": "^24.9.0",
-    "jest": "^24.9.0",
-    "rimraf": "^3.0.0",
+    "@types/node": "^13.1.8",
+    "@types/sinon": "^7.5.0",
+    "toxiproxy-node-client": "^2.0.6",
     "ts-jest": "^24.3.0"
-  },
-  "engines": {
-    "node": ">= 12.14.0",
-    "npm": ">= 4.0.0"
-  },
-  "files": [
-    "lib/",
-    "src/",
-    "schemas/"
-  ]
+  }
 }

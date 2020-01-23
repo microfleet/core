@@ -1,7 +1,7 @@
 import { Request, Server } from '@hapi/hapi'
 
 export const name = 'view-wrapper'
-export const dependencies = 'vision'
+export const dependencies = '@hapi/vision'
 export const version = '1.0.0'
 export const once = true
 export function register(server: Server, options: any) {
