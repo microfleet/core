@@ -10,4 +10,6 @@
 - Redis Family plugins
   - [Redis Sentinel](reference/plugins/redis/sentinel.md)
   - [Redis Cluster](reference/plugins/redis/cluster.md)
-- [*SQL Knex](reference/plugins/knex.md)
+- [Knex]
+  - [*SQL Database access](reference/plugins/knex.md)
+  - [*Sql Database Migrations](reference/plugins/knex-migration.md)

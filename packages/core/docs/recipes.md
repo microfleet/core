@@ -10,3 +10,4 @@
 - [Maintenance mode](recipes/maintenance.md)
 - [AMQP Plugin](recipes/amqp.md)
 - [Connect to PgSQL using KNEX](recipes/knex.md)
+- [Knex Migration](recipes/knex-migration.md)
