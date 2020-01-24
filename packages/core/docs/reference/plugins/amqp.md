@@ -1,295 +1,93 @@
-## AMQP Plugin
-Based on [Transport AMQP](https://github.com/microfleet/transport-amqp) library.
+# AMQP Plugin
 
-### Info
-| Parameter     | Value       |
-|---------------|-------------|
-| Name          | `amqp`      |
-| Type          | transport   |
-| Priority      | 0           |
-| Requirements  | [Validator](./validator.md) and [Logger](./logger.md) plugins should be enabled |
+This plugin provides reliable messaging features using RabbitMQ AMQP borker.
 
-### Install
-Install the `@microfleet/transport-amqp` package.
-```sh
-yarn add @microfleet/transport-amqp
-```
+## Dependencies
 
-### How does it work?
-// todo few words about the general idea
+NPM Packages:
 
-#### Connector
-@todo lifecycle? attach?
+* [`@microfleet/transport-amqp`](https://github.com/microfleet/transport-amqp)
 
-| Lifecycle      | What happens        | Emits |
-|----------------|---------------------|-------|
-| attach         | Checks requirements |       |
-| `connect()`    | Establishes connection to amqp transport. Sets up retry logic in case [retry is enabled](#enable-retry).| `plugin:connect:amqp` |
-| `close()`      | Closes connection   | `plugin:close:amqp` |
-| `status()`     | Is healty when connection has established and is open now  | |
+Microfleet Plugins:
 
+* [`logger`](./logger.md)
+* [`validator`](./validator.md)
 
-### Usage
+## Methods
 
-#### Enable plugin
-Add plugin name to the list of enabled plugins. Enable the required dependencies as well:
-```js
-// configs/plugins.js
-exports.plugins = [
-  'validator',
-  'logger', 
-  'amqp',
-];
-```
+| Method | Description |
+|--------|-------------|
+| `attach(service: Microfleet, config)` | Register plugin for the Microfleet `service` with provided [`config`](#configuration)|
 
-#### Configure transport
-Let's start with connection. By default AMQP transport listens on `localhost:5672`, for more connection options read 
-[the schema](https://github.com/microfleet/transport-amqp/blob/master/src/schema.js).
-```js
-exports.amqp = {
-  transport: {
-    connection: {
-      login: 'alice',
-      password: 'i-am-being-set-from-a-very-secure-place'
-    },
-  }
-}
-```
-#### Send messages using routing keys
-##### Publish
-Method `publish()` sends a message via routing key.
+## Lifecycle Methods
 
-###### Syntax
-```js
-amqp.publish(routingKey, message, publishOptions, [parentSpan])
-    .then(() => {
-      // sent
-    })
-    .catch((err) => {
-      // failed to send
-    })
-```
+| Lifecycle      | Description        |
+|----------------|---------------------|
+| `connect()`    | Initiates connection to the AMQP broker. |
+| `close()`      | Stops the AMQP Queue listener and disconnects from the broker.   |
+| `status()`     | Gets plugin health status.  |
 
-###### Parameters
-  `routingKey` – Routing key (string)
-  `message` – Message to send (mixed)
-  `publishOptions` – [Publish options](./amqp/publish-options.md) (object)
-  `parentSpan` – Parent span (object, optional)
-  
-###### Return value
-A Promise, which could be resolved with `undefined`, or rejected with an error.
+## Exported Methods and Properties
 
-##### Publish and wait
-Method `publishAndWait()` sends a message via routing key, as [`publish()`](#publish).
+These properties and methods are available after Plugin initialization under the `service` namespace:
 
-###### Syntax
-```js
-amqp.publishAndWait(routingKey, message, publishOptions, [parentSpan])
-    .then((response) => {
-      // do whatever you want
-    })
-    .catch((err) => {
-      // either failed to send or response contained an error - work with it here
-    })
-```
+| Method | Description |
+|--------|-------------|
+| `amqp` | The Instance of the `@microfleet/transport-amqp` package. |
+| `amqp.publish(routingKey:string, message:any, [opts:object], [parentSpan])` | Publish message to specified route. |
+| `amqp.publishAndWait(routingKey:string, message:any, [opts:object], [parentSpan])` | Publish message to specified route and wait for response. |
+| `amqp.send(queueName:string, message:any, [publishOptions:object], [parentSpan])` | Publish message to specified queue directly. |
+| `amqp.sendAndWait(queueName:string, message:any, [publishOptions:object], [parentSpan])` | Publish message to specified queue directly and wait for response.  |
 
-###### Parameters
-  `routingKey` – Routing key (string)
-  `message` – Message to send (mixed)
-  `publishOptions` –  [Publish options](./amqp/publish-options.md) (object)
-  `parentSpan` – Parent span (object, optional)
+Please see [`@microfleet/transport-amqp`](https://github.com/microfleet/transport-amqp) to find the list of all available methods.
 
-###### Return value
-A Promise, which could be resolved with `undefined`, or rejected with an error. Resolving value depends on the 
-publish option `simpleResponse`.
+### `publishOptions` Object description
 
-##### Send `amqp.send(queueName, message, publishOptions, [parentSpan])`
-Method `send()` allows you to send a message to a queue directly. Otherwise it works similar to [`publish()`](#publish).
+The `publishOptions` parameter is a mix of `@microfleet/transport-amqp` internal options and `@microfleet/amqp-coffee` package options.
+Here's the list of some general options:
+| Option | Type | Default Value | Description |
+|--------|------|---------------|-------------|
+| `confirm` | `boolean` | `false` | Should plugin wait for confirmation before resolving? |
+| `immediate` | `boolean` |  `false` | Waits for the message to be delivered and resolves if it can, rejects otherwise, not implemented by RabbitMQ. |
+| `mandatory` | `boolean` | `false` | When true and message can't be routed to a queue – exception returned, otherwise its dropped. |
+| `contentType` | `string` | `application/json` | Default content-type for messages. |
+| `contentEncoding` | `string`| `plain` | Default content-encoding. |
+| `headers` | `object` | `{}` | Headers set. |
+| `simpleResponse` | `boolean` | `true` | Whether to return only response data or include headers etc. |
+| `deliveryMode` | `number` | `1` | `1` – transient, `2` – saved on disk. |
 
-###### Syntax
-```js
-amqp.send(queueName, message, publishOptions, [parentSpan])
-```
+For additional information please read:
 
-###### Parameters
-  `queue` – Queue name (string)
-  `message` – Message to send (mixed)
-  `publishOptions` –  [Publish options](./amqp/publish-options.md) (object)
-  `parentSpan` – Parent span (object, optional)
+* [`@microfleet/transport-amqp`](https://github.com/microfleet/transport-amqp)  source code and docs.
+* [`@microfleet/amqp-coffee`](https://github.com/microfleet/amqp-coffee#connectionpublishexchange-routingkey-data-publishoptions-callback) docs.
 
-##### Send and wait `amqp.sendAndWait(queueName, message, publishOptions, [parentSpan])`
-Method `sendAndWait()` allows you to send a message to a queue directly. Otherwise it works similar to [`publishAndWait()`](#publish-and-wait)
+## Events
 
-###### Syntax
-```js
-amqp.sendAndWait(queueName, message, publishOptions, [parentSpan])
-```
+| Event name | When  |
+|------------|-------|
+| `plugin:connect:amqp` | Plugin started and connected to the AMQP broker. |
+| `plugin:close:amqp` | Plugin closed connection to the AMQP broker. |
 
-###### Parameters
-  `queue` – Queue name (string)
-  `message` – Message to send (mixed)
-  `publishOptions` –  [Publish options](./amqp/publish-options.md) (object)
-  `parentSpan` – Parent span (object, optional)
+## Configuration
 
+| Option | Type | Description |
+|--------|------|-------------|
+| `transport` | Object | See [`@microfleet/transport-amqp`](https://github.com/microfleet/transport-amqp/blob/master/src/schema.js) configuration schema. |
+| `[router]` | Object | `Router` plugin integration config. |
+| `[retry]`  | Object | Retry strategy configuration |
 
-#### Enable router
-AMQP plugin could be used with the router, to make your application routes accessible by AMQP. It maps the routes to 
-the routing keys.
+### `router` Section
 
-Register [Router Plugin](./router.md):
-```js
-// configs/plugins.js
-exports.plugins = [
-  // ...
-  'amqp',
-  'router',
-  // ...
-];
-```
+| Option | Type | Description |
+|--------|------|-------------|
+| `enabled` | Boolean | Set to`true` if you need to process incoming AMQP messages using `Router` plugin.|
+| `[prefix]` | String | Incoming action prefix. `${prefix}.action` |
 
-Enable AMQP transport in router plugin config:
+### `retry` Section
 
-```js
-// configs/router.js
-exports.router = {
-  routes: {
-    transport: {
-      transports: [ActionTransport.amqp]
-    }
-  }
-};
-```
-
-Enable router in AMQP config:
-```js
-const { ActionTransport } = require('@microfleet/core');
-
-// configs/amqp.js
-exports.amqp = {
-  router: {
-    enabled: true,
-  }
-};
-```
-
-Make the actions folder observable by router plugin.
-
-#### Specify exchange queue
-Transport AMQP library allows you to set up a permanent consumption queue. To make the queue to be created configure its 
-name:  
-```js
-exports.amqp = {
-  transport: {
-    queue: 'your-queue-name',
-  }
-}
-```
-
-#### Configure router prefix
-To prefix all observable endpoints with a path segment, set the `prefix` value:
-```js
-exports.amqp = {
-  router: {
-    enabled: true,
-    prefix: 'internal'
-  }
-}
-```
-
-Now, if you have an action that previously could have been invoked internally by calling
-`this.amqp.publishAndWait('foo')`:
-```js
-// actions/foo.js
-const { ActionTransport } = require('@microfleet/core');
-
-async function fooAction() {
-  return 'foo';
-}
-
-fooAction.transports = [ActionTransport.amqp];
-
-module.exports = fooAction;
-```
-
-```js
-// actions/request-some-internal-endpoint.js
-const { ActionTransport } = require('@microfleet/core');
-
-async function requestSomeInternalEndpointAction() {
-  return await this.amqp.publishAndWait('internal.foo')
-}
-
-requestSomeInternalEndpointAction.transports = [ActionTransport.http];
-
-module.exports = requestSomeInternalEndpointAction;
-```
-
-#### Enable retry
-`transport.onComplete` should not be defined
-`neck` is ?
-retry config https://github.com/microfleet/transport-amqp/blob/a30a9beb6f0b313124d34bc1f083174e5c4a40f6/src/utils/recovery.js
-
-```js
-exports.amqp = {
-  // ...
-  transport: {
-    bindPersistantQueueToHeadersExchange: true,
-    neck: 10, // must be >= 0 
-  },
-  retry: {
-    enabled: true,
-    queue: 'cappasity-process-retry-queue', // not required, `x-delay-{$amqp.transport.queue}` by default
-    min: 500,
-    max: 30 * 60 * 1000, 
-    factor: 1.2,
-    maxRetries: 10,
-    /**
-     * When `true` is returned, retry is not performed
-     */
-    predicate(error, actionName) {
-      return true;
-    },
-  },
-}
-```
-
-#### Full configuration example
-[Schema](../../../schemas/amqp.json)
-```js
-exports.amqp = {
-  router: {
-    enabled: true,
-    prefix: 'internal'
-  },
-  transport: {
-    name: '@cprocess',
-    queue: 'cappasity-process-transport-queue',
-    neck: 10,
-    defaultQueueOpts: {
-      arguments: {
-        'x-max-priority': 5,
-      },
-    },
-    bindPersistantQueueToHeadersExchange: true,
-    connection: {
-      host: 'rabbitmq',
-      port: 5672,
-    },
-    onComplete: (error, data, actionName, message) => {},
-  },
-  retry: {
-    enabled: true,
-    min: 500,
-    max: 30 * 60 * 1000,
-    factor: 1.2,
-    maxRetries: 10,
-    queue: 'cappasity-process-retry-queue',
-    /**
-     * When `true` is returned, retry is not performed
-     */
-    predicate(error, actionName) {
-      return true;
-    },
-  }
-}
-```
+| Option | Type | Description |
+|--------|------|-------------|
+| `enabled` | Boolean | Set as `true` to Enable the retry strategy |
+| `[queue]` | String | Qeue name to resend messages. Default value is taken from `config.transport.queue` |
+| `predicate`| Fn(err: Error, actionName:string):bool | Predicate function that allows to cancel next retry attemps even if `maxRetries` limit not reached. Should return `true` to cancel. |
+| `maxRetries` | Number | The Maximum number of retry attempts. |

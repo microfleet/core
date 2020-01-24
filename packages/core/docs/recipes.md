@@ -8,3 +8,4 @@
 - [Validation](recipes/validation.md)
 - [Testing](recipes/testing.md)
 - [Maintenance mode](recipes/maintenance.md)
+- [AMQP Plugin](recipes/amqp.md)
