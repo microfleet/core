@@ -9,3 +9,4 @@
 - [Testing](recipes/testing.md)
 - [Maintenance mode](recipes/maintenance.md)
 - [AMQP Plugin](recipes/amqp.md)
+- [Connect to PgSQL using KNEX](recipes/knex.md)
