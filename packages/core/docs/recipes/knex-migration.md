@@ -9,9 +9,6 @@ In this recipe, you will learn how to configure your `Microfleet` service to man
 * Installed `PostgreSQL` server. 
 * PostgreSQL Table structure and Datatypes knowledge.
 
-## Migration execution order
-All migrations executed in alphabetical order. So you shoulld name your migrations with some numeric prefix like '01, 02' or DateTime like '20200101_000000, 20200102_000000'
-
 ## Service configuration
 
 First of all, we need to enable migrations in our microservice. The `Knex` plugin provides migration handling features by default, but they are disabled globally.
@@ -161,3 +158,9 @@ user@$: DEBUG=* yarn mfleet
 ....
 
 ```
+
+## Migration execution order
+All migrations applied in alphabetical order. So you should name your migrations with some numeric prefix like '01, 02' or DateTime like '20200101_000000, 20200102_000000'
+
+## Notice: Migration rollback or down
+Assuming that you decided to use OEM `knex` [CLI tool](http://knexjs.org/#Migrations-CLI) in your project to downgrade or rollback some migrations. In this case, you must disable `Microfleet` automatic migration in all services that use the same database. If this feature remains enabled and there will be some `Microfleet` services running (that could fail and restart on database structure change), they will try to apply migrations that you tried to revert.
