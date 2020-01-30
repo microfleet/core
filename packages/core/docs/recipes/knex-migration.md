@@ -1,6 +1,6 @@
 # Using Knex Migrations
-If you read the previous recipe that described how to connect to the PostgreSQL server, you saw that we manually create a database table.
-In some conditions, you don't want to manage database structure changes manually, because it's not so effective.
+In the [previous recipe](./knex.md) we manually create database table.
+Generally, you don't want to manage database structure changes manually, because it's not so effective.
 
 In this recipe, you will learn how to configure your `Microfleet` service to manage your database structure using migrations.
 
@@ -8,6 +8,9 @@ In this recipe, you will learn how to configure your `Microfleet` service to man
 * Microfleet service with configured `knex` plugin. For more information please refer [this recipe](./knex.md)
 * Installed `PostgreSQL` server. 
 * PostgreSQL Table structure and Datatypes knowledge.
+
+## Migration execution order
+All migrations executed in alphabetical order. So you shoulld name your migrations with some numeric prefix like '01, 02' or DateTime like '20200101_000000, 20200102_000000'
 
 ## Service configuration
 
@@ -21,25 +24,25 @@ class DemoApp extends Microfleet {
     super(merge({}, config, opts))
     // ...
     this.addConnector(ConnectorsTypes.migration, () => (
-      this.migrate('knex', `${__dirname}/migrations`)
+      this.migrate('knex', `${__dirname}/migrations/knex`)
     ), 'knex-migration')
     // ...
   }
 }
 ```
 
-By adding these lines of code, we explicitly enable database migration for the PostgreSQL and instruct the `Knex` plugin to look for migrations from `./migrations` folder.
+By adding these lines of code, we explicitly enable database migration for the PostgreSQL and instruct the `Knex` plugin to look for migrations from `./migrations/knex` directory.
 
-In place of folder path you can pass `knex.migrate` configuration parameters described in [`Knex Migration` manual](http://knexjs.org/#Migrations).
+As a second argument of `this.migrate()` function you can pass configuration parameters described in [`Knex Migration` manual](http://knexjs.org/#Migrations).
 
 ## Create table migration
 For advanced information about Migrations, please read [`Knex Migration` manual](http://knexjs.org/#Migrations).
 
 After we successfully configured database migration, we can start creating some migrations:
 
-Let's create a migration that creates our fist table:
+Let's create a migration that creates our first table:
 ```javascript
-// migrations/01_todo.js
+// migrations/knex/01_todo.js
 
 exports.up = function todoTableCreate(knex) {
   return knex.schema
@@ -60,7 +63,7 @@ exports.down = function todoTableDelete(knex) {
 exports.config = { transaction: false }
 ```
 
-Now, if you start your microservice, you will see that the new table generated automatically.
+Now, if you start your microservice, you will see that the new table has been generated automatically.
 ```console
 user@$: DEBUG=* yarn mfleet
   knex:bindings undefined trx2 +5ms
@@ -92,8 +95,8 @@ user@$: DEBUG=* yarn mfleet
 
 If you need to add or delete some fields or create new indices, you can create second migration:
 
-```
-// migrations/02-todo-restructure.js
+```javascript
+// migrations/knex/02-todo-restructure.js
 exports.up = function todoTableAlter(knex) {
   return knex.schema
     .alterTable('todos', (table) => {
