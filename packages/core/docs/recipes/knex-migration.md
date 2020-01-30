@@ -22,7 +22,7 @@ class DemoApp extends Microfleet {
     // ...
     this.addConnector(ConnectorsTypes.migration, () => (
       this.migrate('knex', {
-        directory: `${__dirname}/migrations/knex
+        directory: `${__dirname}/../migrations/knex
       })
     ), 'knex-migration')
     // ...
