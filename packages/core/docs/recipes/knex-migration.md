@@ -4,7 +4,7 @@ Generally, you don't want to manage database structure changes manually, because
 
 In this recipe, you will learn how to configure your `Microfleet` service to manage your database structure using migrations.
 
-## Prerequisites:
+## Prerequisites
 * Microfleet service with configured `knex` plugin. For more information please refer [this recipe](./knex.md)
 * Installed `PostgreSQL` server. 
 * PostgreSQL Table structure and Datatypes knowledge.
@@ -53,7 +53,7 @@ module.exports = {
 ## Create table migration
 For advanced information about Migrations, please read [`Knex Migration` manual](http://knexjs.org/#Migrations).
 
-After we successfully configured database migration, we can start creating some migrations:
+After we successfully configured database migration, we can start creating some migrations.
 
 Let's create a migration that creates our first table:
 ```javascript
@@ -108,7 +108,7 @@ user@$: DEBUG=* yarn mfleet
 
 ## CRUD Table fields
 
-If you need to add or delete some fields or create new indices, you can create second migration:
+If you need to add or delete some fields or create new indices, you can create the second migration:
 
 ```javascript
 // migrations/knex/02-todo-restructure.js
