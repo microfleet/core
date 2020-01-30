@@ -13,8 +13,7 @@ NPM Packages:
 
 | Method                             | Description         |
 | ---------------------------------- | --------------------|
-| `service.migrate('knex', config: string | Object)` | Applies migrations |
+| `service.migrate('knex', [config]: Object)` | Applies migrations |
 
-The `config` parameter of the `migrate` method accepts `string` as a path to the directory that contains migrations or an `Object` with migration configuration.
-
+The `config` parameter of the `migrate` method accepts `Object` with migration configuration.
 Please read [Migration API](http://knexjs.org/#Migrations-API) for the list of the available options.

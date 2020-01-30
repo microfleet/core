@@ -21,7 +21,9 @@ class DemoApp extends Microfleet {
     super(merge({}, config, opts))
     // ...
     this.addConnector(ConnectorsTypes.migration, () => (
-      this.migrate('knex', `${__dirname}/migrations/knex`)
+      this.migrate('knex', {
+        directory: `${__dirname}/migrations/knex
+      })
     ), 'knex-migration')
     // ...
   }
@@ -31,6 +33,22 @@ class DemoApp extends Microfleet {
 By adding these lines of code, we explicitly enable database migration for the PostgreSQL and instruct the `Knex` plugin to look for migrations from `./migrations/knex` directory.
 
 As a second argument of `this.migrate()` function you can pass configuration parameters described in [`Knex Migration` manual](http://knexjs.org/#Migrations).
+Another option is to define migration configuration in your `configs/knex.js`:
+
+```javascript
+// configs/knex.js
+module.exports = {
+  knex: {
+    client: 'pg',
+    connection: {
+      // connection settings
+    },
+    migrations: {
+      directory: './path/to/migrations/directory',
+    },
+  },
+}
+```
 
 ## Create table migration
 For advanced information about Migrations, please read [`Knex Migration` manual](http://knexjs.org/#Migrations).
