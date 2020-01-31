@@ -1,14 +1,13 @@
-import { Readable, Writable } from 'stream'
 import { EventEmitter } from 'events'
 import { ConnectOptions } from './types'
 
 declare module 'node-rdkafka' {
-  interface ProducerStream extends Writable {
+  interface ProducerStream extends WritableStream {
     closeAsync(): Promise<void>
     writeAsync(chunk: any, cb?: (e: Error) => void): Promise<void>
   }
 
-  interface ConsumerStream extends Readable {
+  interface ConsumerStream extends ReadableStream {
     closeAsync(): Promise<void>
   }
 
