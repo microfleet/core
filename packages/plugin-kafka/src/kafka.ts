@@ -24,6 +24,8 @@ import {
   KafkaConfig,
 } from './types'
 
+import './rdkafka-extra-types'
+
 import { getLogFnName } from './log-mapping'
 
 /**
@@ -51,11 +53,14 @@ export interface KafkaStreamOpts<T> {
   topicConf?: TopicConfig
 }
 
+export interface KafkaPlugin {
+  kafka: KafkaFactoryInterface
+}
+
 /**
  * Defines service extension
  */
-export interface KafkaPlugin {
-  rdKafkaConfig: KafkaConfig
+export interface KafkaFactoryInterface {
   createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream>
   createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream>
   close(): Promise<void>
@@ -69,7 +74,7 @@ export type StreamOptions<T> = T extends ConsumerStream
     ? ProducerStreamOptions
     : never
 
-export class KafkaFactory implements KafkaPlugin {
+export class KafkaFactory implements KafkaFactoryInterface {
   rdKafkaConfig: KafkaConfig
   private streams: Set<KafkaStream>
   private connections: Set<KafkaClient>
