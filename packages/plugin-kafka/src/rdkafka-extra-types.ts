@@ -1,6 +1,10 @@
-import { Client, Producer, KafkaConsumer, ProducerStream, ConsumerStream } from 'node-rdkafka'
+import { EventEmitter } from 'events'
+import { Readable, Writable } from 'stream'
+
 import { ConnectOptions } from './types'
 
+// We're extending types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
+// So types should be same
 declare module 'node-rdkafka' {
   interface ProducerStream extends Writable {
     closeAsync(): Promise<void>
@@ -10,7 +14,7 @@ declare module 'node-rdkafka' {
     closeAsync(): Promise<void>
   }
 
-  interface Client extends NodeJS.EventEmitter {
+  interface Client extends EventEmitter {
     connectAsync(metadataOptions: ConnectOptions): Promise<this>
     disconnectAsync(): Promise<this>
     disconnectAsync(timeout: number): Promise<this>
