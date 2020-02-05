@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@1.0.2...@microfleet/plugin-kafka@1.0.3) (2020-02-05)
+
+
+### Bug Fixes
+
+* correct interfaces + extra types ([#387](https://github.com/microfleet/core/issues/387)) ([b5bed27](https://github.com/microfleet/core/commit/b5bed27fb9ca095cda0950e89a9ad831d23b2695))
+
+
+
+
+
 ## [1.0.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@1.0.1...@microfleet/plugin-kafka@1.0.2) (2020-01-24)
 
 **Note:** Version bump only for package @microfleet/plugin-kafka
