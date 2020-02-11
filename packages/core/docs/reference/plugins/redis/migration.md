@@ -32,6 +32,9 @@ Each migration file should export:
 ## NOTE
 Please avoid write operations on Redis during migration execution.
 
+For additional information please refer the [source code](https://github.com/microfleet/core/blob/master/packages/core/src/plugins/redis/migrate.ts#L1-L27).
+
+
 #### Example
 
 #### Javascript migration:
