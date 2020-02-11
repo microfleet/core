@@ -5,7 +5,6 @@ In this recipe, you will learn how to configure your `Microfleet` service to per
 ## Prerequisites:
 * Microfleet service with configured `redisCluster` or `redisSentinel` plugin. For more information please refer [this recipe](./redis.md)
 * Installed `Redis` server. 
-* Some data stored into the `Redis`.
   
 ## Service configuration
 
@@ -26,7 +25,7 @@ class DemoApp extends Microfleet {
 }
 ```
 
-By adding these lines of code, we explicitly enable migrations for the Redis and instruct the `Redis*` plugin to look for migrations from `./migrations` directory.
+By adding these lines of code, we explicitly enable migrations for Redis and instruct the `Redis*` plugin to look for migrations in the `./migrations` directory.
 
 ## Fill up your storage (Javascript migration)
 For now, your Redis has no data stored. Let's create our first migration, that will create some keys and fill them with data:
@@ -91,7 +90,7 @@ redis.srem('some.set', 'value')
 redis.sadd('some.set', 'new value')
 ```
 
-After you started your microservice, you can connect to the Redis server and check that the migration works and the `version` key is equal to 2:
+After you started your microservice, you can connect to the Redis server and check that the migration has been executed correctly and the `version` key is equal to 2:
 
 ```console
 user@$: user@$: redis-cli

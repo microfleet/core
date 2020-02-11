@@ -15,7 +15,7 @@ NPM Packages:
 | ---------------------------------- | --------------------|
 | `service.migrate('redis', config: string | string[])` | Applies migrations. |
 
-The `config` parameter of the `migrate` method accepts `string` as a path to the directory that contains migrations or `string[]` with the migration files list.
+The `config` parameter of the `migrate` method takes `string` as a path to the directory that contains migrations or `string[]` with the migration files list.
 
 ## Migration interface
 
@@ -25,7 +25,7 @@ Each migration file should export:
 | ----- | ----------- |
 | `min: number` | The version of the previous migration. Used as an order identifier, describes when migration should be applied. |
 | `final: number` | The next version number value, set if the migration applied. |
-| `script: string | function(service: Microfleet):Promise<any>` | Path to the Lua script or the function that executes migration procedures. |
+| `script: string` \| `function(service: Microfleet):Promise<any>` | Path to the Lua script or the function that executes migration procedures. |
 | `[keys]: string[]` | The Redis Keys list passed to the Lua script. |
 | `[args]: any[]` | The Arguments list passed to the Lua script. |
 
@@ -59,8 +59,8 @@ module.exports = {
   keys: [ 'firstKey', 'secondKey' ],
 }
 ```
-Because the migration process wraps the Lua script with some Lua code, you should access your keys using `index+1`.
-The arguments `index` stays the same.
+You should access your keys using `index+1` since the migration process wraps the Lua script with some Lua code and the `KEYS[1]` item reserved for the value of the migration version.
+The `ARGS[index]` order is untouched.
 
 ```lua
 local firstKey = KEYS[2]
