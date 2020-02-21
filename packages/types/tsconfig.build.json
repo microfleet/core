@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "types": [],
+    "composite": true
+  },
+  "files": [
+    "types/plugin-logger/index.d.ts"
+  ]
+}

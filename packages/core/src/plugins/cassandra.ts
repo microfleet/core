@@ -3,7 +3,8 @@ import assert = require('assert')
 import retry = require('bluebird-retry')
 import { NotPermittedError, NotFoundError } from 'common-errors'
 import is = require('is')
-import { Microfleet, LoggerPlugin } from '../'
+import { Microfleet } from '../'
+import { LoggerPlugin } from '@microfleet/types/types/plugin-logger'
 import { PluginTypes } from '../constants'
 import _require from '../utils/require'
 

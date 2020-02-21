@@ -24,10 +24,10 @@ import {
   TConnectorsTypes,
 } from './types'
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
-import { LoggerPlugin, LoggerConfig } from './plugins/logger'
+import { LoggerConfig } from '@microfleet/types/types/plugin-logger'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
-export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }
+export { ValidatorPlugin, RouterPlugin, LifecycleRequestType }
 
 const toArray = <T>(x: T): T[] => Array.isArray(x) ? x : [x]
 

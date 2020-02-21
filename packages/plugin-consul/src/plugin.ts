@@ -2,7 +2,8 @@ import { once } from 'events'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
-import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin, LoggerPlugin } from '@microfleet/core'
+import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/types/types/plugin-logger'
 import consul = require('consul')
 
 /**

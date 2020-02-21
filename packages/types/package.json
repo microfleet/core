@@ -1,0 +1,48 @@
+{
+  "name": "@microfleet/types",
+  "description": "Repository for Microfleet TypeScript type definitions",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
+    "test": "yarn lint && yarn compile",
+    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
+    "prepublishOnly": "yarn compile"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "knex",
+    "sql",
+    "postgresql"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-knex"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {
+    "knex": "^0.20.4",
+    "pg": "^7.14.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.2.0"
+  },
+  "engines": {
+    "node": ">= 10.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

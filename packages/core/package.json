@@ -74,6 +74,7 @@
   },
   "peerDependencies": {
     "@microfleet/validation": "~8.x.x",
+    "@microfleet/types": "0.0.0",
     "common-errors": "^1.x.x"
   },
   "devDependencies": {
@@ -82,6 +83,7 @@
     "@hapi/vision": "^5.5.4",
     "@microfleet/transport-amqp": "^15.1.4",
     "@microfleet/validation": "^8.1.2",
+    "@microfleet/types": "0.0.0",
     "@sentry/node": "^5.10.2",
     "@types/bluebird": "^3.5.29",
     "@types/bluebird-retry": "^0.11.4",

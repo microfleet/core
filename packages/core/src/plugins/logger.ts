@@ -3,11 +3,11 @@ import { Microfleet } from '../'
 import { PluginTypes } from '../constants'
 import { ValidatorPlugin } from './validator'
 import { NotFoundError } from 'common-errors'
-import pino = require('pino')
 import pinoms = require('pino-multi-stream')
 import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
 const prettyStreamFactory = require('./logger/streams/pretty').default
+import { LoggerConfig } from '@microfleet/types/types/plugin-logger'
 
 const defaultConfig = {
   debug: false,
@@ -59,24 +59,6 @@ export const priority = 10
  * Plugin Name
  */
 export const name = 'logger'
-
-/**
- * Logger Plugin interface.
- */
-export interface LoggerPlugin {
-  log: pinoms.Logger
-}
-
-export interface LoggerConfig {
-  defaultLogger: any
-  prettifyDefaultLogger: boolean
-  debug: boolean
-  name: string
-  options: pino.LoggerOptions
-  streams: {
-    [streamName: string]: pinoms.Streams
-  }
-}
 
 export const levels = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
 export const isCompatible = (obj: any) => {

@@ -6,7 +6,7 @@ import { Microfleet } from '../'
 import { ServiceRequest } from '../types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
 import { ValidatorPlugin } from './validator'
-import { LoggerPlugin } from './logger'
+import { LoggerPlugin } from '@microfleet/types/types/plugin-logger'
 import { object as isObject } from 'is'
 const { internal } = ActionTransport
 
