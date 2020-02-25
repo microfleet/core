@@ -1,13 +1,12 @@
 import assert = require('assert')
-import { Microfleet } from '../'
-import { PluginTypes } from '../constants'
-import { ValidatorPlugin } from './validator'
+import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import pinoms = require('pino-multi-stream')
 import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
-const prettyStreamFactory = require('./logger/streams/pretty').default
+import { Microfleet, PluginTypes, ValidatorPlugin } from '@microfleet/core'
 import { LoggerConfig } from '@microfleet/types/types/plugin-logger'
+const prettyStreamFactory = require('./logger/streams/pretty').default
 
 const defaultConfig = {
   debug: false,
@@ -76,6 +75,8 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   const { config: { name: applicationName } } = service
 
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+
+  service.validator.addLocation(resolve(__dirname, '../schemas'))
   const config = service.ifError('logger', opts) as LoggerConfig
 
   const {

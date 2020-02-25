@@ -1,7 +1,7 @@
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
 import lsmod = require('lsmod')
-import { getVersion } from '../../../utils/packageInfo'
+import { getVersion } from '@microfleet/core/lib/utils/packageInfo'
 
 // keys to be banned
 const BAN_LIST = {

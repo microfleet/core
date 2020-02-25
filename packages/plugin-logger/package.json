@@ -1,0 +1,58 @@
+{
+  "name": "@microfleet/plugin-logger",
+  "description": "logger adapter",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
+    "test": "yarn lint && yarn compile && yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
+    "prepublishOnly": "yarn compile"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "logger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-logger"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {
+    "pino": "^5.15.0",
+    "pino-multi-stream": "^4.2.0",
+    "pino-pretty": "^3.5.0",
+    "sonic-boom": "^0.7.6"
+  },
+  "peerDependencies": {
+    "@microfleet/core": "~15.x.x"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^15.7.0",
+    "@microfleet/types": "0.0.0",
+    "@types/pino": "^5.14.0",
+    "@types/pino-multi-stream": "^3.1.2",
+    "@types/sonic-boom": "^0.7.0",
+    "rimraf": "^3.0.0",
+    "ts-essentials": "^4.0.0",
+    "ts-jest": "^24.2.0"
+  },
+  "engines": {
+    "node": ">= 10.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}
