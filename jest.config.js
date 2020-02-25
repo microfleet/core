@@ -1,6 +1,6 @@
 module.exports = {
   preset: 'ts-jest',
-  modulePaths: [
-    '<rootDir>/packages/'
-  ],
+  moduleNameMapper: {
+    '@microfleet/((?:core|plugin-[a-z-]+).*?(?=/lib/)?)(?:/lib/)?(.*)?': '<rootDir>/packages/$1/src/$2',
+  },
 };
