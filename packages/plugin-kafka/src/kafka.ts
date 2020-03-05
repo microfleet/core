@@ -24,6 +24,8 @@ import {
   KafkaConfig,
 } from './types'
 
+export { ProducerStreamOptions, ConsumerStreamOptions }
+
 import './rdkafka-extra-types'
 
 import { getLogFnName } from './log-mapping'
