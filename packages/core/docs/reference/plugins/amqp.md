@@ -1,6 +1,6 @@
 # AMQP Plugin
 
-This plugin provides reliable messaging features using RabbitMQ AMQP borker.
+This plugin provides reliable messaging features using RabbitMQ AMQP broker.
 
 ## Dependencies
 
