@@ -1,46 +1,28 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin, ValidatorPlugin } from '@microfleet/core'
-import { promisifyAll, map } from 'bluebird'
+import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin } from '@microfleet/core'
+import { map } from 'bluebird'
 
 import {
-  KafkaConsumer,
-  Producer as KafkaProducer,
-  ProducerStream,
-  ConsumerStream,
-  Client as KafkaClient,
-} from 'node-rdkafka'
+  kConsumerStream, kProducerStream, KafkaConsumer,
+  ProducerStream, ConsumerStream, KafkaProducer,
+  KafkaClient
+} from './rdkafka-extra'
 
 export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream }
-
-promisifyAll(KafkaConsumer.prototype)
-promisifyAll(KafkaProducer.prototype)
 
 import {
   TopicConfig,
   ProducerStreamOptions,
   ConsumerStreamOptions,
   KafkaConfig,
+  TopicNotFoundError,
 } from './types'
 
-export { ProducerStreamOptions, ConsumerStreamOptions }
+export { ProducerStreamOptions, ConsumerStreamOptions, TopicNotFoundError }
 
-import './rdkafka-extra-types'
-
-import { getLogFnName } from './log-mapping'
-
-/**
- * Library hides consumer when using typescript
- * https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
- * But direct consumer creation was requested in
- * https://github.com/microfleet/core/pull/362#discussion_r367773758
- */
-const kConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
-const kProducerStream = require('node-rdkafka/lib/producer-stream')
-
-promisifyAll(kConsumerStream.prototype)
-promisifyAll(kProducerStream.prototype)
+import { getLogFnName, topicExists } from './util'
 
 /**
  * Relative priority inside the same plugin group type
@@ -90,8 +72,14 @@ export class KafkaFactory implements KafkaFactoryInterface {
   }
 
   async createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream> {
+    const topics = opts.streamOptions.topics
     const consumer = this.createClient(KafkaConsumer, opts.conf, opts.topicConf)
-    await consumer.connectAsync(opts.streamOptions.connectOptions || {})
+    const brokerMeta = await consumer.connectAsync(opts.streamOptions.connectOptions || {})
+
+    if (!topicExists(brokerMeta.topics, topics)) {
+      throw new TopicNotFoundError('Missing consumer topic', topics)
+    }
+
     return this.createStream<ConsumerStream>(kConsumerStream, consumer, opts.streamOptions)
   }
 
