@@ -53,8 +53,6 @@ For information about parameters passed to the interface methods:
 ## Example
 
 ```js
-
-// OR
 producerStream = await service.kafka.createProducerStream({
   streamOptions: { objectMode: true, pollInterval: 10 },
   conf: {'group.id': 'other-group'},
@@ -84,5 +82,23 @@ producerStream.write(Buffer.from(`message at ${Date.now()}`), cb)
 
 for await (const message of consumer) {
   // process message
+}
+```
+
+## Helpers
+
+### KafkaConsumerStream
+
+#### consumer.allMessagesRead(timeout: number): boolean
+This helper method checks whether maximum offsets reached for all assigned partitions in subscribed topics. The `timeout` parameter is required and passed to the `node-rdkafka` internals.
+This helper added because `node-rdkafka` omits `EOF` messages by default and this normal behavior.
+
+##### Example
+
+```js
+for await (const message of consumer) {
+  if (await consumer.allMessagesRead(300)) {
+    break;
+  }
 }
 ```

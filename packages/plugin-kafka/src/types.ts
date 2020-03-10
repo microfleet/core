@@ -62,3 +62,7 @@ export type Metadata = {
 export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError', {
   args: ['message', 'topics'],
 })
+
+export const TopicReadTimeoutError = ErrorHelpers.generateClass('TopicReadTimeoutError', {
+  args: ['message'],
+})
