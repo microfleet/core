@@ -9,10 +9,10 @@ import { map } from 'bluebird'
 import {
   kConsumerStream, kProducerStream, KafkaConsumer,
   ProducerStream, ConsumerStream, KafkaProducer,
-  KafkaClient
+  KafkaClient, ConsumerStreamMessage,
 } from './rdkafka-extra'
 
-export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream }
+export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream, ConsumerStreamMessage }
 
 import {
   TopicConfig,

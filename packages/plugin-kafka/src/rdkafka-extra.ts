@@ -29,9 +29,10 @@ import {
   ProducerStream,
   ConsumerStream,
   Client as KafkaClient,
+  ConsumerStreamMessage,
 } from 'node-rdkafka'
 
-export { KafkaConsumer, KafkaProducer, ProducerStream, ConsumerStream, KafkaClient }
+export { KafkaConsumer, KafkaProducer, ProducerStream, ConsumerStream, ConsumerStreamMessage, KafkaClient }
 
 promisifyAll(KafkaConsumer.prototype)
 promisifyAll(KafkaProducer.prototype)

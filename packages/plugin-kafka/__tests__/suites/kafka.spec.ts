@@ -35,7 +35,6 @@ describe('connect', () => {
       streamOptions: { objectMode: false, topic: 'testBoo' },
     })
 
-    producer.write('some')
     expect(producer).toBeDefined()
   })
 
@@ -44,9 +43,14 @@ describe('connect', () => {
 
     producer = await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
+      conf: {
+        dr_msg_cb: true,
+      }
     })
 
+    // if you need performance please avoid use cases like this
     producer.write('some')
+    await once(producer.producer, 'delivery-report')
 
     consumer = await kafka.createConsumerStream({
       streamOptions: { topics: ['testBoo'] },
@@ -153,11 +157,17 @@ describe('connected to broker', () => {
 
     producer = await kafka.createProducerStream({
       streamOptions: { objectMode: true, pollInterval: 1 },
-      conf: { 'group.id': 'no-commit-producer', dr_msg_cb: true },
+      conf: {
+        'group.id': 'no-commit-producer',
+        dr_msg_cb: true,
+      },
     })
 
     const receivedMessages: any[] = []
 
+    // we must wait for message delivery
+    // otherwise we will try to create consumer,
+    // but there will be no available topic metadata in Kafka
     for await (const message of messageIterable.messagesToSend(topic)) {
       producer.write(message)
       await once(producer.producer, 'delivery-report')
