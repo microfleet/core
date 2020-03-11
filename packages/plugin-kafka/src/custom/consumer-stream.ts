@@ -142,13 +142,12 @@ export class ConsumerStream extends Readable {
       const topics = Array.isArray(this.config.topics) ? this.config.topics : [this.config.topics]
       this.consumer.subscribe(topics)
     } catch (e) {
-      this.emit('error', e)
-      this.destroy()
+      this.destroy(e)
     }
   }
 
   private onRead(err: Error, messages: ConsumerStreamMessage[]) {
-    if (err) this.emit('error', err)
+    if (err) this.destroy(err)
 
     if (err || messages.length < 1) {
       this.retry()
