@@ -34,8 +34,8 @@ Microfleet Kafka Plugin extends service interface with the following methods:
 
 ### async service.kafka.createReadStream({ streamOpts, conf, topic }): Readable
 
-Initializes Kafka consumer using provided params and creates a Readable stream.
-Detailed docs here - https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
+Initializes Kafka Consumer stream using provided params and creates a Readable stream.
+This is the reimplementation of the `node-rdkafka.ConsumerStream` stream with some addons.
 
 ### async service.kafka.createWriteStream({ streamOpts, conf, topic }): Writable
 
@@ -46,7 +46,7 @@ Detailed docs here - https://blizzard.github.io/node-rdkafka/current/ProducerStr
 
 For information about parameters passed to the interface methods:
 
-* `streamOpts` - See [this](https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html) or [this](https://blizzard.github.io/node-rdkafka/current/ProducerStream.html) pages
+* `streamOpts` - See [this](./src/types.ts) for `ConsumerStream` or [this](https://blizzard.github.io/node-rdkafka/current/ProducerStream.html) for `ProducerStream`
 * `conf` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
 * `topic` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md#topic-configuration-properties)
 
@@ -82,23 +82,5 @@ producerStream.write(Buffer.from(`message at ${Date.now()}`), cb)
 
 for await (const message of consumer) {
   // process message
-}
-```
-
-## Helpers
-
-### KafkaConsumerStream
-
-#### consumer.allMessagesRead(timeout: number): boolean
-This helper method checks whether maximum offsets reached for all assigned partitions in subscribed topics. The `timeout` parameter is required and passed to the `node-rdkafka` internals.
-This helper added because `node-rdkafka` omits `EOF` messages by default and this normal behavior.
-
-##### Example
-
-```js
-for await (const message of consumer) {
-  if (await consumer.allMessagesRead(300)) {
-    break;
-  }
 }
 ```

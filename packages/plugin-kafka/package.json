@@ -36,10 +36,12 @@
     "bluebird": "^3.7.2",
     "log-update": "^3.3.0",
     "node-rdkafka": "^2.7.4",
+    "readable-stream": "^3.6.0",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.8",
+    "@types/readable-stream": "^2.3.5",
     "@types/sinon": "^7.5.0",
     "toxiproxy-node-client": "^2.0.6",
     "ts-jest": "^24.3.0"

@@ -1,5 +1,7 @@
 import { Toxiproxy } from 'toxiproxy-node-client'
 import { Microfleet } from '@microfleet/core'
+import { Promise, TimeoutError } from 'bluebird'
+
 import { once } from 'events'
 
 import {
@@ -7,6 +9,7 @@ import {
   ConsumerStream, ProducerStream,
   TopicNotFoundError
 } from '../../lib'
+
 
 let service: Microfleet | Microfleet & KafkaPlugin
 let producer: ProducerStream
@@ -17,9 +20,10 @@ beforeEach(async () => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
-      debug: 'consumer,cgrp,topic,fetch',
+      // debug: 'consumer,cgrp,topic,fetch',
       'metadata.broker.list': 'kafka:9092',
       'group.id': 'test-group',
+      'fetch.wait.max.ms': 10,
     },
   })
 })
@@ -45,7 +49,7 @@ describe('connect', () => {
       streamOptions: { objectMode: false, topic: 'testBoo' },
       conf: {
         dr_msg_cb: true,
-      }
+      },
     })
 
     // if you need performance please avoid use cases like this
@@ -148,7 +152,7 @@ describe('connected to broker', () => {
     }
   }
 
-  test('consume/produce no-auto-commit', async () => {
+  test('consume/produce no-auto-commit + stopOnPartitionsEOF', async () => {
     const kafka: KafkaFactory = service.kafka
     const topic = 'test-no-auto-commit'
     const messagesToPublish = 5
@@ -178,6 +182,8 @@ describe('connected to broker', () => {
         topics: topic,
         streamAsBatch: true,
         fetchSize: 2,
+        stopOnPartitionsEOF: true,
+        offsetQueryTimeout: 10,
       },
       conf: {
         debug: 'consumer',
@@ -191,15 +197,59 @@ describe('connected to broker', () => {
 
     for await (const incommingMessage of consumer) {
       const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-
       receivedMessages.push(...messages)
       consumer.consumer.commitMessage(messages.pop())
-
-      if (await consumer.allMessagesRead(300)) {
-        await consumer.closeAsync()
-      }
     }
 
+    expect(receivedMessages).toHaveLength(messagesToPublish)
+  })
+
+  test('consume/produce no-auto-commit + NO stopOnPartitionsEOF', async () => {
+    const kafka: KafkaFactory = service.kafka
+    const topic = 'test-no-auto-commit'
+    const messagesToPublish = 5
+    const messageIterable = getMessageIterable(messagesToPublish)
+    const receivedMessages: any[] = []
+
+    producer = await kafka.createProducerStream({
+      streamOptions: { objectMode: true, pollInterval: 1 },
+      conf: {
+        'group.id': 'no-commit-producer',
+        dr_msg_cb: true,
+      },
+    })
+
+    for await (const message of messageIterable.messagesToSend(topic)) {
+      producer.write(message)
+      await once(producer.producer, 'delivery-report')
+    }
+
+    consumer = await kafka.createConsumerStream({
+      streamOptions: {
+        topics: topic,
+        streamAsBatch: false,
+        fetchSize: 2,
+        stopOnPartitionsEOF: false,
+      },
+      conf: {
+        debug: 'consumer',
+        'auto.commit.enable': false,
+        'group.id': 'no-commit-consumer',
+      },
+      topicConf: {
+        'auto.offset.reset': 'earliest',
+      },
+    })
+
+    const promise = new Promise(async () => {
+      for await (const incommingMessage of consumer) {
+        const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+        receivedMessages.push(...messages)
+        consumer.consumer.commitMessage(messages.pop())
+      }
+    }).timeout(5000)
+
+    await expect(promise).rejects.toThrow(TimeoutError)
     expect(receivedMessages).toHaveLength(messagesToPublish)
   })
 })
