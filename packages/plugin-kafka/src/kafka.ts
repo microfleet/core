@@ -7,12 +7,10 @@ import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@micr
 import { map } from 'bluebird'
 
 import {
-  kConsumerStream, kProducerStream, KafkaConsumer,
-  ProducerStream, ConsumerStream, KafkaProducer,
+  kProducerStream, KafkaConsumer,
+  ProducerStream, KafkaProducer,
   KafkaClient, ConsumerStreamMessage,
 } from './rdkafka-extra'
-
-export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream, ConsumerStreamMessage }
 
 import {
   TopicConfig,
@@ -22,9 +20,11 @@ import {
   TopicNotFoundError,
 } from './types'
 
-export { ProducerStreamOptions, ConsumerStreamOptions, TopicNotFoundError }
-
 import { getLogFnName, topicExists } from './util'
+import { ConsumerStream } from './custom/consumer-stream'
+
+export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream, ConsumerStreamMessage }
+export { ProducerStreamOptions, ConsumerStreamOptions, TopicNotFoundError }
 
 /**
  * Relative priority inside the same plugin group type
@@ -82,7 +82,7 @@ export class KafkaFactory implements KafkaFactoryInterface {
       throw new TopicNotFoundError('Missing consumer topic', topics)
     }
 
-    return this.createStream<ConsumerStream>(kConsumerStream, consumer, opts.streamOptions)
+    return this.createStream<ConsumerStream>(ConsumerStream, consumer, opts.streamOptions)
   }
 
   async createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream> {
