@@ -21,7 +21,8 @@ export class ConsumerStream extends Readable {
    * @param config Topic configuration
    */
   constructor(consumer: KafkaClient, config: ConsumerStreamOptions) {
-    assert(consumer.isConnected(), 'Consumer should be connected!')
+    assert(consumer.isConnected(), 'consumer should be connected')
+    assert(consumer instanceof KafkaConsumer, 'should be intance of KafkaConsumer')
 
     super({
       objectMode: true,
@@ -39,7 +40,7 @@ export class ConsumerStream extends Readable {
   }
 
   // tslint:disable-next-line
-  public _read(size?: number): boolean | void {
+  public _read(size: number): boolean | void {
     const { config } = this
     const fetchSize = size! >= config.fetchSize! ? config.fetchSize : size!
 
