@@ -120,7 +120,9 @@ export const attach = function attachValidator(
   // extend service
   service[name] = validator
   service[name].addLocation = addLocation
-  service.validate = validator.validate
-  service.validateSync = validator.validateSync
-  service.ifError = validator.ifError
+
+  // @microfleet/validation >= 9.0.1 requires method to be bound to validator instance
+  service.validate = validator.validate.bind(validator)
+  service.validateSync = validator.validateSync.bind(validator)
+  service.ifError = validator.ifError.bind(validator)
 }

@@ -73,7 +73,7 @@
     "yargs-parser": "^16.1.0"
   },
   "peerDependencies": {
-    "@microfleet/validation": "~8.x.x",
+    "@microfleet/validation": "^9.0.1",
     "common-errors": "^1.x.x"
   },
   "devDependencies": {
@@ -82,7 +82,7 @@
     "@hapi/joi": "^17.1.0",
     "@hapi/vision": "^6.0.0",
     "@microfleet/transport-amqp": "^15.1.4",
-    "@microfleet/validation": "^8.1.2",
+    "@microfleet/validation": "^9.0.1",
     "@sentry/node": "^5.11.1",
     "@types/bluebird": "^3.5.29",
     "@types/bluebird-retry": "^0.11.4",

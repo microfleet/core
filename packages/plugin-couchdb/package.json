@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "~15.x.x"
+    "@microfleet/core": "~16.x.x"
   },
   "dependencies": {
     "nano": "apache/couchdb-nano#4fed1e50488479596e4b2e440d96040c2dc72e36"
