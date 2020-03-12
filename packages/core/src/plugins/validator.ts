@@ -5,6 +5,7 @@ import { NotPermittedError } from 'common-errors'
 import path = require('path')
 import { strictEqual } from 'assert'
 import { isString, isPlainObject, isFunction } from 'lodash'
+import { deprecate } from 'util'
 
 import { Microfleet } from '../'
 import { PluginTypes } from '../constants'
@@ -36,6 +37,9 @@ export const name = 'validator'
  */
 export interface ValidatorPlugin {
   validator: Validator
+  validate: Validator['validate']
+  validateSync: Validator['validateSync']
+  ifError:  Validator['ifError']
 }
 
 /**
@@ -119,4 +123,7 @@ export const attach = function attachValidator(
   // extend service
   service[name] = validator
   service[name].addLocation = addLocation
+  service.validate = deprecate(validator.validate.bind(validator), 'validate() deprecated. User validator.validate()')
+  service.validateSync = deprecate(validator.validateSync.bind(validator), 'validateSync() deprecated. User validator.validateSync()')
+  service.ifError = deprecate(validator.ifError.bind(validator), 'ifError() deprecated. User validator.ifError()')
 }
