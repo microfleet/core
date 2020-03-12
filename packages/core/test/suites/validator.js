@@ -23,10 +23,11 @@ describe('Validator suite', () => {
   });
 
   it('validator exposes validate methods on the service', function test() {
-    assert(this.service.validate);
-    assert(this.service.validateSync);
-    assert(typeof this.service.validate === 'function');
-    assert(typeof this.service.validateSync === 'function');
+    const { validator } = this.service;
+    assert(validator.validate);
+    assert(validator.validateSync);
+    assert(typeof validator.validate === 'function');
+    assert(typeof validator.validateSync === 'function');
   });
 
   it('validator throw on invalid config when `config` schema is present', function test() {
@@ -55,7 +56,7 @@ describe('Validator suite', () => {
     });
 
     assert(!!this.service.validator.ajv.getSchema('test-schema'));
-    assert.equal(this.service.validateSync('test-types-schema', '1').doc, '1');
+    assert.equal(this.service.validator.validateSync('test-types-schema', '1').doc, '1');
     assert(!!this.service.validator.ajv.getSchema('config'));
   });
 });

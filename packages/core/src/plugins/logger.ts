@@ -94,7 +94,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   const { config: { name: applicationName } } = service
 
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  const config = service.ifError('logger', opts) as LoggerConfig
+  const config = service.validator.ifError('logger', opts) as LoggerConfig
 
   const {
     debug,

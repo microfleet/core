@@ -1,4 +1,4 @@
-import Validator from '@microfleet/validation'
+import MicrofleetValidator from '@microfleet/validation'
 import ajv from 'ajv'
 import callsite = require('callsite')
 import { NotPermittedError } from 'common-errors'
@@ -10,6 +10,10 @@ import { Microfleet } from '../'
 import { PluginTypes } from '../constants'
 
 const { isArray } = Array
+
+type Validator = MicrofleetValidator & {
+  addLocation(location: string): void
+}
 
 /**
  * Validator configuration, more details in
@@ -31,12 +35,7 @@ export const name = 'validator'
  * Defines service extension
  */
 export interface ValidatorPlugin {
-  validator: Validator & {
-    addLocation(location: string): void
-  }
-  validate: Validator['validate']
-  validateSync: Validator['validateSync']
-  ifError:  Validator['ifError']
+  validator: Validator
 }
 
 /**
@@ -74,7 +73,7 @@ export const attach = function attachValidator(
   strictEqual(filter === null || isFunction(filter), true, configError('filter'))
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
-  const validator = new Validator('../../schemas', filter, ajvConfig)
+  const validator = new MicrofleetValidator('../../schemas', filter, ajvConfig)
   const addLocation = (location: string) => {
     strictEqual(isString(location) && location.length !== 0, true, configError('schemas'))
 
@@ -120,9 +119,4 @@ export const attach = function attachValidator(
   // extend service
   service[name] = validator
   service[name].addLocation = addLocation
-
-  // @microfleet/validation >= 9.0.1 requires method to be bound to validator instance
-  service.validate = validator.validate.bind(validator)
-  service.validateSync = validator.validateSync.bind(validator)
-  service.ifError = validator.ifError.bind(validator)
 }

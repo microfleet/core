@@ -1,6 +1,6 @@
 import assert = require('assert')
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes } from '../'
+import { Microfleet, PluginTypes, ValidatorPlugin } from '../'
 import _require from '../utils/require'
 
 /**
@@ -22,12 +22,12 @@ export const priority = 50
  * Attaches plugin to the MService class.
  * @param settings - AMQP plugin configuration.
  */
-export function attach(this: Microfleet, opts: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
   const service = this
   const { initTracer } = _require('jaeger-client')
 
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  const settings = service.ifError('opentracing', opts)
+  const settings = service.validator.ifError('opentracing', opts)
 
   // init tracer
   service.tracer = initTracer(settings.config, {
