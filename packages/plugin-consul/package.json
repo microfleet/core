@@ -34,7 +34,7 @@
   "devDependencies": {
     "@microfleet/core": "^17.0.0",
     "@types/consul": "^0.23.34",
-    "@types/jest": "^24.9.0",
+    "@types/jest": "^25.0.0",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",
     "ts-essentials": "^5.0.0",

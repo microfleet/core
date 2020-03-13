@@ -99,7 +99,7 @@
     "@types/hapi__hapi": "^19.0.0",
     "@types/ioredis": "^4.14.4",
     "@types/is": "^0.0.21",
-    "@types/jest": "^24.9.0",
+    "@types/jest": "^25.0.0",
     "@types/lodash.intersection": "^4.4.4",
     "@types/lodash.partial": "^4.2.4",
     "@types/node": "^13.1.8",
