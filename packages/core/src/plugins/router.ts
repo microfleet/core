@@ -84,7 +84,7 @@ export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & Route
 
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  const config = service.ifError('router', opts) as RouterConfig
+  const config = service.validator.ifError('router', opts) as RouterConfig
 
   for (const transport of config.routes.transports) {
     if (!service.config.plugins.includes(transport) && transport !== internal) {

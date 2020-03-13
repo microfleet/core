@@ -8,32 +8,22 @@ import { ServiceRequest } from '../../../types'
 import { ValidatorPlugin } from '../../validator'
 import moduleLifecycle from './lifecycle'
 
-type ValidationObject = {
-  request: ServiceRequest,
-  paramsKey: 'query' | 'params',
-}
+type ParamsKey = 'query' | 'params'
 
-function validationSuccess(this: ValidationObject, sanitizedParams: any): ServiceRequest {
-  this.request[this.paramsKey] = sanitizedParams
-  return this.request
-}
-
-const handleValidationError = (error: Error) => {
-  if (error.constructor === HttpStatusError) {
-    throw error
-  }
-
-  throw new Error('internal validation error', error)
-}
-
-function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequest) {
+async function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequest): Promise<ServiceRequest> {
   const { validator } = this
-  const paramsKey = DATA_KEY_SELECTOR[request.method]
+  const paramsKey: ParamsKey = DATA_KEY_SELECTOR[request.method]
 
-  return validator
-    .validate(request.action.schema as string, request[paramsKey])
-    .bind({ request, paramsKey })
-    .then(validationSuccess, handleValidationError)
+  try {
+    const validationResult = await validator.validate(request.action.schema as string, request[paramsKey])
+    request[paramsKey] = validationResult
+    return request
+  } catch (error) {
+    if (error.constructor === HttpStatusError) {
+      throw error
+    }
+    throw new Error('internal validation error', error)
+  }
 }
 
 function passThrough(request: ServiceRequest): ServiceRequest {

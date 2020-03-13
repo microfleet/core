@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "~15.x.x"
+    "@microfleet/core": "~16.x.x"
   },
   "dependencies": {
     "@microfleet/core": "^16.0.4",

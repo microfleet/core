@@ -1,7 +1,7 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface } from '@microfleet/core'
+import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import retry = require('bluebird-retry')
 import Knex = require('knex')
 
@@ -18,7 +18,7 @@ export interface KnexPlugin {
 /**
  * Defines closure
  */
-const startupHandlers = (service: Microfleet, knex: Knex): PluginInterface => ({
+const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): PluginInterface => ({
   async connect() {
     const establishConnection = async () => {
       try {
@@ -51,19 +51,19 @@ const startupHandlers = (service: Microfleet, knex: Knex): PluginInterface => ({
 })
 
 export function attach(
-  this: Microfleet & LoggerPlugin,
+  this: Microfleet & LoggerPlugin & ValidatorPlugin,
   params: Knex.Config | string = {}
 ) {
   const service = this
-
+  const { validator } = this
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
   service.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const opts = service.ifError('knex', params)
-  const config: Knex.Config = service.ifError(`knex.${opts.client}`, opts)
+  const opts = validator.ifError('knex', params)
+  const config: Knex.Config = validator.ifError(`knex.${opts.client}`, opts)
 
   const knex = service.knex = Knex(config)
 

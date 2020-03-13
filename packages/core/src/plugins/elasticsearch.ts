@@ -4,7 +4,7 @@ import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import Elasticsearch = require('elasticsearch')
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginInterface } from '../'
+import { Microfleet, PluginInterface, ValidatorPlugin, LoggerPlugin } from '../'
 import { PluginTypes } from '../constants'
 
 interface ElasticLogger {
@@ -23,13 +23,13 @@ interface ElasticLogger {
 export const priority = 0
 export const name = 'elasticsearch'
 export const type = PluginTypes.database
-export function attach(this: Microfleet, params: any = {}): PluginInterface {
+export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, params: any = {}): PluginInterface {
   const service = this
 
   assert(service.hasPlugin('logger'), new NotFoundError('logger module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  const conf = service.ifError('elasticsearch', params)
+  const conf = service.validator.ifError('elasticsearch', params)
   const { log, ...opts } = conf
   const { log: serviceLogger } = service
 

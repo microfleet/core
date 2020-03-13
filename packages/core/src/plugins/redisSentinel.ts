@@ -1,7 +1,7 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
-import { Microfleet, PluginTypes } from '../'
+import { Microfleet, PluginTypes, ValidatorPlugin } from '../'
 import _require from '../utils/require'
 import { ERROR_ALREADY_STARTED, ERROR_NOT_STARTED } from './redis/constants'
 import { NotFoundError } from 'common-errors'
@@ -30,7 +30,7 @@ export const priority = 0
  * @param  [conf={}] - Configuration for Redis Sentinel Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet, opts: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
   const service = this
   const Redis = _require('ioredis')
 
@@ -38,7 +38,7 @@ export function attach(this: Microfleet, opts: any = {}) {
 
   Redis.Promise = Bluebird
   const isRedisStarted = isStarted(service, Redis)
-  const conf = service.ifError('redisSentinel', opts)
+  const conf = service.validator.ifError('redisSentinel', opts)
 
   return {
 

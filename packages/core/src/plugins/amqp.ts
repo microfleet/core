@@ -4,7 +4,7 @@ import Errors = require('common-errors')
 import eventToPromise = require('event-to-promise')
 import { NotFoundError } from 'common-errors'
 import get = require('get-value')
-import { ActionTransport, Microfleet, PluginTypes } from '../'
+import { ActionTransport, Microfleet, PluginTypes, LoggerPlugin, ValidatorPlugin } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
 import verifyPossibility from './router/verifyAttachPossibility'
@@ -48,13 +48,13 @@ export const priority = 0
  * Attaches plugin to the MService class.
  * @param {Object} config - AMQP plugin configuration.
  */
-export function attach(this: Microfleet, opts: any = {}) {
+export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: any = {}) {
   const service = this
 
   assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  const config = service.ifError('amqp', opts)
+  const config = service.validator.ifError('amqp', opts)
   const AMQPTransport = _require('@microfleet/transport-amqp') as any
   const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery')
 

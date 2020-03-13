@@ -1,15 +1,20 @@
-import Validator from '@microfleet/validation'
+import MicrofleetValidator from '@microfleet/validation'
 import ajv from 'ajv'
 import callsite = require('callsite')
 import { NotPermittedError } from 'common-errors'
 import path = require('path')
 import { strictEqual } from 'assert'
 import { isString, isPlainObject, isFunction } from 'lodash'
+import { deprecate } from 'util'
 
 import { Microfleet } from '../'
 import { PluginTypes } from '../constants'
 
 const { isArray } = Array
+
+type Validator = MicrofleetValidator & {
+  addLocation(location: string): void
+}
 
 /**
  * Validator configuration, more details in
@@ -31,9 +36,7 @@ export const name = 'validator'
  * Defines service extension
  */
 export interface ValidatorPlugin {
-  validator: Validator & {
-    addLocation(location: string): void
-  }
+  validator: Validator
   validate: Validator['validate']
   validateSync: Validator['validateSync']
   ifError:  Validator['ifError']
@@ -74,7 +77,7 @@ export const attach = function attachValidator(
   strictEqual(filter === null || isFunction(filter), true, configError('filter'))
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
-  const validator = new Validator('../../schemas', filter, ajvConfig)
+  const validator = new MicrofleetValidator('../../schemas', filter, ajvConfig)
   const addLocation = (location: string) => {
     strictEqual(isString(location) && location.length !== 0, true, configError('schemas'))
 
@@ -120,7 +123,7 @@ export const attach = function attachValidator(
   // extend service
   service[name] = validator
   service[name].addLocation = addLocation
-  service.validate = validator.validate
-  service.validateSync = validator.validateSync
-  service.ifError = validator.ifError
+  service.validate = deprecate(validator.validate.bind(validator), 'validate() deprecated. User validator.validate()')
+  service.validateSync = deprecate(validator.validateSync.bind(validator), 'validateSync() deprecated. User validator.validateSync()')
+  service.ifError = deprecate(validator.ifError.bind(validator), 'ifError() deprecated. User validator.ifError()')
 }

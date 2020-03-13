@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "~15.x.x"
+    "@microfleet/core": "~16.x.x"
   },
   "dependencies": {
     "knex": "^0.20.8",

@@ -1,7 +1,7 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin } from '@microfleet/core'
+import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin, ValidatorPlugin } from '@microfleet/core'
 import { promisifyAll, map } from 'bluebird'
 
 import {
@@ -170,7 +170,7 @@ export class KafkaFactory implements KafkaFactoryInterface {
  * @param params - Kafka configuration.
  */
 export function attach(
-  this: Microfleet & LoggerPlugin,
+  this: Microfleet & LoggerPlugin & ValidatorPlugin,
   params: KafkaConfig
 ): PluginInterface {
   const service = this
@@ -181,7 +181,7 @@ export function attach(
   // load local schemas
   service.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const conf: KafkaConfig = service.ifError(name, params)
+  const conf: KafkaConfig = service.validator.ifError(name, params)
   const kafkaPlugin = service[name] = new KafkaFactory(service, conf)
 
   return {

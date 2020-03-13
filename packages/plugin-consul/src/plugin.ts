@@ -40,11 +40,10 @@ export const priority = 0
 
 /**
  * Attaches initialized validator based on conf.
- * Provides `validate` and `validateSync` methods.
- * @param conf - Validator Configuration Object.
- * @param parentFile - From which file this plugin was invoked.
+ * Provides `consul` and `consulLeader` methods.
+ * @param conf - Consul Configuration Object.
  */
-export const attach = function attachValidator(
+export const attach = function attachConsulPlugin(
   this: Microfleet & ValidatorPlugin & LoggerPlugin & ConsulPlugin,
   opts: Partial<ConsulConfig> = {}
 ): PluginInterface {
@@ -56,7 +55,7 @@ export const attach = function attachValidator(
   // load local schemas
   service.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const config = service.ifError(name, opts) as ConsulConfig
+  const config = service.validator.ifError(name, opts) as ConsulConfig
   const base = { ...config.base, promisify: true }
   const lockConfig = {
     key: `microfleet/${service.config.name}/leader`,

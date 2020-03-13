@@ -2,7 +2,7 @@ import assert = require('assert')
 import { NotImplementedError, NotFoundError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
-import { ActionTransport, Microfleet, PluginTypes } from '../'
+import { ActionTransport, Microfleet, PluginTypes, ValidatorPlugin } from '../'
 import _require from '../utils/require'
 import attachRouter from './socketIO/router/attach'
 import * as RequestTracker from './router/request-tracker'
@@ -13,7 +13,7 @@ interface AdaptersList {
   [name: string]: any
 }
 
-function attachSocketIO(this: Microfleet, opts: any = {}) {
+function attachSocketIO(this: Microfleet & ValidatorPlugin, opts: any = {}) {
   debug('Attaching socketIO plugin')
   const service = this
   const AdapterFactory = _require('ms-socket.io-adapter-amqp')
@@ -25,7 +25,7 @@ function attachSocketIO(this: Microfleet, opts: any = {}) {
     amqp: (adapterOptions: any) => AdapterFactory.fromOptions(adapterOptions),
   }
 
-  const config = service.ifError('socketIO', opts)
+  const config = service.validator.ifError('socketIO', opts)
   const { options, router } = config
   const { adapter } = options
 

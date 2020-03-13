@@ -1,7 +1,7 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface } from '@microfleet/core'
+import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import retry = require('bluebird-retry')
 import CouchDB = require('nano')
 
@@ -24,7 +24,7 @@ export interface CouchDBPlugin<T = any> {
  * Defines closure
  */
 const startupHandlers = (
-  service: Microfleet,
+  service: Microfleet & LoggerPlugin,
   nano: CouchDB.ServerScope,
   database: string,
   indices: Config['indexDefinitions'] = []
@@ -73,7 +73,7 @@ const startupHandlers = (
 })
 
 export function attach(
-  this: Microfleet & LoggerPlugin,
+  this: Microfleet & LoggerPlugin & ValidatorPlugin,
   params: Config
 ) {
   const service = this
@@ -84,7 +84,7 @@ export function attach(
   // load local schemas
   service.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const opts: Config = service.ifError(name, params)
+  const opts: Config = service.validator.ifError(name, params)
   const nano = CouchDB(opts.connection)
 
   return startupHandlers(service, nano, opts.database, opts.indexDefinitions)
