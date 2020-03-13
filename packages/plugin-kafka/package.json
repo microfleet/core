@@ -36,7 +36,7 @@
     "bluebird": "^3.7.2",
     "log-update": "^3.3.0",
     "node-rdkafka": "^2.7.4",
-    "uuid": "^3.4.0"
+    "uuid": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.8",
