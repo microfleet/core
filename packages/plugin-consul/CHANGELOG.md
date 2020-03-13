@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@1.0.4...@microfleet/plugin-consul@2.0.0) (2020-03-13)
+
+
+### Bug Fixes
+
+* microfleet/validation version bump ([#402](https://github.com/microfleet/core/issues/402)) ([9023c22](https://github.com/microfleet/core/commit/9023c22123476ea98079df6a1ae6c7039b7508a1))
+
+
+### BREAKING CHANGES
+
+* This fix bumps @microfleet/validation version
+
+
+
+
+
 ## [1.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@1.0.3...@microfleet/plugin-consul@1.0.4) (2020-03-06)
 
 **Note:** Version bump only for package @microfleet/plugin-consul
