@@ -152,7 +152,7 @@ describe('connected to broker', () => {
     }
   }
 
-  test('consume/produce stopOnPartitionsEOF + no BatchMode', async () => {
+  test.only('consume/produce stopOnPartitionsEOF + no BatchMode', async () => {
     const { kafka } = service
     const topic = 'test-auto-commit-no-batch'
     const messagesToPublish = 11
@@ -207,7 +207,7 @@ describe('connected to broker', () => {
     expect(receivedMessages).toHaveLength(messagesToPublish)
   })
 
-  test('consume/produce stopOnPartitionsEOF + batchMode', async () => {
+  test.only('consume/produce stopOnPartitionsEOF + batchMode', async () => {
     const { kafka } = service
     const topic = 'test-auto-commit-batch-eof'
     const messagesToPublish = 11
@@ -317,7 +317,7 @@ describe('connected to broker', () => {
     expect(receivedMessages).toHaveLength(messagesToPublish)
   })
 
-  test('consume/produce no-auto-commit + stopOnPartitionsEOF + batchMode', async () => {
+  test.only('consume/produce no-auto-commit + stopOnPartitionsEOF + batchMode', async () => {
     const { kafka } = service
     const topic = 'test-no-auto-commit-batch-eof'
     const messagesToPublish = 11

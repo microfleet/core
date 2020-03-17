@@ -2,7 +2,7 @@ import { Readable } from 'readable-stream'
 import { once } from 'events'
 import * as assert from 'assert'
 
-import { KafkaConsumer, ConsumerStreamMessage, KafkaClient } from '../rdkafka-extra'
+import { ConsumerStreamMessage, KafkaConsumer, Client } from '../rdkafka-extra'
 import { ConsumerStreamOptions } from '../types'
 
 /**
@@ -20,7 +20,7 @@ export class ConsumerStream extends Readable {
    * @param consumer Connected kafka consumer
    * @param config Topic configuration
    */
-  constructor(consumer: KafkaClient, config: ConsumerStreamOptions) {
+  constructor(consumer: Client, config: ConsumerStreamOptions) {
     assert(consumer.isConnected(), 'consumer should be connected')
     assert(consumer instanceof KafkaConsumer, 'should be intance of KafkaConsumer')
 

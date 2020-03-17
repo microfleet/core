@@ -93,7 +93,7 @@ export class ConsumerStreamWithOffsets extends Readable {
     if (this.stream.messages.length > 0) {
       // @ts-ignore
       log('_read resume stream', this.stream.messages.length)
-      // this.stream.resume()
+      this.stream.resume()
       return
     }
 
