@@ -28,7 +28,9 @@ import {
 
 import { getLogFnName, topicExists } from './util'
 
-import { ConsumerStreamWithOffsets as ConsumerStream } from './custom/consumer-stream-wrapper'
+// swap 2 versions of streams here
+// import { ConsumerStreamWithOffsets as ConsumerStream } from './custom/consumer-stream-wrapper'
+import { ConsumerStream } from './custom/consumer-stream'
 
 export { ProducerStreamOptions, ConsumerStreamOptions, TopicNotFoundError }
 
