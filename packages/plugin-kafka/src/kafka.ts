@@ -1,14 +1,22 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin } from '@microfleet/core'
+import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin, ValidatorPlugin } from '@microfleet/core'
 import { map } from 'bluebird'
 
 import {
-  kProducerStream, KafkaConsumer,
-  ProducerStream, KafkaProducer,
-  KafkaClient, ConsumerStreamMessage,
+  KafkaConsumer,
+  ProducerStream,
+  // ConsumerStream,
+  Client,
+  Producer,
+  // KafkaConsumerStream,
+  KafkaProducerStream,
 } from './rdkafka-extra'
+
+export * from  './types/node-rdkafka.d'
+export * from './types/microfleet.d'
+export * from './rdkafka-extra'
 
 import {
   TopicConfig,
@@ -19,9 +27,9 @@ import {
 } from './types'
 
 import { getLogFnName, topicExists } from './util'
-import { ConsumerStream } from './custom/consumer-stream'
 
-export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream, ConsumerStreamMessage }
+import { ConsumerStreamWithOffsets as ConsumerStream } from './custom/consumer-stream-wrapper'
+
 export { ProducerStreamOptions, ConsumerStreamOptions, TopicNotFoundError }
 
 /**
@@ -61,13 +69,13 @@ export type StreamOptions<T> = T extends ConsumerStream
 export class KafkaFactory implements KafkaFactoryInterface {
   rdKafkaConfig: KafkaConfig
   private streams: Set<KafkaStream>
-  private connections: Set<KafkaClient>
+  private connections: Set<Client>
   private service: Microfleet & LoggerPlugin
 
   constructor(service: Microfleet & LoggerPlugin, config: KafkaConfig) {
     this.rdKafkaConfig = config
     this.streams = new Set<KafkaStream>()
-    this.connections = new Set<KafkaClient>()
+    this.connections = new Set<Client>()
     this.service = service
   }
 
@@ -84,16 +92,16 @@ export class KafkaFactory implements KafkaFactoryInterface {
   }
 
   async createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream> {
-    const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
+    const producer = this.createClient(Producer, opts.conf, opts.topicConf)
     await producer.connectAsync(opts.streamOptions.connectOptions || {})
-    return this.createStream<ProducerStream>(kProducerStream, producer, opts.streamOptions)
+    return this.createStream<ProducerStream>(KafkaProducerStream, producer, opts.streamOptions)
   }
 
   async close() {
     // Some connections will be already closed by streams
     await map(this.streams.values(), (stream: KafkaStream) => stream.closeAsync())
     // Close other connections
-    await map(this.connections.values(), (connection: KafkaClient) => connection.disconnectAsync())
+    await map(this.connections.values(), (connection: Client) => connection.disconnectAsync())
   }
 
   getStreams() {
@@ -105,14 +113,15 @@ export class KafkaFactory implements KafkaFactoryInterface {
   }
 
   private createStream<T extends KafkaStream>(
-    streamClass: new (c: KafkaClient, o: StreamOptions<T>) => T,
-    client: KafkaClient,
+    streamClass: new (c: Client, o: StreamOptions<T>) => T,
+    client: Client,
     opts: StreamOptions<T>
   ): T {
     const stream = new streamClass(client, opts)
     const { streams, service: { log } } = this
 
     streams.add(stream)
+
     stream.on('close', function close(this: T) {
       streams.delete(this)
       log.info('closed stream')
@@ -121,7 +130,7 @@ export class KafkaFactory implements KafkaFactoryInterface {
     return stream
   }
 
-  private createClient<T extends KafkaClient>(
+  private createClient<T extends Client>(
     clientClass: new (c?: Partial<KafkaConfig>, tc?: TopicConfig) => T,
     conf?: Partial<KafkaConfig>,
     topicConf?: TopicConfig

@@ -1,6 +1,6 @@
 import { Readable } from 'stream'
 import * as assert from 'assert'
-import { once } from 'events'
+// import { once } from 'events'
 import * as debug from 'debug'
 
 const log = debug('kafka:wrapper-stream')
@@ -28,6 +28,7 @@ export class ConsumerStreamWithOffsets extends Readable {
 
     log('super', {
       highWaterMark,
+      config,
       objectMode: config.objectMode,
     })
 
@@ -42,76 +43,82 @@ export class ConsumerStreamWithOffsets extends Readable {
 
     const stream: ConsumerStream = this.stream = new KafkaConsumerStream(consumer, config)
 
-    this.config.offsetQueryTimeout = config.offsetQueryTimeout || 200
+    this.config.offsetQueryTimeout = 4000 // config.offsetQueryTimeout || 200
 
     stream.on('error', (e: Error) => {
       log('stream error', e)
       this.destroy(e)
     })
 
+    stream.once('close', () => {
+      log('strem close')
+      this.push(null)
+    })
+
     stream.on('data', (chunk: any) => {
       log('stream data', chunk)
-      const data = Array.isArray(chunk) ? chunk : [chunk]
-
-      for (const message of data) {
-        this.config.objectMode === true ? this.push(message) : this.push(message.value)
+      const pushRes = this.config.objectMode === true ? this.push(chunk) : this.push(chunk.value)
+      if (!pushRes) {
+        log('stream data pause')
+        this.stream.pause()
       }
     })
   }
 
   // tslint:disable-next-line: function-name
   public _destroy(err: Error | null, cb: (error?: Error | null | undefined) => void): void {
-    this.stream.close(() => {
-      cb(err)
-    })
-  }
+    log('_destroy')
 
-  // tslint:disable-next-line: function-name
-  public _read(size: number) {
-    log('_read')
-    const { config } = this
-    if (config.stopOnPartitionsEOF === true) {
-      log('read eof')
-      const processResult = (eof: boolean | void): void => {
-        if (eof === true) {
-          this.push(null)
-        } else {
-          this.stream.read(size)
-        }
-      }
+    if (this.stream.destroyed) {
+      log('_destroy stream already destroyed')
+      if (cb) cb(err) // process.nextTick(cb, err)
+      return
+    }
 
-      const handleError = (e: Error) => {
-        // we skip kafka timeout error
-        // other errors will cause stream error
-        if (e.message !== 'Local: Timed out') {
-          this.destroy(e)
-        }
-      }
+    log('_destroy stream')
+    this.stream.close(cb)
 
-      this
-        .allMessagesRead(config.offsetQueryTimeout!)
-        .catch(handleError)
-        .then(processResult)
-    } else {
-      log('read no eof')
-      this.stream.read(size)
+    if (cb) {
+      log('_destroy set callback')
+      this.once('close', cb)
     }
   }
 
-  public close(cb?: () => {}) {
-    log('close')
-    this.stream.on('close', () => {
-      log('emit close')
-      this.emit('close')
-    })
+  // tslint:disable-next-line: function-name
+  public async _read(_: number): Promise<void> {
+    // @ts-ignore
+    log('_read stream messages length', this.stream.messages.length)
 
-    this.stream.close(cb)
+    // @ts-ignore
+    if (this.stream.messages.length > 0) {
+      // @ts-ignore
+      log('_read resume stream', this.stream.messages.length)
+      // this.stream.resume()
+      return
+    }
+
+    log('_read data')
+    try {
+      const eof = await this.allMessagesRead(this.config.offsetQueryTimeout!)
+      if (!eof) {
+        log('_read not eof', eof)
+        this.stream.resume()
+        return
+      }
+      log('_read reach eof')
+      await this.close()
+    } catch (e) {
+      log('_read error', e)
+      this.destroy(e)
+    }
+  }
+
+  public async close(): Promise<any> {
+    await this.stream.closeAsync()
   }
 
   public async closeAsync(): Promise<any> {
-    log('async close')
-    this.close()
-    return once(this, 'close')
+    return this.close()
   }
 
   /**

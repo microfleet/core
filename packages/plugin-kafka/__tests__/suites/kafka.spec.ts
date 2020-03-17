@@ -5,15 +5,15 @@ import { Promise, TimeoutError } from 'bluebird'
 import { once } from 'events'
 
 import {
-  KafkaPlugin, KafkaFactory,
-  ConsumerStream, ProducerStream,
+  KafkaFactory,
+  // ConsumerStream,
+  ProducerStream,
   TopicNotFoundError
-} from '../../lib'
+} from '../../src'
 
-
-let service: Microfleet | Microfleet & KafkaPlugin
+let service: Microfleet
 let producer: ProducerStream
-let consumer: ConsumerStream
+let consumer: any
 
 beforeEach(async () => {
   service = new Microfleet({
@@ -34,7 +34,7 @@ afterEach(async () => {
 
 describe('connect', () => {
   test('should be able to create a producer stream', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const { kafka } = service
     producer = await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
     })
@@ -43,7 +43,7 @@ describe('connect', () => {
   })
 
   test('should be able to create a consumer stream', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const { kafka } = service
 
     producer = await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
@@ -65,7 +65,7 @@ describe('connect', () => {
 
   describe('consumer missing topic', () => {
     test('with allTopics: true', async () => {
-      const kafka: KafkaFactory = service.kafka
+      const { kafka } = service
 
       const req = kafka.createConsumerStream({
         streamOptions: { topics: ['test-not-found'], connectOptions: { allTopics: true } },
@@ -75,7 +75,7 @@ describe('connect', () => {
     })
 
     test('with topic: value', async () => {
-      const kafka: KafkaFactory = service.kafka
+      const { kafka } = service
 
       const req = kafka.createConsumerStream({
         streamOptions: { topics: ['test-not-found'], connectOptions: { topic: ['test-not-found'] } },
@@ -88,7 +88,7 @@ describe('connect', () => {
 
 describe('conn-track', () => {
   test('tracks streams', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const kafka = service.kafka as KafkaFactory
 
     const streamToClose = await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
@@ -112,7 +112,7 @@ describe('conn-track', () => {
   })
 
   test('closes streams on service shutdown', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const kafka = service.kafka as KafkaFactory
 
     await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
@@ -152,10 +152,175 @@ describe('connected to broker', () => {
     }
   }
 
-  test('consume/produce no-auto-commit + stopOnPartitionsEOF', async () => {
-    const kafka: KafkaFactory = service.kafka
-    const topic = 'test-no-auto-commit'
-    const messagesToPublish = 5
+  test('consume/produce stopOnPartitionsEOF + no BatchMode', async () => {
+    const { kafka } = service
+    const topic = 'test-auto-commit-no-batch'
+    const messagesToPublish = 11
+
+    const messageIterable = getMessageIterable(messagesToPublish)
+
+    producer = await kafka.createProducerStream({
+      streamOptions: { objectMode: true, pollInterval: 1 },
+      conf: {
+        'group.id': 'auto-commit-producer',
+        dr_msg_cb: true,
+      },
+    })
+
+    const receivedMessages: any[] = []
+
+    // we must wait for message delivery
+    // otherwise we will try to create consumer,
+    // but there will be no available topic metadata in Kafka
+    for await (const message of messageIterable.messagesToSend(topic)) {
+      producer.write(message)
+      await once(producer.producer, 'delivery-report')
+    }
+
+    consumer = await kafka.createConsumerStream({
+      streamOptions: {
+        topics: topic,
+        streamAsBatch: false,
+        fetchSize: 2,
+        stopOnPartitionsEOF: true,
+        offsetQueryTimeout: 10,
+        objectMode: true,
+      },
+      conf: {
+        debug: 'consumer',
+        // 'auto.commit.enable': false,
+        'group.id': 'auto-commit-consumer',
+      },
+      topicConf: {
+        'auto.offset.reset': 'earliest',
+      },
+    })
+
+    for await (const incommingMessage of consumer) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+      consumer.consumer.commitMessage(messages.pop())
+    }
+
+    console.debug('DONE READING')
+
+    expect(receivedMessages).toHaveLength(messagesToPublish)
+  })
+
+  test('consume/produce stopOnPartitionsEOF + batchMode', async () => {
+    const { kafka } = service
+    const topic = 'test-auto-commit-batch-eof'
+    const messagesToPublish = 11
+
+    const messageIterable = getMessageIterable(messagesToPublish)
+
+    producer = await kafka.createProducerStream({
+      streamOptions: { objectMode: true, pollInterval: 1 },
+      conf: {
+        'group.id': 'auto-commit-producer',
+        dr_msg_cb: true,
+      },
+    })
+
+    const receivedMessages: any[] = []
+
+    // we must wait for message delivery
+    // otherwise we will try to create consumer,
+    // but there will be no available topic metadata in Kafka
+    for await (const message of messageIterable.messagesToSend(topic)) {
+      producer.write(message)
+      await once(producer.producer, 'delivery-report')
+    }
+
+    consumer = await kafka.createConsumerStream({
+      streamOptions: {
+        topics: topic,
+        streamAsBatch: true,
+        fetchSize: 2,
+        stopOnPartitionsEOF: true,
+        offsetQueryTimeout: 10,
+        objectMode: true,
+      },
+      conf: {
+        debug: 'consumer',
+        // 'auto.commit.enable': false,
+        'group.id': 'auto-commit-consumer',
+      },
+      topicConf: {
+        'auto.offset.reset': 'earliest',
+      },
+    })
+
+    for await (const incommingMessage of consumer) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+      consumer.consumer.commitMessage(messages.pop())
+    }
+
+    console.debug('DONE READING')
+
+    expect(receivedMessages).toHaveLength(messagesToPublish)
+  })
+
+  test.only('consume/produce no-auto-commit + stopOnPartitionsEOF + no BatchMode', async () => {
+    const { kafka } = service
+    const topic = 'test-no-auto-commit-no-batch-eof'
+    const messagesToPublish = 11
+
+    const messageIterable = getMessageIterable(messagesToPublish)
+
+    producer = await kafka.createProducerStream({
+      streamOptions: { objectMode: true, pollInterval: 1 },
+      conf: {
+        'group.id': 'no-commit-producer',
+        dr_msg_cb: true,
+      },
+    })
+
+    const receivedMessages: any[] = []
+
+    // we must wait for message delivery
+    // otherwise we will try to create consumer,
+    // but there will be no available topic metadata in Kafka
+    for await (const message of messageIterable.messagesToSend(topic)) {
+      producer.write(message)
+      await once(producer.producer, 'delivery-report')
+    }
+
+    consumer = await kafka.createConsumerStream({
+      streamOptions: {
+        topics: topic,
+        streamAsBatch: false,
+        fetchSize: 2,
+        stopOnPartitionsEOF: true,
+        offsetQueryTimeout: 10,
+        objectMode: true,
+      },
+      conf: {
+        debug: 'consumer',
+        'auto.commit.enable': false,
+        'group.id': 'no-commit-consumer-batch',
+      },
+      topicConf: {
+        'auto.offset.reset': 'earliest',
+      },
+    })
+
+    for await (const incommingMessage of consumer) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+      consumer.consumer.commitMessage(messages.pop())
+    }
+
+    console.debug('DONE READING')
+
+    expect(receivedMessages).toHaveLength(messagesToPublish)
+  })
+
+  test('consume/produce no-auto-commit + stopOnPartitionsEOF + batchMode', async () => {
+    const { kafka } = service
+    const topic = 'test-no-auto-commit-batch-eof'
+    const messagesToPublish = 11
 
     const messageIterable = getMessageIterable(messagesToPublish)
 
@@ -184,11 +349,12 @@ describe('connected to broker', () => {
         fetchSize: 2,
         stopOnPartitionsEOF: true,
         offsetQueryTimeout: 10,
+        objectMode: true,
       },
       conf: {
         debug: 'consumer',
         'auto.commit.enable': false,
-        'group.id': 'no-commit-consumer',
+        'group.id': 'no-commit-consumer-batch',
       },
       topicConf: {
         'auto.offset.reset': 'earliest',
@@ -201,13 +367,15 @@ describe('connected to broker', () => {
       consumer.consumer.commitMessage(messages.pop())
     }
 
+    console.debug('DONE READING')
+
     expect(receivedMessages).toHaveLength(messagesToPublish)
   })
 
-  test('consume/produce no-auto-commit + NO stopOnPartitionsEOF', async () => {
-    const kafka: KafkaFactory = service.kafka
+  test('consume/produce no-auto-commit + NO stopOnPartitionsEOF NO batch', async () => {
+    const { kafka } = service
     const topic = 'test-no-auto-commit'
-    const messagesToPublish = 5
+    const messagesToPublish = 11
     const messageIterable = getMessageIterable(messagesToPublish)
     const receivedMessages: any[] = []
 
@@ -230,6 +398,7 @@ describe('connected to broker', () => {
         streamAsBatch: false,
         fetchSize: 2,
         stopOnPartitionsEOF: false,
+        objectMode: true,
       },
       conf: {
         debug: 'consumer',
@@ -272,7 +441,7 @@ describe('connect error toxy', () => {
   })
 
   it('producer connection timeout', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const { kafka } = service
     const createPromise = kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo', connectOptions: { timeout: 200 } },
       conf: { 'client.id': 'consume-group-offline' },
@@ -281,7 +450,7 @@ describe('connect error toxy', () => {
   })
 
   it('consumer connection timeout', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const { kafka } = service
     const createPromise = kafka.createConsumerStream({
       streamOptions: {
         topics: ['test'],

@@ -27,6 +27,7 @@ export type ConnectOptions = {
  * @property streamAsBatch If true 'data' emitted with array of messages.
  * @property stopOnPartitionsEOF If true stream will exit when all assigned partitions reached last offsets.
  * @property offsetQueryTimeout If timeout for fetching consumer offsets from Kafka.
+ * @property objectMode
  */
 export type ConsumerStreamOptions = {
   topics: string | string[];
@@ -35,6 +36,7 @@ export type ConsumerStreamOptions = {
   streamAsBatch?: boolean;
   stopOnPartitionsEOF?: boolean;
   offsetQueryTimeout?: number;
+  objectMode?: boolean;
   connectOptions?: ConnectOptions;
 }
 
