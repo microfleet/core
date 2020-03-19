@@ -90,3 +90,8 @@ As stated in https://kafka.apache.org/090/javadoc/org/apache/kafka/clients/consu
       origin: 'kafka'
     }
     ```
+
+* `message.retry` like options defined in https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md and having `P` in scope column do not work for Consumer
+
+### TRBL
+Somehow  have to alter consumerStream _read method ((((. If wrapper stream touches read and topic contains no data ENTRING INFINITE LOOP

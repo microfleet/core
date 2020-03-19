@@ -1,6 +1,5 @@
 import { Readable } from 'stream'
 import * as assert from 'assert'
-import { find } from 'lodash'
 
 import * as debug from 'debug'
 const log = debug('kafka:wrapper-stream')
@@ -18,6 +17,11 @@ export class TrackableConsumerStream extends Readable {
   public stream: IConsumerStream
   private config: ConsumerStreamOptions
 
+  private partitionsAssigned: boolean
+  private commits: {
+    [topicPartition: string]: number
+  }
+
   /**
    * @param consumer Connected kafka consumer
    * @param config Topic configuration
@@ -34,13 +38,15 @@ export class TrackableConsumerStream extends Readable {
       objectMode: config.objectMode,
     })
 
+    this.commits = Object.create(null)
+    this.partitionsAssigned = false
     this.consumer = consumer as KafkaConsumer
     this.config = config
-    this.config.offsetQueryTimeout = config.offsetQueryTimeout || 200
 
     const stream = this.stream = new KafkaConsumerStream(consumer, config)
 
     consumer.on('offset.commit', this.handleCommitDelivery.bind(this))
+    consumer.on('rebalance', this.handleRebalance.bind(this))
 
     stream.on('error', (e: Error) => {
       log('GOT ERROR FROM SUBSTREAM')
@@ -50,7 +56,6 @@ export class TrackableConsumerStream extends Readable {
     stream.once('close', () => {
       log('GOT CLOSE FROM SUBSTREAM')
       this.close()
-      // this.push(null)
     })
 
     stream.on('data', (chunk: any) => {
@@ -59,51 +64,82 @@ export class TrackableConsumerStream extends Readable {
     })
   }
 
-  public async handleCommitDelivery(err: Error, msg: any): Promise<void> {
-    const { consumer, config } = this
-
-    log('offset.commit', err, msg)
-
-    // https://github.com/edenhill/librdkafka/issues/2581#issuecomment-544891433
-    if (err) return
-
-    try {
-      // assignments or watermark offsets unavailable
-      // if consumer is not connected or restoring it's state
-      if (!consumer.isConnected()) return
-
-      const assignments = consumer.assignments()
-      const localOffsets = assignments.map(
-        (assignment: TopicPartition) => ({
-          ...assignment,
-          ...consumer.getWatermarkOffsets(assignment.topic, assignment.partition),
-        })
+  public handleRebalance(err: any, assignments: TopicPartition[]) {
+    log('REBALANCE', err, assignments)
+    if (err.code === kafkaErrorCodes.ERR__ASSIGN_PARTITIONS) {
+      this.partitionsAssigned = true
+      this.commits = assignments.reduce<any>(
+        (prev, assignment) => {
+          prev[`${assignment.topic}_${assignment.partition}`] = -1001
+          return prev
+        },
+        Object.create(null)
       )
+      log('REBALANCE ASSIGN COMMITS', this.commits)
+    }
 
-      // get committed offsets
-      const localCommitedOffsets = await consumer.committedAsync(assignments, config.offsetQueryTimeout)
-
-      // get offsets stored in client. They are synced on each `FETCH`.
-      // If committed offsets and stored match - close stream.
-      const allAssignmentStatus = localCommitedOffsets.map((localPartitionInfo) => {
-        const { topic, partition, offset } = localPartitionInfo
-        const topicPartitionOffset = find(localOffsets, { topic, partition })
-        // (offset || 0) - partition assigned but has no data
-        return topicPartitionOffset ? topicPartitionOffset.highOffset === (offset || 0) : false
+    if (err.code === kafkaErrorCodes.ERR__REVOKE_PARTITIONS) {
+      assignments.forEach((assignment) => {
+        delete this.commits[`${assignment.topic}_${assignment.partition}`]
       })
 
-      if (!allAssignmentStatus.includes(false)) {
-        this.push(null)
-        return
+      if (Object.keys(this.commits).length === 0) {
+        this.partitionsAssigned = false
       }
-    } catch (e) {
-      // committed offsets respose not received until rdkafka restores it's behavour
-      if (e.code !== kafkaErrorCodes.ERR__TIMED_OUT) {
-        log('some error', e)
-        setImmediate(() => this.destroy(e))
+      log('REBALANCE REVOKE COMMITS', this.commits)
+    }
+  }
+
+  public handleCommitDelivery(err: Error, msgs: any): void {
+    log('offset.commit', err, msgs)
+
+    if (err) return
+
+    for (const msg of msgs) {
+      const commitIndexKey = `${msg.topic}_${msg.partition}`
+
+      if (this.commits[commitIndexKey] < msg.offset) {
+        this.commits[commitIndexKey] = msg.offset
       }
     }
-    return
+
+    log('offset.commit result', this.commits)
+
+    // dupl
+    if (this.checkOffsets()) {
+      log('offset.commit _READ DONE')
+      this.push(null)
+      return
+    }
+  }
+
+  public checkOffsets(): boolean {
+    const { consumer } = this
+    const assignments = consumer.assignments()
+
+    if (!this.partitionsAssigned) return false
+
+    const localOffsets = assignments.map(
+      (assignment: TopicPartition) => ({
+        ...{
+          topic: assignment.topic,
+          partition: assignment.partition,
+        },
+        ...consumer.getWatermarkOffsets(assignment.topic, assignment.partition),
+      })
+    )
+
+    const allAssignmentStatus = localOffsets.map((localPartitionInfo: any) => {
+      const { highOffset } = localPartitionInfo
+      const lastCommitedOffset = this.commits[`${localPartitionInfo.topic}_${localPartitionInfo.partition}`]
+      // (offset || 0) - partition assigned but has no data
+      // TODO
+      return lastCommitedOffset ? highOffset === (lastCommitedOffset || 0) : false
+    })
+
+    log('checkOffsets', allAssignmentStatus, assignments, localOffsets, this.commits)
+
+    return !allAssignmentStatus.includes(false)
   }
 
   // tslint:disable-next-line: function-name
@@ -118,13 +154,19 @@ export class TrackableConsumerStream extends Readable {
   public _read(_: number): void {
     log('_READ')
     if (this.stream.messages.length > 0) return
+
+    if (this.checkOffsets() && this.partitionsAssigned) {
+      log('_READ DONE')
+      this.push(null)
+      return
+    }
+
+    log('_READ RESUME')
     this.stream.resume()
   }
 
   public async close(): Promise<any> {
-    log('_close')
     await this.stream.closeAsync()
-    log('_close emit')
     this.emit('close')
   }
 

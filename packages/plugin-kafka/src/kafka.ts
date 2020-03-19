@@ -135,6 +135,7 @@ export class KafkaFactory implements KafkaFactoryInterface {
 
     if (clientClass.prototype === KafkaConsumer.prototype) {
       config.offset_commit_cb = true
+      config.rebalance_cb = true
     }
 
     const client = new clientClass(config, topicConf)

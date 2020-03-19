@@ -184,6 +184,8 @@ describe('connected to broker', () => {
         conf: {
           debug: 'consumer,topic,cgrp',
           'group.id': 'auto-commit-consumer',
+          'message.timeout.ms': 100,
+          'session.timeout.ms': 8000,
         },
         topicConf: {
           'auto.offset.reset': 'earliest',
@@ -342,8 +344,32 @@ describe('connected to broker', () => {
     }
 
     expect(receivedMessages).toHaveLength(sentMessages.length)
+
+    await consumerStream.closeAsync()
+
+    console.debug('SECONDARY READING')
+
+    consumerStream = await createConsumerStream({
+      streamOptions: {
+        topics: topic,
+      },
+      conf: {
+        'auto.commit.enable': false,
+        'group.id': 'autocommit-nooffsetstore-consumer',
+      },
+    })
+
+    const newMessages = []
+
+    for await (const incommingMessage of consumerStream) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      newMessages.push(...messages)
+    }
+
+    expect(newMessages).toHaveLength(0)
   })
-  describe('toxified', () => {
+
+  describe.skip('toxified', () => {
     const toxiproxy = new Toxiproxy('http://toxy:8474')
 
     const setProxyEnabled = async (enabled: boolean) => {
@@ -437,7 +463,8 @@ describe('connected to broker', () => {
         },
         conf: {
           'auto.commit.enable': false,
-          'message.timeout.ms': 5000, // checkme
+          'message.timeout.ms': 1000, // checkme
+          'message.send.max.retries': 1,
           'group.id': 'toxified-no-commit-consumer',
         },
       })
@@ -469,7 +496,7 @@ describe('connected to broker', () => {
         }
       }
 
-      await expect(simOne()).rejects.toThrowError(/Local: Waiting for coordinator/)
+      await simOne()
 
       console.debug('DONE READING')
 
