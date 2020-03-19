@@ -11,6 +11,8 @@ declare module 'node-rdkafka' {
   }
 
   export interface ConsumerStream {
+    messages: ConsumerStreamMessage[] | ConsumerStreamMessage[][]
+    consumer: KafkaConsumer
     constructor(c: Client, o: StreamOptions<ConsumerStream>): ConsumerStream
     closeAsync(): Promise<void>
   }

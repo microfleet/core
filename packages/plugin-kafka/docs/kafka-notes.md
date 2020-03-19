@@ -40,3 +40,53 @@ All current Kafka distros have `auto.create.topics.enable` option set to `True` 
 * If `auto.commit.enable` set to false, you should commit offset manually otherwise `librdkafka` will commit offsets in some intervals.
 
 
+### Caveats
+* Avoid reading of the empty or previously read topics using ConsumerStream. This will block loop until some data arrived
+
+* Librdkafka thinks that the long connection timeout is not a critical error, but after timeout in about 10 seconds, Kafka starts rejecting offsetCommits stored in `rdkafka` buffer.
+ 
+* For fine grained control over commited offsets you must use `commitSync`
+As stated in https://kafka.apache.org/090/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html. `commit` and `offset.commit` callback do not guarantee event order, especially when rdkafka faces connection issues to the Kafka broker.
+
+* **WEIRD** https://github.com/edenhill/librdkafka/issues/2581#issuecomment-544891433
+
+* `rdkafka` will try to deliver all messages from its queue before shutdown. `node-rdkafka` not allows to use the `purge` method from `rdkafka` to drop queues.
+
+* Even when you are trying to disconnect consumer on some errors that received on `offset.commit` callback it will try to resend commits again even in Errornous state.
+    ```
+    2020-03-19T15:18:38.484Z kafka:wrapper-stream DISCONNECTING DUE TO ERROR -180
+    2020-03-19T15:18:38.484Z kafka:wrapper-stream _destroy stream
+    2020-03-19T15:18:38.484Z kafka:wrapper-stream _destroy substream
+    {"level":30,"time":1584631118486,"pid":29,"hostname":"tester","name":"tester","msg":"closed stream","v":1}
+    {"level":30,"time":1584631118494,"pid":29,"hostname":"tester","name":"tester","pluginName":"kafka","connectorType":"transport","event":"close","msg":"started","v":1}
+    {"level":30,"time":1584631118497,"pid":29,"hostname":"tester","name":"tester","msg":"client disconnected","v":1}
+    {"level":30,"time":1584631118498,"pid":29,"hostname":"tester","name":"tester","msg":"closed stream","v":1}
+    2020-03-19T15:18:39.923Z kafka:wrapper-stream offset.commit undefined [
+      { topic: 'toxified-test-no-auto-commit-no-batch-eof', partition: 0 },
+      {
+        topic: 'toxified-test-no-auto-commit-no-batch-eof',
+        partition: 1,
+        offset: 1
+      }
+    ]
+    2020-03-19T15:18:39.923Z kafka:wrapper-stream HANDLE COMMIT ERROR LibrdKafkaError {
+      message: 'Local: Erroneous state',
+      code: -172,
+      errno: -172,
+      origin: 'kafka'
+    }
+    2020-03-19T15:18:39.924Z kafka:wrapper-stream offset.commit undefined [
+      { topic: 'toxified-test-no-auto-commit-no-batch-eof', partition: 0 },
+      {
+        topic: 'toxified-test-no-auto-commit-no-batch-eof',
+        partition: 1,
+        offset: 1
+      }
+    ]
+    2020-03-19T15:18:39.924Z kafka:wrapper-stream HANDLE COMMIT ERROR LibrdKafkaError {
+      message: 'Local: Erroneous state',
+      code: -172,
+      errno: -172,
+      origin: 'kafka'
+    }
+    ```
