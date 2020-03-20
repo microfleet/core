@@ -95,3 +95,14 @@ As stated in https://kafka.apache.org/090/javadoc/org/apache/kafka/clients/consu
 
 ### TRBL
 Somehow  have to alter consumerStream _read method ((((. If wrapper stream touches read and topic contains no data ENTRING INFINITE LOOP
+
+Unable to escape from infinite _read() loop. Again decided to extend ConsumerStream class and override it's behaviour. This brought some extra logic, but current `kafka.ConsumerStream` architecture hides `onread` and `retry` methods. 
+
+Yes it brings a lot of code, but to avoid additional overhead in queries to broker, we provide caching mechanism.
+Caches drop on `rebalance`
+
+Otherwise you will receive infinite loop if consumer reconnects to the topic that was read previously.
+
+We don't need to update caches because after successfull reading we will receive all data from rdkafka local storage.
+
+DONT try to wrap this kafka.ConsumerStream with some other streams, this breaks event loops and brings you lot's of troubles.

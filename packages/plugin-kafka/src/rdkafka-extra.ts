@@ -1,4 +1,5 @@
 import { promisifyAll } from 'bluebird'
+
 import {
   KafkaConsumer,
   Producer,

@@ -6,6 +6,7 @@ import { map } from 'bluebird'
 
 import {
   KafkaConsumer,
+  ConsumerStream,
   ProducerStream,
   Client,
   Producer,
@@ -16,8 +17,9 @@ export * from  './types/node-rdkafka.d'
 export * from './types/microfleet.d'
 export * from './rdkafka-extra'
 
-import { TrackableConsumerStream } from './custom/consumer-trackable'
-export { ProducerStreamOptions, ConsumerStreamOptions, TopicNotFoundError, TrackableConsumerStream }
+import { KafkaConsumerStream } from './custom/consumer-stream'
+
+export { ProducerStreamOptions, ConsumerStreamOptions, TopicNotFoundError, KafkaConsumerStream }
 
 import {
   TopicConfig,
@@ -49,13 +51,13 @@ export interface KafkaPlugin {
  * Defines service extension
  */
 export interface KafkaFactoryInterface {
-  createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<TrackableConsumerStream>
+  createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream>
   createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream>
   close(): Promise<void>
 }
 
-export type KafkaStream = TrackableConsumerStream | ProducerStream
-export type StreamOptions<T> = T extends TrackableConsumerStream
+export type KafkaStream = ConsumerStream | ProducerStream
+export type StreamOptions<T> = T extends ConsumerStream
     ? ConsumerStreamOptions
     : never
   | T extends ProducerStream
@@ -75,7 +77,7 @@ export class KafkaFactory implements KafkaFactoryInterface {
     this.service = service
   }
 
-  async createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<TrackableConsumerStream> {
+  async createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream> {
     const topics = opts.streamOptions.topics
     const consumer = this.createClient(KafkaConsumer, opts.conf, opts.topicConf)
     const brokerMeta = await consumer.connectAsync(opts.streamOptions.connectOptions || {})
@@ -83,8 +85,8 @@ export class KafkaFactory implements KafkaFactoryInterface {
     if (!topicExists(brokerMeta.topics, topics)) {
       throw new TopicNotFoundError('Missing consumer topic', topics)
     }
-
-    return this.createStream<TrackableConsumerStream>(TrackableConsumerStream, consumer, opts.streamOptions)
+    // @ts-ignore
+    return this.createStream<ConsumerStream>(KafkaConsumerStream, consumer, opts.streamOptions)
   }
 
   async createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream> {
@@ -132,11 +134,6 @@ export class KafkaFactory implements KafkaFactoryInterface {
     topicConf?: TopicConfig
   ): T {
     const config: Partial<KafkaConfig> = { ...this.rdKafkaConfig, ...conf }
-
-    if (clientClass.prototype === KafkaConsumer.prototype) {
-      config.offset_commit_cb = true
-      config.rebalance_cb = true
-    }
 
     const client = new clientClass(config, topicConf)
     const { log } = this.service

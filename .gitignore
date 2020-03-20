@@ -37,3 +37,6 @@ lib
 
 *.tsbuildinfo
 .releaserc.json
+
+# OSX indexes
+.DS_Store

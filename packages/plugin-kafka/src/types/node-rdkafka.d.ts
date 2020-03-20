@@ -13,7 +13,7 @@ declare module 'node-rdkafka' {
   export interface ConsumerStream {
     messages: ConsumerStreamMessage[] | ConsumerStreamMessage[][]
     consumer: KafkaConsumer
-    constructor(c: Client, o: StreamOptions<ConsumerStream>): ConsumerStream
+
     closeAsync(): Promise<void>
   }
 
@@ -27,6 +27,8 @@ declare module 'node-rdkafka' {
 
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/client.js#L329
     getMetadataAsync(metadataOptions: ConnectOptions): Promise<Metadata>
+
+    on(event: 'subscribed', listener: (topics: any) => void): this
   }
 
   export interface KafkaConsumer {

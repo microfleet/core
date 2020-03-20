@@ -36,7 +36,6 @@ export type ConsumerStreamOptions = {
   streamAsBatch?: boolean;
   stopOnPartitionsEOF?: boolean;
   offsetQueryTimeout?: number;
-  objectMode?: boolean;
   connectOptions?: ConnectOptions;
 }
 

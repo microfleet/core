@@ -1,8 +1,12 @@
-import { Readable } from 'readable-stream'
-import { once } from 'events'
 import * as assert from 'assert'
+import { find } from 'lodash'
 
-import { ConsumerStreamMessage, KafkaConsumer, Client } from '../rdkafka-extra'
+import {
+  ConsumerStreamMessage, KafkaConsumer,
+  Client, KafkaConsumerStream as OriginalConsumerStream,
+  TopicPartition
+} from '../rdkafka-extra'
+
 import { ConsumerStreamOptions } from '../types'
 
 /**
@@ -10,37 +14,48 @@ import { ConsumerStreamOptions } from '../types'
  * Allows to track consumer offset position and exit on EOF
  * Replaces `node-rdkafka/ConsumerStream`
  */
-export class ConsumerStream extends Readable {
-  public consumer: KafkaConsumer
+export class KafkaConsumerStream extends OriginalConsumerStream {
+  private static cacheKey = (topicPart:TopicPartition) => `${topicPart.topic}_${topicPart.partition}`
+
+  private consumer!: KafkaConsumer
   private config: ConsumerStreamOptions
-  private messages: ConsumerStreamMessage[]
   private boundOnRead: (err: Error, messages: ConsumerStreamMessage[]) => void
+
+  private positionCache: {
+    [topicPartition: string]: TopicPartition
+  }
 
   /**
    * @param consumer Connected kafka consumer
    * @param config Topic configuration
    */
+  // @ts-ignore we strip some parameters
   constructor(consumer: Client, config: ConsumerStreamOptions) {
     assert(consumer.isConnected(), 'consumer should be connected')
     assert(consumer instanceof KafkaConsumer, 'should be intance of KafkaConsumer')
 
-    super({
-      objectMode: true,
-      highWaterMark: (config.fetchSize || 0) + 2,
-    })
+    const { offsetQueryTimeout, stopOnPartitionsEOF, ...rest } = config
+    super(consumer, { ...rest, objectMode: true })
 
-    this.consumer = consumer as KafkaConsumer
     this.config = config
-    this.config.offsetQueryTimeout = config.offsetQueryTimeout || 200
-
-    this.messages = []
+    this.config.offsetQueryTimeout = config.offsetQueryTimeout || 300
     this.boundOnRead = this.onRead.bind(this)
+    this.positionCache = {}
 
-    this.setupConsumer()
+    // reset position caches on rebalance
+    this.consumer.on('rebalance', () => {
+      this.positionCache = {}
+    })
+  }
+
+  public connect(options: any) {
+    // restore our read method
+    this._read = this.overridenRead.bind(this)
+    super.connect(options)
   }
 
   // tslint:disable-next-line
-  public _read(size: number): boolean | void {
+  private async overridenRead(size: number): Promise<boolean | void> {
     const { config } = this
     const fetchSize = size! >= config.fetchSize! ? config.fetchSize : size!
 
@@ -51,100 +66,83 @@ export class ConsumerStream extends Readable {
     if (this.destroyed) return
 
     if (config.stopOnPartitionsEOF === true) {
-      const processResult = (eof: boolean | void): void => {
-        if (eof === true) {
+      if (await this.allMessagesRead()) {
+        process.nextTick(() => {
           this.push(null)
-        } else {
-          this.consumer.consume(fetchSize!, this.boundOnRead)
-        }
+        })
+        return
       }
-
-      const handleError = (e: Error) => {
-        // we skip kafka timeout error
-        // other errors will cause stream error
-        if (e.message !== 'Local: Timed out') {
-          this.destroy(e)
-        }
-      }
-
-      this
-        .allMessagesRead(config.offsetQueryTimeout!)
-        .catch(handleError)
-        .then(processResult)
+      this.consumer.consume(fetchSize!, this.boundOnRead)
     } else {
       this.consumer.consume(fetchSize!, this.boundOnRead)
     }
   }
 
-  // tslint:disable-next-line
-  public _destroy () {
-    if (this.destroyed) {
-      return
-    }
-    this.destroyed = true
-  }
-
-  public close(cb?: () => {}) {
-    if (cb) this.once('close', cb)
-
-    if (!this.consumer.isConnected()) {
-      this.emit('close')
-      return
-    }
-
-    this.consumer.unsubscribe()
-    this.consumer.disconnect(() => {
-      this.emit('close')
-    })
-  }
-
-  public async closeAsync(): Promise<any> {
-    this.close()
-    return once(this, 'close')
-  }
-
   /**
    * Detects EOF of consumed topic partitions
-   * @param operationTimeout KafkaClient.committed and KafkaClient.queryWatermarkOffsets timeout
    */
-  public async allMessagesRead(operationTimeout: number): Promise<boolean> {
+  private async allMessagesRead(): Promise<boolean> {
     const { consumer } = this
     const assignments = consumer.assignments()
 
-    // consumer didn't received assignment
-    // this happens when consumer count greater than partition count
-    // or Kafka rebalance in progress
-    if (assignments.length === 0) return false
+    // skip check if no assignments received
+    if (assignments.length === 0) {
+      return false
+    }
 
-    const commitedOffsets = await consumer.committedAsync(consumer.assignments(), operationTimeout)
+    const localPositions = await this.getPositions(assignments)
 
-    const serverOffsetPromises = commitedOffsets.map(
-      async (position: any) => {
-        const watermark = await consumer.queryWatermarkOffsetsAsync(
-          position.topic,
-          position.partition,
-          operationTimeout
-        )
-        return position.offset === watermark.highOffset
-      }
+    const localOffsets = assignments.map(
+      (assignment: TopicPartition) => ({
+        ...{
+          topic: assignment.topic,
+          partition: assignment.partition,
+        },
+        ...consumer.getWatermarkOffsets(assignment.topic, assignment.partition),
+      })
     )
 
-    const serverOffsets = await Promise.all(serverOffsetPromises)
-    return !serverOffsets.includes(false)
+    const partitionStatus = localOffsets.map((offsetInfo: any) => {
+      const { highOffset, topic, partition } = offsetInfo
+      const localPosition = find(localPositions, { topic, partition })
+      return localPosition ? highOffset === localPosition.offset : false
+    })
+
+    return !partitionStatus.includes(false)
   }
 
-  private setupConsumer(): void {
-    this.consumer.on('unsubscribed', () => {
-      this.push(null)
-    })
-    this.once('end', this.destroy.bind(this))
+  /**
+   * Gets consumer assigned partitions positions from local cache
+   * If no position available, queries Broker and stores for further reuse
+   */
+  private async getPositions(assignments: TopicPartition[]): Promise<TopicPartition[]> {
+    const missing = []
+    const final = []
+    const localPositions: TopicPartition[] = this.consumer.position(assignments)
 
-    try {
-      const topics = Array.isArray(this.config.topics) ? this.config.topics : [this.config.topics]
-      this.consumer.subscribe(topics)
-    } catch (e) {
-      this.destroy(e)
+    for (const position of localPositions) {
+      if (position.offset) {
+        final.push(position)
+        continue
+      }
+
+      if (this.positionCache[KafkaConsumerStream.cacheKey(position)]) {
+        final.push(this.positionCache[KafkaConsumerStream.cacheKey(position)])
+        continue
+      }
+
+      missing.push(position)
     }
+
+    if (missing.length > 0) {
+      const commitedOffsets = await this.consumer.committedAsync(missing, this.config.offsetQueryTimeout)
+      for (const offset of commitedOffsets) {
+        this.positionCache[KafkaConsumerStream.cacheKey(offset)] = offset
+        final.push(offset)
+      }
+    }
+
+    return final
   }
 
   private onRead(err: Error, messages: ConsumerStreamMessage[]) {
@@ -155,8 +153,7 @@ export class ConsumerStream extends Readable {
       return
     }
 
-    const { streamAsBatch } = this.config
-    if (streamAsBatch) {
+    if (this.config.streamAsBatch) {
       this.push(messages)
     } else {
       for (let i = 0; i < messages.length; i += 1) {
