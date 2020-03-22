@@ -1,6 +1,4 @@
-import { filter } from 'lodash'
-
-import { TopicInfo } from './types'
+import { TopicInfo } from 'node-rdkafka'
 
 /**
  * `librdkafka` uses syslog severity levels
@@ -25,7 +23,7 @@ export function getLogFnName(level: number): string {
  */
 export function topicExists(data: TopicInfo[], topics: string | string[]): boolean {
   const topicList = Array.isArray(topics) ? topics : [topics]
-  const filtered = filter(data, topic => topicList.includes(topic.name))
+  const filtered = data.filter(topic => topicList.includes(topic.name))
 
   return filtered.length === topicList.length
 }

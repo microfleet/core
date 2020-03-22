@@ -1,26 +1,26 @@
-import { Toxiproxy } from 'toxiproxy-node-client'
 import { Microfleet } from '@microfleet/core'
-import { Promise, TimeoutError } from 'bluebird'
-
 import { once } from 'events'
 
 import {
-  KafkaPlugin, KafkaFactory,
-  ConsumerStream, ProducerStream,
-  TopicNotFoundError
-} from '../../lib'
+  KafkaFactory,
+  KafkaConsumerStream,
+  KafkaProducerStream,
+  TopicNotFoundError,
+  ConsumerStreamMessage
+} from '@microfleet/plugin-kafka'
 
+import { createProducerStream, createConsumerStream, sendMessages } from '../helpers/kafka'
+import { delay } from 'bluebird'
 
-let service: Microfleet | Microfleet & KafkaPlugin
-let producer: ProducerStream
-let consumer: ConsumerStream
+let service: Microfleet
+let producer: typeof KafkaProducerStream
+let consumerStream: KafkaConsumerStream
 
 beforeEach(async () => {
   service = new Microfleet({
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
-      // debug: 'consumer,cgrp,topic,fetch',
       'metadata.broker.list': 'kafka:9092',
       'group.id': 'test-group',
       'fetch.wait.max.ms': 10,
@@ -34,7 +34,7 @@ afterEach(async () => {
 
 describe('connect', () => {
   test('should be able to create a producer stream', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const { kafka } = service
     producer = await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
     })
@@ -43,10 +43,13 @@ describe('connect', () => {
   })
 
   test('should be able to create a consumer stream', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const { kafka } = service
 
     producer = await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
+      topicConf: {
+        'request.required.acks': 1,
+      },
       conf: {
         dr_msg_cb: true,
       },
@@ -56,16 +59,16 @@ describe('connect', () => {
     producer.write('some')
     await once(producer.producer, 'delivery-report')
 
-    consumer = await kafka.createConsumerStream({
+    consumerStream = await kafka.createConsumerStream({
       streamOptions: { topics: ['testBoo'] },
     })
 
-    expect(consumer).toBeDefined()
+    expect(consumerStream).toBeDefined()
   })
 
   describe('consumer missing topic', () => {
     test('with allTopics: true', async () => {
-      const kafka: KafkaFactory = service.kafka
+      const { kafka } = service
 
       const req = kafka.createConsumerStream({
         streamOptions: { topics: ['test-not-found'], connectOptions: { allTopics: true } },
@@ -75,7 +78,7 @@ describe('connect', () => {
     })
 
     test('with topic: value', async () => {
-      const kafka: KafkaFactory = service.kafka
+      const { kafka } = service
 
       const req = kafka.createConsumerStream({
         streamOptions: { topics: ['test-not-found'], connectOptions: { topic: ['test-not-found'] } },
@@ -88,13 +91,21 @@ describe('connect', () => {
 
 describe('conn-track', () => {
   test('tracks streams', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const { kafka } = service
 
     const streamToClose = await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
-      conf: { 'group.id': 'track-group' },
-      topicConf: {},
+      conf: {
+        dr_msg_cb: true,
+      },
+      topicConf: {
+        'delivery.timeout.ms': 500,
+      },
     })
+
+    // required to create the topic as it might not exist
+    streamToClose.write('create me please')
+    await once(streamToClose.producer, 'delivery-report')
 
     const streamToCloseToo = await kafka.createConsumerStream({
       streamOptions: { topics: 'testBoo' },
@@ -112,11 +123,10 @@ describe('conn-track', () => {
   })
 
   test('closes streams on service shutdown', async () => {
-    const kafka: KafkaFactory = service.kafka
+    const kafka = service.kafka as unknown as KafkaFactory
 
     await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },
-      conf: { 'group.id': 'track-close-group' },
     })
 
     await kafka.createConsumerStream({
@@ -132,163 +142,157 @@ describe('conn-track', () => {
 
 })
 
-describe('connected to broker', () => {
-  function getMessageIterable(count: number) {
-    const sentMessages: any[] = []
-    function* messagesToSend(topic: string) {
-      for (let i = 0; i < count; i += 1) {
-        const message = {
-          topic,
-          value: Buffer.from(`message ${i} at ${Date.now()}`),
-        }
-        sentMessages.push(message)
-        yield message
-      }
-    }
+describe.only('connected to broker', () => {
+  test('consume/produce noAutoCommit manualOffetStore', async () => {
+    const topic = 'test-no-auto-commit-manual-offset-store'
 
-    return {
-      sentMessages,
-      messagesToSend,
-    }
-  }
+    producer = await createProducerStream(service)
+    const sentMessages = await sendMessages(producer, topic, 10)
 
-  test('consume/produce no-auto-commit + stopOnPartitionsEOF', async () => {
-    const kafka: KafkaFactory = service.kafka
-    const topic = 'test-no-auto-commit'
-    const messagesToPublish = 5
-
-    const messageIterable = getMessageIterable(messagesToPublish)
-
-    producer = await kafka.createProducerStream({
-      streamOptions: { objectMode: true, pollInterval: 1 },
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+      },
       conf: {
-        'group.id': 'no-commit-producer',
-        dr_msg_cb: true,
+        'enable.auto.commit': false,
+        'enable.auto.offset.store': false,
+        'group.id': 'no-auto-commit-no-offset-store-consumer',
       },
     })
 
     const receivedMessages: any[] = []
-
-    // we must wait for message delivery
-    // otherwise we will try to create consumer,
-    // but there will be no available topic metadata in Kafka
-    for await (const message of messageIterable.messagesToSend(topic)) {
-      producer.write(message)
-      await once(producer.producer, 'delivery-report')
-    }
-
-    consumer = await kafka.createConsumerStream({
-      streamOptions: {
-        topics: topic,
-        streamAsBatch: true,
-        fetchSize: 2,
-        stopOnPartitionsEOF: true,
-        offsetQueryTimeout: 10,
-      },
-      conf: {
-        debug: 'consumer',
-        'auto.commit.enable': false,
-        'group.id': 'no-commit-consumer',
-      },
-      topicConf: {
-        'auto.offset.reset': 'earliest',
-      },
-    })
-
-    for await (const incommingMessage of consumer) {
+    for await (const incommingMessage of consumerStream) {
       const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
       receivedMessages.push(...messages)
-      consumer.consumer.commitMessage(messages.pop())
+
+      for (const message of messages) {
+        consumerStream.consumer.offsetsStore([{
+          topic: message.topic,
+          partition: message.partition,
+          offset: message.offset + 1,
+        }])
+      }
+
+      consumerStream.consumer.commit()
     }
 
-    expect(receivedMessages).toHaveLength(messagesToPublish)
+    expect(receivedMessages).toHaveLength(sentMessages.length)
   })
 
-  test('consume/produce no-auto-commit + NO stopOnPartitionsEOF', async () => {
-    const kafka: KafkaFactory = service.kafka
+  test('consume/produce noAutoCommit manualCommit', async () => {
     const topic = 'test-no-auto-commit'
-    const messagesToPublish = 5
-    const messageIterable = getMessageIterable(messagesToPublish)
-    const receivedMessages: any[] = []
 
-    producer = await kafka.createProducerStream({
-      streamOptions: { objectMode: true, pollInterval: 1 },
-      conf: {
-        'group.id': 'no-commit-producer',
-        dr_msg_cb: true,
-      },
-    })
+    producer = await createProducerStream(service)
 
-    for await (const message of messageIterable.messagesToSend(topic)) {
-      producer.write(message)
-      await once(producer.producer, 'delivery-report')
-    }
+    const sentMessages = await sendMessages(producer, topic, 10)
 
-    consumer = await kafka.createConsumerStream({
+    consumerStream = await createConsumerStream(service, {
       streamOptions: {
         topics: topic,
-        streamAsBatch: false,
-        fetchSize: 2,
-        stopOnPartitionsEOF: false,
       },
       conf: {
-        debug: 'consumer',
-        'auto.commit.enable': false,
-        'group.id': 'no-commit-consumer',
-      },
-      topicConf: {
-        'auto.offset.reset': 'earliest',
+        'enable.auto.commit': false,
+        'group.id': 'no-auto-commit-manual',
       },
     })
 
-    const promise = new Promise(async () => {
-      for await (const incommingMessage of consumer) {
-        const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-        receivedMessages.push(...messages)
-        consumer.consumer.commitMessage(messages.pop())
-      }
-    }).timeout(5000)
+    const receivedMessages: any[] = []
+    for await (const incommingMessage of consumerStream) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+      consumerStream.consumer.commitMessage(messages.pop())
+    }
 
-    await expect(promise).rejects.toThrow(TimeoutError)
-    expect(receivedMessages).toHaveLength(messagesToPublish)
-  })
-})
-
-describe('connect error toxy', () => {
-  const toxiproxy = new Toxiproxy('http://toxy:8474')
-
-  const setProxyEnabled = async (enabled: boolean) => {
-    const proxy = await toxiproxy.get('kafka-proxy')
-    proxy.enabled = enabled
-    await proxy.update()
-  }
-
-  beforeEach(async () => {
-    await setProxyEnabled(false)
+    expect(receivedMessages).toHaveLength(sentMessages.length)
   })
 
-  afterEach(async () => {
-    await setProxyEnabled(true)
-  })
+  test('consume/produce autoCommit', async () => {
+    const topic = 'test-auto-commit'
 
-  it('producer connection timeout', async () => {
-    const kafka: KafkaFactory = service.kafka
-    const createPromise = kafka.createProducerStream({
-      streamOptions: { objectMode: false, topic: 'testBoo', connectOptions: { timeout: 200 } },
-      conf: { 'client.id': 'consume-group-offline' },
-    })
-    await expect(createPromise).rejects.toThrowError(/Broker transport failure/)
-  })
+    producer = await createProducerStream(service)
+    const sentMessages = await sendMessages(producer, topic, 10)
 
-  it('consumer connection timeout', async () => {
-    const kafka: KafkaFactory = service.kafka
-    const createPromise = kafka.createConsumerStream({
+    consumerStream = await createConsumerStream(service, {
       streamOptions: {
-        topics: ['test'],
-        connectOptions: { timeout: 200 },
+        topics: topic,
       },
-      conf: { 'client.id': 'consume-group-offline' },
+      conf: {
+        'enable.auto.commit': true,
+        'group.id': 'auto-commit',
+      },
     })
-    await expect(createPromise).rejects.toThrowError(/Broker transport failure/)
+
+    const receivedMessages: any[] = []
+    for await (const incommingMessage of consumerStream) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+    }
+
+    expect(receivedMessages).toHaveLength(sentMessages.length)
+  })
+
+  test.only('consume/produce autoCommit manualOffsetStore', async () => {
+    const topic = 'test-auto-commit-manual-offset-store'
+
+    producer = await createProducerStream(service)
+    const sentMessages = await sendMessages(producer, topic, 10)
+
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+      },
+      conf: {
+        'enable.auto.commit': true,
+        'auto.commit.interval.ms': 100,
+        'enable.auto.offset.store': false,
+        'group.id': 'auto-commit-no-offset-store-consumer',
+      },
+    })
+
+    const receivedMessages: any[] = []
+    for await (const incommingMessage of consumerStream) {
+      const messages: ConsumerStreamMessage[] = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+
+      for (const { topic, partition, offset } of messages) {
+        console.info('storing %j', { topic, partition, offset })
+
+        // https://github.com/edenhill/librdkafka/blob/b1b511dd1116788b301d0487594263b686c56c59/src/rdkafka_op.c#L747
+        // we need to store latest message offset + 1
+        consumerStream.consumer.offsetsStore([{
+          topic,
+          partition,
+          offset: offset + 1,
+        }])
+      }
+    }
+
+    expect(receivedMessages).toHaveLength(sentMessages.length)
+
+    await delay(1000)
+    await consumerStream.closeAsync()
+
+    console.info('opening another consumer stream')
+
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+      },
+      conf: {
+        'enable.auto.commit': true,
+        'group.id': 'auto-commit-no-offset-store-consumer',
+      },
+    })
+
+    const newMessages = []
+
+    console.info('waiting for stream messages')
+
+    for await (const incommingMessage of consumerStream) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      newMessages.push(...messages)
+    }
+
+    expect(newMessages).toHaveLength(0)
   })
 })
