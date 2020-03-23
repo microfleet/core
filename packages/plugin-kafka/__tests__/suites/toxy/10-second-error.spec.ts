@@ -56,8 +56,6 @@ describe('toxified', () => {
         debug: 'consumer,cgrp,topic',
         'group.id': 'toxified-no-commit-consumer',
         offset_commit_cb: true,
-      },
-      topicConf: {
         'enable.auto.commit': false,
       },
     })
@@ -98,8 +96,6 @@ describe('toxified', () => {
       },
       conf: {
         'group.id': 'toxified-no-commit-consumer',
-      },
-      topicConf: {
         'enable.auto.commit': false,
       },
     })

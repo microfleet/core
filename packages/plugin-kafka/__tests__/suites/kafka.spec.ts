@@ -10,13 +10,12 @@ import {
 } from '@microfleet/plugin-kafka'
 
 import { createProducerStream, createConsumerStream, sendMessages } from '../helpers/kafka'
-import { delay } from 'bluebird'
 
 let service: Microfleet
 let producer: typeof KafkaProducerStream
 let consumerStream: KafkaConsumerStream
 
-beforeEach(async () => {
+beforeEach(() => {
   service = new Microfleet({
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
@@ -26,10 +25,16 @@ beforeEach(async () => {
       'fetch.wait.max.ms': 10,
     },
   })
+
+  // @ts-ignore
+  service.log.info('STARTING TEST >>>>', jasmine.currentTest.fullName)
 })
 
 afterEach(async () => {
   await service.close()
+
+  // @ts-ignore
+  service.log.info('ENDING TEST >>>>', jasmine.currentTest.fullName)
 })
 
 describe('connect', () => {
@@ -237,6 +242,8 @@ describe('connected to broker', () => {
     producer = await createProducerStream(service)
     const sentMessages = await sendMessages(producer, topic, 10)
 
+    service.log.debug('produced messages')
+
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
         topics: topic,
@@ -267,10 +274,7 @@ describe('connected to broker', () => {
 
     expect(receivedMessages).toHaveLength(sentMessages.length)
 
-    await delay(1000)
-    await consumerStream.closeAsync()
-
-    console.info('opening another consumer stream')
+    service.log.debug('opening another consumer stream')
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -284,7 +288,7 @@ describe('connected to broker', () => {
 
     const newMessages = []
 
-    console.info('waiting for stream messages')
+    service.log.debug('waiting for stream messages')
 
     for await (const incommingMessage of consumerStream) {
       const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]

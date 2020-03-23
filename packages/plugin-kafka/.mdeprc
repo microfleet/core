@@ -4,7 +4,7 @@
   "auto_compose": true,
   "node": "12",
   "parallel": 1,
-  "test_framework": "jest --config ./jest.config.js --runTestsByPath",
+  "test_framework": "jest --config ./jest.config.js --runTestsByPath --runInBand",
   "tests": "__tests__/**/*.spec.ts",
   "arbitrary_exec": ["node scripts/rebuild-kafka.js"],
   "sleep": 10,

@@ -3,7 +3,7 @@ import * as assert from 'assert'
 import { once } from 'events'
 import { KafkaConsumer, KafkaConsumerStream, ConsumerStreamOptions, ConsumerStreamMessage } from './rdkafka-extra'
 import { TopicPartition, CODES as KafkaCodes } from 'node-rdkafka'
-import { find, pick } from 'lodash'
+import { find } from 'lodash'
 import { map } from 'bluebird'
 import { LoggerPlugin } from '@microfleet/core'
 
@@ -37,6 +37,7 @@ export class ConsumerStream extends Readable {
   private unacknowledgedTracker: CommitOffsetTracker
   private log?: LoggerPlugin['log']
   private looping: boolean
+  private autoStore: boolean
 
   /**
    * @param consumer Connected kafka consumer
@@ -54,6 +55,7 @@ export class ConsumerStream extends Readable {
     this.offsetTracker = Object.create(null)
     this.unacknowledgedTracker = Object.create(null)
     this.consumer = consumer as KafkaConsumer
+    this.autoStore = config['enable.auto.offset.store'] !== false
 
     this.consumer.on('rebalance', (err: KafkaError, assignments: TopicPartition[] = []) => {
       // so that .assign / .unassign is triggered before we react to the event
@@ -86,6 +88,7 @@ export class ConsumerStream extends Readable {
       this.log?.debug({ err, partitions }, 'offset.commit')
 
       if (err) {
+        this.log?.warn({ err }, 'commit error')
         this.emit('offset.commit.error', err)
         return
       }
@@ -109,44 +112,60 @@ export class ConsumerStream extends Readable {
       this.emit('error', err)
     })
 
+    // NOTE: end vs close?
     this.consumerStream.once('close', () => {
+      this.log?.debug('received close: closing stream')
       this.push(null)
     })
 
+    this.consumerStream.consumer.on('data', (message: ConsumerStreamMessage) => {
+      this.log?.debug({ message }, 'low-level message')
+    })
+
+    const { streamAsBatch } = config
     this.consumerStream.on('data', (messages: ConsumerStreamMessage[]) => {
       let needsToPause = false
+      const { unacknowledgedTracker, offsetTracker, autoStore } = this
 
-      // records the last message to be received with its offset
-      const topicPartition: TopicPartition = pick(messages[messages.length - 1], ['topic', 'partition', 'offset'])
-      this.updatePartitionOffsets([topicPartition], this.unacknowledgedTracker)
+      for (const message of messages) {
+        const topicPartition = {
+          topic: message.topic,
+          partition: message.partition,
+          offset: message.offset + 1,
+        }
 
-      if (config.streamAsBatch) {
-        needsToPause = !this.push(messages)
-      } else {
-        // push 1 by 1
-        for (const message of messages) {
+        this.updatePartitionOffsets([topicPartition], unacknowledgedTracker)
+
+        if (autoStore) {
+          consumer.offsetsStore([topicPartition])
+        }
+
+        if (!streamAsBatch) {
           if (!this.push(message)) {
             needsToPause = true
           }
         }
       }
 
+      if (streamAsBatch) {
+        needsToPause = !this.push(messages)
+      }
+
+      this.log?.debug({ messages }, 'received messages')
+      this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'current tracker')
+
       if (needsToPause) {
+        this.log?.debug('pausing stream')
         this.consumerStream.pause()
       }
     })
-
-    // each ack verify that we still have messages to consume
-    // this.on(EVENT_ACK, () => {
-
-    // })
 
     this.consumerStream.pause()
   }
 
   async _read(): Promise<void> {
     if (this.consumerStream.messages.length > 0) {
-      this.log?.debug('consuming stream')
+      this.log?.debug('consuming stream, messages buffered')
       this.consumerStream.resume()
       return
     }
@@ -181,6 +200,7 @@ export class ConsumerStream extends Readable {
       this.destroy(err)
     } finally {
       this.looping = false
+      this.log?.debug('setting looping to false')
     }
   }
 
@@ -271,64 +291,51 @@ export class ConsumerStream extends Readable {
    * to the broker
    */
   private hasOutstandingAcks(): boolean {
-    for (const partition of Object.values(this.offsetTracker)) {
+    const { offsetTracker, unacknowledgedTracker } = this
+
+    for (const partition of Object.values(offsetTracker)) {
       if (partition == null) {
         continue
       }
 
       const trackerKey = ConsumerStream.trackingKey(partition)
-      const latestMessage = this.unacknowledgedTracker[trackerKey]
+      const latestMessage = unacknowledgedTracker[trackerKey]
       if (latestMessage == null) {
         continue
       }
 
-      // if there is no offset - it means we havent had any commits yet (case 1)
-      // otherwise we verify whether latest commit matches latest received
-      if (typeof partition.offset !== 'number' || latestMessage.offset !== partition.offset - 1) {
-        this.log?.debug({ offsetTracker: this.offsetTracker, unacknowledgedTracker: this.unacknowledgedTracker }, 'hasOutstandingAcks: true')
+      // if we haven't consumed messages from wrapped stream,
+      // but ack has already kicked in - we are not waiting for
+      // acks yet
+      if (latestMessage.offset == null) {
+        continue
+      }
+
+      // 1. if we already have offsets in the latest message - need to wait for accks
+      // 2. latest message offset must be smaller, or we need to wait for acks
+      if (partition.offset == null || latestMessage.offset > partition.offset) {
+        this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'hasOutstandingAcks: true')
         return true
       }
     }
 
-    this.log?.debug({ offsetTracker: this.offsetTracker, unacknowledgedTracker: this.unacknowledgedTracker }, 'hasOutstandingAcks: false')
+    this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'hasOutstandingAcks: false')
     return false
   }
 
   /**
    * Gets consumer assigned partitions positions from local cache
    * If no position available, queries Broker and stores for further reuse
+   * `position` is currently fetched offset, it may not be commited yet
    */
   private async getPositions(assignments: TopicPartition[]): Promise<TopicPartition[]> {
-    const missing: TopicPartition[] = []
-    const final: TopicPartition[] = []
-    const localPositions: TopicPartition[] = this.consumer.position(assignments)
-
-    for (const position of localPositions) {
-      if (position.offset) {
-        final.push(position)
-        continue
-      }
-
-      const trackedPosition = this.offsetTracker[ConsumerStream.trackingKey(position)]
-      if (trackedPosition != null && trackedPosition.offset) {
-        final.push(trackedPosition)
-        continue
-      }
-
-      missing.push(position)
+    const commitedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
+    for (const offset of commitedOffsets) {
+      this.offsetTracker[ConsumerStream.trackingKey(offset)] = offset
     }
 
-    if (missing.length > 0) {
-      const commitedOffsets = await this.consumer.committedAsync(missing, this.offsetQueryTimeout)
-      for (const offset of commitedOffsets) {
-        this.offsetTracker[ConsumerStream.trackingKey(offset)] = offset
-        final.push(offset)
-      }
-    }
-
-    this.log?.debug({ localPositions, final, missing }, 'positions')
-
-    return final
+    this.log?.debug({ commitedOffsets }, 'positions')
+    return commitedOffsets
   }
 
   private updatePartitionOffsets(partitions: TopicPartition[], set: CommitOffsetTracker): void {

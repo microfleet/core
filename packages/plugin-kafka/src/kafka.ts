@@ -79,7 +79,11 @@ export class KafkaFactory {
       ...opts.conf,
       offset_commit_cb: opts.conf?.offset_commit_cb || true,
       rebalance_cb: opts.conf?.rebalance_cb || true,
+      'enable.auto.offset.store': false,
     }
+
+    // pass on original value
+    opts.streamOptions['enable.auto.offset.store'] = opts.conf?.['enable.auto.offset.store']
 
     const consumerTopicConfig: ConsumerStreamConfig['topicConf'] = { ...opts.topicConf }
     const consumer = this.createClient(KafkaConsumer, consumerConfig, consumerTopicConfig)
@@ -165,7 +169,7 @@ export class KafkaFactory {
     })
 
     client.on('event.error', (err: Error) => {
-      log.error({ ...meta, err }, 'kafka client error')
+      log.warn({ ...meta, err }, 'kafka client error')
     })
   }
 }

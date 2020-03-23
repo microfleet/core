@@ -51,7 +51,7 @@ declare module 'node-rdkafka' {
   export interface TopicPartition {
     topic: string
     partition: number
-    offset?: number | string
+    offset?: number
   }
 
   /**
@@ -79,6 +79,7 @@ declare module 'node-rdkafka' {
     stopOnPartitionsEOF?: boolean;
     offsetQueryTimeout?: number;
     connectOptions?: ConnectOptions;
+    'enable.auto.offset.store'?: boolean;
   }
 
   /**

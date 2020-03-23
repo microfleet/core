@@ -67,7 +67,8 @@ export async function createConsumerStream(
     } as ConsumerStreamConfig),
     extraConfig
   )
-  console.debug('CREATE CONSUMER', config)
+
+  service.log.debug({ config }, 'CREATE CONSUMER')
   return kafka.createConsumerStream(config)
 }
 

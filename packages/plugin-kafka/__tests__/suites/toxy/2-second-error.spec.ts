@@ -56,21 +56,24 @@ describe('toxified-2seconds', () => {
       },
       conf: {
         'group.id': 'toxified-no-commit-consumer',
-      },
-      topicConf: {
         'enable.auto.commit': false,
       },
     })
 
     // yes it should be executed parallel
-    await delay(2000)
-    await setProxyEnabled(true)
+    await Promise.all([
+      delay(2000),
+      setProxyEnabled(true),
+    ])
+
     const msgs = await sendMessages(producer, topic, 1)
     sentMessages.push(...msgs)
 
     let blockedOnce = false
 
     const simOne = async () => {
+      service.log.debug('initiating read')
+
       for await (const incommingMessage of consumerStream) {
         const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
         receivedMessages.push(...messages)
