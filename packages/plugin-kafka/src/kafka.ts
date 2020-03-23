@@ -119,11 +119,11 @@ export class KafkaFactory {
   }
 
   private createStream<T extends KafkaStream, U>(
-    streamClass: new (c: U, o: StreamOptions<T>) => T,
+    streamClass: new (c: U, o: StreamOptions<T>, log?: LoggerPlugin['log']) => T,
     client: U,
     opts: StreamOptions<T>
   ): T {
-    const stream = new streamClass(client, opts)
+    const stream = new streamClass(client, opts, this.service.log)
     const { streams, service: { log } } = this
 
     streams.add(stream)

@@ -142,7 +142,7 @@ describe('conn-track', () => {
 
 })
 
-describe.only('connected to broker', () => {
+describe('connected to broker', () => {
   test('consume/produce noAutoCommit manualOffetStore', async () => {
     const topic = 'test-no-auto-commit-manual-offset-store'
 
@@ -231,7 +231,7 @@ describe.only('connected to broker', () => {
     expect(receivedMessages).toHaveLength(sentMessages.length)
   })
 
-  test.only('consume/produce autoCommit manualOffsetStore', async () => {
+  test('consume/produce autoCommit manualOffsetStore', async () => {
     const topic = 'test-auto-commit-manual-offset-store'
 
     producer = await createProducerStream(service)
@@ -254,9 +254,7 @@ describe.only('connected to broker', () => {
       const messages: ConsumerStreamMessage[] = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
       receivedMessages.push(...messages)
 
-      for (const { topic, partition, offset } of messages) {
-        console.info('storing %j', { topic, partition, offset })
-
+      for (const { partition, offset } of messages) {
         // https://github.com/edenhill/librdkafka/blob/b1b511dd1116788b301d0487594263b686c56c59/src/rdkafka_op.c#L747
         // we need to store latest message offset + 1
         consumerStream.consumer.offsetsStore([{

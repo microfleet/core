@@ -37,6 +37,6 @@ All current Kafka distros have `auto.create.topics.enable` option set to `True` 
 * `librdkafka` automatically reconnects on transport failure. If there's data left in buffers, it tries to retransmit data. `node-rdkafka` will receive errors only after all retry attempts failed or timeout reached.
 * All Produced messages are accumulated inside `librdkafka`'s buffer and sent to the Broker in batches, on successful delivery `delivery-report` event is emitted for each of the messages from `node-rdkafka`. This works for `offsetCommit` message too.
 * Messages from topic could be fetched one by one or in batches with specific intervals.
-* If `auto.commit.enable` set to false, you should commit offset manually otherwise `librdkafka` will commit offsets in some intervals.
+* If `enable.auto.commit` set to false, you should commit offset manually otherwise `librdkafka` will commit offsets in some intervals.
 
 

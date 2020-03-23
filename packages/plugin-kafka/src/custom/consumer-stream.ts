@@ -2,12 +2,23 @@ import { Readable } from 'readable-stream'
 import * as assert from 'assert'
 import { once } from 'events'
 import { KafkaConsumer, KafkaConsumerStream, ConsumerStreamOptions, ConsumerStreamMessage } from './rdkafka-extra'
-import { TopicPartition } from 'node-rdkafka'
+import { TopicPartition, CODES as KafkaCodes } from 'node-rdkafka'
 import { find, pick } from 'lodash'
+import { map } from 'bluebird'
+import { LoggerPlugin } from '@microfleet/core'
 
 export interface CommitOffsetTracker {
   [topicNamePartition: string]: TopicPartition | null | undefined
 }
+
+const { ERRORS: KafkaErrorCodes } = KafkaCodes
+const { ERR__ASSIGN_PARTITIONS, ERR__REVOKE_PARTITIONS } = KafkaErrorCodes
+
+export type KafkaError = Error & {
+  code: number
+}
+
+export const EVENT_ACK = 'acknowledged'
 
 /**
  * Helps to read data from Kafka topic.
@@ -24,42 +35,55 @@ export class ConsumerStream extends Readable {
   private offsetQueryTimeout: number
   private offsetTracker: CommitOffsetTracker
   private unacknowledgedTracker: CommitOffsetTracker
+  private log?: LoggerPlugin['log']
+  private looping: boolean
 
   /**
    * @param consumer Connected kafka consumer
    * @param config Topic configuration
    */
-  constructor(consumer: KafkaConsumer, config: ConsumerStreamOptions) {
+  constructor(consumer: KafkaConsumer, config: ConsumerStreamOptions, log?: LoggerPlugin['log']) {
     assert(consumer.isConnected(), 'consumer should be connected')
     assert(consumer instanceof KafkaConsumer, 'should be intance of KafkaConsumer')
 
     super({ objectMode: true, highWaterMark: (config.fetchSize || 0) + 2 })
 
+    this.log = log
+    this.looping = false
     this.offsetQueryTimeout = config.offsetQueryTimeout || 200
     this.offsetTracker = Object.create(null)
     this.unacknowledgedTracker = Object.create(null)
     this.consumer = consumer as KafkaConsumer
 
-    this.consumer.on('rebalance', (err: Error, assignments?: TopicPartition[]) => {
-      console.info('rebalance', err, assignments)
+    this.consumer.on('rebalance', (err: KafkaError, assignments: TopicPartition[] = []) => {
+      // so that .assign / .unassign is triggered before we react to the event
+      process.nextTick(() => {
+        this.log?.info({ err, assignments }, 'rebalance')
 
-      if (err) {
-        this.emit('rebalance.error', err)
-      }
+        switch (err.code) {
+          case ERR__ASSIGN_PARTITIONS:
+            this.updatePartitionOffsets(assignments, this.offsetTracker)
+            break
 
-      if (assignments) {
-        this.offsetTracker = Object.create(null)
-        this.updatePartitionOffsets(assignments, this.offsetTracker)
-      }
+          case ERR__REVOKE_PARTITIONS:
+            this.cleanPartitionOffsets(assignments, this.offsetTracker)
+            this.cleanPartitionOffsets(assignments, this.unacknowledgedTracker)
+            break
 
-      // TODO: could be wrong to verify here -- need tests
-      if (!this.hasOutstandingAcks()) {
-        this.emit('acknowledged')
-      }
+          default:
+            this.emit('rebalance.error', err)
+            return
+        }
+
+        if (!this.hasOutstandingAcks()) {
+          this.log?.info('rebalance +ack')
+          this.emit(EVENT_ACK)
+        }
+      })
     })
 
     this.consumer.on('offset.commit', (err: Error, partitions: TopicPartition[]) => {
-      console.info('offset.commit', err, partitions)
+      this.log?.debug({ err, partitions }, 'offset.commit')
 
       if (err) {
         this.emit('offset.commit.error', err)
@@ -70,7 +94,8 @@ export class ConsumerStream extends Readable {
 
       // once all acks were processed - be done with it
       if (!this.hasOutstandingAcks()) {
-        this.emit('acknowledged')
+        this.log?.info('commit +ack')
+        this.emit(EVENT_ACK)
       }
     })
 
@@ -80,6 +105,7 @@ export class ConsumerStream extends Readable {
     })
 
     this.consumerStream.on('error', (err) => {
+      this.log?.debug({ err }, 'consumerStream error')
       this.emit('error', err)
     })
 
@@ -110,30 +136,51 @@ export class ConsumerStream extends Readable {
       }
     })
 
+    // each ack verify that we still have messages to consume
+    // this.on(EVENT_ACK, () => {
+
+    // })
+
     this.consumerStream.pause()
   }
 
   async _read(): Promise<void> {
     if (this.consumerStream.messages.length > 0) {
+      this.log?.debug('consuming stream')
       this.consumerStream.resume()
       return
     }
 
+    if (this.looping) {
+      this.log?.debug('looping - return')
+      return
+    }
+
     try {
+      this.looping = true
+
       if (this.hasOutstandingAcks()) {
-        await once(this, 'acknowledged')
+        this.log?.debug('waiting for ack')
+        await once(this, EVENT_ACK)
       }
 
+      this.log?.debug('checking eof')
       const eof = await this.allMessagesRead()
+      this.log?.debug({ eof }, 'eof return')
 
       if (!eof) {
+        this.log?.debug('no eof - consuming stream')
         this.consumerStream.resume()
         return
       }
 
+      this.log?.debug('eof reached - closing')
       await this.closeAsync()
-    } catch (e) {
-      this.destroy(e)
+    } catch (err) {
+      this.log?.error({ err }, 'fatal err - destroying stream')
+      this.destroy(err)
+    } finally {
+      this.looping = false
     }
   }
 
@@ -172,34 +219,49 @@ export class ConsumerStream extends Readable {
    * @param operationTimeout KafkaClient.committed and KafkaClient.queryWatermarkOffsets timeout
    */
   public async allMessagesRead(): Promise<boolean> {
-    const { consumer } = this
-    const assignments = consumer.assignments()
+    const { consumer, destroyed } = this
+
+    // to avoid chain-calls when we are done
+    if (destroyed) {
+      this.log?.debug('destroyed')
+      return true
+    }
+
+    const assignments: TopicPartition[] = consumer.assignments()
 
     // consumer didn't received assignment
     // this happens when consumer count greater than partition count
     // or Kafka rebalance in progress
     if (assignments.length === 0) {
-      return false
+      this.log?.debug('no assignments')
+      await once(this, EVENT_ACK)
+      return this.allMessagesRead()
     }
 
     const localPositions = await this.getPositions(assignments)
-    const localOffsets = assignments.map(
-      (assignment: TopicPartition) => ({
-        ...{
-          topic: assignment.topic,
-          partition: assignment.partition,
-        },
-        ...consumer.getWatermarkOffsets(assignment.topic, assignment.partition),
-      })
-    )
+    const remoteOffsets = await map(assignments, async ({ topic, partition }) => {
+      const offsets = await consumer.queryWatermarkOffsetsAsync(topic, partition, this.offsetQueryTimeout)
 
-    console.info('local offsets: %j', localOffsets)
+      return {
+        topic,
+        partition,
+        ...offsets,
+      }
+    })
 
-    const partitionStatus = localOffsets.map((offsetInfo: any) => {
+    const partitionStatus = remoteOffsets.map((offsetInfo: any) => {
       const { highOffset, topic, partition } = offsetInfo
+
+      // if no high offset - means no message
+      if (highOffset < 0) {
+        return true
+      }
+
       const localPosition = find(localPositions, { topic, partition })
       return localPosition ? highOffset === localPosition.offset : false
     })
+
+    this.log?.debug({ assignments, localPositions, remoteOffsets, partitionStatus }, 'verifying positions')
 
     return !partitionStatus.includes(false)
   }
@@ -220,12 +282,15 @@ export class ConsumerStream extends Readable {
         continue
       }
 
-      if (latestMessage.offset !== partition.offset) {
-        console.info('verify outstanding acks %j vs %j', latestMessage, partition)
+      // if there is no offset - it means we havent had any commits yet (case 1)
+      // otherwise we verify whether latest commit matches latest received
+      if (typeof partition.offset !== 'number' || latestMessage.offset !== partition.offset - 1) {
+        this.log?.debug({ offsetTracker: this.offsetTracker, unacknowledgedTracker: this.unacknowledgedTracker }, 'hasOutstandingAcks: true')
         return true
       }
     }
 
+    this.log?.debug({ offsetTracker: this.offsetTracker, unacknowledgedTracker: this.unacknowledgedTracker }, 'hasOutstandingAcks: false')
     return false
   }
 
@@ -245,7 +310,7 @@ export class ConsumerStream extends Readable {
       }
 
       const trackedPosition = this.offsetTracker[ConsumerStream.trackingKey(position)]
-      if (trackedPosition != null) {
+      if (trackedPosition != null && trackedPosition.offset) {
         final.push(trackedPosition)
         continue
       }
@@ -261,12 +326,20 @@ export class ConsumerStream extends Readable {
       }
     }
 
+    this.log?.debug({ localPositions, final, missing }, 'positions')
+
     return final
   }
 
   private updatePartitionOffsets(partitions: TopicPartition[], set: CommitOffsetTracker): void {
     for (const topicPartition of partitions) {
       set[ConsumerStream.trackingKey(topicPartition)] = topicPartition
+    }
+  }
+
+  private cleanPartitionOffsets(partitions: TopicPartition[], set: CommitOffsetTracker): void {
+    for (const topicPartition of partitions) {
+      set[ConsumerStream.trackingKey(topicPartition)] = undefined
     }
   }
 }

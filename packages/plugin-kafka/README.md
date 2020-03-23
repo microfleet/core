@@ -62,12 +62,12 @@ consumerStream = await service.kafka.createConsumerStream({
   streamOptions: { topics: topic, streamAsBatch: true, fetchSize: 10 },
   conf: {
     debug: 'consumer',
-    'auto.commit.enable': false,
+    'enable.auto.commit': false,
     'client.id': 'someid',
     'group.id': 'other-group',
   },
   topic: {
-    'auto.offset.reset': 'earliest',
+    'auto.offset.reset': 'largest', // in case with earliest it ignores commited vfalues
   }
 )
 
