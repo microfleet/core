@@ -12,20 +12,21 @@ import {
   KafkaProducerStream,
   ConsumerStreamMessage,
   Client as KafkaClient,
-  TopicConfig,
-  ProducerStreamOptions,
-  ConsumerStreamOptions,
-  GlobalConfig,
-  ConsumerGlobalConfig,
-  ConsumerTopicConfig,
-  ProducerGlobalConfig,
-  ProducerTopicConfig,
+  ProducerStream,
 } from './custom/rdkafka-extra'
+
+import {
+  TopicConfig,
+  GlobalConfig,
+  ConsumerStreamConfig,
+  ProducerStreamConfig,
+  ConsumerStreamOptions,
+  ProducerStreamOptions,
+} from '@microfleet/plugin-kafka-types'
 
 import { getLogFnName, topicExists } from './util'
 import { ConsumerStream as KafkaConsumerStream } from './custom/consumer-stream'
 
-export * from './types'
 export { KafkaConsumer, KafkaProducerStream, KafkaConsumerStream, ConsumerStreamMessage }
 
 /**
@@ -39,20 +40,9 @@ export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError
   args: ['message', 'topics'],
 })
 
-export interface KafkaStreamOpts<T, U extends TopicConfig, Z extends GlobalConfig> {
-  streamOptions: T,
-  conf?: Z,
-  topicConf?: U
-}
+export * from '@microfleet/plugin-kafka-types'
 
-export type ConsumerStreamConfig = KafkaStreamOpts<ConsumerStreamOptions, ConsumerTopicConfig, ConsumerGlobalConfig>
-export type ProducerStreamConfig = KafkaStreamOpts<ProducerStreamOptions, ProducerTopicConfig, ProducerGlobalConfig>
-
-export interface KafkaPlugin {
-  kafka: KafkaFactory
-}
-
-export type KafkaStream = KafkaConsumerStream | typeof KafkaProducerStream
+export type KafkaStream = typeof KafkaProducerStream | KafkaConsumerStream
 export type StreamOptions<T> =
   T extends KafkaConsumerStream
     ? ConsumerStreamOptions
@@ -100,7 +90,7 @@ export class KafkaFactory {
     return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions)
   }
 
-  async createProducerStream(opts: ProducerStreamConfig): Promise<typeof KafkaProducerStream> {
+  async createProducerStream(opts: ProducerStreamConfig): Promise<ProducerStream> {
     const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
 
     this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })

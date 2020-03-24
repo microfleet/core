@@ -1,23 +1,81 @@
-import { Readable, Writable } from 'stream'
-import * as kafka from 'node-rdkafka'
-
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
+import * as kafka from 'node-rdkafka'
+import { Microfleet } from '@microfleet/core'
+import { KafkaFactory } from '@microfleet/plugin-kafka'
+
+declare module '@microfleet/core' {
+  export interface Microfleet {
+    kafka: KafkaFactory
+  }
+}
+
+export interface KafkaStreamOpts<T, U extends kafka.TopicConfig, Z extends kafka.GlobalConfig> {
+  streamOptions: T,
+  conf?: Z,
+  topicConf?: U
+}
+
+export type ConsumerStreamConfig = KafkaStreamOpts<ConsumerStreamOptions, kafka.ConsumerTopicConfig, kafka.ConsumerGlobalConfig>
+export type ProducerStreamConfig = KafkaStreamOpts<ProducerStreamOptions, kafka.ProducerTopicConfig, kafka.ProducerGlobalConfig>
+
+/**
+ * Arguments passed to the `KafkaConsumer.connect` method
+ */
+export type ConnectOptions = {
+  allTopics?: boolean;
+  timeout?: number;
+  topic?: string | string[] | ((metadata: kafka.Metadata) => string[]);
+}
+
+/**
+ * Configuration for the ConsumerStream.
+ * @property topics Topics to listen.
+ * @property waitInterval Milliseconds to wait between `KafkaConsumer.consume` calls.
+ * @property streamAsBatch If true 'data' emitted with array of messages.
+ * @property stopOnPartitionsEOF If true stream will exit when all assigned partitions reached last offsets.
+ * @property offsetQueryTimeout If timeout for fetching consumer offsets from Kafka.
+ */
+export type ConsumerStreamOptions = {
+  topics?: string | string[] | undefined;
+  waitInterval?: number;
+  fetchSize?: number;
+  streamAsBatch?: boolean;
+  stopOnPartitionsEOF?: boolean;
+  offsetQueryTimeout?: number;
+  connectOptions?: ConnectOptions;
+  'enable.auto.offset.store'?: boolean;
+}
+
+/**
+ * @property pollInterval Milliseconds to wait between Kafka polls.
+ * @property topic Target topic name. Should be set when `objectMode` === true.
+ */
+export type ProducerStreamOptions = {
+  pollInterval?: number;
+  autoClose?: boolean;
+  objectMode?: boolean;
+  topic?: string;
+  connectOptions?: ConnectOptions;
+}
+
+export { TopicConfig, GlobalConfig } from 'node-rdkafka'
+
 declare module 'node-rdkafka' {
   export interface ProducerStream {
-    new (producer: kafka.Producer, conf: ProducerStreamOptions)
+    new (producer: Producer, conf: ProducerStreamOptions): ProducerStream
     writeAsync(chunk: any, encoding?: string): Promise<void>
     writeAsync(chunk: any): Promise<void>
     closeAsync(): Promise<void>
   }
 
   export interface ConsumerStream {
-    messages: kafka.ConsumerStreamMessage[]
-    new (consumer: kafka.KafkaConsumer, conf: ConsumerStreamOptions)
+    messages: ConsumerStreamMessage[]
+    new (consumer: kafka.KafkaConsumer, conf: ConsumerStreamOptions): ConsumerStream
     closeAsync(): Promise<void>
   }
 
-  export interface Client extends EventEmitter {
-    new (globalConf: GlobalConfig, SubClientType: any, topicConf: TopicConfig)
+  export interface Client {
+    new (globalConf: GlobalConfig, SubClientType: any, topicConf: TopicConfig) : Client
 
     connectAsync(metadataOptions: ConnectOptions): Promise<Metadata>
     disconnectAsync(): Promise<this>
@@ -37,15 +95,15 @@ declare module 'node-rdkafka' {
     code: number
   }
 
-  export interface KafkaConsumer extends Client {
-    new (conf: ConsumerGlobalConfig, topicConf: ConsumerTopicConfig)
+  export interface KafkaConsumer {
+    new (conf: ConsumerGlobalConfig, topicConf: ConsumerTopicConfig) : KafkaConsumer
 
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/kafka-consumer.js#L176
     committedAsync(toppars: any, timeout: any): Promise<TopicPartition[]>
   }
 
-  export interface Producer extends Client {
-    new (conf: ProducerGlobalConfig, topicConf ?: ProducerTopicConfig)
+  export interface Producer {
+    new (conf: ProducerGlobalConfig, topicConf ?: ProducerTopicConfig): Producer
   }
 
   export interface TopicPartition {
@@ -54,45 +112,6 @@ declare module 'node-rdkafka' {
     offset?: number
   }
 
-  /**
-   * Arguments passed to the `KafkaConsumer.connect` method
-   */
-  export type ConnectOptions = {
-    allTopics?: boolean;
-    timeout?: number;
-    topic?: string | string[] | ((metadata: Metadata) => string[]);
-  }
-
-  /**
-   * Configuration for the ConsumerStream.
-   * @property topics Topics to listen.
-   * @property waitInterval Milliseconds to wait between `KafkaConsumer.consume` calls.
-   * @property streamAsBatch If true 'data' emitted with array of messages.
-   * @property stopOnPartitionsEOF If true stream will exit when all assigned partitions reached last offsets.
-   * @property offsetQueryTimeout If timeout for fetching consumer offsets from Kafka.
-   */
-  export type ConsumerStreamOptions = {
-    topics: string | string[] | undefined;
-    waitInterval?: number;
-    fetchSize?: number;
-    streamAsBatch?: boolean;
-    stopOnPartitionsEOF?: boolean;
-    offsetQueryTimeout?: number;
-    connectOptions?: ConnectOptions;
-    'enable.auto.offset.store'?: boolean;
-  }
-
-  /**
-   * @property pollInterval Milliseconds to wait between Kafka polls.
-   * @property topic Target topic name. Should be set when `objectMode` === true.
-   */
-  export type ProducerStreamOptions = {
-    pollInterval?: number;
-    autoClose?: boolean;
-    objectMode?: boolean;
-    topic?: string;
-    connectOptions?: ConnectOptions;
-  }
 
   // Types for objects returned from `node-rdkafka`
   export type BrokerInfo = {

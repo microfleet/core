@@ -28,10 +28,11 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "~16.x.x"
+    "@microfleet/core": "~17.x.x"
   },
   "dependencies": {
     "@microfleet/core": "^17.2.0",
+    "@microfleet/plugin-kafka-types": "^1.0.0",
     "bluebird": "^3.7.2",
     "log-update": "^4.0.0",
     "node-rdkafka": "^2.7.4",

@@ -33,6 +33,7 @@ export async function createProducerStream(
   extraConfig?: ProducerStreamConfig
 ): Promise<typeof KafkaProducerStream> {
   const { kafka } = service
+
   const config = defaultsDeep(
     {
       streamOptions: { objectMode: true, pollInterval: 1 },
@@ -42,6 +43,7 @@ export async function createProducerStream(
     },
     extraConfig
   )
+
   return kafka.createProducerStream(config)
 }
 

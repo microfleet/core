@@ -1,11 +1,14 @@
 import { Readable } from 'readable-stream'
 import * as assert from 'assert'
 import { once } from 'events'
-import { KafkaConsumer, KafkaConsumerStream, ConsumerStreamOptions, ConsumerStreamMessage } from './rdkafka-extra'
-import { TopicPartition, CODES as KafkaCodes } from 'node-rdkafka'
 import { find } from 'lodash'
 import { map } from 'bluebird'
+
+import { TopicPartition, CODES as KafkaCodes } from 'node-rdkafka'
 import { LoggerPlugin } from '@microfleet/core'
+import { ConsumerStreamOptions } from '@microfleet/plugin-kafka-types'
+
+import { KafkaConsumer, KafkaConsumerStream, ConsumerStreamMessage } from './rdkafka-extra'
 
 export interface CommitOffsetTracker {
   [topicNamePartition: string]: TopicPartition | null | undefined

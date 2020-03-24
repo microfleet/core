@@ -18,8 +18,8 @@ export * from 'node-rdkafka'
  * https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
  * But but we want to create Producer or Consumer before streams
  */
-export const KafkaProducerStream: ProducerStream = require('node-rdkafka/lib/producer-stream') as ProducerStream
-export const KafkaConsumerStream: ConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream') as ConsumerStream
+export const KafkaProducerStream: ProducerStream = require('node-rdkafka/lib/producer-stream')
+export const KafkaConsumerStream: ConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
 
 promisifyAll(KafkaProducerStream.prototype)
 promisifyAll(KafkaConsumerStream.prototype)
