@@ -75,7 +75,10 @@ export async function createConsumerStream(
 // we must wait for message delivery
 // otherwise we will try to create consumer,
 // but there will be no available topic metadata in Kafka
-export async function sendMessages(targetProducer: typeof KafkaProducerStream, topic: string, count = 10): Promise<any[]> {
+export async function sendMessages(
+  targetProducer: typeof KafkaProducerStream,
+  topic: string, count = 10
+): Promise<any[]> {
   const messageIterable = getMessageIterable(count)
 
   for await (const message of messageIterable.messagesToSend(topic)) {

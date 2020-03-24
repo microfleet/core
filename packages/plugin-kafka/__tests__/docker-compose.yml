@@ -15,16 +15,25 @@ services:
       - zookeeper
     expose:
       - "9092"
+      - "29092"
+      - "39092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_HOSTNAME: kafka
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+      KAFKA_LISTENERS: 'ALWAYSENABLED://kafka:9092, PROXIFIED://kafka:29092, PROXIFIED2://kafka:39092'
+      KAFKA_ADVERTISED_LISTENERS: 'ALWAYSENABLED://kafka:9092,PROXIFIED://kafka:29092, PROXIFIED2://kafka:39092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'ALWAYSENABLED:PLAINTEXT,PROXIFIED:PLAINTEXT,PROXIFIED2:PLAINTEXT'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'ALWAYSENABLED'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
   toxy:
     image: shopify/toxiproxy
+    expose:
+      - "9092"
+      - "29092"
+      - "39092"
     ports:
       - "8474:8474"
     volumes:

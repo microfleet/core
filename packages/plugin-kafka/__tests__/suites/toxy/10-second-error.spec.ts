@@ -18,7 +18,7 @@ beforeEach(async () => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
-      'metadata.broker.list': 'kafka:9092',
+      'metadata.broker.list': 'kafka:29092',
       'group.id': 'test-group',
       'fetch.wait.max.ms': 50,
     },
@@ -65,7 +65,7 @@ describe('toxified', () => {
     })
 
     // yes it should be executed parallel
-    delay(10000)
+    delay(12000)
       .then(() => setProxyEnabled(true))
       .then(() => sendMessages(producer, topic, 1))
       .then((msgs) => {
@@ -86,9 +86,10 @@ describe('toxified', () => {
       consumerStream.consumer.commitMessage(messages.pop())
     }
 
-    // expect(receivedMessages).toHaveLength(sentMessages.length * 2)
+    service.log.debug('end of the first read sequence')
+    await consumerStream.closeAsync()
 
-    // await consumerStream.closeAsync()
+    service.log.debug('start the second read sequence')
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -105,6 +106,7 @@ describe('toxified', () => {
     for await (const incommingMessage of consumerStream) {
       const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
       newMessages.push(...messages)
+      consumerStream.consumer.commitMessage(messages.pop())
     }
 
     expect(newMessages).toHaveLength(sentMessages.length + 1)

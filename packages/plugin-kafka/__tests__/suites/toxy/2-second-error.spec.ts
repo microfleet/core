@@ -18,7 +18,7 @@ beforeEach(async () => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
-      'metadata.broker.list': 'kafka:9092',
+      'metadata.broker.list': 'kafka:39092',
       'group.id': 'test-group',
       'fetch.wait.max.ms': 50,
     },
@@ -32,7 +32,7 @@ afterEach(async () => {
 const toxiproxy = new Toxiproxy('http://toxy:8474')
 
 const setProxyEnabled = async (enabled: boolean) => {
-  const proxy = await toxiproxy.get('kafka-proxy')
+  const proxy = await toxiproxy.get('kafka-proxy-2s')
   proxy.enabled = enabled
   await proxy.update()
 }
@@ -89,7 +89,7 @@ describe('toxified-2seconds', () => {
 
     await expect(simOne()).rejects.toThrowError(/Local: Waiting for coordinator/)
 
-    expect(receivedMessages).toHaveLength(sentMessages.length)
+    expect(receivedMessages).toHaveLength(2)
   })
 })
 

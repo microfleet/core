@@ -72,7 +72,7 @@ declare module 'node-rdkafka' {
    * @property offsetQueryTimeout If timeout for fetching consumer offsets from Kafka.
    */
   export type ConsumerStreamOptions = {
-    topics: string | string[];
+    topics: string | string[] | undefined;
     waitInterval?: number;
     fetchSize?: number;
     streamAsBatch?: boolean;

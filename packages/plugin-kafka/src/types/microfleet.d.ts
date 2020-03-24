@@ -1,6 +1,9 @@
-import * as microfleet from '@microfleet/core'
-import { KafkaPlugin } from '../kafka'
+import { KafkaFactory } from '../kafka'
+import * as _ from '@microfleet/core'
 
 declare module '@microfleet/core' {
-  export interface Microfleet extends KafkaPlugin {}
+  export interface Microfleet {
+    kafka: KafkaFactory
+    some: string
+  }
 }

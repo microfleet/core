@@ -1,6 +1,18 @@
 [
   {
     "name": "kafka-proxy",
+    "listen": "0.0.0.0:29092",
+    "upstream": "kafka:29092",
+    "enabled": true
+  },
+  {
+    "name": "kafka-proxy-2s",
+    "listen": "0.0.0.0:39092",
+    "upstream": "kafka:39092",
+    "enabled": true
+  },
+  {
+    "name": "kafka-proxy-always-on",
     "listen": "0.0.0.0:9092",
     "upstream": "kafka:9092",
     "enabled": true

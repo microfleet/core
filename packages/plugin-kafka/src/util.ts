@@ -21,7 +21,7 @@ export function getLogFnName(level: number): string {
  * @param data - List of topics received on Client.connect
  * @param topics - Required topics
  */
-export function topicExists(data: TopicInfo[], topics: string | string[]): boolean {
+export function topicExists(data: TopicInfo[], topics: string | string[] | undefined): boolean {
   const topicList = Array.isArray(topics) ? topics : [topics]
   const filtered = data.filter(topic => topicList.includes(topic.name))
 

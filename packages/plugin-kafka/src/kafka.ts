@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import assert = require('assert')
 import { resolve } from 'path'
-import { NotFoundError } from 'common-errors'
+import { NotFoundError, helpers as ErrorHelpers } from 'common-errors'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
 import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import { map } from 'bluebird'
@@ -19,16 +19,14 @@ import {
   ConsumerGlobalConfig,
   ConsumerTopicConfig,
   ProducerGlobalConfig,
-  ProducerTopicConfig
+  ProducerTopicConfig,
 } from './custom/rdkafka-extra'
-
-import { TopicNotFoundError } from './types'
 
 import { getLogFnName, topicExists } from './util'
 import { ConsumerStream as KafkaConsumerStream } from './custom/consumer-stream'
 
+export * from './types'
 export { KafkaConsumer, KafkaProducerStream, KafkaConsumerStream, ConsumerStreamMessage }
-export { ProducerStreamOptions, ConsumerStreamOptions }
 
 /**
  * Relative priority inside the same plugin group type
@@ -36,6 +34,10 @@ export { ProducerStreamOptions, ConsumerStreamOptions }
 export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
+
+export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError', {
+  args: ['message', 'topics'],
+})
 
 export interface KafkaStreamOpts<T, U extends TopicConfig, Z extends GlobalConfig> {
   streamOptions: T,
