@@ -1,5 +1,5 @@
 import { Microfleet } from '@microfleet/core'
-import { defaultsDeep } from 'lodash'
+import { merge } from 'lodash'
 import { once } from 'events'
 
 import {
@@ -34,7 +34,7 @@ export async function createProducerStream(
 ): Promise<typeof KafkaProducerStream> {
   const { kafka } = service
 
-  const config = defaultsDeep(
+  const config = merge(
     {
       streamOptions: { objectMode: true, pollInterval: 1 },
       conf: {
@@ -52,7 +52,7 @@ export async function createConsumerStream(
   extraConfig: ConsumerStreamConfig
 ): Promise<KafkaConsumerStream> {
   const { kafka } = service
-  const config: ConsumerStreamConfig = defaultsDeep(
+  const config: ConsumerStreamConfig = merge(
     ({
       streamOptions: {
         streamAsBatch: true,
@@ -70,7 +70,7 @@ export async function createConsumerStream(
     extraConfig
   )
 
-  service.log.debug({ config }, 'CREATE CONSUMER')
+  service.log.debug({ config, extraConfig }, 'CREATE CONSUMER')
   return kafka.createConsumerStream(config)
 }
 

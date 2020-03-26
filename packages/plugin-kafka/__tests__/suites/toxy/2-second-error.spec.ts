@@ -48,11 +48,12 @@ describe('toxified-2seconds', () => {
 
     const receivedMessages: any[] = []
 
-    const sentMessages = await sendMessages(producer, topic, 1)
+    await sendMessages(producer, topic, 3)
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
         topics: topic,
+        streamAsBatch: false,
       },
       conf: {
         'group.id': 'toxified-no-commit-consumer',
@@ -60,20 +61,19 @@ describe('toxified-2seconds', () => {
       },
     })
 
+    consumerStream.on('error', (err) => {
+      expect(err).not.toBeDefined()
+    })
+
     // yes it should be executed parallel
     await Promise.all([
-      delay(2000),
+      delay(3000),
       setProxyEnabled(true),
     ])
-
-    const msgs = await sendMessages(producer, topic, 1)
-    sentMessages.push(...msgs)
 
     let blockedOnce = false
 
     const simOne = async () => {
-      service.log.debug('initiating read')
-
       for await (const incommingMessage of consumerStream) {
         const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
         receivedMessages.push(...messages)
@@ -82,14 +82,13 @@ describe('toxified-2seconds', () => {
           await setProxyEnabled(false)
           blockedOnce = true
         }
-
         consumerStream.consumer.commitMessageSync(messages.pop())
       }
     }
 
     await expect(simOne()).rejects.toThrowError(/Local: Waiting for coordinator/)
 
-    expect(receivedMessages).toHaveLength(2)
+    expect(receivedMessages).toHaveLength(1)
   })
 })
 

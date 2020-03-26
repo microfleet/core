@@ -20,7 +20,7 @@ beforeEach(() => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
-      'metadata.broker.list': 'kafka:9092',
+      'metadata.broker.list': 'kafka:9092,',
       'group.id': 'test-group',
       'fetch.wait.max.ms': 10,
     },

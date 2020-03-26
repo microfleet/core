@@ -70,7 +70,7 @@ declare module 'node-rdkafka' {
 
   export interface ConsumerStream {
     messages: ConsumerStreamMessage[]
-    new (consumer: kafka.KafkaConsumer, conf: ConsumerStreamOptions): ConsumerStream
+    new (consumer: kafka.KafkaConsumer, conf: ConsumerStreamOptions & { objectMode?: boolean }): ConsumerStream
     closeAsync(): Promise<void>
   }
 

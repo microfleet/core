@@ -53,7 +53,6 @@ describe('toxified', () => {
         topics: topic,
       },
       conf: {
-        debug: 'consumer,cgrp,topic',
         'group.id': 'toxified-no-commit-consumer',
         offset_commit_cb: true,
         'enable.auto.commit': false,
