@@ -15,8 +15,17 @@ export interface KafkaStreamOpts<T, U extends kafka.TopicConfig, Z extends kafka
   topicConf?: U
 }
 
-export type ConsumerStreamConfig = KafkaStreamOpts<ConsumerStreamOptions, kafka.ConsumerTopicConfig, kafka.ConsumerGlobalConfig>
-export type ProducerStreamConfig = KafkaStreamOpts<ProducerStreamOptions, kafka.ProducerTopicConfig, kafka.ProducerGlobalConfig>
+export type ConsumerStreamConfig = KafkaStreamOpts<
+  ConsumerStreamOptions,
+  kafka.ConsumerTopicConfig,
+  kafka.ConsumerGlobalConfig
+>
+
+export type ProducerStreamConfig = KafkaStreamOpts<
+  ProducerStreamOptions,
+  kafka.ProducerTopicConfig,
+  kafka.ProducerGlobalConfig
+>
 
 /**
  * Arguments passed to the `KafkaConsumer.connect` method
@@ -75,7 +84,7 @@ declare module 'node-rdkafka' {
   }
 
   export interface Client {
-    new (globalConf: GlobalConfig, SubClientType: any, topicConf: TopicConfig) : Client
+    new (globalConf: GlobalConfig, SubClientType: any, topicConf: TopicConfig): Client
 
     connectAsync(metadataOptions: ConnectOptions): Promise<Metadata>
     disconnectAsync(): Promise<this>
@@ -96,7 +105,7 @@ declare module 'node-rdkafka' {
   }
 
   export interface KafkaConsumer {
-    new (conf: ConsumerGlobalConfig, topicConf: ConsumerTopicConfig) : KafkaConsumer
+    new (conf: ConsumerGlobalConfig, topicConf: ConsumerTopicConfig): KafkaConsumer
 
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/kafka-consumer.js#L176
     committedAsync(toppars: any, timeout: any): Promise<TopicPartition[]>
@@ -111,7 +120,6 @@ declare module 'node-rdkafka' {
     partition: number
     offset?: number
   }
-
 
   // Types for objects returned from `node-rdkafka`
   export type BrokerInfo = {

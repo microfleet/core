@@ -1,9 +1,9 @@
 {
   "name": "@microfleet/plugin-kafka-types",
   "description": "Types for Apache Kafka adapter for microfleet",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "scripts": {
-    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
+    "lint": "tslint './**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
     "test": "yarn lint; tsc",
     "semantic-release": "semantic-release"
   },

@@ -32,7 +32,6 @@ export class ConsumerStream extends OriginalConsumerStream {
    * @param consumer Connected kafka consumer
    * @param config Topic configuration
    */
-  // @ts-ignore we strip some parameters
   constructor(consumer: KafkaConsumer, config: ConsumerStreamOptions, log?: LoggerPlugin['log']) {
     assert(consumer.isConnected(), 'consumer should be connected')
 

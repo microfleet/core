@@ -36,6 +36,13 @@ Microfleet Kafka Plugin extends service interface with the following methods:
 
 Initializes Kafka Consumer stream using provided params and creates a Readable stream.
 This is the reimplementation of the `node-rdkafka.ConsumerStream` stream with some addons.
+Extra parameters:
+```javascript
+const streamOpts = {
+  stopOnPartitionsEOF: boolean, // Stop stream when all assigned partitions read
+  offsetQueryTimeout: number // Milliseconds Timeout for Broker requests
+}
+```
 
 ### async service.kafka.createWriteStream({ streamOpts, conf, topic }): Writable
 
