@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "~16.x.x"
+    "@microfleet/core": "~17.x.x"
   },
   "devDependencies": {
     "@microfleet/core": "^17.2.0",

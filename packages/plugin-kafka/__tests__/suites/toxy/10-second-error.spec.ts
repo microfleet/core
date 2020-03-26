@@ -59,12 +59,8 @@ describe('toxified', () => {
       },
     })
 
-    consumerStream.consumer.on('offset.commit', (err) => {
-      if (err) consumerStream.destroy(err)
-    })
-
     // yes it should be executed parallel
-    delay(12000)
+    delay(10000)
       .then(() => setProxyEnabled(true))
       .then(() => sendMessages(producer, topic, 1))
       .then((msgs) => {
@@ -86,6 +82,7 @@ describe('toxified', () => {
     }
 
     service.log.debug('end of the first read sequence')
+
     await consumerStream.closeAsync()
 
     service.log.debug('start the second read sequence')

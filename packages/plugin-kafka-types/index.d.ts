@@ -83,7 +83,7 @@ declare module 'node-rdkafka' {
     closeAsync(): Promise<void>
   }
 
-  export interface Client {
+  export interface Client extends NodeJS.EventEmitter {
     new (globalConf: GlobalConfig, SubClientType: any, topicConf: TopicConfig): Client
 
     connectAsync(metadataOptions: ConnectOptions): Promise<Metadata>

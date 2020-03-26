@@ -49,6 +49,18 @@ export class ConsumerStream extends OriginalConsumerStream {
     this.consumer.on('rebalance', () => {
       this.positionCache = {}
     })
+
+    // original 'unsubscribed' event listener tried to push on destroyed stream
+    this.consumer.removeAllListeners('unsubscribed')
+    this.consumer.on('unsubscribed', () => {
+      if (!this.destroyed) {
+        this.push(null)
+      }
+    })
+
+    this.consumer.on('offset.commit', (err: Error, partitions: TopicPartition[]) => {
+      this.emit('offset.commit', err, partitions)
+    })
   }
 
   public connect(options: any) {
@@ -57,28 +69,40 @@ export class ConsumerStream extends OriginalConsumerStream {
     super.connect(options)
   }
 
+  public push(chunk: any, encoding?: string | undefined): boolean {
+    if (this.destroyed) {
+      this.log?.error('push after EOF')
+      return false
+    }
+    return super.push(chunk, encoding)
+  }
+
   private async overridenRead(size: number): Promise<boolean | void> {
     const { config } = this
     const fetchSize = size! >= config.fetchSize! ? config.fetchSize : size!
-
-    if (this.messages.length > 0) {
-      const message = this.messages.shift()!
-      this.push(message)
-      this.offsetsStore(message)
-    }
-
-    if (this.destroyed) return
-
-    if (config.stopOnPartitionsEOF === true) {
-      if (await this.allMessagesRead()) {
-        process.nextTick(() => {
-          this.push(null)
-        })
+    try {
+      if (this.messages.length > 0) {
+        const message = this.messages.shift()!
+        this.push(message)
+        this.offsetsStore(message)
         return
       }
-      this.consumer.consume(fetchSize!, this.boundOnRead)
-    } else {
-      this.consumer.consume(fetchSize!, this.boundOnRead)
+
+      if (this.destroyed) return
+
+      if (config.stopOnPartitionsEOF === true) {
+        if (await this.allMessagesRead()) {
+          process.nextTick(() => {
+            this.push(null)
+          })
+          return
+        }
+        this.consumer.consume(fetchSize!, this.boundOnRead)
+      } else {
+        this.consumer.consume(fetchSize!, this.boundOnRead)
+      }
+    } catch (e) {
+      this.emit('error', e)
     }
   }
 
@@ -150,23 +174,31 @@ export class ConsumerStream extends OriginalConsumerStream {
   }
 
   private onRead(err: Error, messages: ConsumerStreamMessage[]) {
-    if (err) this.destroy(err)
+    if (err) {
+      this.emit('err', err)
+      this.destroy()
+      return
+    }
 
-    if (err || messages.length < 1) {
+    if (messages.length < 1) {
       this.retry()
       return
     }
 
-    if (this.config.streamAsBatch) {
-      this.push(messages)
-      this.offsetsStore(messages[messages.length - 1])
-    } else {
-      for (let i = 0; i < messages.length; i += 1) {
-        this.messages.push(messages[i])
+    try {
+      if (this.config.streamAsBatch) {
+        this.push(messages)
+        this.offsetsStore(messages[messages.length - 1])
+      } else {
+        for (let i = 0; i < messages.length; i += 1) {
+          this.messages.push(messages[i])
+        }
+        const firstMessage = this.messages.shift()!
+        this.push(firstMessage)
+        this.offsetsStore(firstMessage)
       }
-      const firstMessage = this.messages.shift()!
-      this.push(firstMessage)
-      this.offsetsStore(firstMessage)
+    } catch (e) {
+      this.emit('error', e)
     }
   }
 
@@ -188,9 +220,9 @@ export class ConsumerStream extends OriginalConsumerStream {
     const { waitInterval } = this.config
 
     if (!waitInterval) {
-      setImmediate(() => {
-        this._read(this.config.fetchSize!)
-      })
+      // setImmediate(() => {
+      this._read(this.config.fetchSize!)
+      // })
     } else {
       setTimeout(
         () => {

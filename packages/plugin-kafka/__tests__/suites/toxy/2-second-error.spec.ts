@@ -61,13 +61,9 @@ describe('toxified-2seconds', () => {
       },
     })
 
-    consumerStream.on('error', (err) => {
-      expect(err).not.toBeDefined()
-    })
-
     // yes it should be executed parallel
     await Promise.all([
-      delay(3000),
+      delay(2000),
       setProxyEnabled(true),
     ])
 
