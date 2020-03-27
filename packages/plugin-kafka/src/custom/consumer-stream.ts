@@ -23,6 +23,7 @@ export class ConsumerStream extends OriginalConsumerStream {
   private boundOnRead: (err: Error, messages: ConsumerStreamMessage[]) => void
   private autoStore: boolean
   private log?: LoggerPlugin['log']
+  private closing: boolean
 
   private positionCache: {
     [topicPartition: string]: TopicPartition
@@ -36,13 +37,16 @@ export class ConsumerStream extends OriginalConsumerStream {
     assert(consumer.isConnected(), 'consumer should be connected')
 
     const { offsetQueryTimeout, stopOnPartitionsEOF, ...rest } = config
+    config.fetchSize = config.fetchSize || 1
+
     super(consumer, { ...rest, objectMode: true })
 
     this.autoStore = config['enable.auto.offset.store'] !== false
     this.boundOnRead = this.onRead.bind(this)
     this.config = config
-    this.config.offsetQueryTimeout = config.offsetQueryTimeout || 300
+    this.config.offsetQueryTimeout = offsetQueryTimeout || 300
     this.log = log
+    this.closing = false
     this.positionCache = {}
 
     // reset position caches on rebalance
@@ -54,17 +58,19 @@ export class ConsumerStream extends OriginalConsumerStream {
     this.consumer.removeAllListeners('unsubscribed')
     this.consumer.on('unsubscribed', () => {
       if (!this.destroyed) {
+        this.log?.error('push after EOF')
         this.push(null)
       }
     })
+  }
 
-    this.consumer.on('offset.commit', (err: Error, partitions: TopicPartition[]) => {
-      this.emit('offset.commit', err, partitions)
-    })
+  public close(cb?: () => void): void {
+    this.closing = true
+    super.close(cb)
   }
 
   public connect(options: any) {
-    // restore our read method
+    // restore read method parent constructor replaces
     this._read = this.overridenRead.bind(this)
     super.connect(options)
   }
@@ -89,7 +95,6 @@ export class ConsumerStream extends OriginalConsumerStream {
       }
 
       if (this.destroyed) return
-
       if (config.stopOnPartitionsEOF === true) {
         if (await this.allMessagesRead()) {
           process.nextTick(() => {
@@ -97,10 +102,9 @@ export class ConsumerStream extends OriginalConsumerStream {
           })
           return
         }
-        this.consumer.consume(fetchSize!, this.boundOnRead)
-      } else {
-        this.consumer.consume(fetchSize!, this.boundOnRead)
       }
+
+      this.consumer.consume(fetchSize!, this.boundOnRead)
     } catch (e) {
       this.emit('error', e)
     }
@@ -135,7 +139,7 @@ export class ConsumerStream extends OriginalConsumerStream {
       const localPosition = find(localPositions, { topic, partition })
       return localPosition ? highOffset === localPosition.offset : false
     })
-    this.log?.debug({ localPositions, localOffsets, partitionStatus })
+
     return !partitionStatus.includes(false)
   }
 
@@ -174,9 +178,14 @@ export class ConsumerStream extends OriginalConsumerStream {
   }
 
   private onRead(err: Error, messages: ConsumerStreamMessage[]) {
+    if (err && this.closing) {
+      this.log?.error({ err }, 'onread error after close')
+      return
+    }
+
     if (err) {
-      this.emit('err', err)
-      this.destroy()
+      this.log?.error({ err }, 'consumer read error')
+      this.emit('error', err)
       return
     }
 
@@ -203,30 +212,29 @@ export class ConsumerStream extends OriginalConsumerStream {
   }
 
   private offsetsStore(message: ConsumerStreamMessage) {
+    if (!this.autoStore) return
     // Generally we should set offset as message.offset+1.
     // But we store offset in the same push and
     // if we use +1 notation next read operation will skip one offset.
-    if (this.autoStore) {
-      const topicPartition = {
-        topic: message.topic,
-        partition: message.partition,
-        offset: message.offset,
-      }
-      this.consumer.offsetsStore([topicPartition])
+    const topicPartition = {
+      topic: message.topic,
+      partition: message.partition,
+      offset: message.offset,
     }
+    this.consumer.offsetsStore([topicPartition])
   }
 
   private retry() {
-    const { waitInterval } = this.config
+    const { waitInterval, fetchSize } = this.config!
 
     if (!waitInterval) {
-      // setImmediate(() => {
-      this._read(this.config.fetchSize!)
-      // })
+      setImmediate(() => {
+        this._read(fetchSize!)
+      })
     } else {
       setTimeout(
         () => {
-          this._read(this.config.fetchSize!)
+          this._read(fetchSize!)
         },
         waitInterval! * Math.random()
       ).unref()

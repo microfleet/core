@@ -2,7 +2,6 @@ import { Microfleet } from '@microfleet/core'
 import { once } from 'events'
 
 import {
-  KafkaFactory,
   KafkaConsumerStream,
   KafkaProducerStream,
   TopicNotFoundError,
@@ -128,7 +127,7 @@ describe('conn-track', () => {
   })
 
   test('closes streams on service shutdown', async () => {
-    const kafka = service.kafka as unknown as KafkaFactory
+    const kafka = service.kafka
 
     await kafka.createProducerStream({
       streamOptions: { objectMode: false, topic: 'testBoo' },

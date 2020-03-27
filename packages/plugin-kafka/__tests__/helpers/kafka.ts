@@ -58,6 +58,7 @@ export async function createConsumerStream(
         streamAsBatch: true,
         fetchSize: 2,
         stopOnPartitionsEOF: true,
+        waitInterval: 10,
       },
       conf: {
         // debug: 'consumer,topic,cgrp',
