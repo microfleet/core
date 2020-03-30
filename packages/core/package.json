@@ -61,7 +61,7 @@
     "lodash.partial": "^4.2.1",
     "lsmod": "^1.0.0",
     "opentracing": "^0.14.4",
-    "pino": "^5.16.0",
+    "pino": "^6.0.0",
     "pino-multi-stream": "^4.3.0",
     "pino-pretty": "^3.5.0",
     "read-pkg-up": "^7.0.1",
