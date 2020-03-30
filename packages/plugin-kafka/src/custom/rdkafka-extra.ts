@@ -8,7 +8,7 @@ import {
   KafkaConsumer,
   Producer as KafkaProducer,
   ConsumerStream,
-  ProducerStream
+  ProducerStream,
 } from 'node-rdkafka'
 
 export * from 'node-rdkafka'
@@ -18,10 +18,14 @@ export * from 'node-rdkafka'
  * https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
  * But but we want to create Producer or Consumer before streams
  */
-export const KafkaProducerStream: ProducerStream = require('node-rdkafka/lib/producer-stream')
-export const KafkaConsumerStream: ConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
+export const origProducerStream: ProducerStream = require('node-rdkafka/lib/producer-stream')
+export const origConsumerStream: ConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
 
-promisifyAll(KafkaProducerStream.prototype)
-promisifyAll(KafkaConsumerStream.prototype)
+// simple hack to merge TypeScript type and hidden class
+export class KafkaProducerStream extends origProducerStream {}
+export class KafkaConsumerStream extends origConsumerStream {}
+
+promisifyAll(origProducerStream.prototype)
+promisifyAll(origConsumerStream.prototype)
 promisifyAll(KafkaConsumer.prototype)
 promisifyAll(KafkaProducer.prototype)

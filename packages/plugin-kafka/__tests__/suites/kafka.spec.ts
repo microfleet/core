@@ -11,7 +11,7 @@ import {
 import { createProducerStream, createConsumerStream, sendMessages } from '../helpers/kafka'
 
 let service: Microfleet
-let producer: typeof KafkaProducerStream
+let producer: KafkaProducerStream
 let consumerStream: KafkaConsumerStream
 
 beforeEach(() => {

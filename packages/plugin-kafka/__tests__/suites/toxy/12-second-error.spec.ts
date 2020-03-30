@@ -10,7 +10,7 @@ import {
 import { createProducerStream, createConsumerStream, sendMessages } from '../../helpers/kafka'
 
 let service: Microfleet
-let producer: typeof KafkaProducerStream
+let producer: KafkaProducerStream
 let consumerStream: KafkaConsumerStream
 
 beforeEach(async () => {
@@ -40,8 +40,8 @@ const setProxyEnabled = async (enabled: boolean) => {
 describe('toxified', () => {
   // shows bad situation
   // messages resent again
-  test('10 seconds delay no-auto-commit', async () => {
-    const topic = '10s-toxified-test-no-auto-commit-no-batch-eof'
+  test('12 seconds delay no-auto-commit', async () => {
+    const topic = '12s-toxified-test-no-auto-commit-no-batch-eof'
     producer = await createProducerStream(service)
 
     const receivedMessages: any[] = []
@@ -60,7 +60,7 @@ describe('toxified', () => {
     })
 
     // yes it should be executed parallel
-    delay(10000)
+    delay(12000)
       .then(() => setProxyEnabled(true))
       .then(() => sendMessages(producer, topic, 1))
       .then((msgs) => {

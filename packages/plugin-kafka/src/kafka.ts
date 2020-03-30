@@ -12,7 +12,6 @@ import {
   KafkaProducerStream,
   ConsumerStreamMessage,
   Client as KafkaClient,
-  ProducerStream,
 } from './custom/rdkafka-extra'
 
 import {
@@ -20,12 +19,12 @@ import {
   GlobalConfig,
   ConsumerStreamConfig,
   ProducerStreamConfig,
-  ConsumerStreamOptions,
-  ProducerStreamOptions,
+  StreamOptions,
+  KafkaStream,
 } from '@microfleet/plugin-kafka-types'
 
 import { getLogFnName, topicExists } from './util'
-import { ConsumerStream as KafkaConsumerStream } from './custom/consumer-stream'
+import { KafkaConsumerStream } from './custom/consumer-stream'
 
 export { KafkaConsumer, KafkaProducerStream, KafkaConsumerStream, ConsumerStreamMessage }
 
@@ -41,16 +40,6 @@ export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError
 })
 
 export * from '@microfleet/plugin-kafka-types'
-
-export type KafkaStream = typeof KafkaProducerStream | KafkaConsumerStream
-export type StreamOptions<T> =
-  T extends KafkaConsumerStream
-    ? ConsumerStreamOptions
-    : never
-  |
-  T extends typeof KafkaProducerStream
-    ? ProducerStreamOptions
-    : never
 
 export class KafkaFactory {
   rdKafkaConfig: GlobalConfig
@@ -90,7 +79,7 @@ export class KafkaFactory {
     return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions)
   }
 
-  async createProducerStream(opts: ProducerStreamConfig): Promise<ProducerStream> {
+  async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
     const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
 
     this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })

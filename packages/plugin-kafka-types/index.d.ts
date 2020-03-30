@@ -27,6 +27,16 @@ export type ProducerStreamConfig = KafkaStreamOpts<
   kafka.ProducerGlobalConfig
 >
 
+export type KafkaStream = KafkaProducerStream | KafkaConsumerStream
+export type StreamOptions<T> =
+  T extends KafkaConsumerStream
+    ? ConsumerStreamOptions
+    : never
+  |
+  T extends KafkaProducerStream
+    ? ProducerStreamOptions
+    : never
+
 /**
  * Arguments passed to the `KafkaConsumer.connect` method
  */

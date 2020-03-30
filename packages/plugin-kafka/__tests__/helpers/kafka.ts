@@ -31,7 +31,7 @@ function getMessageIterable(count: number) {
 export async function createProducerStream(
   service: Microfleet,
   extraConfig?: ProducerStreamConfig
-): Promise<typeof KafkaProducerStream> {
+): Promise<KafkaProducerStream> {
   const { kafka } = service
 
   const config = merge(
@@ -79,7 +79,7 @@ export async function createConsumerStream(
 // otherwise we will try to create consumer,
 // but there will be no available topic metadata in Kafka
 export async function sendMessages(
-  targetProducer: typeof KafkaProducerStream,
+  targetProducer: KafkaProducerStream,
   topic: string, count = 10
 ): Promise<any[]> {
   const messageIterable = getMessageIterable(count)
