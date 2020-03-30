@@ -46,7 +46,7 @@ describe('toxified', () => {
 
     const receivedMessages: any[] = []
 
-    await sendMessages(producer, topic, 1)
+    await sendMessages(producer, topic, 4)
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -80,9 +80,7 @@ describe('toxified', () => {
     }
 
     service.log.debug('end of the first read sequence')
-
     await consumerStream.closeAsync()
-
     service.log.debug('start the second read sequence')
 
     consumerStream = await createConsumerStream(service, {
@@ -95,7 +93,6 @@ describe('toxified', () => {
       },
     })
 
-    await sendMessages(producer, topic, 1)
     const newMessages = []
     for await (const incommingMessage of consumerStream) {
       const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
@@ -103,6 +100,6 @@ describe('toxified', () => {
       consumerStream.consumer.commitMessage(messages.pop())
     }
 
-    expect(newMessages).toHaveLength(2)
+    expect(newMessages).toHaveLength(4)
   })
 })

@@ -54,7 +54,6 @@ export class KafkaConsumerStream extends OriginalConsumerStream {
       ...rest,
       fetchSize,
       objectMode: true,
-      autoClose: true,
     }
     super(consumer, subStreamConfig)
 
