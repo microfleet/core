@@ -46,7 +46,7 @@ describe('toxified', () => {
 
     const receivedMessages: any[] = []
 
-    const sentMessages = await sendMessages(producer, topic, 1)
+    await sendMessages(producer, topic, 1)
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -62,9 +62,7 @@ describe('toxified', () => {
     // yes it should be executed parallel
     delay(12000)
       .then(() => setProxyEnabled(true))
-      .then(() => sendMessages(producer, topic, 1))
-      .then((msgs) => {
-        sentMessages.push(...msgs)
+      .then(() => {
         console.debug('proxy enabled again', new Date().toString())
       })
 
@@ -105,6 +103,6 @@ describe('toxified', () => {
       consumerStream.consumer.commitMessage(messages.pop())
     }
 
-    expect(newMessages).toHaveLength(sentMessages.length + 1)
+    expect(newMessages).toHaveLength(2)
   })
 })
