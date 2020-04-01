@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "ESNext",
+    "target": "ES2019",
     "declaration": true,
     "alwaysStrict": true,
     "sourceMap": true,
@@ -13,8 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "preserveConstEnums": true,
-    "composite": true,
-    "declaration": true
+    "composite": true
   },
   "exclude": [
     "**/node_modules/**",

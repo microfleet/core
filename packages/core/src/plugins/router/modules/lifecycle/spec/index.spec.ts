@@ -111,7 +111,7 @@ describe('router: module lifecycle', () => {
       register: [
         [
           {
-            handler: (error, _) => Bluebird.resolve([error, 'baz']),
+            handler: (error) => Bluebird.resolve([error, 'baz']),
             point: LifecyclePoints.postAuth,
           },
         ],

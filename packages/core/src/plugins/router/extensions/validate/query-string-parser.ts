@@ -5,9 +5,9 @@ import { LifecyclePoints } from '..'
 
 type QSParserAugmentedAction = ServiceRequest & {
   action: ServiceRequest['action'] & {
-    transformQuery?: (...args: any[]) => any,
-    transformOpts?: any
-  }
+    transformQuery?: (...args: any[]) => any;
+    transformOpts?: any;
+  };
 }
 
 function preValidate(request: QSParserAugmentedAction) {

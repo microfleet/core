@@ -5,7 +5,7 @@
   "types": "./lib/index.d.ts",
   "version": "2.0.0",
   "scripts": {
-    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
+    "lint": "eslint './src/**/*.ts'",
     "test": "yarn lint && yarn compile && yarn test:e2e",
     "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml",
     "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
@@ -34,11 +34,12 @@
   "devDependencies": {
     "@microfleet/core": "^17.0.0",
     "@types/consul": "^0.23.34",
-    "@types/jest": "^24.9.0",
-    "jest": "^24.9.0",
-    "rimraf": "^3.0.0",
-    "ts-essentials": "^5.0.0",
-    "ts-jest": "^24.3.0"
+    "@types/jest": "^25.1.4",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "jest": "^25.2.4",
+    "rimraf": "^3.0.2",
+    "ts-essentials": "^6.0.4",
+    "ts-jest": "^25.3.0"
   },
   "engines": {
     "node": ">= 12.14.0",

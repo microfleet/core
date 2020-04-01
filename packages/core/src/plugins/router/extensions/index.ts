@@ -25,13 +25,13 @@ export type LifecycleRequestType = $Values<typeof LifecyclePoints>
  * Type definitions
  */
 export interface ExtensionPlugin {
-  point: LifecycleRequestType
-  handler(...args: any[]): PromiseLike<any>
+  point: LifecycleRequestType;
+  handler(...args: any[]): PromiseLike<any>;
 }
 
 export interface ExtensionsConfig {
-  enabled: LifecycleRequestType[]
-  register: ExtensionPlugin[][]
+  enabled: LifecycleRequestType[];
+  register: ExtensionPlugin[][];
 }
 
 const toArray = <T>(arg: T) => Array.isArray(arg) ? arg : [arg]
@@ -48,7 +48,7 @@ function walkOverHandlers(this: any, previousArgs: any, handler: (...args: any[]
  */
 class Extensions {
   public extensions: {
-    [extensionName: string]: ExtensionPlugin['handler'][]
+    [extensionName: string]: ExtensionPlugin['handler'][];
   }
 
   constructor(config: ExtensionsConfig = { enabled: [], register: [] }) {

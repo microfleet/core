@@ -36,6 +36,7 @@ import Redis = require('ioredis')
 import is = require('is')
 import path = require('path')
 import sortBy = require('sort-by')
+import Bluebird = require('bluebird')
 
 // some constant helpers
 const VERSION_KEY = 'version'
@@ -47,7 +48,7 @@ const debug = _debug('mservice:redis:migrate')
  * @param  [min=0] - Minimal version to apply this migration to.
  * @returns Lua script for version verification.
  */
-const appendPreScript = (finalVersion: number, min: number = 0) => `-- check for ${finalVersion}
+const appendPreScript = (finalVersion: number, min = 0) => `-- check for ${finalVersion}
 local currentVersion = tonumber(redis.call('get', KEYS[1]) or 0);
 
 if currentVersion >= ${finalVersion} then
@@ -75,18 +76,18 @@ return redis.call('set', KEYS[1], '${finalVersion}');
  * @param  script - Userland LUA script.
  * @returns Final Lua script.
  */
-const appendLuaScript = (finalVersion: number, min: number = 0, script: string) => [
+const appendLuaScript = (finalVersion: number, min = 0, script: string) => [
   appendPreScript(finalVersion, min),
   script,
   appendPostScript(finalVersion),
 ].join('\n')
 
 export interface Migration {
-  final: number
-  min: number
-  args: any[]
-  script: any
-  keys?: string[]
+  final: number;
+  min: number;
+  args: any[];
+  script: any;
+  keys?: string[];
 }
 
 /**
@@ -115,8 +116,11 @@ async function performMigration(redis: Redis.Redis, service: Microfleet, scripts
   let files: Migration[]
   if (is.string(scripts)) {
     debug('looking for files in %s', scripts)
-    files = glob.sync('*{.js,/}', { cwd: scripts })
-      .map(script => require(`${scripts}/${script}`)) // eslint-disable-line import/no-dynamic-require
+    files = await Bluebird
+      .fromCallback((next: (err: Error | null, results: string[]) => void) => {
+        glob('*{.js,/}', { cwd: scripts }, next)
+      })
+      .map((script: string): Migration => require(`${scripts}/${script}`))
   } else if (is.array(scripts)) {
     files = scripts
   } else {

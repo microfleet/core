@@ -3,8 +3,8 @@ import { LifecyclePoints } from '.'
 import { ServiceRequest } from '../../../types'
 
 interface RequestStartExtension {
-  started: [number, number]
-  executionTotal: [number, number]
+  started: [number, number];
+  executionTotal: [number, number];
 }
 export type ServiceRequestWithStart = ServiceRequest & RequestStartExtension
 

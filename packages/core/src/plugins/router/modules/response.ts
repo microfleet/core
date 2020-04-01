@@ -1,4 +1,3 @@
-/* tslint:disable:switch-default */
 import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization'
 import { HttpStatusError as HttpError } from '@microfleet/validation'
 import { boomify } from '@hapi/boom'
@@ -20,8 +19,6 @@ import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 function response(this: Microfleet & LoggerPlugin, err: Error | null, result: any) {
-  const service = this
-
   if (err) {
     switch (err.constructor) {
       case AuthenticationRequiredError:
@@ -53,7 +50,7 @@ function response(this: Microfleet & LoggerPlugin, err: Error | null, result: an
       }
     }
 
-    service.log.fatal({ err: boomify(err) }, 'unexpected error')
+    this.log.fatal({ err: boomify(err) }, 'unexpected error')
     return Bluebird.reject(new CError(`Something went wrong: ${err.message}`, err))
   }
 
@@ -61,8 +58,7 @@ function response(this: Microfleet & LoggerPlugin, err: Error | null, result: an
 }
 
 function responseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]) {
-  const service = this
-  return moduleLifecycle('response', response, service.router.extensions, params, service)
+  return moduleLifecycle('response', response, this.router.extensions, params, this)
 }
 
 export default responseHandler

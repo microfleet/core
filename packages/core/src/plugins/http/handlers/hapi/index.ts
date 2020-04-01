@@ -8,9 +8,9 @@ import attachRouter from './router/attach'
 import * as RequestTracker from '../../../router/request-tracker'
 
 export interface HapiPlugin {
-  plugin: string | Plugin<any>
-  options?: any
-  once?: boolean
+  plugin: string | Plugin<any>;
+  options?: any;
+  once?: boolean;
 }
 
 const defaultPlugins: HapiPlugin[] = [{

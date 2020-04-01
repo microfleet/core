@@ -9,7 +9,7 @@ const debug = _debug('mservice:router:socket.io')
 const { socketIO } = ActionTransport
 
 export interface SocketIOMessage {
-  data: [string, any, RequestCallback]
+  data: [string, any, RequestCallback];
 }
 
 /* Decrease request count on response */

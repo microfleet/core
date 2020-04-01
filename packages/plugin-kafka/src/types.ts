@@ -2,7 +2,7 @@ export type KafkaConfig = {
   'metadata.broker.list': string;
   'group.id': string;
   'enable.auto.commit'?: boolean;
-  [key: string]: any
+  [key: string]: any;
 }
 
 export type ConnectOptions = {

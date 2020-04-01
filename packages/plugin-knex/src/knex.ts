@@ -12,7 +12,7 @@ export const priority = 0
 export const name = 'knex'
 export const type = PluginTypes.database
 export interface KnexPlugin {
-  knex: Knex
+  knex: Knex;
 }
 
 /**
@@ -33,8 +33,10 @@ const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): Plugin
     await retry(establishConnection, {
       interval: 500,
       backoff: 2,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       max_interval: 5000,
       timeout: 60000,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       max_tries: 100,
     })
 
@@ -54,18 +56,17 @@ export function attach(
   this: Microfleet & LoggerPlugin & ValidatorPlugin,
   params: Knex.Config | string = {}
 ) {
-  const service = this
   const { validator } = this
-  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  service.validator.addLocation(resolve(__dirname, '../schemas'))
+  this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const opts = validator.ifError('knex', params)
   const config: Knex.Config = validator.ifError(`knex.${opts.client}`, opts)
 
-  const knex = service.knex = Knex(config)
+  const knex = this.knex = Knex(config)
 
-  return startupHandlers(service, knex)
+  return startupHandlers(this, knex)
 }

@@ -3,7 +3,7 @@
  * NOTE: not for production use
  */
 import { Writable } from 'stream'
-const prettyFactory = require('pino-pretty')
+import prettyFactory = require('pino-pretty')
 
 // options: https://github.com/pinojs/pino-pretty#options
 function prettyStreamFactory(config: any) {
@@ -14,7 +14,7 @@ function prettyStreamFactory(config: any) {
   const prettyStream = new Writable({
     write(chunk: any, _: any, callback: any) {
       const line = pretty(chunk.toString())
-      process.stdout.write(line)
+      process.stdout.write(line, callback)
       callback()
     },
   })

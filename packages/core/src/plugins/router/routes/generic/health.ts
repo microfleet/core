@@ -11,9 +11,10 @@ async function genericHealthCheck(this: Microfleet, request: ServiceRequest) {
   if (PLUGIN_STATUS_FAIL === data.status) {
     switch (request.transport) {
       case 'amqp':
-      case 'internal':
+      case 'internal': {
         const plugins = data.failed.map(it => it.name).join(', ')
         throw new HttpStatusError(500, `Unhealthy due to following plugins: ${plugins}`)
+      }
 
       default:
         throw kUnhealthy

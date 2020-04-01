@@ -7,6 +7,7 @@ import _require from '../utils/require'
 import migrate from './redis/migrate'
 import { NotFoundError } from 'common-errors'
 import { hasConnection, isStarted, loadLuaScripts } from './redis/utils'
+import { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } from './redis/constants'
 
 const debug = _debug('mservice:redisCluster')
 
@@ -31,11 +32,9 @@ export const priority = 0
  * @returns Connections and Destructors.
  */
 export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
-  const service = this
   const Redis = _require('ioredis')
-  const { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } = require('./redis/constants')
 
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // push out its own bluebird version and configure cancellation
   Redis.Promise = Bluebird.getNewLibraryCopy()
@@ -44,31 +43,31 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
   })
 
   const { Cluster } = Redis
-  const isClusterStarted = isStarted(service, Cluster)
-  const conf = service.validator.ifError('redisCluster', opts)
+  const isClusterStarted = isStarted(this, Cluster)
+  const conf = this.validator.ifError('redisCluster', opts)
 
   return {
 
     /**
      * @returns Opens redis connection.
      */
-    async connect() {
-      assert(service.redis == null, ERROR_ALREADY_STARTED)
+    async connect(this: Microfleet) {
+      assert(this.redis == null, ERROR_ALREADY_STARTED)
 
       const instance = new Cluster(conf.hosts, {
         ...conf.options,
         lazyConnect: true,
       })
 
-      if (service.tracer) {
+      if (this.tracer) {
         const applyInstrumentation = _require('opentracing-js-ioredis')
-        applyInstrumentation(service.tracer, instance)
+        applyInstrumentation(this.tracer, instance)
       }
 
       // attach to instance right away
       if (conf.luaScripts) {
         debug('attaching lua')
-        await loadLuaScripts(service, conf.luaScripts, instance)
+        await loadLuaScripts(this, conf.luaScripts, instance)
       }
 
       const $conn = instance.connect() as Bluebird<void>
@@ -82,9 +81,9 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
         ($ready as any).cancel()
       }
 
-      service.addMigrator('redis', migrate, instance, service)
-      service.redis = instance
-      service.emit('plugin:connect:redisCluster', instance)
+      this.addMigrator('redis', migrate, instance, this)
+      this.redis = instance
+      this.emit('plugin:connect:redisCluster', instance)
 
       return instance
     },
@@ -92,20 +91,20 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
     /**
      * @returns Returns current status of redis cluster.
      */
-    status: hasConnection.bind(service, isClusterStarted),
+    status: hasConnection.bind(this, isClusterStarted),
 
     /**
      * @returns Closes redis connection.
      */
-    async close() {
+    async close(this: Microfleet) {
       assert(isClusterStarted(), ERROR_NOT_STARTED)
 
-      await service.redis
+      await this.redis
         .quit()
         .catchReturn({ message: 'Connection is closed.' }, null)
 
-      service.redis = null
-      service.emit('plugin:close:redisCluster')
+      this.redis = null
+      this.emit('plugin:close:redisCluster')
     },
   }
 }

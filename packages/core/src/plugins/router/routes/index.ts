@@ -1,14 +1,14 @@
 import { ValidationError } from 'common-errors'
 import glob = require('glob')
 import is = require('is')
-import intersection = require('lodash.intersection')
+import { intersection}  from 'lodash'
 import path = require('path')
 import { Microfleet } from '../../../'
 import { ServiceAction, TransportTypes } from '../../../types'
 import { RouteMap } from '../factory'
 
 export interface Routes {
-  [name: string]: string
+  [name: string]: string;
 }
 
 const filterDefinitions = (x: string) => !x.endsWith('.d.ts')
@@ -84,14 +84,14 @@ function validateAction(actionLike: ServiceAction | { default: ServiceAction }, 
 }
 
 export interface RoutesConfig {
-  directory: string
-  prefix: string
-  setTransportsAsDefault?: boolean
-  transports: TransportTypes[]
+  directory: string;
+  prefix: string;
+  setTransportsAsDefault?: boolean;
+  transports: TransportTypes[];
   enabled: {
-    [route: string]: string
-  }
-  enabledGenericActions: string[]
+    [route: string]: string;
+  };
+  enabledGenericActions: string[];
 }
 
 /**
@@ -104,7 +104,7 @@ export interface RoutesConfig {
  *  so they don't need to be specified.
  * @param config.transports - Enabled transports list.
  */
-function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
+export function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
   // lack of prototype makes it easier to search for a key
   const routes: RouteMap = {
     _all: Object.create(null),
@@ -136,6 +136,7 @@ function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
 
   for (const [route, postfix] of Object.entries(enabled as Routes)) {
     const routingKey = config.prefix.length ? `${config.prefix}.${postfix}` : postfix
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const action = require(path.resolve(config.directory, route))
 
     // it mutates existing action, so use with caution and best
@@ -168,5 +169,3 @@ function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
   // cast to RouteMap
   return routes
 }
-
-export default getRoutes

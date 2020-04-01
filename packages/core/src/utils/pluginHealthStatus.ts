@@ -1,14 +1,12 @@
-// tslint:disable:max-classes-per-file
-
 import Bluebird = require('bluebird')
 import retry = require('bluebird-retry')
 import { PLUGIN_STATUS_FAIL, PLUGIN_STATUS_OK } from '../constants'
 import { PluginStatus } from '../types'
 
 export interface HealthStatus {
-  alive: PluginHealthStatus[]
-  failed: PluginHealthStatus[]
-  status: PluginStatus
+  alive: PluginHealthStatus[];
+  failed: PluginHealthStatus[];
+  status: PluginStatus;
 }
 
 export class PluginHealthStatus {
@@ -16,7 +14,7 @@ export class PluginHealthStatus {
   public status: PluginStatus
   public error?: Error
 
-  constructor(name: string, alive: boolean = true, error?: Error) {
+  constructor(name: string, alive = true, error?: Error) {
     this.name = name
     this.status = alive ? PLUGIN_STATUS_OK : PLUGIN_STATUS_FAIL
     this.error = error
@@ -42,6 +40,7 @@ export class PluginHealthCheck {
 export async function getHealthStatus(handlers: PluginHealthCheck[], config: any): Promise<HealthStatus> {
   // retry options
   // https://www.npmjs.com/package/bluebird-retry
+  // eslint-disable-next-line @typescript-eslint/camelcase
   const opts = { ...config, throw_original: true }
   const alive: PluginHealthStatus[] = []
   const failed: PluginHealthStatus[] = []

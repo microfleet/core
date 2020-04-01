@@ -64,18 +64,18 @@ export const name = 'logger'
  * Logger Plugin interface.
  */
 export interface LoggerPlugin {
-  log: pinoms.Logger
+  log: pinoms.Logger;
 }
 
 export interface LoggerConfig {
-  defaultLogger: any
-  prettifyDefaultLogger: boolean
-  debug: boolean
-  name: string
-  options: pino.LoggerOptions
+  defaultLogger: any;
+  prettifyDefaultLogger: boolean;
+  debug: boolean;
+  name: string;
+  options: pino.LoggerOptions;
   streams: {
-    [streamName: string]: pinoms.Streams
-  }
+    [streamName: string]: pinoms.Streams;
+  };
 }
 
 export const levels = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
@@ -90,11 +90,10 @@ export const isCompatible = (obj: any) => {
  * @param  config - Logger configuration.
  */
 export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerConfig>) {
-  const service = this
-  const { config: { name: applicationName } } = service
+  const { config: { name: applicationName } } = this
 
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  const config = service.validator.ifError('logger', opts) as LoggerConfig
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  const config = this.validator.ifError('logger', opts) as LoggerConfig
 
   const {
     debug,
@@ -106,7 +105,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   } = Object.assign({}, defaultConfig, config)
 
   if (isCompatible(defaultLogger)) {
-    service.log = defaultLogger
+    this.log = defaultLogger
     return
   }
 
@@ -134,7 +133,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
     streams.push(streamsFactory(streamName, streamConfig))
   }
 
-  service.log = pinoms({
+  this.log = pinoms({
     ...options,
     streams,
     name: applicationName || serviceName,

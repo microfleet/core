@@ -13,7 +13,7 @@ import { PluginTypes } from '../constants'
 const { isArray } = Array
 
 type Validator = MicrofleetValidator & {
-  addLocation(location: string): void
+  addLocation(location: string): void;
 }
 
 /**
@@ -21,10 +21,10 @@ type Validator = MicrofleetValidator & {
  * https://github.com/microfleet/validation
  */
 export type ValidatorConfig = {
-  schemas: string[]
-  filter: ((filename: string) => boolean) | null
-  serviceConfigSchemaIds: string[]
-  ajv: ajv.Options
+  schemas: string[];
+  filter: ((filename: string) => boolean) | null;
+  serviceConfigSchemaIds: string[];
+  ajv: ajv.Options;
 }
 
 /**
@@ -36,10 +36,12 @@ export const name = 'validator'
  * Defines service extension
  */
 export interface ValidatorPlugin {
-  validator: Validator
-  validate: Validator['validate']
-  validateSync: Validator['validateSync']
-  ifError:  Validator['ifError']
+  validator: Validator & {
+    addLocation(location: string): void;
+  };
+  validate: Validator['validate'];
+  validateSync: Validator['validateSync'];
+  ifError:  Validator['ifError'];
 }
 
 /**
@@ -66,8 +68,7 @@ export const attach = function attachValidator(
   this: Microfleet,
   config: ValidatorConfig,
   parentFile: string
-) {
-  const service = this
+): void {
   // for relative paths
   const stack = callsite()
   const { schemas, serviceConfigSchemaIds, filter, ajv: ajvConfig } = config
@@ -78,7 +79,7 @@ export const attach = function attachValidator(
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
   const validator = new MicrofleetValidator('../../schemas', filter, ajvConfig)
-  const addLocation = (location: string) => {
+  const addLocation = (location: string): void => {
     strictEqual(isString(location) && location.length !== 0, true, configError('schemas'))
 
     let dir
@@ -116,14 +117,14 @@ export const attach = function attachValidator(
     strictEqual(isString(schema) && schema.length !== 0, true, configError('serviceConfigSchemaIds'))
 
     if (validator.ajv.getSchema(schema)) {
-      service.config = validator.ifError(schema, service.config)
+      this.config = validator.ifError(schema, this.config)
     }
   }
 
   // extend service
-  service[name] = validator
-  service[name].addLocation = addLocation
-  service.validate = deprecate(validator.validate.bind(validator), 'validate() deprecated. User validator.validate()')
-  service.validateSync = deprecate(validator.validateSync.bind(validator), 'validateSync() deprecated. User validator.validateSync()')
-  service.ifError = deprecate(validator.ifError.bind(validator), 'ifError() deprecated. User validator.ifError()')
+  this[name] = validator
+  this[name].addLocation = addLocation
+  this.validate = deprecate(validator.validate.bind(validator), 'validate() deprecated. User validator.validate()')
+  this.validateSync = deprecate(validator.validateSync.bind(validator), 'validateSync() deprecated. User validator.validateSync()')
+  this.ifError = deprecate(validator.ifError.bind(validator), 'ifError() deprecated. User validator.ifError()')
 }

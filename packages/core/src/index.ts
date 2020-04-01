@@ -7,7 +7,6 @@ import { strict as assert } from 'assert'
 import Bluebird = require('bluebird')
 import EventEmitter = require('eventemitter3')
 import is = require('is')
-import partial = require('lodash.partial')
 import * as constants from './constants'
 import * as defaultOpts from './defaults'
 import { DeepPartial } from 'ts-essentials'
@@ -27,12 +26,13 @@ import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { LoggerPlugin, LoggerConfig } from './plugins/logger'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
+import { HealthStatus } from '../lib/utils/pluginHealthStatus'
 export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }
 
-const toArray = <T>(x: T): T[] => Array.isArray(x) ? x : [x]
+const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 
 interface StartStopTree {
-  [name: string]: PluginConnector[]
+  [name: string]: PluginConnector[];
 }
 
 export * from './types'
@@ -72,7 +72,7 @@ export const PluginsPriority = constants.PluginsPriority
  * @param name - Pass extension name to require.
  * @returns Extension to router plugin.
  */
-export const routerExtension = (name: string) => {
+export const routerExtension = (name: string): unknown => {
   return require(require.resolve(`./plugins/router/extensions/${name}`)).default
 }
 
@@ -91,23 +91,33 @@ export interface ConfigurationOptional {
   /**
    * List of plugins to be enabled
    */
-  plugins: string[]
+  plugins: string[];
 
   /**
    * Logger plugin configuration
    */
-  logger: LoggerConfig
+  logger: LoggerConfig;
 
   /**
    * Validator plugin configuration
    */
-  validator: ValidatorConfig
+  validator: ValidatorConfig;
 
   /**
    * Router configuration
    */
-  router: RouterConfig
+  router: RouterConfig;
+
+  /**
+  * Arbitrary hooks to be executed asynchronously
+  */
+  hooks: {
+    [name: string]: Hook;
+  };
 }
+
+export type AnyFn = (...args: any[]) => any;
+export type Hook = EventEmitter.ListenerFn | EventEmitter.ListenerFn[];
 
 /**
  * Interface for required params
@@ -117,23 +127,39 @@ export interface ConfigurationRequired {
    * Must uniquely identify service, will be used
    * in implementing services extensively
    */
-  name: string
+  name: string;
 
   /**
    * For now any property can be put on the main class
    */
-  [property: string]: any
+  [property: string]: unknown;
 }
 
 export type CoreOptions = ConfigurationRequired
   & ConfigurationOptional
+
+function resolveModule<T>(cur: T | null, path: string): T | null {
+  if (cur != null) {
+    return cur
+  }
+
+  try {
+    return require(require.resolve(path))
+  } catch (e) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
+      console.error(e)
+    }
+
+    return null
+  }
+}
 
 /**
  * @class Microfleet
  */
 export class Microfleet extends EventEmitter {
   public config: CoreOptions
-  public migrators: any
+  public migrators: { [name: string]: AnyFn }
   public readonly plugins: string[]
   public readonly [constants.CONNECTORS_PROPERTY]: StartStopTree
   public readonly [constants.DESTRUCTORS_PROPERTY]: StartStopTree
@@ -153,7 +179,7 @@ export class Microfleet extends EventEmitter {
     super()
 
     // init configuration
-    this.config = defaultsDeep(opts, defaultOpts) as any
+    this.config = defaultsDeep(opts, defaultOpts) as CoreOptions
 
     // init migrations
     this.migrators = Object.create(null)
@@ -173,7 +199,7 @@ export class Microfleet extends EventEmitter {
 
     // setup hooks
     for (const [eventName, hooks] of Object.entries(this.config.hooks)) {
-      for (const hook of toArray<any>(hooks)) {
+      for (const hook of toArray(hooks)) {
         this.on(eventName, hook)
       }
     }
@@ -197,7 +223,7 @@ export class Microfleet extends EventEmitter {
    * @param args - Arbitrary args to pass to the hooks.
    * @returns Result of invoked hook.
    */
-  public async hook(event: string, ...args: any[]) {
+  public async hook(event: string, ...args: unknown[]): Promise<any[]> {
     const listeners = this.listeners(event)
     const work = []
 
@@ -214,9 +240,8 @@ export class Microfleet extends EventEmitter {
    * @param fn - Migrator function to be invoked.
    * @param args - Arbitrary args to be passed to fn later on.
    */
-  public addMigrator(name: string, fn: (...args: any[]) => any, ...args: any[]) {
-    // @ts-ignore
-    this.migrators[name] = partial(fn, ...args)
+  public addMigrator(name: string, fn: AnyFn, ...args: any[]): void {
+    this.migrators[name] = (...migratorArgs: any[]): any => fn.call(this, ...args, ...migratorArgs)
   }
 
   /**
@@ -225,7 +250,7 @@ export class Microfleet extends EventEmitter {
    * @param  args - Extra args to pass to the migrator.
    * @returns Result of the migration.
    */
-  public migrate(name: string, ...args: any[]) {
+  public migrate(name: string, ...args: unknown[]): any {
     const migrate = this.migrators[name]
     assert(is.fn(migrate), `migrator ${name} not defined`)
     return migrate(...args)
@@ -235,7 +260,7 @@ export class Microfleet extends EventEmitter {
    * Generic connector for all of the plugins.
    * @returns Walks over registered connectors and emits ready event upon completion.
    */
-  public async connect() {
+  public async connect(): Promise<unknown[]> {
     return this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority)
   }
 
@@ -243,7 +268,7 @@ export class Microfleet extends EventEmitter {
    * Generic cleanup function.
    * @returns Walks over registered destructors and emits close event upon completion.
    */
-  public async close() {
+  public async close(): Promise<any> {
     return this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse())
   }
 
@@ -257,7 +282,7 @@ export class Microfleet extends EventEmitter {
    * @param mod.attach - Plugin attach function.
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
-  public initPlugin<T extends object>(mod: Plugin<T>, conf?: any) {
+  public initPlugin<T extends object>(mod: Plugin<T>, conf?: any): void {
     const pluginName = mod.name
 
     let expose: PluginInterface
@@ -326,7 +351,7 @@ export class Microfleet extends EventEmitter {
    * @param handler - Plugin connector.
    * @param plugin - name of the plugin, optional.
    */
-  public addConnector(type: TConnectorsTypes, handler: PluginConnector, plugin?: string) {
+  public addConnector(type: TConnectorsTypes, handler: PluginConnector, plugin?: string): void {
     this.addHandler(constants.CONNECTORS_PROPERTY, type, handler, plugin)
   }
 
@@ -336,7 +361,7 @@ export class Microfleet extends EventEmitter {
    * @param handler - Plugin destructor.
    * @param plugin - name of the plugin, optional.
    */
-  public addDestructor(type: TConnectorsTypes, handler: PluginConnector, plugin?: string) {
+  public addDestructor(type: TConnectorsTypes, handler: PluginConnector, plugin?: string): void {
     this.addHandler(constants.DESTRUCTORS_PROPERTY, type, handler, plugin)
   }
 
@@ -344,18 +369,18 @@ export class Microfleet extends EventEmitter {
    * Initializes plugin health check.
    * @param {Function} handler - Health check function.
    */
-  public addHealthCheck(handler: PluginHealthCheck) {
+  public addHealthCheck(handler: PluginHealthCheck): void {
     this[constants.HEALTH_CHECKS_PROPERTY].push(handler)
   }
 
   /**
    * Asks for health status of registered plugins if it's possible, logs it and returns summary.
    */
-  public getHealthStatus() {
+  public getHealthStatus(): Promise<HealthStatus> {
     return getHealthStatus(this.getHealthChecks(), this.config.healthChecks)
   }
 
-  public hasPlugin(name: string) {
+  public hasPlugin(name: string): boolean {
     return this.plugins.includes(name)
   }
 
@@ -363,7 +388,7 @@ export class Microfleet extends EventEmitter {
    * Overrides SIG* events and exits cleanly.
    * @returns Resolves when exit sequence has completed.
    */
-  private exit = async () => {
+  private async exit(): Promise<void> | never {
     this.log.info('received close signal...\n closing connections...\n')
 
     try {
@@ -385,7 +410,7 @@ export class Microfleet extends EventEmitter {
    * @param [priority=Microfleet.ConnectorsPriority] - Order to process collection.
    * @returns Result of the invocation.
    */
-  private async processAndEmit(collection: any, event: string, priority = ConnectorsPriority) {
+  private async processAndEmit(collection: StartStopTree, event: string, priority = ConnectorsPriority): Promise<any[]> {
     const responses = []
     for (const connectorType of priority) {
       const connectors: PluginConnector[] | void = collection[connectorType]
@@ -413,8 +438,7 @@ export class Microfleet extends EventEmitter {
   }
 
   // ***************************** Plugin section: private **************************************
-
-  private addHandler(property: HandlerProperties, type: TConnectorsTypes, handler: PluginConnector, plugin?: string) {
+  private addHandler(property: HandlerProperties, type: TConnectorsTypes, handler: PluginConnector, plugin?: string): void {
     if (this[property][type] === undefined) {
       this[property][type] = []
     }
@@ -431,7 +455,7 @@ export class Microfleet extends EventEmitter {
    * @param {Object} config - Service plugins configuration.
    * @private
    */
-  private initPlugins(config: CoreOptions) {
+  private initPlugins(config: CoreOptions): void {
     for (const pluginType of PluginsPriority) {
       this[constants.CONNECTORS_PROPERTY][pluginType] = []
       this[constants.DESTRUCTORS_PROPERTY][pluginType] = []
@@ -483,28 +507,12 @@ export class Microfleet extends EventEmitter {
    * by throwing them.
    * @param err - Error that was emitted by the service members.
    */
-  private onError = (err: Error) => {
+  private onError = (err: Error): void | never => {
     if (this.listeners('error').length > 1) {
       return
     }
 
     throw err
-  }
-}
-
-function resolveModule<T>(cur: T | null, path: string): T | null {
-  if (cur != null) {
-    return cur
-  }
-
-  try {
-    return require(require.resolve(path))
-  } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      console.error(e) // tslint:disable-line:no-console
-    }
-
-    return null
   }
 }
 

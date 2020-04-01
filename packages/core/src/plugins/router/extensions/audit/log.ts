@@ -5,7 +5,19 @@ import { LifecyclePoints, ExtensionPlugin } from '..'
 import { storeRequestTimeFactory, ServiceRequestWithStart } from '../sharedHandlers'
 
 export type AuditLogExtensionParams = {
-  disableLogErrorsForNames?: string[],
+  disableLogErrorsForNames?: string[];
+}
+
+export type MetaLog = {
+  headers: any;
+  latency: number;
+  method: string;
+  params: any;
+  query: any;
+  route: string;
+  transport: string;
+  response?: any;
+  err?: Error;
 }
 
 export default function auditLogFactory(params: AuditLogExtensionParams = {}): ExtensionPlugin[] {
@@ -16,10 +28,9 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): E
     {
       point: LifecyclePoints.preResponse,
       async handler(this: Microfleet, error: MserviceError | void, result: any, request: ServiceRequestWithStart) {
-        const service = this
         const execTime = request.executionTotal = process.hrtime(request.started)
 
-        const meta = {
+        const meta: MetaLog = {
           headers: request.headers,
           latency: (execTime[0] * 1000) + (+(execTime[1] / 1000000).toFixed(3)),
           method: request.method,
@@ -36,12 +47,11 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): E
             || (error.name && disableLogErrorsForNames.includes(error.name))
           const level = isCodeLevelInfo ? 'info' : 'error'
 
-          // @ts-ignore
           meta.err = error
           // just pass data through
           request.log[level](meta, 'Error performing operation', err)
         } else {
-          if (service.config.debug) {
+          if (this.config.debug) {
             meta.response = result
           }
 

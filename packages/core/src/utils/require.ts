@@ -20,14 +20,14 @@ const pluginDependencies = {
 }
 
 interface PluginDep {
-  [name: string]: string
+  [name: string]: string;
 }
 
 /**
  * Performs require and validates that constraints are met.
  * @param name - Name of the module to require.
  */
-export default (name: string) => {
+export default (name: string): any => {
   const version = (pluginDependencies as PluginDep)[name]
   const depVersion = require(`${name}/package.json`).version
 

@@ -10,22 +10,21 @@ import * as RequestTracker from './router/request-tracker'
 const debug = _debug('mservice:socketIO')
 
 interface AdaptersList {
-  [name: string]: any
+  [name: string]: any;
 }
 
 function attachSocketIO(this: Microfleet & ValidatorPlugin, opts: any = {}) {
   debug('Attaching socketIO plugin')
-  const service = this
   const AdapterFactory = _require('ms-socket.io-adapter-amqp')
   const SocketIO = _require('socket.io')
 
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   const adapters: AdaptersList = {
     amqp: (adapterOptions: any) => AdapterFactory.fromOptions(adapterOptions),
   }
 
-  const config = service.validator.ifError('socketIO', opts)
+  const config = this.validator.ifError('socketIO', opts)
   const { options, router } = config
   const { adapter } = options
 
@@ -40,13 +39,13 @@ function attachSocketIO(this: Microfleet & ValidatorPlugin, opts: any = {}) {
   const socketIO = SocketIO(options)
 
   if (router.enabled) {
-    attachRouter(socketIO, router, service.router)
+    attachRouter(socketIO, router, this.router)
   }
 
   this.socketIO = socketIO
 
   return {
-    getRequestCount: RequestTracker.getRequestCount.bind(undefined, service, ActionTransport.socketIO),
+    getRequestCount: RequestTracker.getRequestCount.bind(undefined, this, ActionTransport.socketIO),
   }
 }
 /**

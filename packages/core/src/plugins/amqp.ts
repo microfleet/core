@@ -45,32 +45,30 @@ export const type = PluginTypes.transport
 export const priority = 0
 
 /**
- * Attaches plugin to the MService class.
+ * Attaches plugin to the Mthis class.
  * @param {Object} config - AMQP plugin configuration.
  */
 export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: any = {}) {
-  const service = this
+  assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-
-  const config = service.validator.ifError('amqp', opts)
-  const AMQPTransport = _require('@microfleet/transport-amqp') as any
-  const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery')
+  const config = this.validator.ifError('amqp', opts)
+  const AMQPTransport = _require('@microfleet/transport-amqp')
+  const Backoff = _require('@microfleet/transport-amqp/lib/utils/recovery')
 
   const ERROR_NOT_STARTED = new Errors.NotPermittedError('amqp was not started')
   const ERROR_NOT_HEALTHY = new Errors.ConnectionError('amqp is not healthy')
 
   /**
    * Check if the service has an amqp transport.
-   * @returns A truthy value if the service has an instance of AMQPTransport.
+   * @returns A truthy value if the this has an instance of AMQPTransport.
    */
   const isStarted = () => (
-    service.amqp && service.amqp instanceof AMQPTransport
+    this.amqp && this.amqp instanceof AMQPTransport
   )
 
   const waitForRequestsToFinish = () => {
-    return RequestTracker.waitForRequestsToFinish(service, ActionTransport.amqp)
+    return RequestTracker.waitForRequestsToFinish(this, ActionTransport.amqp)
   }
 
   /**
@@ -82,8 +80,8 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
     amqp._amqp && amqp._amqp.state === 'open'
   )
 
-  // init logger if service is enabled
-  const logger = service.log.child({ namespace: '@microfleet/transport-amqp' })
+  // init logger if this is enabled
+  const logger = this.log.child({ namespace: '@microfleet/transport-amqp' })
 
   // initializes custom onComplete function
   if (config.retry && config.retry.enabled === true) {
@@ -98,7 +96,7 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
     assert.equal(typeof config.retry.predicate, 'function', '`retry.predicate` must be defined')
 
     // adds queue setup connector - will be initialized after AMQP is connected
-    service.retryQueue = config.retry.queue || `x-delay-${config.transport.queue}`
+    this.retryQueue = config.retry.queue || `x-delay-${config.transport.queue}`
 
     // cache vars for faster access
     const { retry } = config
@@ -109,7 +107,7 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
     /**
      * Composes onComplete handler for QoS enabled Subscriber.
      * Allows one to set custom fast-rejection policy.
-     * Relies on certain configuration options of the initialized service.
+     * Relies on certain configuration options of the initialized this.
      *
      * @param err - Possible error.
      * @param data - Anything that is a response.
@@ -189,9 +187,9 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
         retryMessageOptions.headers['x-original-correlation-id'] = correlationId
       }
 
-      if (service.amqp == null) {
+      if (this.amqp == null) {
         try {
-          const toWrap = eventToPromise.multi(service as any, ['plugin:connect:amqp'], [
+          const toWrap = eventToPromise.multi(this as any, ['plugin:connect:amqp'], [
             'plugin:close:amqp',
             'error',
           ])
@@ -203,7 +201,7 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
       }
 
       try {
-        await service.amqp.send(service.retryQueue, message.raw, retryMessageOptions)
+        await this.amqp.send(this.retryQueue, message.raw, retryMessageOptions)
       } catch (e) {
         if (logger) {
           logger.error({ err: e }, 'Failed to queue retried message')
@@ -231,11 +229,11 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
   }
 
   if (config.router && config.router.enabled === true) {
-    verifyPossibility(service.router, ActionTransport.amqp)
-    service.AMQPRouter = getAMQPRouterAdapter(service.router, config)
+    verifyPossibility(this.router, ActionTransport.amqp)
+    this.AMQPRouter = getAMQPRouterAdapter(this.router, config)
     const { prefix } = config.router
     // allow ms-amqp-transport to discover routes
-    config.transport.listen = Object.keys(service.router.routes.amqp)
+    config.transport.listen = Object.keys(this.router.routes.amqp)
       .map(prefix ? route => `${prefix}.${route}` : identity)
   }
 
@@ -245,19 +243,19 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
      * Generic AMQP Connector.
      * @returns Opens connection to AMQP.
      */
-    async connect() {
-      if (service.amqp) {
+    async connect(this: Microfleet) {
+      if (this.amqp) {
         return Bluebird.reject(new Errors.NotPermittedError('amqp was already started'))
       }
 
-      // if service.router is present - we will consume messages
+      // if this.router is present - we will consume messages
       // if not - we will only create a client
       const connectionOptions = {
         ...config.transport,
         log: logger || null,
-        tracer: service.tracer,
+        tracer: this.tracer,
       }
-      const amqp = service.amqp = await AMQPTransport.connect(connectionOptions, service.AMQPRouter)
+      const amqp = this.amqp = await AMQPTransport.connect(connectionOptions, this.AMQPRouter)
 
       // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
       if (config.retry && config.retry.enabled === true) {
@@ -271,12 +269,12 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
           },
           autoDelete: false,
           durable: true,
-          queue: service.retryQueue,
+          queue: this.retryQueue,
           router: null,
         })
       }
 
-      service.emit('plugin:connect:amqp', amqp)
+      this.emit('plugin:connect:amqp', amqp)
 
       return amqp
     },
@@ -290,29 +288,29 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
      * a twice heartbeat interval.
      * @returns A truthy value if all checks are passed.
      */
-    async status() {
+    async status(this: Microfleet) {
       assert(isStarted(), ERROR_NOT_STARTED)
-      assert(isConnected(service.amqp), ERROR_NOT_HEALTHY)
+      assert(isConnected(this.amqp), ERROR_NOT_HEALTHY)
       return true
     },
 
-    getRequestCount() {
-      return RequestTracker.getRequestCount(service, ActionTransport.amqp)
+    getRequestCount(this: Microfleet) {
+      return RequestTracker.getRequestCount(this, ActionTransport.amqp)
     },
 
     /**
      * Generic AMQP disconnector.
      * @returns Closes connection to AMQP.
      */
-    async close() {
+    async close(this: Microfleet) {
       assert(isStarted(), ERROR_NOT_STARTED)
 
-      await service.amqp.closeAllConsumers()
+      await this.amqp.closeAllConsumers()
       await waitForRequestsToFinish()
-      await service.amqp.close()
+      await this.amqp.close()
 
-      service.amqp = null
-      service.emit('plugin:close:amqp')
+      this.amqp = null
+      this.emit('plugin:close:amqp')
     },
 
   }

@@ -31,14 +31,13 @@ export const priority = 0
  * @returns Connections and Destructors.
  */
 export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
-  const service = this
   const Redis = _require('ioredis')
 
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   Redis.Promise = Bluebird
-  const isRedisStarted = isStarted(service, Redis)
-  const conf = service.validator.ifError('redisSentinel', opts)
+  const isRedisStarted = isStarted(this, Redis)
+  const conf = this.validator.ifError('redisSentinel', opts)
 
   return {
 
@@ -46,8 +45,8 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
      * @private
      * @returns Opens connection to Redis.
      */
-    async connect() {
-      assert(service.redis == null, ERROR_ALREADY_STARTED)
+    async connect(this: Microfleet) {
+      assert(this.redis == null, ERROR_ALREADY_STARTED)
 
       const instance = new Redis({
         lazyConnect: true,
@@ -56,22 +55,22 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
         ...conf.options,
       })
 
-      if (service.tracer) {
+      if (this.tracer) {
         const applyInstrumentation = _require('opentracing-js-ioredis')
-        applyInstrumentation(service.tracer, instance)
+        applyInstrumentation(this.tracer, instance)
       }
 
       // attach to instance right away
       if (conf.luaScripts) {
         debug('attaching lua')
-        await loadLuaScripts(service, conf.luaScripts, instance)
+        await loadLuaScripts(this, conf.luaScripts, instance)
       }
 
       await instance.connect()
 
-      service.addMigrator('redis', migrate, instance, service)
-      service.redis = instance
-      service.emit('plugin:connect:redisSentinel', instance)
+      this.addMigrator('redis', migrate, instance, this)
+      this.redis = instance
+      this.emit('plugin:connect:redisSentinel', instance)
 
       return instance
     },
@@ -79,20 +78,20 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
     /**
      * @returns Returns current status of redis sentinel.
      */
-    status: hasConnection.bind(service, isRedisStarted),
+    status: hasConnection.bind(this, isRedisStarted),
 
     /**
      * @returns Closes redis connection.
      */
-    async close() {
+    async close(this: Microfleet) {
       assert(isRedisStarted(), ERROR_NOT_STARTED)
 
-      await service.redis
+      await this.redis
         .quit()
         .catchReturn({ message: 'Connection is closed.' }, null)
 
-      service.redis = null
-      service.emit('plugin:close:redisSentinel')
+      this.redis = null
+      this.emit('plugin:close:redisSentinel')
     },
 
   }

@@ -27,8 +27,10 @@ async function factory(this: Microfleet & LoggerPlugin, Cassandra: any, config: 
   const reconnectOpts = {
     interval: 500,
     backoff: 2,
+    // eslint-disable-next-line @typescript-eslint/camelcase
     max_interval: 5000,
     timeout: 60000,
+    // eslint-disable-next-line @typescript-eslint/camelcase
     max_tries: 100,
   }
 
@@ -68,33 +70,32 @@ async function factory(this: Microfleet & LoggerPlugin, Cassandra: any, config: 
 }
 
 export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, params: any = {}) {
-  const service = this
   const Cassandra = _require('express-cassandra')
 
-  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  const config = service.validator.ifError('cassandra', params)
+  const config = this.validator.ifError('cassandra', params)
 
-  async function connectCassandra() {
-    assert(!service.cassandra, new NotPermittedError('Cassandra was already started'))
-    const cassandra = await factory.call(service, Cassandra, config)
+  async function connectCassandra(this: Microfleet & LoggerPlugin) {
+    assert(!this.cassandra, new NotPermittedError('Cassandra was already started'))
+    const cassandra = await factory.call(this, Cassandra, config)
 
-    service.cassandra = cassandra
-    service.emit('plugin:connect:cassandra', cassandra)
+    this.cassandra = cassandra
+    this.emit('plugin:connect:cassandra', cassandra)
 
     return cassandra
   }
 
-  async function disconnectCassandra() {
-    const { cassandra } = service
+  async function disconnectCassandra(this: Microfleet) {
+    const { cassandra } = this
 
     assert(cassandra, new NotPermittedError('Cassandra was not started'))
 
     await cassandra.closeAsync()
 
-    service.cassandra = null
-    service.emit('plugin:close:cassandra')
+    this.cassandra = null
+    this.emit('plugin:close:cassandra')
   }
 
   return {

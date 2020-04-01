@@ -5,14 +5,14 @@
 
 /* Some helpers */
 export type Primitive = string | number | boolean | undefined | null
-export function literal<T extends Primitive>(value: T):T {
+export function literal<T extends Primitive>(value: T): T {
   return value
 }
 
 /**
  * Returns first arg that is passed to the function
  */
-export const identity = <T>(arg: T) => arg
+export const identity = <T>(arg: T): T => arg
 
 /**
  * Connector property.

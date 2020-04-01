@@ -21,8 +21,8 @@ export { Router, RouterConfig, LifecycleRequestType }
  * the router plugin
  */
 export interface RouterPlugin {
-  router: Router
-  dispatch: (route: string, request: Partial<ServiceRequest>) => PromiseLike<any>
+  router: Router;
+  dispatch: (route: string, request: Partial<ServiceRequest>) => PromiseLike<any>;
 }
 
 /**
@@ -79,20 +79,18 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
  * Enables router plugin.
  * @param opts - Router configuration object.
  */
-export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & RouterPlugin, opts: Partial<RouterConfig>) {
-  const service = this
-
-  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  const config = service.validator.ifError('router', opts) as RouterConfig
+export async function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & RouterPlugin, opts: Partial<RouterConfig>) {
+  assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  const config = this.validator.ifError('router', opts) as RouterConfig
 
   for (const transport of config.routes.transports) {
-    if (!service.config.plugins.includes(transport) && transport !== internal) {
+    if (!this.config.plugins.includes(transport) && transport !== internal) {
       throw new NotSupportedError(`transport ${transport}`)
     }
   }
 
-  const router = service.router = getRouter(config, service)
+  const router = this.router = await getRouter(config, this)
 
   const { prefix } = config.routes
   const assemble = prefix
@@ -100,7 +98,7 @@ export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & Route
     : identity
 
   // dispatcher
-  service.dispatch = (route: string, request: Partial<ServiceRequest>) => {
+  this.dispatch = (route: string, request: Partial<ServiceRequest>) => {
     const msg = prepareRequest(request)
     return router.dispatch(assemble(route), msg)
   }

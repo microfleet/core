@@ -1,6 +1,7 @@
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
 import lsmod = require('lsmod')
+import pino = require('pino')
 import { getVersion } from '../../../utils/packageInfo'
 
 // keys to be banned
@@ -18,6 +19,8 @@ import {
   prepareFramesForEvent,
 } from '@sentry/node/dist/parsers'
 
+const { hasOwnProperty } = Object.prototype
+
 /**
  * Sentry stream for Pino
  */
@@ -25,6 +28,7 @@ class SentryStream {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
+  readonly [pino.symbols.needsMetadataGsym]: boolean = true
 
   constructor(opts: any) {
     this.release = opts.release
@@ -38,9 +42,8 @@ class SentryStream {
     const event = JSON.parse(msg)
     const extra = Object.create(null)
 
-    for (const [key, value] of Object.entries<any>(event)) {
-      // @ts-ignore
-      if (BAN_LIST[key] === true) continue
+    for (const [key, value] of Object.entries(event)) {
+      if (hasOwnProperty.call(BAN_LIST, key) === true) continue
       extra[key] = value
     }
 
@@ -60,6 +63,7 @@ class SentryStream {
         timestamp: event.time / 1e3,
         level: this.getSentryLevel(event.level),
         platform: 'node',
+        // eslint-disable-next-line @typescript-eslint/camelcase
         server_name: event.hostname,
         logger: event.name,
         release: this.release,
@@ -123,8 +127,6 @@ function sentryStreamFactory(config: Sentry.NodeOptions) {
   const dest = new SentryStream({
     release: getVersion(),
   })
-  // @ts-ignore
-  dest[Symbol.for('pino.metadata')] = true
 
   return {
     level: logLevel || 'error',
