@@ -12,6 +12,12 @@
     "enabled": true
   },
   {
+    "name": "kafka-proxy-small-timeout",
+    "listen": "0.0.0.0:49092",
+    "upstream": "kafka:49092",
+    "enabled": true
+  },
+  {
     "name": "kafka-proxy-always-on",
     "listen": "0.0.0.0:9092",
     "upstream": "kafka:9092",

@@ -21,7 +21,7 @@ beforeEach(() => {
     kafka: {
       'metadata.broker.list': 'kafka:9092,',
       'group.id': 'test-group',
-      'fetch.wait.max.ms': 10,
+      'fetch.wait.max.ms': 300,
     },
   })
 
@@ -210,6 +210,88 @@ describe('connected to broker', () => {
     expect(receivedMessages).toHaveLength(sentMessages.length)
   })
 
+  // Stream should process all buferred messages and exit
+  test('consume/produce noAutoCommit manualCommit after unsubscribe', async () => {
+    const topic = 'test-no-auto-commit-unsubscribe'
+
+    producer = await createProducerStream(service)
+
+    await sendMessages(producer, topic, 10)
+
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+        streamAsBatch: false,
+        fetchSize: 5,
+      },
+      conf: {
+        'enable.auto.commit': false,
+        'group.id': 'no-auto-commit-manual-unsubscribe',
+      },
+    })
+
+    const receivedMessages: any[] = []
+    let closeCalled = false
+
+    for await (const incommingMessage of consumerStream) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+
+      if (!closeCalled && receivedMessages.length > 2) {
+        closeCalled = true
+        consumerStream.close(() => {
+          service.log.debug('closed connection')
+        })
+      }
+
+      consumerStream.consumer.commitMessage(messages.pop())
+
+    }
+    // we should receive only first pack of messages
+    expect(receivedMessages).toHaveLength(5)
+  })
+
+  test('consume/produce noAutoCommit manualCommit after unsubscribe batchMode', async () => {
+    const topic = 'test-no-auto-commit-unsubscribe-batch'
+
+    producer = await createProducerStream(service)
+
+    await sendMessages(producer, topic, 20)
+
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+        streamAsBatch: true,
+        fetchSize: 5,
+      },
+      conf: {
+        'enable.auto.commit': false,
+        'group.id': 'no-auto-commit-manual-unsubscribe-batch',
+      },
+    })
+
+    const receivedMessages: any[] = []
+    let closeCalled = false
+
+    for await (const incommingMessage of consumerStream) {
+      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      receivedMessages.push(...messages)
+
+      if (!closeCalled && receivedMessages.length > 2) {
+        closeCalled = true
+        consumerStream.close(() => {
+          service.log.debug('closed connection')
+        })
+      }
+
+      consumerStream.consumer.commitMessage(messages.pop())
+
+    }
+    // we should receive only 1 pack of messages
+    expect(receivedMessages).toHaveLength(5)
+  })
+
+
   test('consume/produce autoCommit', async () => {
     const topic = 'test-auto-commit'
 
@@ -249,7 +331,6 @@ describe('connected to broker', () => {
       },
       conf: {
         'enable.auto.commit': true,
-        'auto.commit.interval.ms': 100,
         'enable.auto.offset.store': false,
         'group.id': 'auto-commit-no-offset-store-consumer',
       },
