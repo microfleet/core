@@ -73,7 +73,7 @@ export class SentryStream {
           version: Sentry.SDK_VERSION,
         },
         modules: this.modules,
-        fingerprint: event.$fingerprint || ['{{ default }}'],
+        fingerprint: this.getSentryFingerprint(event.$fingerprint),
       })
     })()
 
@@ -106,6 +106,10 @@ export class SentryStream {
     if (level === 40) return Sentry.Severity.Warning
 
     return Sentry.Severity.Info
+  }
+
+  getSentryFingerprint(fingerprint?: string[]): string[] {
+    return fingerprint || ['{{ default }}']
   }
 }
 
