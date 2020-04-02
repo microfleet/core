@@ -1,8 +1,7 @@
-const Promise = require('bluebird');
+const Sentry = require('@sentry/node');
 const assert = require('assert');
 const pinoms = require('pino-multi-stream');
 const { createSandbox, match } = require('sinon');
-const Sentry = require('@sentry/node');
 
 describe('Logger Sentry Stream Suite', function testSuite() {
   const sandbox = createSandbox();
@@ -30,7 +29,7 @@ describe('Logger Sentry Stream Suite', function testSuite() {
     }));
   });
 
-  it('sentryStreamFactory() result should be able to handle pinoms message', async function test() {
+  it('sentryStreamFactory() result should be able to handle pinoms message', function test() {
     const streamConfig = sentryStreamFactory({
       dsn: 'https://api@sentry.io/1822',
     });
@@ -44,7 +43,7 @@ describe('Logger Sentry Stream Suite', function testSuite() {
 
     assert(stream.write.calledOnceWithExactly(match.string));
     assert(Sentry.captureEvent.calledOnceWith(match({
-      extra: match({ 'userId': match(123) }),
+      extra: match({ userId: match(123), pid: match.number, v: 1 }),
       timestamp: match.number,
       message: match('Warning message'),
       level: match('warn'),
@@ -55,18 +54,18 @@ describe('Logger Sentry Stream Suite', function testSuite() {
       environment: 'test',
       modules: match.object,
       sdk: match({ name: match('sentry.javascript.node'), version: match.string }),
-      fingerprint: match.array,
+      fingerprint: match.array.deepEquals(['{{ default }}']),
     })));
   });
 
-  it('SentryStream#write should be able to modify Sentry event fingerprint', async function test() {
+  it('SentryStream#write() should be able to modify Sentry event fingerprint', function test() {
     const stream = new SentryStream({ release: '1.17.0' });
 
     sandbox.spy(Sentry, 'captureEvent');
     stream.write(
       '{"level":40,"time":1585845656002,"pid":1855,"hostname":"tester","$fingerprint":["api"],"msg":"Api warning","v":1}'
     );
-    assert(Sentry.captureEvent.calledOnceWith(match({
+    assert(Sentry.captureEvent.calledOnceWithExactly(match({
       fingerprint: match.array.deepEquals(['api']),
     })));
   });
