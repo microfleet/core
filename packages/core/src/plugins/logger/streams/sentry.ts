@@ -12,6 +12,10 @@ const BAN_LIST = {
   level: true,
 }
 
+const EVENT_MODIFIERS = {
+  $fingerprint: true,
+}
+
 import {
   extractStackFromError,
   parseStack,
@@ -21,7 +25,7 @@ import {
 /**
  * Sentry stream for Pino
  */
-class SentryStream {
+export class SentryStream {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
@@ -40,7 +44,7 @@ class SentryStream {
 
     for (const [key, value] of Object.entries<any>(event)) {
       // @ts-ignore
-      if (BAN_LIST[key] === true) continue
+      if (BAN_LIST[key] === true || EVENT_MODIFIERS[key] === true) continue
       extra[key] = value
     }
 
@@ -69,7 +73,7 @@ class SentryStream {
           version: Sentry.SDK_VERSION,
         },
         modules: this.modules,
-        fingerprint: ['{{ default }}'],
+        fingerprint: event.$fingerprint || ['{{ default }}'],
       })
     })()
 
