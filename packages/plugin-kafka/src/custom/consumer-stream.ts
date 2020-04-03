@@ -3,6 +3,7 @@ import * as assert from 'assert'
 import { once } from 'events'
 import { find } from 'lodash'
 import { map, resolve, race, promisify } from 'bluebird'
+import { helpers as ErrorHelpers } from 'common-errors'
 
 import { LoggerPlugin } from '@microfleet/core'
 
@@ -18,7 +19,7 @@ export interface CommitOffsetTracker {
 }
 
 const { ERRORS: KafkaErrorCodes } = KafkaCodes
-const { ERR__ASSIGN_PARTITIONS, ERR__REVOKE_PARTITIONS } = KafkaErrorCodes
+const { ERR__ASSIGN_PARTITIONS, ERR__REVOKE_PARTITIONS, ERR_UNKNOWN_MEMBER_ID } = KafkaErrorCodes
 
 export type KafkaError = Error & {
   code: number
@@ -27,7 +28,16 @@ export type KafkaError = Error & {
 export const EVENT_ACK = 'acknowledged'
 export const EVENT_CONSUMED = 'consumed'
 export const EVENT_DESTROYING = 'destroying'
-export const EVENT_FINAL_COMMIT_ERROR = 'final.commit.error'
+export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
+
+export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
+  args: ['partitions', 'inner_error'],
+})
+
+export const CriticalErrors = [
+  ERR_UNKNOWN_MEMBER_ID,
+]
+
 /**
  * Helps to read data from Kafka topic.
  * Allows to track consumer offset position and exit on EOF
@@ -102,8 +112,16 @@ export class KafkaConsumerStream extends Readable {
       this.log?.debug({ err, partitions }, 'offset.commit')
 
       if (err) {
-        this.log?.warn({ err }, 'commit error')
-        this.emit('offset.commit.error', err, partitions)
+        const wrappedError = new OffsetCommitError(partitions, err)
+        this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
+
+        // Should be Error but current version returns error code
+        const code = typeof err === 'number' ? err : (err as KafkaError).code
+        if (CriticalErrors.includes(code)) {
+          this.log?.error({ err: wrappedError }, 'critical commit error')
+          this.emit('error', wrappedError)
+        }
+
         return
       }
 
@@ -207,7 +225,6 @@ export class KafkaConsumerStream extends Readable {
       resolve(once(this, EVENT_DESTROYING))
         .tap(() => { this.log?.debug('acked: with DESTROYING event') })
         .return(false),
-      once(this, EVENT_FINAL_COMMIT_ERROR).then(([err]) => { throw err }),
     ])
   }
 
@@ -267,6 +284,8 @@ export class KafkaConsumerStream extends Readable {
     }
 
     this.log?.debug('_destroy close consumer stream')
+    // invalidate assignments otherwise rebalance_cb will be called later
+    // and block some rdkafka threads
     this.consumer.assign([])
     this.consumerStream.destroy()
     this.consumerStream.once('close', () => {
@@ -281,7 +300,6 @@ export class KafkaConsumerStream extends Readable {
     const superDestroy = (_?: any) => {
       this.log?.debug({ err }, 'superDestroy')
       super.destroy(err)
-      // if (callback) callback(err || null)
     }
 
     this.once('close', () => {
@@ -290,7 +308,6 @@ export class KafkaConsumerStream extends Readable {
 
     if (this.destroying) {
       this.log?.debug({ err, callback }, 'in destroying state')
-      // process.nextTick(superDestroy)
       return this
     }
 

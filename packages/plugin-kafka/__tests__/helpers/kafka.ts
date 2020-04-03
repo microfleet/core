@@ -76,7 +76,21 @@ export async function createConsumerStream(
   )
 
   service.log.debug({ config, extraConfig }, 'CREATE CONSUMER')
-  return kafka.createConsumerStream(config)
+  const consumerStream = await kafka.createConsumerStream(config)
+
+  consumerStream.on('close', () => {
+    service.log.debug('TEST stream on close')
+  })
+
+  consumerStream.on('end', () => {
+    service.log.debug('TEST stream on end')
+  })
+
+  consumerStream.on('error', (err) => {
+    service.log.debug({ err }, 'TEST stream on error')
+  })
+
+  return consumerStream
 }
 
 // we must wait for message delivery

@@ -71,18 +71,6 @@ describe('toxified-2seconds', () => {
       },
     })
 
-    consumerStream.on('close', () => {
-      service.log.debug('TEST stream on close')
-    })
-
-    consumerStream.on('end', () => {
-      service.log.debug('TEST stream on end')
-    })
-
-    consumerStream.on('error', (err) => {
-      service.log.debug({ err }, 'TEST stream on error')
-    })
-
     let blockedOnce = false
 
     const simOne = async () => {
