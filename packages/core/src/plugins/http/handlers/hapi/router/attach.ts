@@ -4,7 +4,7 @@ import defaults = require('lodash/defaults')
 import omit = require('lodash/omit')
 import { HapiPlugin } from '../'
 import { ActionTransport, Microfleet, Router } from '../../../../..'
-import verifyPossibility from '../../../../router/verifyAttachPossibility'
+import { verifyAttachPossibility } from '../../../../router/verifyAttachPossibility'
 import { fromNameToPath, fromPathToName } from '../../../helpers/actionName'
 import hapiRouterAdapter from './adapter'
 
@@ -34,7 +34,7 @@ function attachRequestCountEvents(server: Server, router: Router) {
 }
 
 export default function attachRouter(service: Microfleet, config: any): HapiPlugin {
-  verifyPossibility(service.router, ActionTransport.http)
+  verifyAttachPossibility(service.router, ActionTransport.http)
 
   return {
     plugin: {

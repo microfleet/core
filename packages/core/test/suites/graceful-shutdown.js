@@ -35,10 +35,12 @@ class ChildServiceRunner {
     const { stderr, stdout } = subProcess;
 
     stderr.pipe(split2()).on('data', (line) => {
+      console.warn(line)
       this.stderr.push(line);
     });
 
     stdout.pipe(split2()).on('data', (line) => {
+      console.info(line)
       this.stdout.push(line);
       if (line.includes('childServiceReady')) {
         this.serviceStarted = true;

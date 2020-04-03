@@ -79,7 +79,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
         throw new NotPermittedError('SocketIO plugin not found')
       }
 
-      service.socketIO.listen(server.listener, service.config.socketIO.options)
+      service.socketIO.listen(server.listener, (service.config.socketIO as any)?.options)
     }
 
     await initPlugins()

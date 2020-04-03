@@ -79,7 +79,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
  * Enables router plugin.
  * @param opts - Router configuration object.
  */
-export async function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & RouterPlugin, opts: Partial<RouterConfig>) {
+export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & RouterPlugin, opts: Partial<RouterConfig>): void {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   const config = this.validator.ifError('router', opts) as RouterConfig
@@ -90,7 +90,7 @@ export async function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin &
     }
   }
 
-  const router = this.router = await getRouter(config, this)
+  const router = this.router = getRouter(config, this)
 
   const { prefix } = config.routes
   const assemble = prefix

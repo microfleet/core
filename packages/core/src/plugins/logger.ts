@@ -120,7 +120,10 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
         })
         return stream
       }
-      return new SonicBoom((process.stdout as any).fd) as any
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      return new SonicBoom({ fd: process.stdout.fd })
     }
 
     streams.push({

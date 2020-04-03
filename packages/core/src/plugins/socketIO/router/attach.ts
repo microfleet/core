@@ -1,11 +1,11 @@
 import { ActionTransport } from '../../..'
 import { Router } from '../../router/factory'
-import verifyPossibility from '../../router/verifyAttachPossibility'
+import { verifyAttachPossibility } from '../../router/verifyAttachPossibility'
 import getSocketIORouterAdapter from './adapter'
 import wildcard = require('socketio-wildcard')
 
 function attachSocketIORouter(socketIO: any, config: any, router: Router) {
-  verifyPossibility(router, ActionTransport.socketIO)
+  verifyAttachPossibility(router, ActionTransport.socketIO)
 
   // include adapter
   const wildcardMiddleware = wildcard()

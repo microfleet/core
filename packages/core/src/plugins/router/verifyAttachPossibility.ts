@@ -8,7 +8,7 @@ import { Router } from './factory'
  * @param  router - Existing router instance.
  * @param  transportName - Transport name to attach handler to.
  */
-function verifyAttachPossibility(router: Router, transportName: TransportTypes): void {
+export function verifyAttachPossibility(router: Router, transportName: TransportTypes): void {
   if (!is.object(router)) {
     throw new NotFoundError('Module "router" not included')
   }
@@ -19,5 +19,3 @@ function verifyAttachPossibility(router: Router, transportName: TransportTypes):
     throw new NotSupportedError(`${transportName} not in "router" module config`)
   }
 }
-
-export default verifyAttachPossibility

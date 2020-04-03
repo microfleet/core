@@ -26,7 +26,7 @@ import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { LoggerPlugin, LoggerConfig } from './plugins/logger'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
-import { HealthStatus } from '../lib/utils/pluginHealthStatus'
+import { HealthStatus } from './utils/pluginHealthStatus'
 export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
@@ -180,6 +180,7 @@ export class Microfleet extends EventEmitter {
 
     // init configuration
     this.config = defaultsDeep(opts, defaultOpts) as CoreOptions
+    this.exit = this.exit.bind(this)
 
     // init migrations
     this.migrators = Object.create(null)
@@ -377,7 +378,7 @@ export class Microfleet extends EventEmitter {
    * Asks for health status of registered plugins if it's possible, logs it and returns summary.
    */
   public getHealthStatus(): Promise<HealthStatus> {
-    return getHealthStatus(this.getHealthChecks(), this.config.healthChecks)
+    return getHealthStatus.call(this, this.getHealthChecks(), this.config.healthChecks)
   }
 
   public hasPlugin(name: string): boolean {
@@ -389,7 +390,7 @@ export class Microfleet extends EventEmitter {
    * @returns Resolves when exit sequence has completed.
    */
   private async exit(): Promise<void> | never {
-    this.log.info('received close signal...\n closing connections...\n')
+    this.log.info('received close signal... closing connections...')
 
     try {
       await Promise.race([

@@ -7,7 +7,7 @@ import get = require('get-value')
 import { ActionTransport, Microfleet, PluginTypes, LoggerPlugin, ValidatorPlugin } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
-import verifyPossibility from './router/verifyAttachPossibility'
+import { verifyAttachPossibility } from './router/verifyAttachPossibility'
 import * as RequestTracker from './router/request-tracker'
 
 /**
@@ -54,7 +54,8 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
 
   const config = this.validator.ifError('amqp', opts)
   const AMQPTransport = _require('@microfleet/transport-amqp')
-  const Backoff = _require('@microfleet/transport-amqp/lib/utils/recovery')
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery')
 
   const ERROR_NOT_STARTED = new Errors.NotPermittedError('amqp was not started')
   const ERROR_NOT_HEALTHY = new Errors.ConnectionError('amqp is not healthy')
@@ -229,7 +230,7 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, opts: 
   }
 
   if (config.router && config.router.enabled === true) {
-    verifyPossibility(this.router, ActionTransport.amqp)
+    verifyAttachPossibility(this.router, ActionTransport.amqp)
     this.AMQPRouter = getAMQPRouterAdapter(this.router, config)
     const { prefix } = config.router
     // allow ms-amqp-transport to discover routes
