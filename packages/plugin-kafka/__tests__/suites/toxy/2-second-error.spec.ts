@@ -8,7 +8,7 @@ import {
   KafkaProducerStream,
 } from '@microfleet/plugin-kafka'
 
-import { createProducerStream, createConsumerStream, sendMessages } from '../../helpers/kafka'
+import { createProducerStream, createConsumerStream, sendMessages, processReceived, readStream, msgsToArr } from '../../helpers/kafka'
 
 let service: Microfleet
 let producer: KafkaProducerStream
@@ -19,6 +19,7 @@ beforeEach(async () => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
+      debug: 'consumer,cgrp',
       'metadata.broker.list': 'kafka:39092',
       'group.id': 'test-group',
       'fetch.wait.max.ms': 50,
@@ -50,13 +51,14 @@ describe('toxified-2seconds', () => {
     await setProxyEnabled(true)
   })
 
+  // shows sync commit failure
   test('no-auto-commit commitSync', async () => {
     const topic = 'toxified-test-no-auto-commit-no-batch-eof'
     producer = await createProducerStream(service)
 
     const receivedMessages: any[] = []
 
-    await sendMessages(producer, topic, 3)
+    await sendMessages(producer, topic, 10)
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -69,31 +71,37 @@ describe('toxified-2seconds', () => {
       },
     })
 
+    consumerStream.on('close', () => {
+      service.log.debug('TEST stream on close')
+    })
+
+    consumerStream.on('end', () => {
+      service.log.debug('TEST stream on end')
+    })
+
+    consumerStream.on('error', (err) => {
+      service.log.debug({ err }, 'TEST stream on error')
+    })
+
     let blockedOnce = false
 
     const simOne = async () => {
       for await (const incommingMessage of consumerStream) {
-        const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+        const messages = msgsToArr(incommingMessage)
         receivedMessages.push(...messages)
+
+        consumerStream.consumer.commitMessageSync(messages.pop())
 
         if (!blockedOnce) {
           await setProxyEnabled(false)
           delay(2000).then(() => setProxyEnabled(true))
           blockedOnce = true
         }
-        try {
-          consumerStream.consumer.commitMessageSync(messages.pop())
-        } catch (error) {
-          service.log.debug('TEST close stream')
-          consumerStream.destroy(error)
-          throw error
-        }
       }
+      service.log.debug('TEST ENDOF FOR LOOP')
     }
 
     await expect(simOne()).rejects.toThrowError(/Local: Waiting for coordinator/)
-
-    await consumerStream.closeAsync()
 
     service.log.debug('start the second read sequence')
 
@@ -107,17 +115,11 @@ describe('toxified-2seconds', () => {
       },
     })
 
-    const newMessages = []
-    for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-      newMessages.push(...messages)
-      consumerStream.consumer.commitMessage(messages.pop())
-    }
-
-    expect(newMessages).toHaveLength(3)
-
+    const newMessages = await readStream(consumerStream)
+    expect(newMessages).toHaveLength(9)
   })
 
+  // shows successfull commit recovery
   test('block after first commit no-auto-commit', async () => {
     const topic = 'async-toxified-test-no-auto-commit-no-batch-eof'
     producer = await createProducerStream(service)
@@ -140,29 +142,24 @@ describe('toxified-2seconds', () => {
     let blockedOnce = false
 
     const simOne = async () => {
-      for await (const incommingMessage of consumerStream) {
-        const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-        receivedMessages.push(...messages)
-        const lastMessage = messages.pop()
+      for await (const incoming of consumerStream) {
+        const lastMessage = processReceived(receivedMessages, incoming)
         consumerStream.consumer.commitMessage(lastMessage)
-        service.log.warn({ lastMessage }, 'TEST COMMIT')
+
         if (!blockedOnce) {
-          service.log.warn('waiting for first commit')
           await once(consumerStream.consumer, 'offset.commit')
 
-          service.log.error('BLOCKING connection')
+          service.log.debug('BLOCKING connection')
           blockedOnce = true
           await setProxyEnabled(false)
           delay(2000)
             .then(() => setProxyEnabled(true))
-            .tap(() => { service.log.error('ENABLED connection') })
+            .tap(() => { service.log.debug('ENABLED connection') })
         }
       }
     }
 
     await simOne()
-
-    await consumerStream.closeAsync()
 
     service.log.debug('start the second read sequence')
 
@@ -176,14 +173,7 @@ describe('toxified-2seconds', () => {
       },
     })
 
-    const newMessages = []
-    for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-      newMessages.push(...messages)
-      consumerStream.consumer.commitMessage(messages.pop())
-    }
-
+    const newMessages = await readStream(consumerStream)
     expect(newMessages).toHaveLength(0)
-
   })
 })

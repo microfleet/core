@@ -7,6 +7,7 @@ import {
   KafkaProducerStream,
   ProducerStreamConfig,
   ConsumerStreamConfig,
+  ConsumerStreamMessage,
 } from '@microfleet/plugin-kafka'
 
 function getMessageIterable(count: number) {
@@ -93,4 +94,23 @@ export async function sendMessages(
   }
 
   return messageIterable.sentMessages
+}
+
+export function processReceived(received: any[], messages: any): ConsumerStreamMessage {
+  const msgs = msgsToArr(messages)
+  received.push(...msgs)
+  return messages.pop()
+}
+
+export async function readStream(stream: KafkaConsumerStream, commit = true): Promise<ConsumerStreamMessage[]> {
+  const messages: ConsumerStreamMessage[] = []
+  for await (const incommingMessage of stream) {
+    const lastMessage = processReceived(messages, incommingMessage)
+    if (commit) stream.consumer.commitMessage(lastMessage)
+  }
+  return messages
+}
+
+export function msgsToArr(incommingMessage: ConsumerStreamMessage | ConsumerStreamMessage []) {
+  return Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
 }

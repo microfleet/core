@@ -5,10 +5,9 @@ import {
   KafkaConsumerStream,
   KafkaProducerStream,
   TopicNotFoundError,
-  ConsumerStreamMessage
 } from '@microfleet/plugin-kafka'
 
-import { createProducerStream, createConsumerStream, sendMessages } from '../helpers/kafka'
+import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, readStream } from '../helpers/kafka'
 
 let service: Microfleet
 let producer: KafkaProducerStream
@@ -19,6 +18,7 @@ beforeEach(() => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
+      // debug: 'all',
       'metadata.broker.list': 'kafka:9092,',
       'group.id': 'test-group',
       'fetch.wait.max.ms': 300,
@@ -76,6 +76,9 @@ describe('connect', () => {
 
       const req = kafka.createConsumerStream({
         streamOptions: { topics: ['test-not-found'], connectOptions: { allTopics: true } },
+        conf: {
+          'group.id': 'consumer-all-topics-meta',
+        },
       })
 
       await expect(req).rejects.toThrowError(TopicNotFoundError)
@@ -86,6 +89,9 @@ describe('connect', () => {
 
       const req = kafka.createConsumerStream({
         streamOptions: { topics: ['test-not-found'], connectOptions: { topic: ['test-not-found'] } },
+        conf: {
+          'group.id': 'consumer-one-topic-meta',
+        },
       })
 
       await expect(req).rejects.toThrowError(TopicNotFoundError)
@@ -103,7 +109,7 @@ describe('conn-track', () => {
         dr_msg_cb: true,
       },
       topicConf: {
-        'delivery.timeout.ms': 500,
+        'delivery.timeout.ms': 1500,
       },
     })
 
@@ -166,7 +172,7 @@ describe('connected to broker', () => {
 
     const receivedMessages: any[] = []
     for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      const messages = msgsToArr(incommingMessage)
       receivedMessages.push(...messages)
 
       for (const message of messages) {
@@ -187,7 +193,6 @@ describe('connected to broker', () => {
     const topic = 'test-no-auto-commit'
 
     producer = await createProducerStream(service)
-
     const sentMessages = await sendMessages(producer, topic, 10)
 
     consumerStream = await createConsumerStream(service, {
@@ -200,13 +205,7 @@ describe('connected to broker', () => {
       },
     })
 
-    const receivedMessages: any[] = []
-    for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-      receivedMessages.push(...messages)
-      consumerStream.consumer.commitMessage(messages.pop())
-    }
-
+    const receivedMessages = await readStream(consumerStream)
     expect(receivedMessages).toHaveLength(sentMessages.length)
   })
 
@@ -234,7 +233,7 @@ describe('connected to broker', () => {
     let closeCalled = false
 
     for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      const messages = msgsToArr(incommingMessage)
       receivedMessages.push(...messages)
 
       if (!closeCalled && receivedMessages.length > 2) {
@@ -245,7 +244,6 @@ describe('connected to broker', () => {
       }
 
       consumerStream.consumer.commitMessage(messages.pop())
-
     }
     // we should receive only first pack of messages
     expect(receivedMessages).toHaveLength(5)
@@ -274,7 +272,7 @@ describe('connected to broker', () => {
     let closeCalled = false
 
     for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      const messages = msgsToArr(incommingMessage)
       receivedMessages.push(...messages)
 
       if (!closeCalled && receivedMessages.length > 2) {
@@ -290,7 +288,6 @@ describe('connected to broker', () => {
     // we should receive only 1 pack of messages
     expect(receivedMessages).toHaveLength(5)
   })
-
 
   test('consume/produce autoCommit', async () => {
     const topic = 'test-auto-commit'
@@ -308,12 +305,7 @@ describe('connected to broker', () => {
       },
     })
 
-    const receivedMessages: any[] = []
-    for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-      receivedMessages.push(...messages)
-    }
-
+    const receivedMessages = await readStream(consumerStream, false)
     expect(receivedMessages).toHaveLength(sentMessages.length)
   })
 
@@ -338,7 +330,7 @@ describe('connected to broker', () => {
 
     const receivedMessages: any[] = []
     for await (const incommingMessage of consumerStream) {
-      const messages: ConsumerStreamMessage[] = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+      const messages = msgsToArr(incommingMessage)
       receivedMessages.push(...messages)
 
       for (const { partition, offset } of messages) {
@@ -366,15 +358,9 @@ describe('connected to broker', () => {
       },
     })
 
-    const newMessages = []
-
     service.log.debug('waiting for stream messages')
 
-    for await (const incommingMessage of consumerStream) {
-      const messages = Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
-      newMessages.push(...messages)
-    }
-
+    const newMessages = await readStream(consumerStream, false)
     expect(newMessages).toHaveLength(0)
   })
 })
