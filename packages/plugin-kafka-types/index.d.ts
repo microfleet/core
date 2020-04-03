@@ -94,8 +94,9 @@ declare module 'node-rdkafka' {
   }
 
   export interface Client extends NodeJS.EventEmitter {
-    new (globalConf: GlobalConfig, SubClientType: any, topicConf: TopicConfig): Client
     _isDisconnecting: boolean
+
+    new (globalConf: GlobalConfig, SubClientType: any, topicConf: TopicConfig): Client
 
     connectAsync(metadataOptions: ConnectOptions): Promise<Metadata>
     disconnectAsync(): Promise<this>
