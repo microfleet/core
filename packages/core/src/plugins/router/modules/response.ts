@@ -14,11 +14,11 @@ import {
   TimeoutError,
   ValidationError
 } from 'common-errors'
-import { Microfleet, LoggerPlugin } from '../../../'
+import { Microfleet } from '../../../'
 import { ServiceRequest } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
-function response(this: Microfleet & LoggerPlugin, err: Error | null, result: any) {
+function response(this: Microfleet, err: Error | null, result: any) {
   if (err) {
     switch (err.constructor) {
       case AuthenticationRequiredError:

@@ -2,7 +2,8 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin, ValidatorPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import { promisifyAll, map } from 'bluebird'
 
 import {

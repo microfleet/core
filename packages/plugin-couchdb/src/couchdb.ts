@@ -1,7 +1,8 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import retry = require('bluebird-retry')
 import CouchDB = require('nano')
 

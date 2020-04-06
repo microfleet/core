@@ -1,7 +1,6 @@
 import { createServer } from 'http'
 import assert = require('assert')
 import { Microfleet, PluginTypes, RouterPlugin, ValidatorPlugin } from '..'
-import { getVersion } from '../utils/packageInfo'
 import semver = require('semver')
 import Bluebird = require('bluebird')
 import prometheus = require('prom-client')
@@ -21,7 +20,7 @@ In future we expect to handle it automatically :)
 function createAppVersionMetric() {
   let metric = prometheus.register.getSingleMetric('application_version_info')
   if (!metric) {
-    const originalVersion = getVersion()
+    const originalVersion = Microfleet.version
     const pv = semver.parse(originalVersion)
     metric = new prometheus.Gauge({
       name: 'application_version_info',

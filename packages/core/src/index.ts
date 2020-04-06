@@ -15,6 +15,7 @@ import {
   getHealthStatus,
   PluginHealthCheck
 } from './utils/pluginHealthStatus'
+import { getVersion } from './utils/packageInfo'
 import {
   HandlerProperties,
   Plugin,
@@ -23,11 +24,10 @@ import {
   TConnectorsTypes,
 } from './types'
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
-import { LoggerPlugin, LoggerConfig } from './plugins/logger'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
 import { HealthStatus } from './utils/pluginHealthStatus'
-export { ValidatorPlugin, LoggerPlugin, RouterPlugin, LifecycleRequestType }
+export { ValidatorPlugin, RouterPlugin, LifecycleRequestType }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 
@@ -94,11 +94,6 @@ export interface ConfigurationOptional {
   plugins: string[];
 
   /**
-   * Logger plugin configuration
-   */
-  logger: LoggerConfig;
-
-  /**
    * Validator plugin configuration
    */
   validator: ValidatorConfig;
@@ -158,6 +153,8 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
  * @class Microfleet
  */
 export class Microfleet extends EventEmitter {
+  public static readonly version: string = getVersion()
+
   public config: CoreOptions
   public migrators: { [name: string]: AnyFn }
   public readonly plugins: string[]

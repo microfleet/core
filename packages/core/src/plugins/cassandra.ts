@@ -3,7 +3,7 @@ import assert = require('assert')
 import retry = require('bluebird-retry')
 import { NotPermittedError, NotFoundError } from 'common-errors'
 import is = require('is')
-import { Microfleet, LoggerPlugin, ValidatorPlugin } from '../'
+import { Microfleet, ValidatorPlugin } from '../'
 import { PluginTypes } from '../constants'
 import _require from '../utils/require'
 
@@ -22,7 +22,7 @@ export const type = PluginTypes.database
  */
 export const priority = 0
 
-async function factory(this: Microfleet & LoggerPlugin, Cassandra: any, config: any) {
+async function factory(this: Microfleet, Cassandra: any, config: any) {
   const { models } = config.service
   const reconnectOpts = {
     interval: 500,
@@ -69,7 +69,7 @@ async function factory(this: Microfleet & LoggerPlugin, Cassandra: any, config: 
   return client
 }
 
-export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, params: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin, params: any = {}) {
   const Cassandra = _require('express-cassandra')
 
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
@@ -77,7 +77,7 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, params
 
   const config = this.validator.ifError('cassandra', params)
 
-  async function connectCassandra(this: Microfleet & LoggerPlugin) {
+  async function connectCassandra(this: Microfleet) {
     assert(!this.cassandra, new NotPermittedError('Cassandra was already started'))
     const cassandra = await factory.call(this, Cassandra, config)
 

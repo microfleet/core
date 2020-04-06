@@ -6,7 +6,6 @@ import { Microfleet } from '../'
 import { ServiceRequest } from '../types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
 import { ValidatorPlugin } from './validator'
-import { LoggerPlugin } from './logger'
 import { object as isObject } from 'is'
 const { internal } = ActionTransport
 
@@ -79,7 +78,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
  * Enables router plugin.
  * @param opts - Router configuration object.
  */
-export function attach(this: Microfleet & ValidatorPlugin & LoggerPlugin & RouterPlugin, opts: Partial<RouterConfig>): void {
+export function attach(this: Microfleet & ValidatorPlugin & RouterPlugin, opts: Partial<RouterConfig>): void {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   const config = this.validator.ifError('router', opts) as RouterConfig

@@ -1,0 +1,48 @@
+{
+  "$id": "logger",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "Service name",
+      "type": "string"
+    },
+    "defaultLogger": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "object" }
+      ]
+    },
+    "prettifyDefaultLogger": {
+      "type": "boolean",
+      "description": "Pretty printing for Pino logger, not for production usage"
+    },
+    "debug": {
+      "type": "boolean"
+    },
+    "options": {
+      "type": "object",
+      "description": "Logger options: https://getpino.io/#/docs/api?id=options"
+    },
+    "streams": {
+      "type": "object",
+      "properties": {
+        "pretty": {
+          "type": "object",
+          "description": "Options: https://github.com/pinojs/pino-pretty#options"
+        },
+        "sentry": {
+          "type": "object",
+          "description": "Options: https://docs.sentry.io/error-reporting/configuration/?platform=javascript",
+          "properties": {
+            "dsn": {
+              "type": "string"
+            },
+            "logLevel": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

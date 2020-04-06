@@ -2,7 +2,8 @@ import { once } from 'events'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
-import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin, LoggerPlugin } from '@microfleet/core'
+import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/plugin-logger'
 import consul = require('consul')
 
 /**
@@ -41,7 +42,7 @@ export const priority = 0
 /**
  * Attaches initialized validator based on conf.
  * Provides `consul` and `consulLeader` methods.
- * @param conf - Consul Configuration Object.
+ * @param opts - Consul Configuration Object.
  */
 export const attach = function attachConsulPlugin(
   this: Microfleet & ValidatorPlugin & LoggerPlugin & ConsulPlugin,
