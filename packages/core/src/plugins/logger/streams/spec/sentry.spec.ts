@@ -64,11 +64,33 @@ describe('Logger Sentry Stream Suite', () => {
     const stream = new SentryStream({ release: '1.17.0' })
 
     const captureEventSpy = sandbox.spy(Sentry, 'captureEvent')
+    const getFingerprintSpy = sandbox.spy(stream, 'getSentryFingerprint')
     stream.write(
       '{"level":40,"time":1585845656002,"pid":1855,"hostname":"tester","$fingerprint":["api"],"msg":"Api warning","v":1}'
     )
+    assert(getFingerprintSpy.calledOnceWithExactly(['api']))
     assert(captureEventSpy.calledOnceWithExactly(match({
       fingerprint: match.array.deepEquals(['api']),
     })))
+  })
+
+  it('SentryStream#getSentryFingerprint() should be able to validate Sentry event fingerprint', () => {
+    const stream = new SentryStream({ release: '1.17.0' })
+    const captureEventSpy = sandbox.spy(Sentry, 'captureEvent')
+    const invalidFingerprints = [
+      ['{{ default }}', 123],
+      [{ functionName: 'some', errorCode: 123 }],
+      123,
+    ]
+
+    invalidFingerprints.forEach(fingerprint => assert.throws(
+      () => stream.getSentryFingerprint(fingerprint),
+      {
+        name: 'AssertionError',
+        message: '"$fingerprint" option value has to be an array of strings',
+      }
+    ))
+
+    assert(captureEventSpy.notCalled)
   })
 })

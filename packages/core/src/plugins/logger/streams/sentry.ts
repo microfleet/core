@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/node'
 import lsmod = require('lsmod')
 import { getVersion } from '../../../utils/packageInfo'
 
+export const FINGERPRINT_DEFAULT = '{{ default }}'
 // keys to be banned
 const BAN_LIST = {
   msg: true,
@@ -109,7 +110,16 @@ export class SentryStream {
   }
 
   getSentryFingerprint(fingerprint?: string[]): string[] {
-    return fingerprint || ['{{ default }}']
+    if (!fingerprint) {
+      return [FINGERPRINT_DEFAULT]
+    }
+
+    assert(
+      Array.isArray(fingerprint) && fingerprint.every(part => typeof part === 'string'),
+      '"$fingerprint" option value has to be an array of strings'
+    )
+
+    return fingerprint
   }
 }
 
