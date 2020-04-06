@@ -61,7 +61,7 @@ export async function createConsumerStream(
         stopOnPartitionsEOF: true,
         waitInterval: 10,
         // wait abit longer for broker queries
-        offsetQueryTimeout: 4000,
+        offsetQueryTimeout: 200,
       },
       conf: {
         // debug: 'consumer,topic,cgrp',

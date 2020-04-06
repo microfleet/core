@@ -25,6 +25,10 @@ beforeEach(() => {
     },
   })
 
+  service.log.info('>>>>>')
+  service.log.info('>>>>>')
+  service.log.info('>>>>>')
+  service.log.info('>>>>>')
   // @ts-ignore
   service.log.info('STARTING TEST >>>>', jasmine.currentTest.fullName)
 })
@@ -263,6 +267,7 @@ describe('connected to broker', () => {
         fetchSize: 5,
       },
       conf: {
+        debug: 'consumer,cgrp,topic',
         'enable.auto.commit': false,
         'group.id': 'no-auto-commit-manual-unsubscribe-batch',
       },

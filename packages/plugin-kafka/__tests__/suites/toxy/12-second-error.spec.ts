@@ -65,7 +65,7 @@ describe('toxified - messes kafka library(tries to rebalance after disconnected)
         fetchSize: 2,
       },
       conf: {
-        debug: 'consumer,cgrp,topic',
+        // debug: 'consumer,cgrp,topic',
         'group.id': 'first-commit-long-toxified-no-commit-consumer',
         'enable.auto.commit': false,
       },

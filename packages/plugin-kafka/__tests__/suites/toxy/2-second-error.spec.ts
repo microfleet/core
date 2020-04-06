@@ -19,7 +19,6 @@ beforeEach(async () => {
     name: 'tester',
     plugins: ['logger', 'validator', 'kafka'],
     kafka: {
-      debug: 'consumer,cgrp',
       'metadata.broker.list': 'kafka:39092',
       'group.id': 'test-group',
       'fetch.wait.max.ms': 50,

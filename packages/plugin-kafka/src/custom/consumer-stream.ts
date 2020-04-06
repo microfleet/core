@@ -2,7 +2,7 @@ import { Readable } from 'readable-stream'
 import * as assert from 'assert'
 import { once } from 'events'
 import { find } from 'lodash'
-import { map, resolve, race, promisify } from 'bluebird'
+import { map, resolve, race, promisify, TimeoutError,  } from 'bluebird'
 import { helpers as ErrorHelpers } from 'common-errors'
 
 import { LoggerPlugin } from '@microfleet/core'
@@ -49,7 +49,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public consumer: KafkaConsumer
-  private consumerStream: OriginalConsumerStream
+  private wrappedStream: OriginalConsumerStream
   private offsetQueryTimeout: number
   private offsetTracker: CommitOffsetTracker
   private unacknowledgedTracker: CommitOffsetTracker
@@ -87,7 +87,6 @@ export class KafkaConsumerStream extends Readable {
       switch (err.code) {
         case ERR__ASSIGN_PARTITIONS:
           this.updatePartitionOffsets(assignments, this.offsetTracker)
-          this.consuming = true
           break
 
         case ERR__REVOKE_PARTITIONS:
@@ -109,14 +108,14 @@ export class KafkaConsumerStream extends Readable {
     })
 
     this.consumer.on('offset.commit', (err: Error, partitions: TopicPartition[]) => {
-      this.log?.debug({ err, partitions }, 'offset.commit')
-
+      this.log?.info({ err, partitions }, 'offset.commit')
       if (err) {
         const wrappedError = new OffsetCommitError(partitions, err)
         this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
 
-        // Should be Error but current version returns error code
+        // Should be Error but current node-rdkafka version returns error code as number
         const code = typeof err === 'number' ? err : (err as KafkaError).code
+
         if (CriticalErrors.includes(code)) {
           this.log?.error({ err: wrappedError }, 'critical commit error')
           this.emit('error', wrappedError)
@@ -134,48 +133,41 @@ export class KafkaConsumerStream extends Readable {
 
         this.log?.info('commit +consumed')
         this.emit(EVENT_CONSUMED)
-
-        // consumed all buferred messages
         this.consuming = false
       }
     })
 
-    this.consumerStream = new OriginalConsumerStream(consumer, {
+    this.wrappedStream = new OriginalConsumerStream(consumer, {
       ...config,
       objectMode: true,
       streamAsBatch: true,
-    })
-
-    this.consumer.on('event.error', (err) => {
-      this.log?.error({ err }, 'consumer event.error')
     })
 
     this.consumer.on('data', (message: ConsumerStreamMessage) => {
       this.log?.debug({ message }, 'low-level message')
     })
 
-    this.consumerStream.on('error', (err) => {
+    this.wrappedStream.on('error', (err) => {
       this.log?.debug({ err }, 'consumerStream error')
+      console.debug(err.stack)
       if (!this.destroying) this.emit('error', err)
     })
 
-    this.consumerStream.once('close', async () => {
-      // skip if we already destroying
-      this.log?.debug('received close: closing stream')
+    this.wrappedStream.once('close', async () => {
 
       if (this.destroying) {
         this.log?.debug('received close: in state destroying')
       } else {
         this.log?.debug('received close: in state working')
-        this.destroy()
       }
+
+      this.destroy()
     })
 
     const { streamAsBatch } = config
-    this.consumerStream.on('data', (messages: ConsumerStreamMessage[]) => {
-      if (this.destroying) {
-        this.consumerStream.pause()
-      }
+    this.wrappedStream.on('data', (messages: ConsumerStreamMessage[]) => {
+      this.log?.debug('substream message count', this.wrappedStream.messages.length)
+      if (this.destroying) this.wrappedStream.pause()
 
       this.consuming = true
       let needsToPause = false
@@ -194,30 +186,24 @@ export class KafkaConsumerStream extends Readable {
           consumer.offsetsStore([topicPartition])
         }
 
-        if (!streamAsBatch) {
-          if (!this.push(message)) {
-            needsToPause = true
-          }
-        }
+        if (!streamAsBatch && !this.push(message)) needsToPause = true
       }
 
-      if (streamAsBatch) {
-        needsToPause = !this.push(messages)
-      }
+      if (streamAsBatch) needsToPause = !this.push(messages)
 
       this.log?.debug({ messages }, 'received messages')
       this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'current tracker')
 
       if (needsToPause) {
         this.log?.debug('pausing stream')
-        this.consumerStream.pause()
+        this.wrappedStream.pause()
       }
     })
 
-    this.consumerStream.pause()
+    this.wrappedStream.pause()
   }
 
-  async acked(): Promise<Boolean> {
+  async ackedOrDestroyed(): Promise<Boolean> {
     return race([
       resolve(once(this, EVENT_ACK))
         .tap(() => { this.log?.debug('acked: with ACK event') })
@@ -229,6 +215,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   async _read(): Promise<void> {
+    this.log?.debug('substream message count', this.wrappedStream.messages.length)
     if (this.looping && !this.destroying) {
       this.log?.debug('looping - return', this.destroying)
       return
@@ -239,7 +226,7 @@ export class KafkaConsumerStream extends Readable {
     try {
       if (this.hasOutstandingAcks()) {
         this.log?.debug('waiting for ack')
-        if (!await this.acked()) return
+        if (!await this.ackedOrDestroyed()) return
       }
 
       if (this.destroying) {
@@ -253,8 +240,7 @@ export class KafkaConsumerStream extends Readable {
 
       if (!eof) {
         this.log?.debug('no eof - consuming stream')
-        // this.consuming = true
-        this.consumerStream.resume()
+        this.wrappedStream.resume()
         return
       }
 
@@ -273,12 +259,11 @@ export class KafkaConsumerStream extends Readable {
       this.destroy(err)
     } finally {
       this.looping = false
-      this.log?.debug('setting looping to false')
     }
   }
 
   _destroy(err: Error | null | undefined, callback?: (err: Error | null) => void): void {
-    if (this.consumerStream.destroyed) {
+    if (this.wrappedStream.destroyed) {
       if (callback) callback(err || null)
       return
     }
@@ -287,16 +272,13 @@ export class KafkaConsumerStream extends Readable {
     // invalidate assignments otherwise rebalance_cb will be called later
     // and block some rdkafka threads
     this.consumer.assign([])
-    this.consumerStream.destroy()
-    this.consumerStream.once('close', () => {
-      this.log?.debug('_destroy consumer stream closed', err, callback)
-      if (callback) callback(null)
+    this.wrappedStream.destroy()
+    this.wrappedStream.once('close', () => {
+      if (callback) callback(err || null)
     })
   }
 
   destroy(err?: Error | undefined, callback?: ((error: Error | null) => void) | undefined): this {
-    this.log?.debug('destroy - called')
-
     const superDestroy = (_?: any) => {
       this.log?.debug({ err }, 'superDestroy')
       super.destroy(err)
@@ -314,37 +296,38 @@ export class KafkaConsumerStream extends Readable {
     this.destroying = true
 
     if (err) {
-      // if there was an error, we should invalidate all blocks
-      this.consuming = false
       // invalidate ack waits
+      this.consuming = false
       this.emit(EVENT_DESTROYING)
-      this.log?.debug({ err, callback }, 'destroy - called with error')
     }
 
     if (this.consuming) {
-      this.log?.debug('destroy - setting event listener')
-      this.once(EVENT_CONSUMED, () => {
-        this.log?.debug('destroy - event received destroying')
+      resolve(once(this, EVENT_CONSUMED))
+        .timeout(40000, 'offset commit timeout on shutdown')
+        .then(() => {
+          this.log?.debug('destroy - event received destroying')
+          superDestroy()
+        })
+        .catch((timeoutError: TimeoutError) => {
+          this.log?.debug({ timeoutError }, 'destroy - promise error')
+          super.destroy(timeoutError)
+        })
+    } else {
+      process.nextTick(() => {
         superDestroy()
       })
-    } else {
-      this.log?.debug('destroy - nowait consume')
-      superDestroy()
     }
 
     return this
   }
 
   close(cb?: (err?: Error | null) => void): void {
-    this.log?.debug('close called')
     this.destroy(undefined, (err) => {
-      this.log?.debug('close callback')
       if (cb) cb(err)
     })
   }
 
   async closeAsync(): Promise<void> {
-    this.log?.debug({ consuming: this.consuming, destroying: this.destroying, destroyed: this.destroyed }, 'calling close from async')
     await promisify(this.close, { context: this })()
   }
 
@@ -370,7 +353,7 @@ export class KafkaConsumerStream extends Readable {
       this.log?.debug('no assignments')
       // jump out of here is stream is destroying
       // assignments or other could be unavailable here
-      if (!await this.acked()) {
+      if (!await this.ackedOrDestroyed()) {
         this.log?.debug('RECEIVED DESTROYING EVENT')
         return true
       }
