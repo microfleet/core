@@ -2,6 +2,11 @@ import assert = require('assert')
 import * as Sentry from '@sentry/node'
 import lsmod = require('lsmod')
 import { getVersion } from '../../../utils/packageInfo'
+import {
+  extractStackFromError,
+  parseStack,
+  prepareFramesForEvent,
+} from '@sentry/node/dist/parsers'
 
 export const FINGERPRINT_DEFAULT = '{{ default }}'
 // keys to be banned
@@ -16,12 +21,6 @@ const BAN_LIST = {
 const EVENT_MODIFIERS = {
   $fingerprint: true,
 }
-
-import {
-  extractStackFromError,
-  parseStack,
-  prepareFramesForEvent,
-} from '@sentry/node/dist/parsers'
 
 /**
  * Sentry stream for Pino
