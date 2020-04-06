@@ -5,6 +5,7 @@ import {
   KafkaConsumerStream,
   KafkaProducerStream,
   TopicNotFoundError,
+  OffsetCommitError,
 } from '@microfleet/plugin-kafka'
 
 import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, readStream } from '../helpers/kafka'
@@ -157,6 +158,80 @@ describe('conn-track', () => {
 })
 
 describe('connected to broker', () => {
+  test('consume/produce commit error as number', async () => {
+    const topic = 'test-throw-error-number'
+
+    producer = await createProducerStream(service)
+    await sendMessages(producer, topic, 10)
+
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+      },
+      conf: {
+        'group.id': 'throw-error-number',
+      },
+    })
+
+    const receivedMessages: any[] = []
+    let errorEmitted = false
+    const errorSim = async () => {
+      for await (const incommingMessage of consumerStream) {
+        const messages = msgsToArr(incommingMessage)
+        receivedMessages.push(...messages)
+        const lastMessage = messages.pop()!
+
+        if (!errorEmitted && receivedMessages.length > 2) {
+          errorEmitted = true
+          consumerStream.consumer.emit(
+            'offset.commit',
+            25,
+            [{ topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 }]
+          )
+        }
+      }
+    }
+
+    await expect(errorSim()).rejects.toThrowError(OffsetCommitError)
+  })
+
+  test('consume/produce commit error as KafkaError like object', async () => {
+    const topic = 'test-throw-kafka-error-like'
+
+    producer = await createProducerStream(service)
+    await sendMessages(producer, topic, 10)
+
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+      },
+      conf: {
+        'group.id': 'throw-error-object',
+      },
+    })
+
+    const receivedMessages: any[] = []
+    let errorEmitted = false
+    const errorSim = async () => {
+      for await (const incommingMessage of consumerStream) {
+        const messages = msgsToArr(incommingMessage)
+        receivedMessages.push(...messages)
+        const lastMessage = messages.pop()!
+
+        if (!errorEmitted && receivedMessages.length > 2) {
+          errorEmitted = true
+          consumerStream.consumer.emit(
+            'offset.commit',
+            { code: 25, message: 'broker: unknown member' },
+            [{ topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 }]
+          )
+        }
+      }
+    }
+
+    await expect(errorSim()).rejects.toThrowError(OffsetCommitError)
+  })
+
   test('consume/produce noAutoCommit manualOffetStore', async () => {
     const topic = 'test-no-auto-commit-manual-offset-store'
 
@@ -180,6 +255,7 @@ describe('connected to broker', () => {
       receivedMessages.push(...messages)
 
       for (const message of messages) {
+        service.log.debug({ message }, 'RECV')
         consumerStream.consumer.offsetsStore([{
           topic: message.topic,
           partition: message.partition,
@@ -201,6 +277,28 @@ describe('connected to broker', () => {
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
+        topics: topic,
+      },
+      conf: {
+        'enable.auto.commit': false,
+        'group.id': 'no-auto-commit-manual',
+      },
+    })
+
+    const receivedMessages = await readStream(consumerStream)
+    expect(receivedMessages).toHaveLength(sentMessages.length)
+  })
+
+  test('consume/produce noAutoCommit manualCommit no batch mode', async () => {
+    const topic = 'test-no-auto-commit'
+
+    producer = await createProducerStream(service)
+    const sentMessages = await sendMessages(producer, topic, 10)
+
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        fetchSize: 5,
+        streamAsBatch: false,
         topics: topic,
       },
       conf: {
@@ -267,7 +365,7 @@ describe('connected to broker', () => {
         fetchSize: 5,
       },
       conf: {
-        debug: 'consumer,cgrp,topic',
+        // debug: 'consumer,cgrp,topic',
         'enable.auto.commit': false,
         'group.id': 'no-auto-commit-manual-unsubscribe-batch',
       },

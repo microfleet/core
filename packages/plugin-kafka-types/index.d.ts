@@ -121,6 +121,8 @@ declare module 'node-rdkafka' {
 
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/kafka-consumer.js#L176
     committedAsync(toppars: any, timeout: any): Promise<TopicPartition[]>
+
+    consumeAsync(count: number): Promise<kafka.ConsumerStreamMessage[]>
   }
 
   export interface Producer {

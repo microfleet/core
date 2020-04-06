@@ -2,13 +2,13 @@ import { Readable } from 'readable-stream'
 import * as assert from 'assert'
 import { once } from 'events'
 import { find } from 'lodash'
-import { map, resolve, race, promisify, TimeoutError,  } from 'bluebird'
+import { map, resolve, race, promisify, TimeoutError, delay,  } from 'bluebird'
 import { helpers as ErrorHelpers } from 'common-errors'
 
 import { LoggerPlugin } from '@microfleet/core'
 
 import {
-  KafkaConsumer, KafkaConsumerStream as OriginalConsumerStream, ConsumerStreamMessage,
+  KafkaConsumer, ConsumerStreamMessage,
   TopicPartition, CODES as KafkaCodes
 } from './rdkafka-extra'
 
@@ -19,7 +19,11 @@ export interface CommitOffsetTracker {
 }
 
 const { ERRORS: KafkaErrorCodes } = KafkaCodes
-const { ERR__ASSIGN_PARTITIONS, ERR__REVOKE_PARTITIONS, ERR_UNKNOWN_MEMBER_ID } = KafkaErrorCodes
+const {
+  ERR__ASSIGN_PARTITIONS,
+  ERR__REVOKE_PARTITIONS,
+  ERR_UNKNOWN_MEMBER_ID,
+} = KafkaErrorCodes
 
 export type KafkaError = Error & {
   code: number
@@ -32,9 +36,17 @@ export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
 
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
   args: ['partitions', 'inner_error'],
+  generateMessage: function generateMessage(this: typeof OffsetCommitError) {
+    // @ts-ignore
+    if (typeof this.inner_error === 'number') {
+      return `Kafka critical error: 25`
+    }
+    // @ts-ignore
+    return `Kafka critical error: ${this.inner_error.message}`
+  },
 })
 
-export const CriticalErrors = [
+export const CriticalErrors: number[] = [
   ERR_UNKNOWN_MEMBER_ID,
 ]
 
@@ -49,15 +61,17 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public consumer: KafkaConsumer
-  private wrappedStream: OriginalConsumerStream
+  private config: ConsumerStreamOptions
   private offsetQueryTimeout: number
   private offsetTracker: CommitOffsetTracker
   private unacknowledgedTracker: CommitOffsetTracker
   private log?: LoggerPlugin['log']
-  private looping: boolean
+
+  private messages: any[]
   private consuming: boolean
   private destroying: boolean
   private autoStore: boolean
+  private readStarted: boolean
 
   /**
    * @param consumer Connected kafka consumer
@@ -71,9 +85,10 @@ export class KafkaConsumerStream extends Readable {
     super({ highWaterMark, objectMode: true })
 
     this.log = log
-    this.looping = false
+    this.config = config
     this.consuming = false
     this.destroying = false
+    this.readStarted = false
 
     this.offsetQueryTimeout = config.offsetQueryTimeout || 200
     this.offsetTracker = Object.create(null)
@@ -81,204 +96,53 @@ export class KafkaConsumerStream extends Readable {
     this.consumer = consumer as KafkaConsumer
     this.autoStore = config['enable.auto.offset.store'] !== false
 
-    this.consumer.on('rebalance', async (err: KafkaError, assignments: TopicPartition[] = []) => {
-      this.log?.info({ err, assignments }, 'rebalance')
+    this.messages = []
 
-      switch (err.code) {
-        case ERR__ASSIGN_PARTITIONS:
-          this.updatePartitionOffsets(assignments, this.offsetTracker)
-          break
-
-        case ERR__REVOKE_PARTITIONS:
-          this.cleanPartitionOffsets(assignments, this.offsetTracker)
-          this.cleanPartitionOffsets(assignments, this.unacknowledgedTracker)
-          this.consuming = false
-          break
-
-        default:
-          this.emit('rebalance.error', err)
-          return
-      }
-
-      if (!this.hasOutstandingAcks()) {
-        this.log?.info('rebalance +ack')
-        this.emit(EVENT_ACK)
-        this.emit(EVENT_CONSUMED)
-      }
+    this.consumer.on('rebalance', this.handleRebalance.bind(this))
+    this.consumer.on('offset.commit', this.handleOffsetCommit.bind(this))
+    this.on('buffer.drain', async () => {
+      this.log?.debug('drain +ack')
+      await this.checkEof()
     })
 
-    this.consumer.on('offset.commit', (err: Error, partitions: TopicPartition[]) => {
-      this.log?.info({ err, partitions }, 'offset.commit')
-      if (err) {
-        const wrappedError = new OffsetCommitError(partitions, err)
-        this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
+    const topics = Array.isArray(config.topics) ? config.topics! : [config.topics!]
+    this.consumer.subscribe(topics)
 
-        // Should be Error but current node-rdkafka version returns error code as number
-        const code = typeof err === 'number' ? err : (err as KafkaError).code
-
-        if (CriticalErrors.includes(code)) {
-          this.log?.error({ err: wrappedError }, 'critical commit error')
-          this.emit('error', wrappedError)
-        }
-
-        return
-      }
-
-      this.updatePartitionOffsets(partitions, this.offsetTracker)
-
-      // once all acks were processed - be done with it
-      if (!this.hasOutstandingAcks()) {
-        this.log?.info('commit +ack')
-        this.emit(EVENT_ACK)
-
-        this.log?.info('commit +consumed')
-        this.emit(EVENT_CONSUMED)
-        this.consuming = false
-      }
-    })
-
-    this.wrappedStream = new OriginalConsumerStream(consumer, {
-      ...config,
-      objectMode: true,
-      streamAsBatch: true,
-    })
-
-    this.consumer.on('data', (message: ConsumerStreamMessage) => {
-      this.log?.debug({ message }, 'low-level message')
-    })
-
-    this.wrappedStream.on('error', (err) => {
-      this.log?.debug({ err }, 'consumerStream error')
-      console.debug(err.stack)
-      if (!this.destroying) this.emit('error', err)
-    })
-
-    this.wrappedStream.once('close', async () => {
-
-      if (this.destroying) {
-        this.log?.debug('received close: in state destroying')
-      } else {
-        this.log?.debug('received close: in state working')
-      }
-
-      this.destroy()
-    })
-
-    const { streamAsBatch } = config
-    this.wrappedStream.on('data', (messages: ConsumerStreamMessage[]) => {
-      this.log?.debug('substream message count', this.wrappedStream.messages.length)
-      if (this.destroying) this.wrappedStream.pause()
-
-      this.consuming = true
-      let needsToPause = false
-      const { unacknowledgedTracker, offsetTracker, autoStore } = this
-
-      for (const message of messages) {
-        const topicPartition = {
-          topic: message.topic,
-          partition: message.partition,
-          offset: message.offset + 1,
-        }
-
-        this.updatePartitionOffsets([topicPartition], unacknowledgedTracker)
-
-        if (autoStore) {
-          consumer.offsetsStore([topicPartition])
-        }
-
-        if (!streamAsBatch && !this.push(message)) needsToPause = true
-      }
-
-      if (streamAsBatch) needsToPause = !this.push(messages)
-
-      this.log?.debug({ messages }, 'received messages')
-      this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'current tracker')
-
-      if (needsToPause) {
-        this.log?.debug('pausing stream')
-        this.wrappedStream.pause()
-      }
-    })
-
-    this.wrappedStream.pause()
   }
 
-  async ackedOrDestroyed(): Promise<Boolean> {
-    return race([
-      resolve(once(this, EVENT_ACK))
-        .tap(() => { this.log?.debug('acked: with ACK event') })
-        .return(true),
-      resolve(once(this, EVENT_DESTROYING))
-        .tap(() => { this.log?.debug('acked: with DESTROYING event') })
-        .return(false),
-    ])
-  }
-
-  async _read(): Promise<void> {
-    this.log?.debug('substream message count', this.wrappedStream.messages.length)
-    if (this.looping && !this.destroying) {
-      this.log?.debug('looping - return', this.destroying)
+  public async _read(): Promise<void> {
+    if (this.messages.length > 0) {
+      this.log?.debug('BUFFER READ', this.messages.length)
+      const message = this.messages.shift()!
+      this.push(message)
       return
     }
 
-    this.looping = true
-
-    try {
-      if (this.hasOutstandingAcks()) {
-        this.log?.debug('waiting for ack')
-        if (!await this.ackedOrDestroyed()) return
-      }
-
-      if (this.destroying) {
-        this.log?.debug('_read invalidate destroying')
-        return
-      }
-
-      this.log?.debug('checking eof')
-      const eof = await this.allMessagesRead()
-      this.log?.debug({ eof }, 'eof return')
-
-      if (!eof) {
-        this.log?.debug('no eof - consuming stream')
-        this.wrappedStream.resume()
-        return
-      }
-
-      this.log?.debug(
-        { consuming: this.consuming, destroying: this.destroying, destroyed: this.destroyed },
-        'eof reached - closing'
-      )
-
-      if (!this.destroying) {
-        if (!this.hasOutstandingAcks()) this.consuming = false
-        await this.closeAsync()
-        this.log?.debug('eof reached - closed')
-      }
-    } catch (err) {
-      this.log?.error({ err }, 'fatal err - destroying stream')
-      this.destroy(err)
-    } finally {
-      this.looping = false
-    }
-  }
-
-  _destroy(err: Error | null | undefined, callback?: (err: Error | null) => void): void {
-    if (this.wrappedStream.destroyed) {
-      if (callback) callback(err || null)
+    if (! this.readStarted) {
+      this.log?.debug('FIRST READ START')
+      this.readStarted = true
+      this.readLoop()
       return
     }
 
+    if (this.messages.length === 0) {
+      this.log?.debug('emit buffer drain')
+      this.resume()
+      this.emit('buffer.drain')
+    }
+  }
+
+  public _destroy(err: Error | null | undefined, callback?: (err: Error | null) => void): void {
     this.log?.debug('_destroy close consumer stream')
     // invalidate assignments otherwise rebalance_cb will be called later
     // and block some rdkafka threads
     this.consumer.assign([])
-    this.wrappedStream.destroy()
-    this.wrappedStream.once('close', () => {
+    this.consumer.disconnect(() => {
       if (callback) callback(err || null)
     })
   }
 
-  destroy(err?: Error | undefined, callback?: ((error: Error | null) => void) | undefined): this {
+  public destroy(err?: Error | undefined, callback?: ((error: Error | null) => void) | undefined): this {
     const superDestroy = (_?: any) => {
       this.log?.debug({ err }, 'superDestroy')
       super.destroy(err)
@@ -321,7 +185,7 @@ export class KafkaConsumerStream extends Readable {
     return this
   }
 
-  close(cb?: (err?: Error | null) => void): void {
+  public close(cb?: (err?: Error | null) => void): void {
     this.destroy(undefined, (err) => {
       if (cb) cb(err)
     })
@@ -331,11 +195,155 @@ export class KafkaConsumerStream extends Readable {
     await promisify(this.close, { context: this })()
   }
 
+  private handleOffsetCommit (err: Error, partitions: TopicPartition[]) {
+    this.log?.info({ err, partitions }, 'offset.commit')
+    if (err) {
+      const wrappedError = new OffsetCommitError(partitions, err)
+      this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
+
+      // Should be Error but current node-rdkafka version returns error code as number
+      const code = typeof err === 'number' ? err : (err as KafkaError).code
+
+      if (CriticalErrors.includes(code)) {
+        this.log?.error({ err: wrappedError }, 'critical commit error')
+        this.emit('error', wrappedError)
+      }
+
+      return
+    }
+
+    this.updatePartitionOffsets(partitions, this.offsetTracker)
+
+    // once all acks were processed - be done with it
+    if (!this.hasOutstandingAcks()) {
+      this.log?.info('commit +ack')
+      this.emit(EVENT_ACK)
+    }
+  }
+
+  private async handleRebalance (err: KafkaError, assignments: TopicPartition[] = []) {
+    this.log?.info({ err, assignments }, 'rebalance')
+    process.nextTick(async () => {
+      switch (err.code) {
+        case ERR__ASSIGN_PARTITIONS:
+          this.updatePartitionOffsets(assignments, this.offsetTracker)
+          await this.checkEof()
+          break
+
+        case ERR__REVOKE_PARTITIONS:
+          this.cleanPartitionOffsets(assignments, this.offsetTracker)
+          this.cleanPartitionOffsets(assignments, this.unacknowledgedTracker)
+          break
+
+        default:
+          this.emit('rebalance.error', err)
+          return
+      }
+    })
+  }
+
+  private handleIncomingMessages(messages: ConsumerStreamMessage[]): void {
+    const { unacknowledgedTracker, offsetTracker, autoStore } = this
+
+    this.consumer.pause(this.consumer.assignments())
+
+    for (const message of messages) {
+      const topicPartition = {
+        topic: message.topic,
+        partition: message.partition,
+        offset: message.offset + 1,
+      }
+
+      this.updatePartitionOffsets([topicPartition], unacknowledgedTracker)
+
+      if (autoStore) this.consumer.offsetsStore([topicPartition])
+      if (!this.config.streamAsBatch) this.messages.push(message)
+    }
+
+    if (this.config.streamAsBatch) this.messages.push(messages)
+
+    this.log?.debug({ messages }, 'received messages')
+    this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'current tracker')
+
+    // transfer messages from local buffer to the stream buffer
+    this._read()
+  }
+
+  private async ackedOrDestroyed(): Promise<Boolean> {
+    return race([
+      resolve(once(this, EVENT_ACK))
+        .tap(() => { this.log?.debug('acked: with ACK event') })
+        .return(true),
+      resolve(once(this, EVENT_DESTROYING))
+        .tap(() => { this.log?.debug('acked: with DESTROYING event') })
+        .return(false),
+    ])
+  }
+
+  // we must loop forever
+  private async readLoop(): Promise<void> {
+    if (this.destroyed) return
+
+    const bufferAvailable = this._readableState.highWaterMark - this._readableState.length
+    const fetchSize = this.config.streamAsBatch ? this.config.fetchSize! : bufferAvailable
+
+    this.log?.debug(
+      {
+        watermark: this._readableState.highWaterMark,
+        length: this._readableState.length,
+        messages: this.messages.length,
+      },
+      `CONSUME... ${fetchSize}`
+    )
+
+    const messages = await this.consumer
+      .consumeAsync(fetchSize)
+      .catch((e) => {
+        this.log?.error({ err: e }, 'consume error')
+        this.emit('error', e)
+      })
+
+    if (messages && messages.length > 0) {
+      this.handleIncomingMessages(messages)
+    }
+
+    if (this.config.waitInterval) await delay(this.config.waitInterval)
+    this.readLoop()
+  }
+
+  private async checkEof(): Promise<void> {
+    try {
+      this.log?.debug('checking eof')
+
+      if (this.hasOutstandingAcks()) {
+        this.log?.debug('wait for +ack')
+        await once(this, EVENT_ACK)
+      }
+
+      const eof = await this.allMessagesRead()
+      this.log?.debug({ eof }, 'eof return')
+
+      if (eof) {
+        await this.closeAsync()
+        this.log?.debug('eof reached - closed')
+      } else {
+        if (this.destroying) return
+        this.log?.debug('eof not reached - resuming fetch')
+        this.consumer.resume(this.consumer.assignments())
+      }
+
+      this.log?.debug('no eof - consuming')
+    } catch (err) {
+      this.log?.error({ err }, 'fatal err - destroying stream')
+      this.destroy(err)
+    }
+  }
+
   /**
    * Detects EOF of consumed topic partitions
    * @param operationTimeout KafkaClient.committed and KafkaClient.queryWatermarkOffsets timeout
    */
-  public async allMessagesRead(): Promise<boolean> {
+  private async allMessagesRead(): Promise<boolean> {
     const { consumer, destroyed } = this
 
     // to avoid chain-calls when we are done

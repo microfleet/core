@@ -7,6 +7,7 @@ import {
   KafkaConsumerStream,
   KafkaProducerStream,
   OffsetCommitError,
+  // OffsetCommitError,
 } from '@microfleet/plugin-kafka'
 
 import { createProducerStream, createConsumerStream, sendMessages, readStream, msgsToArr } from '../../helpers/kafka'
@@ -85,7 +86,7 @@ describe('toxified - messes kafka library(tries to rebalance after disconnected)
           service.log.debug('BLOCKING connection')
           blockedOnce = true
           await setProxyEnabled(false)
-          delay(12000)
+          delay(10000)
             .then(() => setProxyEnabled(true))
             .tap(() => { service.log.error('ENABLED connection') })
         }
@@ -94,8 +95,7 @@ describe('toxified - messes kafka library(tries to rebalance after disconnected)
 
     // we receive messages but our commit invalidated
     await expect(simOne()).rejects.toThrowError(OffsetCommitError)
-    // we should check it, but value randomly equal 2|4
-    // expect(receivedMessages).toHaveLength(4)
+    expect(receivedMessages).toHaveLength(4)
 
     service.log.debug('READ AGAIN')
 
@@ -111,6 +111,6 @@ describe('toxified - messes kafka library(tries to rebalance after disconnected)
 
     const newMessages = await readStream(consumerStream)
 
-    expect(newMessages).toHaveLength(2)
+    expect(newMessages).toHaveLength(0)
   })
 })

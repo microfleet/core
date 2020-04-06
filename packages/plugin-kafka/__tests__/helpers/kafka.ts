@@ -113,7 +113,7 @@ export async function sendMessages(
 export function processReceived(received: any[], messages: any): ConsumerStreamMessage {
   const msgs = msgsToArr(messages)
   received.push(...msgs)
-  return messages.pop()
+  return msgs.pop()!
 }
 
 export async function readStream(stream: KafkaConsumerStream, commit = true): Promise<ConsumerStreamMessage[]> {
