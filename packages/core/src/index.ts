@@ -142,6 +142,7 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
     return require(require.resolve(path))
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
+      // eslint-disable-next-line no-console
       console.error(e)
     }
 

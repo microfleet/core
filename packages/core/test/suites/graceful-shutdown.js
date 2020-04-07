@@ -35,7 +35,6 @@ class ChildServiceRunner {
     const { stderr, stdout } = subProcess;
 
     stderr.pipe(split2()).on('data', (line) => {
-      console.warn(line)
       this.stderr.push(line);
     });
 
