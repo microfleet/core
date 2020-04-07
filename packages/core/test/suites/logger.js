@@ -14,7 +14,7 @@ describe('Logger suite', function testSuite() {
   it('logger inits with output to stdout', function test() {
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger'], // order is important
+      plugins: ['validator', 'logger'],
       logger: {
         defaultLogger: true,
       },
@@ -27,7 +27,7 @@ describe('Logger suite', function testSuite() {
   it('logger inits with output to stdout: debug', function test() {
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger'], // order is important
+      plugins: ['validator', 'logger'],
       logger: {
         defaultLogger: true,
         debug: true,
@@ -42,7 +42,7 @@ describe('Logger suite', function testSuite() {
     const logger = pino({ name: 'test' });
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger'], // order is important
+      plugins: ['validator', 'logger'],
       logger: {
         defaultLogger: logger,
       },
@@ -54,7 +54,7 @@ describe('Logger suite', function testSuite() {
   it('should be able to init sentry stream', async function test() {
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger'], // order is important
+      plugins: ['validator', 'logger'],
       logger: {
         streams: {
           sentry: {

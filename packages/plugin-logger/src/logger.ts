@@ -7,7 +7,7 @@ import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
 import type { NodeOptions } from '@sentry/node'
 
-const defaultConfig: LoggerConfig = {
+const defaultConfig = {
   debug: false,
   defaultLogger: false,
   // there are no USER env variable in docker image

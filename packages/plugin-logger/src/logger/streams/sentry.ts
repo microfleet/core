@@ -3,9 +3,16 @@ import * as Sentry from '@sentry/node'
 import lsmod = require('lsmod')
 import pino = require('pino')
 import { Microfleet } from '@microfleet/core'
+import {
+  extractStackFromError,
+  parseStack,
+  prepareFramesForEvent,
+} from '@sentry/node/dist/parsers'
+
+export const SENTRY_FINGERPRINT_DEFAULT = ['{{ default }}']
 
 // keys to be banned
-const BAN_LIST = {
+const BAN_LIST: { [key: string]: boolean } = {
   msg: true,
   time: true,
   hostname: true,
@@ -13,18 +20,14 @@ const BAN_LIST = {
   level: true,
 }
 
-import {
-  extractStackFromError,
-  parseStack,
-  prepareFramesForEvent,
-} from '@sentry/node/dist/parsers'
-
-const { hasOwnProperty } = Object.prototype
+const EVENT_MODIFIERS: { [key: string]: boolean } = {
+  $fingerprint: true,
+}
 
 /**
  * Sentry stream for Pino
  */
-class SentryStream {
+export class SentryStream {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
@@ -42,8 +45,11 @@ class SentryStream {
     const event = JSON.parse(msg)
     const extra = Object.create(null)
 
-    for (const [key, value] of Object.entries(event)) {
-      if (hasOwnProperty.call(BAN_LIST, key) === true) continue
+    for (const [key, value] of Object.entries<any>(event)) {
+      if (BAN_LIST[key] === true || EVENT_MODIFIERS[key] === true) {
+        continue
+      }
+
       extra[key] = value
     }
 
@@ -73,7 +79,7 @@ class SentryStream {
           version: Sentry.SDK_VERSION,
         },
         modules: this.modules,
-        fingerprint: ['{{ default }}'],
+        fingerprint: this.getSentryFingerprint(event.$fingerprint),
       })
     })()
 
@@ -106,6 +112,19 @@ class SentryStream {
     if (level === 40) return Sentry.Severity.Warning
 
     return Sentry.Severity.Info
+  }
+
+  getSentryFingerprint(fingerprint?: string[]): string[] {
+    if (!fingerprint) {
+      return SENTRY_FINGERPRINT_DEFAULT
+    }
+
+    assert(
+      Array.isArray(fingerprint) && fingerprint.every(part => typeof part === 'string'),
+      '"$fingerprint" option value has to be an array of strings'
+    )
+
+    return fingerprint
   }
 }
 

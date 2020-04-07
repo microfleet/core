@@ -4,4 +4,4 @@ module.exports = {
   moduleNameMapper: {
     '@microfleet/((?:plugin-|core).*)': '<rootDir>/packages/$1/src'
   }
-};
+}

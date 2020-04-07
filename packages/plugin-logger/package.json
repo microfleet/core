@@ -6,7 +6,8 @@
   "version": "0.0.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
-    "test": "yarn test:e2e",
+    "test": "yarn test:unit && yarn test:e2e",
+    "test:unit": "jest",
     "test:e2e": "mdep test run",
     "compile": "tsc -b ./tsconfig.build.json"
   },
