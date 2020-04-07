@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [17.1.0](https://github.com/microfleet/core/compare/@microfleet/core@17.0.0...@microfleet/core@17.1.0) (2020-04-07)
+
+
+### Bug Fixes
+
+* add logger as always installed dependency of microfleet/core ([139e167](https://github.com/microfleet/core/commit/139e167c17584855ef1af9d7ad67535b27365145))
+* bugs during refactor ([c632d24](https://github.com/microfleet/core/commit/c632d2447eae7b2c49a675803797bd6b4346f718))
+* disallow console again ([62b73a8](https://github.com/microfleet/core/commit/62b73a8993320fa6be0708b30a31efb62d52e328))
+
+
+### Features
+
+* external logger module ([4bdbbac](https://github.com/microfleet/core/commit/4bdbbace81de1e3bc6bab6ef21ecaaff6a303ace))
+* merge fingerprint ([5fc647d](https://github.com/microfleet/core/commit/5fc647ddca5e8102bcad9ebba22af8bae76c409f))
+* **logger:** sentry event fingerprinting ([e90fd6b](https://github.com/microfleet/core/commit/e90fd6b6184dd4f408a400babafb19c64c0819a6))
+* **logger:** sentry event fingerprinting ([ede252a](https://github.com/microfleet/core/commit/ede252aff8b3717005eb057c869eed25cb123cbf))
+* **logger:** sentry event fingerprinting ([56773c5](https://github.com/microfleet/core/commit/56773c53f0d749a6901a6a8e745bc5897be40a3f))
+* refactor to eslint ([2707e95](https://github.com/microfleet/core/commit/2707e95559581dd9f0d8efaf375e0f30c846acb9))
+* standalone logger plugin ([2024817](https://github.com/microfleet/core/commit/2024817709c1aabf452fe8020ba6f2b4549db2e2))
+* standalone logger plugin ([afc0414](https://github.com/microfleet/core/commit/afc0414b2706bf0e9ca4d49918508a69398f65c5))
+* standalone logger plugin ([db4a1e1](https://github.com/microfleet/core/commit/db4a1e174a5389fe1f5171778242ebd99b9fc834))
+
+
+
+
+
 # [17.0.0](https://github.com/microfleet/core/compare/@microfleet/core@16.0.4...@microfleet/core@17.0.0) (2020-03-13)
 
 

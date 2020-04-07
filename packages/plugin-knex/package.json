@@ -3,7 +3,7 @@
   "description": "knex - universal *sql adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -36,7 +36,7 @@
     "pg": "^8.0.0"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.0.0",
+    "@microfleet/core": "^17.1.0",
     "@types/jest": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "jest": "^25.2.7",

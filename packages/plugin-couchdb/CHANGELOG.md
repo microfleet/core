@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.0.0...@microfleet/plugin-couchdb@2.1.0) (2020-04-07)
+
+
+### Features
+
+* external logger module ([4bdbbac](https://github.com/microfleet/core/commit/4bdbbace81de1e3bc6bab6ef21ecaaff6a303ace))
+* refactor to eslint ([2707e95](https://github.com/microfleet/core/commit/2707e95559581dd9f0d8efaf375e0f30c846acb9))
+
+
+
+
+
 # [2.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@1.0.4...@microfleet/plugin-couchdb@2.0.0) (2020-03-13)
 
 
