@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import path = require('path')
-import getRoutes from '..'
+import { getRoutes } from '..'
 import { ActionTransport } from '../../../..'
 
 describe('router: get routes', () => {

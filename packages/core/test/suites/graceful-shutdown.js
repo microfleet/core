@@ -39,6 +39,7 @@ class ChildServiceRunner {
     });
 
     stdout.pipe(split2()).on('data', (line) => {
+      console.info(line)
       this.stdout.push(line);
       if (line.includes('childServiceReady')) {
         this.serviceStarted = true;

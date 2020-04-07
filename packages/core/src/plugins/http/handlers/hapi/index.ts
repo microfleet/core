@@ -8,9 +8,9 @@ import attachRouter from './router/attach'
 import * as RequestTracker from '../../../router/request-tracker'
 
 export interface HapiPlugin {
-  plugin: string | Plugin<any>
-  options?: any
-  once?: boolean
+  plugin: string | Plugin<any>;
+  options?: any;
+  once?: boolean;
 }
 
 const defaultPlugins: HapiPlugin[] = [{
@@ -79,7 +79,7 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
         throw new NotPermittedError('SocketIO plugin not found')
       }
 
-      service.socketIO.listen(server.listener, service.config.socketIO.options)
+      service.socketIO.listen(server.listener, (service.config.socketIO as any)?.options)
     }
 
     await initPlugins()

@@ -5,6 +5,7 @@
     "paths": {
       "@microfleet/*": [
         "packages/*/src",
+        "packages/*",
         "node_modules/@microfleet/*"
       ]
     }

@@ -40,10 +40,11 @@ $ mfleet
 
 ## Recipes
 - [Logging to Sentry](#logging-to-sentry)
+  - [Event Fingerprinting](#event-fingerprinting)
 - [Custom logger](#custom-logger)
 - [Enable debug for default logger](#enable-debug-for-default-logger)
 
-# Logging to Sentry
+### Logging to Sentry
 Enable Sentry stream in the logger plugin config:
 ```js
 // src/configs/logger.js
@@ -52,29 +53,49 @@ exports.logger = {
   streams: {
     sentry: {
       dsn: 'https://3736a7965d59423c867105ee4ba47de2@sentry.io/137605', // Paste your DSN secret
+      logLevel: 'info', // `error` is enabled by default
     }
   }
 }
 ```
+For each log message Logger captures event into Sentry.
 
-Change log level if you like, `error` is enabled by default for Sentry:
+#### Event Fingerprinting
+All Sentry events have a fingerprint. Events with the same fingerprint are grouped together into an issue. By default, 
+Sentry will generate a fingerprint based on information available within the event such as stacktrace, exception, and 
+message. We support 
+[Sentry SDK event fingerprinting](https://docs.sentry.io/data-management/event-grouping/sdk-fingerprinting/?platform=node).
+Fingerprint is represented as an array of strings. Pass it as `$fingerprint` when logging a message:
 ```js
-// src/configs/logger.js
-exports.logger = {
-  defaultLogger: false,
-  streams: {
-    sentry: {
-      dsn: 'https://3736a7965d59423c867105ee4ba47de2@sentry.io/137605', // Paste your DSN secret
-      logLevel: 'info'
-    }
-  }
+// src/actions/deprecated-action.js
+const { ActionTransport } = require('@microfleet/core')
+const { FINGERPRINT_DEFAULT } = require('@microfleet/core/lib/plugins/logger/streams/sentry')
+
+function deprecatedAction({ params: { clientId }}) {
+  this.log.warn(
+    {
+      $fingerprint: [
+        FINGERPRINT_DEFAULT, // '{{ default }}' -- for more reserved fingerprint names explore Sentry docs
+        String(clientId),
+      ]
+    },
+    'Deprecated API Usage'
+  )
+  
+  // ...
+  
+  return { status: 'ok' }
 }
+
+deprecatedAction.transports = [ActionTransport.http]
+
+module.exports = deprecatedAction
 ```
 
-# Custom logger
+### Custom logger
 [WIP]
 
-# Enable debug for default logger
+### Enable debug for default logger
 By default, log level is `info`. Extend it to `debug`:  
 ```js
 // src/configs/logger.js
@@ -83,3 +104,4 @@ exports.logger = {
   debug: true,
 }
 ```
+

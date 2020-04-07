@@ -8,41 +8,41 @@ import handlerModule from './modules/handler'
 import requestModule from './modules/request'
 import getResponseHandler from './modules/response'
 import validateModule from './modules/validate'
-import getRoutes, { RoutesConfig } from './routes'
+import { getRoutes, RoutesConfig } from './routes'
 import { RequestCountTracker } from './request-tracker'
 
 export { LifecycleRequestType, LifecyclePoints }
 
 export interface RouteMap {
   [transport: string]: {
-    [routingKey: string]: ServiceAction
-  }
+    [routingKey: string]: ServiceAction;
+  };
 }
 
 export interface RouterConfig {
-  auth: AuthOptions
-  extensions: ExtensionsConfig
-  routes: RoutesConfig
+  auth: AuthOptions;
+  extensions: ExtensionsConfig;
+  routes: RoutesConfig;
 }
 
 /**
  * Defines router signature
  */
 export interface Router {
-  config: RouterConfig
-  service: Microfleet
-  dispatch: typeof dispatch
-  extensions: Extensions
-  routes: RouteMap
-  requestCountTracker: RequestCountTracker,
+  config: RouterConfig;
+  service: Microfleet;
+  dispatch: typeof dispatch;
+  extensions: Extensions;
+  routes: RouteMap;
+  requestCountTracker: RequestCountTracker;
   modules: {
-    request: ServiceActionStep,
-    auth: ServiceActionStep,
-    validate: ServiceActionStep,
-    allowed: ServiceActionStep,
-    handler: ServiceActionStep,
-    response: ServiceActionStep
-  }
+    request: ServiceActionStep;
+    auth: ServiceActionStep;
+    validate: ServiceActionStep;
+    allowed: ServiceActionStep;
+    handler: ServiceActionStep;
+    response: ServiceActionStep;
+  };
 }
 
 /**
@@ -74,5 +74,3 @@ export function getRouter(config: RouterConfig, service: Microfleet): Router {
 
   return router
 }
-
-export default getRouter

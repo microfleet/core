@@ -3,7 +3,6 @@ import semver = require('semver')
 
 const pluginDependencies = {
   '@microfleet/transport-amqp': '>= 15',
-  '@sentry/node': '~5.x.x',
   '@hapi/boom': '~9.x.x',
   elasticsearch: '~14.x.x || ~15.x.x',
   'express-cassandra': '~2.x.x',
@@ -20,14 +19,14 @@ const pluginDependencies = {
 }
 
 interface PluginDep {
-  [name: string]: string
+  [name: string]: string;
 }
 
 /**
  * Performs require and validates that constraints are met.
  * @param name - Name of the module to require.
  */
-export default (name: string) => {
+export default (name: string): any => {
   const version = (pluginDependencies as PluginDep)[name]
   const depVersion = require(`${name}/package.json`).version
 

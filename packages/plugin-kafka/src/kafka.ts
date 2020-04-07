@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, PluginInterface, LoggerPlugin, ValidatorPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import { promisifyAll, map } from 'bluebird'
 
 import {
@@ -50,22 +52,22 @@ export const name = 'kafka'
 export const type = PluginTypes.transport
 
 export interface KafkaStreamOpts<T> {
-  streamOptions: T,
-  conf?: Partial<KafkaConfig>,
-  topicConf?: TopicConfig
+  streamOptions: T;
+  conf?: Partial<KafkaConfig>;
+  topicConf?: TopicConfig;
 }
 
 export interface KafkaPlugin {
-  kafka: KafkaFactoryInterface
+  kafka: KafkaFactoryInterface;
 }
 
 /**
  * Defines service extension
  */
 export interface KafkaFactoryInterface {
-  createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream>
-  createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream>
-  close(): Promise<void>
+  createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream>;
+  createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream>;
+  close(): Promise<void>;
 }
 
 export type KafkaStream = ConsumerStream | ProducerStream
@@ -173,16 +175,14 @@ export function attach(
   this: Microfleet & LoggerPlugin & ValidatorPlugin,
   params: KafkaConfig
 ): PluginInterface {
-  const service = this
-
-  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  service.validator.addLocation(resolve(__dirname, '../schemas'))
+  this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const conf: KafkaConfig = service.validator.ifError(name, params)
-  const kafkaPlugin = service[name] = new KafkaFactory(service, conf)
+  const conf: KafkaConfig = this.validator.ifError(name, params)
+  const kafkaPlugin = this[name] = new KafkaFactory(this, conf)
 
   return {
     async connect() {

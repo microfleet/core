@@ -5,11 +5,10 @@
   "types": "./lib/index.d.ts",
   "version": "2.0.0",
   "scripts": {
-    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
-    "test": "yarn lint && yarn compile && yarn test:e2e",
+    "lint": "eslint './src/**/*.ts'",
+    "test": "yarn test:e2e",
     "test:e2e": "mdep test run",
-    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
-    "prepublishOnly": "yarn compile"
+    "compile": "tsc -b ./tsconfig.build.json"
   },
   "tags": [
     "microservice",
@@ -33,14 +32,15 @@
     "@microfleet/core": "~16.x.x"
   },
   "dependencies": {
-    "nano": "apache/couchdb-nano#4fed1e50488479596e4b2e440d96040c2dc72e36"
+    "nano": "^8.2.2"
   },
   "devDependencies": {
     "@microfleet/core": "^17.0.0",
-    "@types/jest": "^24.9.0",
-    "jest": "^24.9.0",
+    "@types/jest": "^25.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "jest": "^25.2.7",
     "rimraf": "^3.0.0",
-    "ts-jest": "^24.3.0"
+    "ts-jest": "^25.3.1"
   },
   "engines": {
     "node": ">= 12.14.0",

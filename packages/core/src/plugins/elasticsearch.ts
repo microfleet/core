@@ -4,17 +4,17 @@ import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import Elasticsearch = require('elasticsearch')
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginInterface, ValidatorPlugin, LoggerPlugin } from '../'
+import { Microfleet, PluginInterface, ValidatorPlugin } from '../'
 import { PluginTypes } from '../constants'
 
 interface ElasticLogger {
-  trace(...args: any[]): void
-  debug(...args: any[]): void
-  info(...args: any[]): void
-  warning(...args: any[]): void
-  error(...args: any[]): void
-  fatal(...args: any[]): void
-  close(...args: any[]): void
+  trace(...args: any[]): void;
+  debug(...args: any[]): void;
+  info(...args: any[]): void;
+  warning(...args: any[]): void;
+  error(...args: any[]): void;
+  fatal(...args: any[]): void;
+  close(...args: any[]): void;
 }
 
 /**
@@ -23,15 +23,13 @@ interface ElasticLogger {
 export const priority = 0
 export const name = 'elasticsearch'
 export const type = PluginTypes.database
-export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, params: any = {}): PluginInterface {
-  const service = this
+export function attach(this: Microfleet & ValidatorPlugin, params: any = {}): PluginInterface {
+  assert(this.hasPlugin('logger'), new NotFoundError('logger module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  assert(service.hasPlugin('logger'), new NotFoundError('logger module must be included'))
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-
-  const conf = service.validator.ifError('elasticsearch', params)
+  const conf = this.validator.ifError('elasticsearch', params)
   const { log, ...opts } = conf
-  const { log: serviceLogger } = service
+  const { log: serviceLogger } = this
 
   let Logger: any = null
   if (log && log.type === 'service') {
@@ -58,8 +56,8 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, params
     /**
      * @returns Elasticsearch connection.
      */
-    async connect() {
-      assert(!service.elasticsearch, new Errors.NotPermittedError('elasticsearch was already started'))
+    async connect(this: Microfleet) {
+      assert(!this.elasticsearch, new Errors.NotPermittedError('elasticsearch was already started'))
 
       const instance = new Elasticsearch.Client({
         ...opts,
@@ -72,23 +70,25 @@ export function attach(this: Microfleet & LoggerPlugin & ValidatorPlugin, params
         args: [{ nodeId: '', human: true }],
         interval: 500,
         backoff: 2,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         max_interval: 5000,
         timeout: 60000,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         max_tries: 100,
       })
 
-      service.elasticsearch = instance
-      service.emit('plugin:connect:elasticsearch', instance)
+      this.elasticsearch = instance
+      this.emit('plugin:connect:elasticsearch', instance)
       return instance
     },
 
     /**
      * @returns Closes elasticsearch connection.
      */
-    async close() {
-      await Bluebird.try(() => service.elasticsearch.close())
-      service.elasticsearch = null
-      service.emit('plugin:close:elasticsearch')
+    async close(this: Microfleet) {
+      await Bluebird.try(() => this.elasticsearch.close())
+      this.elasticsearch = null
+      this.emit('plugin:close:elasticsearch')
     },
   }
 }

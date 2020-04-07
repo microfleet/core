@@ -20,18 +20,17 @@ export const priority = 50
 
 /**
  * Attaches plugin to the MService class.
- * @param settings - AMQP plugin configuration.
+ * @param opts - AMQP plugin configuration.
  */
 export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
-  const service = this
   const { initTracer } = _require('jaeger-client')
 
-  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  const settings = service.validator.ifError('opentracing', opts)
+  assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  const settings = this.validator.ifError('opentracing', opts)
 
   // init tracer
-  service.tracer = initTracer(settings.config, {
+  this.tracer = initTracer(settings.config, {
     ...settings.options,
-    logger: service.log,
+    logger: this.log,
   })
 }

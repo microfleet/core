@@ -1,13 +1,14 @@
 import { ActionTransport } from '../../..'
 import { Router } from '../../router/factory'
-import verifyPossibility from '../../router/verifyAttachPossibility'
+import { verifyAttachPossibility } from '../../router/verifyAttachPossibility'
 import getSocketIORouterAdapter from './adapter'
+import wildcard = require('socketio-wildcard')
 
 function attachSocketIORouter(socketIO: any, config: any, router: Router) {
-  verifyPossibility(router, ActionTransport.socketIO)
+  verifyAttachPossibility(router, ActionTransport.socketIO)
 
   // include adapter
-  const wildcardMiddleware = require('socketio-wildcard')()
+  const wildcardMiddleware = wildcard()
 
   // due to changes in socket.io@2.0.2 we must attach server before using .use for adding middleware
   // otherwise it crashes

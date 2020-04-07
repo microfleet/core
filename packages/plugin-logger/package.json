@@ -1,0 +1,56 @@
+{
+  "name": "@microfleet/plugin-logger",
+  "description": "logger plugin for microfleet",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "test": "yarn test:unit && yarn test:e2e",
+    "test:unit": "jest",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "logger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-logger"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x"
+  },
+  "dependencies": {
+    "pino": "^6.1.1",
+    "pino-multi-stream": "^5.0.0",
+    "sonic-boom": "^1.0.1"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.0.0",
+    "@types/jest": "^25.2.1",
+    "jest": "^25.2.7",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^25.3.1",
+    "@sentry/node": "^5.15.4",
+    "pino-pretty": "^4.0.0"
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

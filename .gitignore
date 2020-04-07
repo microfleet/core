@@ -37,3 +37,4 @@ lib
 
 *.tsbuildinfo
 .releaserc.json
+.vscode

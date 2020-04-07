@@ -1,10 +1,10 @@
 import { mergeWith } from 'lodash'
 
-function customizer(_objectValue: Object, sourceValue: Object) {
+function customizer(_objectValue: Record<string, unknown>, sourceValue: Record<string, unknown>): Record<string, unknown> | void {
   return Array.isArray(sourceValue) ? sourceValue : undefined
 }
 
-export default function defaultsDeep(...sources: Object[]) {
+export default function defaultsDeep(...sources: Record<string, unknown>[]): Record<string, unknown> {
   const output = Object.create(null)
 
   for (const source of sources.reverse()) {

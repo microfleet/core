@@ -10,14 +10,13 @@ const debug = _debug('mservice:router:module:request')
 
 function getAction(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest) {
   debug('handler for module "request"')
-  const service = this
   const { transport } = request
 
   if (is.undefined(transport)) {
     return Bluebird.reject(new ArgumentError('"request" must have property "transport"'))
   }
 
-  const action = service.router.routes[transport][route]
+  const action = this.router.routes[transport][route]
 
   if (!is.fn(action)) {
     return Bluebird.reject(new NotFoundError(`route "${route}" not found`))
@@ -26,7 +25,7 @@ function getAction(this: Microfleet & RouterPlugin, route: string, request: Serv
   request.action = action
   request.route = route
 
-  const { maintenanceMode } = service.config
+  const { maintenanceMode } = this.config
   if (maintenanceMode && !action.readonly) {
     return Bluebird.reject(new HttpStatusError(418, 'Server Maintenance'))
   }
@@ -35,10 +34,9 @@ function getAction(this: Microfleet & RouterPlugin, route: string, request: Serv
 }
 
 function requestHandler(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest) {
-  const service = this
-  const { extensions } = service.router
+  const { extensions } = this.router
 
-  return moduleLifecycle('request', getAction, extensions, [route, request], service)
+  return moduleLifecycle('request', getAction, extensions, [route, request], this)
 }
 
 export default requestHandler

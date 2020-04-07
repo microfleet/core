@@ -1,7 +1,8 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, LoggerPlugin, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import retry = require('bluebird-retry')
 import CouchDB = require('nano')
 
@@ -12,12 +13,12 @@ export const priority = 0
 export const name = 'couchdb'
 export const type = PluginTypes.database
 export interface Config {
-  connection: CouchDB.Configuration
-  database: string
-  indexDefinitions?: CouchDB.CreateIndexRequest[]
+  connection: CouchDB.Configuration;
+  database: string;
+  indexDefinitions?: CouchDB.CreateIndexRequest[];
 }
 export interface CouchDBPlugin<T = any> {
-  couchdb: CouchDB.DocumentScope<T>
+  couchdb: CouchDB.DocumentScope<T>;
 }
 
 /**
@@ -53,8 +54,10 @@ const startupHandlers = (
     await retry(establishConnection, {
       interval: 500,
       backoff: 2,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       max_interval: 5000,
       timeout: 60000,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       max_tries: 100,
       predicate(err: Error) {
         service.log.warn({ err }, 'failing to connect to couchdb, scheduling reconnect')
@@ -76,16 +79,14 @@ export function attach(
   this: Microfleet & LoggerPlugin & ValidatorPlugin,
   params: Config
 ) {
-  const service = this
-
-  assert(service.hasPlugin('logger'), new NotFoundError('log module must be included'))
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  service.validator.addLocation(resolve(__dirname, '../schemas'))
+  this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const opts: Config = service.validator.ifError(name, params)
+  const opts: Config = this.validator.ifError(name, params)
   const nano = CouchDB(opts.connection)
 
-  return startupHandlers(service, nano, opts.database, opts.indexDefinitions)
+  return startupHandlers(this, nano, opts.database, opts.indexDefinitions)
 }

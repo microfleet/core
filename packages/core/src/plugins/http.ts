@@ -22,10 +22,9 @@ export const priority = 0
  * @param config - HTTP handler configuration to attach.
  */
 export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
-  const service = this
-  const { validator } = service
+  const { validator } = this
 
-  assert(service.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   const config = validator.ifError('http', opts)
 

@@ -7,13 +7,13 @@ import { identity } from '../../../constants'
 import moduleLifecycle from './lifecycle'
 
 export interface AuthStrategy {
-  (this: Microfleet, request: ServiceRequest): PromiseLike<any>
+  (this: Microfleet, request: ServiceRequest): PromiseLike<any>;
 }
 
 export interface AuthOptions {
   strategies: {
-    [strategyName: string]: AuthStrategy
-  }
+    [strategyName: string]: AuthStrategy;
+  };
 }
 
 const remapError = (error: Error) => {

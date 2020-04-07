@@ -15,5 +15,8 @@ exports.findHealthCheck = function findHealthCheck(service, pluginName) {
     .getHealthChecks()
     .find(findByName(pluginName));
   assert(check);
-  return check;
+  return {
+    ...check,
+    handler: check.handler.bind(service),
+  };
 };

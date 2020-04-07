@@ -8,9 +8,9 @@ export type TransportOptionsAugmentedRequest = ServiceRequest & {
     transportsOptions: {
       [transport: string]: {
         methods: string[];
-      }
-    }
-  }
+      };
+    };
+  };
 }
 
 function postRequest(error: Error, request: TransportOptionsAugmentedRequest) {
