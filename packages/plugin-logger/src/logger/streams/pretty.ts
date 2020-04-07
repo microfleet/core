@@ -6,7 +6,7 @@ import { Writable } from 'stream'
 import prettyFactory = require('pino-pretty')
 
 // options: https://github.com/pinojs/pino-pretty#options
-function prettyStreamFactory(config: any) {
+export function prettyStreamFactory(config: any) {
   const { level, ...options } = config
 
   const pretty = prettyFactory(options)
@@ -24,5 +24,3 @@ function prettyStreamFactory(config: any) {
     stream: prettyStream,
   }
 }
-
-export default prettyStreamFactory

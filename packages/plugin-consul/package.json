@@ -6,10 +6,9 @@
   "version": "2.0.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
-    "test": "yarn lint && yarn compile && yarn test:e2e",
+    "test": "yarn test:e2e",
     "test:e2e": "mdep test run --dcm ./__tests__/docker-compose.yml",
-    "compile": "rimraf ./lib *.tsbuildinfo; tsc -b ./tsconfig.build.json",
-    "prepublishOnly": "yarn compile"
+    "compile": "tsc -b ./tsconfig.build.json"
   },
   "tags": [
     "microservice",

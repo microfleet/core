@@ -1,13 +1,13 @@
 import assert = require('assert')
 import { Microfleet, PluginTypes, ValidatorPlugin } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
-import pino from 'pino'
-import pinoms from 'pino-multi-stream'
-import SonicBoom from 'sonic-boom'
+import pino = require('pino')
+import pinoms = require('pino-multi-stream')
+import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
-const prettyStreamFactory = require('./logger/streams/pretty').default
+import type { NodeOptions } from '@sentry/node'
 
-const defaultConfig = {
+const defaultConfig: LoggerConfig = {
   debug: false,
   defaultLogger: false,
   // there are no USER env variable in docker image
@@ -30,11 +30,14 @@ const defaultConfig = {
 function streamsFactory(streamName: string, options: any): pinoms.Streams[0] {
   switch (streamName) {
     case 'sentry': {
-      const sentryStreamFactory = require('./logger/streams/sentry').default
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { sentryStreamFactory } = require('./logger/streams/sentry')
       return sentryStreamFactory(options)
     }
 
     case 'pretty': {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { prettyStreamFactory } = require('./logger/streams/pretty')
       return prettyStreamFactory(options)
     }
 
@@ -65,19 +68,36 @@ export interface LoggerPlugin {
   log: pinoms.Logger;
 }
 
+export interface StreamConfiguration {
+  sentry?: NodeOptions;
+  pretty?: {
+    colorize?: boolean;
+    crlf?: boolean;
+    errorLikeObjectKeys?: string[];
+    errorProps?: string;
+    levelFirst?: boolean;
+    messageKey?: string;
+    messageFormat?: boolean;
+    timestampKey?: string;
+    translateTime?: boolean;
+    useMetadata?: boolean;
+    outputStream?: NodeJS.WritableStream;
+    customPrettifiers?: any;
+  };
+  [streamName: string]: any;
+}
+
 export interface LoggerConfig {
   defaultLogger: any;
   prettifyDefaultLogger: boolean;
   debug: boolean;
   name: string;
   options: pino.LoggerOptions;
-  streams: {
-    [streamName: string]: pinoms.Streams;
-  };
+  streams: StreamConfiguration;
 }
 
 export const levels = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
-export const isCompatible = (obj: any) => {
+export const isCompatible = (obj: any): obj is pinoms.Logger => {
   return obj !== null
     && typeof obj === 'object'
     && every(exports.levels, (level: any) => typeof obj[level] === 'function')
@@ -91,7 +111,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   const { config: { name: applicationName } } = this
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  const config = this.validator.ifError('logger', opts) as LoggerConfig
+  const config = this.validator.ifError<LoggerConfig>('logger', opts)
 
   const {
     debug,
@@ -113,9 +133,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
     // return either human-readable logger or fast production-ready json logger
     const getDefaultStream = () => {
       if (prettifyDefaultLogger) {
-        const { stream } = prettyStreamFactory({
-          translateTime: true,
-        })
+        const { stream } = streamsFactory('pretty', { translateTime: true })
         return stream
       }
 
@@ -139,4 +157,14 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
     streams,
     name: applicationName || serviceName,
   })
+}
+
+declare module '@microfleet/core' {
+  export interface Microfleet {
+    log: pinoms.Logger;
+  }
+
+  export interface ConfigurationOptional {
+    logger: LoggerConfig;
+  }
 }

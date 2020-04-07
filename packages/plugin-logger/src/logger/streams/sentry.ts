@@ -109,7 +109,7 @@ class SentryStream {
   }
 }
 
-function sentryStreamFactory(config: Sentry.NodeOptions) {
+export function sentryStreamFactory(config: Sentry.NodeOptions) {
   const { logLevel, dsn } = config
 
   assert(dsn, '"dsn" property must be set')
@@ -134,4 +134,3 @@ function sentryStreamFactory(config: Sentry.NodeOptions) {
   }
 }
 
-export default sentryStreamFactory

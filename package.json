@@ -7,14 +7,13 @@
   "scripts": {
     "prebootstrap": "yarn --frozen-lockfile --check-files",
     "bootstrap": "lerna bootstrap -- --frozen-lockfile --check-files",
-    "lint": "lerna run lint --stream",
-    "pretest": "yarn lint",
+    "lint": "lerna run lint --parallel",
+    "pretest": "yarn lint && yarn compile",
     "test": "lerna run test --stream",
-    "posttest": "yarn compile",
     "precompile": "yarn clean",
-    "compile": "lerna run compile --stream",
-    "clean": "rimraf packages/*/lib",
-    "semantic-release": "lerna publish --conventional-commits --create-release=github --yes"
+    "compile": "tsc -b ./tsconfig.build.json",
+    "clean": "rimraf packages/*/lib packages/*/*.tsbuildinfo",
+    "semantic-release": "yarn compile && lerna publish --conventional-commits --create-release=github --yes"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^10.1.4",

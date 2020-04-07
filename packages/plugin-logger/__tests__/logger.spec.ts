@@ -1,5 +1,5 @@
 import Bluebird = require('bluebird')
-import pino from 'pino'
+import pino = require('pino')
 import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
 
@@ -10,6 +10,7 @@ describe('Logger suite', () => {
       plugins,
       name: 'tester',
     })
+
     assert(!service.log)
   })
 
