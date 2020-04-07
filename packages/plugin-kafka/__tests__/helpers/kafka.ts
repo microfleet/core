@@ -78,6 +78,9 @@ export async function createConsumerStream(
   service.log.debug({ config, extraConfig }, 'CREATE CONSUMER')
   const consumerStream = await kafka.createConsumerStream(config)
 
+  // make it faster
+  consumerStream.consumer.setDefaultConsumeTimeout(100)
+
   consumerStream.on('close', () => {
     service.log.debug('TEST stream on close')
   })
@@ -110,17 +113,17 @@ export async function sendMessages(
   return messageIterable.sentMessages
 }
 
-export function processReceived(received: any[], messages: any): ConsumerStreamMessage {
-  const msgs = msgsToArr(messages)
-  received.push(...msgs)
-  return msgs.pop()!
+export function commitBatch(stream: KafkaConsumerStream, msgs: ConsumerStreamMessage[]): void {
+  process.stdout.write(`\n====Commiting batch:====\n${require('util').inspect({ msgs }, { colors: true })} \n=====\n`)
+  msgs.map((msg: ConsumerStreamMessage) => stream.consumer.commitMessage(msg))
 }
 
 export async function readStream(stream: KafkaConsumerStream, commit = true): Promise<ConsumerStreamMessage[]> {
   const messages: ConsumerStreamMessage[] = []
-  for await (const incommingMessage of stream) {
-    const lastMessage = processReceived(messages, incommingMessage)
-    if (commit) stream.consumer.commitMessage(lastMessage)
+  for await (const batch of stream) {
+    const receivedMessages = msgsToArr(batch)
+    messages.push(...receivedMessages)
+    if (commit) commitBatch(stream, receivedMessages)
   }
   return messages
 }

@@ -6,6 +6,7 @@ module.exports = {
   rootDir: '../../',
   collectCoverage: true,
   coverageDirectory: 'packages/plugin-kafka/coverage',
+  coverageReporters: [ "text-summary", "json", "lcov" ],
   collectCoverageFrom: [
     'packages/plugin-kafka/src/**/*',
   ],

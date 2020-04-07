@@ -24,9 +24,12 @@ import {
 } from '@microfleet/plugin-kafka-types'
 
 import { getLogFnName, topicExists } from './util'
-import { KafkaConsumerStream, OffsetCommitError } from './custom/consumer-stream'
+import { KafkaConsumerStream, OffsetCommitError, UncommittedOffsetsError } from './custom/consumer-stream'
 
-export { KafkaConsumer, KafkaProducerStream, KafkaConsumerStream, ConsumerStreamMessage, OffsetCommitError }
+export {
+  KafkaConsumer, KafkaProducerStream, KafkaConsumerStream,
+  ConsumerStreamMessage, OffsetCommitError, UncommittedOffsetsError
+}
 
 /**
  * Relative priority inside the same plugin group type
