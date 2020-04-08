@@ -3,7 +3,7 @@ import { once } from 'events'
 import { Transform, pipeline as origPipeline } from 'readable-stream'
 import * as util from 'util'
 import { Toxiproxy } from 'toxiproxy-node-client'
-import { delay } from 'bluebird'
+import { delay, TimeoutError } from 'bluebird'
 import { } from '../../src'
 const pipeline = util.promisify(origPipeline)
 
@@ -266,6 +266,39 @@ describe('#generic', () => {
       })
     })
 
+    test('throws on offset.commit timeout on exit', async () => {
+      const topic = 'test-throw-error-commit-timeout'
+
+      producer = await createProducerStream(service)
+      await sendMessages(producer, topic, 10)
+
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+        },
+        conf: {
+          'enable.auto.commit': false,
+          'group.id': topic,
+        },
+      })
+
+      const receivedMessages: any[] = []
+      let closed = false
+      const errorSim = async () => {
+        for await (const incommingMessage of consumerStream) {
+          const messages = msgsToArr(incommingMessage)
+          receivedMessages.push(...messages)
+
+          if (!closed && receivedMessages.length === 2) {
+            closed = true
+            consumerStream.close()
+          }
+        }
+      }
+
+      await expect(errorSim()).rejects.toThrowError(TimeoutError)
+    })
+
     test('throws on offset.commit error as number', async () => {
       const topic = 'test-throw-error-number'
 
@@ -278,7 +311,7 @@ describe('#generic', () => {
         },
         conf: {
           'enable.auto.commit': false,
-          'group.id': 'throw-error-number',
+          'group.id': topic,
         },
       })
 

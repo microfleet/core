@@ -174,7 +174,7 @@ export class KafkaConsumerStream extends Readable {
           super.destroy(timeoutError, callback)
         })
     } else {
-      process.nextTick(() => {
+      setImmediate(() => {
         super.destroy(err)
       })
     }
