@@ -69,13 +69,13 @@ Fingerprint is represented as an array of strings. Pass it as `$fingerprint` whe
 ```js
 // src/actions/deprecated-action.js
 const { ActionTransport } = require('@microfleet/core')
-const { FINGERPRINT_DEFAULT } = require('@microfleet/core/lib/plugins/logger/streams/sentry')
+const { SENTRY_FINGERPRINT_DEFAULT } = require('@microfleet/plugin-logger')
 
 function deprecatedAction({ params: { clientId }}) {
   this.log.warn(
     {
       $fingerprint: [
-        FINGERPRINT_DEFAULT, // '{{ default }}' -- for more reserved fingerprint names explore Sentry docs
+        SENTRY_FINGERPRINT_DEFAULT, // '{{ default }}' -- for more reserved fingerprint names explore Sentry docs
         String(clientId),
       ]
     },
