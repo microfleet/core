@@ -161,6 +161,14 @@ declare module 'node-rdkafka' {
     brokers: BrokerInfo[];
   }
 
+  export interface LibrdKafkaError {
+    message: string
+    code: number
+    errno: number
+    origin: string
+    stack?: string
+  }
+
   // ====== Generated from librdkafka 1.3.0 file CONFIGURATION.md ======
   // Code that generated this is a derivative work of the code from Nam Nguyen
   // https://gist.github.com/ntgn81/066c2c8ec5b4238f85d1e9168a04e3fb

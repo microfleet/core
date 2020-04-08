@@ -12,6 +12,7 @@ import {
   KafkaProducerStream,
   ConsumerStreamMessage,
   Client as KafkaClient,
+  LibrdKafkaError,
 } from './custom/rdkafka-extra'
 
 import {
@@ -28,7 +29,8 @@ import { KafkaConsumerStream, OffsetCommitError, UncommittedOffsetsError } from 
 
 export {
   KafkaConsumer, KafkaProducerStream, KafkaConsumerStream,
-  ConsumerStreamMessage, OffsetCommitError, UncommittedOffsetsError
+  ConsumerStreamMessage, OffsetCommitError, UncommittedOffsetsError,
+  LibrdKafkaError
 }
 
 /**

@@ -2,7 +2,9 @@ import { Microfleet } from '@microfleet/core'
 import { once } from 'events'
 import { Transform, pipeline as origPipeline } from 'readable-stream'
 import * as util from 'util'
-
+import { Toxiproxy } from 'toxiproxy-node-client'
+import { delay } from 'bluebird'
+import { } from '../../src'
 const pipeline = util.promisify(origPipeline)
 
 import {
@@ -11,11 +13,10 @@ import {
   TopicNotFoundError,
   OffsetCommitError,
   UncommittedOffsetsError,
+  LibrdKafkaError,
 } from '@microfleet/plugin-kafka'
 
 import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, readStream, commitBatch } from '../helpers/kafka'
-import { Toxiproxy } from 'toxiproxy-node-client'
-import { delay } from 'bluebird'
 
 const toxiproxy = new Toxiproxy('http://toxy:8474')
 
@@ -158,7 +159,7 @@ describe('#generic', () => {
   })
 
   describe('connected to broker', () => {
-    test.skip('on disconnected consumer with auto.commit', async () => {
+    test('on disconnected consumer with auto.commit', async () => {
       const topic = 'test-throw-disconnected-consumer'
 
       producer = await createProducerStream(service)
@@ -190,7 +191,7 @@ describe('#generic', () => {
       expect(receivedMessages).toHaveLength(2)
     })
 
-    describe.skip('on disconnected consumer without auto.commit', () => {
+    describe('on disconnected consumer without auto.commit', () => {
       test('as iterable', async () => {
         const topic = 'test-throw-disconnected-consumer-auto-commit'
 
@@ -218,7 +219,7 @@ describe('#generic', () => {
             if (!disconnected && receivedMessages.length >= 1) {
               disconnected = true
               service.log.debug('DISCONNNECTING CONSUMER')
-              await consumerStream.consumer.disconnectAsync()
+              consumerStream.consumer.disconnect()
             }
           }
         }
@@ -255,7 +256,7 @@ describe('#generic', () => {
             if (!disconnected && receivedMessages.length >= 1) {
               disconnected = true
               service.log.debug('DISCONNNECTING CONSUMER')
-              await consumerStream.consumer.disconnectAsync()
+              consumerStream.consumer.disconnect()
               callback()
             }
           },
@@ -314,6 +315,7 @@ describe('#generic', () => {
             topics: topic,
           },
           conf: {
+            'enable.auto.commit': false,
             'group.id': topic,
           },
         })
@@ -351,6 +353,7 @@ describe('#generic', () => {
             topics: topic,
           },
           conf: {
+            'enable.auto.commit': false,
             'group.id': topic,
           },
         })
@@ -381,7 +384,7 @@ describe('#generic', () => {
       })
     })
 
-    describe.skip('with disabled auto.commit and disabled auto.offset.store', () => {
+    describe('with disabled auto.commit and disabled auto.offset.store', () => {
       test('as iterable', async () => {
         const topic = 'test-no-auto-commit-manual-offset-store'
 
@@ -505,7 +508,7 @@ describe('#generic', () => {
     })
 
     // Stream should process all buferred messages and exit
-    describe.skip('with disabled auto.commit and using manual `commit` on `close` called', () => {
+    describe('with disabled auto.commit and using manual `commit` on `close` called', () => {
       test('as iterable', async () => {
         const topic = 'test-no-auto-commit-unsubscribe'
         producer = await createProducerStream(service)
@@ -571,7 +574,7 @@ describe('#generic', () => {
 
             if (!closeCalled && receivedMessages.length > 2) {
               closeCalled = true
-              consumerStream.destroy(undefined, () => {
+              consumerStream.close(() => {
                 service.log.debug('closed connection')
               })
             }
@@ -617,7 +620,7 @@ describe('#generic', () => {
 
         if (!closeCalled && receivedMessages.length > 2) {
           closeCalled = true
-          consumerStream.destroy(undefined, () => {
+          consumerStream.close(() => {
             service.log.debug('closed connection')
           })
         }
@@ -706,7 +709,7 @@ describe('#generic', () => {
   })
 })
 
-describe.skip('#2s-toxified', () => {
+describe('#2s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -760,19 +763,26 @@ describe.skip('#2s-toxified', () => {
       for await (const incommingMessage of consumerStream) {
         const messages = msgsToArr(incommingMessage)
         receivedMessages.push(...messages)
-
-        consumerStream.consumer.commitMessageSync(messages.pop())
-
         if (!blockedOnce) {
           await setProxyEnabled(false)
           delay(2000).then(() => setProxyEnabled(true))
           blockedOnce = true
         }
+
+        try {
+          consumerStream.consumer.commitMessageSync(messages.pop())
+        } catch (e) {
+          service.log.debug({ err: e }, 'commit sync error')
+          throw e
+        }
       }
       service.log.debug('TEST ENDOF FOR LOOP')
     }
 
-    await expect(simOne()).rejects.toThrowError(/Local: Waiting for coordinator/)
+    // We should provide more verbal error description
+    // but here we can receive lots of errors
+    await expect(simOne()).rejects.toThrowError(LibrdKafkaError)
+    await consumerStream.closeAsync()
 
     service.log.debug('start the second read sequence')
 
@@ -787,7 +797,7 @@ describe.skip('#2s-toxified', () => {
     })
 
     const newMessages = await readStream(consumerStream)
-    expect(newMessages).toHaveLength(9)
+    expect(newMessages).toHaveLength(10)
   })
 
   // shows successfull commit recovery
@@ -833,8 +843,9 @@ describe.skip('#2s-toxified', () => {
     }
 
     await simOne()
+    await consumerStream.closeAsync()
 
-    service.log.debug('start the second read sequence')
+    service.log.debug('!!!!!!!!!!!!!!!!!start the second read sequence')
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -886,7 +897,7 @@ describe.skip('#12s-toxified', () => {
 
     const receivedMessages: any[] = []
 
-    await sendMessages(producer, topic, 4)
+    await sendMessages(producer, topic, 10)
     await producer.closeAsync()
 
     consumerStream = await createConsumerStream(service, {
@@ -895,7 +906,7 @@ describe.skip('#12s-toxified', () => {
         fetchSize: 2,
       },
       conf: {
-        // debug: 'consumer,cgrp,topic',
+        debug: 'consumer,cgrp,topic',
         'group.id': topic,
         'enable.auto.commit': false,
       },
@@ -915,7 +926,7 @@ describe.skip('#12s-toxified', () => {
           service.log.debug('BLOCKING connection')
           blockedOnce = true
           await setProxyEnabled(false)
-          delay(15000)
+          delay(19000)
             .then(() => setProxyEnabled(true))
             .tap(() => { service.log.error('ENABLED connection') })
         }
@@ -923,24 +934,25 @@ describe.skip('#12s-toxified', () => {
     }
 
     // we receive messages but our commit invalidated
-    await expect(simOne()).rejects.toThrowError(OffsetCommitError)
+    await simOne()
+    // await expect(simOne()).rejects.toThrowError(OffsetCommitError)
     expect(receivedMessages).toHaveLength(4)
 
-    // service.log.debug('READ AGAIN')
+    service.log.debug('READ AGAIN')
 
-    // consumerStream = await createConsumerStream(service, {
-    //   streamOptions: {
-    //     topics: topic,
-    //   },
-    //   conf: {
-    //     'group.id': topic,
-    //     'enable.auto.commit': false,
-    //   },
-    // })
+    consumerStream = await createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+      },
+      conf: {
+        'group.id': topic,
+        'enable.auto.commit': false,
+      },
+    })
 
-    // const newMessages = await readStream(consumerStream)
+    const newMessages = await readStream(consumerStream)
 
-    // expect(newMessages).toHaveLength(0)
+    expect(newMessages).toHaveLength(0)
   })
 })
 
