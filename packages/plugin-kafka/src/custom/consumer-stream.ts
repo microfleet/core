@@ -276,9 +276,9 @@ export class KafkaConsumerStream extends Readable {
 
       if (CriticalErrors.includes(code)) {
         this.log?.error({ err: wrappedError }, 'critical commit error')
-        setImmediate(() => {
-          this.destroy(wrappedError)
-        })
+        // setImmediate(() => {
+        this.destroy(wrappedError)
+        // })
       }
 
       return
