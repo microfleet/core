@@ -711,7 +711,7 @@ describe('#generic', () => {
   })
 })
 
-describe.skip('#2s-toxified', () => {
+describe('#2s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
