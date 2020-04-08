@@ -7,7 +7,7 @@ import {
   promisify, TimeoutError, delay,
 } from 'bluebird'
 import { helpers as ErrorHelpers } from 'common-errors'
-import { inspect } from 'util'
+// import { inspect } from 'util'
 
 import { LoggerPlugin } from '@microfleet/core'
 
@@ -148,23 +148,19 @@ export class KafkaConsumerStream extends Readable {
 
   public _destroy(err: Error | null | undefined, callback?: (err: Error | null) => void): void {
     this.log?.debug({ err, conn: this.consumer.isConnected() }, '_destroy close consumer stream')
-    // invalidate assignments otherwise rebalance_cb will be called later
-    // and block some rdkafka threads
-    // this.consumer.assign([])
+
     if (!this.consumer.isConnected()) {
-      // if (!this._readableState.endEmitted) {
-      //   // this.emit('end')
-      //   this.push(null)
-      // }
       this.log?.debug('_destroy consumer already disconnected', callback)
       if (callback) callback(err || null)
       return
     }
 
     this.log?.debug('_destroy SET consumer disconnect callback', callback)
+
     if (!this.inDestroyingState()) {
       this.consumer.assign([])
     }
+
     this.consumer.disconnect((errCB) => {
       if (!this._readableState.endEmitted && !this.hasError) {
         this.push(null)
@@ -176,7 +172,6 @@ export class KafkaConsumerStream extends Readable {
 
   public destroy(err?: Error | undefined, callback?: ((error: Error | null) => void) | undefined): this {
     this.log?.debug({ err, callback, destroyed: this.destroyed, destroying: this.destroying }, 'destroy called')
-    process.stdout.write(`${(new Error()).stack}`)
 
     if (this.destroying) {
       this.log?.debug({ err, callback }, 'in destroying state')
@@ -269,7 +264,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   private async handleOffsetCommit (err: Error, partitions: TopicPartition[]): Promise<void> {
-    process.stdout.write(`\n====Commit:====\n${inspect({ err, partitions }, { colors: true })} \n=====\n`)
+    // process.stdout.write(`\n====Commit:====\n${inspect({ err, partitions }, { colors: true })} \n=====\n`)
     this.log?.info({ err, partitions }, 'offset.commit')
 
     if (err) {
@@ -281,7 +276,9 @@ export class KafkaConsumerStream extends Readable {
 
       if (CriticalErrors.includes(code)) {
         this.log?.error({ err: wrappedError }, 'critical commit error')
-        this.destroy(wrappedError)
+        setImmediate(() => {
+          this.destroy(wrappedError)
+        })
       }
 
       return
@@ -303,29 +300,27 @@ export class KafkaConsumerStream extends Readable {
 
   private async handleRebalance (err: KafkaError, assignments: TopicPartition[] = []) {
     this.log?.info({ err, assignments }, 'rebalance')
-    // process.nextTick(async () => {
-    switch (err.code) {
-      case ERR__ASSIGN_PARTITIONS:
-        this.updatePartitionOffsets(assignments, this.offsetTracker)
-        // early exit if all topics partitions read and offsets maxed
-        process.nextTick(async () => {
+    process.nextTick(async () => {
+      switch (err.code) {
+        case ERR__ASSIGN_PARTITIONS:
+          this.updatePartitionOffsets(assignments, this.offsetTracker)
+          // early exit if all topics partitions read and offsets maxed
           await this.checkEof()
-        })
-        break
+          break
 
-      case ERR__REVOKE_PARTITIONS:
-        // save offsets if consumer starts diconnect process
-        if (!this.consumerDisconnected()) {
-          this.cleanPartitionOffsets(assignments, this.offsetTracker)
-          this.cleanPartitionOffsets(assignments, this.unacknowledgedTracker)
-        }
-        break
+        case ERR__REVOKE_PARTITIONS:
+          // save offsets if consumer starts diconnect process
+          if (!this.consumerDisconnected()) {
+            this.cleanPartitionOffsets(assignments, this.offsetTracker)
+            this.cleanPartitionOffsets(assignments, this.unacknowledgedTracker)
+          }
+          break
 
-      default:
-        this.emit('rebalance.error', err)
-        return
-    }
-    // })
+        default:
+          this.emit('rebalance.error', err)
+          return
+      }
+    })
   }
 
   private handleIncomingMessages(messages: ConsumerStreamMessage[]): void {

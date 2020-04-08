@@ -277,6 +277,7 @@ describe('#generic', () => {
           topics: topic,
         },
         conf: {
+          'enable.auto.commit': false,
           'group.id': 'throw-error-number',
         },
       })
@@ -289,7 +290,7 @@ describe('#generic', () => {
           receivedMessages.push(...messages)
           const lastMessage = messages.pop()!
 
-          if (!errorEmitted && receivedMessages.length > 2) {
+          if (!errorEmitted && receivedMessages.length === 2) {
             errorEmitted = true
             consumerStream.consumer.emit(
               'offset.commit',
@@ -328,8 +329,9 @@ describe('#generic', () => {
             receivedMessages.push(...messages)
             const lastMessage = messages.pop()!
 
-            if (!errorEmitted && receivedMessages.length > 2) {
+            if (!errorEmitted && receivedMessages.length === 2) {
               errorEmitted = true
+              service.log.debug('EMIT ERROR')
               consumerStream.consumer.emit(
                 'offset.commit',
                 { code: 25, message: 'broker: unknown member' },
@@ -368,7 +370,7 @@ describe('#generic', () => {
             receivedMessages.push(...messages)
             const lastMessage = messages.pop()!
 
-            if (!errorEmitted && receivedMessages.length > 2) {
+            if (!errorEmitted && receivedMessages.length === 2) {
               errorEmitted = true
               consumerStream.consumer.emit(
                 'offset.commit',
@@ -535,7 +537,7 @@ describe('#generic', () => {
 
           if (!closeCalled && receivedMessages.length > 2) {
             closeCalled = true
-            consumerStream.destroy(undefined, () => {
+            consumerStream.close(() => {
               service.log.debug('closed connection')
             })
           }
@@ -709,7 +711,7 @@ describe('#generic', () => {
   })
 })
 
-describe('#2s-toxified', () => {
+describe.skip('#2s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream

@@ -1,4 +1,4 @@
-jest.setTimeout(120000)
+jest.setTimeout(40000)
 
 // Patch tests
 jasmine.getEnv().addReporter({
