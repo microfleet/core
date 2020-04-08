@@ -32,9 +32,7 @@ const {
   ERR__STATE,
 } = KafkaErrorCodes
 
-export const EVENT_ACK = 'acknowledged'
 export const EVENT_CONSUMED = 'consumed'
-export const EVENT_DESTROYING = 'destroying'
 export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
 
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
@@ -110,23 +108,7 @@ export class KafkaConsumerStream extends Readable {
 
     this.consumer.on('rebalance', this.handleRebalance.bind(this))
     this.consumer.on('offset.commit', this.handleOffsetCommit.bind(this))
-
-    this.consumer.on('disconnected', async () => {
-      if (this.destroying) {
-        this.log?.debug('disconnected event already destroying')
-        return
-      }
-
-      const hasOutstandingAcks = this.hasOutstandingAcks()
-      this.log?.debug({ hasOutstandingAcks }, 'disconnected event from consumer')
-
-      if (hasOutstandingAcks) {
-        this.destroy(new UncommittedOffsetsError(this.offsetTracker, this.unacknowledgedTracker))
-        return
-      }
-
-      this.destroy()
-    })
+    this.consumer.on('disconnected', this.handleDisconnected.bind(this))
 
     const topics = Array.isArray(config.topics) ? config.topics! : [config.topics!]
     this.consumer.subscribe(topics)
@@ -150,34 +132,25 @@ export class KafkaConsumerStream extends Readable {
     this.log?.debug({ err, conn: this.consumer.isConnected() }, '_destroy close consumer stream')
 
     if (!this.consumer.isConnected()) {
-      this.log?.debug('_destroy consumer already disconnected', callback)
       if (callback) callback(err || null)
       return
     }
-
-    this.log?.debug('_destroy SET consumer disconnect callback', callback)
 
     if (!this.inDestroyingState()) {
       this.consumer.assign([])
     }
 
-    this.consumer.disconnect((errCB) => {
+    this.consumer.disconnect(() => {
       if (!this._readableState.endEmitted && !this.hasError) {
         this.push(null)
       }
-      this.log?.debug({ err, errCB, callback }, '_destroy consumer disconnect callback')
       if (callback) callback(err || null)
     })
   }
 
   public destroy(err?: Error | undefined, callback?: ((error: Error | null) => void) | undefined): this {
-    this.log?.debug({ err, callback, destroyed: this.destroyed, destroying: this.destroying }, 'destroy called')
-
     if (this.destroying) {
-      this.log?.debug({ err, callback }, 'in destroying state')
-
       this.once('close', () => {
-        this.log?.debug('destroy this once close')
         if (callback) callback(err || null)
       })
       return this
@@ -189,28 +162,20 @@ export class KafkaConsumerStream extends Readable {
       // invalidate ack waits
       this.hasError = true
       this.consuming = false
-      this.emit(EVENT_DESTROYING)
-    }
-
-    const superDestroy = (_?: any) => {
-      this.log?.debug({ err, callback }, 'superDestroy')
-      super.destroy(err)
     }
 
     if (this.consuming) {
       resolve(once(this, EVENT_CONSUMED))
         .timeout(5000, 'offset commit timeout on shutdown')
         .then(() => {
-          this.log?.debug('destroy - event received destroying')
-          superDestroy()
+          super.destroy(err)
         })
         .catch((timeoutError: TimeoutError) => {
-          this.log?.debug({ err: timeoutError }, 'destroy - promise error')
           super.destroy(timeoutError, callback)
         })
     } else {
       process.nextTick(() => {
-        superDestroy()
+        super.destroy(err)
       })
     }
 
@@ -218,25 +183,20 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public close(cb?: (err?: Error | null) => void): void {
-    this.log?.debug('close called')
-
     if (this.destroyed) {
-      this.log?.error('close - already destroyed')
       if (cb) cb()
       return
     }
 
     this.once('close', () => {
-      this.log?.debug('close CB')
       if (cb) cb()
     })
+
     this.destroy()
   }
 
   async closeAsync(): Promise<void> {
-    this.log?.debug('close async called')
     await promisify(this.close, { context: this })()
-    this.log?.debug('close async finished')
   }
 
   private inDestroyingState(): boolean {
@@ -247,26 +207,17 @@ export class KafkaConsumerStream extends Readable {
     return this.consumer._isDisconnecting || !this.consumer.isConnected()
   }
 
-  private pauseConsumer() {
-    if (this.consumerDisconnected()) {
-      this.log?.debug('skip pause on destroyed status')
-      return
-    }
+  private pauseConsumer(): void {
+    if (this.consumerDisconnected()) return
     this.consumer.pause(this.consumer.assignments())
   }
 
-  private resumeConsumer() {
-    if (this.consumerDisconnected()) {
-      this.log?.debug('skip resume on destroyed status')
-      return
-    }
+  private resumeConsumer(): void {
+    if (this.consumerDisconnected()) return
     this.consumer.resume(this.consumer.assignments())
   }
 
   private async handleOffsetCommit (err: Error, partitions: TopicPartition[]): Promise<void> {
-    // process.stdout.write(`\n====Commit:====\n${inspect({ err, partitions }, { colors: true })} \n=====\n`)
-    this.log?.info({ err, partitions }, 'offset.commit')
-
     if (err) {
       const wrappedError = new OffsetCommitError(partitions, err)
       this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
@@ -276,9 +227,7 @@ export class KafkaConsumerStream extends Readable {
 
       if (CriticalErrors.includes(code)) {
         this.log?.error({ err: wrappedError }, 'critical commit error')
-        // setImmediate(() => {
         this.destroy(wrappedError)
-        // })
       }
 
       return
@@ -288,18 +237,27 @@ export class KafkaConsumerStream extends Readable {
 
     // once all acks were processed - be done with it
     if (!this.hasOutstandingAcks()) {
-      this.log?.info({ destroying: this.destroying }, 'checking eof after all acks received')
       await this.checkEof()
-      this.log?.info('commit +ack')
-      this.consuming = false
+
       // notify that received chunk processed
+      this.consuming = false
       this.emit(EVENT_CONSUMED)
       return
     }
   }
 
+  private handleDisconnected(): void {
+    if (this.destroying) return
+
+    if (this.hasOutstandingAcks()) {
+      this.destroy(new UncommittedOffsetsError(this.offsetTracker, this.unacknowledgedTracker))
+      return
+    }
+
+    this.destroy()
+  }
+
   private async handleRebalance (err: KafkaError, assignments: TopicPartition[] = []) {
-    this.log?.info({ err, assignments }, 'rebalance')
     process.nextTick(async () => {
       switch (err.code) {
         case ERR__ASSIGN_PARTITIONS:
@@ -324,8 +282,8 @@ export class KafkaConsumerStream extends Readable {
   }
 
   private handleIncomingMessages(messages: ConsumerStreamMessage[]): void {
-    const { unacknowledgedTracker, offsetTracker, autoStore } = this
-    this.log?.warn('pausing stream - handleIncomingMessages')
+    const { unacknowledgedTracker, autoStore } = this
+
     this.consuming = true
     this.pauseConsumer()
 
@@ -344,9 +302,6 @@ export class KafkaConsumerStream extends Readable {
 
     if (this.config.streamAsBatch) this.messages.push(messages)
 
-    this.log?.debug({ messages }, 'received messages')
-    this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'current tracker')
-
     // transfer messages from local buffer to the stream buffer
     this._read()
   }
@@ -354,22 +309,10 @@ export class KafkaConsumerStream extends Readable {
   // we must loop forever
   private async readLoop(): Promise<void> {
     // when consumer disconnecting it throws Error: KafkaConsumer is not connected
-    if (this.consumerDisconnected()) {
-      this.log?.debug('stopping read loop read on destroyed status')
-      return
-    }
+    if (this.consumerDisconnected()) return
 
     const bufferAvailable = this._readableState.highWaterMark - this._readableState.length
     const fetchSize = this.config.streamAsBatch ? this.config.fetchSize! : bufferAvailable
-
-    // this.log?.debug(
-    //   {
-    //     watermark: this._readableState.highWaterMark,
-    //     length: this._readableState.length,
-    //     messages: this.messages.length,
-    //   },
-    //   `CONSUME... ${fetchSize}`
-    // )
 
     try {
       const messages = await this.consumer.consumeAsync(fetchSize)
@@ -385,30 +328,18 @@ export class KafkaConsumerStream extends Readable {
   }
 
   private async checkEof(): Promise<void> {
-    this.log?.debug(
-      {
-        isDisconnecting: this.consumer._isDisconnecting,
-        isConnected: this.consumer.isConnected(),
-        destroying: this.destroying,
-      },
-      'checking eof'
-    )
-
     if (this.inDestroyingState()) return
 
     try {
       const eof = await this.allMessagesRead()
-      this.log?.debug({ eof }, 'eof return')
 
       if (eof) {
         this.push(null)
-        this.log?.debug('eof reached - closed')
         return
       }
 
       if (this.inDestroyingState()) return
       this.resumeConsumer()
-      this.log?.debug('no eof - consuming')
     } catch (err) {
       this.log?.error({ err }, 'fatal err - destroying stream')
       this.emit('error', err)
@@ -424,15 +355,11 @@ export class KafkaConsumerStream extends Readable {
 
     const assignments: TopicPartition[] = consumer.assignments()
 
-    // consumer didn't received assignment
-    // this happens when consumer count greater than partition count
-    // or Kafka rebalance in progress
     if (assignments.length === 0) {
       this.log?.error('allMessagesRead no assignments')
       return false
     }
 
-    this.log?.debug({ destroying: this.destroying, consumerDis: this.consumerDisconnected() }, 'query positions')
     try {
       const localPositions = await this.getPositions(assignments)
       const remoteOffsets = await map(assignments, async ({ topic, partition }) => {
@@ -458,8 +385,6 @@ export class KafkaConsumerStream extends Readable {
 
         return localPosition ? highOffset === localOffset : false
       })
-
-      this.log?.debug({ assignments, localPositions, remoteOffsets, partitionStatus }, 'verifying positions')
 
       return !partitionStatus.includes(false)
     } catch (err) {
