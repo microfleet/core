@@ -6,6 +6,7 @@ import pinoms = require('pino-multi-stream')
 import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
 import type { NodeOptions } from '@sentry/node'
+export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
 const defaultConfig = {
   debug: false,

@@ -9,7 +9,7 @@ import {
   prepareFramesForEvent,
 } from '@sentry/node/dist/parsers'
 
-export const SENTRY_FINGERPRINT_DEFAULT = ['{{ default }}']
+import { SENTRY_FINGERPRINT_DEFAULT } from '../../constants'
 
 // keys to be banned
 const BAN_LIST: { [key: string]: boolean } = {
@@ -116,7 +116,7 @@ export class SentryStream {
 
   getSentryFingerprint(fingerprint?: string[]): string[] {
     if (!fingerprint) {
-      return SENTRY_FINGERPRINT_DEFAULT
+      return [SENTRY_FINGERPRINT_DEFAULT]
     }
 
     assert(
