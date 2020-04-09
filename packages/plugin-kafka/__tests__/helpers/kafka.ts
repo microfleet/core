@@ -39,6 +39,7 @@ export async function createProducerStream(
     {
       streamOptions: { objectMode: true, pollInterval: 1 },
       conf: {
+        // eslint-disable-next-line @typescript-eslint/camelcase
         dr_msg_cb: true,
       },
     },
@@ -118,6 +119,10 @@ export function commitBatch(stream: KafkaConsumerStream, msgs: ConsumerStreamMes
   msgs.map((msg: ConsumerStreamMessage) => stream.consumer.commitMessage(msg))
 }
 
+export function msgsToArr(incommingMessage: ConsumerStreamMessage | ConsumerStreamMessage []) {
+  return Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
+}
+
 export async function readStream(stream: KafkaConsumerStream, commit = true): Promise<ConsumerStreamMessage[]> {
   const messages: ConsumerStreamMessage[] = []
   for await (const batch of stream) {
@@ -126,8 +131,4 @@ export async function readStream(stream: KafkaConsumerStream, commit = true): Pr
     if (commit) commitBatch(stream, receivedMessages)
   }
   return messages
-}
-
-export function msgsToArr(incommingMessage: ConsumerStreamMessage | ConsumerStreamMessage []) {
-  return Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
 }

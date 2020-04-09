@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Microfleet } from '@microfleet/core'
 import { once } from 'events'
 import { Transform, pipeline as origPipeline } from 'readable-stream'
@@ -322,7 +323,7 @@ describe('#generic', () => {
         for await (const incommingMessage of consumerStream) {
           const messages = msgsToArr(incommingMessage)
           receivedMessages.push(...messages)
-          const lastMessage = messages.pop()!
+          const lastMessage = messages[messages.length-1]
 
           if (!errorEmitted && receivedMessages.length === 2) {
             errorEmitted = true
@@ -361,7 +362,7 @@ describe('#generic', () => {
           for await (const incommingMessage of consumerStream) {
             const messages = msgsToArr(incommingMessage)
             receivedMessages.push(...messages)
-            const lastMessage = messages.pop()!
+            const lastMessage = messages[messages.length-1]
 
             if (!errorEmitted && receivedMessages.length === 2) {
               errorEmitted = true
@@ -402,7 +403,7 @@ describe('#generic', () => {
           transform(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
-            const lastMessage = messages.pop()!
+            const lastMessage = messages[messages.length-1]
 
             if (!errorEmitted && receivedMessages.length === 2) {
               errorEmitted = true
@@ -418,6 +419,46 @@ describe('#generic', () => {
 
         await expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(OffsetCommitError)
       })
+    })
+
+    test('throws error 3 on incorrect topic commit', async () => {
+      const topic = 'test-throw-error-invalid-topic'
+
+      producer = await createProducerStream(service)
+      await sendMessages(producer, topic, 10)
+
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+        },
+        conf: {
+          'enable.auto.commit': false,
+          'group.id': topic,
+        },
+      })
+
+      const receivedMessages: any[] = []
+      let sent = false
+      const errorSim = async () => {
+        for await (const incommingMessage of consumerStream) {
+          const messages = msgsToArr(incommingMessage)
+          const lastMessage = messages[messages.length-1]
+          receivedMessages.push(...messages)
+
+          if (!sent && receivedMessages.length === 2) {
+            sent = true
+            consumerStream.consumer.commitMessage({
+              ...lastMessage,
+              topic: 'fooobar',
+            })
+
+            const res = await once(consumerStream.consumer, 'offset.commit')
+            service.log.debug(res, 'received commit')
+          }
+        }
+      }
+
+      await expect(errorSim()).rejects.toThrowError('Kafka critical error: 3')
     })
 
     describe('handles unsubscribe event from consumer', () => {
@@ -868,16 +909,16 @@ describe('#2s-toxified', () => {
     })
   })
 
-  afterEach(async () => {
-    await setProxyEnabled(true)
-    await service.close()
-  })
-
   const setProxyEnabled = async (enabled: boolean) => {
     const proxy = await toxiproxy.get('kafka-proxy-2s')
     proxy.enabled = enabled
     await proxy.update()
   }
+
+  afterEach(async () => {
+    await setProxyEnabled(true)
+    await service.close()
+  })
 
   // shows sync commit failure
   test('no-auto-commit commitSync', async () => {

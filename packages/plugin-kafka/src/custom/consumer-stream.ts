@@ -3,11 +3,9 @@ import * as assert from 'assert'
 import { once } from 'events'
 import { find } from 'lodash'
 import {
-  map, resolve, // race,
-  promisify, TimeoutError, delay,
+  map, resolve, promisify, TimeoutError, delay,
 } from 'bluebird'
-import { helpers as ErrorHelpers } from 'common-errors'
-// import { inspect } from 'util'
+import { helpers as ErrorHelpers, Error } from 'common-errors'
 
 import { LoggerPlugin } from '@microfleet/plugin-logger'
 
@@ -29,25 +27,27 @@ const {
   ERR__ASSIGN_PARTITIONS,
   ERR__REVOKE_PARTITIONS,
   ERR_UNKNOWN_MEMBER_ID,
+  ERR_UNKNOWN_TOPIC_OR_PART,
   ERR__STATE,
 } = KafkaErrorCodes
 
 export const EVENT_CONSUMED = 'consumed'
 export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
 
+/* eslint-disable @typescript-eslint/ban-ts-ignore */
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
   args: ['partitions', 'inner_error'],
-  generateMessage: function generateMessage(this: typeof OffsetCommitError) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  generateMessage: function generateMessage(this: Error) {
     // @ts-ignore
     if (typeof this.inner_error === 'number') {
-      return `Kafka critical error: 25`
+      // @ts-ignore
+      return `Kafka critical error: ${this.inner_error}`
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     return `Kafka critical error: ${this.inner_error.message}`
   },
 })
+/* eslint-enable @typescript-eslint/ban-ts-ignore */
 
 export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOffsetsError', {
   args: ['offset_tracker', 'unacknowledged_tracker'],
@@ -56,6 +56,7 @@ export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOf
 
 export const CriticalErrors: number[] = [
   ERR_UNKNOWN_MEMBER_ID,
+  ERR_UNKNOWN_TOPIC_OR_PART,
 ]
 
 /**
@@ -71,6 +72,7 @@ export class KafkaConsumerStream extends Readable {
   public consumer: KafkaConsumer
   private config: ConsumerStreamOptions
   private offsetQueryTimeout: number
+  private offsetCommitTimeout: number
   private offsetTracker: CommitOffsetTracker
   private unacknowledgedTracker: CommitOffsetTracker
   private log?: LoggerPlugin['log']
@@ -101,6 +103,7 @@ export class KafkaConsumerStream extends Readable {
     this.hasError = false
 
     this.offsetQueryTimeout = config.offsetQueryTimeout || 200
+    this.offsetCommitTimeout = config.offsetCommitTimeout || 5000
     this.offsetTracker = Object.create(null)
     this.unacknowledgedTracker = Object.create(null)
     this.consumer = consumer as KafkaConsumer
@@ -168,7 +171,7 @@ export class KafkaConsumerStream extends Readable {
 
     if (this.consuming) {
       resolve(once(this, EVENT_CONSUMED))
-        .timeout(5000, 'offset commit timeout on shutdown')
+        .timeout(this.offsetCommitTimeout, 'offset commit timeout on shutdown')
         .then(() => {
           super.destroy(err, callback)
         })
