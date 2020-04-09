@@ -9,7 +9,7 @@ import {
 import { helpers as ErrorHelpers } from 'common-errors'
 // import { inspect } from 'util'
 
-import { LoggerPlugin } from '@microfleet/core'
+import { LoggerPlugin } from '@microfleet/plugin-logger'
 
 import {
   KafkaConsumer, ConsumerStreamMessage,
@@ -21,7 +21,7 @@ import {
 import { ConsumerStreamOptions } from '@microfleet/plugin-kafka-types'
 
 export interface CommitOffsetTracker {
-  [topicNamePartition: string]: TopicPartition | null | undefined
+  [topicNamePartition: string]: TopicPartition | null | undefined;
 }
 
 const { ERRORS: KafkaErrorCodes } = KafkaCodes
@@ -38,10 +38,12 @@ export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
   args: ['partitions', 'inner_error'],
   generateMessage: function generateMessage(this: typeof OffsetCommitError) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     if (typeof this.inner_error === 'number') {
       return `Kafka critical error: 25`
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     return `Kafka critical error: ${this.inner_error.message}`
   },
@@ -110,13 +112,13 @@ export class KafkaConsumerStream extends Readable {
     this.consumer.on('offset.commit', this.handleOffsetCommit.bind(this))
     this.consumer.on('disconnected', this.handleDisconnected.bind(this))
 
-    const topics = Array.isArray(config.topics) ? config.topics! : [config.topics!]
+    const topics = Array.isArray(config.topics) ? config.topics : [config.topics]
     this.consumer.subscribe(topics)
   }
 
   public async _read(): Promise<void> {
     if (this.messages.length > 0) {
-      const message = this.messages.shift()!
+      const message = this.messages.shift()
       this.push(message)
       return
     }
@@ -312,7 +314,7 @@ export class KafkaConsumerStream extends Readable {
     if (this.consumerDisconnected()) return
 
     const bufferAvailable = this._readableState.highWaterMark - this._readableState.length
-    const fetchSize = this.config.streamAsBatch ? this.config.fetchSize! : bufferAvailable
+    const fetchSize = this.config.streamAsBatch ? this.config.fetchSize || 1 : bufferAvailable
 
     try {
       const messages = await this.consumer.consumeAsync(fetchSize)
@@ -381,7 +383,9 @@ export class KafkaConsumerStream extends Readable {
         }
 
         const localPosition = find(localPositions, { topic, partition })
-        const localOffset = localPosition!.offset || 0
+        if (!localPosition) return false
+
+        const localOffset = localPosition.offset || 0
 
         return localPosition ? highOffset === localOffset : false
       })
@@ -452,7 +456,7 @@ export class KafkaConsumerStream extends Readable {
       const trackingKey = KafkaConsumerStream.trackingKey(topicPartition)
       const currentOffset = set[trackingKey]?.offset || -1001
 
-      if (currentOffset < topicPartition.offset!) {
+      if (currentOffset < (topicPartition.offset || 0)) {
         set[KafkaConsumerStream.trackingKey(topicPartition)] = topicPartition
       }
     }

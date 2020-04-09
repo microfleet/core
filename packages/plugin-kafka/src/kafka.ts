@@ -63,7 +63,9 @@ export class KafkaFactory {
     const topics = opts.streamOptions.topics
     const consumerConfig: ConsumerStreamConfig['conf'] = {
       ...opts.conf,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       offset_commit_cb: opts.conf?.offset_commit_cb || true,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       rebalance_cb: opts.conf?.rebalance_cb || true,
       'enable.auto.offset.store': false,
     }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /**
  * * Promisify prototypes.
  * * Add async defs.
@@ -25,7 +26,6 @@ export const LibrdKafkaError = require('node-rdkafka/lib/error')
 // simple hack to merge TypeScript type and hidden class
 export class KafkaProducerStream extends origProducerStream {}
 export class KafkaConsumerStream extends origConsumerStream {}
-// export class LibrdKafkaError extends origLibrdKafkaError {}
 
 promisifyAll(origProducerStream.prototype)
 promisifyAll(origConsumerStream.prototype)
