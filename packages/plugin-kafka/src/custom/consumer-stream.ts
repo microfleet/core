@@ -168,14 +168,14 @@ export class KafkaConsumerStream extends Readable {
       resolve(once(this, EVENT_CONSUMED))
         .timeout(5000, 'offset commit timeout on shutdown')
         .then(() => {
-          super.destroy(err)
+          super.destroy(err, callback)
         })
         .catch((timeoutError: TimeoutError) => {
           super.destroy(timeoutError, callback)
         })
     } else {
       setImmediate(() => {
-        super.destroy(err)
+        super.destroy(err, callback)
       })
     }
 

@@ -4,7 +4,8 @@ import { Transform, pipeline as origPipeline } from 'readable-stream'
 import * as util from 'util'
 import { Toxiproxy } from 'toxiproxy-node-client'
 import { delay, TimeoutError } from 'bluebird'
-import { } from '../../src'
+import { filter } from 'lodash'
+
 const pipeline = util.promisify(origPipeline)
 
 import {
@@ -419,6 +420,113 @@ describe('#generic', () => {
       })
     })
 
+    describe('handles unsubscribe event from consumer', () => {
+      test('as iterable', async () => {
+        const topic = 'test-unsubscribe-event'
+        const topicSecond = 'test-unsubscribe-event-second'
+
+        producer = await createProducerStream(service)
+        await sendMessages(producer, topic, 20)
+
+        const producerSecond = await createProducerStream(service)
+        await sendMessages(producerSecond, topicSecond, 20)
+        await producer.closeAsync()
+        await producerSecond.closeAsync()
+
+        consumerStream = await createConsumerStream(service, {
+          streamOptions: {
+            topics: topic,
+            streamAsBatch: true,
+            fetchSize: 5,
+          },
+          conf: {
+            debug: 'consumer,cgrp,topic',
+            'enable.auto.commit': false,
+            'group.id': topic,
+          },
+        })
+        const { consumer } = consumerStream
+
+        const receivedMessages: any[] = []
+        let unsubscribeCalled = false
+
+        for await (const incommingMessage of consumerStream) {
+          const messages = msgsToArr(incommingMessage)
+          receivedMessages.push(...messages)
+
+          if (!unsubscribeCalled && receivedMessages.length > 2) {
+            unsubscribeCalled = true
+            // unsubscribe consumer
+            consumer.unsubscribe()
+            // subscribe to second topic
+            consumer.subscribe([topicSecond])
+          }
+          commitBatch(consumerStream, messages)
+        }
+        // we should receive only 1 pack of messages from first topic
+        // and 20 messages from second
+        expect(receivedMessages).toHaveLength(25)
+        expect(filter(receivedMessages, { topic })).toHaveLength(5)
+        expect(filter(receivedMessages, { topic: topicSecond })).toHaveLength(20)
+      })
+
+      test('as stream', async () => {
+        const topic = 'test-unsubscribe-event-stream'
+        const topicSecond = 'test-unsubscribe-event-second-stream'
+
+        producer = await createProducerStream(service)
+        await sendMessages(producer, topic, 20)
+
+        const producerSecond = await createProducerStream(service)
+        await sendMessages(producerSecond, topicSecond, 20)
+        await producer.closeAsync()
+        await producerSecond.closeAsync()
+
+        consumerStream = await createConsumerStream(service, {
+          streamOptions: {
+            topics: topic,
+            streamAsBatch: true,
+            fetchSize: 5,
+          },
+          conf: {
+            debug: 'consumer,cgrp,topic',
+            'enable.auto.commit': false,
+            'group.id': topic,
+          },
+        })
+
+        const { consumer } = consumerStream
+
+        const receivedMessages: any[] = []
+        let unsubscribeCalled = false
+        const transformStream = new Transform({
+          objectMode: true,
+          transform(chunk, _, callback) {
+            const messages = msgsToArr(chunk)
+            receivedMessages.push(...messages)
+
+            if (!unsubscribeCalled && receivedMessages.length > 2) {
+              unsubscribeCalled = true
+              // unsubscribe consumer
+              consumer.unsubscribe()
+              // subscribe to second topic
+              consumer.subscribe([topicSecond])
+            }
+            commitBatch(consumerStream, messages)
+            callback()
+          },
+        })
+
+        await pipeline(consumerStream, transformStream)
+
+        // we should receive only 1 pack of messages from first topic
+        // and 20 messages from second
+        expect(receivedMessages).toHaveLength(25)
+        expect(filter(receivedMessages, { topic })).toHaveLength(5)
+        expect(filter(receivedMessages, { topic: topicSecond })).toHaveLength(20)
+      })
+    })
+
     describe('with disabled auto.commit and disabled auto.offset.store', () => {
       test('as iterable', async () => {
         const topic = 'test-no-auto-commit-manual-offset-store'
@@ -545,9 +653,9 @@ describe('#generic', () => {
     // Stream should process all buferred messages and exit
     describe('with disabled auto.commit and using manual `commit` on `close` called', () => {
       test('as iterable', async () => {
-        const topic = 'test-no-auto-commit-unsubscribe'
+        const topic = 'test-no-auto-commit-close'
         producer = await createProducerStream(service)
-        await sendMessages(producer, topic, 10)
+        await sendMessages(producer, topic, 40)
 
         consumerStream = await createConsumerStream(service, {
           streamOptions: {
@@ -557,7 +665,7 @@ describe('#generic', () => {
           },
           conf: {
             'enable.auto.commit': false,
-            'group.id': 'no-auto-commit-manual-unsubscribe',
+            'group.id': topic,
           },
         })
 
@@ -574,15 +682,14 @@ describe('#generic', () => {
               service.log.debug('closed connection')
             })
           }
-
-          consumerStream.consumer.commitMessage(messages.pop())
+          commitBatch(consumerStream, messages)
         }
         // we should receive only first pack of messages
         expect(receivedMessages).toHaveLength(5)
       })
 
       test('as stream', async () => {
-        const topic = 'test-no-auto-commit-unsubscribe-stream'
+        const topic = 'test-no-auto-commit-close-stream'
         producer = await createProducerStream(service)
         await sendMessages(producer, topic, 10)
 
@@ -594,7 +701,7 @@ describe('#generic', () => {
           },
           conf: {
             'enable.auto.commit': false,
-            'group.id': 'no-auto-commit-manual-unsubscribe',
+            'group.id': topic,
           },
         })
 
