@@ -34,20 +34,19 @@ const {
 export const EVENT_CONSUMED = 'consumed'
 export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
 
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
+interface CommonError {
+  inner_error: number | Error;
+}
+
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
   args: ['partitions', 'inner_error'],
-  generateMessage: function generateMessage(this: Error) {
-    // @ts-ignore
+  generateMessage: function generateMessage(this: CommonError) {
     if (typeof this.inner_error === 'number') {
-      // @ts-ignore
       return `Kafka critical error: ${this.inner_error}`
     }
-    // @ts-ignore
     return `Kafka critical error: ${this.inner_error.message}`
   },
 })
-/* eslint-enable @typescript-eslint/ban-ts-ignore */
 
 export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOffsetsError', {
   args: ['offset_tracker', 'unacknowledged_tracker'],

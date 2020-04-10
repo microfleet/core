@@ -15,7 +15,7 @@ import {
   TopicNotFoundError,
   OffsetCommitError,
   UncommittedOffsetsError,
-  LibrdKafkaError,
+  LibrdKafkaErrorClass,
 } from '@microfleet/plugin-kafka'
 
 import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, readStream, commitBatch } from '../helpers/kafka'
@@ -966,7 +966,7 @@ describe('#2s-toxified', () => {
 
     // We should provide more verbal error description
     // but here we can receive lots of errors
-    await expect(simOne()).rejects.toThrowError(LibrdKafkaError)
+    await expect(simOne()).rejects.toThrowError(LibrdKafkaErrorClass)
     await consumerStream.closeAsync()
 
     service.log.debug('start the second read sequence')
