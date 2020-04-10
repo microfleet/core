@@ -40,7 +40,7 @@ interface CommonError {
 
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
   args: ['partitions', 'inner_error'],
-  generateMessage: function generateMessage(this: CommonError) {
+  generateMessage(this: CommonError) {
     if (typeof this.inner_error === 'number') {
       return `Kafka critical error: ${this.inner_error}`
     }
@@ -128,7 +128,7 @@ export class KafkaConsumerStream extends Readable {
       return
     }
 
-    if (! this.readStarted) {
+    if (!this.readStarted) {
       this.readStarted = true
       this.readLoop()
       return
@@ -348,7 +348,7 @@ export class KafkaConsumerStream extends Readable {
     const assignments: TopicPartition[] = consumer.assignments()
 
     if (assignments.length === 0) {
-      this.log?.error('allMessagesRead no assignments')
+      this.log?.warn('allMessagesRead no assignments')
       return false
     }
 
