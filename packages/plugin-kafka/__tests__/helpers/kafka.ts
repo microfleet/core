@@ -7,7 +7,7 @@ import {
   KafkaProducerStream,
   ProducerStreamConfig,
   ConsumerStreamConfig,
-  ConsumerStreamMessage,
+  Message,
 } from '@microfleet/plugin-kafka'
 
 function getMessageIterable(count: number) {
@@ -31,7 +31,7 @@ function getMessageIterable(count: number) {
 
 export async function createProducerStream(
   service: Microfleet,
-  extraConfig?: ProducerStreamConfig
+  extraConfig?: Partial<ProducerStreamConfig>
 ): Promise<KafkaProducerStream> {
   const { kafka } = service
 
@@ -46,12 +46,12 @@ export async function createProducerStream(
     extraConfig
   )
 
-  return kafka.createProducerStream(config)
+  return kafka.createProducerStream(config as ProducerStreamConfig)
 }
 
 export async function createConsumerStream(
   service: Microfleet,
-  extraConfig: ConsumerStreamConfig
+  extraConfig: Partial<ConsumerStreamConfig>
 ): Promise<KafkaConsumerStream> {
   const { kafka } = service
   const config: ConsumerStreamConfig = merge(
@@ -101,30 +101,30 @@ export async function createConsumerStream(
 // otherwise we will try to create consumer,
 // but there will be no available topic metadata in Kafka
 export async function sendMessages(
-  targetProducer: KafkaProducerStream,
+  stream: KafkaProducerStream,
   topic: string, count = 10
 ): Promise<any[]> {
   const messageIterable = getMessageIterable(count)
 
   for await (const message of messageIterable.messagesToSend(topic)) {
-    targetProducer.write(message)
-    await once(targetProducer.producer, 'delivery-report')
+    stream.write(message)
+    await once(stream.producer, 'delivery-report')
   }
 
   return messageIterable.sentMessages
 }
 
-export function commitBatch(stream: KafkaConsumerStream, msgs: ConsumerStreamMessage[]): void {
+export function commitBatch(stream: KafkaConsumerStream, msgs: Message[]): void {
   process.stdout.write(`\n====Commiting batch:====\n${require('util').inspect({ msgs }, { colors: true })} \n=====\n`)
-  msgs.map((msg: ConsumerStreamMessage) => stream.consumer.commitMessage(msg))
+  msgs.map((msg: Message) => stream.consumer.commitMessage(msg))
 }
 
-export function msgsToArr(incommingMessage: ConsumerStreamMessage | ConsumerStreamMessage []) {
+export function msgsToArr(incommingMessage: Message | Message []) {
   return Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
 }
 
-export async function readStream(stream: KafkaConsumerStream, commit = true): Promise<ConsumerStreamMessage[]> {
-  const messages: ConsumerStreamMessage[] = []
+export async function readStream(stream: KafkaConsumerStream, commit = true): Promise<Message[]> {
+  const messages: Message[] = []
   for await (const batch of stream) {
     const receivedMessages = msgsToArr(batch)
     messages.push(...receivedMessages)

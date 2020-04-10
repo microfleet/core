@@ -10,16 +10,16 @@ import { helpers as ErrorHelpers, Error } from 'common-errors'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
 
 import {
-  KafkaConsumer, ConsumerStreamMessage,
+  KafkaConsumer, Message,
   TopicPartition, CODES as KafkaCodes,
-  KafkaError,
   LibrdKafkaError,
 } from './rdkafka-extra'
 
 import { ConsumerStreamOptions } from '@microfleet/plugin-kafka-types'
+import { TopicPartitionOffset } from 'node-rdkafka'
 
 export interface CommitOffsetTracker {
-  [topicNamePartition: string]: TopicPartition | null | undefined;
+  [topicNamePartition: string]: TopicPartitionOffset | null | undefined;
 }
 
 const { ERRORS: KafkaErrorCodes } = KafkaCodes
@@ -107,7 +107,7 @@ export class KafkaConsumerStream extends Readable {
     this.offsetTracker = Object.create(null)
     this.unacknowledgedTracker = Object.create(null)
     this.consumer = consumer as KafkaConsumer
-    this.autoStore = config['enable.auto.offset.store'] !== false
+    this.autoStore = config.autoOffsetStore !== false
 
     this.messages = []
 
@@ -141,6 +141,7 @@ export class KafkaConsumerStream extends Readable {
       return
     }
 
+    // REMOVE?
     if (!this.inDestroyingState()) {
       this.consumer.assign([])
     }
@@ -222,13 +223,13 @@ export class KafkaConsumerStream extends Readable {
     this.consumer.resume(this.consumer.assignments())
   }
 
-  private async handleOffsetCommit (err: Error, partitions: TopicPartition[]): Promise<void> {
+  private async handleOffsetCommit(err: Error, partitions: TopicPartitionOffset[]): Promise<void> {
     if (err) {
       const wrappedError = new OffsetCommitError(partitions, err)
       this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
 
       // Should be Error but current node-rdkafka version returns error code as number
-      const code = typeof err === 'number' ? err : (err as unknown as KafkaError).code
+      const code = typeof err === 'number' ? err : (err as LibrdKafkaError).code
 
       if (CriticalErrors.includes(code)) {
         this.log?.error({ err: wrappedError }, 'critical commit error')
@@ -262,7 +263,7 @@ export class KafkaConsumerStream extends Readable {
     this.destroy()
   }
 
-  private async handleRebalance (err: KafkaError, assignments: TopicPartition[] = []) {
+  private async handleRebalance (err: LibrdKafkaError, assignments: TopicPartition[] = []) {
     process.nextTick(async () => {
       switch (err.code) {
         case ERR__ASSIGN_PARTITIONS:
@@ -286,7 +287,7 @@ export class KafkaConsumerStream extends Readable {
     })
   }
 
-  private handleIncomingMessages(messages: ConsumerStreamMessage[]): void {
+  private handleIncomingMessages(messages: Message[]): void {
     const { unacknowledgedTracker, autoStore } = this
 
     this.consuming = true
@@ -302,10 +303,13 @@ export class KafkaConsumerStream extends Readable {
       this.updatePartitionOffsets([topicPartition], unacknowledgedTracker)
 
       if (autoStore) this.consumer.offsetsStore([topicPartition])
-      if (!this.config.streamAsBatch) this.messages.push(message)
     }
 
-    if (this.config.streamAsBatch) this.messages.push(messages)
+    if (this.config.streamAsBatch) {
+      this.messages.push(messages)
+    } else {
+      this.messages.push(...messages)
+    }
 
     // transfer messages from local buffer to the stream buffer
     this._read()
@@ -317,7 +321,9 @@ export class KafkaConsumerStream extends Readable {
     if (this.consumerDisconnected()) return
 
     const bufferAvailable = this._readableState.highWaterMark - this._readableState.length
-    const fetchSize = this.config.streamAsBatch ? this.config.fetchSize || 1 : bufferAvailable
+    const fetchSize = this.config.streamAsBatch ?
+      this.config.fetchSize || 1
+      : bufferAvailable
 
     try {
       const messages = await this.consumer.consumeAsync(fetchSize)
@@ -397,7 +403,7 @@ export class KafkaConsumerStream extends Readable {
     } catch (err) {
       // sometimes node-rdkafka state not updated but already has `erroneous state` for fetching offsets/partitions
       this.log?.error({ err }, 'allMessagesRead error')
-      if (!(err instanceof LibrdKafkaError && err.code === ERR__STATE)) {
+      if (!(err.code === ERR__STATE)) {
         this.destroy(err)
       }
       return false
@@ -444,7 +450,7 @@ export class KafkaConsumerStream extends Readable {
   /**
    * Gets consumer comitted partitions positions from broker
    */
-  private async getPositions(assignments: TopicPartition[]): Promise<TopicPartition[]> {
+  private async getPositions(assignments: TopicPartition[]): Promise<TopicPartitionOffset[]> {
     const commitedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
     for (const offset of commitedOffsets) {
       this.offsetTracker[KafkaConsumerStream.trackingKey(offset)] = offset
@@ -455,7 +461,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   private updatePartitionOffsets(partitions: TopicPartition[], set: CommitOffsetTracker): void {
-    for (const topicPartition of partitions) {
+    for (const topicPartition of partitions as TopicPartitionOffset[]) {
       const trackingKey = KafkaConsumerStream.trackingKey(topicPartition)
       const currentOffset = set[trackingKey]?.offset || -1001
 

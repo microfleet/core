@@ -761,8 +761,8 @@ describe('#generic', () => {
                 service.log.debug('closed connection')
               })
             }
-
-            consumerStream.consumer.commitMessage(messages.pop())
+            const message = messages[messages.length-1]
+            consumerStream.consumer.commitMessage(message)
             callback()
           },
         })
@@ -808,7 +808,8 @@ describe('#generic', () => {
           })
         }
 
-        consumerStream.consumer.commitMessage(messages.pop())
+        const message = messages[messages.length-1]
+        consumerStream.consumer.commitMessage(message)
 
       }
       // we should receive only 1 pack of messages
@@ -953,7 +954,8 @@ describe('#2s-toxified', () => {
         }
 
         try {
-          consumerStream.consumer.commitMessageSync(messages.pop())
+          const message = messages[messages.length-1]
+          consumerStream.consumer.commitMessageSync(message)
         } catch (e) {
           service.log.debug({ err: e }, 'commit sync error')
           throw e
@@ -1099,7 +1101,7 @@ describe.skip('#12s-toxified', () => {
       for await (const incommingMessage of consumerStream) {
         const messages = msgsToArr(incommingMessage)
         receivedMessages.push(...messages)
-        const lastMessage = messages.pop()
+        const lastMessage = messages[messages.length-1]
 
         consumerStream.consumer.commitMessage(lastMessage)
 

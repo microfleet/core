@@ -10,6 +10,7 @@ import {
   Producer as KafkaProducer,
   ConsumerStream,
   ProducerStream,
+  LibrdKafkaError
 } from 'node-rdkafka'
 
 export * from 'node-rdkafka'
@@ -21,7 +22,7 @@ export * from 'node-rdkafka'
  */
 export const origProducerStream: ProducerStream = require('node-rdkafka/lib/producer-stream')
 export const origConsumerStream: ConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
-export const LibrdKafkaError = require('node-rdkafka/lib/error')
+export const origLibrdKafkaError: LibrdKafkaError = require('node-rdkafka/lib/error')
 
 // simple hack to merge TypeScript type and hidden class
 export class KafkaProducerStream extends origProducerStream {}

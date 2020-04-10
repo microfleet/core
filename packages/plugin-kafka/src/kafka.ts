@@ -10,9 +10,10 @@ import {
   KafkaConsumer,
   Producer as KafkaProducer,
   KafkaProducerStream,
-  ConsumerStreamMessage,
-  Client as KafkaClient,
+  Message,
   LibrdKafkaError,
+  Client,
+  KafkaClientEvents
 } from './custom/rdkafka-extra'
 
 import {
@@ -22,6 +23,7 @@ import {
   ProducerStreamConfig,
   StreamOptions,
   KafkaStream,
+  KafkaClient,
 } from '@microfleet/plugin-kafka-types'
 
 import { getLogFnName, topicExists } from './util'
@@ -29,7 +31,7 @@ import { KafkaConsumerStream, OffsetCommitError, UncommittedOffsetsError } from 
 
 export {
   KafkaConsumer, KafkaProducerStream, KafkaConsumerStream,
-  ConsumerStreamMessage, OffsetCommitError, UncommittedOffsetsError,
+  Message, OffsetCommitError, UncommittedOffsetsError,
   LibrdKafkaError
 }
 
@@ -71,7 +73,7 @@ export class KafkaFactory {
     }
 
     // pass on original value
-    opts.streamOptions['enable.auto.offset.store'] = opts.conf?.['enable.auto.offset.store']
+    opts.streamOptions.autoOffsetStore = opts.conf?.['enable.auto.offset.store']
 
     const consumerTopicConfig: ConsumerStreamConfig['topicConf'] = { ...opts.topicConf }
     const consumer = this.createClient(KafkaConsumer, consumerConfig, consumerTopicConfig)
@@ -87,7 +89,7 @@ export class KafkaFactory {
   }
 
   async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
-    const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
+    const producer = this.createClient(KafkaProducer, opts.conf || {}, opts.topicConf || {})
 
     this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })
 
@@ -99,7 +101,7 @@ export class KafkaFactory {
     // Some connections will be already closed by streams
     await map(this.streams.values(), stream => stream.closeAsync())
     // Close other connections
-    await map(this.connections.values(), connection => connection.disconnectAsync())
+    await map(this.connections.values(), async (connection) => { await connection.disconnectAsync() })
   }
 
   getStreams() {
@@ -110,7 +112,7 @@ export class KafkaFactory {
     return this.connections
   }
 
-  private createStream<T extends KafkaStream, U>(
+  private createStream<T extends KafkaStream, U extends KafkaClient>(
     streamClass: new (c: U, o: StreamOptions<T>, log?: LoggerPlugin['log']) => T,
     client: U,
     opts: StreamOptions<T>
@@ -119,6 +121,7 @@ export class KafkaFactory {
     const { streams, service: { log } } = this
 
     streams.add(stream)
+
     stream.on('close', function close(this: T) {
       streams.delete(this)
       log.info('closed stream')
@@ -128,9 +131,9 @@ export class KafkaFactory {
   }
 
   private createClient<T extends KafkaClient, U extends GlobalConfig, Z extends TopicConfig>(
-    clientClass: new (c?: U, tc?: Z) => T,
-    conf?: U,
-    topicConf?: Z
+    clientClass: new (c: U, tc: Z) => T,
+    conf: U,
+    topicConf: Z
   ): T {
     const config: U = { ...this.rdKafkaConfig as U, ...conf }
     const client = new clientClass(config, topicConf)
@@ -138,7 +141,7 @@ export class KafkaFactory {
     return client
   }
 
-  private attachClientLogger(client: KafkaClient, meta: any = {}) {
+  private attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}) {
     const { log } = this.service
     const { connections } = this
 
@@ -156,7 +159,7 @@ export class KafkaFactory {
       log[getLogFnName(eventData.severity)]({ ...meta, eventData }, 'kafka event.log')
     })
 
-    client.on('event.error', (err: Error) => {
+    client.on('event.error', (err: LibrdKafkaError) => {
       log.warn({ ...meta, err }, 'kafka client error')
     })
   }
