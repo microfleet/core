@@ -1115,7 +1115,7 @@ describe('#2s-toxified', () => {
 
 })
 
-describe.skip('#8s-toxified', () => {
+describe('#8s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -1145,7 +1145,7 @@ describe.skip('#8s-toxified', () => {
   // if Kafka Erro 25 appears, consumer starts fetching messages from the beginning
   // test is unstable and it's hard to reproduce this error
   // Skipped
-  test('`unknown memberid error` on second commit after first commit no-auto-commit', async () => {
+  test.skip('`unknown memberid error` on second commit after first commit no-auto-commit', async () => {
     const topic = 'first-commit-long-toxified-test-no-auto-commit-no-batch-eof'
     producer = await createProducerStream(service)
 
@@ -1177,7 +1177,7 @@ describe.skip('#8s-toxified', () => {
           service.log.debug('BLOCKING connection')
           blockedOnce = true
           await setProxyEnabled(false)
-          delay(8000)
+          delay(9000)
             .then(() => setProxyEnabled(true))
             .tap(() => { service.log.debug('ENABLED connection') })
         }
@@ -1186,8 +1186,8 @@ describe.skip('#8s-toxified', () => {
       }
     }
 
-    await simOne()
-    expect(receivedMessages).toHaveLength(8)
+    await expect(simOne()).rejects.toThrowError(OffsetCommitError)
+    expect(receivedMessages).toHaveLength(4)
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
