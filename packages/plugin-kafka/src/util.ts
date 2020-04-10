@@ -1,5 +1,5 @@
 import { TopicMetadata, SubscribeTopic, SubscribeTopicList } from 'node-rdkafka'
-
+import { helpers as ErrorHelpers } from 'common-errors'
 /**
  * `librdkafka` uses syslog severity levels
  */
@@ -18,6 +18,10 @@ export function getLogFnName(level: number): string {
   return kafkaSeverityToLogMapping[level] || 'debug'
 }
 
+export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError', {
+  args: ['message', 'topics'],
+})
+
 /**
  * Checks whether topics exist
  * @param data - List of topics received on Client.connect
@@ -25,7 +29,21 @@ export function getLogFnName(level: number): string {
  */
 export function topicExists(data: TopicMetadata[], topics: SubscribeTopic | SubscribeTopicList): boolean {
   const topicList = Array.isArray(topics) ? topics : [topics]
-  const filtered = data.filter(topic => topicList.includes(topic.name))
+  for (const topic of topicList) {
+    const found = data.find((metaDataTopic) => {
+      if (topic instanceof RegExp) return topic.test(metaDataTopic.name)
+      return topicList.includes(metaDataTopic.name)
+    })
+
+    if (!found) throw new TopicNotFoundError('Missing consumer topic', topics)
+  }
+  const filtered = data.filter((topic) => {
+    return topicList.reduce<boolean>((prev, current) => {
+      if (!prev) return prev
+      if (current instanceof RegExp) return current.test(topic.name)
+      return topicList.includes(topic.name)
+    }, false)
+  })
 
   return filtered.length === topicList.length
 }

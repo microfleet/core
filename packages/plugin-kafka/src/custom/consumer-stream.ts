@@ -70,6 +70,7 @@ export class KafkaConsumerStream extends Readable {
 
   public consumer: KafkaConsumer
   private config: ConsumerStreamOptions
+  private fetchSize: number
   private offsetQueryTimeout: number
   private offsetCommitTimeout: number
   private offsetTracker: CommitOffsetTracker
@@ -90,8 +91,9 @@ export class KafkaConsumerStream extends Readable {
   constructor(consumer: KafkaConsumer, config: ConsumerStreamOptions, log?: LoggerPlugin['log']) {
     assert(consumer.isConnected(), 'consumer should be connected')
     assert(consumer instanceof KafkaConsumer, 'should be intance of KafkaConsumer')
+    const fetchSize = config.fetchSize || 1
+    const highWaterMark = config.streamAsBatch ? 1 : fetchSize
 
-    const highWaterMark = config.streamAsBatch ? 1 : config.fetchSize || 1
     super({ highWaterMark, objectMode: true })
 
     this.log = log
@@ -100,6 +102,7 @@ export class KafkaConsumerStream extends Readable {
     this.destroying = false
     this.readStarted = false
     this.hasError = false
+    this.fetchSize = fetchSize
 
     this.offsetQueryTimeout = config.offsetQueryTimeout || 200
     this.offsetCommitTimeout = config.offsetCommitTimeout || 5000
@@ -133,16 +136,9 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public _destroy(err: Error | null | undefined, callback?: (err: Error | null) => void): void {
-    this.log?.debug({ err, conn: this.consumer.isConnected() }, '_destroy close consumer stream')
-
     if (!this.consumer.isConnected()) {
       if (callback) callback(err || null)
       return
-    }
-
-    // REMOVE?
-    if (!this.inDestroyingState()) {
-      this.consumer.assign([])
     }
 
     this.consumer.disconnect(() => {
@@ -210,16 +206,6 @@ export class KafkaConsumerStream extends Readable {
 
   private consumerDisconnected(): boolean {
     return this.consumer._isDisconnecting || !this.consumer.isConnected()
-  }
-
-  private pauseConsumer(): void {
-    if (this.consumerDisconnected()) return
-    this.consumer.pause(this.consumer.assignments())
-  }
-
-  private resumeConsumer(): void {
-    if (this.consumerDisconnected()) return
-    this.consumer.resume(this.consumer.assignments())
   }
 
   private async handleOffsetCommit(err: Error, partitions: TopicPartitionOffset[]): Promise<void> {
@@ -290,7 +276,10 @@ export class KafkaConsumerStream extends Readable {
     const { unacknowledgedTracker, autoStore } = this
 
     this.consuming = true
-    this.pauseConsumer()
+
+    if (!this.consumerDisconnected()) {
+      this.consumer.pause(this.consumer.assignments())
+    }
 
     for (const message of messages) {
       const topicPartition = {
@@ -320,9 +309,7 @@ export class KafkaConsumerStream extends Readable {
     if (this.consumerDisconnected()) return
 
     const bufferAvailable = this._readableState.highWaterMark - this._readableState.length
-    const fetchSize = this.config.streamAsBatch ?
-      this.config.fetchSize || 1
-      : bufferAvailable
+    const fetchSize = this.config.streamAsBatch ? this.fetchSize : bufferAvailable
 
     try {
       const messages = await this.consumer.consumeAsync(fetchSize)
@@ -340,25 +327,20 @@ export class KafkaConsumerStream extends Readable {
   private async checkEof(): Promise<void> {
     if (this.inDestroyingState()) return
 
-    try {
-      const eof = await this.allMessagesRead()
+    const eof = await this.allMessagesRead()
 
-      if (eof) {
-        this.push(null)
-        return
-      }
+    if (eof) {
+      this.push(null)
+      return
+    }
 
-      if (this.inDestroyingState()) return
-      this.resumeConsumer()
-    } catch (err) {
-      this.log?.error({ err }, 'fatal err - destroying stream')
-      this.emit('error', err)
+    if (! this.inDestroyingState()) {
+      this.consumer.resume(this.consumer.assignments())
     }
   }
 
   /**
-   * Detects EOF of consumed topic partitions
-   * @param operationTimeout KafkaClient.committed and KafkaClient.queryWatermarkOffsets timeout
+   * Detects EOF on consumed topic partitions
    */
   private async allMessagesRead(): Promise<boolean> {
     const { consumer } = this
@@ -400,7 +382,7 @@ export class KafkaConsumerStream extends Readable {
 
       return !partitionStatus.includes(false)
     } catch (err) {
-      // sometimes node-rdkafka state not updated but already has `erroneous state` for fetching offsets/partitions
+      // node-rdkafka state could be changed to `erroneous state` when some async operations pending
       this.log?.error({ err }, 'allMessagesRead error')
       if (!(err.code === ERR__STATE)) {
         this.destroy(err)
@@ -427,13 +409,6 @@ export class KafkaConsumerStream extends Readable {
         continue
       }
 
-      // if we haven't consumed messages from wrapped stream,
-      // but ack has already kicked in - we are not waiting for
-      // acks yet
-      if (latestMessage.offset == null) {
-        continue
-      }
-
       // 1. if we already have offsets in the latest message - need to wait for accks
       // 2. latest message offset must be smaller, or we need to wait for acks
       if (partition.offset == null || latestMessage.offset > partition.offset) {
@@ -447,7 +422,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   /**
-   * Gets consumer comitted partitions positions from broker
+   * Gets consumer committed partitions positions from broker
    */
   private async getPositions(assignments: TopicPartition[]): Promise<TopicPartitionOffset[]> {
     const commitedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)

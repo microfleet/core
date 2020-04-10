@@ -57,27 +57,18 @@ export type ConnectOptions = {
  * @property stopOnPartitionsEOF If true stream will exit when all assigned partitions reached last offsets.
  * @property offsetQueryTimeout If timeout for fetching consumer offsets from Kafka.
  * @property offsetCommitTimeout Milliseconds to wait for all offsets to be commited after close started.
+ * @property checkTopicExists If true will throw and error if topic does not exists
  */
-export type ConsumerStreamOptions = Omit<kafka.ReadStreamOptions, 'objectMode' | 'autoClose'> & {
+export type ConsumerStreamOptions = Omit<kafka.ReadStreamOptions, 'objectMode' | 'autoClose' | 'connectOptions' | 'topics'> & {
   // in orignal type there also function type as a part of this property definition, but there's no place where it could be executed
   topics: kafka.SubscribeTopicList | kafka.SubscribeTopic;
+  connectOptions?: kafka.MetadataOptions;
   stopOnPartitionsEOF?: boolean;
   offsetQueryTimeout?: number;
   offsetCommitTimeout?: number;
   autoOffsetStore?: boolean;
+  checkTopicExists?: boolean;
 }
-
-// export type ConsumerStreamOptions = {
-//   topics: string | string[];
-//   waitInterval?: number;
-//   fetchSize?: number;
-//   streamAsBatch?: boolean;
-//   stopOnPartitionsEOF?: boolean;
-//   offsetQueryTimeout?: number;
-//   connectOptions?: kafka.MetadataOptions;
-//   offsetCommitTimeout?: number;
-//   'enable.auto.offset.store'?: boolean;
-// }
 
 /**
  * @property pollInterval Milliseconds to wait between Kafka polls.

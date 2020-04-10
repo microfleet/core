@@ -83,7 +83,11 @@ describe('#generic', () => {
         const { kafka } = service
 
         const req = kafka.createConsumerStream({
-          streamOptions: { topics: ['test-not-found'], connectOptions: { allTopics: true } },
+          streamOptions: {
+            checkTopicExists: true,
+            topics: ['test-not-found'],
+            connectOptions: { allTopics: true }
+          },
           conf: {
             'group.id': 'consumer-all-topics-meta',
           },
@@ -96,7 +100,11 @@ describe('#generic', () => {
         const { kafka } = service
 
         const req = kafka.createConsumerStream({
-          streamOptions: { topics: ['test-not-found'], connectOptions: { topic: ['test-not-found'] } },
+          streamOptions: {
+            checkTopicExists: true,
+            topics: ['test-not-found'],
+            connectOptions: { topic: 'test-not-found' }
+          },
           conf: {
             'group.id': 'consumer-one-topic-meta',
           },
@@ -104,6 +112,46 @@ describe('#generic', () => {
 
         await expect(req).rejects.toThrowError(TopicNotFoundError)
       })
+
+      test('without checkTopic - will create topic and exit at eof', async () => {
+        const topic = 'test-not-found-no-auto-created'
+
+        consumerStream = await createConsumerStream(service, {
+          streamOptions: {
+            topics: topic,
+          },
+          conf: {
+            'group.id': topic,
+          },
+        })
+
+        const receivedMessages = await readStream(consumerStream)
+
+        expect(receivedMessages).toHaveLength(0)
+      })
+
+      test('topic as RegExp', async () => {
+        const topic = 'exists-for-regexp'
+
+        producer = await createProducerStream(service)
+        await sendMessages(producer, topic, 10)
+
+        const req = createConsumerStream(service, {
+          streamOptions: {
+            checkTopicExists: true,
+            topics: [
+              /^some-topic/,
+              /^exists/,
+            ],
+          },
+          conf: {
+            'group.id': topic,
+          },
+        })
+
+        await expect(req).rejects.toThrowError(TopicNotFoundError)
+      })
+
     })
   })
 
@@ -157,7 +205,6 @@ describe('#generic', () => {
 
       expect(kafka.getStreams().size).toEqual(0)
     })
-
   })
 
   describe('connected to broker', () => {
@@ -481,7 +528,6 @@ describe('#generic', () => {
             fetchSize: 5,
           },
           conf: {
-            debug: 'consumer,cgrp,topic',
             'enable.auto.commit': false,
             'group.id': topic,
           },
@@ -530,7 +576,6 @@ describe('#generic', () => {
             fetchSize: 5,
           },
           conf: {
-            debug: 'consumer,cgrp,topic',
             'enable.auto.commit': false,
             'group.id': topic,
           },
@@ -788,7 +833,6 @@ describe('#generic', () => {
           fetchSize: 5,
         },
         conf: {
-          // debug: 'consumer,cgrp,topic',
           'enable.auto.commit': false,
           'group.id': topic,
         },
@@ -833,6 +877,29 @@ describe('#generic', () => {
       })
 
       const receivedMessages = await readStream(consumerStream, false)
+      expect(receivedMessages).toHaveLength(sentMessages.length)
+    })
+
+    test('with auto.commit enabled RegExp subscribe', async () => {
+      const topic = 'test-regexp-topic-1'
+
+      producer = await createProducerStream(service)
+      const sentMessages = await sendMessages(producer, topic, 13)
+
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: [
+            /^test-regexp-.*$/,
+            /^test-reg2-.*$/,
+          ]
+        },
+        conf: {
+          'enable.auto.commit': false,
+          'group.id': topic,
+        },
+      })
+
+      const receivedMessages = await readStream(consumerStream)
       expect(receivedMessages).toHaveLength(sentMessages.length)
     })
 
@@ -1030,7 +1097,7 @@ describe('#2s-toxified', () => {
     await simOne()
     await consumerStream.closeAsync()
 
-    service.log.debug('!!!!!!!!!!!!!!!!!start the second read sequence')
+    service.log.debug('start the second read sequence')
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -1048,7 +1115,7 @@ describe('#2s-toxified', () => {
 
 })
 
-describe.skip('#12s-toxified', () => {
+describe.skip('#8s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -1058,7 +1125,6 @@ describe.skip('#12s-toxified', () => {
       name: 'tester',
       plugins: ['logger', 'validator', 'kafka'],
       kafka: {
-        // debug: 'all',
         'metadata.broker.list': 'kafka:29092',
         'group.id': 'test-group',
         'fetch.wait.max.ms': 50,
@@ -1076,7 +1142,10 @@ describe.skip('#12s-toxified', () => {
     await proxy.update()
   }
 
-  test('long delay after first commit no-auto-commit', async () => {
+  // if Kafka Erro 25 appears, consumer starts fetching messages from the beginning
+  // test is unstable and it's hard to reproduce this error
+  // Skipped
+  test('`unknown memberid error` on second commit after first commit no-auto-commit', async () => {
     const topic = 'first-commit-long-toxified-test-no-auto-commit-no-batch-eof'
     producer = await createProducerStream(service)
 
@@ -1091,11 +1160,12 @@ describe.skip('#12s-toxified', () => {
         fetchSize: 2,
       },
       conf: {
-        debug: 'consumer,cgrp,topic',
+        debug: 'consumer,cgrp',
         'group.id': topic,
         'enable.auto.commit': false,
       },
     })
+
     let blockedOnce = false
     const simOne = async () => {
       for await (const incommingMessage of consumerStream) {
@@ -1103,27 +1173,21 @@ describe.skip('#12s-toxified', () => {
         receivedMessages.push(...messages)
         const lastMessage = messages[messages.length-1]
 
-        consumerStream.consumer.commitMessage(lastMessage)
-
-        if (!blockedOnce) {
-          await once(consumerStream.consumer, 'offset.commit')
-
+        if (!blockedOnce && receivedMessages.length == 4) {
           service.log.debug('BLOCKING connection')
           blockedOnce = true
           await setProxyEnabled(false)
-          delay(19000)
+          delay(8000)
             .then(() => setProxyEnabled(true))
-            .tap(() => { service.log.error('ENABLED connection') })
+            .tap(() => { service.log.debug('ENABLED connection') })
         }
+        consumerStream.consumer.commitMessage(lastMessage)
+        await once(consumerStream.consumer, 'offset.commit')
       }
     }
 
-    // we receive messages but our commit invalidated
     await simOne()
-    // await expect(simOne()).rejects.toThrowError(OffsetCommitError)
-    expect(receivedMessages).toHaveLength(4)
-
-    service.log.debug('READ AGAIN')
+    expect(receivedMessages).toHaveLength(8)
 
     consumerStream = await createConsumerStream(service, {
       streamOptions: {
@@ -1137,7 +1201,7 @@ describe.skip('#12s-toxified', () => {
 
     const newMessages = await readStream(consumerStream)
 
-    expect(newMessages).toHaveLength(0)
+    expect(newMessages).toHaveLength(8)
   })
 })
 

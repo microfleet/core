@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import assert = require('assert')
 import { resolve } from 'path'
-import { NotFoundError, helpers as ErrorHelpers } from 'common-errors'
+import { NotFoundError } from 'common-errors'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
 import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import { map } from 'bluebird'
@@ -27,13 +27,13 @@ import {
   KafkaClient,
 } from '@microfleet/plugin-kafka-types'
 
-import { getLogFnName, topicExists } from './util'
+import { getLogFnName, topicExists, TopicNotFoundError } from './util'
 import { KafkaConsumerStream, OffsetCommitError, UncommittedOffsetsError } from './custom/consumer-stream'
 
 export {
   KafkaConsumer, KafkaProducerStream, KafkaConsumerStream,
   Message, OffsetCommitError, UncommittedOffsetsError,
-  LibrdKafkaError, LibrdKafkaErrorClass
+  LibrdKafkaError, LibrdKafkaErrorClass, TopicNotFoundError
 }
 
 /**
@@ -42,10 +42,6 @@ export {
 export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
-
-export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError', {
-  args: ['message', 'topics'],
-})
 
 export * from '@microfleet/plugin-kafka-types'
 
@@ -63,7 +59,7 @@ export class KafkaFactory {
   }
 
   async createConsumerStream(opts: ConsumerStreamConfig): Promise<KafkaConsumerStream> {
-    const topics = opts.streamOptions.topics
+    const { topics, checkTopicExists } = opts.streamOptions
     const consumerConfig: ConsumerStreamConfig['conf'] = {
       ...opts.conf,
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -81,10 +77,20 @@ export class KafkaFactory {
 
     this.attachClientLogger(consumer, { topics, type: 'consumer' })
 
-    const brokerMeta = await consumer.connectAsync(opts.streamOptions.connectOptions || {})
-    if (!topicExists(brokerMeta.topics, topics)) {
-      throw new TopicNotFoundError('Missing consumer topic', topics)
+    let { connectOptions } = opts.streamOptions
+
+    // we should avoid the side effect of automatic topic creation if we want to check whether it exists
+    // https://github.com/Blizzard/node-rdkafka/blob/master/src/connection.cc#L177
+    if (checkTopicExists && connectOptions) {
+      connectOptions = {
+        timeout: connectOptions.timeout,
+        allTopics: true
+      }
     }
+
+    const brokerMeta = await consumer.connectAsync(connectOptions || {})
+
+    if (checkTopicExists) topicExists(brokerMeta.topics, topics)
 
     return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions)
   }

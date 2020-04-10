@@ -62,12 +62,13 @@ export async function createConsumerStream(
         stopOnPartitionsEOF: true,
         waitInterval: 10,
         // wait abit longer for broker queries
-        offsetQueryTimeout: 200,
+        offsetQueryTimeout: 1000,
       },
       conf: {
         // debug: 'consumer,topic,cgrp',
         'group.id': 'auto-commit-consumer',
         'auto.commit.interval.ms': 100,
+        'session.timeout.ms': 5000,
       },
       topicConf: {
         'auto.offset.reset': 'earliest',
@@ -115,7 +116,7 @@ export async function sendMessages(
 }
 
 export function commitBatch(stream: KafkaConsumerStream, msgs: Message[]): void {
-  process.stdout.write(`\n====Commiting batch:====\n${require('util').inspect({ msgs }, { colors: true })} \n=====\n`)
+  // process.stdout.write(`\n====Commiting batch:====\n${require('util').inspect({ msgs }, { colors: true })} \n=====\n`)
   msgs.map((msg: Message) => stream.consumer.commitMessage(msg))
 }
 

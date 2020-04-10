@@ -39,8 +39,10 @@ This is the reimplementation of the `node-rdkafka.ConsumerStream` stream with so
 Extra parameters:
 ```javascript
 const streamOpts = {
-  stopOnPartitionsEOF: boolean, // Stop stream when all assigned partitions read
-  offsetQueryTimeout: number // Milliseconds Timeout for Broker requests
+  checkTopicExists: boolean, // Check whether consumed topics exist.
+  stopOnPartitionsEOF: boolean, // Stop stream when all assigned partitions read.
+  offsetQueryTimeout: number, // Milliseconds Timeout for Broker requests.
+  offsetCommitTimeout: number, // Milliseconds to wait for offset commits received on stream close.
 }
 ```
 
@@ -53,7 +55,7 @@ Detailed docs here - https://blizzard.github.io/node-rdkafka/current/ProducerStr
 
 For information about parameters passed to the interface methods:
 
-* `streamOpts` - See [this](./src/types.ts) for `ConsumerStream` or [this](https://blizzard.github.io/node-rdkafka/current/ProducerStream.html) for `ProducerStream`
+* `streamOpts` - See [this](../plugin-kafka-types/index.d.ts) for `ConsumerStream` or [this](https://blizzard.github.io/node-rdkafka/current/ProducerStream.html) for `ProducerStream`
 * `conf` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
 * `topic` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md#topic-configuration-properties)
 
@@ -74,7 +76,7 @@ consumerStream = await service.kafka.createConsumerStream({
     'group.id': 'other-group',
   },
   topic: {
-    'auto.offset.reset': 'largest', // in case with earliest it ignores commited vfalues
+    'auto.offset.reset': 'earliest', // 'earliest | latest' - earliest will start from las committed offset, latest - will start from last received message.
   }
 )
 
