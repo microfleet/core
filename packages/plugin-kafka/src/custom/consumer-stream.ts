@@ -83,6 +83,7 @@ export class KafkaConsumerStream extends Readable {
   private autoStore: boolean
   private readStarted: boolean
   private hasError: boolean
+  private closeEmitted: boolean
 
   /**
    * @param consumer Connected kafka consumer
@@ -102,6 +103,7 @@ export class KafkaConsumerStream extends Readable {
     this.destroying = false
     this.readStarted = false
     this.hasError = false
+    this.closeEmitted = false
     this.fetchSize = fetchSize
 
     this.offsetQueryTimeout = config.offsetQueryTimeout || 200
@@ -116,7 +118,7 @@ export class KafkaConsumerStream extends Readable {
     this.consumer.on('rebalance', this.handleRebalance.bind(this))
     this.consumer.on('offset.commit', this.handleOffsetCommit.bind(this))
     this.consumer.on('disconnected', this.handleDisconnected.bind(this))
-
+    this.on('close', () => { this.closeEmitted = true })
     const topics = Array.isArray(config.topics) ? config.topics : [config.topics]
     this.consumer.subscribe(topics)
   }
@@ -150,6 +152,11 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public destroy(err?: Error | undefined, callback?: ((error: Error | null) => void) | undefined): this {
+    if (this.closeEmitted) {
+      if (callback) callback(err || null)
+      return this
+    }
+
     if (this.destroying) {
       this.once('close', () => {
         if (callback) callback(err || null)
@@ -184,16 +191,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public close(cb?: (err?: Error | null) => void): void {
-    if (this.destroyed) {
-      if (cb) cb()
-      return
-    }
-
-    this.once('close', () => {
-      if (cb) cb()
-    })
-
-    this.destroy()
+    this.destroy(undefined, cb)
   }
 
   async closeAsync(): Promise<void> {

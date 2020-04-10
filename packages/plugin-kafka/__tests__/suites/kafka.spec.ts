@@ -988,68 +988,133 @@ describe('#2s-toxified', () => {
     await service.close()
   })
 
-  // shows sync commit failure
-  test('no-auto-commit commitSync', async () => {
-    const topic = 'toxified-test-no-auto-commit-no-batch-eof'
-    producer = await createProducerStream(service)
+  describe('no-auto-commit commitSync', () => {
+    test('as stream', async () => {
+      const topic = 'toxified-test-no-auto-commit-no-batch-eof-stream'
+      producer = await createProducerStream(service)
 
-    const receivedMessages: any[] = []
+      const receivedMessages: any[] = []
 
-    await sendMessages(producer, topic, 10)
+      await sendMessages(producer, topic, 10)
 
-    consumerStream = await createConsumerStream(service, {
-      streamOptions: {
-        topics: topic,
-        streamAsBatch: false,
-      },
-      conf: {
-        'group.id': topic,
-        'enable.auto.commit': false,
-      },
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+          streamAsBatch: false,
+        },
+        conf: {
+          'group.id': topic,
+          'enable.auto.commit': false,
+        },
+      })
+
+      let blockedOnce = false
+
+      const transformStream = new Transform({
+        objectMode: true,
+        async transform(chunk, _, callback) {
+          const messages = msgsToArr(chunk)
+          receivedMessages.push(...messages)
+          if (!blockedOnce) {
+            await setProxyEnabled(false)
+            delay(2000).then(() => setProxyEnabled(true))
+            blockedOnce = true
+          }
+
+          try {
+            const message = messages[messages.length-1]
+            consumerStream.consumer.commitMessageSync(message)
+          } catch (e) {
+            service.log.debug({ err: e }, 'commit sync error')
+            callback(e)
+          }
+        }
+      })
+
+      // We should provide more verbal error description
+      // but here we can receive lots of errors
+      await expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(LibrdKafkaErrorClass)
+      await consumerStream.closeAsync()
+
+      service.log.debug('start the second read sequence')
+
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+        },
+        conf: {
+          'group.id': 'toxified-no-commit-consumer',
+          'enable.auto.commit': false,
+        },
+      })
+
+      const newMessages = await readStream(consumerStream)
+      expect(newMessages).toHaveLength(10)
     })
 
-    let blockedOnce = false
+    // shows sync commit failure
+    test('as iterable', async () => {
+      const topic = 'toxified-test-no-auto-commit-no-batch-eof'
+      producer = await createProducerStream(service)
 
-    const simOne = async () => {
-      for await (const incommingMessage of consumerStream) {
-        const messages = msgsToArr(incommingMessage)
-        receivedMessages.push(...messages)
-        if (!blockedOnce) {
-          await setProxyEnabled(false)
-          delay(2000).then(() => setProxyEnabled(true))
-          blockedOnce = true
-        }
+      const receivedMessages: any[] = []
 
-        try {
-          const message = messages[messages.length-1]
-          consumerStream.consumer.commitMessageSync(message)
-        } catch (e) {
-          service.log.debug({ err: e }, 'commit sync error')
-          throw e
+      await sendMessages(producer, topic, 10)
+
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+          streamAsBatch: false,
+        },
+        conf: {
+          'group.id': topic,
+          'enable.auto.commit': false,
+        },
+      })
+
+      let blockedOnce = false
+
+      const simOne = async () => {
+        for await (const incommingMessage of consumerStream) {
+          const messages = msgsToArr(incommingMessage)
+          receivedMessages.push(...messages)
+          if (!blockedOnce) {
+            await setProxyEnabled(false)
+            delay(2000).then(() => setProxyEnabled(true))
+            blockedOnce = true
+          }
+
+          try {
+            const message = messages[messages.length-1]
+            consumerStream.consumer.commitMessageSync(message)
+          } catch (e) {
+            service.log.debug({ err: e }, 'commit sync error')
+            throw e
+          }
         }
+        service.log.debug('TEST ENDOF FOR LOOP')
       }
-      service.log.debug('TEST ENDOF FOR LOOP')
-    }
 
-    // We should provide more verbal error description
-    // but here we can receive lots of errors
-    await expect(simOne()).rejects.toThrowError(LibrdKafkaErrorClass)
-    await consumerStream.closeAsync()
+      // We should provide more verbal error description
+      // but here we can receive lots of errors
+      await expect(simOne()).rejects.toThrowError(LibrdKafkaErrorClass)
+       await consumerStream.closeAsync()
 
-    service.log.debug('start the second read sequence')
+      service.log.debug('start the second read sequence')
 
-    consumerStream = await createConsumerStream(service, {
-      streamOptions: {
-        topics: topic,
-      },
-      conf: {
-        'group.id': 'toxified-no-commit-consumer',
-        'enable.auto.commit': false,
-      },
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+        },
+        conf: {
+          'group.id': 'toxified-no-commit-consumer',
+          'enable.auto.commit': false,
+        },
+      })
+
+      const newMessages = await readStream(consumerStream)
+      expect(newMessages).toHaveLength(10)
     })
-
-    const newMessages = await readStream(consumerStream)
-    expect(newMessages).toHaveLength(10)
   })
 
   // shows successfull commit recovery

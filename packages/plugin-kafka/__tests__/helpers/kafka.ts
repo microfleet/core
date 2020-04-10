@@ -60,7 +60,7 @@ export async function createConsumerStream(
         streamAsBatch: true,
         fetchSize: 2,
         stopOnPartitionsEOF: true,
-        waitInterval: 10,
+        // waitInterval: 0,
         // wait abit longer for broker queries
         offsetQueryTimeout: 1000,
       },
@@ -68,7 +68,7 @@ export async function createConsumerStream(
         // debug: 'consumer,topic,cgrp',
         'group.id': 'auto-commit-consumer',
         'auto.commit.interval.ms': 100,
-        'session.timeout.ms': 5000,
+        'session.timeout.ms': 20000,
       },
       topicConf: {
         'auto.offset.reset': 'earliest',

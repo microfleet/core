@@ -27,7 +27,7 @@ export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError
  * @param data - List of topics received on Client.connect
  * @param topics - Required topics
  */
-export function topicExists(data: TopicMetadata[], topics: SubscribeTopic | SubscribeTopicList): boolean {
+export function topicExists(data: TopicMetadata[], topics: SubscribeTopic | SubscribeTopicList): void {
   const topicList = Array.isArray(topics) ? topics : [topics]
   for (const topic of topicList) {
     const found = data.find((metaDataTopic) => {
@@ -37,13 +37,4 @@ export function topicExists(data: TopicMetadata[], topics: SubscribeTopic | Subs
 
     if (!found) throw new TopicNotFoundError('Missing consumer topic', topics)
   }
-  const filtered = data.filter((topic) => {
-    return topicList.reduce<boolean>((prev, current) => {
-      if (!prev) return prev
-      if (current instanceof RegExp) return current.test(topic.name)
-      return topicList.includes(topic.name)
-    }, false)
-  })
-
-  return filtered.length === topicList.length
 }
