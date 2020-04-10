@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.1.0...@microfleet/plugin-logger@0.2.0) (2020-04-10)
+
+
+### Features
+
+* **plugin-logger:** export fingerprint ([e182333](https://github.com/microfleet/core/commit/e1823336acfdf2a70ad23ad54407111a94f70ed8))
+
+
+
+
+
 # 0.1.0 (2020-04-07)
 
 
