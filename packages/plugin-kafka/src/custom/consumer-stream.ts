@@ -357,7 +357,7 @@ export class KafkaConsumerStream extends Readable {
   private hasOutstandingAcks(): boolean {
     const { offsetTracker, unacknowledgedTracker } = this
 
-    for (const partition of Object.values(offsetTracker)) {
+    for (const partition of offsetTracker.values()) {
       if (partition == null) {
         continue
       }
