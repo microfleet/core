@@ -321,13 +321,23 @@ export class KafkaConsumerStream extends Readable {
   }
 
   private async checkEof(): Promise<void> {
-    if (this.inDestroyingState()) return
+    if (this.inDestroyingState() || !this.config.stopOnPartitionsEOF) return
 
-    const eof = await this.allMessagesRead()
+    // we must wrap all asynchronous operations
+    // because consumer state could be changed while we are waiting for promises
+    try {
+      const eof = await this.allMessagesRead()
 
-    if (eof) {
-      this.push(null)
-      return
+      if (eof) {
+        this.push(null)
+        return
+      }
+    } catch (err) {
+      this.log?.error({ err }, 'check eof error')
+
+      if (err.code !== ERR__STATE || !this.inDestroyingState()) {
+        this.destroy(err)
+      }
     }
 
     if (! this.inDestroyingState()) {
@@ -345,46 +355,32 @@ export class KafkaConsumerStream extends Readable {
 
     if (assignments.length === 0) {
       this.log?.warn('allMessagesRead no assignments')
-      return false
+      return true
     }
 
-    try {
-      const localPositions = await this.getPositions(assignments)
-      const remoteOffsets = await map(assignments, async ({ topic, partition }) => {
-        const offsets = await consumer.queryWatermarkOffsetsAsync(topic, partition, this.offsetQueryTimeout)
+    const localPositions = await this.getPositions(assignments)
+    const remoteOffsets = await map(assignments, async ({ topic, partition }) => {
+      const offsets = await consumer.queryWatermarkOffsetsAsync(topic, partition, this.offsetQueryTimeout)
 
-        return {
-          topic,
-          partition,
-          ...offsets,
-        }
-      })
-
-      const partitionStatus = remoteOffsets.map((offsetInfo: any) => {
-        const { highOffset, topic, partition } = offsetInfo
-
-        // if no high offset - means no message
-        if (highOffset < 0) {
-          return true
-        }
-
-        const localPosition = find(localPositions, { topic, partition })
-        if (!localPosition) return false
-
-        const localOffset = localPosition.offset || 0
-
-        return localPosition ? highOffset === localOffset : false
-      })
-
-      return !partitionStatus.includes(false)
-    } catch (err) {
-      // node-rdkafka state could be changed to `erroneous state` when some async operations pending
-      this.log?.error({ err }, 'allMessagesRead error')
-      if (!(err.code === ERR__STATE)) {
-        this.destroy(err)
+      return {
+        topic,
+        partition,
+        ...offsets,
       }
-      return false
-    }
+    })
+
+    const partitionStatus = remoteOffsets.map((offsetInfo: any) => {
+      const { highOffset, topic, partition } = offsetInfo
+      const localPosition = find(localPositions, { topic, partition })
+
+      if (!localPosition) return false
+
+      const localOffset = localPosition.offset || 0
+
+      return localPosition ? highOffset === localOffset : false
+    })
+
+    return !partitionStatus.includes(false)
   }
 
   /**

@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Microfleet } from '@microfleet/core'
-import { once } from 'events'
+import { once, EventEmitter } from 'events'
 import { Transform, pipeline as origPipeline } from 'readable-stream'
 import * as util from 'util'
 import { Toxiproxy } from 'toxiproxy-node-client'
 import { delay, TimeoutError } from 'bluebird'
-import { filter } from 'lodash'
 
 const pipeline = util.promisify(origPipeline)
 
@@ -16,6 +15,7 @@ import {
   OffsetCommitError,
   UncommittedOffsetsError,
   LibrdKafkaErrorClass,
+  Message,
 } from '@microfleet/plugin-kafka'
 
 import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, readStream, commitBatch } from '../helpers/kafka'
@@ -511,21 +511,18 @@ describe('#generic', () => {
     describe('handles unsubscribe event from consumer', () => {
       test('as iterable', async () => {
         const topic = 'test-unsubscribe-event'
-        const topicSecond = 'test-unsubscribe-event-second'
 
         producer = await createProducerStream(service)
         await sendMessages(producer, topic, 20)
 
-        const producerSecond = await createProducerStream(service)
-        await sendMessages(producerSecond, topicSecond, 20)
         await producer.closeAsync()
-        await producerSecond.closeAsync()
 
         consumerStream = await createConsumerStream(service, {
           streamOptions: {
             topics: topic,
             streamAsBatch: true,
             fetchSize: 5,
+            waitInterval: 100,
           },
           conf: {
             'enable.auto.commit': false,
@@ -545,29 +542,19 @@ describe('#generic', () => {
             unsubscribeCalled = true
             // unsubscribe consumer
             consumer.unsubscribe()
-            // subscribe to second topic
-            consumer.subscribe([topicSecond])
           }
           commitBatch(consumerStream, messages)
         }
         // we should receive only 1 pack of messages from first topic
-        // and 20 messages from second
-        expect(receivedMessages).toHaveLength(25)
-        expect(filter(receivedMessages, { topic })).toHaveLength(5)
-        expect(filter(receivedMessages, { topic: topicSecond })).toHaveLength(20)
+        expect(receivedMessages).toHaveLength(5)
       })
 
       test('as stream', async () => {
         const topic = 'test-unsubscribe-event-stream'
-        const topicSecond = 'test-unsubscribe-event-second-stream'
 
         producer = await createProducerStream(service)
         await sendMessages(producer, topic, 20)
-
-        const producerSecond = await createProducerStream(service)
-        await sendMessages(producerSecond, topicSecond, 20)
         await producer.closeAsync()
-        await producerSecond.closeAsync()
 
         consumerStream = await createConsumerStream(service, {
           streamOptions: {
@@ -595,8 +582,6 @@ describe('#generic', () => {
               unsubscribeCalled = true
               // unsubscribe consumer
               consumer.unsubscribe()
-              // subscribe to second topic
-              consumer.subscribe([topicSecond])
             }
             commitBatch(consumerStream, messages)
             callback()
@@ -606,10 +591,7 @@ describe('#generic', () => {
         await pipeline(consumerStream, transformStream)
 
         // we should receive only 1 pack of messages from first topic
-        // and 20 messages from second
-        expect(receivedMessages).toHaveLength(25)
-        expect(filter(receivedMessages, { topic })).toHaveLength(5)
-        expect(filter(receivedMessages, { topic: topicSecond })).toHaveLength(20)
+        expect(receivedMessages).toHaveLength(5)
       })
     })
 
@@ -816,6 +798,62 @@ describe('#generic', () => {
 
         // we should receive only first pack of messages
         expect(receivedMessages).toHaveLength(5)
+      })
+    })
+
+    describe('should exit when topic is empty', () => {
+
+      test('as iterable', async () => {
+        const topic = 'test-empty-topic'
+
+        consumerStream = await createConsumerStream(service, {
+          streamOptions: {
+            checkTopicExists: false,
+            topics: topic,
+            streamAsBatch: false,
+            fetchSize: 5,
+          },
+          conf: {
+            'enable.auto.commit': false,
+            'group.id': topic,
+          },
+        })
+
+        const receivedMessages = await readStream(consumerStream)
+        expect(receivedMessages).toHaveLength(0)
+      })
+
+      test('as stream', async () => {
+        const topic = 'test-empty-topic-stream'
+
+        consumerStream = await createConsumerStream(service, {
+          streamOptions: {
+            checkTopicExists: false,
+            topics: topic,
+            streamAsBatch: false,
+            fetchSize: 5,
+          },
+          conf: {
+            'enable.auto.commit': false,
+            'group.id': topic,
+          },
+        })
+
+        const receivedMessages: any[] = []
+
+        const transformStream = new Transform({
+          objectMode: true,
+          transform(chunk, _, callback) {
+            const messages = msgsToArr(chunk)
+            receivedMessages.push(...messages)
+            const message = messages[messages.length-1]
+            consumerStream.consumer.commitMessage(message)
+            callback()
+          },
+        })
+
+        await pipeline(consumerStream, transformStream)
+        expect(receivedMessages).toHaveLength(0)
       })
     })
 
@@ -1178,6 +1216,126 @@ describe('#2s-toxified', () => {
     expect(newMessages).toHaveLength(0)
   })
 
+})
+
+describe('#consumer parallel reads', () => {
+  let service: Microfleet
+
+  beforeEach(async () => {
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['logger', 'validator', 'kafka'],
+      kafka: {
+        'metadata.broker.list': 'kafka:49092',
+        'group.id': 'test-group',
+        'fetch.wait.max.ms': 50,
+        debug: 'consumer',
+      },
+    })
+  })
+
+  afterEach(async () => {
+    await service.close()
+  })
+
+  const createConsumer = async (topic: string): Promise<KafkaConsumerStream> => {
+    return createConsumerStream(service, {
+      streamOptions: {
+        topics: topic,
+        fetchSize: 2,
+      },
+      conf: {
+        'group.id': topic,
+        'enable.auto.commit': false,
+      },
+    })
+  }
+
+  const consumeMessages = async (stream: KafkaConsumerStream, onIter?: () => Promise<void>): Promise<Message[]> => {
+    const messages: Message[] = []
+    for await (const message of stream) {
+      messages.push(...msgsToArr(message))
+      commitBatch(stream, message)
+      if (onIter) await onIter()
+    }
+    return messages
+  }
+
+  it('processes messages in parallel', async () => {
+    const topic = 'parallel-read'
+
+    const producer = await createProducerStream(service)
+    await sendMessages(producer, topic, 101)
+
+    const consumer1 = await createConsumer(topic)
+    const consumer2 = await createConsumer(topic)
+
+    const result = await Promise.all([
+      consumeMessages(consumer1),
+      consumeMessages(consumer2),
+    ])
+
+    expect([...result[0], ...result[1]]).toHaveLength(101)
+    await consumer1.closeAsync()
+    await consumer2.closeAsync()
+  })
+
+  it('processes messages in parallel with 1 extra consumer', async () => {
+    const topic = 'parallel-read-3-consumers'
+
+    const producer = await createProducerStream(service)
+    await sendMessages(producer, topic, 11)
+
+    const consumer1 = await createConsumer(topic)
+    const consumer2 = await createConsumer(topic)
+    const consumer3 = await createConsumer(topic)
+
+    const result = await Promise.all([
+      consumeMessages(consumer1),
+      consumeMessages(consumer2),
+      consumeMessages(consumer3),
+    ])
+
+    expect([...result[0], ...result[1], ...result[2]]).toHaveLength(11)
+    await consumer1.closeAsync()
+    await consumer2.closeAsync()
+    await consumer3.closeAsync()
+  })
+
+  it('additional consumer connects after processing started', async () => {
+    const topic = 'parallel-read-consumer-connect-after'
+    const emitter = new EventEmitter()
+
+    const producer = await createProducerStream(service)
+    await sendMessages(producer, topic, 11)
+
+    const consumers: { [key: string]: KafkaConsumerStream } = {}
+
+    consumers['consumer1'] = await createConsumer(topic)
+
+    const firstRead = consumeMessages(consumers.consumer1, async () => {
+      if (!consumers.consumer2) {
+        await once(consumers.consumer1.consumer, 'offset.commit')
+        consumers.consumer2 = await createConsumer(topic)
+        emitter.emit('start-second')
+      }
+    })
+
+    const secondRead = async () => {
+      await once(emitter, 'start-second')
+      return consumeMessages(consumers.consumer2)
+    }
+
+    const result = await Promise.all([
+      firstRead, secondRead()
+    ])
+
+    expect([...result[0], ...result[1]]).toHaveLength(11)
+    await consumers.consumer1.closeAsync()
+
+    expect(consumers.consumer2).toBeDefined()
+    await consumers.consumer2.closeAsync()
+  })
 })
 
 describe('#8s-toxified', () => {
