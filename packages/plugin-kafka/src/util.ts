@@ -1,5 +1,5 @@
 import { TopicMetadata, SubscribeTopic, SubscribeTopicList } from 'node-rdkafka'
-import { helpers as ErrorHelpers } from 'common-errors'
+import { TopicNotFoundError } from './custom/errors'
 /**
  * `librdkafka` uses syslog severity levels
  */
@@ -17,10 +17,6 @@ export const kafkaSeverityToLogMapping: { [level: number]: string } = {
 export function getLogFnName(level: number): string {
   return kafkaSeverityToLogMapping[level] || 'debug'
 }
-
-export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError', {
-  args: ['message', 'topics'],
-})
 
 /**
  * Checks whether topics exist

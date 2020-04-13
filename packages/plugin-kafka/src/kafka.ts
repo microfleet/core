@@ -2,22 +2,10 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { LoggerPlugin } from '@microfleet/plugin-logger'
+import type { Logger } from '@microfleet/plugin-logger'
 import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import { map } from 'bluebird'
-
-import {
-  KafkaConsumer,
-  Producer as KafkaProducer,
-  KafkaProducerStream,
-  Message,
-  LibrdKafkaError,
-  Client,
-  KafkaClientEvents,
-  LibrdKafkaErrorClass,
-} from './custom/rdkafka-extra'
-
-import {
+import type {
   TopicConfig,
   GlobalConfig,
   ConsumerStreamConfig,
@@ -26,15 +14,20 @@ import {
   KafkaStream,
   KafkaClient,
 } from '@microfleet/plugin-kafka-types'
+import {
+  KafkaConsumer,
+  Producer as KafkaProducer,
+  KafkaProducerStream,
+  LibrdKafkaError,
+  Client,
+  KafkaClientEvents,
+} from './custom/rdkafka-extra'
+import { getLogFnName, topicExists } from './util'
+import { KafkaConsumerStream } from './custom/consumer-stream'
 
-import { getLogFnName, topicExists, TopicNotFoundError } from './util'
-import { KafkaConsumerStream, OffsetCommitError, UncommittedOffsetsError } from './custom/consumer-stream'
-
-export {
-  KafkaConsumer, KafkaProducerStream, KafkaConsumerStream,
-  Message, OffsetCommitError, UncommittedOffsetsError,
-  LibrdKafkaError, LibrdKafkaErrorClass, TopicNotFoundError
-}
+export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
+export { KafkaConsumerStream, KafkaProducerStream }
+export { LibrdKafkaErrorClass, Message } from './custom/rdkafka-extra'
 
 /**
  * Relative priority inside the same plugin group type
@@ -49,9 +42,9 @@ export class KafkaFactory {
   rdKafkaConfig: GlobalConfig
   private streams: Set<KafkaStream>
   private connections: Set<KafkaClient>
-  private service: Microfleet & LoggerPlugin
+  private service: Microfleet
 
-  constructor(service: Microfleet & LoggerPlugin, config: GlobalConfig) {
+  constructor(service: Microfleet, config: GlobalConfig) {
     this.rdKafkaConfig = config
     this.streams = new Set<KafkaStream>()
     this.connections = new Set<KafkaClient>()
@@ -111,16 +104,16 @@ export class KafkaFactory {
     await map(this.connections.values(), async (connection) => { await connection.disconnectAsync() })
   }
 
-  getStreams() {
+  getStreams(): Set<KafkaStream> {
     return this.streams
   }
 
-  getConnections() {
+  getConnections(): Set<KafkaClient> {
     return this.connections
   }
 
   private createStream<T extends KafkaStream, U extends KafkaClient>(
-    streamClass: new (c: U, o: StreamOptions<T>, log?: LoggerPlugin['log']) => T,
+    streamClass: new (c: U, o: StreamOptions<T>, log?: Logger) => T,
     client: U,
     opts: StreamOptions<T>
   ): T {
@@ -177,7 +170,7 @@ export class KafkaFactory {
  * @param params - Kafka configuration.
  */
 export function attach(
-  this: Microfleet & LoggerPlugin & ValidatorPlugin,
+  this: Microfleet & ValidatorPlugin,
   params: GlobalConfig
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))

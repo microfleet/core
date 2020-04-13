@@ -134,7 +134,7 @@ declare module 'node-rdkafka' {
 
   export interface KafkaConsumer {
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/kafka-consumer.js#L176
-    committedAsync(toppars: any, timeout: any): Promise<kafka.TopicPartitionOffset[]>;
+    committedAsync(toppars: TopicPartition[], timeout: number): Promise<kafka.TopicPartitionOffset[]>;
     consumeAsync(count: number): Promise<kafka.Message[]>;
 
     // REMOVE WHEN FIXED - in original typedef for this method shows single Assignment
