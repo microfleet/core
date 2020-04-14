@@ -45,7 +45,6 @@ export class KafkaConsumerStream extends Readable {
   private autoStore: boolean
   private readStarted: boolean
   private hasError: boolean
-  private subscribed: boolean
 
   /**
    * @param consumer Connected kafka consumer
@@ -71,9 +70,8 @@ export class KafkaConsumerStream extends Readable {
     this.offsetCommitTimeout = config.offsetCommitTimeout || 5000
     this.offsetTracker = new Map()
     this.unacknowledgedTracker = new Map()
-    this.consumer = consumer as KafkaConsumer
+    this.consumer = consumer
     this.autoStore = config.autoOffsetStore !== false
-    this.subscribed = false
 
     this.messages = []
     this.closeAsync = promisify(this.close, { context: this })
@@ -83,14 +81,13 @@ export class KafkaConsumerStream extends Readable {
     this.consumer.on('disconnected', this.handleDisconnected.bind(this))
 
     this.topics = Array.isArray(config.topics) ? config.topics : [config.topics]
+
+    // to avoid some race conditions in rebalance during parallel consumer connection
+    // we should start subscription earlier than read started
+    this.consumer.subscribe(this.topics)
   }
 
-  public async _read(): Promise<void> {
-    if (!this.subscribed) {
-      this.consumer.subscribe(this.topics)
-      this.subscribed = true
-    }
-
+  public _read(): void {
     if (this.messages.length > 0) {
       const message = this.messages.shift()
       this.push(message)
@@ -281,11 +278,16 @@ export class KafkaConsumerStream extends Readable {
 
       if (messages.length > 0) this.handleIncomingMessages(messages)
       if (this.config.waitInterval) await delay(this.config.waitInterval)
-
-      this.readLoop()
     } catch (err) {
       this.log?.error({ err }, 'consume error')
-      this.destroy(err)
+      // We can receive Broker transport error with code -1
+      // It's repeatable error
+      if (err.code !== Generic.ERR_UNKNOWN) {
+        this.destroy(err)
+        return
+      }
+    } finally {
+      this.readLoop()
     }
   }
 
@@ -306,10 +308,11 @@ export class KafkaConsumerStream extends Readable {
 
       if (err.code !== Generic.ERR__STATE || !this.inDestroyingState()) {
         this.destroy(err)
+        return
       }
     }
 
-    if (! this.inDestroyingState()) {
+    if (!this.inDestroyingState()) {
       this.consumer.resume(this.consumer.assignments())
     }
   }
@@ -323,7 +326,7 @@ export class KafkaConsumerStream extends Readable {
     const assignments: TopicPartition[] = consumer.assignments()
 
     if (assignments.length === 0) {
-      this.log?.warn('allMessagesRead no assignments')
+      this.log?.debug('allMessagesRead no assignments')
       return true
     }
 
@@ -343,9 +346,9 @@ export class KafkaConsumerStream extends Readable {
       const localPosition = find(localPositions, { topic, partition })
 
       if (!localPosition) return false
-
-      const localOffset = localPosition.offset || 0
-
+      // remote high offset is 0 when there is no data in topic
+      // client offset is -1001 when no data read
+      const localOffset = localPosition.offset === UNKNOWN_OFFSET ? 0 : localPosition.offset
       return localPosition ? highOffset === localOffset : false
     })
 
@@ -426,7 +429,7 @@ export class KafkaConsumerStream extends Readable {
         if (currentOffset < topicPartition.offset) {
           map.set(KafkaConsumerStream.trackingKey(topicPartition), topicPartition)
         }
-      // if it has no offset - means its a new assignment, set offset to 0
+      // if it has no offset - means its a new assignment, set offset to -1001
       } else if (!map.has(trackingKey)) {
         map.set(KafkaConsumerStream.trackingKey(topicPartition), {
           topic: topicPartition.topic,

@@ -8,6 +8,7 @@ const {
   ERR_UNKNOWN_MEMBER_ID,
   ERR_UNKNOWN_TOPIC_OR_PART,
   ERR__STATE,
+  ERR_UNKNOWN,
 } = KafkaErrorCodes
 
 interface CommonError {
@@ -41,7 +42,8 @@ export const CriticalErrors: number[] = [
 export const Generic = {
   ERR__ASSIGN_PARTITIONS,
   ERR__REVOKE_PARTITIONS,
-  ERR__STATE
+  ERR__STATE,
+  ERR_UNKNOWN,
 }
 
 export const CommitTimeoutError = new TimeoutError('offset commit timeout on shutdown')

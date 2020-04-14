@@ -80,8 +80,7 @@ export async function createConsumerStream(
   service.log.debug({ config, extraConfig }, 'CREATE CONSUMER')
   const consumerStream = await kafka.createConsumerStream(config)
 
-  // make it faster
-  consumerStream.consumer.setDefaultConsumeTimeout(100)
+  consumerStream.consumer.setDefaultConsumeTimeout(200)
 
   consumerStream.on('close', () => {
     service.log.debug('TEST stream on close')

@@ -28,7 +28,6 @@ export type KafkaProducerStream = ProducerStream
 export type KafkaConsumerStream = ConsumerStream
 export type LibrdKafkaErrorClass = LibrdKafkaError
 
-// simple hack to merge TypeScript type and hidden class
 promisifyAll(KafkaProducerStream.prototype)
 promisifyAll(KafkaConsumerStream.prototype)
 promisifyAll(KafkaConsumer.prototype)

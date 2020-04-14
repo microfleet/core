@@ -1081,7 +1081,7 @@ describe('#2s-toxified', () => {
           topics: topic,
         },
         conf: {
-          'group.id': 'toxified-no-commit-consumer',
+          'group.id': topic,
           'enable.auto.commit': false,
         },
       })
@@ -1145,7 +1145,7 @@ describe('#2s-toxified', () => {
           topics: topic,
         },
         conf: {
-          'group.id': 'toxified-no-commit-consumer',
+          'group.id': topic,
           'enable.auto.commit': false,
         },
       })
@@ -1229,7 +1229,7 @@ describe('#consumer parallel reads', () => {
         'metadata.broker.list': 'kafka:49092',
         'group.id': 'test-group',
         'fetch.wait.max.ms': 50,
-        debug: 'consumer',
+        // debug: 'consumer',
       },
     })
   })
@@ -1278,28 +1278,6 @@ describe('#consumer parallel reads', () => {
     expect([...result[0], ...result[1]]).toHaveLength(101)
     await consumer1.closeAsync()
     await consumer2.closeAsync()
-  })
-
-  it('processes messages in parallel with 1 extra consumer', async () => {
-    const topic = 'parallel-read-3-consumers'
-
-    const producer = await createProducerStream(service)
-    await sendMessages(producer, topic, 11)
-
-    const consumer1 = await createConsumer(topic)
-    const consumer2 = await createConsumer(topic)
-    const consumer3 = await createConsumer(topic)
-
-    const result = await Promise.all([
-      consumeMessages(consumer1),
-      consumeMessages(consumer2),
-      consumeMessages(consumer3),
-    ])
-
-    expect([...result[0], ...result[1], ...result[2]]).toHaveLength(11)
-    await consumer1.closeAsync()
-    await consumer2.closeAsync()
-    await consumer3.closeAsync()
   })
 
   it('additional consumer connects after processing started', async () => {
