@@ -17,6 +17,8 @@ const isTopicPartitionOffset = (obj: any): obj is TopicPartitionOffset => {
   return obj !== null && typeof obj === 'object' && Object.prototype.hasOwnProperty.call(obj, 'offset')
 }
 
+export const UNKNOWN_OFFSET = -1001
+
 /**
  * Helps to read data from Kafka topic.
  * Allows to track consumer offset position and exit on EOF
@@ -171,7 +173,7 @@ export class KafkaConsumerStream extends Readable {
     return this.consumer._isDisconnecting || !this.consumer.isConnected()
   }
 
-  private async handleOffsetCommit(err: Error, partitions: TopicPartitionOffset[]): Promise<void> {
+  private async handleOffsetCommit(err: Error | LibrdKafkaError | number, partitions: TopicPartitionOffset[]): Promise<void> {
     if (err) {
       const wrappedError = new OffsetCommitError(partitions, err)
       this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
@@ -364,30 +366,51 @@ export class KafkaConsumerStream extends Readable {
 
       const trackerKey = KafkaConsumerStream.trackingKey(partition)
       const latestMessage = unacknowledgedTracker.get(trackerKey)
-      if (latestMessage == null) {
+      if (!latestMessage) {
         continue
       }
 
       // 1. if we already have offsets in the latest message - need to wait for accks
       // 2. latest message offset must be smaller, or we need to wait for acks
-      if (partition.offset == null || latestMessage.offset > partition.offset) {
-        this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'hasOutstandingAcks: true')
+      if (latestMessage.offset > partition.offset) {
+        this.log?.debug(this.trackerMeta, 'hasOutstandingAcks: true')
         return true
       }
     }
 
-    this.log?.debug({ offsetTracker, unacknowledgedTracker }, 'hasOutstandingAcks: false')
+    this.log?.debug(this.trackerMeta, 'hasOutstandingAcks: false')
     return false
+  }
+
+  private get trackerMeta() {
+    return {
+      offsetTracker: Object.fromEntries(this.offsetTracker),
+      unacknowledgedTracker: Object.fromEntries(this.unacknowledgedTracker),
+    }
   }
 
   /**
    * Gets consumer committed partitions positions from broker
    */
   private async getPositions(assignments: Assignment[]): Promise<TopicPartitionOffset[]> {
-    const commitedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
-    for (const offset of commitedOffsets) {
-      this.offsetTracker.set(KafkaConsumerStream.trackingKey(offset), offset)
-    }
+    const commitedAssignments = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
+    const commitedOffsets: TopicPartitionOffset[] = commitedAssignments.map((assignment: Assignment) => {
+      const key = KafkaConsumerStream.trackingKey(assignment)
+
+      if (isTopicPartitionOffset(assignment)) {
+        this.offsetTracker.set(key, assignment)
+        return assignment
+      }
+
+      const offset = {
+        topic: assignment.topic,
+        partition: assignment.partition,
+        offset: UNKNOWN_OFFSET
+      }
+
+      this.offsetTracker.set(key, offset)
+      return offset
+    })
 
     this.log?.debug({ commitedOffsets }, 'positions')
     return commitedOffsets
@@ -396,19 +419,19 @@ export class KafkaConsumerStream extends Readable {
   private updatePartitionOffsets(partitions: Assignment[], map: CommitOffsetTracker): void {
     for (const topicPartition of partitions) {
       const trackingKey = KafkaConsumerStream.trackingKey(topicPartition)
-      const currentOffset = map.get(trackingKey)?.offset || -1001
 
       // if it has offset - verify that the current offset is smaller
       if (isTopicPartitionOffset(topicPartition)) {
+        const currentOffset = map.get(trackingKey)?.offset || UNKNOWN_OFFSET
         if (currentOffset < topicPartition.offset) {
           map.set(KafkaConsumerStream.trackingKey(topicPartition), topicPartition)
         }
       // if it has no offset - means its a new assignment, set offset to 0
-      } else if (currentOffset < 0) {
+      } else if (!map.has(trackingKey)) {
         map.set(KafkaConsumerStream.trackingKey(topicPartition), {
           topic: topicPartition.topic,
           partition: topicPartition.partition,
-          offset: 0
+          offset: UNKNOWN_OFFSET
         })
       }
     }
