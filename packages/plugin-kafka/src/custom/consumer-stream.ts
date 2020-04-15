@@ -79,6 +79,12 @@ export class KafkaConsumerStream extends Readable {
     this.consumer.on('rebalance', this.handleRebalance.bind(this))
     this.consumer.on('offset.commit', this.handleOffsetCommit.bind(this))
     this.consumer.on('disconnected', this.handleDisconnected.bind(this))
+    // we should start graceful shutdown on unsubscribe
+    // otherwise stream could misbehave
+    this.consumer.on('unsubscribed', () => {
+      this.log?.debug('unsubscribed from topics - quitting')
+      this.destroy()
+    })
 
     this.topics = Array.isArray(config.topics) ? config.topics : [config.topics]
 

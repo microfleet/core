@@ -547,6 +547,7 @@ describe('#generic', () => {
         }
         // we should receive only 1 pack of messages from first topic
         expect(receivedMessages).toHaveLength(5)
+        service.log.debug('>>>>>>>>>>>>>>>> end ')
       })
 
       test('as stream', async () => {
