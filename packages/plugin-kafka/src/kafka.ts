@@ -21,12 +21,13 @@ import {
   LibrdKafkaError,
   Client,
   KafkaClientEvents,
+  CODES as RdKafkaCodes,
 } from './custom/rdkafka-extra'
 import { getLogFnName, topicExists } from './util'
 import { KafkaConsumerStream } from './custom/consumer-stream'
 
 export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
-export { KafkaConsumerStream, KafkaProducerStream }
+export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
 export { LibrdKafkaErrorClass, Message } from './custom/rdkafka-extra'
 
 /**
