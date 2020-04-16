@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [17.3.0](https://github.com/microfleet/core/compare/@microfleet/core@17.2.0...@microfleet/core@17.3.0) (2020-04-16)
+
+
+### Features
+
+* kafka custom stream ([#405](https://github.com/microfleet/core/issues/405)) ([2ce74d3](https://github.com/microfleet/core/commit/2ce74d3c92f57184acf4f7e8036518acbe8f5319))
+
+
+
+
+
 # [17.2.0](https://github.com/microfleet/core/compare/@microfleet/core@17.1.0...@microfleet/core@17.2.0) (2020-04-10)
 
 

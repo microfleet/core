@@ -1,7 +1,7 @@
 {
   "name": "@microfleet/plugin-kafka",
   "description": "Apache Kafka adapter for microfleet",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -31,8 +31,8 @@
     "@microfleet/core": "~17.x.x"
   },
   "dependencies": {
-    "@microfleet/core": "^17.2.0",
-    "@microfleet/plugin-kafka-types": "^1.0.0",
+    "@microfleet/core": "^17.3.0",
+    "@microfleet/plugin-kafka-types": "^1.1.0",
     "bluebird": "^3.7.2",
     "node-rdkafka": "^2.8.0",
     "readable-stream": "^3.6.0",
