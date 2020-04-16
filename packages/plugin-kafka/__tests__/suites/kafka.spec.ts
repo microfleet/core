@@ -1026,6 +1026,7 @@ describe('#2s-toxified', () => {
   afterEach(async () => {
     await setProxyEnabled(true)
     await service.close()
+    service.log.debug('>>>>> done test')
   })
 
   describe('no-auto-commit commitSync', () => {
@@ -1209,6 +1210,8 @@ describe('#2s-toxified', () => {
         service.log.warn('TEST INCONSISTENT - RDKAFKA did not connected. But its OK')
         return
       }
+    } finally {
+      await setProxyEnabled(true)
     }
 
     service.log.debug('start the second read sequence')
