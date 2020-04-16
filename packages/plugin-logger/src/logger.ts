@@ -66,8 +66,10 @@ export const name = 'logger'
  * Logger Plugin interface.
  */
 export interface LoggerPlugin {
-  log: pinoms.Logger;
+  log: Logger;
 }
+
+export type Logger = pinoms.Logger
 
 export interface StreamConfiguration {
   sentry?: NodeOptions;

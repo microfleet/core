@@ -3,8 +3,7 @@
   "type": "object",
   "additionalProperties": true,
   "required": [
-    "metadata.broker.list",
-    "group.id"
+    "metadata.broker.list"
   ],
   "properties": {
     "metadata.broker.list": {

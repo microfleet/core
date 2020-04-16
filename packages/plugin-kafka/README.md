@@ -34,8 +34,17 @@ Microfleet Kafka Plugin extends service interface with the following methods:
 
 ### async service.kafka.createReadStream({ streamOpts, conf, topic }): Readable
 
-Initializes Kafka consumer using provided params and creates a Readable stream.
-Detailed docs here - https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
+Initializes Kafka Consumer stream using provided params and creates a Readable stream.
+This is the reimplementation of the `node-rdkafka.ConsumerStream` stream with some addons.
+Extra parameters:
+```javascript
+const streamOpts = {
+  checkTopicExists: boolean, // Check whether consumed topics exist.
+  stopOnPartitionsEOF: boolean, // Stop stream when all assigned partitions read.
+  offsetQueryTimeout: number, // Milliseconds Timeout for Broker requests.
+  offsetCommitTimeout: number, // Milliseconds to wait for offset commits received on stream close.
+}
+```
 
 ### async service.kafka.createWriteStream({ streamOpts, conf, topic }): Writable
 
@@ -46,15 +55,13 @@ Detailed docs here - https://blizzard.github.io/node-rdkafka/current/ProducerStr
 
 For information about parameters passed to the interface methods:
 
-* `streamOpts` - See [this](https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html) or [this](https://blizzard.github.io/node-rdkafka/current/ProducerStream.html) pages
+* `streamOpts` - See [this](../plugin-kafka-types/index.d.ts) for `ConsumerStream` or [this](https://blizzard.github.io/node-rdkafka/current/ProducerStream.html) for `ProducerStream`
 * `conf` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md)
 * `topic` - See [this page](https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md#topic-configuration-properties)
 
 ## Example
 
 ```js
-
-// OR
 producerStream = await service.kafka.createProducerStream({
   streamOptions: { objectMode: true, pollInterval: 10 },
   conf: {'group.id': 'other-group'},
@@ -64,12 +71,12 @@ consumerStream = await service.kafka.createConsumerStream({
   streamOptions: { topics: topic, streamAsBatch: true, fetchSize: 10 },
   conf: {
     debug: 'consumer',
-    'auto.commit.enable': false,
+    'enable.auto.commit': false,
     'client.id': 'someid',
     'group.id': 'other-group',
   },
   topic: {
-    'auto.offset.reset': 'earliest',
+    'auto.offset.reset': 'earliest', // 'earliest | latest' - earliest will start from las committed offset, latest - will start from last received message.
   }
 )
 

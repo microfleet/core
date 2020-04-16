@@ -1,4 +1,4 @@
-version: '3'
+version: '2.4'
 
 services:
   zookeeper:
@@ -48,7 +48,15 @@ services:
       - '-config=/config/toxy.json'
 
   tester:
+    image: makeomatic/node:12.15-tester
+    hostname: 'tester'
+    working_dir: '/src/packages/plugin-kafka'
+    volumes:
+      - '${PWD}/../../:/src'
+    command: 'tail -f /dev/null'
     links:
       - toxy:kafka
     environment:
+      NODE_ENV: 'test'
       DEBUG: ${DEBUG}
+      UV_THREADPOOL_SIZE: 32

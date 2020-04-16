@@ -2,47 +2,33 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { LoggerPlugin } from '@microfleet/plugin-logger'
+import type { Logger } from '@microfleet/plugin-logger'
 import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
-import { promisifyAll, map } from 'bluebird'
-
+import { map } from 'bluebird'
+import type {
+  TopicConfig,
+  GlobalConfig,
+  ConsumerStreamConfig,
+  ProducerStreamConfig,
+  StreamOptions,
+  KafkaStream,
+  KafkaClient,
+} from '@microfleet/plugin-kafka-types'
 import {
   KafkaConsumer,
   Producer as KafkaProducer,
-  ProducerStream,
-  ConsumerStream,
-  Client as KafkaClient,
-} from 'node-rdkafka'
+  KafkaProducerStream,
+  LibrdKafkaError,
+  Client,
+  KafkaClientEvents,
+  CODES as RdKafkaCodes,
+} from './custom/rdkafka-extra'
+import { getLogFnName, topicExists } from './util'
+import { KafkaConsumerStream } from './custom/consumer-stream'
 
-export { KafkaConsumer, KafkaProducer, KafkaClient, ProducerStream, ConsumerStream }
-
-promisifyAll(KafkaConsumer.prototype)
-promisifyAll(KafkaProducer.prototype)
-
-import {
-  TopicConfig,
-  ProducerStreamOptions,
-  ConsumerStreamOptions,
-  KafkaConfig,
-} from './types'
-
-export { ProducerStreamOptions, ConsumerStreamOptions }
-
-import './rdkafka-extra-types'
-
-import { getLogFnName } from './log-mapping'
-
-/**
- * Library hides consumer when using typescript
- * https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
- * But direct consumer creation was requested in
- * https://github.com/microfleet/core/pull/362#discussion_r367773758
- */
-const kConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream')
-const kProducerStream = require('node-rdkafka/lib/producer-stream')
-
-promisifyAll(kConsumerStream.prototype)
-promisifyAll(kProducerStream.prototype)
+export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
+export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
+export { LibrdKafkaErrorClass, Message } from './custom/rdkafka-extra'
 
 /**
  * Relative priority inside the same plugin group type
@@ -51,82 +37,92 @@ export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
 
-export interface KafkaStreamOpts<T> {
-  streamOptions: T;
-  conf?: Partial<KafkaConfig>;
-  topicConf?: TopicConfig;
-}
+export * from '@microfleet/plugin-kafka-types'
 
-export interface KafkaPlugin {
-  kafka: KafkaFactoryInterface;
-}
-
-/**
- * Defines service extension
- */
-export interface KafkaFactoryInterface {
-  createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream>;
-  createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream>;
-  close(): Promise<void>;
-}
-
-export type KafkaStream = ConsumerStream | ProducerStream
-export type StreamOptions<T> = T extends ConsumerStream
-    ? ConsumerStreamOptions
-    : never
-  | T extends ProducerStream
-    ? ProducerStreamOptions
-    : never
-
-export class KafkaFactory implements KafkaFactoryInterface {
-  rdKafkaConfig: KafkaConfig
+export class KafkaFactory {
+  rdKafkaConfig: GlobalConfig
   private streams: Set<KafkaStream>
   private connections: Set<KafkaClient>
-  private service: Microfleet & LoggerPlugin
+  private service: Microfleet
 
-  constructor(service: Microfleet & LoggerPlugin, config: KafkaConfig) {
+  constructor(service: Microfleet, config: GlobalConfig) {
     this.rdKafkaConfig = config
     this.streams = new Set<KafkaStream>()
     this.connections = new Set<KafkaClient>()
     this.service = service
   }
 
-  async createConsumerStream(opts: KafkaStreamOpts<ConsumerStreamOptions>): Promise<ConsumerStream> {
-    const consumer = this.createClient(KafkaConsumer, opts.conf, opts.topicConf)
-    await consumer.connectAsync(opts.streamOptions.connectOptions || {})
-    return this.createStream<ConsumerStream>(kConsumerStream, consumer, opts.streamOptions)
+  async createConsumerStream(opts: ConsumerStreamConfig): Promise<KafkaConsumerStream> {
+    const { topics, checkTopicExists } = opts.streamOptions
+    const consumerConfig: ConsumerStreamConfig['conf'] = {
+      ...opts.conf,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      offset_commit_cb: opts.conf?.offset_commit_cb || true,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      rebalance_cb: opts.conf?.rebalance_cb || true,
+      'enable.auto.offset.store': false,
+    }
+
+    // pass on original value
+    opts.streamOptions.autoOffsetStore = opts.conf?.['enable.auto.offset.store']
+
+    const consumerTopicConfig: ConsumerStreamConfig['topicConf'] = { ...opts.topicConf }
+    const consumer = this.createClient(KafkaConsumer, consumerConfig, consumerTopicConfig)
+
+    this.attachClientLogger(consumer, { topics, type: 'consumer' })
+
+    let { connectOptions } = opts.streamOptions
+
+    // we should avoid the side effect of automatic topic creation if we want to check whether it exists
+    // https://github.com/Blizzard/node-rdkafka/blob/master/src/connection.cc#L177
+    if (checkTopicExists && connectOptions) {
+      connectOptions = {
+        timeout: connectOptions.timeout,
+        allTopics: true
+      }
+    }
+
+    const brokerMeta = await consumer.connectAsync(connectOptions || {})
+
+    if (checkTopicExists) topicExists(brokerMeta.topics, topics)
+
+    return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions)
   }
 
-  async createProducerStream(opts: KafkaStreamOpts<ProducerStreamOptions>): Promise<ProducerStream> {
-    const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
+  async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
+    const producer = this.createClient(KafkaProducer, opts.conf || {}, opts.topicConf || {})
+
+    this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })
+
     await producer.connectAsync(opts.streamOptions.connectOptions || {})
-    return this.createStream<ProducerStream>(kProducerStream, producer, opts.streamOptions)
+    return this.createStream(KafkaProducerStream, producer, opts.streamOptions)
   }
 
   async close() {
     // Some connections will be already closed by streams
-    await map(this.streams.values(), (stream: KafkaStream) => stream.closeAsync())
+    await map(this.streams.values(), stream => stream.closeAsync())
     // Close other connections
-    await map(this.connections.values(), (connection: KafkaClient) => connection.disconnectAsync())
+    await map(this.connections.values(), async (connection) => { await connection.disconnectAsync() })
   }
 
-  getStreams() {
+  getStreams(): Set<KafkaStream> {
     return this.streams
   }
 
-  getConnections() {
+  getConnections(): Set<KafkaClient> {
     return this.connections
   }
 
-  private createStream<T extends KafkaStream>(
-    streamClass: new (c: KafkaClient, o: StreamOptions<T>) => T,
-    client: KafkaClient,
+  private createStream<T extends KafkaStream, U extends KafkaClient>(
+    streamClass: new (c: U, o: StreamOptions<T>, log?: Logger) => T,
+    client: U,
     opts: StreamOptions<T>
   ): T {
-    const stream = new streamClass(client, opts)
+    const stream = new streamClass(client, opts, this.service.log)
     const { streams, service: { log } } = this
 
     streams.add(stream)
+
     stream.on('close', function close(this: T) {
       streams.delete(this)
       log.info('closed stream')
@@ -135,35 +131,38 @@ export class KafkaFactory implements KafkaFactoryInterface {
     return stream
   }
 
-  private createClient<T extends KafkaClient>(
-    clientClass: new (c?: Partial<KafkaConfig>, tc?: TopicConfig) => T,
-    conf?: Partial<KafkaConfig>,
-    topicConf?: TopicConfig
+  private createClient<T extends KafkaClient, U extends GlobalConfig, Z extends TopicConfig>(
+    clientClass: new (c: U, tc: Z) => T,
+    conf: U,
+    topicConf: Z
   ): T {
-    const config = { ...this.rdKafkaConfig, ...conf }
+    const config: U = { ...this.rdKafkaConfig as U, ...conf }
     const client = new clientClass(config, topicConf)
+
+    return client
+  }
+
+  private attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}) {
     const { log } = this.service
     const { connections } = this
 
-    client.on('ready', function connected(this: T) {
-      log.info('client ready')
+    client.on('ready', function connected(this: KafkaClient) {
+      log.info(meta, 'client ready')
       connections.add(this)
     })
 
-    client.on('disconnected', function disconnected(this: T) {
-      log.info('client disconnected')
+    client.on('disconnected', function disconnected(this: KafkaClient) {
+      log.info(meta, 'client disconnected')
       connections.delete(this)
     })
 
     client.on('event.log', (eventData: any) => {
-      log[getLogFnName(eventData.severity)]({ eventData }, 'kafka event.log')
+      log[getLogFnName(eventData.severity)]({ ...meta, eventData }, 'kafka event.log')
     })
 
-    client.on('event.error', (err: Error) => {
-      log.error({ err }, 'kafka client error')
+    client.on('event.error', (err: LibrdKafkaError) => {
+      log.warn({ ...meta, err }, 'kafka client error')
     })
-
-    return client
   }
 }
 
@@ -172,8 +171,8 @@ export class KafkaFactory implements KafkaFactoryInterface {
  * @param params - Kafka configuration.
  */
 export function attach(
-  this: Microfleet & LoggerPlugin & ValidatorPlugin,
-  params: KafkaConfig
+  this: Microfleet & ValidatorPlugin,
+  params: GlobalConfig
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
@@ -181,7 +180,7 @@ export function attach(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const conf: KafkaConfig = this.validator.ifError(name, params)
+  const conf: GlobalConfig = this.validator.ifError(name, params)
   const kafkaPlugin = this[name] = new KafkaFactory(this, conf)
 
   return {
