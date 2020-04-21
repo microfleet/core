@@ -1,24 +1,32 @@
 import _debug = require('debug')
-import noop = require('lodash/noop')
-import { ActionTransport } from '../../..'
-import { ServiceRequest } from '../../../types'
+import { ActionTransport, ServiceRequestInterface } from '../../..'
 import { Router } from '../../router/factory'
 import { RequestCallback } from '../../router/dispatcher'
+import { createServiceRequest } from './service-request-factory'
 
 const debug = _debug('mservice:router:socket.io')
 const { socketIO } = ActionTransport
 
+export interface SocketIOMessageOptions {
+  simpleResponse?: boolean;
+}
+
 export interface SocketIOMessage {
-  data: [string, any, RequestCallback];
+  data: [string, any, SocketIOMessageOptions, RequestCallback];
 }
 
 /* Decrease request count on response */
-function wrapCallback(router: Router, callback: RequestCallback) {
+function wrapCallback(router: Router, options: SocketIOMessageOptions, serviceRequest: ServiceRequestInterface, callback: RequestCallback) {
   return (err: any, result?: any) => {
     router.requestCountTracker.decrease(socketIO)
-    if (callback) {
-      callback(err, result)
-    }
+
+    if (!callback) return
+
+    const response = options.simpleResponse === false
+      ? { headers: Object.fromEntries(serviceRequest.getReplyHeaders()), data: result }
+      : result
+
+    callback(err, response)
   }
 }
 
@@ -28,26 +36,12 @@ function getSocketIORouterAdapter(_: any, router: Router) {
       /* Increase request count on message */
       router.requestCountTracker.increase(socketIO)
 
-      const [actionName, params, callback] = packet.data
-      const request: ServiceRequest = {
-        socket,
-        params,
-        action: noop as any,
-        headers: Object.create(null),
-        locals: Object.create(null),
-        log: console as any,
-        method: 'socketio',
-        parentSpan: undefined,
-        query: Object.create(null),
-        route: '',
-        span: undefined,
-        transport: socketIO,
-        transportRequest: packet,
-      }
+      const [actionName, params, options, callback] = packet.data
+      const serviceRequest = createServiceRequest(params, packet, socket)
 
       debug('prepared request with', packet.data)
-      const wrappedCallback = wrapCallback(router, callback)
-      router.dispatch.call(router, actionName, request, wrappedCallback)
+      const wrappedCallback = wrapCallback(router, options, serviceRequest, callback)
+      router.dispatch.call(router, actionName, serviceRequest, wrappedCallback)
     })
   }
 }

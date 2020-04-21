@@ -61,12 +61,12 @@ function createHapiServer(config: any, service: Microfleet): PluginInterface {
     }
 
     const registrations = []
-    for (const pluguinConfiguration of plugins) {
+    for (const pluginConfiguration of plugins) {
       registrations.push({
-        options: pluguinConfiguration.options,
-        plugin: typeof pluguinConfiguration.plugin === 'string'
-          ? require(pluguinConfiguration.plugin)
-          : pluguinConfiguration.plugin,
+        options: pluginConfiguration.options,
+        plugin: typeof pluginConfiguration.plugin === 'string'
+          ? require(pluginConfiguration.plugin)
+          : pluginConfiguration.plugin,
       })
     }
 

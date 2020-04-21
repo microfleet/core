@@ -3,8 +3,9 @@ import get = require('get-value')
 import is = require('is')
 import noop = require('lodash/noop')
 import { ActionTransport } from '../../..'
-import { ServiceRequest } from '../../../types'
 import { Router } from '../../router/factory'
+import { kReplyHeaders } from '@microfleet/transport-amqp/lib/constants'
+import { createServiceRequest } from './service-request-factory'
 
 // cached var
 const { amqp } = ActionTransport
@@ -41,28 +42,14 @@ function getAMQPRouterAdapter(router: Router, config: any) {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
     const actionName = normalizeActionName(routingKey)
 
-    const opts: ServiceRequest = {
-      // initiate action to ensure that we have prepared proto fo the object
-      // input params
-      // make sure we standardize the request
-      // to provide similar interfaces
-      params,
-      action: noop as any,
-      headers: properties,
-      locals: Object.create(null),
-      log: console as any,
-      method: amqp as ServiceRequest['method'],
-      parentSpan: raw.span,
-      query: Object.create(null),
-      route: '',
-      span: undefined,
-      transport: amqp,
-      transportRequest: Object.create(null),
-    }
+    const serviceRequest = createServiceRequest(properties, params, raw.span);
 
     increaseCounter()
     try {
-      const promise = dispatch(actionName, opts)
+      const promise = dispatch(actionName, serviceRequest)
+        .finally(() => {
+          raw.properties[kReplyHeaders] = Object.fromEntries(serviceRequest.getReplyHeaders())
+        });
       const response = await wrapDispatch(promise, actionName, raw)
       setImmediate(next, null, response)
     } catch (e) {

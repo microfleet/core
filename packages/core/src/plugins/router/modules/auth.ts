@@ -2,12 +2,12 @@ import Bluebird = require('bluebird')
 import { AuthenticationRequiredError, NotImplementedError } from 'common-errors'
 import is = require('is')
 import { Microfleet, RouterPlugin } from '../../../'
-import { AuthConfig, ServiceRequest } from '../../../types'
+import { AuthConfig, ServiceRequestInterface } from '../../../types'
 import { identity } from '../../../constants'
 import moduleLifecycle from './lifecycle'
 
 export interface AuthStrategy {
-  (this: Microfleet, request: ServiceRequest): PromiseLike<any>;
+  (this: Microfleet, request: ServiceRequestInterface): PromiseLike<any>;
 }
 
 export interface AuthOptions {
@@ -40,7 +40,7 @@ const isObligatory = (strategy: string) => {
   }
 }
 
-const retrieveStrategy = (request: ServiceRequest, strategies: AuthOptions['strategies']) => {
+const retrieveStrategy = (request: ServiceRequestInterface, strategies: AuthOptions['strategies']) => {
   const { action } = request
   const authConfig = action.auth
 
@@ -84,7 +84,7 @@ const retrieveStrategy = (request: ServiceRequest, strategies: AuthOptions['stra
   }
 }
 
-function auth(this: Microfleet, request: ServiceRequest, strategies: AuthOptions['strategies']) {
+function auth(this: Microfleet, request: ServiceRequestInterface, strategies: AuthOptions['strategies']) {
   const authSchema = retrieveStrategy(request, strategies)
 
   if (authSchema.strategy == null) {
@@ -107,7 +107,7 @@ function auth(this: Microfleet, request: ServiceRequest, strategies: AuthOptions
 }
 
 function assignStrategies(strategies: AuthOptions['strategies']) {
-  return function authHandler(this: Microfleet & RouterPlugin, request: ServiceRequest): PromiseLike<any> {
+  return function authHandler(this: Microfleet & RouterPlugin, request: ServiceRequestInterface): PromiseLike<any> {
     const authFn = is.undefined(request.action.auth)
       ? identity
       : auth

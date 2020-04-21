@@ -4,13 +4,13 @@ import { Error } from 'common-errors'
 import is = require('is')
 import { Microfleet } from '../../../'
 import { DATA_KEY_SELECTOR } from '../../../constants'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequestInterface } from '../../../types'
 import { ValidatorPlugin } from '../../validator'
 import moduleLifecycle from './lifecycle'
 
 type ParamsKey = 'query' | 'params'
 
-async function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequest): Promise<ServiceRequest> {
+async function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequestInterface): Promise<ServiceRequestInterface> {
   const { validator } = this
   const paramsKey: ParamsKey = DATA_KEY_SELECTOR[request.method]
 
@@ -26,11 +26,11 @@ async function validate(this: Microfleet & ValidatorPlugin, request: ServiceRequ
   }
 }
 
-function passThrough(request: ServiceRequest): ServiceRequest {
+function passThrough(request: ServiceRequestInterface): ServiceRequestInterface {
   return request
 }
 
-function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequest): Bluebird<any>  {
+function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequestInterface): Bluebird<any>  {
   const validateFn = is.undefined(request.action.schema)
     ? passThrough
     : validate

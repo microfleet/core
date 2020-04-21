@@ -1,13 +1,19 @@
 import { HttpStatusError } from '@microfleet/validation'
 import Bluebird = require('bluebird')
 import Errors = require('common-errors')
-import { Request } from '@hapi/hapi'
-import noop = require('lodash/noop')
+import { Request, ResponseObject, ResponseToolkit } from '@hapi/hapi'
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
-import { ActionTransport, Microfleet } from '../../../../..'
-import { ServiceRequest, RequestMethods } from '../../../../../types'
+import { Microfleet, ReplyHeaderValue } from '../../../../..'
 import _require from '../../../../../utils/require'
 import { Router } from '../../../../router/factory'
+import { createServiceRequest} from "./service-request-factory";
+
+const setReplyHeader = (response: ResponseObject) => (value: ReplyHeaderValue, title: string) => {
+  // set-cookie header exceptional case is correctly implemented by hapi
+  return Array.isArray(value)
+    ? value.forEach(item => response.header(title, item))
+    : response.header(title, value)
+}
 
 export default function getHapiAdapter(actionName: string, service: Microfleet) {
   const Boom = _require('@hapi/boom')
@@ -61,7 +67,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })
 
-  return async function handler(request: Request) {
+  return async function handler(request: Request, h: ResponseToolkit) {
     const { headers } = request
 
     let parentSpan
@@ -69,28 +75,15 @@ export default function getHapiAdapter(actionName: string, service: Microfleet) 
       parentSpan = service.tracer.extract(headers, FORMAT_HTTP_HEADERS)
     }
 
-    const serviceRequest: ServiceRequest = {
-      // defaults for consistent object map
-      // opentracing
-      // set to console
-      // transport type
-      headers,
-      parentSpan,
-      action: noop as any,
-      locals: Object.create(null),
-      log: console as any,
-      method: request.method.toLowerCase() as RequestMethods,
-      params: request.payload,
-      query: request.query,
-      route: '',
-      span: undefined,
-      transport: ActionTransport.http,
-      transportRequest: request,
-    }
+    const serviceRequest = createServiceRequest(request, parentSpan);
 
-    let response
+    let response: ResponseObject
+
     try {
-      response = await dispatch(actionName, serviceRequest)
+      const responseData = await dispatch(actionName, serviceRequest)
+
+      response = h.response(responseData)
+      serviceRequest.getReplyHeaders().forEach(setReplyHeader(response))
     } catch (e) {
       response = reformatError(e)
     }

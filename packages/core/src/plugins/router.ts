@@ -3,10 +3,12 @@ import rfdc = require('rfdc')
 import { NotFoundError, NotSupportedError } from 'common-errors'
 import { ActionTransport, PluginTypes, identity } from '../constants'
 import { Microfleet } from '../'
-import { ServiceRequest } from '../types'
+import { ServiceRequestInterface } from '../types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
 import { ValidatorPlugin } from './validator'
 import { object as isObject } from 'is'
+import { ServiceRequest } from '../utils/service-request';
+
 const { internal } = ActionTransport
 
 /**
@@ -21,7 +23,7 @@ export { Router, RouterConfig, LifecycleRequestType }
  */
 export interface RouterPlugin {
   router: Router;
-  dispatch: (route: string, request: Partial<ServiceRequest>) => PromiseLike<any>;
+  dispatch: (route: string, request: Partial<ServiceRequestInterface>) => PromiseLike<any>;
 }
 
 /**
@@ -52,27 +54,16 @@ const deepClone = rfdc()
  * @param request - service request.
  * @returns Prepared service request.
  */
-const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
-  // initiate action to ensure that we have prepared proto fo the object
-  // input params
-  // make sure we standardize the request
-  // to provide similar interfaces
-  action: null as any,
-  headers: shallowObjectClone(request.headers),
-  locals: shallowObjectClone(request.locals),
-  auth: shallowObjectClone(request.auth),
-  log: console as any,
-  method: internal as ServiceRequest['method'],
-  params: request.params != null
+const prepareRequest = (request: Partial<ServiceRequestInterface>): ServiceRequestInterface => new ServiceRequest(
+  internal,
+  internal,
+  Object.create(null),
+  shallowObjectClone(request.headers),
+  request.params != null
     ? deepClone(request.params)
     : Object.create(null),
-  parentSpan: undefined,
-  query: Object.create(null),
-  route: '',
-  span: undefined,
-  transport: internal,
-  transportRequest: Object.create(null),
-})
+  Object.create(null)
+)
 
 /**
  * Enables router plugin.
@@ -97,7 +88,7 @@ export function attach(this: Microfleet & ValidatorPlugin & RouterPlugin, opts: 
     : identity
 
   // dispatcher
-  this.dispatch = (route: string, request: Partial<ServiceRequest>) => {
+  this.dispatch = (route: string, request: Partial<ServiceRequestInterface>) => {
     const msg = prepareRequest(request)
     return router.dispatch(assemble(route), msg)
   }

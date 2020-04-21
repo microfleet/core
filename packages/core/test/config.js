@@ -76,16 +76,20 @@ global.SERVICES = {
   http: {
     server: {
       attachSocketIO: true,
-      handler: 'restify',
+      handler: 'hapi',
       handlerConfig: {},
       port: 3000,
     },
+    router: {
+      enabled: true
+    }
   },
   router: {
     routes: {
       directory: path.resolve(__dirname, './socketIO/helpers/actions'),
       enabled: {
         echo: 'echo',
+        'success-set-header': 'success-set-header',
       },
       transports: [ActionTransport.socketIO],
     },

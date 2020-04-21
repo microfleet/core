@@ -6,7 +6,8 @@ import {
   DESTRUCTORS_PROPERTY,
   PLUGIN_STATUS_FAIL,
   PLUGIN_STATUS_OK,
-  PluginTypes
+  PluginTypes,
+  kReplyHeaders,
 } from './constants'
 
 import { ClientRequest } from 'http'
@@ -67,7 +68,7 @@ export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_
 export type TransportTypes = $Values<typeof ActionTransport>
 export type TConnectorsTypes = $Values<typeof ConnectorsTypes>
 export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>
-export type GetAuthName = (req: ServiceRequest) => string
+export type GetAuthName = (req: ServiceRequestInterface) => string
 export type ServiceActionStep = (...args: any[]) => PromiseLike<any>
 
 export declare interface ServiceAction extends ServiceActionStep {
@@ -80,7 +81,21 @@ export declare interface ServiceAction extends ServiceActionStep {
   readonly?: boolean;
 }
 
-export declare interface ServiceRequest {
+export declare interface ServiceRequestInterface {
+  // eslint-disable-next-line @typescript-eslint/no-misused-new
+  new(
+    transport: TransportTypes,
+    method: RequestMethods,
+    query: any,
+    headers: any,
+    params: any,
+    transportRequest: any | ClientRequest,
+    socket?: NodeJS.EventEmitter,
+    parentSpan?: any,
+  ): ServiceRequestInterface;
+
+  (): void;
+
   route: string;
   params: any;
   headers: any;
@@ -102,6 +117,14 @@ export declare interface ServiceRequest {
     error(...args: any[]): void;
     fatal(...args: any[]): void;
   };
+  [kReplyHeaders]: ReplyHeaders;
+  setReplyHeader: (title: string, value: string) => ServiceRequestInterface;
+  removeReplyHeader: (title: string) => ServiceRequestInterface;
+  getReplyHeaders: () => ReplyHeaders;
+  getReplyHeader?: ReplyHeaderValue;
 }
+
+export type ReplyHeaderValue = string[]|string
+export type ReplyHeaders = Map<string, ReplyHeaderValue>
 
 export type PluginStatus = typeof PLUGIN_STATUS_OK | typeof PLUGIN_STATUS_FAIL

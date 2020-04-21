@@ -1,3 +1,4 @@
+const path = require('path');
 const Promise = require('bluebird');
 const assert = require('assert');
 const sinon = require('sinon');
@@ -90,6 +91,41 @@ describe('AMQP suite: basic routing', function testSuite() {
     const response = await amqp.publishAndWait('echo', { foo: 'bar' });
 
     assert.deepStrictEqual(response, { foo: 'bar' });
+  });
+
+  it('able to send request and get simple response', async () => {
+    const { amqp } = service;
+    const result = await amqp.publishAndWait('success', null);
+
+    assert.deepEqual(result, { redirected: true });
+  });
+
+  it('able to set response header', async () => {
+    const { amqp } = service;
+    const result = await amqp.publishAndWait('success-set-header', null,  { simpleResponse: false });
+
+    assert.deepEqual(result, {
+      headers: {
+        timeout: 10000,
+        'x-your-response-header': 'header value'
+      },
+      data: undefined
+    });
+  });
+
+  it('able to remove response header', async () => {
+    const { amqp } = service;
+    const result = await amqp.publishAndWait('success-remove-header', null, { simpleResponse: false });
+
+    assert.deepEqual(result, {
+      headers: {
+        timeout: 10000,
+        'x-your-response-header': 'header value'
+      },
+      data: undefined
+    });
+
+    assert.strictEqual(result.headers['x-remove-me'], undefined);
   });
 });
 

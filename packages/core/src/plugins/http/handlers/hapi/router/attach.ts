@@ -58,10 +58,10 @@ export default function attachRouter(service: Microfleet, config: any): HapiPlug
         server.route({
           method: ['GET', 'POST'],
           path: '/{any*}',
-          async handler(request: Request) {
+          async handler(request: Request, h: ResponseToolkit) {
             const actionName = fromPathToName(request.path, config.prefix)
             const handler = hapiRouterAdapter(actionName, service)
-            return handler(request)
+            return handler(request, h)
           },
         })
 
