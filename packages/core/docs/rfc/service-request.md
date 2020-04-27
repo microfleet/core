@@ -116,27 +116,37 @@ deliver headers to original reply message.
 #### `.setReplyHeader(title: string, value: number|string|array<string>): void`
 Sets reply header to the map.
 
-Must normalizes title.
+Must normalize title.
 Must validate and cast value.
 
-Headers considerations:
-- HTTP: When value is array, joins values by semicolon
-- HTTP: *`Set-Cookie` must not be joined.* https://tools.ietf.org/html/rfc7230#section-3.2.2 (Hapi handles it correctly,
-but we do not proxy set header calls, we collect them, that's why we allow raw array of strings as a value)
-- HTTP: Should allow both 'x-' prefixed and not prefixed headers
+If normalized `title` is `set-cookie`, it's being appended to previously set `set-cookie` value.
+Else it`s value is being overridden:
 
-Questions:
-- AMQP: Reject headers starting with anything except 'x-' not let it to be overriden? What about `x-death`?
-- Internal: Is there any sense of implementing headers for internal transport?
-
-Usage:
 ```js
 function actionHandler(serviceRequest) {
-  const { state } = this.config.cookie
   serviceRequest.setReplyHeader('x-rate-limit', 10000)
-  serviceRequest.setReplyHeader('set-cookie', [...state])
+  serviceRequest.setReplyHeader('x-rate-limit', 20000)
+  
+  serviceRequest.setReplyHeader('set-cookie', 'state=sg687gjjsdg69847gjsh; Domain=app.com; Secure; HttpOnly')
+  serviceRequest.setReplyHeader('set-cookie', 'visitor=798; Domain=app.com; Secure; SameSite=Lax')
+  
+  serviceRequest.setReplyHeader('x-location', 'lat=58.259624, lng=55.919243')
+  serviceRequest.setReplyHeader('X-LOCATION', 'lat=64.547589, lng=39.758303')
 }
 ```
+
+This will make the reply headers map be like:
+```
+Map {
+  'set-cookie' => [
+    'state=sg687gjjsdg69847gjsh; Domain=app.com; Secure; HttpOnly',
+    'visitor=798; Domain=app.com; Secure; SameSite=Lax'
+  ],
+  'x-rate-limit' => '20000',
+  'x-location' => 'lat=64.547589, lng=39.758303',
+}
+```
+Which will result in two different header lines for HTTP transport.
  
 #### `.removeReplyHeader(title: string): void`
 Normalizes title and removes header from headers map.
@@ -149,7 +159,7 @@ function actionHandler(serviceRequest) {
 }
 ```
 
-#### `.getReplyHeaders(): Map<string,number|string|string[]>`
+#### `.getReplyHeaders(): Map<string,string|string[]>`
 Gets all previously initialized headers from headers map.
 
 Usage:
@@ -160,7 +170,7 @@ function actionHandler(serviceRequest) {
 }
 ```
 
-#### `.getReplyHeader(title: string): number|string|string[]`
+#### `.getReplyHeader(title: string): string|string[]`
 Gets header from map.
 
 Must normalize title.
@@ -171,8 +181,7 @@ Extract headers collection and set it under `kReplyHeaders` key of `raw.properti
 defined by `@microfleet/transport-amqp` library.
 
 ### HTTP Transport
-Consider HTTP RFC relative to [`set-cookie` header](https://tools.ietf.org/html/rfc7230#section-3.2.2). Since this is
-common thing for any HTTP handler, it should be implemented in a composable way.
+Consider HTTP RFC relative to [`set-cookie` header](https://tools.ietf.org/html/rfc7230#section-3.2.2).
 
 #### Hapi Handler
 Extract headers collection and set it to the response using Hapi Response Toolkit. 
