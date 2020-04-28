@@ -1,7 +1,7 @@
 {
   "name": "@microfleet/plugin-kafka-types",
   "description": "Types for Apache Kafka adapter for microfleet",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "lint": "eslint './**/*.ts'",
     "test": "yarn lint; tsc",
