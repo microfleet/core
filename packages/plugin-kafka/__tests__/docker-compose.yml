@@ -31,6 +31,9 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_GROUP_MIN_SESSION_TIMEOUT_MS: 10000
       KAFKA_GROUP_MAX_SESSION_TIMEOUT_MS: 30000
+      KAFKA_NUM_NETWORK_THREADS: 64
+      KAFKA_NUM_IO_THREADS: 64
+      KAFKA_BACKGROUND_THREADS: 64
 
   toxy:
     image: shopify/toxiproxy
@@ -52,3 +55,4 @@ services:
       - toxy:kafka
     environment:
       DEBUG: ${DEBUG}
+      UV_THREADPOOL_SIZE: 32 # assume 4+n consumers active and give some more place

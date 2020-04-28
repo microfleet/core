@@ -121,6 +121,11 @@ declare module 'node-rdkafka' {
   export interface Client extends EventEmitter {
     _isDisconnecting: boolean;
 
+    // Required on dicsonnection cleanup
+    globalConfig: GlobalConfig;
+    _client: Client;
+    _metadata: Metadata | null | undefined;
+
     connectAsync(metadataOptions: MetadataOptions): Promise<Metadata>;
     disconnectAsync(): Promise<this>;
     disconnectAsync(timeout: number): Promise<this>;
@@ -136,10 +141,5 @@ declare module 'node-rdkafka' {
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/kafka-consumer.js#L176
     committedAsync(toppars: TopicPartition[], timeout: number): Promise<kafka.TopicPartitionOffset[]>;
     consumeAsync(count: number): Promise<kafka.Message[]>;
-
-    // REMOVE WHEN FIXED - in original typedef for this method shows single Assignment
-    // but the code returns an Array of assignments
-    assignments(): Assignment[];
-    assign(assignments: Assignment[]): this;
   }
 }

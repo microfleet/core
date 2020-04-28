@@ -76,15 +76,17 @@ export class KafkaConsumerStream extends Readable {
     this.messages = []
     this.closeAsync = promisify(this.close, { context: this })
 
-    this.consumer.on('rebalance', this.handleRebalance.bind(this))
-    this.consumer.on('offset.commit', this.handleOffsetCommit.bind(this))
-    this.consumer.on('disconnected', this.handleDisconnected.bind(this))
+    this.handleRebalance = this.handleRebalance.bind(this)
+    this.handleOffsetCommit = this.handleOffsetCommit.bind(this)
+    this.handleDisconnected = this.handleDisconnected.bind(this)
+    this.handleUnsubscribed = this.handleUnsubscribed.bind(this)
+
+    this.consumer.on('rebalance', this.handleRebalance)
+    this.consumer.on('offset.commit', this.handleOffsetCommit)
+    this.consumer.on('disconnected', this.handleDisconnected)
     // we should start graceful shutdown on unsubscribe
     // otherwise stream could misbehave
-    this.consumer.on('unsubscribed', () => {
-      this.log?.debug('unsubscribed from topics - quitting')
-      this.destroy()
-    })
+    this.consumer.on('unsubscribed', this.handleUnsubscribed)
 
     this.topics = Array.isArray(config.topics) ? config.topics : [config.topics]
 
@@ -108,6 +110,8 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public _destroy(err: Error | null | undefined, callback?: (err: Error | null) => void): void {
+    this.removeListeners()
+
     if (!this.consumer.isConnected()) {
       if (callback) callback(err || null)
       return
@@ -174,6 +178,19 @@ export class KafkaConsumerStream extends Readable {
 
   private consumerDisconnected(): boolean {
     return this.consumer._isDisconnecting || !this.consumer.isConnected()
+  }
+
+  // Remove event listeners to allow the class to be destroyed by GC
+  private removeListeners(): void {
+    this.consumer.removeListener('rebalance', this.handleRebalance)
+    this.consumer.removeListener('offset.commit', this.handleOffsetCommit)
+    this.consumer.removeListener('disconnected', this.handleDisconnected)
+    this.consumer.removeListener('unsubscribed', this.handleUnsubscribed)
+  }
+
+  private handleUnsubscribed(): void {
+    this.log?.debug('unsubscribed from topics - quitting')
+    this.destroy()
   }
 
   private async handleOffsetCommit(err: Error | LibrdKafkaError | number, partitions: TopicPartitionOffset[]): Promise<void> {
@@ -273,27 +290,25 @@ export class KafkaConsumerStream extends Readable {
 
   // we must loop forever
   private async readLoop(): Promise<void> {
-    // when consumer disconnecting it throws Error: KafkaConsumer is not connected
-    if (this.consumerDisconnected()) return
+    while(!this.consumerDisconnected()) {
+      // when consumer disconnecting it throws Error: KafkaConsumer is not connected
+      const bufferAvailable = this.readableHighWaterMark - this.readableLength
+      const fetchSize = this.config.streamAsBatch ? this.fetchSize : bufferAvailable
 
-    const bufferAvailable = this.readableHighWaterMark - this.readableLength
-    const fetchSize = this.config.streamAsBatch ? this.fetchSize : bufferAvailable
+      try {
+        const messages = await this.consumer.consumeAsync(fetchSize)
 
-    try {
-      const messages = await this.consumer.consumeAsync(fetchSize)
-
-      if (messages.length > 0) this.handleIncomingMessages(messages)
-      if (this.config.waitInterval) await delay(this.config.waitInterval)
-    } catch (err) {
-      this.log?.error({ err }, 'consume error')
-      // We can receive Broker transport error with code -1
-      // It's repeatable error
-      if (err.code !== Generic.ERR_UNKNOWN) {
-        this.destroy(err)
-        return
+        if (messages.length > 0) this.handleIncomingMessages(messages)
+        if (this.config.waitInterval) await delay(this.config.waitInterval)
+      } catch (err) {
+        this.log?.error({ err }, 'consume error')
+        // We can receive Broker transport error with code -1
+        // It's repeatable error
+        if (err.code !== Generic.ERR_UNKNOWN) {
+          this.destroy(err)
+          return
+        }
       }
-    } finally {
-      this.readLoop()
     }
   }
 
