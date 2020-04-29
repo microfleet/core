@@ -15,14 +15,19 @@ export interface SocketIOMessage {
   data: [string, any, SocketIOMessageOptions, RequestCallback];
 }
 
-/* Decrease request count on response */
-function wrapCallback(router: Router, options: SocketIOMessageOptions, serviceRequest: ServiceRequestInterface, callback: RequestCallback) {
+function wrapCallback(
+  router: Router,
+  serviceRequest: ServiceRequestInterface,
+  options: SocketIOMessageOptions,
+  callback: RequestCallback
+) {
   return (err: any, result?: any) => {
+    // Decrease request count on response
     router.requestCountTracker.decrease(socketIO)
 
     if (!callback) return
 
-    const response = options.simpleResponse === false
+    const response = options && options.simpleResponse === false
       ? { headers: Object.fromEntries(serviceRequest.getReplyHeaders()), data: result }
       : result
 
@@ -40,7 +45,7 @@ function getSocketIORouterAdapter(_: any, router: Router) {
       const serviceRequest = createServiceRequest(params, packet, socket)
 
       debug('prepared request with', packet.data)
-      const wrappedCallback = wrapCallback(router, options, serviceRequest, callback)
+      const wrappedCallback = wrapCallback(router, serviceRequest, options, callback)
       router.dispatch.call(router, actionName, serviceRequest, wrappedCallback)
     })
   }
