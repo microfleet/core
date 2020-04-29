@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.2.1...@microfleet/plugin-kafka@2.2.2) (2020-04-29)
+
+
+### Bug Fixes
+
+* **plugin-kafka:** offsetsStore called using lower offsets ([#419](https://github.com/microfleet/core/issues/419)) ([621edc1](https://github.com/microfleet/core/commit/621edc135786fe373527a18558e965e1f51e9367))
+
+
+
+
+
 ## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.2.0...@microfleet/plugin-kafka@2.2.1) (2020-04-28)
 
 **Note:** Version bump only for package @microfleet/plugin-kafka
