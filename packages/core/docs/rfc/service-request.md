@@ -207,8 +207,8 @@ Expect new optional argument `options` to be passed on `.emit`:
 ```
 
 When present, options may contain `simpleResponse` setting.
-When `simpleResponse` option is disabled, callback `result` must be resolved with `data` containing reply message,
-and `headers` containing headers.  
+When `simpleResponse` option value is `false`, callback `result` must be resolved with `data` containing reply message,
+and `headers` containing headers. Otherwise, callback `result` must be resolved with reply message.
 
 ```
 { headers: { [key: string]: string }, data?: unknown }
@@ -224,3 +224,5 @@ client.emit('echo', { message: 'ok' }, { simpleResponse: false }, (error, result
 ### Internal Transport
 Router plugin exposes two `dispatch` methods to the Service: `.dispatch()` and `.router.dispatch()`.
 Extend Router plugin `.dispatch` method signature with optional `options` argument to pass `simpleResponse` flag.
+When `simpleResponse` option value is `false`, callback `result` must be resolved with `data` containing reply message,
+and `headers` containing headers. Otherwise, callback `result` must be resolved with reply message.
