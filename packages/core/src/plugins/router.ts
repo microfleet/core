@@ -1,12 +1,13 @@
+import Bluebird = require('bluebird')
 import assert = require('assert')
 import rfdc = require('rfdc')
 import { NotFoundError, NotSupportedError } from 'common-errors'
+import { object as isObject } from 'is'
 import { ActionTransport, PluginTypes, identity } from '../constants'
 import { Microfleet } from '../'
 import { ServiceRequestInterface } from '../types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
 import { ValidatorPlugin } from './validator'
-import { object as isObject } from 'is'
 import { ServiceRequest } from '../utils/service-request';
 
 const { internal } = ActionTransport
@@ -16,6 +17,9 @@ const { internal } = ActionTransport
  */
 export const name = 'router'
 export { Router, RouterConfig, LifecycleRequestType }
+export interface DispatchOptionsInterface {
+  simpleResponse?: boolean
+}
 
 /**
  * Defines extension points of
@@ -23,7 +27,7 @@ export { Router, RouterConfig, LifecycleRequestType }
  */
 export interface RouterPlugin {
   router: Router;
-  dispatch: (route: string, request: Partial<ServiceRequestInterface>) => PromiseLike<any>;
+  dispatch: (route: string, request: Partial<ServiceRequestInterface>, options?: DispatchOptionsInterface) => PromiseLike<any>;
 }
 
 /**
@@ -87,9 +91,16 @@ export function attach(this: Microfleet & ValidatorPlugin & RouterPlugin, opts: 
     ? (route: string) => `${prefix}.${route}`
     : identity
 
-  // dispatcher
-  this.dispatch = (route: string, request: Partial<ServiceRequestInterface>) => {
-    const msg = prepareRequest(request)
-    return router.dispatch(assemble(route), msg)
-  }
+  // internal dispatcher
+  const dispatch = async (route: string, request: Partial<ServiceRequestInterface>, options?: DispatchOptionsInterface) => {
+    const serviceRequest = prepareRequest(request)
+    const data = await router.dispatch(assemble(route), serviceRequest)
+    const includeHeaders = options && options.simpleResponse === false;
+
+    return includeHeaders
+      ? { data, headers: Object.fromEntries(serviceRequest.getReplyHeaders()) }
+      : data;
+  };
+
+  this.dispatch = Bluebird.method(dispatch)
 }

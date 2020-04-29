@@ -2,27 +2,33 @@
    
 ## Overview and Motivation
 The Service handles incoming messages via several action Transports. On each incoming message Transport Router Adapter 
-builds a Service Request instance and passes it to the Dispatcher. This instance becomes available in the Action Handler 
-as an argument. Its structure is abstract and functionality is basically transport-agnostic.
+builds an object with `ServiceRequest` type and passes it to the Dispatcher. There is no common constructor function now. 
+This object becomes available in the Action Handler as an argument. Its structure is abstract and functionality is 
+basically transport-agnostic.
 
 
 Most transport protocols natively have headers in messages. While currently every Transport Router Adapter is able to 
 parse incoming messages including its optional headers, in order to fully support messaging protocols the Service should 
-provide a way to set, modify and remove response message headers.
+provide a way to set, modify and remove response message headers. That's why we need to implement **common reply headers 
+API**.
 
 
-Although every transport could have its own protocol limitations (considerations) over the headers, the Service Request 
-instance could only take responsibility for collecting them. In order to be able to validate and adapt resulting 
-collection independently, these tasks should be performed on the Transport level.  
-
-
-Considering Node V8 hidden classes concept, in order to minimize hidden class trees number and respectfully maximize the 
+Considering Node V8 hidden classes concept, to minimize hidden class trees number and respectfully maximize the 
 performance, the Service Request instance must always aim to have same object shape and its properties initialization 
-order. 
-Our secret Node.JS performance expert claims that functions work even faster regarding hidden class optimization than
-ES6 classes.
-To meet these requirements the Service Request must be initialized using functions and preset every property value on
-construction.
+order. In order to make it even more performant we have to choose functions over ES6 classes for the Service Request 
+implementation. Due to that we need to use **single constructor function** to instantiate Service Request objects 
+anywhere.
+
+
+Developer experience could be improved in two ways: early headers validation and **strict and common validation policy**. 
+Early validation will help a developer to avoid errors on transport level. Since the limitations may be different, we 
+must comply with the strictest among all transports validation rules, so that any Action Handler could start to support 
+each of the Transports effortlessly.
+
+
+In order to respect backwards compatibility, we should be able to choose whether the reply will contain **only 
+message body or include headers** as well. This will be resolved with boolean **simpleResponse** option on the Transport
+Plugin level, which value must be `true` by default.
 
 ## Service Request Interface
 
@@ -71,8 +77,8 @@ May be set by Transport Router Adapter.
 Router must set Log child instance with a unique Request identifier.
 
 #### `.socket?: NodeJS.EventEmitter`
-In order to provide web sockets protocol support we need to operate on socket instance... But could we live without it?
-Can we manage it through service request extensions mechanism?
+In order to provide web sockets protocol support we need to operate on socket instance. It should be set whenever
+socket instance is available. 
 
 #### `.parentSpan`
 When a Tracer is enabled, property may hold a tracer parent span, which context must be supplied by the Transport.
@@ -176,6 +182,7 @@ Gets header from map.
 Must normalize title.
 
 ## Implementation design
+
 ### AMQP Transport
 Extract headers collection and set it under `kReplyHeaders` key of `raw.properties`, where `kReplyHeaders` is a Symbol 
 defined by `@microfleet/transport-amqp` library.
@@ -192,9 +199,9 @@ Expect new optional argument `options` to be passed on `.emit`:
 .emit(action: string, body: any, options: SocketIOMessageOptions, callback: RequestCallback): void
 ```
 
-When present, options may contain `simpleResponse` setting, which defaults to true.
-When `simpleResponse` option is disabled, callback `result` must be resolved with `data` containing response message,
-and `headers` containing headers that had user could set.  
+When present, options may contain `simpleResponse` setting.
+When `simpleResponse` option is disabled, callback `result` must be resolved with `data` containing reply message,
+and `headers` containing headers.  
 
 ```
 { headers: { [key: string]: string }, data?: unknown }
@@ -208,6 +215,5 @@ client.emit('echo', { message: 'ok' }, { simpleResponse: false }, (error, result
 ```
 
 ### Internal Transport
-If there any sense of implementing internal transport headers, its returning Promise may also be resolved with `data` 
-and `headers`. However, I don't see the `dispatch` method argument list extended by some response options like 
-`simpleResponse`, because it does not seem like an appropriate place for that.
+Router plugin exposes two `dispatch` methods to the Service: `.dispatch()` and `.router.dispatch()`.
+Extend Router plugin `.dispatch` method signature with optional `options` argument to pass `simpleResponse` flag.

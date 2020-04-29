@@ -97,4 +97,4 @@ export const PluginsPriority = [
 export const PLUGIN_STATUS_OK = 'ok'
 export const PLUGIN_STATUS_FAIL = 'fail'
 
-export const kReplyHeaders = Symbol('replyHeaders')
+export const kReplyHeaders = Symbol.for('microfleet:replyHeaders')
