@@ -274,9 +274,10 @@ export class KafkaConsumerStream extends Readable {
       }
 
       this.updatePartitionOffsets([topicPartition], unacknowledgedTracker)
-
-      if (autoStore) this.consumer.offsetsStore([topicPartition])
     }
+
+    // We already have all max offsets inside unacknowledgedTracker. Let's mark them for commit
+    if (autoStore) this.consumer.offsetsStore([...unacknowledgedTracker.values()])
 
     if (this.config.streamAsBatch) {
       this.messages.push(messages)
