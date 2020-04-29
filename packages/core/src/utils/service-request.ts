@@ -1,7 +1,10 @@
-import {RequestMethods, TransportTypes, ReplyHeaders, ServiceRequestInterface, ReplyHeaderValue } from '../types'
+import assert from 'assert'
 import { ClientRequest } from 'http'
 import noop = require('lodash/noop')
+import {RequestMethods, TransportTypes, ReplyHeaders, ServiceRequestInterface, ReplyHeaderValue } from '../types'
 import { kReplyHeaders } from '../constants'
+
+// const isASCII = string => /^[\x00-\x7F]*$/.test(string);
 
 export const ServiceRequest = function(
   this: ServiceRequestInterface,
@@ -33,6 +36,13 @@ export const ServiceRequest = function(
   this[kReplyHeaders] = new Map()
 } as ServiceRequestInterface
 
+// @ts-ignore-line
+ServiceRequest.prototype.isValidReplyHeader = function(title: string, value: ReplyHeaderValue): boolean {
+  // todo implement
+  // check if is ASCII
+  return true;
+}
+
 ServiceRequest.prototype.getReplyHeader = function (title: string): ReplyHeaders {
   return this[kReplyHeaders].get(title.toLowerCase())
 }
@@ -52,6 +62,8 @@ ServiceRequest.prototype.removeReplyHeader = function (title: string): ServiceRe
 }
 
 ServiceRequest.prototype.setReplyHeader = function (title: string, value: ReplyHeaderValue): ServiceRequestInterface {
+  assert(this.isValidReplyHeader(title, value), 'Reply header is invalid');
+
   this[kReplyHeaders].set(title.toLowerCase(), value)
 
   return this

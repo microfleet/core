@@ -123,7 +123,8 @@ deliver headers to original reply message.
 Sets reply header to the map.
 
 Must normalize title.
-Must validate and cast value.
+Must cast numeric value to string.
+Must validate title and value. Must throw exception if any of arguments is invalid.
 
 If normalized `title` is `set-cookie`, it's being appended to previously set `set-cookie` value.
 Else it`s value is being overridden:
@@ -180,6 +181,12 @@ function actionHandler(serviceRequest) {
 Gets header from map.
 
 Must normalize title.
+
+### `.isValidReplyHeader(title: string, value: string|string[]): boolean`
+Must validate title and value.
+Validation rules are:
+* Is ASCII
+Empty strings are allowed.
 
 ## Implementation design
 
