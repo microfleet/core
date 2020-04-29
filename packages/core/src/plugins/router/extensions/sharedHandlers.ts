@@ -1,12 +1,11 @@
-
 import { LifecyclePoints } from '.'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequestInterface } from '../../../types'
 
 interface RequestStartExtension {
   started: [number, number];
   executionTotal: [number, number];
 }
-export type ServiceRequestWithStart = ServiceRequest & RequestStartExtension
+export type ServiceRequestWithStart = ServiceRequestInterface & RequestStartExtension
 
 export function storeRequestTimeFactory() {
   return {

@@ -1,4 +1,5 @@
 declare module '@microfleet/transport-amqp/lib/utils/serialization'
+declare module '@microfleet/transport-amqp/lib/constants'
 declare module 'sort-by'
 declare module 'rfdc'
 declare module 'socketio-wildcard'

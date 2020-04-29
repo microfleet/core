@@ -15,7 +15,7 @@ import {
   ValidationError
 } from 'common-errors'
 import { Microfleet } from '../../../'
-import { ServiceRequest } from '../../../types'
+import { ServiceRequestInterface } from '../../../types'
 import moduleLifecycle from './lifecycle'
 
 function response(this: Microfleet, err: Error | null, result: any) {
@@ -57,7 +57,7 @@ function response(this: Microfleet, err: Error | null, result: any) {
   return Bluebird.resolve(result)
 }
 
-function responseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]) {
+function responseHandler(this: Microfleet, params: [Error | null, any, ServiceRequestInterface]) {
   return moduleLifecycle('response', response, this.router.extensions, params, this)
 }
 

@@ -1,11 +1,11 @@
 import { HttpStatusError } from 'common-errors'
 import { PLUGIN_STATUS_FAIL } from '../../../../constants'
 import { ActionTransport, Microfleet } from '../../../..'
-import { ServiceRequest } from '../../../../types'
+import { ServiceRequestInterface } from '../../../../types'
 
 const kUnhealthy = new HttpStatusError(500, 'unhealthy')
 
-async function genericHealthCheck(this: Microfleet, request: ServiceRequest) {
+async function genericHealthCheck(this: Microfleet, request: ServiceRequestInterface) {
   const data = await this.getHealthStatus()
 
   if (PLUGIN_STATUS_FAIL === data.status) {
