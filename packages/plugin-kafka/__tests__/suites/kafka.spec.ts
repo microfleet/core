@@ -79,7 +79,7 @@ describe('#generic', () => {
       expect(consumerStream).toBeDefined()
     })
 
-    test('should be able to get Admin client and create/delete topic', async () => {
+    test.only('should be able to get Admin client and create/delete topic', async () => {
       const { kafka } = service
       const readyTopic = {name: 'manually-created', partitions: [{id: 0, isrs: [1], leader: 1, replicas: [1]}]}
       const topic = 'manually-created'

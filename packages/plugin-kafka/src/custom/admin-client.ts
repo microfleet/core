@@ -76,10 +76,7 @@ export class KafkaAdminClient {
     // node-rdkafka Admin client not exported and available only throught `create` function
     // see https://github.com/Blizzard/node-rdkafka/blob/master/lib/admin.js#L11
     const { kafka } = this
-    const adminClient = AdminClient.create(kafka.rdKafkaConfig)
-
-    promisifyAll(adminClient)
-    return adminClient
+    return promisifyAll(AdminClient.create(kafka.rdKafkaConfig))
   }
 
   private async getClient(): Promise<KafkaClientType> {
@@ -107,9 +104,10 @@ export class KafkaAdminClient {
   private async waitFor(client: KafkaClient, topicName: string, criteria: WaitCriteria, params?: RetryParams): Promise<TopicMetadata> {
     const { tries, timeout, interval } = merge(params, this.defaultWaitParams)
     let attempts = 0
+    let timedOut = false
 
     const waitLoop = async (): Promise<TopicMetadata> => {
-      while (attempts < tries) {
+      while (!timedOut && attempts < tries) {
         attempts += 1
         const filtered = await this.getTopicFromMeta(client, topicName)
         if (criteria(filtered)) return filtered
@@ -120,7 +118,10 @@ export class KafkaAdminClient {
 
     const topic = await Promise.race([
       waitLoop(),
-      delay(timeout).throw(new TopicWaitError(params, { attempts } )),
+      delay(timeout).then(() => {
+        timedOut = true
+        throw new TopicWaitError(params, { attempts })
+      }),
     ])
     return topic
   }
