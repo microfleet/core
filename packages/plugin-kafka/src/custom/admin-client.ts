@@ -1,0 +1,127 @@
+import { Microfleet } from '@microfleet/core'
+import { promisifyAll, delay } from 'bluebird'
+import { merge } from 'lodash'
+
+import { IAdminClient, AdminClient, TopicMetadata, KafkaClient, Metadata, NewTopic, Producer } from './rdkafka-extra'
+import { TopicWaitError } from './errors'
+import { KafkaClient as KafkaClientType } from '@microfleet/plugin-kafka-types'
+import { KafkaFactory } from '../kafka'
+
+/**
+ * waitFor Method params
+ */
+type RetryParams = {
+  tries: number;
+  interval: number;
+  timeout: number;
+}
+
+type CreateTopicRequest = {
+  topic: NewTopic;
+  client?: KafkaClient;
+  params?: RetryParams;
+}
+
+type DeleteTopicRequest = {
+  topic: string;
+  client?: KafkaClient;
+  params?: RetryParams;
+}
+
+const filterTopic = (meta: Metadata, topic: string) => meta.topics.filter(topicMeta => topicMeta.name === topic)
+type WaitCriteria = (topic: TopicMetadata) => boolean
+
+export class KafkaAdminClient {
+  private service: Microfleet
+  private client!: Producer
+  private kafka: KafkaFactory
+
+  public adminClient: IAdminClient
+  public defaultWaitParams: RetryParams
+
+  constructor(service: Microfleet, kafka: KafkaFactory) {
+    this.service = service
+    this.kafka = kafka
+    this.adminClient = this.createAdminClient()
+
+    this.defaultWaitParams = {
+      tries: 10,
+      interval: 100,
+      timeout: 5000,
+    }
+  }
+
+  public close(): void {
+    this.service.log.debug('closing admin client')
+    this.adminClient.disconnect()
+  }
+
+  public async createTopic(req: CreateTopicRequest): Promise<void> {
+    const client = req.client || await this.getClient()
+    const criteria: WaitCriteria = topic => topic ? true : false
+
+    await this.adminClient.createTopicAsync(req.topic)
+    await this.waitFor(client, req.topic.topic, criteria, req.params)
+  }
+
+  public async deleteTopic(req: DeleteTopicRequest): Promise<void> {
+    const client = req.client || await this.getClient()
+    const criteria: WaitCriteria = topic => topic === undefined
+
+    await this.adminClient.deleteTopicAsync(req.topic)
+    await this.waitFor(client, req.topic, criteria, req.params)
+  }
+
+  private createAdminClient(): IAdminClient {
+    // node-rdkafka Admin client not exported and available only throught `create` function
+    // see https://github.com/Blizzard/node-rdkafka/blob/master/lib/admin.js#L11
+    const { kafka } = this
+    const adminClient = AdminClient.create(kafka.rdKafkaConfig)
+
+    promisifyAll(adminClient)
+    return adminClient
+  }
+
+  private async getClient(): Promise<KafkaClientType> {
+    if (!this.client) {
+      const { kafka } = this
+
+      this.client = kafka.createClient(Producer, kafka.rdKafkaConfig, {})
+      kafka.attachClientLogger(this.client, { type: 'admin-producer' })
+
+      await this.client.connectAsync({
+        allTopics: true,
+      })
+    }
+    return this.client
+  }
+
+  private async getTopicFromMeta(client: KafkaClient, topicName: string): Promise<TopicMetadata> {
+    const meta = await client.getMetadataAsync({
+      allTopics: true
+    })
+    const [filtered] = filterTopic(meta, topicName)
+    return filtered
+  }
+
+  private async waitFor(client: KafkaClient, topicName: string, criteria: WaitCriteria, params?: RetryParams): Promise<TopicMetadata> {
+    const { tries, timeout, interval } = merge(params, this.defaultWaitParams)
+    let attempts = 0
+
+    const waitLoop = async (): Promise<TopicMetadata> => {
+      while (attempts < tries) {
+        attempts += 1
+        const filtered = await this.getTopicFromMeta(client, topicName)
+        if (criteria(filtered)) return filtered
+        await delay(interval)
+      }
+      throw new TopicWaitError(`topic '${topicName}' wait error`,params, { attempts })
+    }
+
+    const topic = await Promise.race([
+      waitLoop(),
+      delay(timeout).throw(new TopicWaitError(params, { attempts } )),
+    ])
+    return topic
+  }
+}

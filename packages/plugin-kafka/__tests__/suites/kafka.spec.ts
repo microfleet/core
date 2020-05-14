@@ -79,6 +79,62 @@ describe('#generic', () => {
       expect(consumerStream).toBeDefined()
     })
 
+    test('should be able to get Admin client and create/delete topic', async () => {
+      const { kafka } = service
+      const readyTopic = {name: 'manually-created', partitions: [{id: 0, isrs: [1], leader: 1, replicas: [1]}]}
+      const topic = 'manually-created'
+
+      const producerTemp = await kafka.createProducerStream({
+        streamOptions: { objectMode: true },
+      })
+
+      const { admin } = kafka
+
+      await admin.createTopic({ topic: { topic, num_partitions: 1, replication_factor: 1 }})
+      const meta = await producerTemp.producer.getMetadataAsync({ allTopics: true })
+      expect(meta.topics).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining(readyTopic)
+        ])
+      )
+
+      await admin.deleteTopic({ topic })
+      const metaAfter = await producerTemp.producer.getMetadataAsync({ topic })
+      expect(metaAfter.topics).not.toEqual(
+        expect.arrayContaining([
+          expect.objectContaining(readyTopic)
+        ])
+      )
+    })
+
+    test('should be able to get Admin client and create/delete topic and reuse passed client', async () => {
+      const { kafka } = service
+      const readyTopic = {name: 'manually-created-2', partitions: [{id: 0, isrs: [1], leader: 1, replicas: [1]}]}
+      const topic = 'manually-created-2'
+
+      const producerTemp = await kafka.createProducerStream({
+        streamOptions: { objectMode: true },
+      })
+
+      const { admin } = kafka
+
+      await admin.createTopic({ client: producerTemp.producer, topic: { topic, num_partitions: 1, replication_factor: 1 }})
+      const meta = await producerTemp.producer.getMetadataAsync({ allTopics: true })
+      expect(meta.topics).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining(readyTopic)
+        ])
+      )
+
+      await admin.deleteTopic({ topic, client: producerTemp.producer })
+      const metaAfter = await producerTemp.producer.getMetadataAsync({ topic })
+      expect(metaAfter.topics).not.toEqual(
+        expect.arrayContaining([
+          expect.objectContaining(readyTopic)
+        ])
+      )
+    })
+
     describe('consumer missing topic', () => {
       test('with allTopics: true', async () => {
         const { kafka } = service

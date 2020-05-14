@@ -47,3 +47,7 @@ export const Generic = {
 }
 
 export const CommitTimeoutError = new TimeoutError('offset commit timeout on shutdown')
+
+export const TopicWaitError = ErrorHelpers.generateClass('TopicWaitError', {
+  args: ['message', 'retryConfig', 'retryState'],
+})
