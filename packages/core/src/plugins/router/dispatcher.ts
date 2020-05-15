@@ -2,7 +2,7 @@ import Bluebird = require('bluebird')
 import _debug = require('debug')
 import is = require('is')
 import { Tags } from 'opentracing'
-import uuid = require('uuid')
+import { v4 as uuidv4 } from 'uuid'
 import { ServiceRequest } from '../../types'
 import { Router } from './factory'
 
@@ -54,7 +54,7 @@ function dispatch(this: Router, route: string, request: ServiceRequest, callback
   }
 
   request.log = service.log.child({
-    reqId: uuid.v4(),
+    reqId: uuidv4(),
   })
 
   let result = Bluebird
