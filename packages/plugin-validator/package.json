@@ -1,0 +1,58 @@
+{
+  "name": "@microfleet/plugin-validator",
+  "description": "validation plugin for microfleet",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.2.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "test": "yarn test:unit && yarn test:e2e",
+    "test:unit": "jest",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "logger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-validator"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x"
+  },
+  "dependencies": {
+    "@microfleet/validation": "^9.0.1",
+    "ajv": "^6.12.0",
+    "callsite": "^1.0.0",
+    "common-errors": "^1.0.5",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.2.0",
+    "@types/callsite": "^1.0.30",
+    "@types/common-errors": "^1.0.1",
+    "@types/lodash": "^4.14.149",
+    "common-errors": "^1.0.5",
+    "jest": "^25.2.7",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^25.3.1"
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/"
+  ]
+}

@@ -2,7 +2,7 @@ import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
-import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { Microfleet, PluginTypes, PluginInterface } from '@microfleet/core'
 import retry = require('bluebird-retry')
 import CouchDB = require('nano')
 
@@ -76,7 +76,7 @@ const startupHandlers = (
 })
 
 export function attach(
-  this: Microfleet & LoggerPlugin & ValidatorPlugin,
+  this: Microfleet,
   params: Config
 ) {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))

@@ -3,7 +3,7 @@ import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
-import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { Microfleet, PluginTypes, PluginInterface } from '@microfleet/core'
 import { promisifyAll, map } from 'bluebird'
 
 import {
@@ -172,7 +172,7 @@ export class KafkaFactory implements KafkaFactoryInterface {
  * @param params - Kafka configuration.
  */
 export function attach(
-  this: Microfleet & LoggerPlugin & ValidatorPlugin,
+  this: Microfleet,
   params: KafkaConfig
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))

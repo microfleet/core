@@ -13,5 +13,7 @@
     "path": "./packages/plugin-kafka/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-knex/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-validator/tsconfig.build.json"
   }]
 }

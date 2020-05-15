@@ -1,4 +1,4 @@
-import MicrofleetValidator from '@microfleet/validation'
+import { Validator } from '@microfleet/validation'
 import ajv from 'ajv'
 import callsite = require('callsite')
 import { NotPermittedError } from 'common-errors'
@@ -6,15 +6,9 @@ import path = require('path')
 import { strictEqual } from 'assert'
 import { isString, isPlainObject, isFunction } from 'lodash'
 import { deprecate } from 'util'
-
-import { Microfleet } from '../'
-import { PluginTypes } from '../constants'
+import { Microfleet, PluginTypes } from '@microfleet/core'
 
 const { isArray } = Array
-
-type Validator = MicrofleetValidator & {
-  addLocation(location: string): void;
-}
 
 /**
  * Validator configuration, more details in
@@ -31,18 +25,6 @@ export type ValidatorConfig = {
  * Plugin name
  */
 export const name = 'validator'
-
-/**
- * Defines service extension
- */
-export interface ValidatorPlugin {
-  validator: Validator & {
-    addLocation(location: string): void;
-  };
-  validate: Validator['validate'];
-  validateSync: Validator['validateSync'];
-  ifError:  Validator['ifError'];
-}
 
 /**
  * Plugin Type
@@ -78,7 +60,7 @@ export const attach = function attachValidator(
   strictEqual(filter === null || isFunction(filter), true, configError('filter'))
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
-  const validator = new MicrofleetValidator('../../schemas', filter, ajvConfig)
+  const validator = new Validator('../../schemas', filter, ajvConfig)
   const addLocation = (location: string): void => {
     strictEqual(isString(location) && location.length !== 0, true, configError('schemas'))
 
@@ -121,10 +103,30 @@ export const attach = function attachValidator(
     }
   }
 
+  validator.addLocation = addLocation
+
   // extend service
   this[name] = validator
-  this[name].addLocation = addLocation
   this.validate = deprecate(validator.validate.bind(validator), 'validate() deprecated. User validator.validate()')
   this.validateSync = deprecate(validator.validateSync.bind(validator), 'validateSync() deprecated. User validator.validateSync()')
   this.ifError = deprecate(validator.ifError.bind(validator), 'ifError() deprecated. User validator.ifError()')
+}
+
+declare module '@microfleet/validation' {
+  export interface Validator {
+    addLocation(location: string): void;
+  }
+}
+
+declare module '@microfleet/core' {
+  export interface Microfleet {
+    validator: Validator;
+    validate: Validator['validate'];
+    validateSync: Validator['validateSync'];
+    ifError: Validator['ifError'];
+  }
+
+  export interface ConfigurationOptional {
+    validator: ValidatorConfig;
+  }
 }

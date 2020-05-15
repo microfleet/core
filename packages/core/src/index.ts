@@ -23,11 +23,10 @@ import {
   PluginConnector,
   TConnectorsTypes,
 } from './types'
-import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
 import { HealthStatus } from './utils/pluginHealthStatus'
-export { ValidatorPlugin, RouterPlugin, LifecycleRequestType }
+export { RouterPlugin, LifecycleRequestType }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 
@@ -92,11 +91,6 @@ export interface ConfigurationOptional {
    * List of plugins to be enabled
    */
   plugins: string[];
-
-  /**
-   * Validator plugin configuration
-   */
-  validator: ValidatorConfig;
 
   /**
    * Router configuration
@@ -167,7 +161,7 @@ export class Microfleet extends EventEmitter {
   /**
    * Allow Extensions
    */
-  [property: string]: any;
+  [property: string]: unknown;
 
   /**
    * @param [opts={}] - Overrides for configuration.

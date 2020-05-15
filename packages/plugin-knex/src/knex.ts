@@ -1,8 +1,7 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { LoggerPlugin } from '@microfleet/plugin-logger'
-import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import { Microfleet, PluginTypes, PluginInterface } from '@microfleet/core'
 import retry = require('bluebird-retry')
 import Knex = require('knex')
 
@@ -19,7 +18,7 @@ export interface KnexPlugin {
 /**
  * Defines closure
  */
-const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): PluginInterface => ({
+const startupHandlers = (service: Microfleet, knex: Knex): PluginInterface => ({
   async connect() {
     const establishConnection = async () => {
       try {
@@ -54,7 +53,7 @@ const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): Plugin
 })
 
 export function attach(
-  this: Microfleet & LoggerPlugin & ValidatorPlugin,
+  this: Microfleet,
   params: Knex.Config | string = {}
 ) {
   const { validator } = this

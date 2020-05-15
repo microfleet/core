@@ -1,6 +1,6 @@
 import { createServer } from 'http'
 import assert = require('assert')
-import { Microfleet, PluginTypes, RouterPlugin, ValidatorPlugin } from '..'
+import { Microfleet, PluginTypes, RouterPlugin } from '..'
 import semver = require('semver')
 import Bluebird = require('bluebird')
 import prometheus = require('prom-client')
@@ -84,7 +84,7 @@ export const priority = 50
  * Attaches plugin to the MService class.
  * @param settings - prometheus settings
  */
-export function attach(this: Microfleet & RouterPlugin & ValidatorPlugin, opts: any = {}) {
+export function attach(this: Microfleet & RouterPlugin, opts: any = {}) {
   if (this.config.plugins.includes('router')) {
     const extensions = this.router.config.extensions || {}
     assert(extensions.enabled.includes('preRequest') && extensions.enabled.includes('postResponse'), usageError)

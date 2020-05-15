@@ -1,11 +1,8 @@
 import assert = require('assert')
 import rfdc = require('rfdc')
 import { NotFoundError, NotSupportedError } from 'common-errors'
-import { ActionTransport, PluginTypes, identity } from '../constants'
-import { Microfleet } from '../'
-import { ServiceRequest } from '../types'
+import { ActionTransport, PluginTypes, Microfleet, ServiceRequest } from '@microfleet/core'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
-import { ValidatorPlugin } from './validator'
 import { object as isObject } from 'is'
 const { internal } = ActionTransport
 
@@ -78,7 +75,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
  * Enables router plugin.
  * @param opts - Router configuration object.
  */
-export function attach(this: Microfleet & ValidatorPlugin & RouterPlugin, opts: Partial<RouterConfig>): void {
+export function attach(this: Microfleet & RouterPlugin, opts: Partial<RouterConfig>): void {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   const config = this.validator.ifError('router', opts) as RouterConfig
@@ -94,7 +91,7 @@ export function attach(this: Microfleet & ValidatorPlugin & RouterPlugin, opts: 
   const { prefix } = config.routes
   const assemble = prefix
     ? (route: string) => `${prefix}.${route}`
-    : identity
+    : (route: string) => route
 
   // dispatcher
   this.dispatch = (route: string, request: Partial<ServiceRequest>) => {

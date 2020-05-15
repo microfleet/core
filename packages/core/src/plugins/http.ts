@@ -1,6 +1,6 @@
 import assert = require('assert')
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, ValidatorPlugin } from '../'
+import { Microfleet, PluginTypes } from '../'
 
 /**
  * Plugin Name
@@ -21,7 +21,7 @@ export const priority = 0
  * Attaches HTTP handler.
  * @param config - HTTP handler configuration to attach.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
+export function attach(this: Microfleet, opts: any = {}) {
   const { validator } = this
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))

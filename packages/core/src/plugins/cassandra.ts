@@ -3,7 +3,7 @@ import assert = require('assert')
 import retry = require('bluebird-retry')
 import { NotPermittedError, NotFoundError } from 'common-errors'
 import is = require('is')
-import { Microfleet, ValidatorPlugin } from '../'
+import { Microfleet } from '../'
 import { PluginTypes } from '../constants'
 import _require from '../utils/require'
 
@@ -69,7 +69,7 @@ async function factory(this: Microfleet, Cassandra: any, config: any) {
   return client
 }
 
-export function attach(this: Microfleet & ValidatorPlugin, params: any = {}) {
+export function attach(this: Microfleet, params: any = {}) {
   const Cassandra = _require('express-cassandra')
 
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))

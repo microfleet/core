@@ -1,11 +1,12 @@
 import assert = require('assert')
-import { Microfleet, PluginTypes, ValidatorPlugin } from '@microfleet/core'
+import { Microfleet, PluginTypes } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
 import pino = require('pino')
 import pinoms = require('pino-multi-stream')
 import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
 import type { NodeOptions } from '@sentry/node'
+import '@microfleet/plugin-validator'
 export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
 const defaultConfig = {
@@ -108,7 +109,7 @@ export const isCompatible = (obj: any): obj is pinoms.Logger => {
  * Plugin init function.
  * @param  opts - Logger configuration.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerConfig>) {
+export function attach(this: Microfleet, opts: Partial<LoggerConfig>) {
   const { config: { name: applicationName } } = this
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))

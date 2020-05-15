@@ -2,8 +2,7 @@ import { once } from 'events'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
-import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin } from '@microfleet/core'
-import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { PluginTypes, Microfleet, PluginInterface } from '@microfleet/core'
 import consul = require('consul')
 
 /**
@@ -45,7 +44,7 @@ export const priority = 0
  * @param opts - Consul Configuration Object.
  */
 export const attach = function attachConsulPlugin(
-  this: Microfleet & ValidatorPlugin & LoggerPlugin & ConsulPlugin,
+  this: Microfleet & ConsulPlugin,
   opts: Partial<ConsulConfig> = {}
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
