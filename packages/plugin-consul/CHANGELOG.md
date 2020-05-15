@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.2.0...@microfleet/plugin-consul@2.2.1) (2020-05-15)
+
+
+### Bug Fixes
+
+* update dependencies ([24ecb3a](https://github.com/microfleet/core/commit/24ecb3ac3597de073095ce54305cc8ec707c1333))
+
+
+
+
+
 # [2.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.1.1...@microfleet/plugin-consul@2.2.0) (2020-04-16)
 
 

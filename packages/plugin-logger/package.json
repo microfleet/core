@@ -3,7 +3,7 @@
   "description": "logger plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:unit && yarn test:e2e",
@@ -36,7 +36,7 @@
     "sonic-boom": "^1.0.1"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.3.0",
+    "@microfleet/core": "^17.3.1",
     "@sentry/node": "^5.15.5",
     "@types/jest": "^25.2.2",
     "jest": "^26.0.1",
