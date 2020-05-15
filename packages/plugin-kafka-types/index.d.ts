@@ -1,7 +1,8 @@
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
 import * as kafka from 'node-rdkafka'
 import { Microfleet } from '@microfleet/core'
-import { KafkaFactory, KafkaConsumerStream, GlobalConfig, TopicConfig } from '@microfleet/plugin-kafka'
+import { GlobalConfig, TopicConfig } from 'node-rdkafka'
+import { KafkaFactory, KafkaConsumerStream } from '@microfleet/plugin-kafka'
 import { Writable, Readable } from 'stream'
 
 declare module '@microfleet/core' {
