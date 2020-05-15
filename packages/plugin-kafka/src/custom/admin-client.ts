@@ -28,8 +28,11 @@ type DeleteTopicRequest = {
   params?: RetryParams;
 }
 
-const filterTopic = (meta: Metadata, topic: string) => meta.topics.filter(topicMeta => topicMeta.name === topic)
 type WaitCriteria = (topic: TopicMetadata) => boolean
+
+const filterTopic = (meta: Metadata, topic: string) => (
+  meta.topics.filter(topicMeta => topicMeta.name === topic)
+)
 
 export class KafkaAdminClient {
   private service: Microfleet
@@ -83,7 +86,7 @@ export class KafkaAdminClient {
     if (!this.client) {
       const { kafka } = this
 
-      this.client = kafka.createClient(Producer, kafka.rdKafkaConfig, {})
+      this.client = kafka.createClient(Producer, kafka.rdKafkaConfig)
       kafka.attachClientLogger(this.client, { type: 'admin-producer' })
 
       await this.client.connectAsync({
@@ -111,18 +114,23 @@ export class KafkaAdminClient {
         attempts += 1
         const filtered = await this.getTopicFromMeta(client, topicName)
         if (criteria(filtered)) return filtered
-        await delay(interval)
+
+        if (!timedOut) {
+          await delay(interval)
+        }
       }
-      throw new TopicWaitError(`topic '${topicName}' wait error`,params, { attempts })
+
+      throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts })
     }
 
     const topic = await Promise.race([
       waitLoop(),
       delay(timeout).then(() => {
         timedOut = true
-        throw new TopicWaitError(params, { attempts })
+        throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts })
       }),
     ])
+
     return topic
   }
 }

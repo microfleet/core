@@ -1,6 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "files": [],
+  "compilerOptions": {
+    "skipLibCheck": true
+  },
   "references": [{
     "path": "./packages/core/tsconfig.build.json"
   }, {

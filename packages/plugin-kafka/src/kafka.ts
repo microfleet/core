@@ -94,7 +94,7 @@ export class KafkaFactory {
   }
 
   async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
-    const producer = this.createClient(KafkaProducer, opts.conf || {}, opts.topicConf || {})
+    const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
 
     this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })
 
@@ -139,8 +139,8 @@ export class KafkaFactory {
 
   public createClient<T extends KafkaClient, U extends GlobalConfig, Z extends TopicConfig>(
     clientClass: new (c: U, tc: Z) => T,
-    conf: U,
-    topicConf: Z
+    conf: U = {} as U,
+    topicConf: Z = {} as Z
   ): T {
     const config: U = { ...this.rdKafkaConfig as U, ...conf }
     return new clientClass(config, topicConf)
