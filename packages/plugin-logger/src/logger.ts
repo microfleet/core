@@ -100,7 +100,7 @@ export interface LoggerConfig {
 }
 
 export const levels = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
-export const isCompatible = (obj: any): obj is pinoms.Logger => {
+export const isCompatible = (obj: any): obj is pino.Logger => {
   return obj !== null
     && typeof obj === 'object'
     && every(exports.levels, (level: any) => typeof obj[level] === 'function')
@@ -134,7 +134,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
 
   if (defaultLogger === true) {
     // return either human-readable logger or fast production-ready json logger
-    const getDefaultStream = () => {
+    const getDefaultStream = (): NodeJS.WritableStream => {
       if (prettifyDefaultLogger) {
         const { stream } = streamsFactory('pretty', { translateTime: true })
         return stream

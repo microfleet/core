@@ -11,6 +11,8 @@ import {
   ConsumerStream,
   ProducerStream,
   LibrdKafkaError as LibrdKafkaError,
+  Client,
+  KafkaClientEvents,
 } from 'node-rdkafka'
 
 export * from 'node-rdkafka'
@@ -22,11 +24,13 @@ export * from 'node-rdkafka'
  */
 export const KafkaProducerStream = require('node-rdkafka/lib/producer-stream') as ProducerStream
 export const KafkaConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream') as ConsumerStream
+export const KafkaClient = require('node-rdkafka/lib/client') as Client<KafkaClientEvents>
 export const LibrdKafkaErrorClass = require('node-rdkafka/lib/error') as LibrdKafkaError
 
 export type KafkaProducerStream = ProducerStream
 export type KafkaConsumerStream = ConsumerStream
 export type LibrdKafkaErrorClass = LibrdKafkaError
+export type KafkaClient = Client<KafkaClientEvents>
 
 promisifyAll(KafkaProducerStream.prototype)
 promisifyAll(KafkaConsumerStream.prototype)

@@ -25,6 +25,7 @@ import {
 } from './custom/rdkafka-extra'
 import { getLogFnName, topicExists } from './util'
 import { KafkaConsumerStream } from './custom/consumer-stream'
+import { KafkaAdminClient } from './custom/admin-client'
 
 export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
 export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
@@ -40,7 +41,9 @@ export const type = PluginTypes.transport
 export * from '@microfleet/plugin-kafka-types'
 
 export class KafkaFactory {
-  rdKafkaConfig: GlobalConfig
+  public rdKafkaConfig: GlobalConfig
+  public admin: KafkaAdminClient
+
   private streams: Set<KafkaStream>
   private connections: Set<KafkaClient>
   private service: Microfleet
@@ -50,6 +53,7 @@ export class KafkaFactory {
     this.streams = new Set<KafkaStream>()
     this.connections = new Set<KafkaClient>()
     this.service = service
+    this.admin = new KafkaAdminClient(service, this)
   }
 
   async createConsumerStream(opts: ConsumerStreamConfig): Promise<KafkaConsumerStream> {
@@ -90,7 +94,7 @@ export class KafkaFactory {
   }
 
   async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
-    const producer = this.createClient(KafkaProducer, opts.conf || {}, opts.topicConf || {})
+    const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
 
     this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })
 
@@ -99,6 +103,8 @@ export class KafkaFactory {
   }
 
   async close() {
+    // Disconnect admin client
+    this.admin.close()
     // Some connections will be already closed by streams
     await map(this.streams.values(), stream => stream.closeAsync())
     // Close other connections
@@ -131,16 +137,16 @@ export class KafkaFactory {
     return stream
   }
 
-  private createClient<T extends KafkaClient, U extends GlobalConfig, Z extends TopicConfig>(
+  public createClient<T extends KafkaClient, U extends GlobalConfig, Z extends TopicConfig>(
     clientClass: new (c: U, tc: Z) => T,
-    conf: U,
-    topicConf: Z
+    conf: U = {} as U,
+    topicConf: Z = {} as Z
   ): T {
     const config: U = { ...this.rdKafkaConfig as U, ...conf }
     return new clientClass(config, topicConf)
   }
 
-  private attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}) {
+  public attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}) {
     const { log } = this.service
     const { connections } = this
 
@@ -161,6 +167,8 @@ export class KafkaFactory {
       // After this cleanups total leak for 2500 topics will be in about 10Mb.
 
       this['_metadata'] = null
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
       this.globalConfig = null
     })
 

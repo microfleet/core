@@ -1,6 +1,7 @@
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
 import * as kafka from 'node-rdkafka'
 import { Microfleet } from '@microfleet/core'
+import { GlobalConfig, TopicConfig } from 'node-rdkafka'
 import { KafkaFactory, KafkaConsumerStream } from '@microfleet/plugin-kafka'
 import { Writable, Readable } from 'stream'
 
@@ -119,6 +120,9 @@ declare module 'node-rdkafka' {
   }
 
   export interface Client extends EventEmitter {
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
+    new (c: GlobalConfig, tc: TopicConfig): Client<KafkaClientEvents>;
+
     _isDisconnecting: boolean;
 
     // Required on dicsonnection cleanup
@@ -141,5 +145,17 @@ declare module 'node-rdkafka' {
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/kafka-consumer.js#L176
     committedAsync(toppars: TopicPartition[], timeout: number): Promise<kafka.TopicPartitionOffset[]>;
     consumeAsync(count: number): Promise<kafka.Message[]>;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
+  export interface IAdminClient {
+    createTopicAsync(topic: NewTopic): Promise<void>;
+    createTopicAsync(topic: NewTopic, timeout?: number): Promise<void>;
+
+    deleteTopicAsync(topic: string): Promise<void>;
+    deleteTopicAsync(topic: string, timeout?: number): Promise<void>;
+
+    createPartitionsAsync(topic: string, desiredPartitions: number): Promise<void>;
+    createPartitionsAsync(topic: string, desiredPartitions: number, timeout?: number): Promise<void>;
   }
 }
