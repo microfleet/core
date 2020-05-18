@@ -141,7 +141,7 @@ describe('service graceful shutdown', () => {
     const serviceConnector = await childService.getServiceConnectors();
 
     const [serviceResponse] = await Promise.all([
-      serviceConnector.amqp('amqp.action.long-running', { pause: 999 }),
+      serviceConnector.amqp('amqp.action.long-running', { pause: 599 }),
       childService.kill('SIGTERM', true),
     ]);
 
