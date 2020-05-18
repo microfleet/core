@@ -4,7 +4,7 @@ import { merge } from 'lodash'
 
 import { IAdminClient, AdminClient, TopicMetadata, KafkaClient, Metadata, NewTopic, Producer } from './rdkafka-extra'
 import { TopicWaitError } from './errors'
-import { KafkaClient as KafkaClientType } from '@microfleet/plugin-kafka-types'
+import { KafkaClient as KafkaClientType } from './types'
 import { KafkaFactory } from '../kafka'
 
 /**

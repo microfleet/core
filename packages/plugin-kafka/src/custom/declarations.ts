@@ -1,90 +1,17 @@
+import { Writable, Readable } from 'stream'
+import { EventEmitter } from 'events'
+
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
 import * as kafka from 'node-rdkafka'
-import { Microfleet } from '@microfleet/core'
-import { GlobalConfig, TopicConfig } from 'node-rdkafka'
-import { KafkaFactory, KafkaConsumerStream } from '@microfleet/plugin-kafka'
-import { Writable, Readable } from 'stream'
+
+import { KafkaFactory } from '../kafka'
+import { GlobalConfig, TopicConfig, ConsumerGlobalConfig } from './rdkafka-extra'
 
 declare module '@microfleet/core' {
   export interface Microfleet {
     kafka: KafkaFactory;
   }
 }
-
-export interface KafkaStreamOpts<T extends kafka.ReadStreamOptions | kafka.WriteStreamOptions, U extends kafka.TopicConfig, Z extends kafka.GlobalConfig> {
-  streamOptions: T;
-  conf?: Z;
-  topicConf?: U;
-}
-
-export type ConsumerStreamConfig = KafkaStreamOpts<
-  ConsumerStreamOptions,
-  kafka.ConsumerTopicConfig,
-  kafka.ConsumerGlobalConfig
->
-
-export type ProducerStreamConfig = KafkaStreamOpts<
-  kafka.WriteStreamOptions,
-  kafka.ProducerTopicConfig,
-  kafka.ProducerGlobalConfig
->
-
-export type KafkaStream = kafka.ProducerStream | KafkaConsumerStream
-export type StreamOptions<T> =
-  T extends KafkaConsumerStream
-    ? ConsumerStreamOptions
-    : never
-  |
-  T extends kafka.ProducerStream
-    ? kafka.WriteStreamOptions
-    : never
-
-export type KafkaClient = kafka.KafkaConsumer | kafka.Producer
-
-/**
- * Arguments passed to the `KafkaConsumer.connect` method
- */
-export type ConnectOptions = {
-  allTopics?: boolean;
-  timeout?: number;
-  topic?: string | string[] | ((metadata: kafka.Metadata) => string[]);
-}
-
-/**
- * Configuration for the ConsumerStream.
- * @property topics Topics to listen.
- * @property waitInterval Milliseconds to wait between `KafkaConsumer.consume` calls.
- * @property streamAsBatch If true 'data' emitted with array of messages.
- * @property stopOnPartitionsEOF If true stream will exit when all assigned partitions reached last offsets.
- * @property offsetQueryTimeout If timeout for fetching consumer offsets from Kafka.
- * @property offsetCommitTimeout Milliseconds to wait for all offsets to be commited after close started.
- * @property checkTopicExists If true will throw and error if topic does not exists
- */
-export type ConsumerStreamOptions = Omit<kafka.ReadStreamOptions, 'objectMode' | 'autoClose' | 'connectOptions' | 'topics'> & {
-  // in orignal type there also function type as a part of this property definition, but there's no place where it could be executed
-  topics: kafka.SubscribeTopicList | kafka.SubscribeTopic;
-  connectOptions?: kafka.MetadataOptions;
-  stopOnPartitionsEOF?: boolean;
-  offsetQueryTimeout?: number;
-  offsetCommitTimeout?: number;
-  autoOffsetStore?: boolean;
-  checkTopicExists?: boolean;
-}
-
-/**
- * @property pollInterval Milliseconds to wait between Kafka polls.
- * @property topic Target topic name. Should be set when `objectMode` === true.
- */
-export type ProducerStreamOptions = {
-  pollInterval?: number;
-  autoClose?: boolean;
-  objectMode?: boolean;
-  topic?: string;
-  connectOptions?: ConnectOptions;
-}
-
-export { TopicConfig, GlobalConfig } from 'node-rdkafka'
-
 
 declare module 'node-rdkafka' {
   // event list is hidden by default
@@ -115,11 +42,11 @@ declare module 'node-rdkafka' {
     connect(options: ConsumerGlobalConfig): void;
     close(cb?: () => void): void;
 
-    messages: ConsumerStreamMessage[];
+    messages: kafka.Message[];
     closeAsync(): Promise<void>;
   }
 
-  export interface Client extends EventEmitter {
+  export interface Client<Events extends string> extends EventEmitter {
     // eslint-disable-next-line @typescript-eslint/no-misused-new
     new (c: GlobalConfig, tc: TopicConfig): Client<KafkaClientEvents>;
 
@@ -127,7 +54,7 @@ declare module 'node-rdkafka' {
 
     // Required on dicsonnection cleanup
     globalConfig: GlobalConfig;
-    _client: Client;
+    _client: Client<KafkaClientEvents>;
     _metadata: Metadata | null | undefined;
 
     connectAsync(metadataOptions: MetadataOptions): Promise<Metadata>;

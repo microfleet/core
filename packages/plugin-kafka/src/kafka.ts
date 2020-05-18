@@ -5,16 +5,20 @@ import { NotFoundError } from 'common-errors'
 import type { Logger } from '@microfleet/plugin-logger'
 import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import { map } from 'bluebird'
+
+import './custom/declarations'
+
 import type {
-  TopicConfig,
-  GlobalConfig,
   ConsumerStreamConfig,
   ProducerStreamConfig,
   StreamOptions,
   KafkaStream,
   KafkaClient,
-} from '@microfleet/plugin-kafka-types'
+} from './custom/types'
+
 import {
+  TopicConfig,
+  GlobalConfig,
   KafkaConsumer,
   Producer as KafkaProducer,
   KafkaProducerStream,
@@ -23,6 +27,7 @@ import {
   KafkaClientEvents,
   CODES as RdKafkaCodes,
 } from './custom/rdkafka-extra'
+
 import { getLogFnName, topicExists } from './util'
 import { KafkaConsumerStream } from './custom/consumer-stream'
 import { KafkaAdminClient } from './custom/admin-client'
@@ -38,7 +43,7 @@ export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
 
-export * from '@microfleet/plugin-kafka-types'
+export * from './custom/types'
 
 export class KafkaFactory {
   public rdKafkaConfig: GlobalConfig
