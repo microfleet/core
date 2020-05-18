@@ -41,7 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "jest": "^26.0.1",
     "rimraf": "^3.0.0",
-    "ts-jest": "^25.5.1"
+    "ts-jest": "^26.0.0"
   },
   "engines": {
     "node": ">= 12.14.0",
