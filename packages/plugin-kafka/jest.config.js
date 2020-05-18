@@ -12,5 +12,11 @@ module.exports = {
   ],
   setupFilesAfterEnv: [
     "./packages/plugin-kafka/__tests__/jest.setup.js"
-  ]
+  ],
+  globals: {
+    'ts-jest': {
+      isolatedModules: true,
+      tsConfig: './tsconfig.json'
+    }
+  }
 }

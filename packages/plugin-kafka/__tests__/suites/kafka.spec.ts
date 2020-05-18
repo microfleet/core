@@ -1121,6 +1121,7 @@ describe('#2s-toxified', () => {
           try {
             const message = messages[messages.length-1]
             consumerStream.consumer.commitMessageSync(message)
+            callback()
           } catch (e) {
             service.log.debug({ err: e }, 'commit sync error')
             callback(e)
