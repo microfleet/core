@@ -2,9 +2,12 @@ import { Microfleet } from '@microfleet/core'
 import { promisifyAll, delay } from 'bluebird'
 import { merge } from 'lodash'
 
-import { IAdminClient, AdminClient, TopicMetadata, KafkaClient, Metadata, NewTopic, Producer } from './rdkafka-extra'
+import {
+  IAdminClient, AdminClient, TopicMetadata,
+  KafkaClient, Metadata, NewTopic,
+  Producer, Client, KafkaClientEvents
+} from './rdkafka-extra'
 import { TopicWaitError } from './errors'
-import { KafkaClient as KafkaClientType } from './types'
 import { KafkaFactory } from '../kafka'
 
 /**
@@ -82,7 +85,7 @@ export class KafkaAdminClient {
     return promisifyAll(AdminClient.create(kafka.rdKafkaConfig))
   }
 
-  private async getClient(): Promise<KafkaClientType> {
+  private async getClient(): Promise<Client<KafkaClientEvents>> {
     if (!this.client) {
       const { kafka } = this
 

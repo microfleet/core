@@ -13,7 +13,6 @@ import type {
   ProducerStreamConfig,
   StreamOptions,
   KafkaStream,
-  KafkaClient,
 } from './custom/types'
 
 import {
@@ -23,9 +22,8 @@ import {
   Producer as KafkaProducer,
   KafkaProducerStream,
   LibrdKafkaError,
-  Client,
-  KafkaClientEvents,
   CODES as RdKafkaCodes,
+  KafkaClient
 } from './custom/rdkafka-extra'
 
 import { getLogFnName, topicExists } from './util'
@@ -34,7 +32,9 @@ import { KafkaAdminClient } from './custom/admin-client'
 
 export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
 export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
-export { LibrdKafkaErrorClass, Message } from './custom/rdkafka-extra'
+
+export * from './custom/types'
+export * from './custom/rdkafka-extra'
 
 /**
  * Relative priority inside the same plugin group type
@@ -42,8 +42,6 @@ export { LibrdKafkaErrorClass, Message } from './custom/rdkafka-extra'
 export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
-
-export * from './custom/types'
 
 export class KafkaFactory {
   public rdKafkaConfig: GlobalConfig
@@ -151,7 +149,7 @@ export class KafkaFactory {
     return new clientClass(config, topicConf)
   }
 
-  public attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}) {
+  public attachClientLogger(client: KafkaClient, meta: any = {}) {
     const { log } = this.service
     const { connections } = this
 

@@ -4,10 +4,8 @@ import {
   TopicConfig, GlobalConfig,
   ConsumerTopicConfig, ConsumerGlobalConfig,
   ProducerTopicConfig, ProducerGlobalConfig,
-  ProducerStream, KafkaConsumer,
-  Producer, Metadata,
-  SubscribeTopic, SubscribeTopicList,
-  MetadataOptions,
+  ProducerStream, SubscribeTopic,
+  SubscribeTopicList, MetadataOptions
 } from './rdkafka-extra'
 
 import { KafkaConsumerStream } from './consumer-stream'
@@ -40,17 +38,6 @@ export type StreamOptions<T> =
     ? WriteStreamOptions
     : never
 
-export type KafkaClient = KafkaConsumer | Producer
-
-/**
- * Arguments passed to the `KafkaConsumer.connect` method
- */
-export type ConnectOptions = {
-  allTopics?: boolean;
-  timeout?: number;
-  topic?: string | string[] | ((metadata: Metadata) => string[]);
-}
-
 /**
  * Configuration for the ConsumerStream.
  * @property topics Topics to listen.
@@ -81,5 +68,5 @@ export type ProducerStreamOptions = {
   autoClose?: boolean;
   objectMode?: boolean;
   topic?: string;
-  connectOptions?: ConnectOptions;
+  connectOptions?: MetadataOptions;
 }
