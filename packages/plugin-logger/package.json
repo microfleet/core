@@ -38,11 +38,8 @@
   "devDependencies": {
     "@microfleet/core": "^17.3.1",
     "@sentry/node": "^5.15.5",
-    "@types/jest": "^25.2.2",
-    "jest": "^26.0.1",
     "pino-pretty": "^4.0.0",
-    "rimraf": "^3.0.0",
-    "ts-jest": "^25.5.1"
+    "rimraf": "^3.0.0"
   },
   "engines": {
     "node": ">= 12.15.0",
