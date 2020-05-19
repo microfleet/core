@@ -3,7 +3,7 @@
   "description": "couchdb adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -35,7 +35,7 @@
     "nano": "^8.2.2"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.3.1",
+    "@microfleet/core": "^17.3.2",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "rimraf": "^3.0.0"
   },
