@@ -83,9 +83,6 @@ export type ProducerStreamOptions = {
   connectOptions?: ConnectOptions;
 }
 
-export { TopicConfig, GlobalConfig } from 'node-rdkafka'
-
-
 declare module 'node-rdkafka' {
   // event list is hidden by default
   export type KafkaClientEvents = 'disconnected' | 'ready' | 'connection.failure' | 'event.error' | 'event.stats' | 'event.log' | 'event.event' | 'event.throttle';

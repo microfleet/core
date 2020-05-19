@@ -6,8 +6,6 @@ import type { Logger } from '@microfleet/plugin-logger'
 import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
 import { map } from 'bluebird'
 import type {
-  TopicConfig,
-  GlobalConfig,
   ConsumerStreamConfig,
   ProducerStreamConfig,
   StreamOptions,
@@ -15,6 +13,8 @@ import type {
   KafkaClient,
 } from '@microfleet/plugin-kafka-types'
 import {
+  TopicConfig,
+  GlobalConfig,
   KafkaConsumer,
   Producer as KafkaProducer,
   KafkaProducerStream,
@@ -29,7 +29,12 @@ import { KafkaAdminClient } from './custom/admin-client'
 
 export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
 export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
-export { LibrdKafkaErrorClass, Message } from './custom/rdkafka-extra'
+
+export * from './custom/rdkafka-extra'
+export type {
+  ProducerStreamOptions, ConsumerStreamOptions,
+  ConnectOptions, ConsumerStreamConfig, KafkaStreamOpts, StreamOptions, ProducerStreamConfig
+} from '@microfleet/plugin-kafka-types'
 
 /**
  * Relative priority inside the same plugin group type
@@ -37,8 +42,6 @@ export { LibrdKafkaErrorClass, Message } from './custom/rdkafka-extra'
 export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
-
-export * from '@microfleet/plugin-kafka-types'
 
 export class KafkaFactory {
   public rdKafkaConfig: GlobalConfig
