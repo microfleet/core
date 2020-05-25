@@ -2445,10 +2445,10 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
-"@types/pino-multi-stream@^3.1.2":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@types/pino-multi-stream/-/pino-multi-stream-3.1.2.tgz#befb1ccb3c7274f3eebee96f0580cf11f3961d62"
-  integrity sha512-jquqPLMvbEucgepWNP2CI+ZopPCcjFdnzeoAlzWwBfNgV2QJ+Rh610ShjAYpAF512J0KN87i+jfSpcYHDu5BUw==
+"@types/pino-multi-stream@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/pino-multi-stream/-/pino-multi-stream-5.0.0.tgz#3b221f98bc885397d0e80d60a137fd2493fcb601"
+  integrity sha512-34EF4OzU8UP5ca+lezcRW0aJw0s39t1THWCM8FgYsflAYL92TpRXw6CJ0nousUO9Tv3yqIWX7KeCXDEM1sm+Rg==
   dependencies:
     "@types/pino" "*"
 
