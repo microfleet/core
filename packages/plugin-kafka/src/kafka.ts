@@ -72,9 +72,11 @@ export class KafkaFactory {
     opts.streamOptions.autoOffsetStore = opts.conf?.['enable.auto.offset.store']
 
     const consumerTopicConfig: ConsumerStreamConfig['topicConf'] = { ...opts.topicConf }
+    const logMeta = { topics, type: 'consumer' }
+    const log = this.service.log.child(logMeta)
     const consumer = this.createClient(KafkaConsumer, consumerConfig, consumerTopicConfig)
 
-    this.attachClientLogger(consumer, { topics, type: 'consumer' })
+    this.attachClientLogger(consumer, log)
 
     let { connectOptions } = opts.streamOptions
 
@@ -91,16 +93,18 @@ export class KafkaFactory {
 
     if (checkTopicExists) topicExists(brokerMeta.topics, topics)
 
-    return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions)
+    return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions, log)
   }
 
   async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
+    const logMeta = { type: 'producer', topic: opts.streamOptions.topic }
+    const log = this.service.log.child(logMeta)
     const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
 
-    this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })
+    this.attachClientLogger(producer, log)
 
     await producer.connectAsync(opts.streamOptions.connectOptions || {})
-    return this.createStream(KafkaProducerStream, producer, opts.streamOptions)
+    return this.createStream(KafkaProducerStream, producer, opts.streamOptions, log)
   }
 
   async close(): Promise<void> {
@@ -123,16 +127,17 @@ export class KafkaFactory {
   private createStream<T extends KafkaStream, U extends KafkaClient>(
     streamClass: new (c: U, o: StreamOptions<T>, log?: Logger) => T,
     client: U,
-    opts: StreamOptions<T>
+    opts: StreamOptions<T>,
+    log?: Logger,
   ): T {
-    const stream = new streamClass(client, opts, this.service.log)
-    const { streams, service: { log } } = this
+    const stream = new streamClass(client, opts, log)
+    const { streams } = this
 
     streams.add(stream)
 
     stream.on('close', function close(this: T) {
       streams.delete(this)
-      log.info('closed stream')
+      log?.info('closed stream')
     })
 
     return stream
@@ -147,8 +152,7 @@ export class KafkaFactory {
     return new clientClass(config, topicConf)
   }
 
-  public attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}): void {
-    const { log } = this.service
+  public attachClientLogger(client: Client<KafkaClientEvents>, log: Logger, meta: any = {}) {
     const { connections } = this
 
     client.on('ready', function connected(this: KafkaClient) {

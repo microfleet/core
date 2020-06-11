@@ -1,12 +1,12 @@
 import { Readable } from 'readable-stream'
 import * as assert from 'assert'
 import { once } from 'events'
-import { find } from 'lodash'
+import { find, uniqWith, isEqual } from 'lodash'
 import { map, promisify, delay } from 'bluebird'
 import type { Logger } from '@microfleet/plugin-logger'
 import type { ConsumerStreamOptions } from '@microfleet/plugin-kafka-types'
 import { KafkaConsumer, Message, TopicPartition, LibrdKafkaError } from './rdkafka-extra'
-import { OffsetCommitError, CriticalErrors, UncommittedOffsetsError, Generic, CommitTimeoutError } from './errors'
+import { OffsetCommitError, CriticalErrors, RetryableErrors, UncommittedOffsetsError, Generic, CommitTimeoutError } from './errors'
 import { TopicPartitionOffset, SubscribeTopicList, Assignment } from 'node-rdkafka'
 
 export type CommitOffsetTracker = Map<string, TopicPartitionOffset>
@@ -58,7 +58,8 @@ export class KafkaConsumerStream extends Readable {
 
     super({ highWaterMark, objectMode: true })
 
-    this.log = log
+    if (log) this.log = log.child({ topic: config.topics })
+
     this.config = config
     this.consuming = false
     this.destroying = false
@@ -194,32 +195,40 @@ export class KafkaConsumerStream extends Readable {
   }
 
   private async handleOffsetCommit(err: Error | LibrdKafkaError | number, partitions: TopicPartitionOffset[]): Promise<void> {
-    if (err) {
-      const wrappedError = new OffsetCommitError(partitions, err)
-      this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
+    // execute in next tick, in case if commit_cb called earlier
+    process.nextTick(async () => {
+      if (err) {
+        const wrappedError = new OffsetCommitError(partitions, err)
+        this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
+        this.log?.warn({ err }, 'offset commit error')
+        // Should be Error but current node-rdkafka version returns error code as number
+        const code = typeof err === 'number' ? err : (err as LibrdKafkaError).code
 
-      // Should be Error but current node-rdkafka version returns error code as number
-      const code = typeof err === 'number' ? err : (err as LibrdKafkaError).code
+        if (RetryableErrors.includes(code)) {
+          this.log?.info({ err: wrappedError }, 'retry offset commit')
+          this.consumer.commit(partitions)
+          return
+        }
 
-      if (CriticalErrors.includes(code)) {
-        this.log?.error({ err: wrappedError }, 'critical commit error')
-        this.destroy(wrappedError)
+        if (CriticalErrors.includes(code)) {
+          this.log?.error({ err: wrappedError }, 'critical commit error')
+          this.destroy(wrappedError)
+        }
+
+        return
       }
+      this.updatePartitionOffsets(partitions, this.offsetTracker)
 
-      return
-    }
+      // once all acks were processed - be done with it
+      if (!this.hasOutstandingAcks()) {
+        await this.checkEof()
 
-    this.updatePartitionOffsets(partitions, this.offsetTracker)
-
-    // once all acks were processed - be done with it
-    if (!this.hasOutstandingAcks()) {
-      await this.checkEof()
-
-      // notify that received chunk processed
-      this.consuming = false
-      this.emit(EVENT_CONSUMED)
-      return
-    }
+        // notify that received chunk processed
+        this.consuming = false
+        this.emit(EVENT_CONSUMED)
+        return
+      }
+    })
   }
 
   private handleDisconnected(): void {
@@ -266,7 +275,20 @@ export class KafkaConsumerStream extends Readable {
       this.consumer.pause(this.consumer.assignments())
     }
 
-    for (const message of messages) {
+    // Avoid duplicates. Sometimes node-rdkafka returns duplicate messages
+    const uniqMessages = uniqWith(messages, isEqual)
+
+    // Filter messages with offset lower than stored offset
+    const exceptPreviousOffset = uniqMessages.filter((message) => {
+      const trackingKey = KafkaConsumerStream.trackingKey(message)
+      const storedOffset = this.unacknowledgedTracker.get(trackingKey)?.offset || UNKNOWN_OFFSET
+      return storedOffset <= message.offset
+    })
+
+    if (uniqMessages.length != messages.length) this.log?.warn({ uniqLength: uniqMessages.length, origLength: messages.length }, '[dup] Duplicates received')
+    if (exceptPreviousOffset.length != uniqMessages.length) this.log?.warn({ filtered: exceptPreviousOffset.length, uniqMessages: uniqMessages.length }, '>>> Previous offset data received')
+
+    for (const message of uniqMessages) {
       const topicPartition: TopicPartitionOffset = {
         topic: message.topic,
         partition: message.partition,
@@ -280,9 +302,9 @@ export class KafkaConsumerStream extends Readable {
     if (autoStore) this.consumer.offsetsStore([...unacknowledgedTracker.values()])
 
     if (this.config.streamAsBatch) {
-      this.messages.push(messages)
+      this.messages.push(exceptPreviousOffset)
     } else {
-      this.messages.push(...messages)
+      this.messages.push(...exceptPreviousOffset)
     }
 
     // transfer messages from local buffer to the stream buffer
@@ -469,6 +491,6 @@ export class KafkaConsumerStream extends Readable {
   }
 }
 
-export interface KafkaConsumerStream {
+export interface KafkaConsumerStream extends Readable {
   closeAsync(): PromiseLike<void>;
 }
