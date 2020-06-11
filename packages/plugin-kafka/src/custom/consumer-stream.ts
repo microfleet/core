@@ -200,18 +200,18 @@ export class KafkaConsumerStream extends Readable {
       if (err) {
         const wrappedError = new OffsetCommitError(partitions, err)
         this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
-        this.log?.warn({ err }, 'offset commit error')
+        this.log?.warn({ err }, '[commit] offset commit error')
         // Should be Error but current node-rdkafka version returns error code as number
         const code = typeof err === 'number' ? err : (err as LibrdKafkaError).code
 
         if (RetryableErrors.includes(code)) {
-          this.log?.info({ err: wrappedError }, 'retry offset commit')
+          this.log?.info({ err: wrappedError }, '[commit] retry offset commit')
           this.consumer.commit(partitions)
           return
         }
 
         if (CriticalErrors.includes(code)) {
-          this.log?.error({ err: wrappedError }, 'critical commit error')
+          this.log?.error({ err: wrappedError }, '[commit] critical commit error')
           this.destroy(wrappedError)
         }
 
@@ -286,7 +286,7 @@ export class KafkaConsumerStream extends Readable {
     })
 
     if (uniqMessages.length != messages.length) this.log?.warn({ uniqLength: uniqMessages.length, origLength: messages.length }, '[dup] Duplicates received')
-    if (exceptPreviousOffset.length != uniqMessages.length) this.log?.warn({ filtered: exceptPreviousOffset.length, uniqMessages: uniqMessages.length }, '>>> Previous offset data received')
+    if (exceptPreviousOffset.length != uniqMessages.length) this.log?.warn({ filtered: exceptPreviousOffset.length, uniqMessages: uniqMessages.length }, '[dup] Previous offset data received')
 
     for (const message of uniqMessages) {
       const topicPartition: TopicPartitionOffset = {
