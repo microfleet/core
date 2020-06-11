@@ -195,40 +195,37 @@ export class KafkaConsumerStream extends Readable {
   }
 
   private async handleOffsetCommit(err: Error | LibrdKafkaError | number, partitions: TopicPartitionOffset[]): Promise<void> {
-    // execute in next tick, in case if commit_cb called earlier
-    process.nextTick(async () => {
-      if (err) {
-        const wrappedError = new OffsetCommitError(partitions, err)
-        this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
-        this.log?.warn({ err }, '[commit] offset commit error')
-        // Should be Error but current node-rdkafka version returns error code as number
-        const code = typeof err === 'number' ? err : (err as LibrdKafkaError).code
+    if (err) {
+      const wrappedError = new OffsetCommitError(partitions, err)
+      this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
+      this.log?.warn({ err }, '[commit] offset commit error')
+      // Should be Error but current node-rdkafka version returns error code as number
+      const code = typeof err === 'number' ? err : (err as LibrdKafkaError).code
 
-        if (RetryableErrors.includes(code)) {
-          this.log?.info({ err: wrappedError }, '[commit] retry offset commit')
-          this.consumer.commit(partitions)
-          return
-        }
-
-        if (CriticalErrors.includes(code)) {
-          this.log?.error({ err: wrappedError }, '[commit] critical commit error')
-          this.destroy(wrappedError)
-        }
-
+      if (RetryableErrors.includes(code)) {
+        this.log?.info({ err: wrappedError }, '[commit] retry offset commit')
+        this.consumer.commit(partitions)
         return
       }
-      this.updatePartitionOffsets(partitions, this.offsetTracker)
 
-      // once all acks were processed - be done with it
-      if (!this.hasOutstandingAcks()) {
-        await this.checkEof()
-
-        // notify that received chunk processed
-        this.consuming = false
-        this.emit(EVENT_CONSUMED)
-        return
+      if (CriticalErrors.includes(code)) {
+        this.log?.error({ err: wrappedError }, '[commit] critical commit error')
+        this.destroy(wrappedError)
       }
-    })
+
+      return
+    }
+    this.updatePartitionOffsets(partitions, this.offsetTracker)
+
+    // once all acks were processed - be done with it
+    if (!this.hasOutstandingAcks()) {
+      await this.checkEof()
+
+      // notify that received chunk processed
+      this.consuming = false
+      this.emit(EVENT_CONSUMED)
+      return
+    }
   }
 
   private handleDisconnected(): void {
