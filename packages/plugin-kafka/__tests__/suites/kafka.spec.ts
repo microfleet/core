@@ -117,7 +117,15 @@ describe('#generic', () => {
 
       const { admin } = kafka
 
-      await admin.createTopic({ client: producerTemp.producer, topic: { topic, num_partitions: 1, replication_factor: 1 }})
+      await admin.createTopic({
+        client: producerTemp.producer,
+        topic: { topic, num_partitions: 1, replication_factor: 1 },
+        params: {
+          tries: 20,
+          interval: 1000,
+          timeout: 20000,
+        }
+      })
       const meta = await producerTemp.producer.getMetadataAsync({ allTopics: true })
       expect(meta.topics).toEqual(
         expect.arrayContaining([
@@ -125,7 +133,15 @@ describe('#generic', () => {
         ])
       )
 
-      await admin.deleteTopic({ topic, client: producerTemp.producer })
+      await admin.deleteTopic({
+        topic,
+        client: producerTemp.producer,
+        params: {
+          tries: 20,
+          interval: 1000,
+          timeout: 20000,
+        }
+      })
       const metaAfter = await producerTemp.producer.getMetadataAsync({ topic })
       expect(metaAfter.topics).not.toEqual(
         expect.arrayContaining([
