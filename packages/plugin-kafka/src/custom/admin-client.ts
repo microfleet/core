@@ -10,19 +10,19 @@ import { KafkaFactory } from '../kafka'
 /**
  * waitFor Method params
  */
-type RetryParams = {
+export type RetryParams = {
   tries: number;
   interval: number;
   timeout: number;
 }
 
-type CreateTopicRequest = {
+export type CreateTopicRequest = {
   topic: NewTopic;
   client?: KafkaClient;
   params?: RetryParams;
 }
 
-type DeleteTopicRequest = {
+export type DeleteTopicRequest = {
   topic: string;
   client?: KafkaClient;
   params?: RetryParams;
