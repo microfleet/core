@@ -1,7 +1,6 @@
 import assert = require('assert')
 import { NotFoundError } from 'common-errors'
-import { Microfleet, PluginTypes, ValidatorPlugin } from '../'
-import { PluginInterface } from '@microfleet/core/lib'
+import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface } from '../'
 
 /**
  * Plugin Name
