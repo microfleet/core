@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/node'
+import { LogLevel } from '@sentry/types'
 import pinoms = require('pino-multi-stream')
 import { createSandbox, match } from 'sinon'
 
@@ -16,6 +17,7 @@ describe('Logger Sentry Stream Suite', () => {
 
     const { stream, level } = sentryStreamFactory({
       dsn: 'https://api@sentry.io/1822',
+      logLevel: LogLevel.Error
     })
 
     expect(level).toBe('error')
@@ -24,6 +26,7 @@ describe('Logger Sentry Stream Suite', () => {
     expect(sentryInitSpy.calledOnceWithExactly({
       dsn: 'https://api@sentry.io/1822',
       defaultIntegrations: false,
+      logLevel: LogLevel.Error,
       integrations: [match.instanceOf(Sentry.Integrations.Console)] as any,
     })).toBe(true)
   })
