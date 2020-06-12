@@ -61,7 +61,7 @@ export class KafkaFactory {
     this.admin = new KafkaAdminClient(service, this)
   }
 
-  async createConsumerStream(opts: ConsumerStreamConfig): Promise<KafkaConsumerStream> {
+  public async createConsumerStream(opts: ConsumerStreamConfig): Promise<KafkaConsumerStream> {
     const { topics, checkTopicExists } = opts.streamOptions
     const consumerConfig: ConsumerStreamConfig['conf'] = {
       ...opts.conf,
@@ -98,7 +98,7 @@ export class KafkaFactory {
     return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions, log)
   }
 
-  async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
+  public async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
     const logMeta = { type: 'producer', topic: opts.streamOptions.topic }
     const log = this.service.log.child(logMeta)
     const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
@@ -109,7 +109,7 @@ export class KafkaFactory {
     return this.createStream(KafkaProducerStream, producer, opts.streamOptions, log)
   }
 
-  async close(): Promise<void> {
+  public async close(): Promise<void> {
     // Disconnect admin client
     this.admin.close()
     // Some connections will be already closed by streams
@@ -118,11 +118,11 @@ export class KafkaFactory {
     await map(this.connections.values(), async (connection) => { await connection.disconnectAsync() })
   }
 
-  getStreams(): Set<KafkaStream> {
+  public getStreams(): Set<KafkaStream> {
     return this.streams
   }
 
-  getConnections(): Set<KafkaClient> {
+  public getConnections(): Set<KafkaClient> {
     return this.connections
   }
 
@@ -154,7 +154,7 @@ export class KafkaFactory {
     return new clientClass(config, topicConf)
   }
 
-  public attachClientLogger(client: Client<KafkaClientEvents>, log: Logger, meta: any = {}) {
+  public attachClientLogger(client: Client<KafkaClientEvents>, log: Logger, meta: any = {}): void {
     const { connections } = this
 
     client.on('ready', function connected(this: KafkaClient) {
