@@ -1,6 +1,9 @@
 import { CODES as KafkaCodes } from './rdkafka-extra'
 import { helpers as ErrorHelpers } from 'common-errors'
 import { TimeoutError } from 'bluebird'
+import { TopicPartitionOffset } from 'node-rdkafka'
+import type { CommitOffsetTracker } from './consumer-stream'
+
 const { ERRORS: KafkaErrorCodes } = KafkaCodes
 const {
   ERR__ASSIGN_PARTITIONS,
@@ -9,10 +12,12 @@ const {
   ERR_UNKNOWN_TOPIC_OR_PART,
   ERR__STATE,
   ERR_UNKNOWN,
+  ERR_REQUEST_TIMED_OUT,
 } = KafkaErrorCodes
 
 interface CommonError {
   inner_error: number | Error;
+  message: string;
 }
 
 export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError', {
@@ -29,14 +34,27 @@ export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError',
   },
 })
 
+export interface OffsetCommitError extends CommonError{
+  partitions: TopicPartitionOffset[];
+}
+
 export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOffsetsError', {
-  args: ['offset_tracker', 'unacknowledged_tracker'],
+  args: ['offsetTracker', 'unacknowledgedTracker'],
   generateMessage: () => 'Uncomitted offsets left',
 })
+
+export interface OffsetCommitError extends CommonError {
+  offsetTracker: CommitOffsetTracker;
+  unacknodledgedTracker: CommitOffsetTracker;
+}
 
 export const CriticalErrors: number[] = [
   ERR_UNKNOWN_MEMBER_ID,
   ERR_UNKNOWN_TOPIC_OR_PART,
+]
+
+export const RetryableErrors: number[] = [
+  ERR_REQUEST_TIMED_OUT
 ]
 
 export const Generic = {

@@ -28,6 +28,8 @@ import { KafkaConsumerStream } from './custom/consumer-stream'
 import { KafkaAdminClient } from './custom/admin-client'
 
 export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
+export { DeleteTopicRequest, CreateTopicRequest, RetryParams } from './custom/admin-client'
+
 export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
 
 export * from './custom/rdkafka-extra'
@@ -59,7 +61,7 @@ export class KafkaFactory {
     this.admin = new KafkaAdminClient(service, this)
   }
 
-  async createConsumerStream(opts: ConsumerStreamConfig): Promise<KafkaConsumerStream> {
+  public async createConsumerStream(opts: ConsumerStreamConfig): Promise<KafkaConsumerStream> {
     const { topics, checkTopicExists } = opts.streamOptions
     const consumerConfig: ConsumerStreamConfig['conf'] = {
       ...opts.conf,
@@ -72,9 +74,11 @@ export class KafkaFactory {
     opts.streamOptions.autoOffsetStore = opts.conf?.['enable.auto.offset.store']
 
     const consumerTopicConfig: ConsumerStreamConfig['topicConf'] = { ...opts.topicConf }
+    const logMeta = { topics, type: 'consumer' }
+    const log = this.service.log.child(logMeta)
     const consumer = this.createClient(KafkaConsumer, consumerConfig, consumerTopicConfig)
 
-    this.attachClientLogger(consumer, { topics, type: 'consumer' })
+    this.attachClientLogger(consumer, log)
 
     let { connectOptions } = opts.streamOptions
 
@@ -91,19 +95,21 @@ export class KafkaFactory {
 
     if (checkTopicExists) topicExists(brokerMeta.topics, topics)
 
-    return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions)
+    return this.createStream(KafkaConsumerStream, consumer, opts.streamOptions, log)
   }
 
-  async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
+  public async createProducerStream(opts: ProducerStreamConfig): Promise<KafkaProducerStream> {
+    const logMeta = { type: 'producer', topic: opts.streamOptions.topic }
+    const log = this.service.log.child(logMeta)
     const producer = this.createClient(KafkaProducer, opts.conf, opts.topicConf)
 
-    this.attachClientLogger(producer, { type: 'producer', topic: opts.streamOptions.topic })
+    this.attachClientLogger(producer, log)
 
     await producer.connectAsync(opts.streamOptions.connectOptions || {})
-    return this.createStream(KafkaProducerStream, producer, opts.streamOptions)
+    return this.createStream(KafkaProducerStream, producer, opts.streamOptions, log)
   }
 
-  async close(): Promise<void> {
+  public async close(): Promise<void> {
     // Disconnect admin client
     this.admin.close()
     // Some connections will be already closed by streams
@@ -112,27 +118,28 @@ export class KafkaFactory {
     await map(this.connections.values(), async (connection) => { await connection.disconnectAsync() })
   }
 
-  getStreams(): Set<KafkaStream> {
+  public getStreams(): Set<KafkaStream> {
     return this.streams
   }
 
-  getConnections(): Set<KafkaClient> {
+  public getConnections(): Set<KafkaClient> {
     return this.connections
   }
 
   private createStream<T extends KafkaStream, U extends KafkaClient>(
     streamClass: new (c: U, o: StreamOptions<T>, log?: Logger) => T,
     client: U,
-    opts: StreamOptions<T>
+    opts: StreamOptions<T>,
+    log?: Logger,
   ): T {
-    const stream = new streamClass(client, opts, this.service.log)
-    const { streams, service: { log } } = this
+    const stream = new streamClass(client, opts, log)
+    const { streams } = this
 
     streams.add(stream)
 
     stream.on('close', function close(this: T) {
       streams.delete(this)
-      log.info('closed stream')
+      log?.info('closed stream')
     })
 
     return stream
@@ -147,8 +154,7 @@ export class KafkaFactory {
     return new clientClass(config, topicConf)
   }
 
-  public attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}): void {
-    const { log } = this.service
+  public attachClientLogger(client: Client<KafkaClientEvents>, log: Logger, meta: any = {}): void {
     const { connections } = this
 
     client.on('ready', function connected(this: KafkaClient) {

@@ -10,25 +10,28 @@ import { KafkaFactory } from '../kafka'
 /**
  * waitFor Method params
  */
-type RetryParams = {
+export type RetryParams = {
   tries: number;
   interval: number;
   timeout: number;
 }
 
-type CreateTopicRequest = {
+export type CreateTopicRequest = {
   topic: NewTopic;
   client?: KafkaClient;
   params?: RetryParams;
 }
 
-type DeleteTopicRequest = {
+export type DeleteTopicRequest = {
   topic: string;
   client?: KafkaClient;
   params?: RetryParams;
 }
 
-type WaitCriteria = (topic: TopicMetadata) => boolean
+type WaitCriteria = {
+  (topic: TopicMetadata): boolean;
+  operation: string;
+}
 
 const filterTopic = (meta: Metadata, topic: string) => (
   meta.topics.filter(topicMeta => topicMeta.name === topic)
@@ -62,6 +65,7 @@ export class KafkaAdminClient {
   public async createTopic(req: CreateTopicRequest): Promise<void> {
     const client = req.client || await this.getClient()
     const criteria: WaitCriteria = topic => topic ? true : false
+    criteria.operation = 'createTopic'
 
     await this.adminClient.createTopicAsync(req.topic)
     await this.waitFor(client, req.topic.topic, criteria, req.params)
@@ -70,6 +74,7 @@ export class KafkaAdminClient {
   public async deleteTopic(req: DeleteTopicRequest): Promise<void> {
     const client = req.client || await this.getClient()
     const criteria: WaitCriteria = topic => topic === undefined
+    criteria.operation = 'deleteTopic'
 
     await this.adminClient.deleteTopicAsync(req.topic)
     await this.waitFor(client, req.topic, criteria, req.params)
@@ -87,7 +92,7 @@ export class KafkaAdminClient {
       const { kafka } = this
 
       this.client = kafka.createClient(Producer, kafka.rdKafkaConfig)
-      kafka.attachClientLogger(this.client, { type: 'admin-producer' })
+      kafka.attachClientLogger(this.client, this.service.log, { type: 'admin-producer' })
 
       await this.client.connectAsync({
         allTopics: true,
@@ -120,14 +125,14 @@ export class KafkaAdminClient {
         }
       }
 
-      throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts })
+      throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts, operation: criteria.operation })
     }
 
     const topic = await Promise.race([
       waitLoop(),
       delay(timeout).then(() => {
         timedOut = true
-        throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts })
+        throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts, operation: criteria.operation })
       }),
     ])
 
