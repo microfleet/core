@@ -22,7 +22,7 @@ function wrapCallback(router: Router, callback: RequestCallback) {
   }
 }
 
-function getSocketIORouterAdapter(_: any, router: Router) {
+function getSocketIORouterAdapter(_: unknown, router: Router): (socket: NodeJS.EventEmitter) => void {
   return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
     socket.on('*', (packet: SocketIOMessage) => {
       /* Increase request count on message */

@@ -38,10 +38,9 @@ export class PluginHealthCheck {
  * @param {Object} _opts - Retry options.
  * @returns {Promise<{status: string, alive: Array, failed: Array}>} A current service state.
  */
-export async function getHealthStatus(this: Microfleet, handlers: PluginHealthCheck[], config: any): Promise<HealthStatus> {
+export async function getHealthStatus(this: Microfleet, handlers: PluginHealthCheck[], config: retry.Options): Promise<HealthStatus> {
   // retry options
   // https://www.npmjs.com/package/bluebird-retry
-  // eslint-disable-next-line @typescript-eslint/camelcase
   const opts: retry.Options = { ...config, throw_original: true, context: this }
   const alive: PluginHealthStatus[] = []
   const failed: PluginHealthStatus[] = []

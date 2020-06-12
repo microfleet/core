@@ -37,7 +37,7 @@ export class RequestCountTracker {
    * Increase request count for specified transport
    * @param transport
    */
-  increase(transport: TransportTypes) {
+  increase(transport: TransportTypes): void {
     this.registry[transport] += 1
   }
 
@@ -45,7 +45,7 @@ export class RequestCountTracker {
    * Decrease request count for specified transport
    * @param transport
    */
-  decrease(transport: TransportTypes) {
+  decrease(transport: TransportTypes): void {
     const { registry } = this
     registry[transport] -= 1
 
@@ -54,7 +54,7 @@ export class RequestCountTracker {
     }
   }
 
-  get(transport: TransportTypes) {
+  get(transport: TransportTypes): number {
     return this.registry[transport]
   }
 }
@@ -64,7 +64,7 @@ export class RequestCountTracker {
  * @param service
  * @param transport
  */
-export async function waitForRequestsToFinish(service: Microfleet, transport: TransportTypes) {
+export async function waitForRequestsToFinish(service: Microfleet, transport: TransportTypes): Promise<void> {
   if (service.hasPlugin('router')) {
     const { requestCountTracker } = service.router
     await requestCountTracker.waitForRequestsToFinish(transport)
@@ -76,7 +76,7 @@ export async function waitForRequestsToFinish(service: Microfleet, transport: Tr
  * @param service
  * @param transport
  */
-export function getRequestCount(service: Microfleet, transport: TransportTypes) {
+export function getRequestCount(service: Microfleet, transport: TransportTypes): number {
   if (service.hasPlugin('router')) {
     const { requestCountTracker } = service.router
     return requestCountTracker.get(transport)

@@ -7,7 +7,7 @@ export type ServiceRequestWithSchema = ServiceRequest & {
 
 export default [{
   point: LifecyclePoints.postRequest,
-  async handler(error: Error, request: ServiceRequestWithSchema) {
+  async handler(error: Error | null, request: ServiceRequestWithSchema): Promise<[null, ServiceRequestWithSchema]> {
     if (error) {
       throw error
     }

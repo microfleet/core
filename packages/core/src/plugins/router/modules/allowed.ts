@@ -24,7 +24,7 @@ function allowed(this: Microfleet, request: ServiceRequest) {
     })
 }
 
-function allowedHandler(this: Microfleet, request: ServiceRequest) {
+function allowedHandler(this: Microfleet, request: ServiceRequest): Bluebird<any> {
   const allowedFn = is.undefined(request.action.allowed)
     ? identity
     : allowed

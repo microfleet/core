@@ -28,6 +28,7 @@ interface PluginDep {
  */
 export default (name: string): any => {
   const version = (pluginDependencies as PluginDep)[name]
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const depVersion = require(`${name}/package.json`).version
 
   // print warning if we have incompatible version

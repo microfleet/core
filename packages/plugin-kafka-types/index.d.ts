@@ -89,7 +89,7 @@ declare module 'node-rdkafka' {
 
   export interface LibrdKafkaError {
     // eslint-disable-next-line @typescript-eslint/no-misused-new
-    new (e: Error | object): LibrdKafkaError;
+    new(e: Error | Record<string, unknown>): LibrdKafkaError;
   }
 
   interface ProducerStream extends Writable {
@@ -144,7 +144,6 @@ declare module 'node-rdkafka' {
     consumeAsync(count: number): Promise<kafka.Message[]>;
   }
 
-  // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   export interface IAdminClient {
     createTopicAsync(topic: NewTopic): Promise<void>;
     createTopicAsync(topic: NewTopic, timeout?: number): Promise<void>;

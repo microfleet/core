@@ -2,7 +2,7 @@ import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
 import eventToPromise = require('event-to-promise')
-import { Microfleet, PluginTypes, ValidatorPlugin } from '../'
+import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface } from '../'
 import _require from '../utils/require'
 import migrate from './redis/migrate'
 import { NotFoundError } from 'common-errors'
@@ -31,7 +31,7 @@ export const priority = 0
  * @param  [conf={}] - Configuration for Redis Cluster Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): PluginInterface {
   const Redis = _require('ioredis')
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))

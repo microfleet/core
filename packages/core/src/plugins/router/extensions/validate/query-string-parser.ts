@@ -10,7 +10,7 @@ type QSParserAugmentedAction = ServiceRequest & {
   };
 }
 
-function preValidate(request: QSParserAugmentedAction) {
+function preValidate(request: QSParserAugmentedAction): QSParserAugmentedAction {
   const { query } = request
 
   // if present - remap, otherwise just noop

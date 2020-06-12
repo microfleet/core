@@ -8,6 +8,7 @@ import fs = require('fs')
 import _glob = require('glob')
 import path = require('path')
 import { ERROR_NOT_HEALTHY, ERROR_NOT_STARTED } from './constants'
+import Redis = require('ioredis')
 
 const debug = _debug('mservice:lua')
 const glob = promisify(_glob)
@@ -21,8 +22,8 @@ const readFile = promisify(fs.readFile)
 export async function loadLuaScripts(
   ctx: Microfleet,
   dir: string | string[],
-  redis: any
-) {
+  redis: Redis.Redis | Redis.Cluster
+): Promise<void> {
   // NOTE: this is a concious decision to use await serially
   // so that it's easier to debug
   // Operations that happen here are a one-off during script startup
@@ -43,6 +44,8 @@ export async function loadLuaScripts(
       const lua = await readFile(`${location}/${scriptName}`, 'utf8')
       const name = path.basename(scriptName, '.lua')
       debug('attaching %s', name)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       if (typeof redis[name] === 'undefined') {
         // NOTICE: make sure that you pass number of keys as first arg when supplying function
         redis.defineCommand(name, { lua })
@@ -53,13 +56,13 @@ export async function loadLuaScripts(
   }
 }
 
-export function isStarted(service: Microfleet, RedisType: any) {
+export function isStarted(service: Microfleet, RedisType: typeof Redis | Redis.ClusterStatic) {
   return (): boolean => (
     service.redis && (service.redis instanceof RedisType)
   )
 }
 
-export async function hasConnection(this: Microfleet, hasRedis: () => any) {
+export async function hasConnection(this: Microfleet, hasRedis: () => boolean): Promise<boolean> {
   assert(hasRedis(), ERROR_NOT_STARTED)
 
   const ping = await this.redis.ping()

@@ -1,10 +1,10 @@
 import assert = require('assert')
 import { NotPermittedError } from 'common-errors'
-import { Plugin, Server } from '@hapi/hapi'
+import { Plugin, Server, ServerOptions } from '@hapi/hapi'
 import Joi = require('@hapi/joi')
 import { ActionTransport, Microfleet } from '../../../..'
 import { PluginInterface } from '../../../../types'
-import attachRouter from './router/attach'
+import attachRouter, { HapiRouterConfig } from './router/attach'
 import * as RequestTracker from '../../../router/request-tracker'
 
 export interface HapiPlugin {
@@ -21,7 +21,26 @@ const defaultPlugins: HapiPlugin[] = [{
   plugin: './plugins/state',
 }]
 
-function createHapiServer(config: any, service: Microfleet): PluginInterface {
+export interface HapiPluginConfig {
+  server: {
+    handlerConfig: {
+      server: ServerOptions
+      plugins: {
+        list: any[]
+        options?: any
+      }
+      views?: any
+    }
+    host?: string
+    port?: number
+    attachSocketIO?: boolean
+  }
+  router: HapiRouterConfig & {
+    enabled: boolean
+  }
+}
+
+function createHapiServer(config: HapiPluginConfig, service: Microfleet): PluginInterface {
   const { handlerConfig } = config.server
   handlerConfig.server.address = config.server.host || '0.0.0.0'
   handlerConfig.server.port = config.server.port ? config.server.port : 0

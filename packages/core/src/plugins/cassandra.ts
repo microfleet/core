@@ -27,10 +27,8 @@ async function factory(this: Microfleet, Cassandra: any, config: any) {
   const reconnectOpts = {
     interval: 500,
     backoff: 2,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     max_interval: 5000,
     timeout: 60000,
-    // eslint-disable-next-line @typescript-eslint/camelcase
     max_tries: 100,
   }
 

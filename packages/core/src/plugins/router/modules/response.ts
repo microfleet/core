@@ -57,7 +57,7 @@ function response(this: Microfleet, err: Error | null, result: any) {
   return Bluebird.resolve(result)
 }
 
-function responseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]) {
+function responseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]): Bluebird<any> {
   return moduleLifecycle('response', response, this.router.extensions, params, this)
 }
 

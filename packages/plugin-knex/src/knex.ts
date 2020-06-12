@@ -34,10 +34,8 @@ const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): Plugin
     await retry(establishConnection, {
       interval: 500,
       backoff: 2,
-      // eslint-disable-next-line @typescript-eslint/camelcase
       max_interval: 5000,
       timeout: 60000,
-      // eslint-disable-next-line @typescript-eslint/camelcase
       max_tries: 100,
     })
 
@@ -56,7 +54,7 @@ const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): Plugin
 export function attach(
   this: Microfleet & LoggerPlugin & ValidatorPlugin,
   params: Knex.Config | string = {}
-) {
+): PluginInterface {
   const { validator } = this
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))

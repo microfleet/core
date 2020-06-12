@@ -47,7 +47,6 @@ describe('Logger Sentry Stream Suite', () => {
       message: match('Warning message'),
       level: match('warning'),
       platform: match('node'),
-      // eslint-disable-next-line @typescript-eslint/camelcase
       server_name: match.string,
       logger: match.typeOf('undefined'),
       release: match.string,

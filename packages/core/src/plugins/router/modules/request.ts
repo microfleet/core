@@ -33,7 +33,7 @@ function getAction(this: Microfleet & RouterPlugin, route: string, request: Serv
   return request
 }
 
-function requestHandler(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest) {
+function requestHandler(this: Microfleet & RouterPlugin, route: string, request: ServiceRequest): Bluebird<any> {
   const { extensions } = this.router
 
   return moduleLifecycle('request', getAction, extensions, [route, request], this)

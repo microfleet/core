@@ -100,9 +100,11 @@ export interface LoggerConfig {
 }
 
 export const levels = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const isCompatible = (obj: any): obj is pino.Logger => {
-  return obj !== null
-    && typeof obj === 'object'
+  return typeof obj === 'object'
+    && obj !== null
     && every(exports.levels, (level: any) => typeof obj[level] === 'function')
 }
 
@@ -110,7 +112,7 @@ export const isCompatible = (obj: any): obj is pino.Logger => {
  * Plugin init function.
  * @param  opts - Logger configuration.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerConfig>) {
+export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerConfig>): void {
   const { config: { name: applicationName } } = this
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
@@ -134,13 +136,13 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
 
   if (defaultLogger === true) {
     // return either human-readable logger or fast production-ready json logger
-    const getDefaultStream = (): NodeJS.WritableStream => {
+    const getDefaultStream = (): NodeJS.WritableStream | pino.DestinationStream => {
       if (prettifyDefaultLogger) {
         const { stream } = streamsFactory('pretty', { translateTime: true })
         return stream
       }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       return new SonicBoom({ fd: process.stdout.fd })
     }

@@ -1,5 +1,5 @@
 
-import { LifecyclePoints } from '.'
+import { LifecyclePoints, ExtensionPlugin } from '.'
 import { ServiceRequest } from '../../../types'
 
 interface RequestStartExtension {
@@ -8,7 +8,7 @@ interface RequestStartExtension {
 }
 export type ServiceRequestWithStart = ServiceRequest & RequestStartExtension
 
-export function storeRequestTimeFactory() {
+export function storeRequestTimeFactory(): ExtensionPlugin {
   return {
     point: LifecyclePoints.preRequest,
     async handler(route: string, request: ServiceRequestWithStart) {

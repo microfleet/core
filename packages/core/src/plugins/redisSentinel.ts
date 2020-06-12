@@ -1,7 +1,7 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
-import { Microfleet, PluginTypes, ValidatorPlugin } from '../'
+import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface } from '../'
 import _require from '../utils/require'
 import { ERROR_ALREADY_STARTED, ERROR_NOT_STARTED } from './redis/constants'
 import { NotFoundError } from 'common-errors'
@@ -30,7 +30,7 @@ export const priority = 0
  * @param  [conf={}] - Configuration for Redis Sentinel Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): PluginInterface {
   const Redis = _require('ioredis')
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))

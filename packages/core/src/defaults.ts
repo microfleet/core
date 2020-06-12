@@ -203,5 +203,5 @@ export const prometheus = {
  */
 export const healthChecks = {
   interval: 500,
-  max_tries: 3, // eslint-disable-line @typescript-eslint/camelcase
+  max_tries: 3,
 }

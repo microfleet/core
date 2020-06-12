@@ -63,9 +63,7 @@ export class KafkaFactory {
     const { topics, checkTopicExists } = opts.streamOptions
     const consumerConfig: ConsumerStreamConfig['conf'] = {
       ...opts.conf,
-      // eslint-disable-next-line @typescript-eslint/camelcase
       offset_commit_cb: opts.conf?.offset_commit_cb || true,
-      // eslint-disable-next-line @typescript-eslint/camelcase
       rebalance_cb: opts.conf?.rebalance_cb || true,
       'enable.auto.offset.store': false,
     }
@@ -105,7 +103,7 @@ export class KafkaFactory {
     return this.createStream(KafkaProducerStream, producer, opts.streamOptions)
   }
 
-  async close() {
+  async close(): Promise<void> {
     // Disconnect admin client
     this.admin.close()
     // Some connections will be already closed by streams
@@ -149,7 +147,7 @@ export class KafkaFactory {
     return new clientClass(config, topicConf)
   }
 
-  public attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}) {
+  public attachClientLogger(client: Client<KafkaClientEvents>, meta: any = {}): void {
     const { log } = this.service
     const { connections } = this
 
@@ -170,7 +168,7 @@ export class KafkaFactory {
       // After this cleanups total leak for 2500 topics will be in about 10Mb.
 
       this['_metadata'] = null
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.globalConfig = null
     })

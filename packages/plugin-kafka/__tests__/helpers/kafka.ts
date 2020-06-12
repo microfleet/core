@@ -39,7 +39,6 @@ export async function createProducerStream(
     {
       streamOptions: { objectMode: true, pollInterval: 1 },
       conf: {
-        // eslint-disable-next-line @typescript-eslint/camelcase
         dr_msg_cb: true,
       },
     },

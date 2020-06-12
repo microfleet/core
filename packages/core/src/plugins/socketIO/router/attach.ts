@@ -3,8 +3,9 @@ import { Router } from '../../router/factory'
 import { verifyAttachPossibility } from '../../router/verifyAttachPossibility'
 import getSocketIORouterAdapter from './adapter'
 import wildcard = require('socketio-wildcard')
+import type { Server, ServerOptions } from 'socket.io'
 
-function attachSocketIORouter(socketIO: any, config: any, router: Router) {
+function attachSocketIORouter(socketIO: Server, config: unknown, router: Router): void {
   verifyAttachPossibility(router, ActionTransport.socketIO)
 
   // include adapter
@@ -16,9 +17,10 @@ function attachSocketIORouter(socketIO: any, config: any, router: Router) {
 
   // NOTE: overwrites listen & attach functions so that we can init middleware after we have connected
   // a server to socket.io instance
-  socketIO.attach = socketIO.listen = function listen(...args: any[]) {
-    attach.apply(this, args)
+  socketIO.attach = socketIO.listen = function listen(srv: any | number, opts?: ServerOptions): Server {
+    attach.call(this, srv, opts)
     socketIO.use(wildcardMiddleware)
+    return this
   }
 
   socketIO.on('connection', getSocketIORouterAdapter(config, router))

@@ -13,7 +13,11 @@ interface AdaptersList {
   [name: string]: any;
 }
 
-function attachSocketIO(this: Microfleet & ValidatorPlugin, opts: any = {}) {
+interface RequestCounter {
+  getRequestCount(): number
+}
+
+function attachSocketIO(this: Microfleet & ValidatorPlugin, opts: any = {}): RequestCounter {
   debug('Attaching socketIO plugin')
   const AdapterFactory = _require('ms-socket.io-adapter-amqp')
   const SocketIO = _require('socket.io')

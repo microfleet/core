@@ -116,7 +116,7 @@ function assignStrategies(strategies: AuthOptions['strategies']) {
   }
 }
 
-function getAuthHandler(config: AuthOptions) {
+function getAuthHandler(config: AuthOptions): ReturnType<typeof assignStrategies> {
   const strategies = Object.assign(Object.create(null), config.strategies)
   return assignStrategies(strategies)
 }

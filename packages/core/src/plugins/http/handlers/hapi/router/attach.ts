@@ -33,7 +33,11 @@ function attachRequestCountEvents(server: Server, router: Router) {
   server.events.on('stop', onStop)
 }
 
-export default function attachRouter(service: Microfleet, config: any): HapiPlugin {
+export interface HapiRouterConfig {
+  prefix: string
+}
+
+export default function attachRouter(service: Microfleet, config: HapiRouterConfig): HapiPlugin {
   verifyAttachPossibility(service.router, ActionTransport.http)
 
   return {
@@ -49,7 +53,7 @@ export default function attachRouter(service: Microfleet, config: any): HapiPlug
             method: ['GET', 'POST'],
           }
 
-          const hapiTransportOptions = get(handler as object, 'transportOptions.handlers.hapi', Object.create(null))
+          const hapiTransportOptions = get(handler as Record<string, unknown>, 'transportOptions.handlers.hapi', Object.create(null))
           const handlerOptions = omit(hapiTransportOptions, ['path', 'handler'])
 
           server.route(defaults(handlerOptions, defaultOptions))

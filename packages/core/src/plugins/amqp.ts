@@ -4,7 +4,7 @@ import Errors = require('common-errors')
 import eventToPromise = require('event-to-promise')
 import { NotFoundError } from 'common-errors'
 import get = require('get-value')
-import { ActionTransport, Microfleet, PluginTypes, ValidatorPlugin } from '../'
+import { ActionTransport, Microfleet, PluginTypes, ValidatorPlugin, PluginInterface } from '../'
 import _require from '../utils/require'
 import getAMQPRouterAdapter from './amqp/router/adapter'
 import { verifyAttachPossibility } from './router/verifyAttachPossibility'
@@ -48,7 +48,7 @@ export const priority = 0
  * Attaches plugin to the Mthis class.
  * @param {Object} config - AMQP plugin configuration.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}) {
+export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 

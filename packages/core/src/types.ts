@@ -21,14 +21,14 @@ export { Router } from './plugins/router'
  * @desc get the union type of all the keys in an object type `T`
  * @see https://flow.org/en/docs/types/utilities/#toc-keys
  */
-export type $Keys<T extends object> = keyof T
+export type $Keys<T extends Record<string, unknown>> = keyof T
 
 /**
  * $Values
  * @desc get the union type of all the values in an object type `T`
  * @see https://flow.org/en/docs/types/utilities/#toc-values
  */
-export type $Values<T extends object> = T[keyof T]
+export type $Values<T extends Record<string, unknown>> = T[keyof T]
 
 /**
  * Generic PlguinConnect Interface
@@ -42,10 +42,10 @@ export declare interface PluginInterface {
   connect: PluginConnector;
   close: PluginConnector;
   status?: PluginConnector;
-  getRequestCount?: PluginConnector;
+  getRequestCount?: () => number;
 }
 
-export declare interface Plugin<T = {}> {
+export declare interface Plugin<T = Record<string, unknown>> {
   name: string;
   priority: number;
   type: $Values<typeof PluginTypes>;

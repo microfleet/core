@@ -70,10 +70,8 @@ export function attach(this: Microfleet & ValidatorPlugin, params: any = {}): Pl
         args: [{ nodeId: '', human: true }],
         interval: 500,
         backoff: 2,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         max_interval: 5000,
         timeout: 60000,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         max_tries: 100,
       })
 

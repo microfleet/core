@@ -63,7 +63,7 @@ class Extensions {
     this.autoRegister(register)
   }
 
-  public autoRegister(register: ExtensionPlugin[][]) {
+  public autoRegister(register: ExtensionPlugin[][]): void {
     for (const extensions of register) {
       for (const extension of extensions) {
         this.register(extension.point, extension.handler)
@@ -76,7 +76,7 @@ class Extensions {
    * @param name - Name of the extension handler.
    * @returns True if exists.
    */
-  public has(name: LifecycleRequestType) {
+  public has(name: LifecycleRequestType): boolean {
     const handlers = this.extensions[name]
     return handlers !== undefined && handlers.length > 0
   }
@@ -86,7 +86,7 @@ class Extensions {
    * @param {string} name - Name of the lifecycle event.
    * @param {Function} handler - Handler of the event.
    */
-  public register(name: LifecycleRequestType, handler: (...args: any[]) => PromiseLike<any | never>) {
+  public register(name: LifecycleRequestType, handler: (...args: any[]) => PromiseLike<any | never>): void {
     if (this.extensions[name] === undefined) {
       throw new Errors.NotSupportedError(name)
     }
@@ -101,7 +101,7 @@ class Extensions {
    * @param [context=null] - Context to call lifecycle handlers with.
    * @returns Result of the invocation.
    */
-  public exec(name: string, args: any[] = [], context: any = null) {
+  public exec(name: string, args: any[] = [], context: any = null): Bluebird<any[]> {
     const handlers = this.extensions[name]
 
     if (is.undefined(handlers)) {

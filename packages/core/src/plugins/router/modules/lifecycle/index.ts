@@ -13,8 +13,9 @@ function moduleLifecycle(
   promiseFactory: ActionHandler,
   extensions: Extensions,
   args: any[],
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   context?: any
-) {
+): Bluebird<any> {
   if (!is.string(module)) {
     return Bluebird.reject(new Errors.ArgumentError('module'))
   }

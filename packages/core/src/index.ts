@@ -27,6 +27,7 @@ import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
 import { HealthStatus } from './utils/pluginHealthStatus'
+import type { Options as RetryOptions } from 'bluebird-retry'
 export { ValidatorPlugin, RouterPlugin, LifecycleRequestType }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
@@ -73,6 +74,7 @@ export const PluginsPriority = constants.PluginsPriority
  * @returns Extension to router plugin.
  */
 export const routerExtension = (name: string): unknown => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   return require(require.resolve(`./plugins/router/extensions/${name}`)).default
 }
 
@@ -109,6 +111,11 @@ export interface ConfigurationOptional {
   hooks: {
     [name: string]: Hook;
   };
+
+  /**
+   * Healthcheck configurations
+   */
+  healthChecks: RetryOptions
 }
 
 export type AnyFn = (...args: any[]) => any;
@@ -281,7 +288,8 @@ export class Microfleet extends EventEmitter {
    * @param mod.attach - Plugin attach function.
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
-  public initPlugin<T extends object>(mod: Plugin<T>, conf?: any): void {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public initPlugin<T extends Record<string, unknown>>(mod: Plugin<T>, conf?: any): void {
     const pluginName = mod.name
 
     let expose: PluginInterface

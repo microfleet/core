@@ -37,7 +37,7 @@ export type RequestCallback = (err: any, result?: any) => void
 
 function dispatch(this: Router, route: string, request: ServiceRequest): Bluebird<any>
 function dispatch(this: Router, route: string, request: ServiceRequest, callback: RequestCallback): void
-function dispatch(this: Router, route: string, request: ServiceRequest, callback?: RequestCallback) {
+function dispatch(this: Router, route: string, request: ServiceRequest, callback?: RequestCallback): Bluebird<any> | void {
   const { modules, service } = this
 
   debug('initiating request on route %s', route)

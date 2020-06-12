@@ -112,16 +112,16 @@ function checkVersionError(this: Microfleet, error: any) {
  * @param  scripts - Migrations to perform.
  * @returns Returns when migrations are performed.
  */
-async function performMigration(redis: Redis.Redis, service: Microfleet, scripts: any) {
+async function performMigration(redis: Redis.Redis, service: Microfleet, scripts: unknown): Promise<boolean | void> {
   let files: Migration[]
-  if (is.string(scripts)) {
+  if (typeof scripts === 'string') {
     debug('looking for files in %s', scripts)
     files = await Bluebird
       .fromCallback((next: (err: Error | null, results: string[]) => void) => {
         glob('*{.js,/}', { cwd: scripts }, next)
       })
       .map((script: string): Migration => require(`${scripts}/${script}`))
-  } else if (is.array(scripts)) {
+  } else if (Array.isArray(scripts)) {
     files = scripts
   } else {
     throw new Error('`scripts` arg must be either a directory with migrations or Migrations[]')

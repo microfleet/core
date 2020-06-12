@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Microfleet } from '@microfleet/core'
 import { once, EventEmitter } from 'events'
 import { Transform, pipeline as origPipeline } from 'readable-stream'

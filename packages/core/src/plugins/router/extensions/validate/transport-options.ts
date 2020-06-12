@@ -13,8 +13,8 @@ export type TransportOptionsAugmentedRequest = ServiceRequest & {
   };
 }
 
-function postRequest(error: Error, request: TransportOptionsAugmentedRequest) {
-  const result = Bluebird.resolve([error, request])
+function postRequest(error: Error, request: TransportOptionsAugmentedRequest): Bluebird<[Error, TransportOptionsAugmentedRequest]> {
+  const result: Bluebird<[Error, TransportOptionsAugmentedRequest]> = Bluebird.resolve([error, request])
 
   if (error) {
     return result
