@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.3.2...@microfleet/plugin-kafka@2.4.0) (2020-06-12)
+
+
+### Features
+
+* extra message filters and tester image ([#430](https://github.com/microfleet/core/issues/430)) ([1ae435a](https://github.com/microfleet/core/commit/1ae435aa331c0b80cf714e34cc13e8ae02296fba))
+
+
+
+
+
 ## [2.3.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.3.1...@microfleet/plugin-kafka@2.3.2) (2020-06-12)
 
 
