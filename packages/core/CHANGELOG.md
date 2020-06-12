@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [17.3.3](https://github.com/microfleet/core/compare/@microfleet/core@17.3.2...@microfleet/core@17.3.3) (2020-06-12)
+
+
+### Bug Fixes
+
+* import ([f69b11a](https://github.com/microfleet/core/commit/f69b11a8e10e6dd1e86379cdd1437c2e5479f5f5))
+* imports ([dccb605](https://github.com/microfleet/core/commit/dccb605da3fae51f0f9957c46ecac24af036e537))
+* improved types ([61859a9](https://github.com/microfleet/core/commit/61859a9e2c423f549931fa95445aa31848be2375))
+* update deps ([bd2790a](https://github.com/microfleet/core/commit/bd2790aceed96561691faf954cfb2e1b52dfda65))
+
+
+
+
+
 ## [17.3.2](https://github.com/microfleet/core/compare/@microfleet/core@17.3.1...@microfleet/core@17.3.2) (2020-05-19)
 
 
