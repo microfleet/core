@@ -13,7 +13,9 @@ import { DeepPartial } from 'ts-essentials'
 import { HttpStatusError } from '@microfleet/validation'
 import {
   getHealthStatus,
-  PluginHealthCheck
+  PluginHealthCheck,
+  HealthStatus,
+  PluginHealthStatus,
 } from './utils/pluginHealthStatus'
 import { getVersion } from './utils/packageInfo'
 import {
@@ -26,9 +28,8 @@ import {
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import defaultsDeep from './utils/defaults-deep'
-import { HealthStatus } from './utils/pluginHealthStatus'
 import type { Options as RetryOptions } from 'bluebird-retry'
-export { ValidatorPlugin, RouterPlugin, LifecycleRequestType }
+export { ValidatorPlugin, RouterPlugin, LifecycleRequestType, PluginHealthStatus, HealthStatus }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 

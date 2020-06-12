@@ -1,8 +1,7 @@
 import { HttpStatusError } from 'common-errors'
 import { PLUGIN_STATUS_FAIL } from '../../../../constants'
-import { ActionTransport, Microfleet } from '../../../..'
+import { ActionTransport, Microfleet, HealthStatus } from '../../../..'
 import { ServiceRequest } from '../../../../types'
-import { HealthStatus } from '@microfleet/core/lib/utils/pluginHealthStatus'
 
 const kUnhealthy = new HttpStatusError(500, 'unhealthy')
 
