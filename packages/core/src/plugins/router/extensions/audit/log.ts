@@ -49,13 +49,13 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): E
 
           meta.err = error
           // just pass data through
-          request.log[level](meta, 'Error performing operation', err)
+          request.log[level](meta, 'Error performing operation %s', err)
         } else {
           if (this.config.debug) {
             meta.response = result
           }
 
-          request.log.info(meta, 'completed operation', request.action.actionName)
+          request.log.info(meta, 'completed operation %s', request.action.actionName)
         }
 
         return [error, result]

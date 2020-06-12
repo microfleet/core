@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "knex": "^0.21.1",
-    "pg": "^8.2.0"
+    "pg": "^8.2.1"
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.2",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/eslint-plugin": "^3.2.0",
     "rimraf": "^3.0.0"
   },
   "engines": {

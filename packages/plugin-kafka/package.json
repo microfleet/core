@@ -36,13 +36,13 @@
     "bluebird": "^3.7.2",
     "node-rdkafka": "^2.8.1",
     "readable-stream": "^3.6.0",
-    "uuid": "^8.0.0"
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.1",
-    "@types/readable-stream": "^2.3.6",
-    "@types/sinon": "^9.0.1",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@types/node": "^14.0.13",
+    "@types/readable-stream": "^2.3.7",
+    "@types/sinon": "^9.0.4",
+    "@typescript-eslint/eslint-plugin": "^3.2.0",
     "toxiproxy-node-client": "^2.0.6"
   },
   "files": [
