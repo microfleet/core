@@ -43,7 +43,7 @@ export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOf
   generateMessage: () => 'Uncomitted offsets left',
 })
 
-export interface OffsetCommitError extends CommonError{
+export interface OffsetCommitError extends CommonError {
   offsetTracker: CommitOffsetTracker;
   unacknodledgedTracker: CommitOffsetTracker;
 }
