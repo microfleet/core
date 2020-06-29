@@ -120,7 +120,7 @@
     "handlebars": "^4.7.6",
     "ioredis": "^4.17.3",
     "jaeger-client": "^3.18.0",
-    "jest": "26.0.1",
+    "jest": "26.1.0",
     "json": "^9.0.6",
     "mocha": "^8.0.1",
     "ms-socket.io-adapter-amqp": "^6.0.0",
