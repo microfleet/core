@@ -165,18 +165,8 @@ export class KafkaFactory {
     client.once('disconnected', function disconnected(this: KafkaClient) {
       log.info(meta, 'client disconnected')
       connections.delete(this)
-
       // cleanup event listeners
       this.removeAllListeners()
-      // btw, node-rdkafka doesnot releases offset.commit and other callbacks from C++ land
-      // This causes memory leak. In future we should try to avoid this situation.
-      // Same trouble but with KafkaProducer https://github.com/Blizzard/node-rdkafka/issues/731
-      // After this cleanups total leak for 2500 topics will be in about 10Mb.
-
-      this['_metadata'] = null
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.globalConfig = null
     })
 
     client.on('event.log', (eventData: any) => {
