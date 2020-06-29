@@ -111,8 +111,6 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public _destroy(err: Error | null | undefined, callback?: (err: Error | null) => void): void {
-    this.removeListeners()
-
     if (!this.consumer.isConnected()) {
       if (callback) callback(err || null)
       return
@@ -179,14 +177,6 @@ export class KafkaConsumerStream extends Readable {
 
   private consumerDisconnected(): boolean {
     return this.consumer._isDisconnecting || !this.consumer.isConnected()
-  }
-
-  // Remove event listeners to allow the class to be destroyed by GC
-  private removeListeners(): void {
-    this.consumer.removeListener('rebalance', this.handleRebalance)
-    this.consumer.removeListener('offset.commit', this.handleOffsetCommit)
-    this.consumer.removeListener('disconnected', this.handleDisconnected)
-    this.consumer.removeListener('unsubscribed', this.handleUnsubscribed)
   }
 
   private handleUnsubscribed(): void {
