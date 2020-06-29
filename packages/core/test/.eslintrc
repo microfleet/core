@@ -10,5 +10,8 @@
         "extensions": [".ts", ".js"]
       }
     }
+  },
+  "rules": {
+    "no-var-requires": false
   }
 }
