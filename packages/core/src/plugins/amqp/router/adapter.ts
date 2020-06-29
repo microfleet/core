@@ -9,7 +9,7 @@ import { Router } from '../../router/factory'
 // cached var
 const { amqp } = ActionTransport
 
-function getAMQPRouterAdapter(router: Router, config: any) {
+function getAMQPRouterAdapter(router: Router, config: Record<string, any>): (params: any, properties: any, next: (...args: any[]) => void) => Promise<void> {
   const { onComplete } = config.transport
   const { service, requestCountTracker } = router
   const wrapDispatch = is.fn(onComplete)

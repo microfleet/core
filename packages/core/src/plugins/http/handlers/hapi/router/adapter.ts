@@ -9,7 +9,7 @@ import { ServiceRequest, RequestMethods } from '../../../../../types'
 import _require from '../../../../../utils/require'
 import { Router } from '../../../../router/factory'
 
-export default function getHapiAdapter(actionName: string, service: Microfleet) {
+export default function getHapiAdapter(actionName: string, service: Microfleet): (r: Request) => Promise<any> {
   const Boom = _require('@hapi/boom')
   const router = service.router as Router
 
