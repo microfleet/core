@@ -194,21 +194,19 @@ export class KafkaConsumerStream extends Readable {
     this.destroy()
   }
 
-  private async handleOffsetCommit(err: Error | LibrdKafkaError | number, partitions: TopicPartitionOffset[]): Promise<void> {
+  private async handleOffsetCommit(err: LibrdKafkaError , partitions: TopicPartitionOffset[]): Promise<void> {
     if (err) {
       const wrappedError = new OffsetCommitError(partitions, err)
       this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
       this.log?.warn({ err }, '[commit] offset commit error')
-      // Should be Error but current node-rdkafka version returns error code as number
-      const code = typeof err === 'number' ? err : (err as LibrdKafkaError).code
 
-      if (RetryableErrors.includes(code)) {
+      if (RetryableErrors.includes(err.code)) {
         this.log?.info({ err: wrappedError }, '[commit] retry offset commit')
         this.consumer.commit(partitions)
         return
       }
 
-      if (CriticalErrors.includes(code)) {
+      if (CriticalErrors.includes(err.code)) {
         this.log?.error({ err: wrappedError }, '[commit] critical commit error')
         this.destroy(wrappedError)
       }

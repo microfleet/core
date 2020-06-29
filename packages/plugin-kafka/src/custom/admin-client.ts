@@ -1,31 +1,23 @@
 import { Microfleet } from '@microfleet/core'
-import { promisifyAll, delay } from 'bluebird'
+import { promisifyAll } from 'bluebird'
 import { merge } from 'lodash'
+import * as retry from 'bluebird-retry'
 
 import { IAdminClient, AdminClient, TopicMetadata, KafkaClient, Metadata, NewTopic, Producer } from './rdkafka-extra'
 import { TopicWaitError } from './errors'
 import { KafkaClient as KafkaClientType } from '@microfleet/plugin-kafka-types'
 import { KafkaFactory } from '../kafka'
 
-/**
- * waitFor Method params
- */
-export type RetryParams = {
-  tries: number;
-  interval: number;
-  timeout: number;
-}
-
 export type CreateTopicRequest = {
   topic: NewTopic;
   client?: KafkaClient;
-  params?: RetryParams;
+  params?: retry.Options;
 }
 
 export type DeleteTopicRequest = {
   topic: string;
   client?: KafkaClient;
-  params?: RetryParams;
+  params?: retry.Options;
 }
 
 type WaitCriteria = {
@@ -43,7 +35,7 @@ export class KafkaAdminClient {
   private kafka: KafkaFactory
 
   public adminClient: IAdminClient
-  public defaultWaitParams: RetryParams
+  public defaultWaitParams: retry.Options
 
   constructor(service: Microfleet, kafka: KafkaFactory) {
     this.service = service
@@ -51,9 +43,11 @@ export class KafkaAdminClient {
     this.adminClient = this.createAdminClient()
 
     this.defaultWaitParams = {
-      tries: 10,
+      max_tries: 10,
+      throw_original: true,
       interval: 100,
-      timeout: 5000,
+      max_interval: 5000,
+      timeout: 15000,
     }
   }
 
@@ -109,33 +103,15 @@ export class KafkaAdminClient {
     return filtered
   }
 
-  private async waitFor(client: KafkaClient, topicName: string, criteria: WaitCriteria, params?: RetryParams): Promise<TopicMetadata> {
-    const { tries, timeout, interval } = merge(params, this.defaultWaitParams)
+  private async waitFor(client: KafkaClient, topicName: string, criteria: WaitCriteria, params?: retry.Options): Promise<TopicMetadata> {
+    const retryParams = merge(params, this.defaultWaitParams)
     let attempts = 0
-    let timedOut = false
 
-    const waitLoop = async (): Promise<TopicMetadata> => {
-      while (!timedOut && attempts < tries) {
-        attempts += 1
-        const filtered = await this.getTopicFromMeta(client, topicName)
-        if (criteria(filtered)) return filtered
-
-        if (!timedOut) {
-          await delay(interval)
-        }
-      }
-
+    return retry(async () => {
+      attempts += 1
+      const filtered = await this.getTopicFromMeta(client, topicName)
+      if (criteria(filtered)) return filtered
       throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts, operation: criteria.operation })
-    }
-
-    const topic = await Promise.race([
-      waitLoop(),
-      delay(timeout).then(() => {
-        timedOut = true
-        throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts, operation: criteria.operation })
-      }),
-    ])
-
-    return topic
+    }, retryParams)
   }
 }
