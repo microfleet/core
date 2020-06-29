@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import * as chalk from 'chalk'
 import semver = require('semver')
 
 const pluginDependencies = {
