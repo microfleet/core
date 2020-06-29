@@ -33,9 +33,8 @@
   "devDependencies": {
     "@microfleet/core": "^17.3.3",
     "@types/consul": "^0.23.34",
-    "@typescript-eslint/eslint-plugin": "^3.2.0",
     "rimraf": "^3.0.2",
-    "ts-essentials": "^6.0.5"
+    "ts-essentials": "^7.0.0"
   },
   "engines": {
     "node": ">= 12.14.0",
