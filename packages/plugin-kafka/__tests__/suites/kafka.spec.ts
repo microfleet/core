@@ -121,7 +121,7 @@ describe('#generic', () => {
         client: producerTemp.producer,
         topic: { topic, num_partitions: 1, replication_factor: 1 },
         params: {
-          tries: 20,
+          max_tries: 20,
           interval: 1000,
           timeout: 20000,
         }
@@ -137,7 +137,7 @@ describe('#generic', () => {
         topic,
         client: producerTemp.producer,
         params: {
-          tries: 20,
+          max_tries: 20,
           interval: 1000,
           timeout: 20000,
         }
@@ -420,44 +420,6 @@ describe('#generic', () => {
       await expect(errorSim()).rejects.toThrowError(TimeoutError)
     })
 
-    test('throws on offset.commit error as number', async () => {
-      const topic = 'test-throw-error-number'
-
-      producer = await createProducerStream(service)
-      await sendMessages(producer, topic, 10)
-
-      consumerStream = await createConsumerStream(service, {
-        streamOptions: {
-          topics: topic,
-        },
-        conf: {
-          'enable.auto.commit': false,
-          'group.id': topic,
-        },
-      })
-
-      const receivedMessages: any[] = []
-      let errorEmitted = false
-      const errorSim = async () => {
-        for await (const incommingMessage of consumerStream) {
-          const messages = msgsToArr(incommingMessage)
-          receivedMessages.push(...messages)
-          const lastMessage = messages[messages.length-1]
-
-          if (!errorEmitted && receivedMessages.length === 2) {
-            errorEmitted = true
-            consumerStream.consumer.emit(
-              'offset.commit',
-              25,
-              [{ topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 }]
-            )
-          }
-        }
-      }
-
-      await expect(errorSim()).rejects.toThrowError(OffsetCommitError)
-    })
-
     describe('throws on offset.commit error as KafkaError like object', () => {
       test('as iterable', async () => {
         const topic = 'test-throw-kafka-error-like'
@@ -577,7 +539,7 @@ describe('#generic', () => {
         }
       }
 
-      await expect(errorSim()).rejects.toThrowError('Kafka critical error: 3')
+      await expect(errorSim()).rejects.toThrowError('Kafka critical error: Broker: Unknown topic or partitio')
     })
 
     describe('handles unsubscribe event from consumer', () => {

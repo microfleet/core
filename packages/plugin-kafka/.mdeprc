@@ -2,7 +2,7 @@
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,
-  "node": "12",
+  "node": "12.18.1",
   "tester_flavour": "rdkafka-tester",
   "parallel": 1,
   "test_framework": "jest --config ./jest.config.js --runTestsByPath --runInBand",
