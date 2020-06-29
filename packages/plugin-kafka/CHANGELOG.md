@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.4.0...@microfleet/plugin-kafka@2.5.0) (2020-06-29)
+
+
+### Bug Fixes
+
+* unnecessary code ([0830282](https://github.com/microfleet/core/commit/0830282875de28c9512997e044851d784dac1387))
+
+
+### Features
+
+* admin client use blubird-retry ([88bc37e](https://github.com/microfleet/core/commit/88bc37e36ecbcf44bc1a965995a7fe6e74a8b6cb))
+
+
+
+
+
 # [2.4.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.3.2...@microfleet/plugin-kafka@2.4.0) (2020-06-12)
 
 

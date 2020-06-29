@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.4](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.2.3...@microfleet/plugin-couchdb@2.2.4) (2020-06-29)
+
+**Note:** Version bump only for package @microfleet/plugin-couchdb
+
+
+
+
+
 ## [2.2.3](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.2.2...@microfleet/plugin-couchdb@2.2.3) (2020-06-12)
 
 

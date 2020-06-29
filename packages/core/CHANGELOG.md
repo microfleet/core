@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [17.3.4](https://github.com/microfleet/core/compare/@microfleet/core@17.3.3...@microfleet/core@17.3.4) (2020-06-29)
+
+
+### Bug Fixes
+
+* _require chalk usage ([339aa6b](https://github.com/microfleet/core/commit/339aa6bdf253855d41cca1a276361a72519e76f8))
+* eslint upgrade ([4282fd6](https://github.com/microfleet/core/commit/4282fd697c67d9dc6942fdd933920bc82ca2a5fc))
+
+
+
+
+
 ## [17.3.3](https://github.com/microfleet/core/compare/@microfleet/core@17.3.2...@microfleet/core@17.3.3) (2020-06-12)
 
 
