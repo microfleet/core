@@ -2,7 +2,7 @@ import { CODES as KafkaCodes } from './rdkafka-extra'
 import { helpers as ErrorHelpers } from 'common-errors'
 import { TimeoutError } from 'bluebird'
 import { TopicPartitionOffset } from 'node-rdkafka'
-import type { CommitOffsetTracker } from './consumer-stream'
+import type { TrackerMeta } from './consumer-stream'
 
 const { ERRORS: KafkaErrorCodes } = KafkaCodes
 const {
@@ -13,6 +13,10 @@ const {
   ERR__STATE,
   ERR_UNKNOWN,
   ERR_REQUEST_TIMED_OUT,
+  ERR_NETWORK_EXCEPTION,
+  ERR_COORDINATOR_LOAD_IN_PROGRESS,
+  ERR_GROUP_LOAD_IN_PROGRESS,
+  ERR_PREFERRED_LEADER_NOT_AVAILABLE,
 } = KafkaErrorCodes
 
 interface CommonError {
@@ -25,17 +29,19 @@ export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError
 })
 
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
-  args: ['partitions', 'inner_error'],
+  args: ['partitions', 'trackerMeta', 'inner_error'],
   generateMessage(this: CommonError) {
     if (typeof this.inner_error === 'number') {
       return `Kafka critical error: ${this.inner_error}`
     }
     return `Kafka critical error: ${this.inner_error.message}`
   },
+  globalize: true
 })
 
-export interface OffsetCommitError extends CommonError{
+export interface OffsetCommitError extends CommonError {
   partitions: TopicPartitionOffset[];
+  trackerMeta: TrackerMeta;
 }
 
 export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOffsetsError', {
@@ -43,17 +49,16 @@ export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOf
   generateMessage: () => 'Uncomitted offsets left',
 })
 
-export interface OffsetCommitError extends CommonError {
-  offsetTracker: CommitOffsetTracker;
-  unacknodledgedTracker: CommitOffsetTracker;
-}
-
 export const CriticalErrors: number[] = [
   ERR_UNKNOWN_MEMBER_ID,
   ERR_UNKNOWN_TOPIC_OR_PART,
 ]
 
 export const RetryableErrors: number[] = [
+  ERR_NETWORK_EXCEPTION,
+  ERR_COORDINATOR_LOAD_IN_PROGRESS,
+  ERR_GROUP_LOAD_IN_PROGRESS,
+  ERR_PREFERRED_LEADER_NOT_AVAILABLE,
   ERR_REQUEST_TIMED_OUT
 ]
 
