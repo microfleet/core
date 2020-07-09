@@ -8,6 +8,8 @@ import handlerModule from './modules/handler'
 import requestModule from './modules/request'
 import getResponseHandler from './modules/response'
 import validateModule from './modules/validate'
+import responseValidate from './modules/response-validate'
+
 import { getRoutes, RoutesConfig } from './routes'
 import { RequestCountTracker } from './request-tracker'
 
@@ -42,6 +44,7 @@ export interface Router {
     allowed: ServiceActionStep;
     handler: ServiceActionStep;
     response: ServiceActionStep;
+    responseValidate: ServiceActionStep;
   };
 }
 
@@ -62,6 +65,7 @@ export function getRouter(config: RouterConfig, service: Microfleet): Router {
     requestCountTracker: new RequestCountTracker(service),
     extensions: new Extensions(config.extensions),
     modules: {
+      responseValidate,
       allowed: allowedModule,
       auth: getAuthModule(config.auth),
       handler: handlerModule,

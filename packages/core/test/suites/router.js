@@ -19,6 +19,7 @@ describe('Router suite', function testSuite() {
   const verify = require('../router/helpers/verifyCase');
 
   const schemaLessAction = routerExtension('validate/schemaLessAction');
+  const responseValidate = routerExtension('validate/fast-json-response');
   const qsParser = routerExtension('validate/query-string-parser');
   const transportOptions = routerExtension('validate/transport-options');
 
@@ -384,7 +385,7 @@ describe('Router suite', function testSuite() {
     await service.close();
   });
 
-  it('should scan for generic routes', async function test() {
+  it.only('should scan for generic routes', async function test() {
     const service = new Microfleet({
       name: 'tester',
       amqp: {
@@ -428,6 +429,7 @@ describe('Router suite', function testSuite() {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
             schemaLessAction,
+            responseValidate,
             auditLog(),
           ],
         },
@@ -449,15 +451,16 @@ describe('Router suite', function testSuite() {
     const returnsResult = {
       expect: 'success',
       verify: (result) => {
+        console.debug({ typ: typeof result, result });
         expect(result.data.status).to.be.equals('ok');
         expect(result.data.failed).to.have.lengthOf(0);
       },
     };
 
-    await AMQPRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult));
     await service.dispatch('generic.health', {}).reflect().then(verify(returnsResult));
     await HTTPRequest('/action/generic/health').reflect().then(verify(returnsResult));
     await socketIORequest('action.generic.health', {}).reflect().then(verify(returnsResult));
+    await AMQPRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult));
 
     await service.close();
   });

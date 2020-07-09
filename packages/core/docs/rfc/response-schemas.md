@@ -1,0 +1,79 @@
+# Action response schemas
+
+## Overview and motivation
+This document describes an additional feature that will allow to validate any action response and will help to provide good schema based documentation.
+In future this feature will allow to use `fast-json-stringify` for faster response serialization.
+
+## Response validation
+To achieve described feature:
+
+1. `plugin/router`s `lifecycles` going to be updated and new `responseValidate` cycle added.
+2. Any action that should validate its response should provide `responseSchema` in its properties.
+3. Add `skipResponseValidation` for actions with response validation. This option allows to disable response validation for action.
+
+## ApiDoc Generation
+There is 2 options to generate API documentation using JSON schemas.
+1. Adobe [`jsonschema2md`](https://github.com/adobe/jsonschema2md/) - BUT it generates too much extra files and it's hard to integrate them to the existing docs
+2. `apidoc` && `apidoc-plugin-schema` is better alternative and will allow to create custom templates for documentation. JSON Schemas documentation is generated throught reference in apidoc comments.
+
+## Example:
+Schema `schemas/response/generic/health.json`:
+```json
+{
+  "title": "Health check response",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "alive": {
+          "description": "List of working plugins"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "failed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+```
+
+Action:
+
+```javascript
+/**
+ * @apiSchema {jsonschema=schema/response/generic/health.json} apiSuccess 
+ */
+async function genericHealthCheck(this: Microfleet, request: ServiceRequest): Promise<{ data: HealthStatus }> {
+  const data = await this.getHealthStatus()
+  // ....
+  return { data }
+}
+
+// to avoid 'setTransportAsDefault: false' and make things obvious
+genericHealthCheck.transports = [
+  ActionTransport.http,
+  ActionTransport.amqp,
+  ActionTransport.internal,
+  ActionTransport.socketIO,
+]
+
+// inspect response validation middleware to check successful response
+genericHealthCheck.responseSchema = 'response.generic.health'
+
+export default genericHealthCheck
+```
+
+
