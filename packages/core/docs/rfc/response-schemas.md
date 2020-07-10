@@ -1,20 +1,22 @@
 # Action response schemas
 
 ## Overview and motivation
-This document describes an additional feature that will allow to validate any action response and will help to provide good schema based documentation.
-In future this feature will allow to use `fast-json-stringify` for faster response serialization.
+
+This document describes an additional feature that will allow us to validate any action response and will help to provide good schema-based documentation.
+In the future, this feature will allow us to use `fast-JSON-stringify` for faster response serialization.
 
 ## Response validation
-To achieve described feature:
 
-1. `plugin/router`s `lifecycles` going to be updated and new `responseValidate` cycle added.
+To achieve the described feature:
+
+1. Add new `plugin/router`s `lifecycle` `responseValidate` cycle before `response`.
 2. Any action that should validate its response should provide `responseSchema` in its properties.
-3. Add `skipResponseValidation` for actions with response validation. This option allows to disable response validation for action.
+3. Add `skipResponseValidation` for actions with response validation, that allows disabling response validation for action.
 
 ## ApiDoc Generation
-There is 2 options to generate API documentation using JSON schemas.
-1. Adobe [`jsonschema2md`](https://github.com/adobe/jsonschema2md/) - BUT it generates too much extra files and it's hard to integrate them to the existing docs
-2. `apidoc` && `apidoc-plugin-schema` is better alternative and will allow to create custom templates for documentation. JSON Schemas documentation is generated throught reference in apidoc comments.
+There are 2 options to generate API documentation using JSON schemas.
+1. Adobe [`jsonschema2md`](https://github.com/adobe/jsonschema2md/) - BUT it generates too many extra files and it's hard to integrate them to the existing docs.
+2. `apidoc` && `apidoc-plugin-schema` is a better alternative and will allow us to create custom templates for documentation. JSON Schemas documentation will use references in API doc comments.
 
 ## Example:
 Schema `schemas/response/generic/health.json`:
@@ -72,7 +74,8 @@ genericHealthCheck.transports = [
 
 // inspect response validation middleware to check successful response
 genericHealthCheck.responseSchema = 'response.generic.health'
-
+// optional, allows to skip validation for this action
+genericHealthCheck.skipResponseValidation = true
 export default genericHealthCheck
 ```
 
