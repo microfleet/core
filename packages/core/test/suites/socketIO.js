@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 const assert = require('assert');
 const { expect } = require('chai');
-const AdapterTransport = require('ms-socket.io-adapter-amqp/lib/transport');
+const AdapterTransport = require('ms-socket.io-adapter-amqp/lib/transport').default;
 const socketIO = require('socket.io');
 const socketIOClient = require('socket.io-client');
 

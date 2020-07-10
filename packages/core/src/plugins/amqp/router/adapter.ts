@@ -64,8 +64,6 @@ function getAMQPRouterAdapter(router: Router, config: Record<string, any>): (par
     try {
       const promise = dispatch(actionName, opts)
       const response = await wrapDispatch(promise, actionName, raw)
-      // eslint-disable-next-line no-console
-      console.debug('AMQPNEXT', { typ: typeof response, response }, { fn: next.toString(), fname: next.name })
       setImmediate(next, null, response)
     } catch (e) {
       setImmediate(next, e)
