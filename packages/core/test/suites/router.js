@@ -19,7 +19,6 @@ describe('Router suite', function testSuite() {
   const verify = require('../router/helpers/verifyCase');
 
   const schemaLessAction = routerExtension('validate/schemaLessAction');
-  const responseValidate = routerExtension('validate/fast-json-response');
   const qsParser = routerExtension('validate/query-string-parser');
   const transportOptions = routerExtension('validate/transport-options');
 
@@ -385,7 +384,7 @@ describe('Router suite', function testSuite() {
     await service.close();
   });
 
-  it.only('should scan for generic routes', async function test() {
+  it('should scan for generic routes', async function test() {
     const service = new Microfleet({
       name: 'tester',
       amqp: {
@@ -429,7 +428,6 @@ describe('Router suite', function testSuite() {
           enabled: ['preRequest', 'postRequest', 'preResponse'],
           register: [
             schemaLessAction,
-            responseValidate,
             auditLog(),
           ],
         },
@@ -451,7 +449,6 @@ describe('Router suite', function testSuite() {
     const returnsResult = {
       expect: 'success',
       verify: (result) => {
-        console.debug({ typ: typeof result, result });
         expect(result.data.status).to.be.equals('ok');
         expect(result.data.failed).to.have.lengthOf(0);
       },
@@ -720,4 +717,99 @@ describe('Router suite', function testSuite() {
         ]);
     }).finally(() => service.close());
   });
+
+  it('should validate response if schema provided', async () => {
+    const service = new Microfleet({
+      name: 'response-validate-tester',
+      amqp: {
+        transport: {
+          connection: {
+            host: 'rabbitmq',
+          },
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      http: {
+        server: {
+          attachSocketIO: true,
+          handler: 'hapi',
+        },
+        router: {
+          enabled: true,
+        },
+      },
+      logger: {
+        defaultLogger: true,
+      },
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+      router: {
+        routes: {
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
+          enabled: {
+            'response-validate': 'response-validate',
+            'response-validate-skip': 'response-validate-skip',
+          },
+          prefix: 'action',
+          transports: [
+            ActionTransport.amqp,
+            ActionTransport.http,
+            ActionTransport.socketIO,
+          ],
+        },
+        extensions: { register: [] },
+      },
+      socketIO: {
+        router: {
+          enabled: true,
+        },
+      },
+      validator: { schemas: ['../router/helpers/schemas'] },
+    });
+
+    await service.connect();
+
+    const AMQPRequest = getAMQPRequest(service.amqp);
+    const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+    const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
+    const socketIORequest = getSocketIORequest(socketIOClient);
+
+    const returnsResult = {
+      expect: 'success',
+      verify: (result) => {
+        expect(result).to.deep.equal({ validResponse: true });
+      },
+    };
+
+    const returnsInvalidResult = {
+      expect: 'success',
+      verify: (result) => {
+        expect(result).to.deep.equal({ validResponse: false, withAdditionalProperty: true });
+      },
+    };
+
+    const throwsError = {
+      expect: 'error',
+      verify: (error) => {
+        expect(error.name).to.be.equal('HttpStatusError');
+        expect(error.message).to.be.equal('response.response-validate validation failed: data should NOT have additional properties');
+      }
+    }
+
+    await socketIORequest('action.response-validate', { success: true }).reflect().then(verify(returnsResult));
+    await socketIORequest('action.response-validate', { success: false }).reflect().then(verify(throwsError));
+
+    await HTTPRequest('/action/response-validate', { success: true }).reflect().then(verify(returnsResult));
+    await HTTPRequest('/action/response-validate', { success: false }).reflect().then(verify(throwsError));
+
+    await AMQPRequest('action.response-validate', { success: true }).reflect().then(verify(returnsResult));
+    await AMQPRequest('action.response-validate', { success: false }).reflect().then(verify(throwsError));
+
+    await socketIORequest('action.response-validate-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+    await HTTPRequest('/action/response-validate-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+    await AMQPRequest('action.response-validate-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+
+    await service.close()
+  })
 });

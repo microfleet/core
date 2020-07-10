@@ -32,7 +32,4 @@ genericHealthCheck.transports = [
   ActionTransport.socketIO,
 ]
 
-genericHealthCheck.responseValidate = true
-genericHealthCheck.responseSchema = 'response.generic.health'
-
 export default genericHealthCheck
