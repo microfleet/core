@@ -19,7 +19,7 @@ interface RequestCounter {
 
 function attachSocketIO(this: Microfleet & ValidatorPlugin, opts: any = {}): RequestCounter {
   debug('Attaching socketIO plugin')
-  const AdapterFactory = _require('ms-socket.io-adapter-amqp')
+  const AdapterFactory = _require('ms-socket.io-adapter-amqp').AdapterFactory
   const SocketIO = _require('socket.io')
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
