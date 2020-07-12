@@ -118,7 +118,7 @@ export function commitBatch(stream: KafkaConsumerStream, msgs: Message[]): void 
   msgs.map((msg: Message) => stream.consumer.commitMessage(msg))
 }
 
-export function msgsToArr(incommingMessage: Message | Message []) {
+export function msgsToArr(incommingMessage: Message | Message []): Message[] {
   return Array.isArray(incommingMessage) ? incommingMessage : [incommingMessage]
 }
 

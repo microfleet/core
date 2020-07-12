@@ -1163,7 +1163,9 @@ describe('#2s-toxified', () => {
       const receivedMessages: any[] = []
 
       await sendMessages(producer, topic, 10)
-
+      service.log.debug('test: done publishing messagess')
+      await producer.closeAsync()
+      service.log.debug('test: producer closed')
       consumerStream = await createConsumerStream(service, {
         streamOptions: {
           topics: topic,
@@ -1177,6 +1179,9 @@ describe('#2s-toxified', () => {
 
       let blockedOnce = false
 
+      // throw throught sync method
+      consumerStream.setOnCommitErrorHandler(() => false)
+
       const transformStream = new Transform({
         objectMode: true,
         async transform(chunk, _, callback) {
@@ -1184,7 +1189,12 @@ describe('#2s-toxified', () => {
           receivedMessages.push(...messages)
           if (!blockedOnce) {
             await setProxyEnabled(false)
-            delay(2000).then(() => setProxyEnabled(true))
+            delay(2000).then( async () => {
+              service.log.debug('Enable proxy')
+              await setProxyEnabled(true)
+              service.log.debug('Proxy enabled')
+              service.emit('proxy-enabled')
+            })
             blockedOnce = true
           }
 
@@ -1193,17 +1203,22 @@ describe('#2s-toxified', () => {
             consumerStream.consumer.commitMessageSync(message)
             callback()
           } catch (e) {
-            service.log.debug({ err: e }, 'commit sync error')
+            service.log.debug({ topic, err: e }, 'commit sync error')
             callback(e)
           }
         }
       })
 
-      // We should provide more verbal error description
-      // but here we can receive lots of errors
-      await expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(LibrdKafkaErrorClass)
+      await Promise.allSettled([
+        // We should provide more verbal error description
+        // but here we can receive lots of errors
+        expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(LibrdKafkaErrorClass),
+        () => once(service, 'proxy-enabled')
+      ])
 
-      service.log.debug('start the second read sequence')
+      await consumerStream.closeAsync()
+
+      service.log.debug({ topic },'start the second read sequence')
 
       consumerStream = await createConsumerStream(service, {
         streamOptions: {
@@ -1216,6 +1231,7 @@ describe('#2s-toxified', () => {
       })
 
       const newMessages = await readStream(consumerStream)
+      service.log.debug({ topic }, 'done the second read sequence')
       expect(newMessages).toHaveLength(10)
     })
 
@@ -1247,7 +1263,10 @@ describe('#2s-toxified', () => {
           receivedMessages.push(...messages)
           if (!blockedOnce) {
             await setProxyEnabled(false)
-            delay(2000).then(() => setProxyEnabled(true))
+            delay(2000).then(async () => {
+              await setProxyEnabled(true)
+              service.emit('proxy-enabled')
+            })
             blockedOnce = true
           }
 
@@ -1262,8 +1281,8 @@ describe('#2s-toxified', () => {
         service.log.debug('TEST ENDOF FOR LOOP')
       }
 
-      // We should provide more verbal error description
-      // but here we can receive lots of errors
+        // We should provide more verbal error description
+        // but here we can receive lots of errors
       await expect(simOne()).rejects.toThrowError(LibrdKafkaErrorClass)
 
       service.log.debug('start the second read sequence')
