@@ -7,6 +7,8 @@ const sinon = require('sinon');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 
+const { withResponseValidateAction } = require('../router/helpers/configs');
+
 describe('Router suite', function testSuite() {
   require('../config');
   const {
@@ -718,63 +720,7 @@ describe('Router suite', function testSuite() {
     }).finally(() => service.close());
   });
 
-  it('should validate response if schema provided', async () => {
-    const service = new Microfleet({
-      name: 'response-validate-tester',
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
-        },
-        router: {
-          enabled: true,
-        },
-      },
-      http: {
-        server: {
-          attachSocketIO: true,
-          handler: 'hapi',
-        },
-        router: {
-          enabled: true,
-        },
-      },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
-      router: {
-        routes: {
-          directory: path.resolve(__dirname, '../router/helpers/actions'),
-          enabled: {
-            'response-validate': 'response-validate',
-            'response-validate-skip': 'response-validate-skip',
-          },
-          prefix: 'action',
-          transports: [
-            ActionTransport.amqp,
-            ActionTransport.http,
-            ActionTransport.socketIO,
-          ],
-        },
-        extensions: { register: [] },
-      },
-      socketIO: {
-        router: {
-          enabled: true,
-        },
-      },
-      validator: { schemas: ['../router/helpers/schemas'] },
-    });
-
-    await service.connect();
-
-    const AMQPRequest = getAMQPRequest(service.amqp);
-    const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
-    const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-    const socketIORequest = getSocketIORequest(socketIOClient);
-
+  describe('response-validation', () => {
     const returnsResult = {
       expect: 'success',
       verify: (result) => {
@@ -793,23 +739,68 @@ describe('Router suite', function testSuite() {
       expect: 'error',
       verify: (error) => {
         expect(error.name).to.be.equal('HttpStatusError');
-        expect(error.message).to.be.equal('response.response-validate validation failed: data should NOT have additional properties');
+        expect(error.statusCode).to.be.equal(417);
+        expect(error.message).to.be.equal('response.validate-response validation failed: data should NOT have additional properties');
       }
     }
 
-    await socketIORequest('action.response-validate', { success: true }).reflect().then(verify(returnsResult));
-    await socketIORequest('action.response-validate', { success: false }).reflect().then(verify(throwsError));
+    it('should validate response if schema provided and global validation enabled', async () => {
+      const config = withResponseValidateAction('validate-response-test', {
+        router: {
+          routes: {
+            validateResponse: true
+          }
+        }
+      })
 
-    await HTTPRequest('/action/response-validate', { success: true }).reflect().then(verify(returnsResult));
-    await HTTPRequest('/action/response-validate', { success: false }).reflect().then(verify(throwsError));
+      const service = new Microfleet(config);
 
-    await AMQPRequest('action.response-validate', { success: true }).reflect().then(verify(returnsResult));
-    await AMQPRequest('action.response-validate', { success: false }).reflect().then(verify(throwsError));
+      await service.connect();
 
-    await socketIORequest('action.response-validate-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
-    await HTTPRequest('/action/response-validate-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
-    await AMQPRequest('action.response-validate-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+      const AMQPRequest = getAMQPRequest(service.amqp);
+      const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+      const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
+      const socketIORequest = getSocketIORequest(socketIOClient);
 
-    await service.close()
+      await socketIORequest('action.validate-response', { success: true }).reflect().then(verify(returnsResult));
+      await socketIORequest('action.validate-response', { success: false }).reflect().then(verify(throwsError));
+
+      await HTTPRequest('/action/validate-response', { success: true }).reflect().then(verify(returnsResult));
+      await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(throwsError));
+
+      await AMQPRequest('action.validate-response', { success: true }).reflect().then(verify(returnsResult));
+      await AMQPRequest('action.validate-response', { success: false }).reflect().then(verify(throwsError));
+
+      await socketIORequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await HTTPRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await AMQPRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+
+      await service.close()
+    })
+
+    it('should not validate response if schema provided and global validation disabled', async () => {
+      const config = withResponseValidateAction('validate-response-test', {
+        router: {
+          routes: {
+            validateResponse: false
+          }
+        }
+      })
+      console.debug(config);
+      const service = new Microfleet(config);
+
+      await service.connect();
+
+      const AMQPRequest = getAMQPRequest(service.amqp);
+      const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+      const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
+      const socketIORequest = getSocketIORequest(socketIOClient);
+
+      await socketIORequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await AMQPRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+
+      await service.close()
+    })
   })
 });

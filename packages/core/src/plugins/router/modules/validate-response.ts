@@ -1,7 +1,7 @@
 import { HttpStatusError } from '@microfleet/validation'
 import Bluebird = require('bluebird')
 import { Error } from 'common-errors'
-import is = require('is')
+
 import { Microfleet } from '../../..'
 
 import { ServiceRequest } from '../../../types'
@@ -39,10 +39,12 @@ function passThrough(
 
 function validateResponseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]): Bluebird<any> {
   const [,, request] = params
-  const validateFn = is.undefined(request.action.responseSchema) || request.action.skipResponseValidation == true
-    ? passThrough
-    : validate
-  return moduleLifecycle('response-validate', validateFn, this.router.extensions, params, this)
+  const { validateResponse } = this.router.config.routes
+  const { validateResponse: actionValidateResponse } = request.action
+
+  const validateFn = validateResponse && (actionValidateResponse !== false) ? validate : passThrough
+
+  return moduleLifecycle('validate-response', validateFn, this.router.extensions, params, this)
 }
 
 export default validateResponseHandler

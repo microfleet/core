@@ -72,7 +72,7 @@ function dispatch(this: Router, route: string, request: ServiceRequest, callback
       .bind(request) // <-- bind to request
       .then(reflectToProps) // <-- process data
       .bind(service) // <-- bind back to service
-      .then(modules.responseValidate)
+      .then(modules.validateResponse)
       .then(modules.response)
   }
 

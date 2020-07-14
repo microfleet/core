@@ -18,6 +18,10 @@ export default [{
       action.schema = action.actionName
     }
 
+    if (action.responseSchema === undefined) {
+      action.responseSchema = `response.${action.actionName}`
+    }
+
     return [error, request]
   },
 }]

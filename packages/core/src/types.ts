@@ -76,7 +76,7 @@ export declare interface ServiceAction extends ServiceActionStep {
   passAuthError?: boolean;
   schema?: string;
   responseSchema?: string;
-  skipResponseValidation: boolean;
+  validateResponse: boolean;
   transports: TransportTypes[];
   actionName: string;
   readonly?: boolean;

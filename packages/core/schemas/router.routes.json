@@ -41,6 +41,11 @@
           "items": {
             "type": "string"
           }
+        },
+        "validateResponse": {
+          "description": "Enables response validation",
+          "type": "boolean",
+          "default": false
         }
     }
 }

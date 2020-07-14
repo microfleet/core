@@ -13,8 +13,8 @@ async function responseValidate(request) {
   }
 }
 
-responseValidate.skipResponseValidation = true
-responseValidate.responseSchema = 'response.response-validate'
+responseValidate.validateResponse = false
+responseValidate.responseSchema = 'response.validate-response'
 responseValidate.transports = [
   ActionTransport.amqp,
   ActionTransport.http,

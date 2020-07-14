@@ -94,6 +94,11 @@ export const router: Partial<RouterConfig> = {
     enabledGenericActions: [
       'health',
     ],
+
+    /**
+     * Enables response validation.
+     */
+    validateResponse: false
   },
 
   /**
