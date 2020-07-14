@@ -11,7 +11,8 @@ To achieve the described feature:
 
 1. Add new `plugin/router`s `lifecycle` `responseValidate` cycle before `response`.
 2. Any action that should validate its response should provide `responseSchema` in its properties.
-3. Add `skipResponseValidation` for actions with response validation, that allows disabling response validation for action.
+3. Add `router.routes` global `validateResponse: boolean` parameter, that enables global response validation.
+4. Add `validateResponse` for actions with response validation, that allows disabling response validation for action. NOTE: If validation is disabled globally, this option is ignored.
 
 ## ApiDoc Generation
 There are 2 options to generate API documentation using JSON schemas.
@@ -75,8 +76,22 @@ genericHealthCheck.transports = [
 // inspect response validation middleware to check successful response
 genericHealthCheck.responseSchema = 'response.generic.health'
 // optional, allows to skip validation for this action
-genericHealthCheck.skipResponseValidation = true
+genericHealthCheck.validateResponse = false
 export default genericHealthCheck
 ```
 
+Service Config:
+```javascript
+const service = new Microfleet({
+  //...
+  router: {
+    //...
+    routes: {
+      validateResponse: true
+    }
+    //...
+  }
+  //...
+})
+```
 
