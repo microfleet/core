@@ -35,13 +35,14 @@ const withResponseValidateAction = (name, extra = {}) => {
         enabled: {
           'validate-response': 'validate-response',
           'validate-response-skip': 'validate-response-skip',
+          'validate-response-without-schema': 'validate-response-without-schema',
         },
         prefix: 'action',
         transports: [
           ActionTransport.amqp,
-          ActionTransport.http,
           ActionTransport.socketIO,
-        ],
+          ActionTransport.http,
+        ]
       },
       extensions: { register: [] },
     },

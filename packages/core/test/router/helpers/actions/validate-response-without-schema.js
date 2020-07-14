@@ -1,6 +1,6 @@
 const { ActionTransport } = require('./../../../..');
 
-async function skipResponseValidate(request) {
+async function withoutResponseSchema(request) {
   if (request.params.success) {
     return {
       validResponse: true
@@ -13,14 +13,11 @@ async function skipResponseValidate(request) {
   }
 }
 
-skipResponseValidate.validateResponse = false
-skipResponseValidate.responseSchema = 'response.validate-response'
-skipResponseValidate.schema = 'validate-response'
-
-skipResponseValidate.transports = [
+withoutResponseSchema.schema = 'validate-response'
+withoutResponseSchema.transports = [
   ActionTransport.amqp,
   ActionTransport.http,
   ActionTransport.socketIO,
 ];
 
-module.exports = skipResponseValidate;
+module.exports = withoutResponseSchema;

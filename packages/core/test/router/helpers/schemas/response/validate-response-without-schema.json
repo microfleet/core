@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "description": "Sample response auto-schema with one property that should not allow additionalProperties",
+  "required": [
+    "validResponse"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "validResponse": {
+      "type": "boolean"
+    }
+  }
+}

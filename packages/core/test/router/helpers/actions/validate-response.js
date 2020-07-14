@@ -14,6 +14,7 @@ async function responseValidate(request) {
 }
 
 responseValidate.responseSchema = 'response.validate-response'
+responseValidate.schema = 'validate-response'
 responseValidate.transports = [
   ActionTransport.amqp,
   ActionTransport.http,
