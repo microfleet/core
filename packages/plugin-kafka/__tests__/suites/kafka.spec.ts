@@ -504,6 +504,14 @@ describe('#generic', () => {
     })
 
     describe('executes external offset.commit error handler', () => {
+      const emitError = (stream: KafkaConsumerStream, topicPartition: { topic: string, partition: number, offset: number }) => {
+        stream.consumer.emit(
+          'offset.commit',
+          { code: -168, message: 'Local: no offsets stored' },
+          [ topicPartition ]
+        )
+      }
+
       test('as iterable', async () => {
         const topic = 'test-throw-kafka-error-handler'
 
@@ -534,11 +542,7 @@ describe('#generic', () => {
             if (!errorEmitted && receivedMessages.length === 2) {
               errorEmitted = true
               service.log.debug('EMIT ERROR')
-              consumerStream.consumer.emit(
-                'offset.commit',
-                { code: -168, message: 'Local: no offsets stored' },
-                [{ topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 }]
-              )
+              emitError(consumerStream, { topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 })
             }
             consumerStream.commit()
           }
@@ -579,11 +583,7 @@ describe('#generic', () => {
 
             if (!errorEmitted && receivedMessages.length === 2) {
               errorEmitted = true
-              consumerStream.consumer.emit(
-                'offset.commit',
-                { code: -168, message: 'Local: no offsets stored' },
-                [{ topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 }]
-              )
+              emitError(consumerStream, { topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 })
             }
             consumerStream.commit()
             callback()
