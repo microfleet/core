@@ -8,16 +8,18 @@ import { TopicWaitError } from './errors'
 import { KafkaClient as KafkaClientType } from '@microfleet/plugin-kafka-types'
 import { KafkaFactory } from '../kafka'
 
+export type RetryOptions = retry.Options
+
 export type CreateTopicRequest = {
   topic: NewTopic;
   client?: KafkaClient;
-  params?: retry.Options;
+  params?: RetryOptions;
 }
 
 export type DeleteTopicRequest = {
   topic: string;
   client?: KafkaClient;
-  params?: retry.Options;
+  params?: RetryOptions;
 }
 
 type WaitCriteria = {

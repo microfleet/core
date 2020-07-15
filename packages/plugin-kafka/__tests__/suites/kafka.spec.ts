@@ -4,6 +4,7 @@ import { Transform, pipeline as origPipeline } from 'readable-stream'
 import * as util from 'util'
 import { Toxiproxy } from 'toxiproxy-node-client'
 import { delay, TimeoutError } from 'bluebird'
+import * as sinon from 'sinon'
 
 const pipeline = util.promisify(origPipeline)
 
@@ -420,7 +421,7 @@ describe('#generic', () => {
       await expect(errorSim()).rejects.toThrowError(TimeoutError)
     })
 
-    describe('throws on offset.commit error as KafkaError like object', () => {
+    describe('throws on offset.commit error', () => {
       test('as iterable', async () => {
         const topic = 'test-throw-kafka-error-like'
 
@@ -499,6 +500,98 @@ describe('#generic', () => {
         })
 
         await expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(OffsetCommitError)
+      })
+    })
+
+    describe('executes external offset.commit error handler', () => {
+      const emitError = (stream: KafkaConsumerStream, topicPartition: { topic: string, partition: number, offset: number }) => {
+        stream.consumer.emit(
+          'offset.commit',
+          { code: -168, message: 'Local: no offsets stored' },
+          [ topicPartition ]
+        )
+      }
+
+      test('as iterable', async () => {
+        const topic = 'test-throw-kafka-error-handler'
+
+        producer = await createProducerStream(service)
+        await sendMessages(producer, topic, 10)
+
+        consumerStream = await createConsumerStream(service, {
+          streamOptions: {
+            topics: topic,
+          },
+          conf: {
+            'enable.auto.commit': false,
+            'group.id': topic,
+          },
+        })
+
+        const handlerStub = sinon.stub().returns(true)
+        consumerStream.setOnCommitErrorHandler(handlerStub)
+
+        const receivedMessages: any[] = []
+        let errorEmitted = false
+        const errorSim = async () => {
+          for await (const incommingMessage of consumerStream) {
+            const messages = msgsToArr(incommingMessage)
+            receivedMessages.push(...messages)
+            const lastMessage = messages[messages.length-1]
+
+            if (!errorEmitted && receivedMessages.length === 2) {
+              errorEmitted = true
+              service.log.debug('EMIT ERROR')
+              emitError(consumerStream, { topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 })
+            }
+            consumerStream.commit()
+          }
+        }
+
+        await expect(errorSim()).rejects.toThrowError(OffsetCommitError)
+        expect(handlerStub.calledOnce).toEqual(true)
+      })
+
+      test('as stream and ignores error if handler returned false', async () => {
+        const topic = 'test-throw-kafka-error-handler-stream'
+
+        producer = await createProducerStream(service)
+        await sendMessages(producer, topic, 10)
+
+        consumerStream = await createConsumerStream(service, {
+          streamOptions: {
+            topics: topic,
+          },
+          conf: {
+            'enable.auto.commit': false,
+            'group.id': topic,
+          },
+        })
+
+        const handlerStub = sinon.stub().returns(false)
+        consumerStream.setOnCommitErrorHandler(handlerStub)
+
+        const receivedMessages: any[] = []
+        let errorEmitted = false
+
+        const transformStream = new Transform({
+          objectMode: true,
+          transform(chunk, _, callback) {
+            const messages = msgsToArr(chunk)
+            receivedMessages.push(...messages)
+            const lastMessage = messages[messages.length-1]
+
+            if (!errorEmitted && receivedMessages.length === 2) {
+              errorEmitted = true
+              emitError(consumerStream, { topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 })
+            }
+            consumerStream.commit()
+            callback()
+          },
+        })
+
+        await pipeline(consumerStream, transformStream)
+        expect(handlerStub.calledOnce).toEqual(true)
       })
     })
 
@@ -662,7 +755,7 @@ describe('#generic', () => {
             }])
           }
 
-          consumerStream.consumer.commit()
+          consumerStream.commit()
         }
 
         expect(receivedMessages).toHaveLength(sentMessages.length)
@@ -700,7 +793,7 @@ describe('#generic', () => {
                 offset: message.offset + 1,
               }])
             }
-            consumerStream.consumer.commit()
+            consumerStream.commit()
             callback()
           },
         })
@@ -1070,7 +1163,9 @@ describe('#2s-toxified', () => {
       const receivedMessages: any[] = []
 
       await sendMessages(producer, topic, 10)
-
+      service.log.debug('test: done publishing messagess')
+      await producer.closeAsync()
+      service.log.debug('test: producer closed')
       consumerStream = await createConsumerStream(service, {
         streamOptions: {
           topics: topic,
@@ -1084,6 +1179,9 @@ describe('#2s-toxified', () => {
 
       let blockedOnce = false
 
+      // throw throught sync method
+      consumerStream.setOnCommitErrorHandler(() => false)
+
       const transformStream = new Transform({
         objectMode: true,
         async transform(chunk, _, callback) {
@@ -1091,7 +1189,12 @@ describe('#2s-toxified', () => {
           receivedMessages.push(...messages)
           if (!blockedOnce) {
             await setProxyEnabled(false)
-            delay(2000).then(() => setProxyEnabled(true))
+            delay(2000).then( async () => {
+              service.log.debug('Enable proxy')
+              await setProxyEnabled(true)
+              service.log.debug('Proxy enabled')
+              service.emit('proxy-enabled')
+            })
             blockedOnce = true
           }
 
@@ -1100,18 +1203,22 @@ describe('#2s-toxified', () => {
             consumerStream.consumer.commitMessageSync(message)
             callback()
           } catch (e) {
-            service.log.debug({ err: e }, 'commit sync error')
+            service.log.debug({ topic, err: e }, 'commit sync error')
             callback(e)
           }
         }
       })
 
-      // We should provide more verbal error description
-      // but here we can receive lots of errors
-      await expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(LibrdKafkaErrorClass)
+      await Promise.allSettled([
+        // We should provide more verbal error description
+        // but here we can receive lots of errors
+        expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(LibrdKafkaErrorClass),
+        () => once(service, 'proxy-enabled')
+      ])
+
       await consumerStream.closeAsync()
 
-      service.log.debug('start the second read sequence')
+      service.log.debug({ topic },'start the second read sequence')
 
       consumerStream = await createConsumerStream(service, {
         streamOptions: {
@@ -1124,6 +1231,7 @@ describe('#2s-toxified', () => {
       })
 
       const newMessages = await readStream(consumerStream)
+      service.log.debug({ topic }, 'done the second read sequence')
       expect(newMessages).toHaveLength(10)
     })
 
@@ -1155,7 +1263,10 @@ describe('#2s-toxified', () => {
           receivedMessages.push(...messages)
           if (!blockedOnce) {
             await setProxyEnabled(false)
-            delay(2000).then(() => setProxyEnabled(true))
+            delay(2000).then(async () => {
+              await setProxyEnabled(true)
+              service.emit('proxy-enabled')
+            })
             blockedOnce = true
           }
 
@@ -1170,10 +1281,9 @@ describe('#2s-toxified', () => {
         service.log.debug('TEST ENDOF FOR LOOP')
       }
 
-      // We should provide more verbal error description
-      // but here we can receive lots of errors
+        // We should provide more verbal error description
+        // but here we can receive lots of errors
       await expect(simOne()).rejects.toThrowError(LibrdKafkaErrorClass)
-       await consumerStream.closeAsync()
 
       service.log.debug('start the second read sequence')
 
@@ -1244,6 +1354,7 @@ describe('#2s-toxified', () => {
         service.log.warn('TEST INCONSISTENT - RDKAFKA did not connected. But its OK')
         return
       }
+      throw(e)
     } finally {
       await setProxyEnabled(true)
     }

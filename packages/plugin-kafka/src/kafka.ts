@@ -28,7 +28,7 @@ import { KafkaConsumerStream } from './custom/consumer-stream'
 import { KafkaAdminClient } from './custom/admin-client'
 
 export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
-export { DeleteTopicRequest, CreateTopicRequest } from './custom/admin-client'
+export { DeleteTopicRequest, CreateTopicRequest, RetryOptions } from './custom/admin-client'
 
 export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
 

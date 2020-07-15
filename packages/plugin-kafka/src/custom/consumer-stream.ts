@@ -18,6 +18,14 @@ const isTopicPartitionOffset = (obj: any): obj is TopicPartitionOffset => {
 }
 
 export const UNKNOWN_OFFSET = -1001
+export type OffsetCommitErrorHandler = (err: OffsetCommitError) => boolean
+
+type CommitOffsetTrackerObject = Record<string, TopicPartitionOffset>
+
+export type TrackerMeta = {
+  offsetTracker: CommitOffsetTrackerObject,
+  unacknowledgedTracker: CommitOffsetTrackerObject,
+}
 
 /**
  * Helps to read data from Kafka topic.
@@ -45,6 +53,7 @@ export class KafkaConsumerStream extends Readable {
   private autoStore: boolean
   private readStarted: boolean
   private hasError: boolean
+  private externalOffsetCommitErrorHandler: OffsetCommitErrorHandler
 
   /**
    * @param consumer Connected kafka consumer
@@ -79,6 +88,7 @@ export class KafkaConsumerStream extends Readable {
 
     this.handleRebalance = this.handleRebalance.bind(this)
     this.handleOffsetCommit = this.handleOffsetCommit.bind(this)
+    this.externalOffsetCommitErrorHandler = () => true
     this.handleDisconnected = this.handleDisconnected.bind(this)
     this.handleUnsubscribed = this.handleUnsubscribed.bind(this)
 
@@ -94,6 +104,29 @@ export class KafkaConsumerStream extends Readable {
     // to avoid some race conditions in rebalance during parallel consumer connection
     // we should start subscription earlier than read started
     this.consumer.subscribe(this.topics)
+  }
+
+  /**
+   * Commit locally stored or provided offsets
+   * @param offsets Offsets to commit
+   */
+  public commit(offsets: TopicPartitionOffset[] = [...this.unacknowledgedTracker.values()]): void {
+    this.consumer.commit(offsets)
+  }
+
+  /**
+   * Allows to setup custom offset commit error handler. If function returns true - Stream will throw and exit
+   * @param handler Handler that executed when offset commit error received
+   */
+  public setOnCommitErrorHandler(handler: OffsetCommitErrorHandler): void {
+    this.externalOffsetCommitErrorHandler = handler
+  }
+
+  public get trackerMeta(): TrackerMeta {
+    return {
+      offsetTracker: Object.fromEntries(this.offsetTracker),
+      unacknowledgedTracker: Object.fromEntries(this.unacknowledgedTracker),
+    }
   }
 
   public _read(): void {
@@ -125,7 +158,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public destroy(err?: Error | undefined, callback?: ((error: Error | null) => void) | undefined): this {
-    if (this.destroyed) {
+    if (this.destroyed || !this.consumer.isConnected) {
       if (callback) callback(err || null)
       return this
     }
@@ -186,26 +219,34 @@ export class KafkaConsumerStream extends Readable {
 
   private async handleOffsetCommit(err: LibrdKafkaError , partitions: TopicPartitionOffset[]): Promise<void> {
     if (err) {
-      const wrappedError = new OffsetCommitError(partitions, err)
-      this.emit(EVENT_OFFSET_COMMIT_ERROR, wrappedError)
-      this.log?.warn({ err }, '[commit] offset commit error')
+      const wrappedError = new OffsetCommitError(partitions, this.trackerMeta, err)
+
+      this.log?.warn({ err: wrappedError }, '[commit] offset commit error')
 
       if (RetryableErrors.includes(err.code)) {
-        this.log?.info({ err: wrappedError }, '[commit] retry offset commit')
+        this.log?.info({ err, partitions }, '[commit] retry offset commit')
         this.consumer.commit(partitions)
         return
       }
 
-      if (CriticalErrors.includes(err.code)) {
+      const isCritical = CriticalErrors.includes(err.code)
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore we definitelly know that it's a OffsetCommitError, but CommonErrors return Error as type
+      const handlerResult = this.externalOffsetCommitErrorHandler(wrappedError)
+
+      if (handlerResult || isCritical) {
         this.log?.error({ err: wrappedError }, '[commit] critical commit error')
         this.destroy(wrappedError)
+        return
       }
-
-      return
     }
-    this.updatePartitionOffsets(partitions, this.offsetTracker)
+
+    if (!err) this.updatePartitionOffsets(partitions, this.offsetTracker)
 
     // once all acks were processed - be done with it
+    // we should check consumer position even if some errors happened
+    // otherwise consumer will not resume reading
     if (!this.hasOutstandingAcks()) {
       await this.checkEof()
 
@@ -282,6 +323,8 @@ export class KafkaConsumerStream extends Readable {
 
       this.updatePartitionOffsets([topicPartition], unacknowledgedTracker)
     }
+
+    this.log?.debug({ autoStore, offsets: [...unacknowledgedTracker.values()] }, 'Before offset store')
 
     // We already have all max offsets inside unacknowledgedTracker. Let's mark them for commit
     if (autoStore) this.consumer.offsetsStore([...unacknowledgedTracker.values()])
@@ -381,6 +424,8 @@ export class KafkaConsumerStream extends Readable {
       return localPosition ? highOffset === localOffset : false
     })
 
+    this.log?.debug({ result: !partitionStatus.includes(false), remoteOffsets, localPositions }, 'allMessagesRead')
+
     return !partitionStatus.includes(false)
   }
 
@@ -412,13 +457,6 @@ export class KafkaConsumerStream extends Readable {
 
     this.log?.debug(this.trackerMeta, 'hasOutstandingAcks: false')
     return false
-  }
-
-  private get trackerMeta() {
-    return {
-      offsetTracker: Object.fromEntries(this.offsetTracker),
-      unacknowledgedTracker: Object.fromEntries(this.unacknowledgedTracker),
-    }
   }
 
   /**
