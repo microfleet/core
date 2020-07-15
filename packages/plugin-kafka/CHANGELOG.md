@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.5.0...@microfleet/plugin-kafka@2.5.1) (2020-07-15)
+
+
+### Bug Fixes
+
+* change offset_commit_cb logic + error handler ([#437](https://github.com/microfleet/core/issues/437)) ([85d6e26](https://github.com/microfleet/core/commit/85d6e261db4b5509e495ddd914925abe18995b9e))
+
+
+
+
+
 # [2.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.4.0...@microfleet/plugin-kafka@2.5.0) (2020-06-29)
 
 
