@@ -27,6 +27,9 @@
     "url": "https://github.com/microfleet/core/issues"
   },
   "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {
+    "consul": "^0.37.0"
+  },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x"
   },
