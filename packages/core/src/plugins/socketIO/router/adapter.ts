@@ -1,5 +1,7 @@
 import _debug = require('debug')
 import noop = require('lodash/noop')
+import { Socket } from 'socket.io'
+
 import { ActionTransport } from '../../..'
 import { ServiceRequest } from '../../../types'
 import { Router } from '../../router/factory'
@@ -22,8 +24,8 @@ function wrapCallback(router: Router, callback: RequestCallback) {
   }
 }
 
-function getSocketIORouterAdapter(_: unknown, router: Router): (socket: NodeJS.EventEmitter) => void {
-  return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
+function getSocketIORouterAdapter(_: unknown, router: Router): (socket: Socket) => void {
+  return function socketIORouterAdapter(socket: Socket) {
     socket.on('*', (packet: SocketIOMessage) => {
       /* Increase request count on message */
       router.requestCountTracker.increase(socketIO)
