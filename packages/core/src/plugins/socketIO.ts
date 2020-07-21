@@ -2,10 +2,13 @@ import assert = require('assert')
 import { NotImplementedError, NotFoundError } from 'common-errors'
 import _debug = require('debug')
 import is = require('is')
+import { ServerOptions } from 'socket.io'
+
 import { ActionTransport, Microfleet, PluginTypes, ValidatorPlugin } from '../'
 import _require from '../utils/require'
 import attachRouter from './socketIO/router/attach'
 import * as RequestTracker from './router/request-tracker'
+import { SocketIOConfig } from './socketIO/types/socketIO'
 
 const debug = _debug('mservice:socketIO')
 
@@ -28,19 +31,20 @@ function attachSocketIO(this: Microfleet & ValidatorPlugin, opts: any = {}): Req
     amqp: (adapterOptions: any) => AdapterFactory.fromOptions(adapterOptions),
   }
 
-  const config = this.validator.ifError('socketIO', opts)
+  const config = this.validator.ifError('socketIO', opts) as SocketIOConfig
   const { options, router } = config
-  const { adapter } = options
+  const { adapter: adapterConfig } = options
+  const socketIOServerOptions = { ...options, adapter: undefined } as ServerOptions
 
-  if (is.object(adapter)) {
-    if (adapters[adapter.name] === undefined) {
-      throw new NotImplementedError(`Adapter ${adapter.name} is not implemented`)
+  if (is.object(adapterConfig)) {
+    if (adapters[adapterConfig.name] === undefined) {
+      throw new NotImplementedError(`Adapter ${adapterConfig.name} is not implemented`)
     }
 
-    options.adapter = adapters[adapter.name](adapter.options)
+    socketIOServerOptions.adapter = adapters[adapterConfig.name](adapterConfig.options)
   }
 
-  const socketIO = SocketIO(options)
+  const socketIO = SocketIO(socketIOServerOptions)
 
   if (router.enabled) {
     attachRouter(socketIO, router, this.router)

@@ -103,7 +103,7 @@
     "@types/pino-multi-stream": "^5.0.0",
     "@types/qs": "^6.9.3",
     "@types/semver": "^7.3.1",
-    "@types/socket.io": "^2.1.8",
+    "@types/socket.io": "^2.1.9",
     "@types/sonic-boom": "^0.7.0",
     "@types/uuid": "^8.0.0",
     "chai": "^4.2.0",

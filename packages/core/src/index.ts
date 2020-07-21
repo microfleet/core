@@ -27,9 +27,18 @@ import {
 } from './types'
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
+import { SocketIOConfig } from './plugins/socketIO/types/socketIO'
 import defaultsDeep from './utils/defaults-deep'
 import type { Options as RetryOptions } from 'bluebird-retry'
-export { ValidatorPlugin, RouterPlugin, LifecycleRequestType, PluginHealthStatus, HealthStatus }
+
+export { 
+  ValidatorPlugin, 
+  RouterPlugin, 
+  LifecycleRequestType, 
+  PluginHealthStatus, 
+  HealthStatus, 
+  SocketIOConfig,
+}
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 
@@ -116,7 +125,12 @@ export interface ConfigurationOptional {
   /**
    * Healthcheck configurations
    */
-  healthChecks: RetryOptions
+  healthChecks: RetryOptions;
+
+  /**
+   * Socket.io configuration
+   */
+  socketIO: SocketIOConfig;
 }
 
 export type AnyFn = (...args: any[]) => any;
