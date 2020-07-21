@@ -10,6 +10,7 @@ import {
 } from './constants'
 
 import { ClientRequest } from 'http'
+import { Socket } from 'socket.io'
 
 /**
  * Expose Router Type
@@ -91,7 +92,7 @@ export declare interface ServiceRequest {
   action: ServiceAction;
   locals: any;
   auth?: any;
-  socket?: NodeJS.EventEmitter;
+  socket?: Socket;
   parentSpan: any;
   span: any;
   log: {
