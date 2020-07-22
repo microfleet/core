@@ -11,8 +11,15 @@ To achieve the described feature:
 
 1. Add new `plugin/router`s `lifecycle` `responseValidate` cycle before `response`.
 2. Any action that should validate its response should provide `responseSchema` in its properties.
-3. Add `router.routes` global `validateResponse: boolean` parameter, that enables global response validation.
+3. Add `router.routes` `responseValidation` parameter, that configures global response validation.
+   ```javascript
+   const responseValidation = {
+     enabled: false,
+     percent: 7,
+   }
+   ```
 4. Add `validateResponse` for actions with response validation, that allows disabling response validation for action. NOTE: If validation is disabled globally, this option is ignored.
+5. Add new `ActionRuntimeMeta` class. This class allows to store global information for action inside `router` namesace. In our case instance of the class stores action validation counters and flags.
 
 ## ApiDoc Generation
 There are 2 options to generate API documentation using JSON schemas.

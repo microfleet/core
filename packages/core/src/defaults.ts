@@ -98,7 +98,10 @@ export const router: Partial<RouterConfig> = {
     /**
      * Enables response validation.
      */
-    validateResponse: false
+    responseValidation: {
+      enabled: false,
+      percent: 7,
+    }
   },
 
   /**

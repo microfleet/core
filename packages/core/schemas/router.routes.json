@@ -42,10 +42,23 @@
             "type": "string"
           }
         },
-        "validateResponse": {
-          "description": "Enables response validation",
-          "type": "boolean",
-          "default": false
+        "responseValidation": {
+          "description": "Response validation",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "description": "Enable validation",
+              "type": "boolean",
+              "default": false
+            },
+            "percent": {
+              "description": "Percentage of actions to be validated",
+              "type": "number",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 7
+            }
+          }
         }
     }
 }

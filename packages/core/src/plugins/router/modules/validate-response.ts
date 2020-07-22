@@ -6,9 +6,24 @@ import { Microfleet } from '../../..'
 
 import { ServiceRequest } from '../../../types'
 import { ValidatorPlugin } from '../../validator'
+import { RuntimeMeta } from '../runtime-meta'
+
 import moduleLifecycle from './lifecycle'
 
 type HandlerResult = [Error | null, any, ServiceRequest]
+
+function shouldValidate(meta: RuntimeMeta['responseValidation'], percent: number): boolean {
+  if (! meta.firstHit) {
+    meta.firstHit = true
+    return true
+  }
+
+  if ((percent/100) * meta.hits === 1) {
+    meta.hits = 0
+    return true
+  }
+  return false
+}
 
 async function validate(
   this: Microfleet & ValidatorPlugin,
@@ -19,6 +34,7 @@ async function validate(
 
   const { validator } = this
   const { action } = request
+
   try {
     await validator.validate(action.responseSchema as string, response)
     return [null, response, request]
@@ -39,10 +55,16 @@ function passThrough(
 
 function validateResponseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]): Bluebird<any> {
   const [,, request] = params
-  const { validateResponse } = this.router.config.routes
-  const { validateResponse: actionValidateResponse } = request.action
+  const { responseValidation } = this.router.config.routes
+  const { enabled, percent } = responseValidation
+  const { validateResponse, actionName } = request.action
 
-  const validateFn = validateResponse && (actionValidateResponse !== false) ? validate : passThrough
+  const { meta } = this.router
+
+  const { responseValidation: actionValidationMeta } = meta.getOrDefault(actionName) as RuntimeMeta
+  actionValidationMeta.hits += 1
+
+  const validateFn = enabled && (validateResponse !== false) && shouldValidate(actionValidationMeta, percent) ? validate : passThrough
 
   return moduleLifecycle('validate-response', validateFn, this.router.extensions, params, this)
 }

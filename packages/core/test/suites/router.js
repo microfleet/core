@@ -8,6 +8,7 @@ const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 
 const { withResponseValidateAction } = require('../router/helpers/configs');
+const { range } = require('lodash');
 
 describe('Router suite', function testSuite() {
   require('../config');
@@ -748,8 +749,11 @@ describe('Router suite', function testSuite() {
       const config = withResponseValidateAction('validate-response-test', {
         router: {
           routes: {
-            validateResponse: true
-          }
+            responseValidation: {
+              enabled: true,
+              percent: 100,
+            },
+          },
         }
       })
 
@@ -780,12 +784,65 @@ describe('Router suite', function testSuite() {
       await service.close()
     })
 
+    it('should validate response if schema provided and global validation enabled with limited percent', async () => {
+      const config = withResponseValidateAction('validate-response-test', {
+        router: {
+          routes: {
+            responseValidation: {
+              enabled: true,
+              percent: 25,
+            },
+          },
+        }
+      })
+
+      const service = new Microfleet(config);
+
+      await service.connect();
+
+      const AMQPRequest = getAMQPRequest(service.amqp);
+      const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+      const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
+      const socketIORequest = getSocketIORequest(socketIOClient);
+
+      let failed = 0;
+      let success = 0;
+      const check = throwsError('validate-response');
+
+      const count = (result) => {
+        if (result.isFulfilled()) {
+          success += 1
+        } else {
+          failed += 1
+          verify(check)(result)
+        }
+      }
+
+      const promises = Promise.map(range(25), async () => {
+        await socketIORequest('action.validate-response', { success: false }).reflect().then(count);
+        await HTTPRequest('/action/validate-response', { success: false }).reflect().then(count);
+        await AMQPRequest('action.validate-response', { success: false }).reflect().then(count);
+        await AMQPRequest('action.validate-response', { success: false }).reflect().then(count);
+      })
+
+      await Promise.all(promises)
+
+      // first request is validated anyway
+      expect(failed).to.equal(26);
+      expect(success).to.equal(74);
+
+      await service.close()
+    })
+
     it('should not validate response if schema provided and global validation disabled', async () => {
       const config = withResponseValidateAction('validate-response-disabled-test', {
         router: {
           routes: {
-            validateResponse: false
-          }
+            responseValidation: {
+              enabled: false,
+              percent: 100,
+            },
+          },
         }
       })
       const service = new Microfleet(config);
@@ -808,7 +865,10 @@ describe('Router suite', function testSuite() {
       const config = withResponseValidateAction('shemaless-action-response-test', {
         router: {
           routes: {
-            validateResponse: true,
+            responseValidation: {
+              enabled: true,
+              percent: 100,
+            },
           },
           extensions: {
             register: [ schemaLessAction ],

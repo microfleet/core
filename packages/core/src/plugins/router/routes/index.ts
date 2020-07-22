@@ -92,7 +92,10 @@ export interface RoutesConfig {
     [route: string]: string;
   };
   enabledGenericActions: string[];
-  validateResponse?: boolean;
+  responseValidation?: {
+    enabled: boolean;
+    percent: number;
+  };
 }
 
 /**
@@ -104,7 +107,7 @@ export interface RoutesConfig {
  * @param config.setTransportsAsDefault - Set action transports from config transports,
  *  so they don't need to be specified.
  * @param config.transports - Enabled transports list.
- * @param config.validateResponse - Enables response validation.
+ * @param config.responseValidation - Response validation settings.
  */
 export function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
   // lack of prototype makes it easier to search for a key
