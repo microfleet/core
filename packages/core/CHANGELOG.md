@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [17.3.5](https://github.com/microfleet/core/compare/@microfleet/core@17.3.4...@microfleet/core@17.3.5) (2020-07-22)
+
+
+### Bug Fixes
+
+* **deps:** bring back uuid ([#443](https://github.com/microfleet/core/issues/443)) ([f6e0f1e](https://github.com/microfleet/core/commit/f6e0f1e3437286e696a90149e7113f08ca8cb3ef))
+
+
+
+
+
 ## [17.3.4](https://github.com/microfleet/core/compare/@microfleet/core@17.3.3...@microfleet/core@17.3.4) (2020-06-29)
 
 
