@@ -18,7 +18,7 @@ function shouldValidate(meta: RuntimeMeta['responseValidation'], percent: number
     return true
   }
 
-  if ((percent/100) * meta.hits === 1) {
+  if ((percent/100) * meta.hits >= 1) {
     meta.hits = 0
     return true
   }
@@ -62,9 +62,11 @@ function validateResponseHandler(this: Microfleet, params: [Error | null, any, S
   const { meta } = this.router
 
   const { responseValidation: actionValidationMeta } = meta.getOrDefault(actionName) as RuntimeMeta
+  const percentReached = shouldValidate(actionValidationMeta, percent)
+
   actionValidationMeta.hits += 1
 
-  const validateFn = enabled && (validateResponse !== false) && shouldValidate(actionValidationMeta, percent) ? validate : passThrough
+  const validateFn = enabled && (validateResponse !== false) && percentReached ? validate : passThrough
 
   return moduleLifecycle('validate-response', validateFn, this.router.extensions, params, this)
 }

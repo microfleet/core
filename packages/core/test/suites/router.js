@@ -828,8 +828,8 @@ describe('Router suite', function testSuite() {
       await Promise.all(promises)
 
       // first request is validated anyway
-      expect(failed).to.equal(26);
-      expect(success).to.equal(74);
+      expect(failed).to.equal(25);
+      expect(success).to.equal(75);
 
       await service.close()
     })
