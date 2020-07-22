@@ -8312,7 +8312,7 @@ lodash.zip@^4.2.0:
   resolved "https://registry.yarnpkg.com/lodash.zip/-/lodash.zip-4.2.0.tgz#ec6662e4896408ed4ab6c542a3990b72cc080020"
   integrity sha1-7GZi5IlkCO1KtsVCo5kLcswIACA=
 
-lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.2.1:
+lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.2.1:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -8797,16 +8797,16 @@ ms-conf@^7.0.0:
     lodash.uniq "^4.5.0"
     nconf "^0.10.0"
 
-ms-socket.io-adapter-amqp@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/ms-socket.io-adapter-amqp/-/ms-socket.io-adapter-amqp-6.0.0.tgz#4ce93535b87fc331bcc71045c39dc1e111553ffe"
-  integrity sha512-ncvJyuW4iswoVdHlH2pYYXcn0JMF7Tr0Ku88TX8ZLtBVqcKFXerJ2pYrrQoyN6TXLOGqa0/LkJxJBVBAwciezg==
+ms-socket.io-adapter-amqp@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ms-socket.io-adapter-amqp/-/ms-socket.io-adapter-amqp-7.0.0.tgz#935c323d49ca11e87988df547a832d0c093fba39"
+  integrity sha512-f6OlKm8LmYernaIuEDsLqg3uunLcQruphW8MIJVKt9Dgn9sClvqDz13yzrjwzMnGaFNaEl5r8KDuA48RsymcSg==
   dependencies:
-    bluebird "^3.5.5"
+    bluebird "^3.7.2"
     debug "^4.1.1"
     is "^3.3.0"
-    lodash "^4.17.11"
-    socket.io-adapter "^1.1.1"
+    lodash "^4.17.15"
+    socket.io-adapter "^1.1.2"
     uid2 "0.0.3"
 
 ms@2.0.0:
@@ -11308,7 +11308,7 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-socket.io-adapter@^1.1.1, socket.io-adapter@~1.1.0:
+socket.io-adapter@^1.1.2, socket.io-adapter@~1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/socket.io-adapter/-/socket.io-adapter-1.1.2.tgz#ab3f0d6f66b8fc7fca3959ab5991f82221789be9"
   integrity sha512-WzZRUj1kUjrTIrUKpZLEzFZ1OLj5FwLlAFQs9kuZJzJi5DKdU7FsWc36SNmA8iDOtwBQyT8FkrriRM8vXLYz8g==
