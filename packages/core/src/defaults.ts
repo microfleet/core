@@ -101,6 +101,7 @@ export const router: Partial<RouterConfig> = {
     responseValidation: {
       enabled: false,
       percent: 7,
+      panic: false,
     }
   },
 

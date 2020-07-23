@@ -95,6 +95,7 @@ export interface RoutesConfig {
   responseValidation?: {
     enabled: boolean;
     percent: number;
+    panic: boolean;
   };
 }
 

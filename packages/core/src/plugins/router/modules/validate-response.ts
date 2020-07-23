@@ -38,11 +38,18 @@ async function validate(
   try {
     await validator.validate(action.responseSchema as string, response)
     return [null, response, request]
-  } catch (error) {
-    if (error.constructor === HttpStatusError) {
-      throw error
+  } catch (err) {
+    const { responseValidation } = this.router.config.routes
+
+    if (responseValidation.panic) {
+      if (err.constructor === HttpStatusError) {
+        throw err
+      }
+      throw new Error('internal response validation error', err)
     }
-    throw new Error('internal response validation error', error)
+
+    this.log.warn({ err, action: action.actionName }, '[response] validation failed')
+    return [null, response, request]
   }
 }
 

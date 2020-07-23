@@ -8,7 +8,7 @@ const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 
 const { withResponseValidateAction } = require('../router/helpers/configs');
-const { range } = require('lodash');
+const { range, filter } = require('lodash');
 
 describe('Router suite', function testSuite() {
   require('../config');
@@ -752,6 +752,7 @@ describe('Router suite', function testSuite() {
             responseValidation: {
               enabled: true,
               percent: 100,
+              panic: true,
             },
           },
         }
@@ -784,6 +785,48 @@ describe('Router suite', function testSuite() {
       await service.close()
     })
 
+    it.only('should validate response and warn if `panic` is false', async () => {
+      const config = withResponseValidateAction('validate-response-test', {
+        router: {
+          routes: {
+            responseValidation: {
+              enabled: true,
+              percent: 100,
+              panic: false,
+            },
+          },
+        }
+      })
+
+      const service = new Microfleet(config);
+
+      await service.connect();
+
+      const AMQPRequest = getAMQPRequest(service.amqp);
+      const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
+      const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
+      const socketIORequest = getSocketIORequest(socketIOClient);
+
+      const spy = sinon.spy(service.log, 'warn')
+
+      await socketIORequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await AMQPRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+
+      await socketIORequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await HTTPRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await AMQPRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+
+      const calls = spy.getCalls()
+      const warnings = calls.map(({ args: [{ err, action }, message]}) => ({ err, action, message }))
+
+      expect(filter(warnings, { message: '[response] validation failed' })).to.have.length(3)
+      expect(filter(warnings, { action: 'validate-response' })).to.have.length(3)
+
+      spy.restore()
+      await service.close()
+    })
+
     it('should validate response if schema provided and global validation enabled with limited percent', async () => {
       const config = withResponseValidateAction('validate-response-test', {
         router: {
@@ -791,6 +834,7 @@ describe('Router suite', function testSuite() {
             responseValidation: {
               enabled: true,
               percent: 25,
+              panic: true,
             },
           },
         }
@@ -841,6 +885,7 @@ describe('Router suite', function testSuite() {
             responseValidation: {
               enabled: false,
               percent: 100,
+              panic: true,
             },
           },
         }
@@ -868,6 +913,7 @@ describe('Router suite', function testSuite() {
             responseValidation: {
               enabled: true,
               percent: 100,
+              panic: true,
             },
           },
           extensions: {
