@@ -11,11 +11,12 @@ To achieve the described feature:
 
 1. Add new `plugin/router`s `lifecycle` `responseValidate` cycle before `response`.
 2. Any action that should validate its response should provide `responseSchema` in its properties.
-3. Add `router.routes` `responseValidation` parameter, that configures global response validation.
+3. Add `router.routes` `responseValidation` parameter, that configures global response validation. If the `panic` option enabled, the validator will throw an error otherwise, the new warning logged.
    ```javascript
    const responseValidation = {
      enabled: false,
      percent: 7,
+     panic: true
    }
    ```
 4. Add `validateResponse` for actions with response validation, that allows disabling response validation for action. NOTE: If validation is disabled globally, this option is ignored.
