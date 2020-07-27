@@ -791,7 +791,7 @@ describe('Router suite', function testSuite() {
           routes: {
             responseValidation: {
               enabled: true,
-              percent: 100,
+              maxSample: 100,
               panic: false,
             },
           },
@@ -827,13 +827,13 @@ describe('Router suite', function testSuite() {
       await service.close()
     })
 
-    it('should validate response if schema provided and global validation enabled with limited percent', async () => {
+    it.only('should validate response if schema provided and global validation enabled with limited percent', async () => {
       const config = withResponseValidateAction('validate-response-test', {
         router: {
           routes: {
             responseValidation: {
               enabled: true,
-              percent: 25,
+              maxSample: 5,
               panic: true,
             },
           },
@@ -870,10 +870,11 @@ describe('Router suite', function testSuite() {
       })
 
       await Promise.all(promises)
+      console.debug('TEST', { failed, success })
 
-      // first request is validated anyway
-      expect(failed).to.be.less(30);
-      expect(success).to.be.greater(60);
+      // Math.random does not brings constant results))))
+      expect(failed).to.be.below(10);
+      expect(success).to.be.above(80);
 
       await service.close()
     })
@@ -884,7 +885,7 @@ describe('Router suite', function testSuite() {
           routes: {
             responseValidation: {
               enabled: false,
-              percent: 100,
+              maxSample: 100,
               panic: true,
             },
           },
@@ -912,7 +913,7 @@ describe('Router suite', function testSuite() {
           routes: {
             responseValidation: {
               enabled: true,
-              percent: 100,
+              maxSample: 100,
               panic: true,
             },
           },

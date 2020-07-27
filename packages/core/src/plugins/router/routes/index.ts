@@ -94,7 +94,7 @@ export interface RoutesConfig {
   enabledGenericActions: string[];
   responseValidation?: {
     enabled: boolean;
-    percent: number;
+    maxSample: number;
     panic: boolean;
   };
 }

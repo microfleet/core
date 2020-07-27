@@ -52,8 +52,8 @@
               "type": "boolean",
               "default": false
             },
-            "percent": {
-              "description": "Percentage of actions to be validated",
+            "maxSample": {
+              "description": "Random boundary for actions to be validated",
               "type": "number",
               "maximum": 100,
               "minimum": 1,
