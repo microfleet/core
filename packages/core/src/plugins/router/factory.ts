@@ -12,7 +12,6 @@ import validateResponse from './modules/validate-response'
 
 import { getRoutes, RoutesConfig } from './routes'
 import { RequestCountTracker } from './request-tracker'
-import { ActionRuntimeMetaTracker } from './runtime-meta'
 
 export { LifecycleRequestType, LifecyclePoints }
 
@@ -38,7 +37,6 @@ export interface Router {
   extensions: Extensions;
   routes: RouteMap;
   requestCountTracker: RequestCountTracker;
-  meta: ActionRuntimeMetaTracker;
   modules: {
     request: ServiceActionStep;
     auth: ServiceActionStep;
@@ -65,7 +63,6 @@ export function getRouter(config: RouterConfig, service: Microfleet): Router {
     service,
     dispatch,
     requestCountTracker: new RequestCountTracker(service),
-    meta: new ActionRuntimeMetaTracker(),
     extensions: new Extensions(config.extensions),
     modules: {
       validateResponse,
