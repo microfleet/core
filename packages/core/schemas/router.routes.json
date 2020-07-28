@@ -41,6 +41,30 @@
           "items": {
             "type": "string"
           }
+        },
+        "responseValidation": {
+          "description": "Response validation",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "description": "Enable validation",
+              "type": "boolean",
+              "default": false
+            },
+            "maxSample": {
+              "description": "Random boundary for actions to be validated",
+              "type": "number",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 7
+            },
+            "panic": {
+              "description": "Throw error if validation failed",
+              "type": "boolean",
+              "default": false
+            }
+          }
         }
     }
 }
