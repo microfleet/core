@@ -3,7 +3,7 @@
   "description": "hashicorp consul adapter",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -34,7 +34,7 @@
     "@microfleet/core": "~17.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.3.5",
+    "@microfleet/core": "^17.4.0",
     "@types/consul": "^0.23.34",
     "rimraf": "^3.0.2",
     "ts-essentials": "^7.0.0"

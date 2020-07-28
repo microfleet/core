@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.2.5...@microfleet/plugin-knex@2.3.0) (2020-07-28)
+
+
+### Features
+
+* response validation ([#438](https://github.com/microfleet/core/issues/438)) ([bbb2706](https://github.com/microfleet/core/commit/bbb27066eefaea1018c2a69ca05ec5936916c5b8))
+
+
+
+
+
 ## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.2.4...@microfleet/plugin-knex@2.2.5) (2020-07-22)
 
 **Note:** Version bump only for package @microfleet/plugin-knex

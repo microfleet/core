@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.2.2...@microfleet/plugin-kafka-types@1.3.0) (2020-07-28)
+
+
+### Features
+
+* response validation ([#438](https://github.com/microfleet/core/issues/438)) ([bbb2706](https://github.com/microfleet/core/commit/bbb27066eefaea1018c2a69ca05ec5936916c5b8))
+
+
+
+
+
 ## [1.2.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.2.1...@microfleet/plugin-kafka-types@1.2.2) (2020-06-12)
 
 
