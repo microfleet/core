@@ -13,6 +13,13 @@ import consul = require('consul')
 export type ConsulConfig = {
   base: consul.ConsulOptions;
   lock: Partial<consul.Lock.Options>;
+  lockRetry: BackoffConfig;
+}
+
+type BackoffConfig = {
+  min: number,
+  max: number,
+  factor: number,
 }
 
 /**
@@ -60,7 +67,16 @@ export const attach = function attachConsulPlugin(
     key: `microfleet/${this.config.name}/leader`,
     ...config.lock,
   }
+
   const { key } = lockConfig
+
+  let reconnectCount = 0
+  const reconnectTimeout = () => {
+    const { max, min, factor } = config.lockRetry
+    if (reconnectCount === 0) return 0
+    if (reconnectCount === 1) return min
+    return Math.min(Math.round((Math.random() + 1) * min * Math.pow(factor, reconnectCount - 1)), max)
+  }
 
   // expand core service
   let isLeader = false
@@ -74,7 +90,8 @@ export const attach = function attachConsulPlugin(
 
     await Promise.race([
       once(this.consulLeader, 'acquire'),
-      once(this, 'close'),
+      // force all Promises that wait for lock to resolve with false
+      once(this, 'close').then(() => { isLeader = false }),
     ])
 
     return isLeader
@@ -100,7 +117,11 @@ export const attach = function attachConsulPlugin(
     isLeader = false
     this.log.info({ key, leader: false }, 'lost leader')
     this.emit('follower', key)
-    this.consulLeader.acquire()
+
+    setTimeout(() => {
+      reconnectCount += 1
+      this.consulLeader.acquire()
+    }, reconnectTimeout() )
   }
 
   const onNewListener = (event: string) => {
@@ -115,11 +136,23 @@ export const attach = function attachConsulPlugin(
     })
   }
 
+  const onError = (err: Error, res: any) => {
+    this.log.info({ err, res }, 'consul lock error')
+    this.emit('consul.lock.error', err, res)
+  }
+
+  const onRetry = (info: any) => {
+    this.log.info({ info }, 'consul lock retry')
+    this.emit('consul.lock.retry', info)
+  }
+
   return {
     async connect(this: Microfleet & ConsulPlugin) {
       this.consulLeader.on('acquire', onAcquire)
       this.consulLeader.on('release', onRelease)
       this.consulLeader.on('end', onEnd)
+      this.consulLeader.on('error', onError)
+      this.consulLeader.on('retry', onRetry)
       this.consulLeader.on('newListener', onNewListener)
       this.consulLeader.acquire()
     },
@@ -127,10 +160,19 @@ export const attach = function attachConsulPlugin(
     async close(this: Microfleet & ConsulPlugin) {
       this.consulLeader.removeListener('acquire', onAcquire)
       this.consulLeader.removeListener('release', onRelease)
-      this.consulLeader.removeListener('end', onEnd)
+      this.consulLeader.removeListener('error', onError)
+      this.consulLeader.removeListener('retry', onRetry)
       this.consulLeader.removeListener('newListener', onNewListener)
-      this.consulLeader.release()
-      await once(this.consulLeader, 'end')
+      this.consulLeader.removeListener('end', onEnd)
+
+      try {
+        this.consulLeader.release()
+        await once(this.consulLeader, 'end')
+      } catch (e) {
+        if (e.message !== 'no lock in use') {
+          throw e
+        }
+      }
     },
   }
 }
