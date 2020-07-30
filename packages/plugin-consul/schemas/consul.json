@@ -2,6 +2,10 @@
   "$id": "consul",
   "type": "object",
   "additionalProperties": false,
+  "if": { "properties" : { "lock": { "type": "object" }}},
+  "then": {
+    "required": [ "lockRetry" ]
+  },
   "properties": {
     "base": {
       "type": "object",
@@ -49,6 +53,25 @@
         "lockretrytime": {
           "type": "string"
         }
+      }
+    },
+    "lockRetry": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "integer"
+        },
+        "min": {
+          "type": "integer"
+        },
+        "factor": {
+          "type": "number"
+        }
+      },
+      "default": {
+        "max": 5000,
+        "min": 100,
+        "factor": 1.1
       }
     }
   },

@@ -36,6 +36,7 @@
   "devDependencies": {
     "@microfleet/core": "^17.4.0",
     "@types/consul": "^0.23.34",
+    "nock": "^13.0.3",
     "rimraf": "^3.0.2",
     "ts-essentials": "^7.0.0"
   },
