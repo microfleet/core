@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.2.7...@microfleet/plugin-consul@2.2.8) (2020-07-30)
+
+
+### Bug Fixes
+
+* consul error handling and lock behaviour ([#445](https://github.com/microfleet/core/issues/445)) ([79927e5](https://github.com/microfleet/core/commit/79927e5a7f3fdd9cec443b25dea269a243935bb2))
+
+
+
+
+
 ## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.2.6...@microfleet/plugin-consul@2.2.7) (2020-07-28)
 
 **Note:** Version bump only for package @microfleet/plugin-consul
