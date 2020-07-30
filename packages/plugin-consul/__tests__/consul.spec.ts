@@ -10,9 +10,7 @@ import * as sinon from 'sinon'
 let service: Microfleet
 
 afterEach(async () => {
-  service.log.debug('closing')
   if (service) await service.close()
-  service.log.debug('closed')
 })
 
 beforeEach(() => {
@@ -148,7 +146,8 @@ test('parallel instances', async () => {
 
   await parallelService.connect()
   await service.close()
-
+  // no ts-ignore but helps
+  service = null as unknown as Microfleet
   await expect(parallelService.whenLeader()).resolves.toBe(true)
   await parallelService.close()
 })

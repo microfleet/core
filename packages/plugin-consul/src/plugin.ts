@@ -160,19 +160,14 @@ export const attach = function attachConsulPlugin(
     async close(this: Microfleet & ConsulPlugin) {
       this.consulLeader.removeListener('acquire', onAcquire)
       this.consulLeader.removeListener('release', onRelease)
-      this.consulLeader.removeListener('error', onError)
       this.consulLeader.removeListener('retry', onRetry)
       this.consulLeader.removeListener('newListener', onNewListener)
       this.consulLeader.removeListener('end', onEnd)
 
-      try {
-        this.consulLeader.release()
-        await once(this.consulLeader, 'end')
-      } catch (e) {
-        if (e.message !== 'no lock in use') {
-          throw e
-        }
-      }
+      this.consulLeader.release()
+      await once(this.consulLeader, 'end')
+
+      this.consulLeader.removeListener('error', onError)
     },
   }
 }
