@@ -26,26 +26,26 @@ describe('@microfleet/plugin-dlock', () => {
     await microfleet.close()
   })
 
-  // it('should be able to initialize dlock with redis sentinel', async () => {
-  //   const microfleet = new Microfleet({
-  //     name: 'tester',
-  //     plugins: ['logger', 'validator', 'redisSentinel', 'dlock'],
-  //     redis: {
-  //       name: 'mservice',
-  //       sentinels: [
-  //         { host: 'redis-sentinel', port: 26379 },
-  //       ],
-  //     },
-  //     dlock: {
-  //       pubsubChannel: 'test-dlock',
-  //       lockPrefix: 'perchik',
-  //     },
-  //   })
+  it('should be able to initialize dlock with redis sentinel', async () => {
+    const microfleet = new Microfleet({
+      name: 'tester',
+      plugins: ['logger', 'validator', 'redisSentinel', 'dlock'],
+      redis: {
+        name: 'mservice',
+        sentinels: [
+          { host: 'redis-sentinel', port: 26379 },
+        ],
+      },
+      dlock: {
+        pubsubChannel: 'test-dlock',
+        lockPrefix: 'perchik',
+      },
+    })
 
-  //   await microfleet.connect()
+    await microfleet.connect()
 
-  //   assert.ok(microfleet.dlock)
+    assert.ok(microfleet.dlock)
 
-  //   await microfleet.close()
-  // })
+    await microfleet.close()
+  })
 })
