@@ -1,7 +1,13 @@
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
-import { PluginTypes, Microfleet, ValidatorPlugin, RedisPlugin, ConnectorsTypes } from '@microfleet/core'
+import {
+  PluginTypes,
+  Microfleet,
+  ValidatorPlugin,
+  RedisPlugin,
+  PluginInterface,
+} from '@microfleet/core'
 import * as LockManager from 'dlock'
 
 import type { Redis } from 'ioredis'
@@ -46,17 +52,17 @@ export const name = 'dlock'
 /**
  * Plugin Type
  */
-export const type = PluginTypes.application
+export const type = PluginTypes.database
 
 /**
  * Relative priority inside the same plugin group type
  */
-export const priority = 0
+export const priority = 10 // should be after redisCluster, redisSentinel
 
 export const attach = function attachDlockPlugin(
   this: Microfleet & ValidatorPlugin & LoggerPlugin & RedisPlugin & DLockPlugin,
   opts: Partial<DLockConfig> = {}
-): void {
+): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('log module must be included'))
 
@@ -65,23 +71,24 @@ export const attach = function attachDlockPlugin(
 
   const config = this.validator.ifError(name, opts) as DLockConfig
 
-  this.addDestructor(ConnectorsTypes.application, () => this.dlock.pubsub.disconnect())
+  return {
+    async connect(this: Microfleet) {
+      const { redis: client } = this
+      const pubsub = this.redisDuplicate()
 
-  this.on(`plugin:close:${this.redisType}`, () => {
-    this.dlock = null
-  })
+      await pubsub.connect()
 
-  this.addConnector(ConnectorsTypes.application, async () => {
-    const { redis: client } = this
-    const pubsub = this.redisDuplicate()
+      this.dlock = new LockManager({
+        ...config,
+        client,
+        pubsub,
+        log: this.log,
+      })
+    },
+    async close(this: Microfleet) {
+      await this.dlock.pubsub.disconnect()
 
-    await pubsub.connect()
-
-    this.dlock = new LockManager({
-      ...config,
-      client,
-      pubsub,
-      log: this.log,
-    })
-  })
+      this.dlock = null
+    },
+  }
 }

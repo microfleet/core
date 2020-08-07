@@ -460,7 +460,12 @@ export class Microfleet extends EventEmitter {
       this[property][type] = []
     }
 
-    this[property][type].push(handler)
+    if (property === constants.DESTRUCTORS_PROPERTY) {
+      // reverse
+      this[property][type].unshift(handler)
+    } else {
+      this[property][type].push(handler)
+    }
 
     if (plugin) {
       this.connectorToPlugin.set(handler, plugin)
