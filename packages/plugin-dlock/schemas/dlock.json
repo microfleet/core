@@ -1,0 +1,39 @@
+{
+  "$id": "dlock",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["pubsubChannel", "lockPrefix"],
+  "properties": {
+    "pubsubChannel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["timeout", "retries", "delay"],
+      "default": {},
+      "properties": {
+        "timeout": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 10000
+        },
+        "retries": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 1
+        },
+        "delay": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 100
+        }
+      }
+    },
+    "lockPrefix": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

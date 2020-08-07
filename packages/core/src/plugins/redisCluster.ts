@@ -2,12 +2,12 @@ import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
 import eventToPromise = require('event-to-promise')
-import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface } from '../'
+import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface, RedisPlugin } from '../'
 import _require from '../utils/require'
 import migrate from './redis/migrate'
 import { NotFoundError } from 'common-errors'
 import { hasConnection, isStarted, loadLuaScripts } from './redis/utils'
-import { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED } from './redis/constants'
+import { ERROR_NOT_STARTED, ERROR_ALREADY_STARTED, REDIS_TYPE_CLUSTER } from './redis/constants'
 
 const debug = _debug('mservice:redisCluster')
 
@@ -31,7 +31,7 @@ export const priority = 0
  * @param  [conf={}] - Configuration for Redis Cluster Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): PluginInterface {
+export function attach(this: Microfleet & ValidatorPlugin & RedisPlugin, opts: any = {}): PluginInterface {
   const Redis = _require('ioredis')
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
@@ -45,6 +45,9 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): Plug
   const { Cluster } = Redis
   const isClusterStarted = isStarted(this, Cluster)
   const conf = this.validator.ifError('redisCluster', opts)
+  const createInstance = (config: any) => new Cluster(config.hosts, { ...config.options, lazyConnect: true })
+
+  this.redisType = REDIS_TYPE_CLUSTER
 
   return {
 
@@ -54,10 +57,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): Plug
     async connect(this: Microfleet) {
       assert(this.redis == null, ERROR_ALREADY_STARTED)
 
-      const instance = new Cluster(conf.hosts, {
-        ...conf.options,
-        lazyConnect: true,
-      })
+      const instance = createInstance(conf)
 
       if (this.tracer) {
         const applyInstrumentation = _require('opentracing-js-ioredis')
@@ -83,6 +83,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): Plug
 
       this.addMigrator('redis', migrate, instance, this)
       this.redis = instance
+      this.redisDuplicate = () => createInstance(conf)
       this.emit('plugin:connect:redisCluster', instance)
 
       return instance

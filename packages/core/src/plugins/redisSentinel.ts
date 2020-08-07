@@ -1,9 +1,9 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
-import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface } from '../'
+import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface, RedisPlugin } from '../'
 import _require from '../utils/require'
-import { ERROR_ALREADY_STARTED, ERROR_NOT_STARTED } from './redis/constants'
+import { ERROR_ALREADY_STARTED, ERROR_NOT_STARTED, REDIS_TYPE_SENTINEL } from './redis/constants'
 import { NotFoundError } from 'common-errors'
 import migrate from './redis/migrate'
 import { hasConnection, isStarted, loadLuaScripts } from './redis/utils'
@@ -30,7 +30,7 @@ export const priority = 0
  * @param  [conf={}] - Configuration for Redis Sentinel Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): PluginInterface {
+export function attach(this: Microfleet & ValidatorPlugin & RedisPlugin, opts: any = {}): PluginInterface {
   const Redis = _require('ioredis')
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
@@ -38,6 +38,8 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): Plug
   Redis.Promise = Bluebird
   const isRedisStarted = isStarted(this, Redis)
   const conf = this.validator.ifError('redisSentinel', opts)
+
+  this.redisType = REDIS_TYPE_SENTINEL
 
   return {
 
@@ -70,6 +72,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): Plug
 
       this.addMigrator('redis', migrate, instance, this)
       this.redis = instance
+      this.redisDuplicate = () => instance.duplicate()
       this.emit('plugin:connect:redisSentinel', instance)
 
       return instance
