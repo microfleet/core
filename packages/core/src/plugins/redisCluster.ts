@@ -55,8 +55,6 @@ export function attach(this: Microfleet & ValidatorPlugin & RedisPlugin, opts: a
      * @returns Opens redis connection.
      */
     async connect(this: Microfleet) {
-      // eslint-disable-next-line no-console
-      console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
       assert(this.redis == null, ERROR_ALREADY_STARTED)
 
       const instance = createInstance(conf)
