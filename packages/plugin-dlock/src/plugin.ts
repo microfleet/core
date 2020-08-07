@@ -12,7 +12,7 @@ import type { LoggerPlugin, Logger } from '@microfleet/plugin-logger'
  */
 export type DLockServiceConfig = {
   pubsubChannel: string;
-  lock: LockConfig;
+  lock?: LockConfig;
   lockPrefix: string;
 }
 
@@ -26,9 +26,9 @@ export type DLockConfig = {
 }
 
 export type LockConfig = {
-  timeout: number;
-  retries: number;
-  delay: number;
+  timeout?: number;
+  retries?: number;
+  delay?: number;
 }
 
 /**
