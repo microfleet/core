@@ -3,7 +3,7 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "17.4.0",
+  "version": "17.5.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:unit && yarn test:e2e",
@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/plugin-logger": "^0.5.0",
+    "@microfleet/plugin-logger": "^0.5.1",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "callsite": "^1.0.0",
