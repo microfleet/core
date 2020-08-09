@@ -27,9 +27,18 @@ import {
 } from './types'
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
+import { RedisPlugin } from './plugins/redis/types'
 import defaultsDeep from './utils/defaults-deep'
 import type { Options as RetryOptions } from 'bluebird-retry'
-export { ValidatorPlugin, RouterPlugin, LifecycleRequestType, PluginHealthStatus, HealthStatus }
+
+export {
+  ValidatorPlugin,
+  RouterPlugin,
+  RedisPlugin,
+  LifecycleRequestType,
+  PluginHealthStatus,
+  HealthStatus,
+}
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 
@@ -451,7 +460,12 @@ export class Microfleet extends EventEmitter {
       this[property][type] = []
     }
 
-    this[property][type].push(handler)
+    if (property === constants.DESTRUCTORS_PROPERTY) {
+      // reverse
+      this[property][type].unshift(handler)
+    } else {
+      this[property][type].push(handler)
+    }
 
     if (plugin) {
       this.connectorToPlugin.set(handler, plugin)
