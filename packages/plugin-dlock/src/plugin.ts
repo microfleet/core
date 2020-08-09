@@ -72,7 +72,7 @@ export const attach = function attachDlockPlugin(
   const config = this.validator.ifError(name, opts) as DLockConfig
 
   return {
-    async connect(this: Microfleet) {
+    async connect(this: LoggerPlugin & RedisPlugin & DLockPlugin) {
       const { redis: client } = this
       const pubsub = this.redisDuplicate()
 
@@ -85,7 +85,7 @@ export const attach = function attachDlockPlugin(
         log: this.log,
       })
     },
-    async close(this: Microfleet) {
+    async close(this: DLockPlugin) {
       await this.dlock.pubsub.disconnect()
 
       this.dlock = null
