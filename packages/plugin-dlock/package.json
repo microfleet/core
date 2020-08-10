@@ -28,14 +28,17 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "dlock": "^12.1.1"
+    "dlock": "^12.1.1",
+    "ioredis-lock": "^4.0.0"
   },
   "peerDependencies": {
-    "@microfleet/core": "~17.x.x"
+    "@microfleet/core": "~17.x.x",
+    "common-errors": "^1.x.x"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.0",
     "@microfleet/plugin-logger": "^0.5.1",
+    "@types/bluebird": "^3.5.32",
     "@types/ioredis": "^4.17.3",
     "rimraf": "^3.0.2",
     "ts-essentials": "^7.0.0"

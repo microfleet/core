@@ -1,47 +1,28 @@
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
-import { NotFoundError } from 'common-errors'
+import { NotFoundError, HttpStatusError } from 'common-errors'
 import {
   PluginTypes,
   Microfleet,
   ValidatorPlugin,
-  RedisPlugin,
   PluginInterface,
+  RedisPlugin,
 } from '@microfleet/core'
 import * as LockManager from 'dlock'
 
-import type { Redis } from 'ioredis'
-import type { LoggerPlugin, Logger } from '@microfleet/plugin-logger'
+import '@microfleet/plugin-logger'
+import type Bluebird from 'bluebird'
+
+
+import type { LockConfig, IORedisLock } from './types/dlock'
 
 /**
  * Defines plugin config
  */
-export type DLockServiceConfig = {
+export type DLockPluginConfig = {
   pubsubChannel: string;
   lock?: LockConfig;
   lockPrefix: string;
-}
-
-export type DLockConfig = {
-  client: Redis;
-  pubsub: Redis;
-  pubsubChannel: string;
-  lock: LockConfig;
-  lockPrefix: string;
-  log: false | Logger;
-}
-
-export type LockConfig = {
-  timeout?: number;
-  retries?: number;
-  delay?: number;
-}
-
-/**
- * Defines service extension
- */
-export interface DLockPlugin {
-  dlock: typeof LockManager;
 }
 
 /**
@@ -59,9 +40,46 @@ export const type = PluginTypes.database
  */
 export const priority = 10 // should be after redisCluster, redisSentinel
 
+async function acquireLock(this: Microfleet, ...keys: string[]): Promise<IORedisLock> {
+  const { dlock, log } = this
+
+  assert(dlock, 'DLock plugin is not initialized yet')
+
+  try {
+    let lockPromise: Bluebird<IORedisLock>
+
+    if (keys.length === 1) {
+      lockPromise = dlock.once(keys[0])
+    } else {
+      lockPromise = dlock.multi(keys)
+    }
+
+    lockPromise.disposer(async (lock: IORedisLock) => {
+      try {
+        await lock.release()
+      } catch (error) {
+        log.error({ error }, 'failed to release lock for', keys)
+      }
+    })
+
+    return lockPromise
+  } catch (error) {
+    if (error instanceof LockManager.MultiLockError) {
+      log.warn('failed to lock: %j', keys)
+
+      throw new HttpStatusError(
+        409,
+        'concurrent access to a locked resource, try again in a few seconds'
+      )
+    }
+
+    throw error
+  }
+}
+
 export const attach = function attachDlockPlugin(
-  this: Microfleet & ValidatorPlugin & LoggerPlugin & RedisPlugin & DLockPlugin,
-  opts: Partial<DLockConfig> = {}
+  this: Microfleet & ValidatorPlugin & RedisPlugin,
+  opts: Partial<DLockPluginConfig> = {}
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('log module must be included'))
@@ -69,10 +87,10 @@ export const attach = function attachDlockPlugin(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const config = this.validator.ifError(name, opts) as DLockConfig
+  const config = this.validator.ifError(name, opts) as DLockPluginConfig
 
   return {
-    async connect(this: LoggerPlugin & RedisPlugin & DLockPlugin) {
+    async connect(this: Microfleet & RedisPlugin) {
       const { redis: client } = this
       const pubsub = this.redisDuplicate()
 
@@ -84,11 +102,25 @@ export const attach = function attachDlockPlugin(
         pubsub,
         log: this.log,
       })
+      this.acquireLock = acquireLock.bind(this)
     },
-    async close(this: DLockPlugin) {
-      await this.dlock.pubsub.disconnect()
+    async close(this: Microfleet) {
+      if (this.dlock) {
+        await this.dlock.pubsub.disconnect()
+      }
 
       this.dlock = null
     },
+  }
+}
+
+declare module '@microfleet/core' {
+  export interface Microfleet {
+    dlock: typeof LockManager | null;
+    acquireLock(...keys: string[]): Promise<IORedisLock>;
+  }
+
+  export interface ConfigurationOptional {
+    dlock: DLockPluginConfig;
   }
 }
