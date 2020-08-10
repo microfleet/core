@@ -12,8 +12,6 @@ import * as LockManager from 'dlock'
 
 import '@microfleet/plugin-logger'
 import type Bluebird from 'bluebird'
-
-
 import type { LockConfig, IORedisLock } from './types/dlock'
 
 /**
@@ -49,9 +47,9 @@ async function acquireLock(this: Microfleet, ...keys: string[]): Promise<IORedis
     let lockPromise: Bluebird<IORedisLock>
 
     if (keys.length === 1) {
-      lockPromise = dlock.once(keys[0])
+      lockPromise = dlock.manager.once(keys[0])
     } else {
-      lockPromise = dlock.multi(keys)
+      lockPromise = dlock.manager.multi(keys)
     }
 
     lockPromise.disposer(async (lock: IORedisLock) => {
@@ -96,17 +94,19 @@ export const attach = function attachDlockPlugin(
 
       await pubsub.connect()
 
-      this.dlock = new LockManager({
-        ...config,
-        client,
-        pubsub,
-        log: this.log,
-      })
-      this.acquireLock = acquireLock.bind(this)
+      this.dlock = {
+       manager: new LockManager({
+          ...config,
+          client,
+          pubsub,
+          log: this.log,
+        }),
+        acquireLock: acquireLock.bind(this),
+      }
     },
     async close(this: Microfleet) {
       if (this.dlock) {
-        await this.dlock.pubsub.disconnect()
+        await this.dlock.manager.pubsub.disconnect()
       }
 
       this.dlock = null
@@ -115,9 +115,13 @@ export const attach = function attachDlockPlugin(
 }
 
 declare module '@microfleet/core' {
-  export interface Microfleet {
-    dlock: typeof LockManager | null;
+  export interface DLockPlugin {
+    manager: typeof LockManager;
     acquireLock(...keys: string[]): Promise<IORedisLock>;
+  }
+
+  export interface Microfleet {
+    dlock: DLockPlugin | null;
   }
 
   export interface ConfigurationOptional {
