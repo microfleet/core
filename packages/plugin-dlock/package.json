@@ -3,7 +3,7 @@
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.0.0-dev.2",
+  "version": "0.0.0-dev.3",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",

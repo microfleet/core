@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.3](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.2...@microfleet/plugin-dlock@0.0.0-dev.3) (2020-08-17)
+
+
+### Bug Fixes
+
+* **dlock:** types ([#452](https://github.com/microfleet/core/issues/452)) ([4cc9718](https://github.com/microfleet/core/commit/4cc97188b269bad80211f66869c2f46520379c58))
+
+
+
+
+
 # [0.0.0-dev.2](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.1...@microfleet/plugin-dlock@0.0.0-dev.2) (2020-08-10)
 
 
