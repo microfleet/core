@@ -9,10 +9,28 @@ import {
   RedisPlugin,
 } from '@microfleet/core'
 import * as LockManager from 'dlock'
+import { LockAcquisitionError } from 'ioredis-lock'
 
 import '@microfleet/plugin-logger'
+
 import type Bluebird from 'bluebird'
-import type { LockConfig, IORedisLock } from './types/dlock'
+import type { Redis } from 'ioredis'
+import type { Logger } from '@microfleet/plugin-logger'
+
+export interface DLockPlugin {
+  manager: typeof LockManager;
+  acquireLock(...keys: string[]): Promise<IORedisLock>;
+}
+
+declare module '@microfleet/core' {
+  export interface Microfleet {
+    dlock: DLockPlugin | null;
+  }
+
+  export interface ConfigurationOptional {
+    dlock: DLockPluginConfig;
+  }
+}
 
 /**
  * Defines plugin config
@@ -37,6 +55,8 @@ export const type = PluginTypes.database
  * Relative priority inside the same plugin group type
  */
 export const priority = 10 // should be after redisCluster, redisSentinel
+
+export { LockAcquisitionError }
 
 async function acquireLock(this: Microfleet, ...keys: string[]): Promise<IORedisLock> {
   const { dlock, log } = this
@@ -114,17 +134,23 @@ export const attach = function attachDlockPlugin(
   }
 }
 
-declare module '@microfleet/core' {
-  export interface DLockPlugin {
-    manager: typeof LockManager;
-    acquireLock(...keys: string[]): Promise<IORedisLock>;
-  }
+export type DLockConfig = {
+  client: Redis;
+  pubsub: Redis;
+  pubsubChannel: string;
+  lock: LockConfig;
+  lockPrefix: string;
+  log: false | Logger;
+}
 
-  export interface Microfleet {
-    dlock: DLockPlugin | null;
-  }
+export type LockConfig = {
+  timeout?: number;
+  retries?: number;
+  delay?: number;
+}
 
-  export interface ConfigurationOptional {
-    dlock: DLockPluginConfig;
-  }
+export interface IORedisLock {
+  acquire(key: string): Promise<void>;
+  release(): Promise<void>;
+  extend(time: number): Promise<void>;
 }
