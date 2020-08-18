@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.4](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.3...@microfleet/plugin-dlock@0.0.0-dev.4) (2020-08-18)
+
+
+### Bug Fixes
+
+* **dlock:** type for ioredis-lock extend method ([#453](https://github.com/microfleet/core/issues/453)) ([b5e6e82](https://github.com/microfleet/core/commit/b5e6e821ea693e9407a63c4a12804114196a2b90))
+
+
+
+
+
 # [0.0.0-dev.3](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.2...@microfleet/plugin-dlock@0.0.0-dev.3) (2020-08-17)
 
 
