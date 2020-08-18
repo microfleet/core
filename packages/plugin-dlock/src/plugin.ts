@@ -152,5 +152,5 @@ export type LockConfig = {
 export interface IORedisLock {
   acquire(key: string): Promise<void>;
   release(): Promise<void>;
-  extend(time: number): Promise<void>;
+  extend(time?: number): Promise<void>;
 }
