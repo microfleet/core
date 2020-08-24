@@ -74,7 +74,7 @@ export declare interface ServiceAction extends ServiceActionStep {
   allowed?: () => boolean | Promise<boolean>;
   auth?: string | GetAuthName | AuthConfig;
   passAuthError?: boolean;
-  schema?: string;
+  schema?: string | null | boolean;
   responseSchema?: string;
   validateResponse: boolean;
   transports: TransportTypes[];
