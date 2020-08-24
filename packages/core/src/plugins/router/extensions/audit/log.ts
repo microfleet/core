@@ -58,7 +58,7 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): E
           request.log.info(meta, 'completed operation %s', request.action.actionName)
         }
 
-        return [error, result]
+        return [error, result, request]
       },
     },
   ]

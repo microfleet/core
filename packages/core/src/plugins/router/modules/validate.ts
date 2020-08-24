@@ -1,7 +1,6 @@
 import { HttpStatusError } from '@microfleet/validation'
 import Bluebird = require('bluebird')
 import { Error } from 'common-errors'
-import is = require('is')
 import { Microfleet } from '../../../'
 import { DATA_KEY_SELECTOR } from '../../../constants'
 import { ServiceRequest } from '../../../types'
@@ -31,7 +30,9 @@ function passThrough(request: ServiceRequest): ServiceRequest {
 }
 
 function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequest): Bluebird<any>  {
-  const validateFn = is.undefined(request.action.schema)
+  const { schema } = request.action
+
+  const validateFn = (schema === undefined || schema === null || schema === false)
     ? passThrough
     : validate
 
