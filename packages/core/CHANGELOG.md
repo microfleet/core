@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [17.5.1](https://github.com/microfleet/core/compare/@microfleet/core@17.5.0...@microfleet/core@17.5.1) (2020-08-25)
+
+
+### Bug Fixes
+
+* **core:** ability to turn off auto schema for single action ([48cec10](https://github.com/microfleet/core/commit/48cec10af8c234b96a2ea910c26570a67695a899))
+
+
+
+
+
 # [17.5.0](https://github.com/microfleet/core/compare/@microfleet/core@17.4.0...@microfleet/core@17.5.0) (2020-08-09)
 
 
