@@ -72,7 +72,7 @@ function validateAction(actionLike: ServiceAction | { default: ServiceAction }, 
     throw new ValidationError(`action.auth in ${route} must be a string or an object`)
   }
 
-  if (is.defined(schema) && !is.string(schema)) {
+  if (schema && typeof schema !== 'string') {
     throw new ValidationError(`action.schema in ${route} must be a string`)
   }
 
