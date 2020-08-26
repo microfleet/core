@@ -3,7 +3,7 @@
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.0.0-dev.5",
+  "version": "0.0.0-dev.6",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -36,8 +36,8 @@
     "common-errors": "^1.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.5.1",
-    "@microfleet/plugin-logger": "^0.5.2",
+    "@microfleet/core": "^17.5.2",
+    "@microfleet/plugin-logger": "^0.5.3",
     "@types/bluebird": "^3.5.32",
     "@types/ioredis": "^4.17.3",
     "rimraf": "^3.0.2",

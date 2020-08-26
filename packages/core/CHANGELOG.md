@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [17.5.2](https://github.com/microfleet/core/compare/@microfleet/core@17.5.1...@microfleet/core@17.5.2) (2020-08-26)
+
+
+### Bug Fixes
+
+* validation for action schema ([#458](https://github.com/microfleet/core/issues/458)) ([170b014](https://github.com/microfleet/core/commit/170b014ba7ca80d5e09cd8641b1079f3671f6e54))
+
+
+
+
+
 ## [17.5.1](https://github.com/microfleet/core/compare/@microfleet/core@17.5.0...@microfleet/core@17.5.1) (2020-08-25)
 
 
