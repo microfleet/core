@@ -24,7 +24,7 @@ function handleValidationError(service: Microfleet, err: Error): void {
 
 async function validate(this: WithValidatorPlugin, err: Error | null, response: any, request: ServiceRequest): Promise<HandlerResult> {
   // do nothing with errors
-  if (err) [err, response, request]
+  if (err) return [err, response, request]
 
   const { validator } = this
   const { action } = request
