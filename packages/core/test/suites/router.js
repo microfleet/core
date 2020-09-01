@@ -873,7 +873,7 @@ describe('Router suite', function testSuite() {
       console.debug('TEST', { failed, success })
 
       // Math.random does not brings constant results))))
-      expect(failed).to.be.below(10);
+      expect(failed).to.be.below(20);
       expect(success).to.be.above(80);
 
       await service.close()
