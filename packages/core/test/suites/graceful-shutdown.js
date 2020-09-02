@@ -176,8 +176,8 @@ describe('service graceful shutdown', () => {
   it('should wait for multiple requests to finish', async () => {
     const serviceConnector = await childService.getServiceConnectors();
     const actions = [
-      () => serviceConnector.amqp('amqp.action.long-running', { pause: 999 }),
-      () => serviceConnector.http('/action.long-running', { pause: 1000 }),
+      () => serviceConnector.amqp('amqp.action.long-running', { pause: 299 }),
+      () => serviceConnector.http('/action.long-running', { pause: 500 }),
       () => serviceConnector.socketIO('action.long-running', { pause: 500 }),
     ];
 
