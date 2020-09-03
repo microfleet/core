@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.4](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.3.3...@microfleet/plugin-knex@2.3.4) (2020-09-03)
+
+**Note:** Version bump only for package @microfleet/plugin-knex
+
+
+
+
+
 ## [2.3.3](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.3.2...@microfleet/plugin-knex@2.3.3) (2020-08-26)
 
 **Note:** Version bump only for package @microfleet/plugin-knex

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [17.5.3](https://github.com/microfleet/core/compare/@microfleet/core@17.5.2...@microfleet/core@17.5.3) (2020-09-03)
+
+
+### Bug Fixes
+
+* invalid response validation on error ([57d16c5](https://github.com/microfleet/core/commit/57d16c5daa665fda3f27183068a0bc2d77a2de9a))
+
+
+
+
+
 ## [17.5.2](https://github.com/microfleet/core/compare/@microfleet/core@17.5.1...@microfleet/core@17.5.2) (2020-08-26)
 
 
