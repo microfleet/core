@@ -153,7 +153,7 @@ describe('service graceful shutdown', () => {
     const serviceConnector = await childService.getServiceConnectors();
 
     const [serviceResponse] = await Promise.all([
-      serviceConnector.http('/action.long-running', { pause: 1000 }),
+      serviceConnector.http('/action.long-running', { pause: 500 }),
       childService.kill('SIGTERM', true),
     ]);
 

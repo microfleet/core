@@ -751,7 +751,7 @@ describe('Router suite', function testSuite() {
           routes: {
             responseValidation: {
               enabled: true,
-              percent: 100,
+              maxSample: 100,
               panic: true,
             },
           },
@@ -785,7 +785,7 @@ describe('Router suite', function testSuite() {
       await service.close()
     })
 
-    it.only('should validate response and warn if `panic` is false', async () => {
+    it('should validate response and warn if `panic` is false', async () => {
       const config = withResponseValidateAction('validate-response-test', {
         router: {
           routes: {
@@ -827,7 +827,7 @@ describe('Router suite', function testSuite() {
       await service.close()
     })
 
-    it.only('should validate response if schema provided and global validation enabled with limited percent', async () => {
+    it('should validate response if schema provided and global validation enabled with limited percent', async () => {
       const config = withResponseValidateAction('validate-response-test', {
         router: {
           routes: {
