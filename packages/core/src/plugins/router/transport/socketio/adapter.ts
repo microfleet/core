@@ -1,12 +1,12 @@
 import _debug = require('debug')
 import noop = require('lodash/noop')
-import { ActionTransport } from '../../..'
-import { ServiceRequest } from '../../../types'
-import { Router } from '../../router/factory'
-import { RequestCallback } from '../../router/dispatcher'
+
+import { ActionTransport } from '../../../..'
+import { ServiceRequest } from '../../../../types'
+import { Router } from '../../../router/factory'
+import { RequestCallback } from '../../../router/dispatcher'
 
 const debug = _debug('mservice:router:socket.io')
-const { socketIO } = ActionTransport
 
 export interface SocketIOMessage {
   data: [string, any, RequestCallback];
@@ -15,7 +15,7 @@ export interface SocketIOMessage {
 /* Decrease request count on response */
 function wrapCallback(router: Router, callback: RequestCallback) {
   return (err: any, result?: any) => {
-    router.requestCountTracker.decrease(socketIO)
+    router.requestCountTracker.decrease(ActionTransport.socketio)
     if (callback) {
       callback(err, result)
     }
@@ -26,7 +26,7 @@ function getSocketIORouterAdapter(_: unknown, router: Router): (socket: NodeJS.E
   return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
     socket.on('*', (packet: SocketIOMessage) => {
       /* Increase request count on message */
-      router.requestCountTracker.increase(socketIO)
+      router.requestCountTracker.increase(ActionTransport.socketio)
 
       const [actionName, params, callback] = packet.data
       const request: ServiceRequest = {
@@ -41,7 +41,7 @@ function getSocketIORouterAdapter(_: unknown, router: Router): (socket: NodeJS.E
         query: Object.create(null),
         route: '',
         span: undefined,
-        transport: socketIO,
+        transport: ActionTransport.socketio,
         transportRequest: packet,
       }
 

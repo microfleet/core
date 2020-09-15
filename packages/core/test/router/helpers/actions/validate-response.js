@@ -18,7 +18,7 @@ responseValidate.schema = 'validate-response'
 responseValidate.transports = [
   ActionTransport.amqp,
   ActionTransport.http,
-  ActionTransport.socketIO,
+  ActionTransport.socketio,
 ];
 
 module.exports = responseValidate;

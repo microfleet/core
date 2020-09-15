@@ -28,6 +28,7 @@ import {
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
 import { RouterConfig, RouterPlugin, LifecycleRequestType } from './plugins/router'
 import { RedisPlugin } from './plugins/redis/types'
+import { getRequestCount } from './plugins/router/request-tracker'
 import defaultsDeep from './utils/defaults-deep'
 import type { Options as RetryOptions } from 'bluebird-retry'
 
@@ -38,6 +39,7 @@ export {
   LifecycleRequestType,
   PluginHealthStatus,
   HealthStatus,
+  getRequestCount,
 }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
@@ -125,7 +127,7 @@ export interface ConfigurationOptional {
   /**
    * Healthcheck configurations
    */
-  healthChecks: RetryOptions
+  healthChecks: RetryOptions;
 }
 
 export type AnyFn = (...args: any[]) => any;

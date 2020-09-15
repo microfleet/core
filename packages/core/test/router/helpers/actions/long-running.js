@@ -17,7 +17,7 @@ function LongAction(request) {
 LongAction.transports = [
   ActionTransport.amqp,
   ActionTransport.http,
-  ActionTransport.socketIO,
+  ActionTransport.socketio,
 ];
 
 module.exports = LongAction;

@@ -9,12 +9,9 @@ const pluginDependencies = {
   '@hapi/hapi': '>= 19.x.x < 20',
   ioredis: '~4.x.x',
   'jaeger-client': '~3.x.x',
-  'ms-socket.io-adapter-amqp': '~7.x.x',
   'opentracing-js-ioredis': '~2.x.x',
   pg: '~7.x.x',
   'server-destroy': '~1.x.x',
-  'socket.io': '~2.x.x',
-  'socketio-wildcard': '~2.x.x',
   '@hapi/vision': '~6.x.x',
 }
 

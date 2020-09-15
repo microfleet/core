@@ -17,7 +17,7 @@ withoutResponseSchema.schema = 'validate-response'
 withoutResponseSchema.transports = [
   ActionTransport.amqp,
   ActionTransport.http,
-  ActionTransport.socketIO,
+  ActionTransport.socketio,
 ];
 
 module.exports = withoutResponseSchema;

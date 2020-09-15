@@ -20,7 +20,7 @@ describe('router: get routes', () => {
       transports: [
         ActionTransport.http,
         ActionTransport.amqp,
-        ActionTransport.socketIO,
+        ActionTransport.socketio,
         ActionTransport.internal,
       ],
     }
@@ -48,13 +48,13 @@ describe('router: get routes', () => {
     expect(routes.http['action.generic.health']).to.be.a('function')
     expect(Object.keys(routes.http)).to.have.lengthOf(2)
 
-    // socketIO routes
-    expect(routes).to.have.property('socketIO')
-    expect(routes.socketIO).to.have.property('action.baz')
-    expect(routes.socketIO['action.baz']).to.be.a('function')
-    expect(routes.socketIO).to.have.property('action.generic.health')
-    expect(routes.socketIO['action.generic.health']).to.be.a('function')
-    expect(Object.keys(routes.socketIO)).to.have.lengthOf(2)
+    // socket.io routes
+    expect(routes).to.have.property('socketio')
+    expect(routes.socketio).to.have.property('action.baz')
+    expect(routes.socketio['action.baz']).to.be.a('function')
+    expect(routes.socketio).to.have.property('action.generic.health')
+    expect(routes.socketio['action.generic.health']).to.be.a('function')
+    expect(Object.keys(routes.socketio)).to.have.lengthOf(2)
 
     // amqp routes
     expect(routes).to.have.property('amqp')
@@ -75,7 +75,7 @@ describe('router: get routes', () => {
       enabled: {},
       enabledGenericActions: [],
       prefix: 'action',
-      transports: [ActionTransport.socketIO],
+      transports: [ActionTransport.socketio],
     }
 
     const routes = getRoutes.call(microfleet, config)
@@ -93,13 +93,13 @@ describe('router: get routes', () => {
     expect(routes._all['action.baz']).to.be.a('function')
     expect(Object.keys(routes._all)).to.have.lengthOf(3)
 
-    // socketIO routes
-    expect(routes).to.have.property('socketIO')
-    expect(routes.socketIO).to.have.property('action.foo')
-    expect(routes.socketIO['action.foo']).to.be.a('function')
-    expect(routes.socketIO).to.have.property('action.baz')
-    expect(routes.socketIO['action.baz']).to.be.a('function')
-    expect(Object.keys(routes.socketIO)).to.have.lengthOf(2)
+    // socket.io routes
+    expect(routes).to.have.property('socketio')
+    expect(routes.socketio).to.have.property('action.foo')
+    expect(routes.socketio['action.foo']).to.be.a('function')
+    expect(routes.socketio).to.have.property('action.baz')
+    expect(routes.socketio['action.baz']).to.be.a('function')
+    expect(Object.keys(routes.socketio)).to.have.lengthOf(2)
   })
 
   it('should be able to set default transports', () => {
@@ -109,16 +109,16 @@ describe('router: get routes', () => {
       enabledGenericActions: [],
       prefix: 'action',
       setTransportsAsDefault: true,
-      transports: [ActionTransport.socketIO],
+      transports: [ActionTransport.socketio],
     }
 
     const routes = getRoutes.call(microfleet, config)
 
-    // socketIO routes
-    expect(routes).to.have.property('socketIO')
-    expect(routes.socketIO).to.have.property('action.bar')
-    expect(routes.socketIO['action.bar']).to.be.a('function')
-    expect(routes.socketIO['action.bar'].actionName).to.be.equals('bar')
-    expect(Object.keys(routes.socketIO)).to.have.lengthOf(1)
+    // socket.io routes
+    expect(routes).to.have.property('socketio')
+    expect(routes.socketio).to.have.property('action.bar')
+    expect(routes.socketio['action.bar']).to.be.a('function')
+    expect(routes.socketio['action.bar'].actionName).to.be.equals('bar')
+    expect(Object.keys(routes.socketio)).to.have.lengthOf(1)
   })
 })

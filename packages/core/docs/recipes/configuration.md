@@ -91,7 +91,7 @@ This should print current config. Take some time to explore it:
   "http": {
     "server": {
       "handler": "hapi",
-      "attachSocketIO": false,
+      "attachSocketio": false,
       "port": 3000,
       "handlerConfig": {
         "server": {

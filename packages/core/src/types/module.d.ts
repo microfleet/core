@@ -2,7 +2,6 @@
 declare module '@microfleet/transport-amqp/lib/utils/serialization'
 declare module 'sort-by'
 declare module 'rfdc'
-declare module 'socketio-wildcard'
 
 declare module "eventemitter3" {
   type EventNames<T extends string | symbol | { [K in string | symbol]: any[] }> = T extends string | symbol ? T : keyof T;

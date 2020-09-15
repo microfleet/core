@@ -1,7 +1,7 @@
 const Promise = require('bluebird');
 
-function getSocketIORequest(client) {
+function getSocketioRequest(client) {
   return (action, params) => Promise.fromCallback((callback) => client.emit(action, params, callback));
 }
 
-module.exports = getSocketIORequest;
+module.exports = getSocketioRequest;

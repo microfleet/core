@@ -73,30 +73,16 @@ global.SERVICES = {
       },
     },
   },
-  http: {
-    server: {
-      attachSocketIO: true,
-      handler: 'restify',
-      handlerConfig: {},
-      port: 3000,
-    },
-  },
   router: {
     routes: {
-      directory: path.resolve(__dirname, './socketIO/helpers/actions'),
+      directory: path.resolve(__dirname, './router/helpers/actions'),
       enabled: {
         echo: 'echo',
       },
-      transports: [ActionTransport.socketIO],
+      transports: [ActionTransport.socketio],
     },
     extensions: {
       register: [],
     },
-  },
-  socketIO: {
-    router: {
-      enabled: true,
-    },
-    options: {},
   },
 };

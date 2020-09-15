@@ -18,7 +18,7 @@ describe('Router suite', function testSuite() {
   const auditLog = routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');
   const getHTTPRequest = require('../router/helpers/requests/http');
-  const getSocketIORequest = require('../router/helpers/requests/socketIO');
+  const getSocketioRequest = require('../router/helpers/requests/socketio');
   const verify = require('../router/helpers/verifyCase');
 
   const schemaLessAction = routerExtension('validate/schemaLessAction');
@@ -58,7 +58,7 @@ describe('Router suite', function testSuite() {
       },
       http: {
         server: {
-          attachSocketIO: true,
+          attachSocketio: true,
           handler: 'hapi',
         },
         router: {
@@ -68,7 +68,7 @@ describe('Router suite', function testSuite() {
       logger: {
         defaultLogger: true,
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -81,7 +81,7 @@ describe('Router suite', function testSuite() {
           transports: [
             ActionTransport.amqp,
             ActionTransport.http,
-            ActionTransport.socketIO,
+            ActionTransport.socketio,
           ],
         },
         extensions: { register: [] },
@@ -97,11 +97,6 @@ describe('Router suite', function testSuite() {
           },
         },
       },
-      socketIO: {
-        router: {
-          enabled: true,
-        },
-      },
       validator: { schemas: ['../router/helpers/schemas'] },
     });
 
@@ -109,8 +104,8 @@ describe('Router suite', function testSuite() {
 
     const AMQPRequest = getAMQPRequest(service.amqp);
     const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
-    const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-    const socketIORequest = getSocketIORequest(socketIOClient);
+    const socketioClient = SocketIOClient('http://0.0.0.0:3000');
+    const socketioRequest = getSocketioRequest(socketioClient);
 
     const routeNotFound = {
       expect: 'error',
@@ -181,11 +176,11 @@ describe('Router suite', function testSuite() {
 
     try {
       await Promise.all([
-        socketIORequest('not.exists', {}).reflect().then(verify(routeNotFound)),
-        socketIORequest('action.simple', {}).reflect().then(verify(authFailed)),
-        socketIORequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-        socketIORequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
-        socketIORequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+        socketioRequest('not.exists', {}).reflect().then(verify(routeNotFound)),
+        socketioRequest('action.simple', {}).reflect().then(verify(authFailed)),
+        socketioRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+        socketioRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+        socketioRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
 
         HTTPRequest('/not/exists', {}).reflect().then(verify(routeNotFound)),
         HTTPRequest('/action/simple', {}).reflect().then(verify(authFailed)),
@@ -205,7 +200,7 @@ describe('Router suite', function testSuite() {
     } finally {
       await Promise.all([
         service.close(),
-        socketIOClient.close(),
+        socketioClient.close(),
       ]);
     }
   });
@@ -403,7 +398,7 @@ describe('Router suite', function testSuite() {
       },
       http: {
         server: {
-          attachSocketIO: true,
+          attachSocketio: true,
           handler: 'hapi',
         },
         router: {
@@ -413,7 +408,7 @@ describe('Router suite', function testSuite() {
       logger: {
         defaultLogger: true,
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -422,7 +417,7 @@ describe('Router suite', function testSuite() {
           transports: [
             ActionTransport.amqp,
             ActionTransport.http,
-            ActionTransport.socketIO,
+            ActionTransport.socketio,
             ActionTransport.internal,
           ],
           enabledGenericActions: ['health'],
@@ -435,19 +430,14 @@ describe('Router suite', function testSuite() {
           ],
         },
       },
-      socketIO: {
-        router: {
-          enabled: true,
-        },
-      },
       validator: { schemas: ['../router/helpers/schemas'] },
     });
 
     await service.connect();
     const AMQPRequest = getAMQPRequest(service.amqp);
     const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' });
-    const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-    const socketIORequest = getSocketIORequest(socketIOClient);
+    const socketioClient = SocketIOClient('http://0.0.0.0:3000');
+    const socketioRequest = getSocketioRequest(socketioClient);
 
     const returnsResult = {
       expect: 'success',
@@ -459,7 +449,7 @@ describe('Router suite', function testSuite() {
 
     await service.dispatch('generic.health', {}).reflect().then(verify(returnsResult));
     await HTTPRequest('/action/generic/health').reflect().then(verify(returnsResult));
-    await socketIORequest('action.generic.health', {}).reflect().then(verify(returnsResult));
+    await socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult));
     await AMQPRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult));
 
     await service.close();
@@ -751,7 +741,7 @@ describe('Router suite', function testSuite() {
           routes: {
             responseValidation: {
               enabled: true,
-              percent: 100,
+              maxSample: 100,
               panic: true,
             },
           },
@@ -765,12 +755,12 @@ describe('Router suite', function testSuite() {
       const AMQPRequest = getAMQPRequest(service.amqp);
       const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-      const socketIORequest = getSocketIORequest(socketIOClient);
+      const socketioRequest = getSocketioRequest(socketIOClient);
 
       const check = throwsError('validate-response')
 
-      await socketIORequest('action.validate-response', { success: true }).reflect().then(verify(returnsResult));
-      await socketIORequest('action.validate-response', { success: false }).reflect().then(verify(check));
+      await socketioRequest('action.validate-response', { success: true }).reflect().then(verify(returnsResult));
+      await socketioRequest('action.validate-response', { success: false }).reflect().then(verify(check));
 
       await HTTPRequest('/action/validate-response', { success: true }).reflect().then(verify(returnsResult));
       await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(check));
@@ -778,14 +768,14 @@ describe('Router suite', function testSuite() {
       await AMQPRequest('action.validate-response', { success: true }).reflect().then(verify(returnsResult));
       await AMQPRequest('action.validate-response', { success: false }).reflect().then(verify(check));
 
-      await socketIORequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await socketioRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
       await HTTPRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
       await AMQPRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
 
       await service.close()
     })
 
-    it.only('should validate response and warn if `panic` is false', async () => {
+    it('should validate response and warn if `panic` is false', async () => {
       const config = withResponseValidateAction('validate-response-test', {
         router: {
           routes: {
@@ -805,15 +795,15 @@ describe('Router suite', function testSuite() {
       const AMQPRequest = getAMQPRequest(service.amqp);
       const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-      const socketIORequest = getSocketIORequest(socketIOClient);
+      const socketioRequest = getSocketioRequest(socketIOClient);
 
       const spy = sinon.spy(service.log, 'warn')
 
-      await socketIORequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await socketioRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
       await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
       await AMQPRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
 
-      await socketIORequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await socketioRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
       await HTTPRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
       await AMQPRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
 
@@ -827,7 +817,7 @@ describe('Router suite', function testSuite() {
       await service.close()
     })
 
-    it.only('should validate response if schema provided and global validation enabled with limited percent', async () => {
+    it('should validate response if schema provided and global validation enabled with limited percent', async () => {
       const config = withResponseValidateAction('validate-response-test', {
         router: {
           routes: {
@@ -847,7 +837,7 @@ describe('Router suite', function testSuite() {
       const AMQPRequest = getAMQPRequest(service.amqp);
       const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-      const socketIORequest = getSocketIORequest(socketIOClient);
+      const socketioRequest = getSocketioRequest(socketIOClient);
 
       let failed = 0;
       let success = 0;
@@ -863,7 +853,7 @@ describe('Router suite', function testSuite() {
       }
 
       const promises = Promise.map(range(25), async () => {
-        await socketIORequest('action.validate-response', { success: false }).reflect().then(count);
+        await socketioRequest('action.validate-response', { success: false }).reflect().then(count);
         await HTTPRequest('/action/validate-response', { success: false }).reflect().then(count);
         await AMQPRequest('action.validate-response', { success: false }).reflect().then(count);
         await AMQPRequest('action.validate-response', { success: false }).reflect().then(count);
@@ -898,9 +888,9 @@ describe('Router suite', function testSuite() {
       const AMQPRequest = getAMQPRequest(service.amqp);
       const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-      const socketIORequest = getSocketIORequest(socketIOClient);
+      const socketioRequest = getSocketioRequest(socketIOClient);
 
-      await socketIORequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
+      await socketioRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
       await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
       await AMQPRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
 
@@ -930,11 +920,11 @@ describe('Router suite', function testSuite() {
       const AMQPRequest = getAMQPRequest(service.amqp);
       const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
-      const socketIORequest = getSocketIORequest(socketIOClient);
+      const socketioRequest = getSocketioRequest(socketIOClient);
       const check = throwsError('validate-response-without-schema')
 
-      await socketIORequest('action.validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult));
-      await socketIORequest('action.validate-response-without-schema', { success: false }).reflect().then(verify(check));
+      await socketioRequest('action.validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult));
+      await socketioRequest('action.validate-response-without-schema', { success: false }).reflect().then(verify(check));
 
       await HTTPRequest('/action/validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult));
       await HTTPRequest('/action/validate-response-without-schema', { success: false }).reflect().then(verify(check));

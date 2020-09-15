@@ -13,7 +13,7 @@
                 "host"
             ],
             "properties": {
-                "attachSocketIO": {
+                "attachSocketio": {
                     "default": false,
                     "type": "boolean"
                 },

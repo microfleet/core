@@ -26,5 +26,5 @@ function Action(request) {
 Action.auth = 'token';
 Action.allowed = (request, action, router) => Promise.reject('access denied');
 Action.schema = 'action.join';
-Action.transports = [ActionTransport.http, ActionTransport.socketIO];
+Action.transports = [ActionTransport.http, ActionTransport.socketio];
 ```
