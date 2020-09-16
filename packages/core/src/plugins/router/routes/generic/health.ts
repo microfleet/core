@@ -29,7 +29,7 @@ genericHealthCheck.transports = [
   ActionTransport.http,
   ActionTransport.amqp,
   ActionTransport.internal,
-  ActionTransport.socketIO,
+  ActionTransport.socketio,
 ]
 
 export default genericHealthCheck

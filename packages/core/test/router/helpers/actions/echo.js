@@ -5,6 +5,6 @@ function EchoAction(request) {
   return Promise.resolve(request.params);
 }
 
-EchoAction.transports = [ActionTransport.socketIO, ActionTransport.http];
+EchoAction.transports = [ActionTransport.socketio, ActionTransport.http];
 
 module.exports = EchoAction;

@@ -18,7 +18,7 @@ const withResponseValidateAction = (name, extra = {}) => {
     },
     http: {
       server: {
-        attachSocketIO: true,
+        attachSocketio: true,
         handler: 'hapi',
       },
       router: {
@@ -28,7 +28,7 @@ const withResponseValidateAction = (name, extra = {}) => {
     logger: {
       defaultLogger: true,
     },
-    plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+    plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
     router: {
       routes: {
         directory: path.resolve(__dirname, './actions'),
@@ -40,16 +40,11 @@ const withResponseValidateAction = (name, extra = {}) => {
         prefix: 'action',
         transports: [
           ActionTransport.amqp,
-          ActionTransport.socketIO,
+          ActionTransport.socketio,
           ActionTransport.http,
         ]
       },
       extensions: { register: [] },
-    },
-    socketIO: {
-      router: {
-        enabled: true,
-      },
     },
     validator: { schemas: [ path.resolve(__dirname, './schemas')] },
   }

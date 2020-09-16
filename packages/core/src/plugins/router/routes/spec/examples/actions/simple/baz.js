@@ -5,6 +5,6 @@ function BazAction() {
   return Promise.resolve('bar');
 }
 
-BazAction.transports = [ActionTransport.socketIO];
+BazAction.transports = [ActionTransport.socketio];
 
 module.exports = BazAction;

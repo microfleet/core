@@ -17,7 +17,7 @@ const service = new Microfleet({
   },
   http: {
     server: {
-      attachSocketIO: true,
+      attachSocketio: true,
       handler: 'hapi',
       port: parseInt(process.argv[2], 10),
     },
@@ -28,7 +28,7 @@ const service = new Microfleet({
   logger: {
     defaultLogger: true,
   },
-  plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+  plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
   router: {
     routes: {
       directory: path.resolve(__dirname, '../../router/helpers/actions'),
@@ -37,7 +37,7 @@ const service = new Microfleet({
       transports: [
         ActionTransport.amqp,
         ActionTransport.http,
-        ActionTransport.socketIO,
+        ActionTransport.socketio,
         ActionTransport.internal,
       ],
       enabledGenericActions: ['health'],
@@ -45,11 +45,6 @@ const service = new Microfleet({
     extensions: {
       enabled: ['postRequest'],
       register: [],
-    },
-  },
-  socketIO: {
-    router: {
-      enabled: true,
     },
   },
   validator: { schemas: ['../../router/helpers/schemas'] },

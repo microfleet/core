@@ -25,7 +25,7 @@ SimpleAction.schema = 'action.simple';
 SimpleAction.transports = [
   ActionTransport.amqp,
   ActionTransport.http,
-  ActionTransport.socketIO,
+  ActionTransport.socketio,
 ];
 
 module.exports = SimpleAction;

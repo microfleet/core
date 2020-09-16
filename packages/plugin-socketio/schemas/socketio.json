@@ -1,0 +1,23 @@
+{
+  "$id": "socketio",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "adapter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object",
+          "default": {}
+        }
+      }
+    },
+    "socketioOptions": {
+      "type": "object",
+      "default": {}
+    }
+  }
+}
