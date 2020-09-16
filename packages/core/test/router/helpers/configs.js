@@ -25,10 +25,7 @@ const withResponseValidateAction = (name, extra = {}) => {
         enabled: true,
       },
     },
-    logger: {
-      defaultLogger: true,
-    },
-    plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
+    plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
     router: {
       routes: {
         directory: path.resolve(__dirname, './actions'),

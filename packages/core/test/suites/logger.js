@@ -15,9 +15,6 @@ describe('Logger suite', function testSuite() {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'],
-      logger: {
-        defaultLogger: true,
-      },
     });
 
     assert.ok(service.log);
@@ -29,7 +26,6 @@ describe('Logger suite', function testSuite() {
       name: 'tester',
       plugins: ['validator', 'logger'],
       logger: {
-        defaultLogger: true,
         debug: true,
       },
     });

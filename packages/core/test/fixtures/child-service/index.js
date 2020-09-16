@@ -25,10 +25,7 @@ const service = new Microfleet({
       enabled: true,
     },
   },
-  logger: {
-    defaultLogger: true,
-  },
-  plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
+  plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
   router: {
     routes: {
       directory: path.resolve(__dirname, '../../router/helpers/actions'),

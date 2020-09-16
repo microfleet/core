@@ -4,11 +4,10 @@ import { NotFoundError, NotSupportedError } from 'common-errors'
 import { object as isObject } from 'is'
 
 import { ActionTransport, PluginTypes, identity } from '../constants'
-import { Microfleet, PluginInterface } from '../'
+import { Microfleet } from '../'
 import { ServiceRequest } from '../types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
 import { ValidatorPlugin } from './validator'
-import attachSocketioRouter from './router/transport/socketio/attach'
 
 const { internal } = ActionTransport
 
@@ -84,7 +83,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
 export function attach(
   this: Microfleet & ValidatorPlugin & RouterPlugin,
   opts: Partial<RouterConfig>
-): PluginInterface {
+): void {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   const config = this.validator.ifError('router', opts) as RouterConfig
@@ -106,18 +105,5 @@ export function attach(
   this.dispatch = (route: string, request: Partial<ServiceRequest>) => {
     const msg = prepareRequest(request)
     return router.dispatch(assemble(route), msg)
-  }
-
-  return {
-    async connect(this: Microfleet) {
-      if (config.routes.transports.includes(ActionTransport.socketio)) {
-        attachSocketioRouter(this.socketio, { enabled: true }, this.router)
-      }
-
-      return router
-    },
-    async close() {
-      return Promise.resolve()
-    }
   }
 }

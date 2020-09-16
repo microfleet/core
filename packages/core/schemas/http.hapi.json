@@ -1,84 +1,84 @@
 {
-    "$id": "http.hapi",
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-        "server": {
-            "default": {},
-            "type": "object"
-        },
-        "plugins": {
+  "$id": "http.hapi",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "server": {
+      "default": {},
+      "type": "object"
+    },
+    "plugins": {
+      "type": "object",
+      "required": [
+        "list"
+      ],
+      "default": {},
+      "properties": {
+        "list": {
+          "items": {
             "type": "object",
             "required": [
-                "list"
+              "plugin"
             ],
-            "default": {},
+            "additionalProperties": false,
             "properties": {
-                "list": {
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "plugin"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                            "plugin": {
-                                "anyOf": [
-                                    {
-                                        "type": "string",
-                                        "minLength": 1
-                                    },
-                                    {
-                                        "type": "object"
-                                    }
-                                ]
-                            },
-                            "options": {
-                                "anyOf": [
-                                    {
-                                        "type": "string",
-                                        "minLength": 1
-                                    },
-                                    {
-                                        "type": "object"
-                                    }
-                                ],
-                                "default": {}
-                            }
-                        }
-                    },
-                    "default": []
-                },
-                "options": {
+              "plugin": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
                     "type": "object"
-                }
+                  }
+                ]
+              },
+              "options": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "object"
+                  }
+                ],
+                "default": {}
+              }
             }
+          },
+          "default": []
         },
-        "views": {
-            "type": "object",
-            "required": [
-                "engines",
-                "path"
-            ],
-            "properties": {
-                "engines": {
-                    "type": "object",
-                    "patternProperties": {
-                        ".*": {
-                            "type": "object"
-                        }
-                    },
-                    "minProperties": 1
-                },
-                "relativeTo": {
-                    "type": "string",
-                    "minLength": 1
-                },
-                "path": {
-                    "type": "string",
-                    "minLength": 1
-                }
-            }
+        "options": {
+          "type": "object"
         }
+      }
+    },
+    "views": {
+      "type": "object",
+      "required": [
+        "engines",
+        "path"
+      ],
+      "properties": {
+        "engines": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "object"
+            }
+          },
+          "minProperties": 1
+        },
+        "relativeTo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     }
+  }
 }
