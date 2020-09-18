@@ -65,10 +65,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
+      plugins: ['validator', 'logger', 'router', 'router-socketio', 'amqp', 'http', 'socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -216,9 +213,6 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
       plugins: ['validator', 'logger', 'router', 'http'],
       router: {
         routes: {
@@ -270,9 +264,6 @@ describe('Router suite', function testSuite() {
         router: {
           enabled: true,
         },
-      },
-      logger: {
-        defaultLogger: true,
       },
       plugins: ['validator', 'logger', 'router', 'amqp'],
       router: {
@@ -334,9 +325,6 @@ describe('Router suite', function testSuite() {
         router: {
           enabled: true,
         },
-      },
-      logger: {
-        defaultLogger: true,
       },
       plugins: ['validator', 'logger', 'router', 'amqp'],
       router: {
@@ -405,10 +393,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -476,9 +461,6 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
       plugins: ['validator', 'logger', 'router', 'amqp', 'http'],
       router: {
         routes: {
@@ -545,9 +527,6 @@ describe('Router suite', function testSuite() {
     const config = {
       name: 'tester',
       plugins: ['logger', 'validator', 'router'],
-      logger: {
-        defaultLogger: true,
-      },
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -578,7 +557,6 @@ describe('Router suite', function testSuite() {
       name: 'tester',
       http: { server: { handler: 'hapi' }, router: { enabled: true } },
       logger: {
-        defaultLogger: true,
         streams: {
           spy: { level: 'error', stream: spyWritable },
         },
@@ -616,7 +594,6 @@ describe('Router suite', function testSuite() {
       name: 'tester',
       http: { server: { handler: 'hapi' }, router: { enabled: true } },
       logger: {
-        defaultLogger: true,
         streams: {
           spy: { level: 'info', stream: spyWritable },
         },

@@ -12,19 +12,8 @@ import { SocketIOPlugin, SocketIOPluginConfig, RequestCounter } from './types/so
 
 const debug = createDebug('mservice:socketIO')
 
-/**
- * Plugin name
- */
 export const name = 'socketio'
-
-/**
- * Plugin Type
- */
 export const type = PluginTypes.transport
-
-/**
- * Relative priority inside the same plugin group type
- */
 export const priority = 100
 
 export const attach = function attachSocketioPlugin(
@@ -33,13 +22,13 @@ export const attach = function attachSocketioPlugin(
 ): RequestCounter {
   debug('Attaching socketIO plugin')
   strictEqual(this.hasPlugin('validator'), true, new NotFoundError('validator module must be included'))
-  
+
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   // validate
   const config = this.validator.ifError('socketio', options) as SocketIOPluginConfig
-  
+
   const { adapter: adapterConfig, socketioOptions } = config
   const socketioServerOptions = { ...socketioOptions }
 

@@ -6,11 +6,12 @@ import pinoms = require('pino-multi-stream')
 import SonicBoom = require('sonic-boom')
 import every = require('lodash/every')
 import type { NodeOptions } from '@sentry/node'
+import { resolve } from 'path'
+
 export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
 const defaultConfig = {
   debug: false,
-  defaultLogger: false,
   // there are no USER env variable in docker image
   // so we can set default value based on its absence
   // NOTE: not intended for production usage
@@ -113,11 +114,12 @@ export const isCompatible = (obj: any): obj is pino.Logger => {
  * @param  opts - Logger configuration.
  */
 export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerConfig>): void {
-  const { config: { name: applicationName } } = this
-
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  const config = this.validator.ifError<LoggerConfig>('logger', opts)
 
+  this.validator.addLocation(resolve(__dirname, '../schemas'))
+
+  const { config: { name: applicationName } } = this
+  const config = this.validator.ifError<LoggerConfig>('logger', opts)
   const {
     debug,
     defaultLogger,

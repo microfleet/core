@@ -1,13 +1,10 @@
-import { ActionTransport } from '../../../..'
-import { Router } from '../../../router/factory'
-import { verifyAttachPossibility } from '../../../router/verifyAttachPossibility'
+import { Router } from '@microfleet/core'
+
 import getSocketIORouterAdapter from './adapter'
 import wildcard = require('socketio-wildcard')
 import type { Server, ServerOptions } from 'socket.io'
 
-function attachSocketIORouter(socketio: Server, config: unknown, router: Router): void {
-  verifyAttachPossibility(router, ActionTransport.socketio)
-
+function attachSocketIORouter(socketio: Server, router: Router): void {
   // include adapter
   const wildcardMiddleware = wildcard()
 
@@ -23,7 +20,7 @@ function attachSocketIORouter(socketio: Server, config: unknown, router: Router)
     return this
   }
 
-  socketio.on('connection', getSocketIORouterAdapter(config, router))
+  socketio.on('connection', getSocketIORouterAdapter(router))
 }
 
 export default attachSocketIORouter

@@ -81,7 +81,7 @@ describe('router: get routes', () => {
     const routes = getRoutes.call(microfleet, config)
 
     expect(routes).to.be.an('object')
-    expect(Object.keys(routes)).to.have.lengthOf(2)
+    expect(Object.keys(routes)).to.have.lengthOf(3)
 
     // all routes
     expect(routes).to.have.property('_all')
@@ -100,6 +100,14 @@ describe('router: get routes', () => {
     expect(routes.socketio).to.have.property('action.baz')
     expect(routes.socketio['action.baz']).to.be.a('function')
     expect(Object.keys(routes.socketio)).to.have.lengthOf(2)
+
+    // http routes
+    expect(routes).to.have.property('http')
+    expect(routes.http).to.have.property('action.foo')
+    expect(routes.http['action.foo']).to.be.a('function')
+    expect(routes.http).to.have.property('action.bar')
+    expect(routes.http['action.bar']).to.be.a('function')
+    expect(Object.keys(routes.http)).to.have.lengthOf(2)
   })
 
   it('should be able to set default transports', () => {

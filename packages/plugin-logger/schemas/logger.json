@@ -1,6 +1,8 @@
 {
   "$id": "logger",
   "type": "object",
+  "additionalProperties": false,
+  "required": ["defaultLogger"],
   "properties": {
     "name": {
       "description": "Service name",
@@ -10,7 +12,9 @@
       "oneOf": [
         { "type": "boolean" },
         { "type": "object" }
-      ]
+      ],
+      "default": true,
+      "description": "Enables default logger to stdout"
     },
     "prettifyDefaultLogger": {
       "type": "boolean",

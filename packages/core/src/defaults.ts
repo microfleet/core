@@ -36,12 +36,6 @@ export const logger = {
    * @type {boolean}
    */
   debug: process.env.NODE_ENV !== 'production',
-
-  /**
-   * Enables default logger to stdout
-   * @type {boolean}
-   */
-  defaultLogger: true,
 }
 
 /**

@@ -13,7 +13,7 @@ describe('AMQP suite: lifecycle', function testSuite() {
   it('able to connect to amqp when plugin is included', async () => {
     service = new Microfleet(basicSetupConfig);
 
-    const [, amqp] = await service.connect();
+    const [amqp] = await service.connect();
 
     assert.ok(amqp instanceof AMQPTransport);
     assert.doesNotThrow(() => service.amqp);

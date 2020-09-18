@@ -17,10 +17,7 @@ describe('service request count', () => {
     const service = new Microfleet({
       name: 'tester',
       http: { server: { handler: 'hapi', attachSocketio: true, port: 0 }, router: { enabled: true } },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'http', 'socketio'],
+      plugins: ['validator', 'logger', 'router', 'http', 'socketio', 'router-socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -80,10 +77,7 @@ describe('service request count', () => {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),

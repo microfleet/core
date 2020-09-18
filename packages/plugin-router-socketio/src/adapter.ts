@@ -1,12 +1,10 @@
-import _debug = require('debug')
-import noop = require('lodash/noop')
+import createDebug from 'debug'
+import { noop } from 'lodash'
+import { ActionTransport, ServiceRequest, Router } from '@microfleet/core'
 
-import { ActionTransport } from '../../../..'
-import { ServiceRequest } from '../../../../types'
-import { Router } from '../../../router/factory'
-import { RequestCallback } from '../../../router/dispatcher'
+import type { RequestCallback } from '@microfleet/core/lib/plugins/router/dispatcher'
 
-const debug = _debug('mservice:router:socket.io')
+const debug = createDebug('plugin-router-socketio')
 
 export interface SocketIOMessage {
   data: [string, any, RequestCallback];
@@ -22,7 +20,7 @@ function wrapCallback(router: Router, callback: RequestCallback) {
   }
 }
 
-function getSocketIORouterAdapter(_: unknown, router: Router): (socket: NodeJS.EventEmitter) => void {
+function getSocketIORouterAdapter(router: Router): (socket: NodeJS.EventEmitter) => void {
   return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
     socket.on('*', (packet: SocketIOMessage) => {
       /* Increase request count on message */
