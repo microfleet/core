@@ -870,7 +870,6 @@ describe('Router suite', function testSuite() {
       })
 
       await Promise.all(promises)
-      console.debug('TEST', { failed, success })
 
       // Math.random does not brings constant results))))
       expect(failed).to.be.below(20);
