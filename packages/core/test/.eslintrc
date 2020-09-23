@@ -4,13 +4,6 @@
     "mocha": true,
     "node": true
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".ts", ".js"]
-      }
-    }
-  },
   "rules": {
     "no-var-requires": 0,
     "semi": 0,
