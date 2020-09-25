@@ -1,7 +1,7 @@
 {
-  "name": "@microfleet/plugin-router-socketio",
+  "name": "@microfleet/plugin-amqp",
   "version": "0.0.0-dev.0",
-  "description": "Socket.io transport adapter for router",
+  "description": "AMQP transport adapter",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -13,14 +13,13 @@
   "tags": [
     "microservice",
     "microfleet",
-    "router",
-    "socket.io",
-    "websocket"
+    "amqp",
+    "rabbitmq"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/microfleet/core.git",
-    "directory": "packages/plugin-router-socketio"
+    "directory": "packages/plugin-amqp"
   },
   "author": "Vitaly Aminev <v@makeomatic.ca>",
   "license": "MIT",
@@ -29,7 +28,10 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "socketio-wildcard": "^2.0.0"
+    "@microfleet/transport-amqp": "^15.2.2",
+    "bluebird": "^3.7.2",
+    "event-to-promise": "^0.8.0",
+    "get-value": "^3.0.1"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",
@@ -37,8 +39,9 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
-    "@types/socketio-wildcard": "^2.0.3",
-    "socket.io-client": "^2.3.0"
+    "@types/bluebird": "^3.5.32",
+    "@types/sinon": "^9.0.5",
+    "sinon": "^9.0.3"
   },
   "engines": {
     "node": ">= 12.14.0",

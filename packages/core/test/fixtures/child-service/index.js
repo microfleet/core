@@ -3,17 +3,10 @@ const { Microfleet, ActionTransport } = require('../../..');
 
 const service = new Microfleet({
   name: 'tester',
+  plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
   sigterm: true,
-  amqp: {
-    transport: {
-      connection: {
-        host: 'rabbitmq',
-      },
-    },
-    router: {
-      enabled: true,
-      prefix: 'amqp',
-    },
+  'router-amqp': {
+    prefix: 'amqp',
   },
   http: {
     server: {
@@ -25,7 +18,6 @@ const service = new Microfleet({
       enabled: true,
     },
   },
-  plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
   router: {
     routes: {
       directory: path.resolve(__dirname, '../../router/helpers/actions'),

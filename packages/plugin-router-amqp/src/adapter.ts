@@ -1,33 +1,36 @@
-import Bluebird = require('bluebird')
-import get = require('get-value')
-import is = require('is')
-import noop = require('lodash/noop')
-import { ActionTransport } from '../../..'
-import { ServiceRequest } from '../../../types'
-import { Router } from '../../router/factory'
+import * as Bluebird from 'bluebird'
+import * as get from 'get-value'
+import * as is from 'is'
+import { noop } from 'lodash'
+import { ActionTransport, ServiceRequest, Router } from '@microfleet/core'
 
-// cached var
-const { amqp } = ActionTransport
+import { RouterAMQPPluginConfig } from './types/plugin'
 
-function getAMQPRouterAdapter(router: Router, config: Record<string, any>): (params: any, properties: any, next: (...args: any[]) => void) => Promise<void> {
-  const { onComplete } = config.transport
+function getAMQPRouterAdapter(
+  router: Router,
+  config: RouterAMQPPluginConfig,
+  // @todo type
+  onComplete?: any
+): (params: any, properties: any, next: (...args: any[]) => void) => Promise<void> {
   const { service, requestCountTracker } = router
+
+  // @todo or not todo
   const wrapDispatch = is.fn(onComplete)
     ? (promise: Bluebird<any>, actionName: string, raw: any): Bluebird<any> => promise
       .reflect()
       .then((fate) => {
         const err = fate.isRejected() ? fate.reason() : null
         const data = fate.isFulfilled() ? fate.value() : null
-        return onComplete.call(service, err, data, actionName, raw)
+        return onComplete?.call(service, err, data, actionName, raw)
       })
     : (promise: Bluebird<any>): Bluebird<any> => promise
 
-  const decreaseCounter = (): void => requestCountTracker.decrease(amqp)
-  const increaseCounter = (): void => requestCountTracker.increase(amqp)
+  const decreaseCounter = (): void => requestCountTracker.decrease(ActionTransport.amqp)
+  const increaseCounter = (): void => requestCountTracker.increase(ActionTransport.amqp)
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })
-  const prefix = get(config, 'router.prefix', '')
+  const prefix = get(config, 'prefix', '')
   const prefixLength = prefix ? prefix.length + 1 : 0
   const normalizeActionName = prefixLength > 0
     ? (routingKey: string): string => (
@@ -51,12 +54,12 @@ function getAMQPRouterAdapter(router: Router, config: Record<string, any>): (par
       headers: properties,
       locals: Object.create(null),
       log: console as any,
-      method: amqp as ServiceRequest['method'],
+      method: ActionTransport.amqp as ServiceRequest['method'],
       parentSpan: raw.span,
       query: Object.create(null),
       route: '',
       span: undefined,
-      transport: amqp,
+      transport: ActionTransport.amqp,
       transportRequest: Object.create(null),
     }
 

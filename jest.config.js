@@ -3,5 +3,5 @@ module.exports = {
   testEnvironment: 'node',
   moduleNameMapper: {
     '@microfleet/((?:plugin-|core).*)': '<rootDir>/packages/$1/src'
-  }
+  },
 }

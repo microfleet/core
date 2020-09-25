@@ -6,7 +6,7 @@ import { object as isObject } from 'is'
 import { ActionTransport, PluginTypes, identity } from '../constants'
 import { Microfleet } from '../'
 import { ServiceRequest } from '../types'
-import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
+import { getRouter, Router, RouterConfig, LifecycleRequestType, LifecyclePoints } from './router/factory'
 import { ValidatorPlugin } from './validator'
 
 const { internal } = ActionTransport
@@ -15,7 +15,7 @@ const { internal } = ActionTransport
  * Plugin Name
  */
 export const name = 'router'
-export { Router, RouterConfig, LifecycleRequestType }
+export { Router, RouterConfig, LifecycleRequestType, LifecyclePoints }
 
 /**
  * Defines extension points of

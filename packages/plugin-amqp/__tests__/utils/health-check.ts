@@ -1,8 +1,13 @@
-const assert = require('assert');
+import { strict as assert } from 'assert'
+import { Microfleet } from "@microfleet/core"
 
-const findByName = pluginName => i => (
+export type HealthCheck = {
+  handler: () => Promise<boolean>;
+}
+
+const findByName = (pluginName: string) => (i: any) => (
   pluginName === i.name
-);
+)
 
 /**
  * Returns a registered health check by plugin name
@@ -11,13 +16,15 @@ const findByName = pluginName => i => (
  * @returns {Object}  a health check module
  * @todo test util (there are duplicates)
  */
-exports.findHealthCheck = function findHealthCheck(service, pluginName) {
+export function findHealthCheck(service: Microfleet, pluginName: string): HealthCheck {
   const check = service
     .getHealthChecks()
-    .find(findByName(pluginName));
-  assert(check);
+    .find(findByName(pluginName))
+
+  assert(check)
+
   return {
     ...check,
     handler: check.handler.bind(service),
-  };
-};
+  }
+}

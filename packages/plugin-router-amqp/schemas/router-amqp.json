@@ -1,25 +1,15 @@
 {
-  "$id": "amqp",
+  "$id": "router-amqp",
   "type": "object",
   "additionalProperties": false,
+  "default": {},
+  "required": ["prefix", "retry"],
   "properties": {
-    "router": {
-      "default": {},
-      "type": "object",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": false
-        },
-        "prefix": {
-          "type": "string",
-          "default": ""
-        }
-      }
-    },
-    "transport": {
-      "type": "object",
-      "default": {}
+    "prefix": {
+      "description": "Prefix for routes",
+      "type": "string",
+      "default": "",
+      "maxLength": 120
     },
     "retry": {
       "type": "object",

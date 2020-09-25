@@ -1,14 +1,17 @@
 import { Server, ServerOptions } from 'socket.io'
 
-/**
- * Defines service extension
- */
-export interface SocketIOPlugin {
-  socketio: Server;
+declare module '@microfleet/core' {
+  export interface Microfleet {
+    amqp: SocketIOPlugin | null;
+  }
+
+  export interface ConfigurationOptional {
+    sokcetio: SocketIOPluginConfig;
+  }
 }
 
-export interface RequestCounter {
-  getRequestCount(): number
+export interface SocketIOPlugin {
+  socketio: Server;
 }
 
 export type SocketIOAdapterConfig = {
@@ -19,4 +22,9 @@ export type SocketIOAdapterConfig = {
 export type SocketIOPluginConfig = {
   adapter?: SocketIOAdapterConfig;
   socketioOptions: ServerOptions;
+}
+
+// @todo plugin-router
+export interface RequestCounter {
+  getRequestCount(): number
 }

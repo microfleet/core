@@ -6,16 +6,6 @@ const { ActionTransport } = require('../../..');
 const withResponseValidateAction = (name, extra = {}) => {
   const config = {
     name: name,
-    amqp: {
-      transport: {
-        connection: {
-          host: 'rabbitmq',
-        },
-      },
-      router: {
-        enabled: true,
-      },
-    },
     http: {
       server: {
         attachSocketio: true,
@@ -25,7 +15,7 @@ const withResponseValidateAction = (name, extra = {}) => {
         enabled: true,
       },
     },
-    plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
+    plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
     router: {
       routes: {
         directory: path.resolve(__dirname, './actions'),

@@ -31,16 +31,21 @@ export const HEALTH_CHECKS_PROPERTY = 'healthChecks'
 
 /**
  * Constants with possilble transport values
+ * @todo plugin-router
  */
 export const ActionTransport = {
+  // @todo plugin-router-amqp
   amqp: literal('amqp'),
   http: literal('http'),
   internal: literal('internal'),
+  // @todo plugin-router-socketio
   socketio: literal('socketio'),
 }
 
 // based on this we validate input data
+// @todo plugin-router
 export const DATA_KEY_SELECTOR = {
+  // @todo plugin-router-amqp
   amqp: literal('params'),
   delete: literal('query'),
   get: literal('query'),
@@ -49,6 +54,7 @@ export const DATA_KEY_SELECTOR = {
   patch: literal('params'),
   post: literal('params'),
   put: literal('params'),
+  // @todo plugin-router-socketio
   socketio: literal('params'),
 }
 

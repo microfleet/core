@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.json"
+  }, {
+    "path": "../plugin-amqp/tsconfig.json"
+  }, {
+    "path": "../plugin-logger/tsconfig.json"
+  }],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}

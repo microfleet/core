@@ -1,12 +1,14 @@
-import { Microfleet, ActionTransport, TransportTypes } from '../../'
 import { once } from 'events'
+
+import { Microfleet, ActionTransport, TransportTypes } from '../../'
 
 type RequestCountRegistry = {
   [P in TransportTypes]: number
 }
 
-export class RequestCountTracker {
+export default class RequestCountTracker {
   registry: RequestCountRegistry
+
   service: Microfleet
 
   constructor(service: Microfleet) {
@@ -57,29 +59,32 @@ export class RequestCountTracker {
   get(transport: TransportTypes): number {
     return this.registry[transport]
   }
-}
 
-/**
- * Helper method. Checks if router plugin installed and waits processing requests.
- * @param service
- * @param transport
- */
-export async function waitForRequestsToFinish(service: Microfleet, transport: TransportTypes): Promise<void> {
-  if (service.hasPlugin('router')) {
-    const { requestCountTracker } = service.router
-    await requestCountTracker.waitForRequestsToFinish(transport)
-  }
-}
+  /**
+   * Helper method. Checks if router plugin installed and waits processing requests.
+   * @param service
+   * @param transport
+   */
+  static async waitForRequestsToFinish(service: Microfleet, transport: TransportTypes): Promise<void> {
+    if (service.hasPlugin('router')) {
+      const { requestCountTracker } = service.router
 
-/**
- * Helper method. Checks if router plugin installed and gets request count for `transport`.
- * @param service
- * @param transport
- */
-export function getRequestCount(service: Microfleet, transport: TransportTypes): number {
-  if (service.hasPlugin('router')) {
-    const { requestCountTracker } = service.router
-    return requestCountTracker.get(transport)
+      await requestCountTracker.waitForRequestsToFinish(transport)
+    }
   }
-  return 0
+
+  /**
+   * Helper method. Checks if router plugin installed and gets request count for `transport`.
+   * @param service
+   * @param transport
+   */
+  static getRequestCount(service: Microfleet, transport: TransportTypes): number {
+    if (service.hasPlugin('router')) {
+      const { requestCountTracker } = service.router
+
+      return requestCountTracker.get(transport)
+    }
+
+    return 0
+  }
 }

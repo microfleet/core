@@ -11,7 +11,7 @@ import validateModule from './modules/validate'
 import validateResponse from './modules/validate-response'
 
 import { getRoutes, RoutesConfig } from './routes'
-import { RequestCountTracker } from './request-tracker'
+import RequestCountTracker from './request-tracker'
 
 export { LifecycleRequestType, LifecyclePoints }
 

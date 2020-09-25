@@ -7,6 +7,8 @@
   "references": [{
     "path": "./packages/core/tsconfig.build.json"
   }, {
+    "path": "./packages/plugin-amqp/tsconfig.build.json"
+  }, {
     "path": "./packages/plugin-logger/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-consul/tsconfig.build.json"
@@ -20,6 +22,8 @@
     "path": "./packages/plugin-dlock/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-socketio/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-router-amqp/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-router-socketio/tsconfig.build.json"
   }]

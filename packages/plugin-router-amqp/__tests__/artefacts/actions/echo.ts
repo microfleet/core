@@ -6,4 +6,4 @@ export default function echoAction(request: ServiceRequest): any {
 }
 
 echoAction.schema = false
-echoAction.transports = [ActionTransport.socketio]
+echoAction.transports = [ActionTransport.amqp]

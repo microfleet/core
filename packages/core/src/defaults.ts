@@ -159,26 +159,6 @@ export const http = {
 export const hooks = {}
 
 /**
- * Contains amqp plugin configuration
- */
-export const amqp = {
-  /**
-   * @microfleet/transport-amqp configuration
-   * @type {Object}
-   */
-  transport: {
-
-  },
-
-  /**
-   * Router adapter configuration
-   */
-  router: {
-    enabled: false,
-  },
-}
-
-/**
  * Enables graceful handling of shutdown for supported plugins
  */
 export const sigterm = true
