@@ -73,7 +73,7 @@ export function attach(
         Object
           .keys(this.router.routes.amqp)
           .map(routerAmqpConfig.prefix ? route => `${routerAmqpConfig.prefix}.${route}` : identity)
-      );
+      )
     },
 
     async close(this: Microfleet) {

@@ -39,7 +39,7 @@
     "uuid": "^8.2.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.20",
+    "@types/node": "^14.11.2",
     "@types/readable-stream": "^2.3.7",
     "@types/sinon": "^9.0.4",
     "toxiproxy-node-client": "^2.0.6"

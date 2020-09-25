@@ -39,7 +39,7 @@ export default (
   routerAmqpConfig: RouterAMQPPluginConfig,
   logger: Logger,
   retryQueue: string
-) => {
+): CallableFunction => {
   const { transport } = amqpConfig
   const { prefix, retry } = routerAmqpConfig
 
@@ -57,7 +57,7 @@ export default (
 
   return async function onCompleteRetry(
     this: Microfleet, err: any, data: any, actionName: string, message: any
-  ) {
+  ): Promise<any> {
     const { properties } = message
     const { headers } = properties
 

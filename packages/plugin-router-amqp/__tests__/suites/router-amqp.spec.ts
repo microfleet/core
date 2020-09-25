@@ -43,13 +43,13 @@ describe('AMQP suite: basic routing', function testSuite() {
   afterAll(() => service.close())
 
   it('able to observe an action', async () => {
-    const { amqp: amqpRoutes } = service.router.routes;
+    const { amqp: amqpRoutes } = service.router.routes
 
-    assert.ok(typeof amqpRoutes.echo === 'function');
+    assert.ok(typeof amqpRoutes.echo === 'function')
   })
 
   it('able to dispatch action and return response', async () => {
-    const { amqp } = service;
+    const { amqp } = service
 
     const response = await amqp.publishAndWait('echo', { foo: 'bar' })
 
@@ -77,23 +77,23 @@ describe('AMQP suite: prefixed routing', function testSuite() {
     'router-amqp': {
       prefix: 'amqp-prefix',
     }
-  });
+  })
 
   beforeAll(() => service.connect())
   afterAll(() => service.close())
 
   it ('able to observe an action', async () => {
-    const { amqp: amqpRoutes } = service.router.routes;
+    const { amqp: amqpRoutes } = service.router.routes
 
-    assert.ok(typeof amqpRoutes.echo === 'function');
+    assert.ok(typeof amqpRoutes.echo === 'function')
   })
 
   it ('able to dispatch action and return response', async () => {
-    const { amqp } = service;
+    const { amqp } = service
 
-    const response = await amqp.publishAndWait('amqp-prefix.echo', { foo: 'bar' });
+    const response = await amqp.publishAndWait('amqp-prefix.echo', { foo: 'bar' })
 
-    assert.deepStrictEqual(response, { foo: 'bar' });
+    assert.deepStrictEqual(response, { foo: 'bar' })
   })
 })
 
@@ -148,7 +148,7 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
   })
 
   it ('able to fail when retry count exceeds max retry attempt count', async () => {
-    const { amqp } = service;
+    const { amqp } = service
 
     await assert.rejects(
       amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 3 }),
@@ -217,7 +217,7 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
   })
 
   it ('able to fail when retry count exceeds max retry attempt count', async () => {
-    const { amqp } = service;
+    const { amqp } = service
 
     await assert.rejects(
       amqp.publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 3 }),
