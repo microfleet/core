@@ -117,7 +117,7 @@
     "elasticsearch": "^16.7.1",
     "eslint": "^7.4.0",
     "eslint-config-makeomatic": "^5.0.2",
-    "express-cassandra": "2.3.2",
+    "express-cassandra": "2.5.0",
     "get-port": "^5.1.1",
     "handlebars": "^4.7.6",
     "ioredis": "^4.17.3",

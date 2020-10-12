@@ -5587,10 +5587,10 @@ expect@^26.1.0:
     jest-message-util "^26.1.0"
     jest-regex-util "^26.0.0"
 
-express-cassandra@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-2.3.2.tgz#edf744da7e2522395ca0219a684812d7da4a53c3"
-  integrity sha512-Bte+Ks6teFpnlPLcniyOwyML+emvbynergI1hFGrT1ukn47MEDANNzBeYHtThhPXGTCxCLgI8udAn8O0P8oyVw==
+express-cassandra@2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-2.5.0.tgz#9d2b1e8afd662f0a45f0dfc44f808aeb70608763"
+  integrity sha512-kSAW3AhGRR4UXFToUeGWJ5ODk46MkODr5rSFJo5zrt/Lqu1VuTrFXbkQ+7AMBYyu7THiafdVpK///Z9T3YRg+w==
   dependencies:
     JSONStream "^1.3.1"
     async "^1.5.2"
