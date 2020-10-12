@@ -31,14 +31,15 @@
     "@microfleet/core": "~17.x.x"
   },
   "dependencies": {
-    "pino": "^6.3.2",
+    "pino": "^6.7.0",
     "pino-multi-stream": "^5.0.0",
     "sonic-boom": "^1.3.0"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.3",
-    "@sentry/node": "^5.24.2",
-    "pino-pretty": "^4.0.0",
+    "@sentry/node": "^5.25.0",
+    "@types/pino": "^6.3.2",
+    "pino-pretty": "^4.3.0",
     "rimraf": "^3.0.0"
   },
   "engines": {

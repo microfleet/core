@@ -19,8 +19,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "devDependencies": {
-    "tslint": "^6.1.2",
-    "typescript": "^4.0.3"
+    "tslint": "^6.1.2"
   },
   "files": [
     "index.d.ts"

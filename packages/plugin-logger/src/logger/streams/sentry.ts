@@ -45,6 +45,7 @@ export class SentryStream {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
+  // @ts-ignore: A computed property name in a class property declaration must refer to an expression whose type is a literal type or a 'unique symbol' type
   readonly [pino.symbols.needsMetadataGsym]: boolean = true
 
   constructor(opts: SentryStreamOptions) {
@@ -178,4 +179,3 @@ export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
     stream: dest,
   }
 }
-
