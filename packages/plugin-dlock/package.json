@@ -39,9 +39,9 @@
     "@microfleet/core": "^17.5.3",
     "@microfleet/plugin-logger": "^0.5.4",
     "@types/bluebird": "^3.5.32",
-    "@types/ioredis": "^4.17.5",
+    "@types/ioredis": "^4.17.6",
     "rimraf": "^3.0.2",
-    "ts-essentials": "^7.0.0"
+    "ts-essentials": "^7.0.1"
   },
   "engines": {
     "node": ">= 12.14.0",

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.json"
+  }, {
+    "path": "../plugin-hapi/tsconfig.json"
+  }],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}

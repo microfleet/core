@@ -1,12 +1,12 @@
 import { strictEqual } from 'assert'
 import { Microfleet } from '@microfleet/core'
 import * as SocketIOStatic from 'socket.io'
-import AdapterTransport from 'ms-socket.io-adapter-amqp/lib/transport'
+import { Transport } from 'ms-socket.io-adapter-amqp'
 
 describe('@microfleet/plugin-socketio', () => {
   it('should not be able to create socket.io instance when plugin is included', () => {
     const service = new Microfleet({ name: 'tester', plugins: [] })
-    
+
     strictEqual(service.socketio, undefined)
   })
 
@@ -36,6 +36,6 @@ describe('@microfleet/plugin-socketio', () => {
       },
     })
 
-    strictEqual(service.socketio.sockets.adapter.transport instanceof AdapterTransport, true)
+    strictEqual(service.socketio.sockets.adapter.transport instanceof Transport, true)
   })
 })

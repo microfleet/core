@@ -1,0 +1,48 @@
+{
+  "name": "@microfleet/plugin-http",
+  "version": "0.0.0-dev.0",
+  "description": "http transport",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "lint": "eslint ./src ./__tests__",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "http"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-http"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {},
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x",
+    "common-errors": "~1.x.x"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.5.3",
+    "@types/socket.io-client": "^1.4.34",
+    "socket.io-client": "^2.3.1"
+  },
+  "engines": {
+    "node": ">= 12.14.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

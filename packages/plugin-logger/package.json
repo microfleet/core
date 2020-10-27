@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.3",
-    "@sentry/node": "^5.25.0",
-    "@types/pino": "^6.3.2",
+    "@sentry/node": "^5.27.0",
+    "@types/pino": "^6.3.3",
     "pino-pretty": "^4.3.0",
     "rimraf": "^3.0.0"
   },

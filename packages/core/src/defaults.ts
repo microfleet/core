@@ -47,6 +47,8 @@ export const plugins = [
   'logger',
   'router',
   'http',
+  // @todo add http router instead of { router: { enabled: true } }
+  // 'router-http'
 ]
 
 /**
@@ -112,44 +114,6 @@ export const router: Partial<RouterConfig> = {
      * Enabled plugins
      */
     register: [autoSchema, auditLog()],
-  },
-}
-
-/**
- * Default HTTP Plugin Configuration
- */
-export const http = {
-  server: {
-    /**
-     * Use Hapi.js as server implementation, other options include express and restify
-     * @type {String}
-     */
-    handler: 'hapi',
-
-    /**
-     * Do not include socket.io transport
-     * @type {Boolean}
-     */
-    attachSocketio: false,
-
-    /**
-     * Listen on port 3000
-     * @type {Number}
-     */
-    port: 3000,
-  },
-
-  router: {
-    /**
-     * Enables router plugin for HTTP handler
-     */
-    enabled: true,
-
-    /**
-     * Will be used as <http.router.prefix>/<router.routes.prefix>/<actionName>
-     * If any of the prefixes are empty strings - they are omitted
-     */
-    prefix: '',
   },
 }
 

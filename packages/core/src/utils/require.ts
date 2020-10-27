@@ -2,16 +2,12 @@ import * as chalk from 'chalk'
 import semver = require('semver')
 
 const pluginDependencies = {
-  '@hapi/boom': '~9.x.x',
   elasticsearch: '~14.x.x || ~15.x.x',
   'express-cassandra': '~2.x.x',
-  '@hapi/hapi': '>= 19.x.x < 20',
   ioredis: '~4.x.x',
   'jaeger-client': '~3.x.x',
   'opentracing-js-ioredis': '~2.x.x',
   pg: '~7.x.x',
-  'server-destroy': '~1.x.x',
-  '@hapi/vision': '~6.x.x',
 }
 
 interface PluginDep {

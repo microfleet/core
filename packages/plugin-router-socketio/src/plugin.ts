@@ -1,7 +1,7 @@
 import { strict as assert } from 'assert'
 import { Microfleet, PluginTypes, RouterPlugin } from '@microfleet/core'
 
-import type { SocketIOPlugin } from '@microfleet/plugin-socketio/lib/types/socketio'
+import type { SocketIOPlugin } from '@microfleet/plugin-socketio'
 
 import attachSocketioRouter from './attach'
 

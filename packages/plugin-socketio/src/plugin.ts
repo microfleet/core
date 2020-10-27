@@ -8,7 +8,7 @@ import { LoggerPlugin } from '@microfleet/plugin-logger'
 // @todo peer dependency
 import AdapterFactory from 'ms-socket.io-adapter-amqp'
 
-import { SocketIOPlugin, SocketIOPluginConfig, RequestCounter } from './types/socketio'
+import { SocketIOPlugin, SocketIOPluginConfig, RequestCounter } from './types/plugin'
 
 const debug = createDebug('mservice:socketIO')
 

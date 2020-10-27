@@ -1,6 +1,9 @@
 import assert = require('assert')
 import rfdc = require('rfdc')
-import { NotFoundError, NotSupportedError } from 'common-errors'
+import {
+  NotFoundError,
+  // NotSupportedError,
+} from 'common-errors'
 import { object as isObject } from 'is'
 
 import { ActionTransport, PluginTypes, identity } from '../constants'
@@ -88,11 +91,12 @@ export function attach(
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   const config = this.validator.ifError('router', opts) as RouterConfig
 
-  for (const transport of config.routes.transports) {
-    if (!this.config.plugins.includes(transport) && transport !== internal) {
-      throw new NotSupportedError(`transport ${transport}`)
-    }
-  }
+  // @todo fix it
+  // for (const transport of config.routes.transports) {
+  //   if (!this.config.plugins.includes(transport) && transport !== internal) {
+  //     throw new NotSupportedError(`transport ${transport}`)
+  //   }
+  // }
 
   const router = this.router = getRouter(config, this)
 
