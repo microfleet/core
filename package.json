@@ -7,7 +7,7 @@
   "scripts": {
     "prebootstrap": "yarn --frozen-lockfile --check-files",
     "bootstrap": "lerna bootstrap -- --frozen-lockfile --check-files",
-    "lint": "lerna run lint",
+    "lint": "lerna run lint --parallel",
     "pretest": "yarn lint && yarn compile",
     "test": "lerna run test --stream",
     "precompile": "yarn clean",
