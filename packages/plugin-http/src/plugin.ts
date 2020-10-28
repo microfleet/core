@@ -27,7 +27,7 @@ export function attach(
       plugins: server.handlerConfig.plugins,
       server: {
         address: server.host || '0.0.0.0',
-        port: server.port || 3000,
+        port: server.port || 0,
         ...server.handlerConfig.server,
       },
       views: server.handlerConfig.views,

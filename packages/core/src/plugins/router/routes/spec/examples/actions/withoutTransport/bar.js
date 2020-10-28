@@ -1,7 +1,7 @@
-const Promise = require('bluebird');
+const Promise = require('bluebird')
 
 function BarAction() {
-  return Promise.resolve('bar');
+  return Promise.resolve('bar')
 }
 
-module.exports = BarAction;
+module.exports = BarAction

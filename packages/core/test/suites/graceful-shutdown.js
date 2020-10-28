@@ -39,7 +39,7 @@ class ChildServiceRunner {
     });
 
     stdout.pipe(split2()).on('data', (line) => {
-      console.info(line)
+      console.info(line);
       this.stdout.push(line);
       if (line.includes('childServiceReady')) {
         this.serviceStarted = true;
@@ -52,11 +52,13 @@ class ChildServiceRunner {
     try {
       await Promise.race([
         once(subProcess, 'ready'),
-        Promise.delay(10000).throw(new Promise.TimeoutError()),
+        Promise.delay(100000).throw(new Promise.TimeoutError()),
       ]);
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.info(this.stdout.join('\n'));
+      console.error(e);
+      // eslint-disable-next-line no-console
+      console.error(this.stdout.join('\n'));
       throw new Error(this.stderr.join('\n'));
     }
 

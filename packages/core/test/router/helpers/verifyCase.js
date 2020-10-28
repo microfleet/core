@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/filename-case
 const assert = require('assert');
 
 function verify(caseObject) {

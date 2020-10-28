@@ -1,0 +1,14 @@
+{
+  "$id": "router-http",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prefix"
+  ],
+  "properties": {
+    "prefix": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

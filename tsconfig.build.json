@@ -29,6 +29,8 @@
   }, {
     "path": "./packages/plugin-router-hapi/tsconfig.build.json"
   }, {
+    "path": "./packages/plugin-router-http/tsconfig.build.json"
+  }, {
     "path": "./packages/plugin-router-socketio/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-socketio/tsconfig.build.json"

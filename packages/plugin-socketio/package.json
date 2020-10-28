@@ -29,7 +29,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@microfleet/transport-amqp": "^15.2.2",
-    "ms-socket.io-adapter-amqp": "^7.0.0",
+    "ms-socket.io-adapter-amqp": "^7.0.1",
     "socket.io": "^2.3.0"
   },
   "peerDependencies": {

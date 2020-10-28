@@ -1,21 +1,21 @@
-const { ActionTransport } = require('./../../../..');
+const { ActionTransport } = require('../../../..');
 
 async function skipResponseValidate(request) {
   if (request.params.success) {
     return {
-      validResponse: true
-    }
+      validResponse: true,
+    };
   }
 
   return {
     validResponse: false,
-    withAdditionalProperty: true
-  }
+    withAdditionalProperty: true,
+  };
 }
 
-skipResponseValidate.validateResponse = false
-skipResponseValidate.responseSchema = 'response.validate-response'
-skipResponseValidate.schema = 'validate-response'
+skipResponseValidate.validateResponse = false;
+skipResponseValidate.responseSchema = 'response.validate-response';
+skipResponseValidate.schema = 'validate-response';
 
 skipResponseValidate.transports = [
   ActionTransport.amqp,

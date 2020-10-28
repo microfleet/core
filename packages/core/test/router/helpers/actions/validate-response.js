@@ -1,20 +1,20 @@
-const { ActionTransport } = require('./../../../..');
+const { ActionTransport } = require('../../../..');
 
 async function responseValidate(request) {
   if (request.params.success) {
     return {
-      validResponse: true
-    }
+      validResponse: true,
+    };
   }
 
   return {
     validResponse: false,
-    withAdditionalProperty: true
-  }
+    withAdditionalProperty: true,
+  };
 }
 
-responseValidate.responseSchema = 'response.validate-response'
-responseValidate.schema = 'validate-response'
+responseValidate.responseSchema = 'response.validate-response';
+responseValidate.schema = 'validate-response';
 responseValidate.transports = [
   ActionTransport.amqp,
   ActionTransport.http,

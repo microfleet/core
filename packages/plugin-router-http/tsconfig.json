@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.json"
+  }, {
+    "path": "../plugin-http/tsconfig.json"
+  }, {
+    "path": "../plugin-router-hapi/tsconfig.json"
+  }],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}

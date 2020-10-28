@@ -16,8 +16,22 @@ describe('service request count', () => {
   it('counts requests on unknown routes', async () => {
     const service = new Microfleet({
       name: 'tester',
-      http: { server: { handler: 'hapi', attachSocketio: true, port: 0 }, router: { enabled: true } },
-      plugins: ['validator', 'logger', 'router', 'http', 'socketio', 'router-socketio'],
+      plugins: [
+        'validator',
+        'logger',
+        'router',
+        'http',
+        'router-http',
+        'socketio',
+        'router-socketio',
+      ],
+      http: {
+        server: {
+          handler: 'hapi',
+          attachSocketio: true,
+          port: 0,
+        },
+      },
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -56,7 +70,17 @@ describe('service request count', () => {
   it('counts requests on existing routes', async () => {
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
+      plugins: [
+        'validator',
+        'logger',
+        'router',
+        'amqp',
+        'router-amqp',
+        'http',
+        'router-http',
+        'socketio',
+        'router-socketio',
+      ],
       'router-amqp': {
         prefix: 'amqp',
       },
@@ -65,9 +89,6 @@ describe('service request count', () => {
           attachSocketio: true,
           handler: 'hapi',
           port: 0,
-        },
-        router: {
-          enabled: true,
         },
       },
       router: {

@@ -1,19 +1,19 @@
-const { ActionTransport } = require('./../../../..');
+const { ActionTransport } = require('../../../..');
 
 async function withoutResponseSchema(request) {
   if (request.params.success) {
     return {
-      validResponse: true
-    }
+      validResponse: true,
+    };
   }
 
   return {
     validResponse: false,
-    withAdditionalProperty: true
-  }
+    withAdditionalProperty: true,
+  };
 }
 
-withoutResponseSchema.schema = 'validate-response'
+withoutResponseSchema.schema = 'validate-response';
 withoutResponseSchema.transports = [
   ActionTransport.amqp,
   ActionTransport.http,

@@ -7,6 +7,7 @@
   ],
   "properties": {
     "server": {
+      "default": {},
       "type": "object",
       "required": [
         "handler",

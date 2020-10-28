@@ -47,8 +47,7 @@ export const plugins = [
   'logger',
   'router',
   'http',
-  // @todo add http router instead of { router: { enabled: true } }
-  // 'router-http'
+  'router-http',
 ]
 
 /**

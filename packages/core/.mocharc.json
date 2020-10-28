@@ -1,7 +1,7 @@
 {
   "require": ["ts-node/register"],
   "bail": true,
-  "timeout": 30000,
+  "timeout": 50000,
   "exit": true,
   "reporter": "spec",
   "forbid-only": true

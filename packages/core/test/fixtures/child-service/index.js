@@ -3,7 +3,17 @@ const { Microfleet, ActionTransport } = require('../../..');
 
 const service = new Microfleet({
   name: 'tester',
-  plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
+  plugins: [
+    'validator',
+    'logger',
+    'router',
+    'amqp',
+    'router-amqp',
+    'http',
+    'router-http',
+    'socketio',
+    'router-socketio',
+  ],
   sigterm: true,
   'router-amqp': {
     prefix: 'amqp',
@@ -13,9 +23,6 @@ const service = new Microfleet({
       attachSocketio: true,
       handler: 'hapi',
       port: parseInt(process.argv[2], 10),
-    },
-    router: {
-      enabled: true,
     },
   },
   router: {

@@ -5,17 +5,24 @@ const { ActionTransport } = require('../../..');
 
 const withResponseValidateAction = (name, extra = {}) => {
   const config = {
-    name: name,
+    name,
+    plugins: [
+      'validator',
+      'logger',
+      'router',
+      'amqp',
+      'router-amqp',
+      'http',
+      'router-http',
+      'socketio',
+      'router-socketio',
+    ],
     http: {
       server: {
         attachSocketio: true,
         handler: 'hapi',
       },
-      router: {
-        enabled: true,
-      },
     },
-    plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
     router: {
       routes: {
         directory: path.resolve(__dirname, './actions'),
@@ -29,16 +36,16 @@ const withResponseValidateAction = (name, extra = {}) => {
           ActionTransport.amqp,
           ActionTransport.socketio,
           ActionTransport.http,
-        ]
+        ],
       },
       extensions: { register: [] },
     },
-    validator: { schemas: [ path.resolve(__dirname, './schemas')] },
-  }
+    validator: { schemas: [path.resolve(__dirname, './schemas')] },
+  };
 
-  return defaultsDeep(config, extra)
-}
+  return defaultsDeep(config, extra);
+};
 
 module.exports = {
-  withResponseValidateAction
-}
+  withResponseValidateAction,
+};
