@@ -19,7 +19,10 @@ export function attach(
 
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const { server } = this.validator.ifError('http', options) as HTTPPluginConfig
+  const config = this.validator.ifError('http', options) as HTTPPluginConfig
+  const { server } = config
+  // share http configuration between plugins
+  this.config.http = config
 
   if (server.handler === 'hapi') {
     const plugin = attachHapiPlugin.call(this, {

@@ -2,7 +2,6 @@
   "$id": "http",
   "type": "object",
   "additionalProperties": false,
-  "default": {},
   "required": [
     "server"
   ],
