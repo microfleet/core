@@ -52,11 +52,11 @@ class ChildServiceRunner {
     try {
       await Promise.race([
         once(subProcess, 'ready'),
-        Promise.delay(10000).throw(new Promise.TimeoutError()),
+        Promise.delay(30000).throw(new Promise.TimeoutError()),
       ]);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.info(this.stdout.join('\n'));
+      console.error(e)
+      console.error(this.stdout.join('\n'));
       throw new Error(this.stderr.join('\n'));
     }
 

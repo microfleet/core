@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const assert = require('assert');
 const { expect } = require('chai');
 const AdapterTransport = require('ms-socket.io-adapter-amqp/lib/transport').default;
-const socketIO = require('socket.io');
+const { Server: SocketIO } = require('socket.io');
 const socketIOClient = require('socket.io-client');
 
 describe('"socketIO" plugin', function testSuite() {
@@ -20,7 +20,7 @@ describe('"socketIO" plugin', function testSuite() {
       plugins: ['validator', 'socketIO'],
       socketIO: {},
     });
-    expect(service.socketIO).to.be.instanceof(socketIO);
+    expect(service.socketIO).to.be.instanceof(SocketIO);
   });
 
   it('should attach routes after start', function test(done) {

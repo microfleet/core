@@ -1,4 +1,4 @@
-import { ServiceRequest } from '../../../../types'
+import type { ServiceRequest } from '@microfleet/core-types'
 import { LifecyclePoints } from '..'
 
 export type ServiceRequestWithSchema = ServiceRequest & {

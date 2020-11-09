@@ -4,7 +4,6 @@ import { LogLevel } from '@sentry/types'
 import lsmod = require('lsmod')
 import pino = require('pino')
 import type { Streams } from 'pino-multi-stream'
-import { Microfleet } from '@microfleet/core'
 import {
   extractStackFromError,
   parseStack,
@@ -145,6 +144,7 @@ export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
   const { logLevel, dsn } = config
 
   assert(dsn, '"dsn" property must be set')
+  assert(config.release, 'release version must be set')
 
   Sentry.init({
     ...config,
@@ -157,7 +157,7 @@ export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
   })
 
   const dest = new SentryStream({
-    release: Microfleet.version,
+    release: config.release,
   })
 
   let level: pino.Level

@@ -1,4 +1,5 @@
-import { Microfleet, ActionTransport, TransportTypes } from '../../'
+import type { Microfleet, TransportTypes } from '@microfleet/core-types'
+import { ActionTransport } from '@microfleet/utils'
 import { once } from 'events'
 
 type RequestCountRegistry = {

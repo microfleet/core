@@ -1,9 +1,9 @@
 import assert = require('assert')
 import { NotPermittedError } from 'common-errors'
 import { Plugin, Server, ServerOptions } from '@hapi/hapi'
-import Joi = require('@hapi/joi')
-import { ActionTransport, Microfleet } from '../../../..'
-import { PluginInterface } from '../../../../types'
+import Joi = require('joi')
+import { ActionTransport } from '@microfleet/utils'
+import type { Microfleet, PluginInterface } from '@microfleet/core-types'
 import attachRouter, { HapiRouterConfig } from './router/attach'
 import * as RequestTracker from '../../../router/request-tracker'
 

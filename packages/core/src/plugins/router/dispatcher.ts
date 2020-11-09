@@ -3,7 +3,7 @@ import _debug = require('debug')
 import is = require('is')
 import { Tags } from 'opentracing'
 import { v4 as uuidv4 } from 'uuid'
-import { ServiceRequest } from '../../types'
+import type { ServiceRequest } from '@microfleet/core-types'
 import { Router } from './factory'
 
 const debug = _debug('mservice:router:dispatch')

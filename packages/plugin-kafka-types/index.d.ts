@@ -1,11 +1,10 @@
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
 import * as kafka from 'node-rdkafka'
-import { Microfleet } from '@microfleet/core'
 import { GlobalConfig, TopicConfig } from 'node-rdkafka'
 import { KafkaFactory, KafkaConsumerStream } from '@microfleet/plugin-kafka'
 import { Writable, Readable } from 'stream'
 
-declare module '@microfleet/core' {
+declare module '@microfleet/core-types' {
   export interface Microfleet {
     kafka: KafkaFactory;
   }
@@ -92,7 +91,7 @@ declare module 'node-rdkafka' {
     new(e: Error | Record<string, unknown>): LibrdKafkaError;
   }
 
-  interface ProducerStream extends Writable {
+  export interface ProducerStream extends Writable {
     // eslint-disable-next-line @typescript-eslint/no-misused-new
     new (producer: Producer, conf?: kafka.WriteStreamOptions): ProducerStream;
     producer: Producer;
@@ -104,7 +103,7 @@ declare module 'node-rdkafka' {
     closeAsync(): Promise<void>;
   }
 
-  interface ConsumerStream extends Readable {
+  export interface ConsumerStream extends Readable {
     // eslint-disable-next-line @typescript-eslint/no-misused-new
     new (consumer: KafkaConsumer, conf?: kafka.ReadStreamOptions): ConsumerStream;
 

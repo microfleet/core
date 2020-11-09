@@ -1,10 +1,15 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { LoggerPlugin } from '@microfleet/plugin-logger'
-import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import { PluginTypes } from '@microfleet/utils'
 import retry = require('bluebird-retry')
 import CouchDB = require('nano')
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type * as _ from '@microfleet/plugin-validator'
+import type * as __ from '@microfleet/plugin-logger'
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 /**
  * Relative priority inside the same plugin group type
@@ -12,20 +17,28 @@ import CouchDB = require('nano')
 export const priority = 0
 export const name = 'couchdb'
 export const type = PluginTypes.database
+
 export interface Config {
   connection: CouchDB.Configuration;
   database: string;
   indexDefinitions?: CouchDB.CreateIndexRequest[];
 }
-export interface CouchDBPlugin<T = any> {
-  couchdb: CouchDB.DocumentScope<T>;
+
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    couchdb: CouchDB.DocumentScope<any>;
+  }
+
+  interface ConfigurationOptional {
+    couchbd: Config
+  }
 }
 
 /**
  * Defines closure
  */
 const startupHandlers = (
-  service: Microfleet & LoggerPlugin,
+  service: Microfleet,
   nano: CouchDB.ServerScope,
   database: string,
   indices: Config['indexDefinitions'] = []
@@ -48,7 +61,7 @@ const startupHandlers = (
         service.log.info({ index: resp }, 'created index')
       }
 
-      service[name] = db
+      service.couchdb = db
     }
 
     await retry(establishConnection, {
@@ -63,18 +76,18 @@ const startupHandlers = (
       },
     })
 
-    service.emit(`plugin:connect:${name}`, service[name])
-    return service[name]
+    service.emit(`plugin:connect:${name}`, service.couchdb)
+    return service.couchdb
   },
 
   async close() {
-    service[name] = null
-    service.emit(`plugin:close:${name}`, service[name])
+    // noop
+    service.emit(`plugin:close:${name}`, service.couchdb)
   },
 })
 
 export function attach(
-  this: Microfleet & LoggerPlugin & ValidatorPlugin,
+  this: Microfleet,
   params: Config
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
@@ -83,7 +96,7 @@ export function attach(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const opts: Config = this.validator.ifError(name, params)
+  const opts = this.validator.ifError<Config>(name, params)
   const nano = CouchDB(opts.connection)
 
   return startupHandlers(this, nano, opts.database, opts.indexDefinitions)

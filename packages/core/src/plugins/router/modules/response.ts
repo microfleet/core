@@ -14,8 +14,7 @@ import {
   TimeoutError,
   ValidationError
 } from 'common-errors'
-import { Microfleet } from '../../../'
-import { ServiceRequest } from '../../../types'
+import type { Microfleet, ServiceRequest } from '@microfleet/core-types'
 import moduleLifecycle from './lifecycle'
 
 function response(this: Microfleet, err: Error | null, result: any) {

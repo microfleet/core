@@ -1,14 +1,16 @@
+import type { Microfleet } from '@microfleet/core-types'
+
 import get = require('get-value')
 import { Request, ResponseToolkit, Server } from '@hapi/hapi'
 import defaults = require('lodash/defaults')
 import omit = require('lodash/omit')
 import { HapiPlugin } from '../'
-import { ActionTransport, Microfleet, Router } from '../../../../..'
+import { ActionTransport } from '../../../../..'
 import { verifyAttachPossibility } from '../../../../router/verifyAttachPossibility'
 import { fromNameToPath, fromPathToName } from '../../../helpers/actionName'
 import hapiRouterAdapter from './adapter'
 
-function attachRequestCountEvents(server: Server, router: Router) {
+function attachRequestCountEvents(server: Server, router: Microfleet['router']) {
   const { http } = ActionTransport
   const { requestCountTracker } = router
 
@@ -53,7 +55,7 @@ export default function attachRouter(service: Microfleet, config: HapiRouterConf
             method: ['GET', 'POST'],
           }
 
-          const hapiTransportOptions = get(handler as Record<string, unknown>, 'transportOptions.handlers.hapi', Object.create(null))
+          const hapiTransportOptions = get(handler, 'transportOptions.handlers.hapi', Object.create(null))
           const handlerOptions = omit(hapiTransportOptions, ['path', 'handler'])
 
           server.route(defaults(handlerOptions, defaultOptions))

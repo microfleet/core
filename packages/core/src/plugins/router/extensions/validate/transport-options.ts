@@ -1,6 +1,6 @@
 import Bluebird = require('bluebird')
 import { NotSupportedError } from 'common-errors'
-import { ServiceRequest } from '../../../../types'
+import type { ServiceRequest } from '@microfleet/core-types'
 import { LifecyclePoints } from '..'
 
 export type TransportOptionsAugmentedRequest = ServiceRequest & {

@@ -1,6 +1,6 @@
 import identity = require('lodash/identity')
 import { parse } from 'qs'
-import { ServiceRequest } from '../../../../types'
+import type { ServiceRequest } from '@microfleet/core-types'
 import { LifecyclePoints } from '..'
 
 type QSParserAugmentedAction = ServiceRequest & {

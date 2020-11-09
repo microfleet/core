@@ -1,12 +1,14 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
-import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface, RedisPlugin } from '../'
-import _require from '../utils/require'
+import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import { PluginTypes } from '@microfleet/utils'
+import { RedisPlugin } from './redis/types'
 import { ERROR_ALREADY_STARTED, ERROR_NOT_STARTED, REDIS_TYPE_SENTINEL } from './redis/constants'
 import { NotFoundError } from 'common-errors'
 import migrate from './redis/migrate'
 import { hasConnection, isStarted, loadLuaScripts } from './redis/utils'
+import Redis = require('ioredis')
 
 const debug = _debug('mservice:redisSentinel')
 
@@ -30,11 +32,10 @@ export const priority = 0
  * @param  [conf={}] - Configuration for Redis Sentinel Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet & ValidatorPlugin & RedisPlugin, opts: any = {}): PluginInterface {
-  const Redis = _require('ioredis')
-
+export function attach(this: Microfleet & RedisPlugin, opts: any = {}): PluginInterface {
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
+  // @ts-expect-error - promise not defined, but can be used
   Redis.Promise = Bluebird
   const isRedisStarted = isStarted(this, Redis)
   const conf = this.validator.ifError('redisSentinel', opts)
@@ -58,7 +59,8 @@ export function attach(this: Microfleet & ValidatorPlugin & RedisPlugin, opts: a
       })
 
       if (this.tracer) {
-        const applyInstrumentation = _require('opentracing-js-ioredis')
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const applyInstrumentation = require('opentracing-js-ioredis')
         applyInstrumentation(this.tracer, instance)
       }
 

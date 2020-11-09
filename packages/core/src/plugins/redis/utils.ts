@@ -1,5 +1,4 @@
-import { Microfleet } from '../..'
-
+import type { Microfleet } from '@microfleet/core-types'
 import { promisify } from 'util'
 import { strict as assert } from 'assert'
 import { ArgumentError } from 'common-errors'

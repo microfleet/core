@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import MicrofleetValidator from '@microfleet/validation'
 import ajv from 'ajv'
 import callsite = require('callsite')
@@ -6,14 +7,41 @@ import path = require('path')
 import { strictEqual } from 'assert'
 import { isString, isPlainObject, isFunction } from 'lodash'
 import { deprecate } from 'util'
+import type { Microfleet } from '@microfleet/core-types'
+import { defaultsDeep, PluginTypes } from '@microfleet/utils'
 
-import { Microfleet } from '../'
-import { PluginTypes } from '../constants'
+declare module '@microfleet/validation' {
+  interface Validator {
+    addLocation(location: string): void;
+  }
+}
 
-const { isArray } = Array
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    /**
+     * @microfleet/validation internally instance based on AJV
+     */
+    validator: MicrofleetValidator
 
-type Validator = MicrofleetValidator & {
-  addLocation(location: string): void;
+    /**
+     * @deprecated use validator.validate
+     */
+    validate: MicrofleetValidator['validate'];
+
+    /**
+     * @deprecated use validator.validateSync
+     */
+    validateSync: MicrofleetValidator['validateSync'];
+
+    /**
+     * @deprecated use validator.ifError
+     */
+    ifError: MicrofleetValidator['ifError'];
+  }
+
+  interface ConfigurationOptional {
+    validator: ValidatorConfig
+  }
 }
 
 /**
@@ -28,21 +56,21 @@ export type ValidatorConfig = {
 }
 
 /**
+ * Default configurations
+ */
+export const defaultConfig: Partial<ValidatorConfig> = {
+  schemas: [],
+  serviceConfigSchemaIds: ['microfleet.core', 'config'],
+  filter: null,
+  ajv: {
+    strictKeywords: true,
+  },
+}
+
+/**
  * Plugin name
  */
 export const name = 'validator'
-
-/**
- * Defines service extension
- */
-export interface ValidatorPlugin {
-  validator: Validator & {
-    addLocation(location: string): void;
-  };
-  validate: Validator['validate'];
-  validateSync: Validator['validateSync'];
-  ifError:  Validator['ifError'];
-}
 
 /**
  * Plugin Type
@@ -54,9 +82,15 @@ export const type = PluginTypes.essential
  */
 export const priority = 0
 
-function configError(property: string): NotPermittedError {
+/**
+ * Generates configuration error
+ * @param property that caused the issue
+ */
+const configError = (property: string): NotPermittedError => {
   return new NotPermittedError(`Invalid validator.${property} config`)
 }
+
+const { isArray } = Array
 
 /**
  * Attaches initialized validator based on conf.
@@ -64,13 +98,12 @@ function configError(property: string): NotPermittedError {
  * @param conf - Validator Configuration Object.
  * @param parentFile - From which file this plugin was invoked.
  */
-export const attach = function attachValidator(
+export function attach(
   this: Microfleet,
-  config: ValidatorConfig,
+  opts: ValidatorConfig,
   parentFile: string
 ): void {
-  // for relative paths
-  const stack = callsite()
+  const config = defaultsDeep(opts, defaultConfig)
   const { schemas, serviceConfigSchemaIds, filter, ajv: ajvConfig } = config
 
   strictEqual(isArray(schemas), true, configError('schemas'))
@@ -78,9 +111,12 @@ export const attach = function attachValidator(
   strictEqual(filter === null || isFunction(filter), true, configError('filter'))
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
-  const validator = new MicrofleetValidator('../../schemas', filter, ajvConfig)
+  const validator = new MicrofleetValidator(undefined, filter, ajvConfig)
   const addLocation = (location: string): void => {
     strictEqual(isString(location) && location.length !== 0, true, configError('schemas'))
+
+    // for relative paths
+    const stack = callsite()
 
     let dir
     if (!path.isAbsolute(location)) {
@@ -121,9 +157,11 @@ export const attach = function attachValidator(
     }
   }
 
+  // extend @microfleet/validator
+  validator.addLocation = addLocation
+
   // extend service
-  this[name] = validator
-  this[name].addLocation = addLocation
+  this.validator = validator
   this.validate = deprecate(validator.validate.bind(validator), 'validate() deprecated. User validator.validate()')
   this.validateSync = deprecate(validator.validateSync.bind(validator), 'validateSync() deprecated. User validator.validateSync()')
   this.ifError = deprecate(validator.ifError.bind(validator), 'ifError() deprecated. User validator.ifError()')

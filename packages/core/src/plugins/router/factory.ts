@@ -1,5 +1,4 @@
-import { Microfleet } from '../..'
-import { ServiceAction, ServiceActionStep } from '../../types'
+import type { Microfleet, ServiceAction, ServiceActionStep } from '@microfleet/core-types'
 import dispatch from './dispatcher'
 import Extensions, { ExtensionsConfig, LifecycleRequestType, LifecyclePoints } from './extensions'
 import allowedModule from './modules/allowed'

@@ -1,20 +1,16 @@
 import { HttpStatusError } from '@microfleet/validation'
+import { strict as assert } from 'assert'
 import Bluebird = require('bluebird')
 import { Error } from 'common-errors'
 
-import { Microfleet } from '../../..'
-
-import { ServiceRequest } from '../../../types'
-import { ValidatorPlugin } from '../../validator'
-
+import type { Microfleet, ServiceRequest } from '@microfleet/core-types'
 import moduleLifecycle from './lifecycle'
 
 type HandlerResult = [Error | null, any, ServiceRequest]
-type WithValidatorPlugin = Microfleet & ValidatorPlugin
 
 function handleValidationError(service: Microfleet, err: Error): void {
   const { responseValidation } = service.router.config.routes
-  if (responseValidation.panic) {
+  if (responseValidation?.panic) {
     if (err.constructor === HttpStatusError) {
       throw err
     }
@@ -22,7 +18,7 @@ function handleValidationError(service: Microfleet, err: Error): void {
   }
 }
 
-async function validate(this: WithValidatorPlugin, err: Error | null, response: any, request: ServiceRequest): Promise<HandlerResult> {
+async function validate(this: Microfleet, err: Error | null, response: any, request: ServiceRequest): Promise<HandlerResult> {
   // do nothing with errors
   if (err) return [err, response, request]
 
@@ -39,13 +35,16 @@ async function validate(this: WithValidatorPlugin, err: Error | null, response: 
   }
 }
 
-function passThrough(this: WithValidatorPlugin, err: Error | null, response: any, request: ServiceRequest): HandlerResult {
+function passThrough(this: Microfleet, err: Error | null, response: any, request: ServiceRequest): HandlerResult {
   return [err, response, request]
 }
 
 function validateResponseHandler(this: Microfleet, params: [Error | null, any, ServiceRequest]): Bluebird<any> {
   const [,, request] = params
   const { responseValidation } = this.router.config.routes
+
+  assert(responseValidation, 'responseValidation must be defined in router.config.routes')
+
   const { enabled, maxSample } = responseValidation
   const { validateResponse } = request.action
   const shouldValidate = Math.round(Math.random() * 100) <= maxSample

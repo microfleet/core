@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../utils/tsconfig.json"
+  }],
+  "files": [
+    "index.d.ts",
+    "private.d.ts"
+  ]
+}

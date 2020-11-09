@@ -4,17 +4,18 @@ import Errors = require('common-errors')
 import eventToPromise = require('event-to-promise')
 import { NotFoundError } from 'common-errors'
 import get = require('get-value')
-import { ActionTransport, Microfleet, PluginTypes, ValidatorPlugin, PluginInterface } from '../'
-import _require from '../utils/require'
+import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import { ActionTransport, PluginTypes, identity } from '@microfleet/utils'
 import getAMQPRouterAdapter from './amqp/router/adapter'
 import { verifyAttachPossibility } from './router/verifyAttachPossibility'
 import * as RequestTracker from './router/request-tracker'
+import AMQPTransport = require('@microfleet/transport-amqp')
+import Backoff = require('@microfleet/transport-amqp/lib/utils/recovery')
 
 /**
  * Helpers Section
  */
 const NULL_UUID = '00000000-0000-0000-0000-000000000000'
-const identity = <T>(arg: T) => arg
 
 /**
  * Calculate priority based on message expiration time.
@@ -48,14 +49,11 @@ export const priority = 0
  * Attaches plugin to the Mthis class.
  * @param {Object} config - AMQP plugin configuration.
  */
-export function attach(this: Microfleet & ValidatorPlugin, opts: any = {}): PluginInterface {
+export function attach(this: Microfleet, opts: any = {}): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   const config = this.validator.ifError('amqp', opts)
-  const AMQPTransport = _require('@microfleet/transport-amqp')
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const Backoff = require('@microfleet/transport-amqp/lib/utils/recovery')
 
   const ERROR_NOT_STARTED = new Errors.NotPermittedError('amqp was not started')
   const ERROR_NOT_HEALTHY = new Errors.ConnectionError('amqp is not healthy')

@@ -3,12 +3,6 @@
  * @module mservice:constants
  */
 
-/* Some helpers */
-export type Primitive = string | number | boolean | undefined | null
-export function literal<T extends Primitive>(value: T): T {
-  return value
-}
-
 /**
  * Returns first arg that is passed to the function
  */
@@ -33,45 +27,45 @@ export const HEALTH_CHECKS_PROPERTY = 'healthChecks'
  * Constants with possilble transport values
  */
 export const ActionTransport = {
-  amqp: literal('amqp'),
-  http: literal('http'),
-  internal: literal('internal'),
-  socketIO: literal('socketIO'),
-}
+  amqp: 'amqp',
+  http: 'http',
+  internal: 'internal',
+  socketIO: 'socketIO',
+} as const
 
 // based on this we validate input data
 export const DATA_KEY_SELECTOR = {
-  amqp: literal('params'),
-  delete: literal('query'),
-  get: literal('query'),
-  head: literal('query'),
-  internal: literal('params'),
-  patch: literal('params'),
-  post: literal('params'),
-  put: literal('params'),
-  socketio: literal('params'),
-}
+  amqp: 'params',
+  delete: 'query',
+  get: 'query',
+  head: 'query',
+  internal: 'params',
+  patch: 'params',
+  post: 'params',
+  put: 'params',
+  socketio: 'params',
+} as const
 
 /**
  * Constants with connect types to control order of service bootstrap
  */
 export const ConnectorsTypes = {
-  application: literal('application'),
-  database: literal('database'),
-  essential: literal('essential'),
-  migration: literal('migration'),
-  transport: literal('transport'),
-}
+  application: 'application',
+  database: 'database',
+  essential: 'essential',
+  migration: 'migration',
+  transport: 'transport',
+} as const
 
 /**
  * Plugin Types
  */
 export const PluginTypes = {
-  application: literal('application'),
-  database: literal('database'),
-  essential: literal('essential'),
-  transport: literal('transport'),
-}
+  application: 'application',
+  database: 'database',
+  essential: 'essential',
+  transport: 'transport',
+} as const
 
 /**
  * Default priority of connectors during bootstrap
@@ -94,5 +88,5 @@ export const PluginsPriority = [
   PluginTypes.application,
 ]
 
-export const PLUGIN_STATUS_OK = 'ok'
-export const PLUGIN_STATUS_FAIL = 'fail'
+export const PLUGIN_STATUS_OK = 'ok' as const
+export const PLUGIN_STATUS_FAIL = 'fail' as const

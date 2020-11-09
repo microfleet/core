@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import path = require('path')
 import { getRoutes } from '..'
-import { ActionTransport } from '../../../..'
+import { ActionTransport } from '@microfleet/utils'
 
 describe('router: get routes', () => {
   const microfleet = { log: console } as any

@@ -2,8 +2,10 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
+import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import { PluginTypes } from '@microfleet/utils'
 import type { Logger } from '@microfleet/plugin-logger'
-import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import '@microfleet/plugin-validator'
 import { map } from 'bluebird'
 import type {
   ConsumerStreamConfig,
@@ -184,7 +186,7 @@ export class KafkaFactory {
  * @param params - Kafka configuration.
  */
 export function attach(
-  this: Microfleet & ValidatorPlugin,
+  this: Microfleet,
   params: GlobalConfig
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
@@ -193,7 +195,7 @@ export function attach(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const conf: GlobalConfig = this.validator.ifError(name, params)
+  const conf = this.validator.ifError<GlobalConfig>(name, params)
   const kafkaPlugin = this[name] = new KafkaFactory(this, conf)
 
   return {

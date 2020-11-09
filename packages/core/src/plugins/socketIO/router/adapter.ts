@@ -1,19 +1,20 @@
-import _debug = require('debug')
 import noop = require('lodash/noop')
-import { ActionTransport } from '../../..'
-import { ServiceRequest } from '../../../types'
+import { ActionTransport } from '@microfleet/utils'
+import type { ServiceRequest } from '@microfleet/core-types'
 import { Router } from '../../router/factory'
 import { RequestCallback } from '../../router/dispatcher'
+import { Socket } from 'socket.io'
 
-const debug = _debug('mservice:router:socket.io')
 const { socketIO } = ActionTransport
 
-export interface SocketIOMessage {
-  data: [string, any, RequestCallback];
+declare module '@microfleet/core-types' {
+  interface ServiceRequest {
+    socket?: Socket;
+  }
 }
 
 /* Decrease request count on response */
-function wrapCallback(router: Router, callback: RequestCallback) {
+function wrapCallback(router: Router, callback?: RequestCallback) {
   return (err: any, result?: any) => {
     router.requestCountTracker.decrease(socketIO)
     if (callback) {
@@ -22,13 +23,17 @@ function wrapCallback(router: Router, callback: RequestCallback) {
   }
 }
 
-function getSocketIORouterAdapter(_: unknown, router: Router): (socket: NodeJS.EventEmitter) => void {
-  return function socketIORouterAdapter(socket: NodeJS.EventEmitter) {
-    socket.on('*', (packet: SocketIOMessage) => {
-      /* Increase request count on message */
-      router.requestCountTracker.increase(socketIO)
+function getSocketIORouterAdapter(_: unknown, router: Router): (socket: Socket) => void {
+  const { log } = router.service
+  return function socketIORouterAdapter(socket: Socket): void {
+    socket.onAny((actionName: string, params: unknown, callback?: RequestCallback): void => {
 
-      const [actionName, params, callback] = packet.data
+      if (callback != undefined && typeof callback !== 'function') {
+        // ignore malformed rpc call
+        log.warn({ actionName, params, callback }, 'malformed rpc call')
+        return
+      }
+
       const request: ServiceRequest = {
         socket,
         params,
@@ -42,12 +47,13 @@ function getSocketIORouterAdapter(_: unknown, router: Router): (socket: NodeJS.E
         route: '',
         span: undefined,
         transport: socketIO,
-        transportRequest: packet,
+        transportRequest: null,
       }
 
-      debug('prepared request with', packet.data)
+      /* Increase request count on message */
+      router.requestCountTracker.increase(socketIO)
       const wrappedCallback = wrapCallback(router, callback)
-      router.dispatch.call(router, actionName, request, wrappedCallback)
+      router.dispatch(actionName, request, wrappedCallback)
     })
   }
 }

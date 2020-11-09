@@ -1,8 +1,8 @@
 import Bluebird = require('bluebird')
 import retry = require('bluebird-retry')
-import { PLUGIN_STATUS_FAIL, PLUGIN_STATUS_OK } from '../constants'
-import { PluginStatus } from '../types'
-import { Microfleet } from '../'
+import { PLUGIN_STATUS_OK, PLUGIN_STATUS_FAIL } from '@microfleet/utils'
+import type { PluginStatus } from '@microfleet/core-types'
+import type { Microfleet } from '../'
 
 export interface HealthStatus {
   alive: PluginHealthStatus[];

@@ -1,27 +1,104 @@
 import assert = require('assert')
 import rfdc = require('rfdc')
+import path = require('path')
 import { NotFoundError, NotSupportedError } from 'common-errors'
-import { ActionTransport, PluginTypes, identity } from '../constants'
-import { Microfleet } from '../'
-import { ServiceRequest } from '../types'
+import { ActionTransport, PluginTypes, identity, defaultsDeep } from '@microfleet/utils'
+import type { Microfleet, ServiceRequest } from '@microfleet/core-types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
-import { ValidatorPlugin } from './validator'
+import { LifecyclePoints } from './router/extensions'
 import { object as isObject } from 'is'
 const { internal } = ActionTransport
+import autoSchema from './router/extensions/validate/schemaLessAction'
+import auditLog from './router/extensions/audit/log'
+
+/* ensure its just types */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type * as _ from '@microfleet/plugin-validator'
+
+/**
+ * Default Router configuration.
+ */
+export const defaultConfig: Partial<RouterConfig> = {
+  /**
+   * Routes configuration
+   */
+  routes: {
+    /**
+     * Directory to scan for actions.
+     */
+    directory: path.resolve(process.cwd(), 'src/actions'),
+
+    /**
+     * When set to empty object, will scan directory
+     */
+    enabled: Object.create(null),
+
+    /**
+     * Prefix for actions, it's added after transport-specific configuration
+     */
+    prefix: '',
+
+    /**
+     * Sets transports defined here as default ones for action.
+     */
+    setTransportsAsDefault: true,
+
+    /**
+     * Initialize that array of transports
+     */
+    transports: [ActionTransport.http],
+
+    /**
+     * Enables health action by default
+     */
+    enabledGenericActions: [
+      'health',
+    ],
+
+    /**
+     * Enables response validation.
+     */
+    responseValidation: {
+      enabled: false,
+      maxSample: 7,
+      panic: false,
+    }
+  },
+
+  /**
+   * Extensions configuration
+   */
+  extensions: {
+    /**
+     * Enabled extension points
+     */
+    enabled: [LifecyclePoints.postRequest, LifecyclePoints.preRequest, LifecyclePoints.preResponse],
+
+    /**
+     * Enabled plugins
+     */
+    register: [autoSchema, auditLog()],
+  },
+}
 
 /**
  * Plugin Name
  */
 export const name = 'router'
-export { Router, RouterConfig, LifecycleRequestType }
 
 /**
- * Defines extension points of
- * the router plugin
+ * Export helpers
  */
-export interface RouterPlugin {
-  router: Router;
-  dispatch: (route: string, request: Partial<ServiceRequest>) => PromiseLike<any>;
+export { LifecycleRequestType }
+
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    router: Router
+  }
+
+  interface ConfigurationOptional {
+    router: RouterConfig
+  }
 }
 
 /**
@@ -78,10 +155,12 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
  * Enables router plugin.
  * @param opts - Router configuration object.
  */
-export function attach(this: Microfleet & ValidatorPlugin & RouterPlugin, opts: Partial<RouterConfig>): void {
+export function attach(this: Microfleet, opts: Partial<RouterConfig>): void {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  const config = this.validator.ifError('router', opts) as RouterConfig
+
+  // validate & overwrite
+  const config = this.config.router = this.validator.ifError<RouterConfig>('router', defaultsDeep(opts, defaultConfig))
 
   for (const transport of config.routes.transports) {
     if (!this.config.plugins.includes(transport) && transport !== internal) {

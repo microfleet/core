@@ -1,6 +1,6 @@
 import { NotFoundError, NotSupportedError } from 'common-errors'
 import is = require('is')
-import { TransportTypes } from '../../types'
+import type { TransportTypes } from '@microfleet/core-types'
 import { Router } from './factory'
 
 /**

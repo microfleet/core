@@ -4,15 +4,18 @@ import Errors = require('common-errors')
 import { Request } from '@hapi/hapi'
 import noop = require('lodash/noop')
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
-import { ActionTransport, Microfleet } from '../../../../..'
-import { ServiceRequest, RequestMethods } from '../../../../../types'
-import _require from '../../../../../utils/require'
-import { Router } from '../../../../router/factory'
+import type { Microfleet, ServiceRequest, RequestMethods } from '@microfleet/core-types'
+import { boomify } from '@hapi/boom'
+import { ActionTransport } from '@microfleet/utils'
+
+declare module '@hapi/boom' {
+  interface Payload {
+    name?: string
+  }
+}
 
 export default function getHapiAdapter(actionName: string, service: Microfleet): (r: Request) => Promise<any> {
-  const Boom = _require('@hapi/boom')
-  const router = service.router as Router
-
+  const { router } = service
   const reformatError = (error: any) => {
     let statusCode
     let errorMessage
@@ -49,7 +52,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
       }
     }
 
-    const replyError = Boom.boomify(error, { statusCode, message: errorMessage })
+    const replyError = boomify(error, { statusCode, message: errorMessage })
 
     if (error.name) {
       replyError.output.payload.name = error.name

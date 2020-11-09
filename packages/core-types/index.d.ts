@@ -1,4 +1,7 @@
-import {
+import type { Options as RetryOptions } from 'bluebird-retry'
+import type { ClientRequest } from 'http'
+import type { ListenerFn } from 'eventemitter3'
+import type {
   ActionTransport,
   CONNECTORS_PROPERTY,
   ConnectorsTypes,
@@ -6,15 +9,74 @@ import {
   DESTRUCTORS_PROPERTY,
   PLUGIN_STATUS_FAIL,
   PLUGIN_STATUS_OK,
-  PluginTypes
-} from './constants'
+  PluginTypes,
+} from '@microfleet/utils'
 
-import { ClientRequest } from 'http'
+export type StartStopTree = {
+  [K in ConnectorsTypes]: PluginConnector[]
+}
+
+export class Microfleet {
+  readonly version: string
+  readonly migrators: { [name: string]: AnyFn }
+  readonly plugins: string[]
+  readonly [CONNECTORS_PROPERTY]: StartStopTree
+  readonly [DESTRUCTORS_PROPERTY]: StartStopTree
+
+  /**
+   * Holds configuration
+   */
+  config: CoreOptions
+
+  /**
+   * Allow Extensions
+   */
+  [property: string]: any;
+}
+
+export type AnyFn = (...args: any[]) => any;
+export type Hook = ListenerFn | ListenerFn[];
 
 /**
- * Expose Router Type
+ * Interface for optional params
  */
-export { Router } from './plugins/router'
+export interface ConfigurationOptional {
+  /**
+   * List of plugins to be enabled
+   */
+  plugins: string[];
+
+  /**
+  * Arbitrary hooks to be executed asynchronously
+  */
+  hooks: {
+    [name: string]: Hook;
+  };
+
+  /**
+   * Healthcheck configurations
+   */
+  healthChecks: RetryOptions
+}
+
+/**
+ * Interface for required params
+ */
+export interface ConfigurationRequired {
+  /**
+   * Must uniquely identify service, will be used
+   * in implementing services extensively
+   */
+  name: string;
+
+  /**
+   * For now any property can be put on the main class
+   */
+  [property: string]: unknown;
+}
+
+export type CoreOptions = ConfigurationRequired
+  & ConfigurationOptional
 
 /**
  * $Keys
@@ -38,14 +100,14 @@ export type PluginConnector = () => PromiseLike<any>
 /**
  * Plugin Interface
  */
-export declare interface PluginInterface {
+export interface PluginInterface {
   connect: PluginConnector;
   close: PluginConnector;
   status?: PluginConnector;
   getRequestCount?: () => number;
 }
 
-export declare interface Plugin<T = Record<string, unknown>> {
+export interface Plugin<T = Record<string, unknown>> {
   name: string;
   priority: number;
   type: $Values<typeof PluginTypes>;
@@ -57,7 +119,7 @@ export type MserviceError = Error & {
   toJSON(): any;
 }
 
-export declare interface AuthConfig {
+export interface AuthConfig {
   name: string;
   passAuthError: boolean;
   strategy: string;
@@ -65,7 +127,7 @@ export declare interface AuthConfig {
 
 export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_PROPERTY
 export type TransportTypes = $Values<typeof ActionTransport>
-export type TConnectorsTypes = $Values<typeof ConnectorsTypes>
+export type ConnectorsTypes = $Values<typeof ConnectorsTypes>
 export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>
 export type GetAuthName = (req: ServiceRequest) => string
 export type ServiceActionStep = (...args: any[]) => PromiseLike<any>
@@ -82,7 +144,7 @@ export declare interface ServiceAction extends ServiceActionStep {
   readonly?: boolean;
 }
 
-export declare interface ServiceRequest {
+export interface ServiceRequest {
   route: string;
   params: any;
   headers: any;
@@ -93,7 +155,6 @@ export declare interface ServiceRequest {
   action: ServiceAction;
   locals: any;
   auth?: any;
-  socket?: NodeJS.EventEmitter;
   parentSpan: any;
   span: any;
   log: {

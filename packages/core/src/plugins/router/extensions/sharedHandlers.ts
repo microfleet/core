@@ -1,6 +1,6 @@
 
 import { LifecyclePoints, ExtensionPlugin } from '.'
-import { ServiceRequest } from '../../../types'
+import type { ServiceRequest } from '@microfleet/core-types'
 
 interface RequestStartExtension {
   started: [number, number];

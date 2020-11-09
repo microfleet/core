@@ -2,8 +2,10 @@ import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
 import eventToPromise = require('event-to-promise')
-import { Microfleet, PluginTypes, ValidatorPlugin, PluginInterface, RedisPlugin } from '../'
-import _require from '../utils/require'
+import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import Redis = require('ioredis')
+import { PluginTypes } from '@microfleet/utils'
+import { RedisPlugin } from './redis/types'
 import migrate from './redis/migrate'
 import { NotFoundError } from 'common-errors'
 import { hasConnection, isStarted, loadLuaScripts } from './redis/utils'
@@ -31,16 +33,17 @@ export const priority = 0
  * @param  [conf={}] - Configuration for Redis Cluster Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet & ValidatorPlugin & RedisPlugin, opts: any = {}): PluginInterface {
-  const Redis = _require('ioredis')
-
+export function attach(this: Microfleet & RedisPlugin, opts: any = {}): PluginInterface {
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  // push out its own bluebird version and configure cancellation
-  Redis.Promise = Bluebird.getNewLibraryCopy()
-  Redis.Promise.config({
+  const bird = Bluebird.getNewLibraryCopy()
+  bird.config({
     cancellation: true,
   })
+
+  // push out its own bluebird version and configure cancellation
+  // @ts-expect-error not defined in protos
+  Redis.Promise = bird
 
   const { Cluster } = Redis
   const isClusterStarted = isStarted(this, Cluster)
@@ -60,7 +63,8 @@ export function attach(this: Microfleet & ValidatorPlugin & RedisPlugin, opts: a
       const instance = createInstance(conf)
 
       if (this.tracer) {
-        const applyInstrumentation = _require('opentracing-js-ioredis')
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const applyInstrumentation = require('opentracing-js-ioredis')
         applyInstrumentation(this.tracer, instance)
       }
 

@@ -1,5 +1,4 @@
-import { Microfleet } from '../../../..'
-import { MserviceError } from '../../../../types'
+import type { Microfleet, MserviceError } from '@microfleet/core-types'
 import { LifecyclePoints, ExtensionPlugin } from '..'
 import { storeRequestTimeFactory, ServiceRequestWithStart } from '../sharedHandlers'
 

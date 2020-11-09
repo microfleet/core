@@ -1,7 +1,7 @@
 import { HttpStatusError } from 'common-errors'
-import { PLUGIN_STATUS_FAIL } from '../../../../constants'
-import { ActionTransport, Microfleet, HealthStatus } from '../../../..'
-import { ServiceRequest } from '../../../../types'
+import { ActionTransport, PLUGIN_STATUS_FAIL } from '@microfleet/utils'
+import { Microfleet, HealthStatus } from '@microfleet/core'
+import type { ServiceRequest } from '@microfleet/core-types'
 
 const kUnhealthy = new HttpStatusError(500, 'unhealthy')
 
@@ -12,7 +12,7 @@ async function genericHealthCheck(this: Microfleet, request: ServiceRequest): Pr
     switch (request.transport) {
       case 'amqp':
       case 'internal': {
-        const plugins = data.failed.map(it => it.name).join(', ')
+        const plugins = data.failed.map((it) => it.name).join(', ')
         throw new HttpStatusError(500, `Unhealthy due to following plugins: ${plugins}`)
       }
 

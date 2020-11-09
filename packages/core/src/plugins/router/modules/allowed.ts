@@ -1,9 +1,8 @@
 import Bluebird = require('bluebird')
-import { identity } from '../../../constants'
+import { identity } from '@microfleet/utils'
 import { HttpStatusError, NotPermittedError } from 'common-errors'
 import is = require('is')
-import { Microfleet } from '../../../'
-import { ServiceRequest } from '../../../types'
+import type { Microfleet, ServiceRequest } from '@microfleet/core-types'
 import moduleLifecycle from './lifecycle'
 
 function allowed(this: Microfleet, request: ServiceRequest) {

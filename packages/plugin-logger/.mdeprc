@@ -2,7 +2,7 @@
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,
-  "node": "12",
+  "node": "14",
   "parallel": 3,
   "test_framework": "jest --config ../../jest.config.js --runTestsByPath",
   "tests": "__tests__/*.spec.ts",

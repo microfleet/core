@@ -2,8 +2,8 @@ import Bluebird = require('bluebird')
 import get = require('get-value')
 import is = require('is')
 import noop = require('lodash/noop')
-import { ActionTransport } from '../../..'
-import { ServiceRequest } from '../../../types'
+import { ActionTransport } from '@microfleet/utils'
+import type { ServiceRequest } from '@microfleet/core-types'
 import { Router } from '../../router/factory'
 
 // cached var

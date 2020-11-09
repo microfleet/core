@@ -1,4 +1,4 @@
-import { Microfleet, ServiceRequest, ServiceAction } from '@microfleet/core'
+import { Microfleet, ServiceRequest, ServiceAction } from '@microfleet/core-types'
 import Bluebird from 'bluebird'
 import { LockAcquisitionError } from 'ioredis-lock'
 import { HttpStatusError } from 'common-errors'

@@ -1,9 +1,8 @@
 import Bluebird = require('bluebird')
 import { AuthenticationRequiredError, NotImplementedError } from 'common-errors'
 import is = require('is')
-import { Microfleet, RouterPlugin } from '../../../'
-import { AuthConfig, ServiceRequest } from '../../../types'
-import { identity } from '../../../constants'
+import type { Microfleet, AuthConfig, ServiceRequest } from '@microfleet/core-types'
+import { identity } from '@microfleet/utils'
 import moduleLifecycle from './lifecycle'
 
 export interface AuthStrategy {
@@ -107,7 +106,7 @@ function auth(this: Microfleet, request: ServiceRequest, strategies: AuthOptions
 }
 
 function assignStrategies(strategies: AuthOptions['strategies']) {
-  return function authHandler(this: Microfleet & RouterPlugin, request: ServiceRequest): PromiseLike<any> {
+  return function authHandler(this: Microfleet, request: ServiceRequest): PromiseLike<any> {
     const authFn = is.undefined(request.action.auth)
       ? identity
       : auth

@@ -1,0 +1,51 @@
+{
+  "name": "@microfleet/plugin-validator",
+  "description": "validator plugin for microfleet",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "validator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-validator"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x"
+  },
+  "dependencies": {
+    "@microfleet/validation": "^9.0.1",
+    "callsite": "^1.0.0",
+    "common-errors": "^1.2.0",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "@types/callsite": "^1.0.30",
+    "@types/lodash": "^4.14.165",
+    "@types/common-errors": "^1.0.0"
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/"
+  ]
+}

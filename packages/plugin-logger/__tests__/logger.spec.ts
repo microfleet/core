@@ -2,10 +2,11 @@ import Bluebird = require('bluebird')
 import pino = require('pino')
 import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
+import type { PluginTypes } from '@microfleet/utils'
 
 describe('Logger suite', () => {
   it('when service does not include `logger` plugin, it emits an error or throws', () => {
-    const plugins: string[] = []
+    const plugins: (keyof typeof PluginTypes)[] = []
     const service = new Microfleet({
       plugins,
       name: 'tester',

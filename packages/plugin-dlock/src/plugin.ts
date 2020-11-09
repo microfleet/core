@@ -1,28 +1,25 @@
-import { resolve } from 'path'
-import { strict as assert } from 'assert'
-import { NotFoundError, HttpStatusError } from 'common-errors'
-import {
-  PluginTypes,
-  Microfleet,
-  ValidatorPlugin,
-  PluginInterface,
-  RedisPlugin,
-} from '@microfleet/core'
-import * as LockManager from 'dlock'
-import { LockAcquisitionError } from 'ioredis-lock'
-
-import '@microfleet/plugin-logger'
-
 import type Bluebird from 'bluebird'
 import type { Redis } from 'ioredis'
 import type { Logger } from '@microfleet/plugin-logger'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type * as _ from '@microfleet/plugin-validator'
+/* eslint-enable @typescript-eslint/no-unused-vars */
+
+import { resolve } from 'path'
+import { strict as assert } from 'assert'
+import { NotFoundError, HttpStatusError } from 'common-errors'
+import { Microfleet, PluginInterface } from '@microfleet/core-types'
+import { PluginTypes } from '@microfleet/utils'
+import { RedisPlugin } from '@microfleet/core'
+import * as LockManager from 'dlock'
+import { LockAcquisitionError } from 'ioredis-lock'
 
 export interface DLockPlugin {
   manager: typeof LockManager;
   acquireLock(...keys: string[]): Promise<IORedisLock>;
 }
 
-declare module '@microfleet/core' {
+declare module '@microfleet/core-types' {
   export interface Microfleet {
     dlock: DLockPlugin | null;
   }
@@ -96,7 +93,7 @@ async function acquireLock(this: Microfleet, ...keys: string[]): Promise<IORedis
 }
 
 export const attach = function attachDlockPlugin(
-  this: Microfleet & ValidatorPlugin & RedisPlugin,
+  this: Microfleet & RedisPlugin,
   opts: Partial<DLockPluginConfig> = {}
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
@@ -105,7 +102,7 @@ export const attach = function attachDlockPlugin(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const config = this.validator.ifError(name, opts) as DLockPluginConfig
+  const config = this.validator.ifError<DLockPluginConfig>(name, opts)
 
   return {
     async connect(this: Microfleet & RedisPlugin) {

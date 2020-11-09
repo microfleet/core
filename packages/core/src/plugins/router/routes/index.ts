@@ -3,8 +3,7 @@ import glob = require('glob')
 import is = require('is')
 import { intersection}  from 'lodash'
 import path = require('path')
-import { Microfleet } from '../../../'
-import { ServiceAction, TransportTypes } from '../../../types'
+import type { ServiceAction, Microfleet, TransportTypes } from '@microfleet/core-types'
 import { RouteMap } from '../factory'
 
 export interface Routes {
