@@ -1,7 +1,8 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import type { Microfleet } from '@microfleet/core'
+import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 import retry = require('bluebird-retry')
 import CouchDB = require('nano')
@@ -26,7 +27,7 @@ export interface Config {
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
-    couchdb: CouchDB.DocumentScope<any>;
+    couchdb: CouchDB.DocumentScope<any> | null;
   }
 
   interface ConfigurationOptional {
@@ -44,7 +45,7 @@ const startupHandlers = (
   indices: Config['indexDefinitions'] = []
 ): PluginInterface => ({
   async connect() {
-    assert(!service[name], 'couchdb has already been initialized')
+    assert(!service.couchdb, 'couchdb has already been initialized')
 
     const db = nano.use(database)
     const establishConnection = async () => {
@@ -81,8 +82,9 @@ const startupHandlers = (
   },
 
   async close() {
-    // noop
-    service.emit(`plugin:close:${name}`, service.couchdb)
+    const { couchdb } = service
+    service.emit(`plugin:close:${name}`, couchdb)
+    service.couchdb = null
   },
 })
 

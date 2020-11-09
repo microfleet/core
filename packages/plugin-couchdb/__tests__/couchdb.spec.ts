@@ -28,13 +28,13 @@ test('should be able to connect', async () => {
 })
 
 test('should be able to create document', async () => {
-  const result = await couchdb.insert({
+  const result = await couchdb?.insert({
     _id: 'happy',
     ami: true,
   })
 
-  expect(result.ok).toBe(true)
-  expect(result.id).toBe('happy')
+  expect(result?.ok).toBe(true)
+  expect(result?.id).toBe('happy')
 })
 
 test('should be able to disconnect', async () => {
