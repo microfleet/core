@@ -1,8 +1,7 @@
 import { Microfleet } from '@microfleet/core'
-import { CouchDBPlugin } from '@microfleet/plugin-couchdb'
 
-let service: Microfleet | Microfleet & CouchDBPlugin
-let couchdb: CouchDBPlugin['couchdb']
+let service: Microfleet
+let couchdb: Microfleet['couchdb']
 
 test('should be able to initialize', async () => {
   service = new Microfleet({
