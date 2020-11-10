@@ -39,13 +39,13 @@ describe('Http server with \'hapi\' handler', function testSuite() {
     assert.equal(service.http.info.started === 0, true);
   });
 
-  it('should be able to attach \'socketIO\' plugin', async () => {
+  it('should be able to attach \'socketio\' plugin', async () => {
     service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger', 'opentracing', 'router', 'http', 'socketIO'],
+      plugins: ['validator', 'logger', 'opentracing', 'router-socketio', 'router', 'http', 'socketio'],
       http: {
         server: {
-          attachSocketIO: true,
+          attachSocketio: true,
           handler: 'hapi',
           port: 3000,
         },
@@ -53,10 +53,7 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           enabled: false,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
-      socketIO: global.SERVICES.socketIO,
+      socketio: global.SERVICES.socketio,
       router: global.SERVICES.router,
     });
 
@@ -87,12 +84,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
       router: {
         routes: {
-          directory: path.resolve(__dirname, './../socketIO/helpers/actions'),
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
           enabled: {
             echo: 'echo',
           },
@@ -145,12 +139,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
       router: {
         routes: {
-          directory: path.resolve(__dirname, './../socketIO/helpers/actions'),
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
           enabled: {
             echo: 'echo',
           },
@@ -195,12 +186,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
       router: {
         routes: {
-          directory: path.resolve(__dirname, './../socketIO/helpers/actions'),
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
           enabled: {
             echo: 'echo',
           },
@@ -244,12 +232,9 @@ describe('Http server with \'hapi\' handler', function testSuite() {
           prefix: 'foo.bar',
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
       router: {
         routes: {
-          directory: path.resolve(__dirname, './../socketIO/helpers/actions'),
+          directory: path.resolve(__dirname, '../router/helpers/actions'),
           enabled: {
             echo: 'echo',
           },
@@ -292,9 +277,6 @@ describe('Http server with \'hapi\' handler', function testSuite() {
         router: {
           enabled: true,
         },
-      },
-      logger: {
-        defaultLogger: true,
       },
       router: {
         routes: {
@@ -348,9 +330,6 @@ describe('Http server with \'hapi\' handler', function testSuite() {
             enabled: true,
             prefix: 'foo.bar',
           },
-        },
-        logger: {
-          defaultLogger: true,
         },
         router: {
           routes: {

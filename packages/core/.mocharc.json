@@ -3,5 +3,6 @@
   "bail": true,
   "timeout": 60000,
   "exit": true,
-  "reporter": "spec"
+  "reporter": "spec",
+  "forbid-only": true
 }

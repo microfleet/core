@@ -24,5 +24,9 @@
     "path": "./packages/plugin-knex/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-dlock/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-socketio/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-router-socketio/tsconfig.build.json"
   }]
 }

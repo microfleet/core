@@ -5,6 +5,6 @@ function FooAction() {
   return Promise.resolve('foo');
 }
 
-FooAction.transports = [ActionTransport.http, ActionTransport.socketIO];
+FooAction.transports = [ActionTransport.http, ActionTransport.socketio];
 
 module.exports = FooAction;

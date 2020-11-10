@@ -11,7 +11,7 @@ const { Microfleet } = require('../..');
 
 const getAMQPRequest = require('../router/helpers/requests/amqp');
 const getHTTPRequest = require('../router/helpers/requests/http');
-const getSocketIORequest = require('../router/helpers/requests/socketIO');
+const getSocketioRequest = require('../router/helpers/requests/socketio');
 
 const childServiceFile = path.resolve(__dirname, '../fixtures/child-service/index.js');
 
@@ -82,14 +82,14 @@ class ChildServiceRunner {
 
     await service.connect();
 
-    const socketIOClient = SocketIOClient(`http://0.0.0.0:${this.getPort()}`, {
+    const socketioClient = SocketIOClient(`http://0.0.0.0:${this.getPort()}`, {
       forceNew: true,
     });
 
     return {
       amqp: getAMQPRequest(service.amqp),
       http: getHTTPRequest({ url: `http://0.0.0.0:${this.getPort()}` }),
-      socketIO: getSocketIORequest(socketIOClient),
+      socketio: getSocketioRequest(socketioClient),
     };
   }
 
@@ -161,11 +161,11 @@ describe('service graceful shutdown', () => {
     assert(serviceResponse.success);
   });
 
-  it('should wait for socketIO request', async () => {
+  it('should wait for socket.io request', async () => {
     const serviceConnector = await childService.getServiceConnectors();
 
     const [serviceResponseSocket] = await Promise.all([
-      serviceConnector.socketIO('action.long-running', { pause: 500 }),
+      serviceConnector.socketio('action.long-running', { pause: 500 }),
       childService.kill('SIGTERM', true),
     ]);
 
@@ -178,7 +178,7 @@ describe('service graceful shutdown', () => {
     const actions = [
       () => serviceConnector.amqp('amqp.action.long-running', { pause: 299 }),
       () => serviceConnector.http('/action.long-running', { pause: 500 }),
-      () => serviceConnector.socketIO('action.long-running', { pause: 500 }),
+      () => serviceConnector.socketio('action.long-running', { pause: 500 }),
     ];
 
     const responses = await Promise.all([

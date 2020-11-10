@@ -33,7 +33,7 @@ export interface HapiPluginConfig {
     }
     host?: string
     port?: number
-    attachSocketIO?: boolean
+    attachSocketio?: boolean
   }
   router: HapiRouterConfig & {
     enabled: boolean
@@ -93,12 +93,12 @@ function createHapiServer(config: HapiPluginConfig, service: Microfleet): Plugin
   }
 
   async function startServer() {
-    if (config.server.attachSocketIO) {
-      if (!service.socketIO) {
-        throw new NotPermittedError('SocketIO plugin not found')
+    if (config.server.attachSocketio) {
+      if (!service.socketio) {
+        throw new NotPermittedError('socket.io plugin not found')
       }
 
-      service.socketIO.listen(server.listener, (service.config.socketIO as any)?.options)
+      service.socketio.attach(server.listener)
     }
 
     await initPlugins()
@@ -125,9 +125,9 @@ function createHapiServer(config: HapiPluginConfig, service: Microfleet): Plugin
 
     if (started) {
       /* Socket depends on Http transport. Wait for its requests here */
-      /* Call of socketIO.close() causes all active connections close */
-      if (config.server.attachSocketIO) {
-        await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketIO)
+      /* Call of socketio.close() causes all active connections close */
+      if (config.server.attachSocketio) {
+        await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketio)
       }
 
       /* Server waits for connection finish anyway */

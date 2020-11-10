@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.json"
+  }, {
+    "path": "../utils/tsconfig.json"
+  }, {
+    "path": "../core-types/tsconfig.json"
+  }, {
+    "path": "../plugin-logger/tsconfig.json"
+  }, {
+    "path": "../plugin-validator/tsconfig.json"
+  }],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}

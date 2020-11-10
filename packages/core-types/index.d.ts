@@ -101,8 +101,8 @@ export type PluginConnector = () => PromiseLike<any>
  * Plugin Interface
  */
 export interface PluginInterface {
-  connect: PluginConnector;
-  close: PluginConnector;
+  connect?: PluginConnector;
+  close?: PluginConnector;
   status?: PluginConnector;
   getRequestCount?: () => number;
 }

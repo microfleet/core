@@ -8,7 +8,7 @@ describe('service request count', () => {
   const auditLog = routerExtension('audit/log');
   const getAMQPRequest = require('../router/helpers/requests/amqp');
   const getHTTPRequest = require('../router/helpers/requests/http');
-  const getSocketIORequest = require('../router/helpers/requests/socketIO');
+  const getSocketioRequest = require('../router/helpers/requests/socketio');
   const verify = require('../router/helpers/verifyCase');
 
   const schemaLessAction = routerExtension('validate/schemaLessAction');
@@ -16,26 +16,18 @@ describe('service request count', () => {
   it('counts requests on unknown routes', async () => {
     const service = new Microfleet({
       name: 'tester',
-      http: { server: { handler: 'hapi', attachSocketIO: true, port: 0 }, router: { enabled: true } },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'http', 'socketIO'],
+      http: { server: { handler: 'hapi', attachSocketio: true, port: 0 }, router: { enabled: true } },
+      plugins: ['validator', 'logger', 'router', 'http', 'socketio', 'router-socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
           setTransportsAsDefault: true,
           transports: [
             ActionTransport.http,
-            ActionTransport.socketIO,
+            ActionTransport.socketio,
           ],
         },
         extensions: { enabled: ['preRequest', 'preResponse'], register: [auditLog()] },
-      },
-      socketIO: {
-        router: {
-          enabled: true,
-        },
       },
       validator: { schemas: ['../router/helpers/schemas'] },
     });
@@ -48,16 +40,16 @@ describe('service request count', () => {
     const postResponseSpy = sinon.spy(requestCountTracker, 'decrease');
 
     const HTTPRequest = getHTTPRequest({ method: 'get', url: serviceUrl });
-    const socketIOClient = SocketIOClient(serviceUrl);
-    const socketIORequest = getSocketIORequest(socketIOClient);
+    const socketioClient = SocketIOClient(serviceUrl);
+    const socketioRequest = getSocketioRequest(socketioClient);
 
     await HTTPRequest('/404').reflect();
-    await socketIORequest('404', {}).reflect();
+    await socketioRequest('404', {}).reflect();
 
     assert(preRequestSpy.callCount === 2);
     assert(postResponseSpy.callCount === 2);
 
-    await socketIOClient.close();
+    await socketioClient.close();
     await service.close();
   });
 
@@ -77,7 +69,7 @@ describe('service request count', () => {
       },
       http: {
         server: {
-          attachSocketIO: true,
+          attachSocketio: true,
           handler: 'hapi',
           port: 0,
         },
@@ -85,10 +77,7 @@ describe('service request count', () => {
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -97,7 +86,7 @@ describe('service request count', () => {
           transports: [
             ActionTransport.amqp,
             ActionTransport.http,
-            ActionTransport.socketIO,
+            ActionTransport.socketio,
             ActionTransport.internal,
           ],
           enabledGenericActions: ['health'],
@@ -108,11 +97,6 @@ describe('service request count', () => {
             schemaLessAction,
             auditLog(),
           ],
-        },
-      },
-      socketIO: {
-        router: {
-          enabled: true,
         },
       },
       validator: { schemas: ['../router/helpers/schemas'] },
@@ -129,8 +113,8 @@ describe('service request count', () => {
 
     const AMQPRequest = getAMQPRequest(service.amqp);
     const HTTPRequest = getHTTPRequest({ method: 'get', url: serviceUrl });
-    const socketIOClient = SocketIOClient(serviceUrl);
-    const socketIORequest = getSocketIORequest(socketIOClient);
+    const socketioClient = SocketIOClient(serviceUrl);
+    const socketioRequest = getSocketioRequest(socketioClient);
 
     const returnsResult = {
       expect: 'success',
@@ -142,12 +126,12 @@ describe('service request count', () => {
 
     await AMQPRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult));
     await HTTPRequest('/action/generic/health').reflect().then(verify(returnsResult));
-    await socketIORequest('action.generic.health', {}).reflect().then(verify(returnsResult));
+    await socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult));
 
     assert(preRequestSpy.callCount === 3);
     assert(postResponseSpy.callCount === 3);
 
     await service.close();
-    await socketIOClient.close();
+    await socketioClient.close();
   });
 });

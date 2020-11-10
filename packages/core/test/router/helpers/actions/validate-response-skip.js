@@ -20,7 +20,7 @@ skipResponseValidate.schema = 'validate-response'
 skipResponseValidate.transports = [
   ActionTransport.amqp,
   ActionTransport.http,
-  ActionTransport.socketIO,
+  ActionTransport.socketio,
 ];
 
 module.exports = skipResponseValidate;

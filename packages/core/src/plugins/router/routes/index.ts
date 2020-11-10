@@ -1,7 +1,6 @@
 import { ValidationError } from 'common-errors'
 import glob = require('glob')
 import is = require('is')
-import { intersection}  from 'lodash'
 import path = require('path')
 import type { ServiceAction, Microfleet, TransportTypes } from '@microfleet/core-types'
 import { RouteMap } from '../factory'
@@ -86,7 +85,9 @@ export interface RoutesConfig {
   directory: string;
   prefix: string;
   setTransportsAsDefault?: boolean;
+  // @todo deprecated
   transports: TransportTypes[];
+  // @todo deprecated
   enabled: {
     [route: string]: string;
   };
@@ -135,10 +136,6 @@ export function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
     }
   }
 
-  for (const transport of config.transports) {
-    routes[transport] = Object.create(null)
-  }
-
   for (const [route, postfix] of Object.entries(enabled as Routes)) {
     const routingKey = config.prefix.length ? `${config.prefix}.${postfix}` : postfix
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -146,6 +143,7 @@ export function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
 
     // it mutates existing action, so use with caution and best
     // explicitely supply the transports to support
+    // @todo config.transports depricated
     if (config.setTransportsAsDefault && action.transports === undefined) {
       action.transports = config.transports.slice(0)
     }
@@ -159,7 +157,11 @@ export function getRoutes(this: Microfleet, config: RoutesConfig): RouteMap {
       // add action
       routes._all[routingKey] = extractedAction
 
-      for (const transport of intersection(config.transports as string[], extractedAction.transports as string[])) {
+      for (const transport of extractedAction.transports as string[]) {
+        if (routes[transport] === undefined) {
+          routes[transport] = Object.create(null)
+        }
+
         routes[transport][routingKey] = extractedAction
       }
     } catch (e) {

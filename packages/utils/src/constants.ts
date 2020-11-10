@@ -30,7 +30,7 @@ export const ActionTransport = {
   amqp: 'amqp',
   http: 'http',
   internal: 'internal',
-  socketIO: 'socketIO',
+  socketio: 'socketio',
 } as const
 
 // based on this we validate input data

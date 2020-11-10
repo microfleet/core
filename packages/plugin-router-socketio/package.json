@@ -1,0 +1,51 @@
+{
+  "name": "@microfleet/plugin-router-socketio",
+  "version": "0.0.0-dev.0",
+  "description": "Init socket.io transport for router",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "lint": "eslint ./src ./__tests__",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "router",
+    "socket.io",
+    "websocket"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-router-socketio"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {
+    "socketio-wildcard": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x",
+    "common-errors": "~1.x.x"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.3.4",
+    "socket.io-client": "^3.0.1"
+  },
+  "engines": {
+    "node": ">= 12.14.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

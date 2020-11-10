@@ -24,7 +24,7 @@ export const http = {
      * Do not include socket.io transport
      * @type {Boolean}
      */
-    attachSocketIO: false,
+    attachSocketio: false,
 
     /**
      * Listen on port 3000

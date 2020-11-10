@@ -1,11 +1,12 @@
 import noop = require('lodash/noop')
 import { ActionTransport } from '@microfleet/utils'
 import type { ServiceRequest } from '@microfleet/core-types'
-import { Router } from '../../router/factory'
-import { RequestCallback } from '../../router/dispatcher'
 import { Socket } from 'socket.io'
 
-const { socketIO } = ActionTransport
+const { socketio } = ActionTransport
+
+import type { Router } from '@microfleet/core/lib/plugins/router/factory'
+import type { RequestCallback } from '@microfleet/core/lib/plugins/router/dispatcher'
 
 declare module '@microfleet/core-types' {
   interface ServiceRequest {
@@ -16,7 +17,7 @@ declare module '@microfleet/core-types' {
 /* Decrease request count on response */
 function wrapCallback(router: Router, callback?: RequestCallback) {
   return (err: any, result?: any) => {
-    router.requestCountTracker.decrease(socketIO)
+    router.requestCountTracker.decrease(socketio)
     if (callback) {
       callback(err, result)
     }
@@ -28,7 +29,7 @@ function getSocketIORouterAdapter(_: unknown, router: Router): (socket: Socket) 
   return function socketIORouterAdapter(socket: Socket): void {
     socket.onAny((actionName: string, params: unknown, callback?: RequestCallback): void => {
 
-      if (callback != undefined && typeof callback !== 'function') {
+      if (callback !== undefined && typeof callback !== 'function') {
         // ignore malformed rpc call
         log.warn({ actionName, params, callback }, 'malformed rpc call')
         return
@@ -46,12 +47,12 @@ function getSocketIORouterAdapter(_: unknown, router: Router): (socket: Socket) 
         query: Object.create(null),
         route: '',
         span: undefined,
-        transport: socketIO,
-        transportRequest: null,
+        transport: socketio,
+        transportRequest: [actionName, params, callback],
       }
 
       /* Increase request count on message */
-      router.requestCountTracker.increase(socketIO)
+      router.requestCountTracker.increase(socketio)
       const wrappedCallback = wrapCallback(router, callback)
       router.dispatch(actionName, request, wrappedCallback)
     })

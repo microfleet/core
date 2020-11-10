@@ -21,7 +21,7 @@
       },
       http: {
         server: {
-          attachSocketIO: true,
+          attachSocketio: true,
           handler: 'hapi',
           port: parseInt(process.argv[2], 10),
         },
@@ -29,10 +29,7 @@
           enabled: true,
         },
       },
-      logger: {
-        defaultLogger: true,
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketIO'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../../router/helpers/actions'),
@@ -41,7 +38,7 @@
           transports: [
             ActionTransport.amqp,
             ActionTransport.http,
-            ActionTransport.socketIO,
+            ActionTransport.socketio,
             ActionTransport.internal,
           ],
           enabledGenericActions: ['health'],
@@ -49,11 +46,6 @@
         extensions: {
           enabled: ['postRequest'],
           register: [],
-        },
-      },
-      socketIO: {
-        router: {
-          enabled: true,
         },
       },
       validator: { schemas: ['../../router/helpers/schemas'] },

@@ -69,9 +69,6 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
     if (e.code !== 'MODULE_NOT_FOUND') {
       // eslint-disable-next-line no-console
       console.warn(e)
-    } else if (process.env.NODE_ENV === 'test') {
-      // eslint-disable-next-line no-console
-      console.warn('couldnt include', e.message)
     }
 
     return null
