@@ -1,7 +1,7 @@
 {
   "name": "@microfleet/plugin-router-socketio",
   "version": "0.0.0-dev.0",
-  "description": "Init socket.io transport for router",
+  "description": "Socket.io transport adapter for router",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -29,7 +29,6 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "socketio-wildcard": "^2.0.0"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",

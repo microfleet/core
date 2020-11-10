@@ -33,27 +33,22 @@ describe('Router suite', function testSuite() {
   it('should return response', async function test() {
     const service = new Microfleet({
       name: 'tester',
+      plugins: [
+        'validator',
+        'logger',
+        'amqp',
+        'http',
+        'socketio',
+        'router',
+        'router-amqp',
+        'router-socketio',
+      ],
+      validator: { schemas: ['../router/helpers/schemas'] },
       amqp: {
         transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
           queue: 'simple-retry-test',
           neck: 10,
           bindPersistantQueueToHeadersExchange: true,
-        },
-        router: {
-          enabled: true,
-        },
-        retry: {
-          enabled: true,
-          min: 10,
-          max: 50,
-          factor: 1.3,
-          maxRetries: 5,
-          predicate(err, actionName) {
-            return actionName !== 'action.retry';
-          },
         },
       },
       http: {
@@ -65,7 +60,6 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      plugins: ['validator', 'logger', 'router', 'router-socketio', 'amqp', 'http', 'socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -94,7 +88,18 @@ describe('Router suite', function testSuite() {
           },
         },
       },
-      validator: { schemas: ['../router/helpers/schemas'] },
+      'router-amqp': {
+        retry: {
+          enabled: true,
+          min: 10,
+          max: 50,
+          factor: 1.3,
+          maxRetries: 5,
+          predicate(err, actionName) {
+            return actionName !== 'action.retry';
+          },
+        },
+      },
     });
 
     await service.connect();
@@ -255,17 +260,7 @@ describe('Router suite', function testSuite() {
   it('should be able to set schema and responseSchema from action name', function test() {
     const service = new Microfleet({
       name: 'tester',
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
-        },
-        router: {
-          enabled: true,
-        },
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'router-amqp'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -316,17 +311,7 @@ describe('Router suite', function testSuite() {
   it('should scan for nested routes', async function test() {
     const service = new Microfleet({
       name: 'tester',
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
-        },
-        router: {
-          enabled: true,
-        },
-      },
-      plugins: ['validator', 'logger', 'router', 'amqp'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'router-amqp'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -373,17 +358,6 @@ describe('Router suite', function testSuite() {
   it('should scan for generic routes', async function test() {
     const service = new Microfleet({
       name: 'tester',
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
-        },
-        router: {
-          enabled: true,
-          prefix: 'amqp',
-        },
-      },
       http: {
         server: {
           attachSocketio: true,
@@ -393,7 +367,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -416,6 +390,9 @@ describe('Router suite', function testSuite() {
         },
       },
       validator: { schemas: ['../router/helpers/schemas'] },
+      'router-amqp': {
+        prefix: 'amqp',
+      },
     });
 
     await service.connect();
@@ -443,16 +420,6 @@ describe('Router suite', function testSuite() {
   it('should return an error when some service fails his healthcheck', async function test() {
     const service = new Microfleet({
       name: 'tester',
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
-        },
-        router: {
-          enabled: true,
-        },
-      },
       http: {
         server: {
           handler: 'hapi',
@@ -461,7 +428,7 @@ describe('Router suite', function testSuite() {
           enabled: true,
         },
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'router-amqp'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -626,21 +593,11 @@ describe('Router suite', function testSuite() {
   it('should return 418 in maintenance mode', async function test() {
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['logger', 'validator', 'router', 'http', 'amqp'],
+      plugins: ['logger', 'validator', 'router', 'http', 'amqp', 'router-amqp'],
       maintenanceMode: true,
       http: {
         server: {
           handler: 'hapi',
-        },
-        router: {
-          enabled: true,
-        },
-      },
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
         },
         router: {
           enabled: true,

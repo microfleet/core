@@ -8,17 +8,6 @@
     const service = new Microfleet({
       name: 'tester',
       sigterm: true,
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
-        },
-        router: {
-          enabled: true,
-          prefix: 'amqp',
-        },
-      },
       http: {
         server: {
           attachSocketio: true,
@@ -29,7 +18,10 @@
           enabled: true,
         },
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
+      'router-amqp': {
+        prefix: 'amqp',
+      },
       router: {
         routes: {
           directory: path.resolve(__dirname, '../../router/helpers/actions'),

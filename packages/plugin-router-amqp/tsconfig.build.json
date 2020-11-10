@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.build.json"
+  }, {
+    "path": "../plugin-amqp/tsconfig.build.json"
+  }, {
+    "path": "../plugin-logger/tsconfig.build.json"
+  }],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./lib"
+  },
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "lib",
+    "dist",
+    "**.test.ts",
+    "**.spec.ts"
+  ]
+}

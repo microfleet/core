@@ -25,6 +25,7 @@ export const HEALTH_CHECKS_PROPERTY = 'healthChecks'
 
 /**
  * Constants with possilble transport values
+ * @todo plugin-router
  */
 export const ActionTransport = {
   amqp: 'amqp',
@@ -34,6 +35,7 @@ export const ActionTransport = {
 } as const
 
 // based on this we validate input data
+// @todo plugin-router
 export const DATA_KEY_SELECTOR = {
   amqp: 'params',
   delete: 'query',

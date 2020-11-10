@@ -233,9 +233,9 @@
     "@babel/helper-plugin-utils" "^7.10.4"
 
 "@babel/runtime@^7.11.2":
-  version "7.12.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
-  integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+  version "7.11.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
+  integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -982,7 +982,7 @@
     source-map "^0.6.1"
     write-file-atomic "^3.0.0"
 
-"@jest/types@^26.6.2":
+"@jest/types@^26.3.0", "@jest/types@^26.6.2":
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/@jest/types/-/types-26.6.2.tgz#bef5a532030e1d88a2f5a6d933f84e97226ed48e"
   integrity sha512-fC6QCp7Sc5sX6g8Tvbmj4XUTbyrik0akgRy03yjXbQaBWWNWGE7SGtJk98m0N8nzegD/7SggrUlivxo5ax4KWQ==
@@ -1727,7 +1727,7 @@
     debug "^3.1.0"
     lodash "^4.17.10"
 
-"@microfleet/transport-amqp@^15.2.3":
+"@microfleet/transport-amqp@^15.2.2", "@microfleet/transport-amqp@^15.2.3":
   version "15.2.3"
   resolved "https://registry.yarnpkg.com/@microfleet/transport-amqp/-/transport-amqp-15.2.3.tgz#f4938b62149aaaebb710ea3f7ae39b5273e9795d"
   integrity sha512-iauYa+yTmSXiqCJ3KlT19Gl3btm9n1naZEh/8RytswTof4CZFf/ldebaNINmKVl99CpSf33a0091kCn3KVY4Vw==
@@ -2144,16 +2144,7 @@
     "@sinonjs/commons" "^1"
     "@sinonjs/samsam" "^5.0.2"
 
-"@sinonjs/samsam@^5.0.2":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@sinonjs/samsam/-/samsam-5.1.0.tgz#3afe719232b541bb6cf3411a4c399a188de21ec0"
-  integrity sha512-42nyaQOVunX5Pm6GRJobmzbS7iLI+fhERITnETXzzwDZh+TtDr/Au3yAvXVjFmZ4wEUaE4Y3NFZfKv0bV0cbtg==
-  dependencies:
-    "@sinonjs/commons" "^1.6.0"
-    lodash.get "^4.4.2"
-    type-detect "^4.0.8"
-
-"@sinonjs/samsam@^5.2.0":
+"@sinonjs/samsam@^5.0.2", "@sinonjs/samsam@^5.2.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@sinonjs/samsam/-/samsam-5.2.0.tgz#fcff83ab86f83b5498f4a967869c079408d9b5eb"
   integrity sha512-CaIcyX5cDsjcW/ab7HposFWzV1kC++4HNsfnEdFJa7cP1QIuILAKV+BgfeqRXhcnSAc76r/Rh/O5C+300BwUIw==
@@ -2224,7 +2215,7 @@
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.32.tgz#381e7b59e39f010d20bbf7e044e48f5caf1ab620"
   integrity sha512-dIOxFfI0C+jz89g6lQ+TqhGgPQ0MxSnh/E4xuC0blhFtyW269+mPG5QeLgbdwst/LvdP8o1y0o/Gz5EHXLec/g==
 
-"@types/bluebird@^3.5.33":
+"@types/bluebird@^3.5.32", "@types/bluebird@^3.5.33":
   version "3.5.33"
   resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.5.33.tgz#d79c020f283bd50bd76101d7d300313c107325fc"
   integrity sha512-ndEo1xvnYeHxm7I/5sF6tBvnsA4Tdi3zj1keRKRs12SP+2ye2A27NDJ1B6PqkfMbGAcT+mqQVqbZRIrhfOp5PQ==
@@ -2522,16 +2513,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/pino@*":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@types/pino/-/pino-6.3.0.tgz#a4ad317278eca19becbc87f5ceafebb99d486604"
-  integrity sha512-AuZ32IbQlzW3XY9jA9X8iXkhMTtloKWHz1Ze23ClPx7L8ES69BNGfH308LsU2tHnDCLLCFoZvMn8+1njBx2EKg==
-  dependencies:
-    "@types/node" "*"
-    "@types/pino-std-serializers" "*"
-    "@types/sonic-boom" "*"
-
-"@types/pino@^6.3.3":
+"@types/pino@*", "@types/pino@^6.3.3":
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/@types/pino/-/pino-6.3.3.tgz#a8114e07d792d36b48b79db0151557b6d42c8d95"
   integrity sha512-YtT58N7Tt7B7f5B/upuq694p4eT4icM9TuhgYeKhm+dnF0Ahm7q5YJp1i7vC2mBMdWgH1IvOa2XK6rhUjBv0GQ==
@@ -7728,7 +7710,19 @@ jest-snapshot@^26.6.2:
     pretty-format "^26.6.2"
     semver "^7.3.2"
 
-jest-util@^26.1.0, jest-util@^26.6.2:
+jest-util@^26.1.0:
+  version "26.3.0"
+  resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-26.3.0.tgz#a8974b191df30e2bf523ebbfdbaeb8efca535b3e"
+  integrity sha512-4zpn6bwV0+AMFN0IYhH/wnzIQzRaYVrz1A8sYnRnj4UXDXbOVtWmlaZkO9mipFqZ13okIfN87aDoJWB7VH6hcw==
+  dependencies:
+    "@jest/types" "^26.3.0"
+    "@types/node" "*"
+    chalk "^4.0.0"
+    graceful-fs "^4.2.4"
+    is-ci "^2.0.0"
+    micromatch "^4.0.2"
+
+jest-util@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-26.6.2.tgz#907535dbe4d5a6cb4c47ac9b926f6af29576cbc1"
   integrity sha512-MDW0fKfsn0OI7MS7Euz6h8HNDXVQ0gaM9uW6RjfDmd1DAFcaxX9OqIakHIqhbnmF08Cf2DLDG+ulq8YQQ0Lp0Q==
@@ -11520,11 +11514,6 @@ socket.io@^3.0.1:
     socket.io-adapter "~2.0.3"
     socket.io-parser "~4.0.1"
 
-socketio-wildcard@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/socketio-wildcard/-/socketio-wildcard-2.0.0.tgz#2466e832276b19163563bee772388747f912475b"
-  integrity sha1-JGboMidrGRY1Y77ncjiHR/kSR1s=
-
 socks-proxy-agent@^4.0.0:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/socks-proxy-agent/-/socks-proxy-agent-4.0.2.tgz#3c8991f3145b2799e70e11bd5fbc8b1963116386"
@@ -13035,10 +13024,10 @@ yargs-parser@13.1.2, yargs-parser@^13.1.2:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
 
-yargs-parser@20.x, yargs-parser@^20.2.2, yargs-parser@^20.2.3:
-  version "20.2.3"
-  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.2.3.tgz#92419ba867b858c868acf8bae9bf74af0dd0ce26"
-  integrity sha512-emOFRT9WVHw03QSvN5qor9QQT9+sw5vwxfYweivSMHTcAXPefwVae2FjO7JJjj8hCE4CzPOPeFM83VwT29HCww==
+yargs-parser@20.x:
+  version "20.2.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.2.0.tgz#944791ca2be2e08ddadd3d87e9de4c6484338605"
+  integrity sha512-2agPoRFPoIcFzOIp6656gcvsg2ohtscpw2OINr/q46+Sq41xz2OYLqx5HRHabmFU1OARIPAYH5uteICE7mn/5A==
 
 yargs-parser@^15.0.1:
   version "15.0.1"
@@ -13060,6 +13049,11 @@ yargs-parser@^20.0.0:
   version "20.0.0"
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.0.0.tgz#c65a1daaa977ad63cebdd52159147b789a4e19a9"
   integrity sha512-8eblPHTL7ZWRkyjIZJjnGf+TijiKJSwA24svzLRVvtgoi/RZiKa9fFQTrlx0OKLnyHSdt/enrdadji6WFfESVA==
+
+yargs-parser@^20.2.2, yargs-parser@^20.2.3:
+  version "20.2.3"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.2.3.tgz#92419ba867b858c868acf8bae9bf74af0dd0ce26"
+  integrity sha512-emOFRT9WVHw03QSvN5qor9QQT9+sw5vwxfYweivSMHTcAXPefwVae2FjO7JJjj8hCE4CzPOPeFM83VwT29HCww==
 
 yargs-parser@^20.2.4:
   version "20.2.4"

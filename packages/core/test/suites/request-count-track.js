@@ -56,16 +56,9 @@ describe('service request count', () => {
   it('counts requests on existing routes', async () => {
     const service = new Microfleet({
       name: 'tester',
-      amqp: {
-        transport: {
-          connection: {
-            host: 'rabbitmq',
-          },
-        },
-        router: {
-          enabled: true,
-          prefix: 'amqp',
-        },
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
+      'router-amqp': {
+        prefix: 'amqp',
       },
       http: {
         server: {
@@ -77,7 +70,6 @@ describe('service request count', () => {
           enabled: true,
         },
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),

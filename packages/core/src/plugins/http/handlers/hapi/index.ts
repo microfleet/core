@@ -5,7 +5,7 @@ import Joi = require('joi')
 import { ActionTransport } from '@microfleet/utils'
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'
 import attachRouter, { HapiRouterConfig } from './router/attach'
-import * as RequestTracker from '../../../router/request-tracker'
+import RequestCountTracker from '../../../router/request-tracker'
 
 export interface HapiPlugin {
   plugin: string | Plugin<any>;
@@ -117,7 +117,7 @@ function createHapiServer(config: HapiPluginConfig, service: Microfleet): Plugin
   }
 
   function getRequestCount() {
-    return RequestTracker.getRequestCount(service, ActionTransport.http)
+    return RequestCountTracker.getRequestCount(service, ActionTransport.http)
   }
 
   async function stopServer() {
@@ -127,7 +127,7 @@ function createHapiServer(config: HapiPluginConfig, service: Microfleet): Plugin
       /* Socket depends on Http transport. Wait for its requests here */
       /* Call of socketio.close() causes all active connections close */
       if (config.server.attachSocketio) {
-        await RequestTracker.waitForRequestsToFinish(service, ActionTransport.socketio)
+        await RequestCountTracker.waitForRequestsToFinish(service, ActionTransport.socketio)
       }
 
       /* Server waits for connection finish anyway */

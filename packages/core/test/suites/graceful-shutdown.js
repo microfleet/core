@@ -12,7 +12,6 @@ const { Microfleet } = require('../..');
 const getAMQPRequest = require('../router/helpers/requests/amqp');
 const getHTTPRequest = require('../router/helpers/requests/http');
 const getSocketioRequest = require('../router/helpers/requests/socketio');
-
 const childServiceFile = path.resolve(__dirname, '../fixtures/child-service/index.js');
 
 class ChildServiceRunner {

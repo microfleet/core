@@ -10,7 +10,7 @@ import attachSocketioRouter from './attach'
 
 export const name = 'router-socketio'
 export const type = PluginTypes.transport
-export const priority = 200 // after plugin-socketio
+export const priority = 1 // after plugin-socketio
 
 export const attach = function attachRouterSocketioPlugin(
   this: Microfleet,

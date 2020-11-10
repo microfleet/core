@@ -12,7 +12,7 @@ import { Server as SocketServer } from 'socket.io'
 import { ActionTransport, Microfleet } from '@microfleet/core'
 import { PluginTypes } from '@microfleet/utils'
 import { AdapterFactory } from 'ms-socket.io-adapter-amqp'
-import { getRequestCount } from '@microfleet/core/lib/plugins/router/request-tracker'
+import { RequestCountTracker } from '@microfleet/core/lib/plugins/router/request-tracker'
 
 export type SocketIOAdapterConfig = {
   name: string;
@@ -38,7 +38,7 @@ declare module '@microfleet/core-types' {
 
 export const name = 'socketio'
 export const type = PluginTypes.transport
-export const priority = 100
+export const priority = 0
 
 export const attach = function attachSocketioPlugin(
   this: Microfleet,
@@ -72,6 +72,6 @@ export const attach = function attachSocketioPlugin(
   this.socketio = new SocketServer(socketioServerOptions)
 
   return {
-    getRequestCount: getRequestCount.bind(undefined, this, ActionTransport.socketio),
+    getRequestCount: RequestCountTracker.getRequestCount.bind(undefined, this, ActionTransport.socketio),
   }
 }

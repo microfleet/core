@@ -1,0 +1,1 @@
+# Microfleet plugin-router-amqp
