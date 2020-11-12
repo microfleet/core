@@ -1,10 +1,10 @@
-const Promise = require('bluebird');
-const { ActionTransport } = require('../../../../../../../');
+const Promise = require('bluebird')
+const { ActionTransport } = require('../../../../../../../')
 
 function FooAction() {
-  return Promise.resolve('foo');
+  return Promise.resolve('foo')
 }
 
-FooAction.transports = [ActionTransport.http, ActionTransport.socketio];
+FooAction.transports = [ActionTransport.http, ActionTransport.socketio]
 
-module.exports = FooAction;
+module.exports = FooAction

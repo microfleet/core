@@ -1,7 +1,7 @@
 import assert = require('assert')
 import rfdc = require('rfdc')
 import path = require('path')
-import { NotFoundError, NotSupportedError } from 'common-errors'
+import { NotFoundError } from 'common-errors'
 import { ActionTransport, PluginTypes, identity, defaultsDeep } from '@microfleet/utils'
 import type { Microfleet, ServiceRequest } from '@microfleet/core-types'
 import { getRouter, Router, RouterConfig, LifecycleRequestType } from './router/factory'
@@ -162,11 +162,12 @@ export function attach(this: Microfleet, opts: Partial<RouterConfig>): void {
   // validate & overwrite
   const config = this.config.router = this.validator.ifError<RouterConfig>('router', defaultsDeep(opts, defaultConfig))
 
-  for (const transport of config.routes.transports) {
-    if (!this.config.plugins.includes(transport) && transport !== internal) {
-      throw new NotSupportedError(`transport ${transport}`)
-    }
-  }
+  // @todo fix it
+  // for (const transport of config.routes.transports) {
+  //   if (!this.config.plugins.includes(transport) && transport !== internal) {
+  //     throw new NotSupportedError(`transport ${transport}`)
+  //   }
+  // }
 
   const router = this.router = getRouter(config, this)
 

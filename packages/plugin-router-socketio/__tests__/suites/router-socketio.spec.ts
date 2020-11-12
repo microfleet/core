@@ -10,9 +10,9 @@ describe('@microfleet/plugin-router-socketio', () => {
     plugins: [
       'validator',
       'logger',
+      'router',
       'socketio',
       'http',
-      'router',
       'router-socketio'
     ],
     http: {

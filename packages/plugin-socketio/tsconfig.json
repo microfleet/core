@@ -10,8 +10,5 @@
     "path": "../plugin-logger/tsconfig.json"
   }, {
     "path": "../plugin-validator/tsconfig.json"
-  }],
-  "compilerOptions": {
-    "skipLibCheck": true
-  }
+  }]
 }

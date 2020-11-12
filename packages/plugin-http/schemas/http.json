@@ -1,0 +1,41 @@
+{
+  "$id": "http",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "server"
+  ],
+  "properties": {
+    "server": {
+      "default": {},
+      "type": "object",
+      "required": [
+        "handler",
+        "port",
+        "host"
+      ],
+      "properties": {
+        "attachSocketio": {
+          "default": false,
+          "type": "boolean"
+        },
+        "handler": {
+          "default": "hapi",
+          "type": "string"
+        },
+        "handlerConfig": {
+          "default": {},
+          "type": "object"
+        },
+        "port": {
+          "default": 3000,
+          "type": "integer"
+        },
+        "host": {
+          "default": "0.0.0.0",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

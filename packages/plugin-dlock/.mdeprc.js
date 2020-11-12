@@ -2,7 +2,7 @@ module.exports = {
   nycCoverage: false,
   coverage: false,
   auto_compose: true,
-  node: "12",
+  node: "14",
   parallel: 3,
   tests: '__tests__/*.spec.ts',
   extras: {

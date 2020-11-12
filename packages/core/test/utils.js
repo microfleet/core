@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const findByName = pluginName => i => (
+const findByName = (pluginName) => (i) => (
   pluginName === i.name
 );
 

@@ -1,6 +1,6 @@
 const Errors = require('common-errors');
 const Promise = require('bluebird');
-const { ActionTransport } = require('./../../../..');
+const { ActionTransport } = require('../../../..');
 
 function SimpleAction(request) {
   return Promise.resolve({

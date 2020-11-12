@@ -14,11 +14,8 @@
           handler: 'hapi',
           port: parseInt(process.argv[2], 10),
         },
-        router: {
-          enabled: true,
-        },
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
+      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-http', 'router-socketio', 'router-amqp'],
       'router-amqp': {
         prefix: 'amqp',
       },

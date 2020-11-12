@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const Promise = require('bluebird');
 const path = require('path');
 const assert = require('assert');
@@ -8,10 +9,10 @@ const { once } = require('events');
 const getFreePort = require('get-port');
 const SocketIOClient = require('socket.io-client');
 const { Microfleet } = require('../..');
-
 const getAMQPRequest = require('../router/helpers/requests/amqp');
 const getHTTPRequest = require('../router/helpers/requests/http');
 const getSocketioRequest = require('../router/helpers/requests/socketio');
+
 const childServiceFile = path.resolve(__dirname, '../fixtures/child-service/index.js');
 
 class ChildServiceRunner {
@@ -38,7 +39,7 @@ class ChildServiceRunner {
     });
 
     stdout.pipe(split2()).on('data', (line) => {
-      console.info(line)
+      console.info(line);
       this.stdout.push(line);
       if (line.includes('childServiceReady')) {
         this.serviceStarted = true;
@@ -54,7 +55,7 @@ class ChildServiceRunner {
         Promise.delay(30000).throw(new Promise.TimeoutError()),
       ]);
     } catch (e) {
-      console.error(e)
+      console.error(e);
       console.error(this.stdout.join('\n'));
       throw new Error(this.stderr.join('\n'));
     }

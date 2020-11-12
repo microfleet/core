@@ -7,8 +7,8 @@ const sinon = require('sinon');
 const Promise = require('bluebird');
 const SocketIOClient = require('socket.io-client');
 
-const { withResponseValidateAction } = require('../router/helpers/configs');
 const { range, filter } = require('lodash');
+const { withResponseValidateAction } = require('../router/helpers/configs');
 
 describe('Router suite', function testSuite() {
   require('../config');
@@ -36,11 +36,12 @@ describe('Router suite', function testSuite() {
       plugins: [
         'validator',
         'logger',
-        'amqp',
-        'http',
-        'socketio',
         'router',
+        'amqp',
         'router-amqp',
+        'http',
+        'router-http',
+        'socketio',
         'router-socketio',
       ],
       validator: { schemas: ['../router/helpers/schemas'] },
@@ -55,9 +56,6 @@ describe('Router suite', function testSuite() {
         server: {
           attachSocketio: true,
           handler: 'hapi',
-        },
-        router: {
-          enabled: true,
         },
       },
       router: {
@@ -210,15 +208,12 @@ describe('Router suite', function testSuite() {
   it('should be able to parse query string when present & perform validation', async function test() {
     const service = new Microfleet({
       name: 'tester',
+      plugins: ['validator', 'logger', 'router', 'http', 'router-http'],
       http: {
         server: {
           handler: 'hapi',
         },
-        router: {
-          enabled: true,
-        },
       },
-      plugins: ['validator', 'logger', 'router', 'http'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -358,16 +353,23 @@ describe('Router suite', function testSuite() {
   it('should scan for generic routes', async function test() {
     const service = new Microfleet({
       name: 'tester',
+      plugins: [
+        'validator',
+        'logger',
+        'router',
+        'amqp',
+        'router-amqp',
+        'http',
+        'router-http',
+        'socketio',
+        'router-socketio',
+      ],
       http: {
         server: {
           attachSocketio: true,
           handler: 'hapi',
         },
-        router: {
-          enabled: true,
-        },
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'socketio', 'router-socketio', 'router-amqp'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -420,15 +422,20 @@ describe('Router suite', function testSuite() {
   it('should return an error when some service fails his healthcheck', async function test() {
     const service = new Microfleet({
       name: 'tester',
+      plugins: [
+        'validator',
+        'logger',
+        'router',
+        'amqp',
+        'router-amqp',
+        'http',
+        'router-http',
+      ],
       http: {
         server: {
           handler: 'hapi',
         },
-        router: {
-          enabled: true,
-        },
       },
-      plugins: ['validator', 'logger', 'router', 'amqp', 'http', 'router-amqp'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -522,13 +529,17 @@ describe('Router suite', function testSuite() {
     });
     const service = new Microfleet({
       name: 'tester',
-      http: { server: { handler: 'hapi' }, router: { enabled: true } },
+      plugins: ['validator', 'logger', 'router', 'http', 'router-http'],
+      http: {
+        server: {
+          handler: 'hapi',
+        },
+      },
       logger: {
         streams: {
           spy: { level: 'error', stream: spyWritable },
         },
       },
-      plugins: ['validator', 'logger', 'router', 'http'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -559,13 +570,17 @@ describe('Router suite', function testSuite() {
     });
     const service = new Microfleet({
       name: 'tester',
-      http: { server: { handler: 'hapi' }, router: { enabled: true } },
+      plugins: ['validator', 'logger', 'router', 'http', 'router-http'],
+      http: {
+        server: {
+          handler: 'hapi',
+        },
+      },
       logger: {
         streams: {
           spy: { level: 'info', stream: spyWritable },
         },
       },
-      plugins: ['validator', 'logger', 'router', 'http'],
       router: {
         routes: {
           directory: path.resolve(__dirname, '../router/helpers/actions'),
@@ -593,14 +608,19 @@ describe('Router suite', function testSuite() {
   it('should return 418 in maintenance mode', async function test() {
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['logger', 'validator', 'router', 'http', 'amqp', 'router-amqp'],
+      plugins: [
+        'logger',
+        'validator',
+        'router',
+        'amqp',
+        'router-amqp',
+        'http',
+        'router-http',
+      ],
       maintenanceMode: true,
       http: {
         server: {
           handler: 'hapi',
-        },
-        router: {
-          enabled: true,
         },
       },
       router: {
@@ -666,8 +686,8 @@ describe('Router suite', function testSuite() {
         expect(error.name).to.be.equal('HttpStatusError');
         expect(error.statusCode).to.be.equal(417);
         expect(error.message).to.be.equal(`response.${schemaName} validation failed: data should NOT have additional properties`);
-      }
-    })
+      },
+    });
 
     it('should validate response if schema provided and global validation enabled', async () => {
       const config = withResponseValidateAction('validate-response-test', {
@@ -679,8 +699,8 @@ describe('Router suite', function testSuite() {
               panic: true,
             },
           },
-        }
-      })
+        },
+      });
 
       const service = new Microfleet(config);
 
@@ -691,7 +711,7 @@ describe('Router suite', function testSuite() {
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
       const socketioRequest = getSocketioRequest(socketIOClient);
 
-      const check = throwsError('validate-response')
+      const check = throwsError('validate-response');
 
       await socketioRequest('action.validate-response', { success: true }).reflect().then(verify(returnsResult));
       await socketioRequest('action.validate-response', { success: false }).reflect().then(verify(check));
@@ -706,8 +726,8 @@ describe('Router suite', function testSuite() {
       await HTTPRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
       await AMQPRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
 
-      await service.close()
-    })
+      await service.close();
+    });
 
     it('should validate response and warn if `panic` is false', async () => {
       const config = withResponseValidateAction('validate-response-test', {
@@ -719,8 +739,8 @@ describe('Router suite', function testSuite() {
               panic: false,
             },
           },
-        }
-      })
+        },
+      });
 
       const service = new Microfleet(config);
 
@@ -731,7 +751,7 @@ describe('Router suite', function testSuite() {
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
       const socketioRequest = getSocketioRequest(socketIOClient);
 
-      const spy = sinon.spy(service.log, 'warn')
+      const spy = sinon.spy(service.log, 'warn');
 
       await socketioRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
       await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
@@ -741,15 +761,15 @@ describe('Router suite', function testSuite() {
       await HTTPRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
       await AMQPRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult));
 
-      const calls = spy.getCalls()
-      const warnings = calls.map(({ args: [{ err, action }, message]}) => ({ err, action, message }))
+      const calls = spy.getCalls();
+      const warnings = calls.map(({ args: [{ err, action }, message] }) => ({ err, action, message }));
 
-      expect(filter(warnings, { message: '[response] validation failed' })).to.have.length(3)
-      expect(filter(warnings, { action: 'validate-response' })).to.have.length(3)
+      expect(filter(warnings, { message: '[response] validation failed' })).to.have.length(3);
+      expect(filter(warnings, { action: 'validate-response' })).to.have.length(3);
 
-      spy.restore()
-      await service.close()
-    })
+      spy.restore();
+      await service.close();
+    });
 
     it('should validate response if schema provided and global validation enabled with limited percent', async () => {
       const config = withResponseValidateAction('validate-response-test', {
@@ -761,8 +781,8 @@ describe('Router suite', function testSuite() {
               panic: true,
             },
           },
-        }
-      })
+        },
+      });
 
       const service = new Microfleet(config);
 
@@ -779,29 +799,29 @@ describe('Router suite', function testSuite() {
 
       const count = (result) => {
         if (result.isFulfilled()) {
-          success += 1
+          success += 1;
         } else {
-          failed += 1
-          verify(check)(result)
+          failed += 1;
+          verify(check)(result);
         }
-      }
+      };
 
       const promises = Promise.map(range(25), async () => {
         await socketioRequest('action.validate-response', { success: false }).reflect().then(count);
         await HTTPRequest('/action/validate-response', { success: false }).reflect().then(count);
         await AMQPRequest('action.validate-response', { success: false }).reflect().then(count);
         await AMQPRequest('action.validate-response', { success: false }).reflect().then(count);
-      })
+      });
 
-      await Promise.all(promises)
-      console.debug('TEST', { failed, success })
+      await Promise.all(promises);
+      console.debug('TEST', { failed, success });
 
       // Math.random does not brings constant results))))
       expect(failed).to.be.below(20);
       expect(success).to.be.above(80);
 
-      await service.close()
-    })
+      await service.close();
+    });
 
     it('should not validate response if schema provided and global validation disabled', async () => {
       const config = withResponseValidateAction('validate-response-disabled-test', {
@@ -813,8 +833,8 @@ describe('Router suite', function testSuite() {
               panic: true,
             },
           },
-        }
-      })
+        },
+      });
       const service = new Microfleet(config);
 
       await service.connect();
@@ -828,8 +848,8 @@ describe('Router suite', function testSuite() {
       await HTTPRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
       await AMQPRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult));
 
-      await service.close()
-    })
+      await service.close();
+    });
 
     it('should validate response if schema provided and schemalessAction plugin enabled', async () => {
       const config = withResponseValidateAction('shemaless-action-response-test', {
@@ -842,10 +862,10 @@ describe('Router suite', function testSuite() {
             },
           },
           extensions: {
-            register: [ schemaLessAction ],
+            register: [schemaLessAction],
           },
-        }
-      })
+        },
+      });
 
       const service = new Microfleet(config);
 
@@ -855,7 +875,7 @@ describe('Router suite', function testSuite() {
       const HTTPRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' });
       const socketIOClient = SocketIOClient('http://0.0.0.0:3000');
       const socketioRequest = getSocketioRequest(socketIOClient);
-      const check = throwsError('validate-response-without-schema')
+      const check = throwsError('validate-response-without-schema');
 
       await socketioRequest('action.validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult));
       await socketioRequest('action.validate-response-without-schema', { success: false }).reflect().then(verify(check));
@@ -866,7 +886,7 @@ describe('Router suite', function testSuite() {
       await AMQPRequest('action.validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult));
       await AMQPRequest('action.validate-response-without-schema', { success: false }).reflect().then(verify(check));
 
-      await service.close()
-    })
-  })
+      await service.close();
+    });
+  });
 });

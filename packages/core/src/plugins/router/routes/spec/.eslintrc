@@ -1,6 +1,8 @@
 {
   "rules": {
-    "promise/always-return": 0
+    "promise/always-return": 0,
+    "no-var-requires": 0,
+    "@typescript-eslint/no-var-requires": 0
   },
   "env": {
     "mocha": true

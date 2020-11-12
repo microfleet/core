@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.json"
+  }, {
+    "path": "../plugin-logger/tsconfig.json"
+  }, {
+    "path": "../plugin-socketio/tsconfig.json"
+  }]
+}

@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.json"
+  }, {
+    "path": "../plugin-hapi/tsconfig.json"
+  }, {
+    "path": "../plugin-socketio/tsconfig.json"
+  }, {
+    "path": "../plugin-router-socketio/tsconfig.json"
+  }]
+}

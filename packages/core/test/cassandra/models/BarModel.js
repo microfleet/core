@@ -1,6 +1,7 @@
+// eslint-disable-next-line unicorn/filename-case
 module.exports = {
-  fields:{
-    baz: 'text'
+  fields: {
+    baz: 'text',
   },
-  key:['baz']
+  key: ['baz'],
 };
