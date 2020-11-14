@@ -1,5 +1,5 @@
 import assert = require('assert')
-import { Microfleet, PluginTypes, ValidatorPlugin } from '@microfleet/core'
+import { Microfleet, PluginTypes, ValidatorPlugin, defaultsDeep } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
 import pino = require('pino')
 import pinoms = require('pino-multi-stream')
@@ -11,7 +11,7 @@ import { resolve } from 'path'
 export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
 const defaultConfig = {
-  debug: false,
+  debug: process.env.NODE_ENV !== 'production',
   // there are no USER env variable in docker image
   // so we can set default value based on its absence
   // NOTE: not intended for production usage
@@ -119,7 +119,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const { config: { name: applicationName } } = this
-  const config = this.validator.ifError<LoggerConfig>('logger', opts)
+  const config = this.validator.ifError<LoggerConfig>('logger', defaultsDeep(opts, defaultConfig))
   const {
     debug,
     defaultLogger,
@@ -127,7 +127,7 @@ export function attach(this: Microfleet & ValidatorPlugin, opts: Partial<LoggerC
     options,
     name: serviceName,
     streams: streamsConfig,
-  } = Object.assign({}, defaultConfig, config)
+  } = config
 
   if (isCompatible(defaultLogger)) {
     this.log = defaultLogger

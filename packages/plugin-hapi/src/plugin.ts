@@ -6,11 +6,11 @@ import {
   ActionTransport,
   Microfleet,
   PluginInterface,
-  RequestCountTracker,
   ValidatorPlugin,
   PluginTypes,
 } from '@microfleet/core'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { RequestCountTracker } from '@microfleet/plugin-router'
 import { SocketIOPlugin } from '@microfleet/plugin-socketio'
 
 import type { HapiPlugin, HapiPluginPlugin, HapiPluginConfig } from './types/plugin'

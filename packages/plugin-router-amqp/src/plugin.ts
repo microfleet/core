@@ -5,22 +5,21 @@ import {
   Microfleet,
   PluginTypes,
   ValidatorPlugin,
-  RouterPlugin,
   PluginInterface,
+  ActionTransport,
 } from '@microfleet/core'
+import { RouterPlugin } from '@microfleet/plugin-router'
 
 // @todo import { AMQPPlugin } from '@microfleet/plugin-amqp' ?
-import type { AMQPPlugin } from '@microfleet/plugin-amqp/lib/types/plugin'
+import type { AMQPPlugin } from '@microfleet/plugin-amqp'
 
 import getReptyOnCompleteFunction from './retry'
 import getAMQPRouterAdapter from './adapter'
 import { RouterAMQPPluginConfig } from './types/plugin'
 
-const identity = <T>(arg: T) => arg
-
 export const name = 'router-amqp'
 export const type = PluginTypes.transport
-export const priority = 1 // should be after plugin-amqp
+export const priority = 101 // should be after plugin-amqp and plugin router
 
 export function attach(
   this: Microfleet & ValidatorPlugin & RouterPlugin & AMQPPlugin,
@@ -47,7 +46,8 @@ export function attach(
     onComplete = getReptyOnCompleteFunction(amqpConfig, routerAmqpConfig, logger, retryQueue)
   }
 
-  const adapter = getAMQPRouterAdapter(this.router, routerAmqpConfig, onComplete)
+  // const adapter = getAMQPRouterAdapter(this, routerAmqpConfig, onComplete)
+  const adapter = getAMQPRouterAdapter(this, onComplete)
 
   return {
     async connect(this: Microfleet & AMQPPlugin) {
@@ -68,12 +68,13 @@ export function attach(
         })
       }
 
-      await this.amqp.createConsumedQueue(
-        adapter,
-        Object
-          .keys(this.router.routes.amqp)
-          .map(routerAmqpConfig.prefix ? route => `${routerAmqpConfig.prefix}.${route}` : identity)
-      )
+      const routes = []
+
+      for (const route of this.router.getRoutes(ActionTransport.amqp).keys()) {
+        routes.push(routerAmqpConfig.prefix ? `${routerAmqpConfig.prefix}.${route}` : route)
+      }
+
+      await this.amqp.createConsumedQueue(adapter, routes)
     },
 
     async close(this: Microfleet) {

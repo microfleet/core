@@ -8,7 +8,7 @@ import { RouterHapiPluginConfig } from './types/plugin'
 
 export const name = 'router-hapi'
 export const type = PluginTypes.transport
-export const priority = 1 // should be after plugin-hapi
+export const priority = 101 // should be after plugin-hapi and plugin router
 
 /**
  * Attaches HTTP handler.

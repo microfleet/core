@@ -10,11 +10,7 @@ import {
 } from './constants'
 
 import { ClientRequest } from 'http'
-
-/**
- * Expose Router Type
- */
-export { Router } from './plugins/router'
+import { Microfleet } from './'
 
 /**
  * $Keys
@@ -59,8 +55,8 @@ export type MserviceError = Error & {
 
 export declare interface AuthConfig {
   name: string;
-  passAuthError: boolean;
-  strategy: string;
+  passAuthError?: boolean;
+  strategy?: 'required' | 'try';
 }
 
 export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_PROPERTY
@@ -70,8 +66,9 @@ export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>
 export type GetAuthName = (req: ServiceRequest) => string
 export type ServiceActionStep = (...args: any[]) => PromiseLike<any>
 
+// @todo plugin-router
 export declare interface ServiceAction extends ServiceActionStep {
-  allowed?: () => boolean | Promise<boolean>;
+  allowed?: (this: Microfleet, request: ServiceRequest) => boolean | Promise<boolean>;
   auth?: string | GetAuthName | AuthConfig;
   passAuthError?: boolean;
   schema?: string | null | boolean;
@@ -82,6 +79,7 @@ export declare interface ServiceAction extends ServiceActionStep {
   readonly?: boolean;
 }
 
+// @todo plugin-router
 export declare interface ServiceRequest {
   route: string;
   params: any;
@@ -104,6 +102,8 @@ export declare interface ServiceRequest {
     error(...args: any[]): void;
     fatal(...args: any[]): void;
   };
+  error?: any;
+  response?: unknown;
 }
 
 export type PluginStatus = typeof PLUGIN_STATUS_OK | typeof PLUGIN_STATUS_FAIL

@@ -26,21 +26,16 @@ import {
   TConnectorsTypes,
 } from './types'
 import { ValidatorPlugin, ValidatorConfig } from './plugins/validator'
-import { RouterConfig, RouterPlugin, LifecycleRequestType, LifecyclePoints } from './plugins/router'
 import { RedisPlugin } from './plugins/redis/types'
-import RequestCountTracker from './plugins/router/request-tracker'
 import defaultsDeep from './utils/defaults-deep'
 import type { Options as RetryOptions } from 'bluebird-retry'
 
 export {
   ValidatorPlugin,
-  RouterPlugin,
   RedisPlugin,
-  LifecycleRequestType,
-  LifecyclePoints,
   PluginHealthStatus,
   HealthStatus,
-  RequestCountTracker,
+  defaultsDeep,
 }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
@@ -112,11 +107,6 @@ export interface ConfigurationOptional {
    * Validator plugin configuration
    */
   validator: ValidatorConfig;
-
-  /**
-   * Router configuration
-   */
-  router: RouterConfig;
 
   /**
   * Arbitrary hooks to be executed asynchronously

@@ -9,7 +9,7 @@ import { RouterHTTPPluginConfig } from './types/plugin'
 
 export const name = 'router-http'
 export const type = PluginTypes.transport
-export const priority = 1 // should be after plugin-http
+export const priority = 101 // should be after plugin-http and plugin router
 
 export function attach(
   this: Microfleet & ValidatorPlugin & HTTPPlugin,

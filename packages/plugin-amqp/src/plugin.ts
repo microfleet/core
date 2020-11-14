@@ -7,9 +7,10 @@ import {
   Microfleet,
   PluginTypes,
   ValidatorPlugin,
-  PluginInterface,
-  RequestCountTracker
+  PluginInterface
 } from '@microfleet/core'
+// @todo move out of this plugin or router plugin
+import { RequestCountTracker } from '@microfleet/plugin-router'
 import * as AMQPTransport from '@microfleet/transport-amqp'
 
 import { AMQPPlugin, AMQPPluginConfig } from './types/plugin'

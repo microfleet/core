@@ -1,7 +1,8 @@
 import * as get from 'get-value'
 import { Request, ResponseToolkit, Server, ServerRegisterPluginObject } from '@hapi/hapi'
 import { defaults, omit } from 'lodash'
-import { ActionTransport, Microfleet, Router } from '@microfleet/core'
+import { ActionTransport, Microfleet } from '@microfleet/core'
+import { Router, RouterPlugin } from '@microfleet/plugin-router'
 
 import hapiRouterAdapter from './adapter'
 import { fromNameToPath, fromPathToName } from './utils/action-name'
@@ -32,13 +33,13 @@ function attachRequestCountEvents(server: Server, router: Router) {
   server.events.on('stop', onStop)
 }
 
-export default function attachRouter(service: Microfleet, config: RouterHapiPluginConfig): ServerRegisterPluginObject<any> {
+export default function attachRouter(service: Microfleet & RouterPlugin, config: RouterHapiPluginConfig): ServerRegisterPluginObject<any> {
   return {
     plugin: {
       name: 'microfleetRouter',
       version: '1.0.0',
       async register(server: Server) {
-        for (const [actionName, handler] of Object.entries(service.router.routes.http)) {
+        for (const [actionName, handler] of Object.entries(service.router.getRoutes(ActionTransport.http))) {
           const path = fromNameToPath(actionName, config.prefix)
           const defaultOptions = {
             path,

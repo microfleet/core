@@ -1,8 +1,7 @@
 import createDebug from 'debug'
 import { noop } from 'lodash'
-import { ActionTransport, ServiceRequest, Router } from '@microfleet/core'
-
-import type { RequestCallback } from '@microfleet/core/lib/plugins/router/dispatcher'
+import { ActionTransport, ServiceRequest } from '@microfleet/core'
+import { Router, RequestCallback } from '@microfleet/plugin-router'
 
 const debug = createDebug('plugin-router-socketio')
 
@@ -37,7 +36,7 @@ function getSocketIORouterAdapter(router: Router): (socket: NodeJS.EventEmitter)
         method: 'socketio',
         parentSpan: undefined,
         query: Object.create(null),
-        route: '',
+        route: actionName,
         span: undefined,
         transport: ActionTransport.socketio,
         transportRequest: packet,

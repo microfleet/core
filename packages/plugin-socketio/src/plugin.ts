@@ -3,8 +3,9 @@ import { resolve } from 'path'
 import { NotImplementedError, NotFoundError } from 'common-errors'
 import createDebug from 'debug'
 import * as SocketIOStatic from 'socket.io'
-import { ActionTransport, RequestCountTracker, PluginTypes, Microfleet, ValidatorPlugin } from '@microfleet/core'
+import { ActionTransport, PluginTypes, Microfleet, ValidatorPlugin } from '@microfleet/core'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { RequestCountTracker } from '@microfleet/plugin-router'
 // @todo peer dependency
 import AdapterFactory from 'ms-socket.io-adapter-amqp'
 

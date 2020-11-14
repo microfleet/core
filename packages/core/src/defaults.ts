@@ -1,17 +1,4 @@
-import path = require('path')
-import * as constants from './constants'
-import { RouterConfig, LifecyclePoints } from './plugins/router/factory'
 import { ValidatorConfig } from './plugins/validator'
-
-/**
- * This extension defaults schemas to the name of the action
- */
-import autoSchema from './plugins/router/extensions/validate/schemaLessAction'
-
-/**
- * Provides audit log for every performed action
- */
-import auditLog from './plugins/router/extensions/audit/log'
 
 /**
  * Default configurations module
@@ -28,17 +15,6 @@ export const validator: Partial<ValidatorConfig> = {
 }
 
 /**
- * Settigs for Logger plugin
- */
-export const logger = {
-  /**
-   * anything thats not production will include extra logs
-   * @type {boolean}
-   */
-  debug: process.env.NODE_ENV !== 'production',
-}
-
-/**
  * Default plugins that each service would likely require
  * It's advised to revamp this per your project
  */
@@ -49,72 +25,6 @@ export const plugins = [
   'http',
   'router-http',
 ]
-
-/**
- * Default Router configuration.
- */
-export const router: Partial<RouterConfig> = {
-  /**
-   * Routes configuration
-   */
-  routes: {
-    /**
-     * Directory to scan for actions.
-     */
-    directory: path.resolve(process.cwd(), 'src/actions'),
-
-    /**
-     * When set to empty object, will scan directory
-     */
-    enabled: Object.create(null),
-
-    /**
-     * Prefix for actions, it's added after transport-specific configuration
-     */
-    prefix: '',
-
-    /**
-     * Sets transports defined here as default ones for action.
-     */
-    setTransportsAsDefault: true,
-
-    /**
-     * Initialize that array of transports
-     */
-    transports: [constants.ActionTransport.http],
-
-    /**
-     * Enables health action by default
-     */
-    enabledGenericActions: [
-      'health',
-    ],
-
-    /**
-     * Enables response validation.
-     */
-    responseValidation: {
-      enabled: false,
-      maxSample: 7,
-      panic: false,
-    }
-  },
-
-  /**
-   * Extensions configuration
-   */
-  extensions: {
-    /**
-     * Enabled extension points
-     */
-    enabled: [LifecyclePoints.postRequest, LifecyclePoints.preRequest, LifecyclePoints.preResponse],
-
-    /**
-     * Enabled plugins
-     */
-    register: [autoSchema, auditLog()],
-  },
-}
 
 /**
  * Contains function definitions for service-specific hooks

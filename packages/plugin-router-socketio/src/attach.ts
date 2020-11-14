@@ -1,4 +1,4 @@
-import { Router } from '@microfleet/core'
+import { Router } from '@microfleet/plugin-router'
 
 import getSocketIORouterAdapter from './adapter'
 import wildcard = require('socketio-wildcard')

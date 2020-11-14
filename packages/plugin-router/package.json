@@ -1,0 +1,50 @@
+{
+  "name": "@microfleet/plugin-router",
+  "version": "0.0.0-dev.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "lint": "eslint ./src ./__tests__",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "router"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-router"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {
+    "@microfleet/transport-amqp": "^15.2.3",
+    "lodash": "^4.17.20",
+    "rfdc": "^1.1.4"
+  },
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x",
+    "common-errors": "~1.x.x"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.3.4"
+  },
+  "engines": {
+    "node": ">= 12.14.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}
