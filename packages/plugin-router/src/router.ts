@@ -60,7 +60,8 @@ export default class Router {
   public prefix(route: string): string {
     const { prefix } = this.config.routes
 
-    if (prefix !== undefined) {
+    // @todo fix config with empty string
+    if (prefix !== undefined && prefix !== '') {
       return `${prefix}.${route}`
     }
 

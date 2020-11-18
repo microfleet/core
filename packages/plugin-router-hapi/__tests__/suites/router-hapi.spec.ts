@@ -191,8 +191,8 @@ describe('@microfleet/plugin-router-hapi', () => {
         body: '{"status":"😿"}',
       })
 
+      strictEqual(response.body, '{"status":"😿"}')
       strictEqual(response.statusCode, 200)
-      deepStrictEqual(response.body, '{"status":"😿"}')
     } finally {
       await service.close()
     }

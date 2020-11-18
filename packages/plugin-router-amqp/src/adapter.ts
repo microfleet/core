@@ -69,7 +69,7 @@ function getAMQPRouterAdapter(
     increaseCounter()
     try {
       const promise = dispatch(actionName, opts)
-      const response = await wrapDispatch(promise, routingKey, raw)
+      const response = await wrapDispatch(promise, actionName, raw)
 
       setImmediate(next, null, response)
     } catch (e) {

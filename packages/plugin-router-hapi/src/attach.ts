@@ -1,7 +1,7 @@
 import * as get from 'get-value'
 import { Request, ResponseToolkit, Server, ServerRegisterPluginObject } from '@hapi/hapi'
 import { defaults, omit } from 'lodash'
-import { ActionTransport, Microfleet } from '@microfleet/core'
+import { ActionTransport, Microfleet, ServiceAction } from '@microfleet/core'
 import { Router, RouterPlugin } from '@microfleet/plugin-router'
 
 import hapiRouterAdapter from './adapter'
@@ -39,7 +39,7 @@ export default function attachRouter(service: Microfleet & RouterPlugin, config:
       name: 'microfleetRouter',
       version: '1.0.0',
       async register(server: Server) {
-        for (const [actionName, handler] of Object.entries(service.router.getRoutes(ActionTransport.http))) {
+        for (const [actionName, handler] of service.router.getRoutes(ActionTransport.http).entries()) {
           const path = fromNameToPath(actionName, config.prefix)
           const defaultOptions = {
             path,
@@ -47,7 +47,7 @@ export default function attachRouter(service: Microfleet & RouterPlugin, config:
             method: ['GET', 'POST'],
           }
 
-          const hapiTransportOptions = get(handler as Record<string, unknown>, 'transportOptions.handlers.hapi', Object.create(null))
+          const hapiTransportOptions = get(handler as ServiceAction, 'transportOptions.handlers.hapi', Object.create(null))
           const handlerOptions = omit(hapiTransportOptions, ['path', 'handler'])
 
           server.route(defaults(handlerOptions, defaultOptions))

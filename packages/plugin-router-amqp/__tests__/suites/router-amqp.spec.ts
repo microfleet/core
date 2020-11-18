@@ -1,12 +1,13 @@
 import * as assert from 'assert'
 import { resolve } from 'path'
 import { ConnectionError } from 'common-errors'
-import { Microfleet, ActionTransport, ServiceRequest, LifecyclePoints } from '@microfleet/core'
+import { Microfleet, ServiceRequest } from '@microfleet/core'
+import { Lifecycle } from '@microfleet/plugin-router'
 
 jest.setTimeout(15000)
 
 const failedActionEmulator = [{
-  point: LifecyclePoints.preHandler,
+  point: Lifecycle.points.preHandler,
   async handler(request: ServiceRequest) {
     const { failAtRetryCount } = request.params
     const { headers } = request.headers
@@ -32,9 +33,7 @@ describe('AMQP suite: basic routing', function testSuite() {
     ],
     router: {
       routes: {
-        directory: resolve(__dirname, '../artefacts/actions'),
-        // @todo fix defaults
-        transports: [ActionTransport.amqp],
+        directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
   })
@@ -43,9 +42,9 @@ describe('AMQP suite: basic routing', function testSuite() {
   afterAll(() => service.close())
 
   it('able to observe an action', async () => {
-    const { amqp: amqpRoutes } = service.router.routes
+    const amqpRoutes = service.router.getRoutes('amqp')
 
-    assert.ok(typeof amqpRoutes.echo === 'function')
+    assert.ok(typeof amqpRoutes.get('echo') === 'function')
   })
 
   it('able to dispatch action and return response', async () => {
@@ -69,9 +68,7 @@ describe('AMQP suite: prefixed routing', function testSuite() {
     ],
     router: {
       routes: {
-        directory: resolve(__dirname, '../artefacts/actions'),
-        // @todo fix defaults
-        transports: [ActionTransport.amqp],
+        directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
     'router-amqp': {
@@ -83,9 +80,9 @@ describe('AMQP suite: prefixed routing', function testSuite() {
   afterAll(() => service.close())
 
   it ('able to observe an action', async () => {
-    const { amqp: amqpRoutes } = service.router.routes
+    const amqpRoutes = service.router.getRoutes('amqp')
 
-    assert.ok(typeof amqpRoutes.echo === 'function')
+    assert.ok(typeof amqpRoutes.get('echo') === 'function')
   })
 
   it ('able to dispatch action and return response', async () => {
@@ -117,13 +114,10 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
     },
     router: {
       extensions: {
-        enabled: ['preHandler'],
         register: [failedActionEmulator]
       },
       routes: {
-        directory: resolve(__dirname, '../artefacts/actions'),
-        // @todo fix defaults
-        transports: [ActionTransport.amqp],
+        directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
     'router-amqp': {
@@ -185,14 +179,11 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
     },
     router: {
       extensions: {
-        enabled: ['preHandler'],
         register: [failedActionEmulator]
       },
       routes: {
         prefix: 'router-prefix',
-        directory: resolve(__dirname, '../artefacts/actions'),
-        // @todo fix defaults
-        transports: [ActionTransport.amqp],
+        directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
     'router-amqp': {
