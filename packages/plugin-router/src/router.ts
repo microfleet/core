@@ -73,7 +73,7 @@ export default class Router {
     const action = createServiceAction(route, handler)
 
     for (const transport of (handler.transports || [Router.ROUTES_WITH_EMPTY_TRANSPORT])) {
-      // enabled[route] can be used for rename route
+      // @todo enabled[route] can be used for rename route
       routes.add(this.prefix(route), transport, action)
     }
   }
@@ -111,6 +111,7 @@ export default class Router {
   }
 
   // @todo async?
+  // @todo (BC) get route from request
   public dispatch(route: string, request: ServiceRequest): Bluebird<any>
   public dispatch(route: string, request: ServiceRequest, callback: RequestCallback): void
   public dispatch(route: string, request: ServiceRequest, callback?: RequestCallback): Bluebird<any> | void {

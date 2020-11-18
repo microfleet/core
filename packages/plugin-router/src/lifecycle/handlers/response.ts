@@ -16,7 +16,6 @@ import {
   ValidationError
 } from 'common-errors'
 
-// @todo response -> reformat error
 export default async function responseHandler(this: Microfleet, request: ServiceRequest): Promise<any> {
   const { error } = request
 

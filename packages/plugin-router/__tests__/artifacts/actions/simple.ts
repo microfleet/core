@@ -9,7 +9,7 @@ export default async function simpleAction(request: ServiceRequest): Promise<any
   }
 }
 
-simpleAction.auth = 'token';
+simpleAction.auth = 'token'
 simpleAction.allowed = async (request: ServiceRequest): Promise<any> => {
   if (request.params.isAdmin !== true) {
     throw new NotPermittedError('You are not admin')

@@ -21,14 +21,19 @@ export default class Runner {
   }
 
   register(id: string, handler: RunnerHandler): void {
-    (this.map.get(id) || new Set()).add(handler)
+    let handlers = this.map.get(id)
+
+    if (handlers === undefined) {
+      handlers = new Set()
+      this.map.set(id, handlers)
+    }
+
+    handlers.add(handler)
   }
 
   async run(id: string, handler: RunnerHandler, params: Params, ...rest: any[]): Promise<void> {
     const uppercased = upperFirst(id)
     const pre = `pre${uppercased}`
-    const post = `post${uppercased}`
-
     const preHandlers = this.map.get(pre)
 
     if (preHandlers !== undefined) {
@@ -43,6 +48,7 @@ export default class Runner {
       params.error = error
     }
 
+    const post = `post${uppercased}`
     const postHandlers = this.map.get(post)
 
     if (postHandlers !== undefined) {

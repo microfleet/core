@@ -1,4 +1,4 @@
 {
-  "$id": "retryAction",
+  "$id": "retry",
   "type": "integer"
 }

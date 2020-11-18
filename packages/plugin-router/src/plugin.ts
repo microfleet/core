@@ -101,7 +101,10 @@ export function attach(
   // dispatcher
   this.dispatch = (route: string, request: Partial<ServiceRequest>) => {
     const msg = prepareRequest(request)
+    const routeWithPrefix = prefix ? `${prefix}.${route}` : route
 
-    return router.dispatch(prefix ? `${prefix}.${route}` : route, msg)
+    msg.route = routeWithPrefix
+
+    return router.dispatch(routeWithPrefix, msg)
   }
 }

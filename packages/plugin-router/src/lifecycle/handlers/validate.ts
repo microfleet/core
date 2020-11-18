@@ -18,6 +18,7 @@ async function validateHandler(this: Microfleet & ValidatorPlugin, request: Serv
   const paramsKey: ParamsKey = DATA_KEY_SELECTOR[request.method]
 
   try {
+    // @todo (important) handle schema not found error and log it
     const validationResult = await validator.validate(schema as string, request[paramsKey])
 
     request[paramsKey] = validationResult

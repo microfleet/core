@@ -5,11 +5,11 @@ import { noop } from 'lodash'
 import { ActionTransport, ServiceRequest, Microfleet } from '@microfleet/core'
 import { RouterPlugin } from '@microfleet/plugin-router'
 
-// import { RouterAMQPPluginConfig } from './types/plugin'
+import { RouterAMQPPluginConfig } from './types/plugin'
 
 function getAMQPRouterAdapter(
   service: Microfleet & RouterPlugin,
-  // config: RouterAMQPPluginConfig,
+  config: RouterAMQPPluginConfig,
   // @todo type
   onComplete?: any
 ): (params: any, properties: any, next: (...args: any[]) => void) => Promise<void> {
@@ -32,20 +32,20 @@ function getAMQPRouterAdapter(
 
   // pre-wrap the function so that we do not need to actually do fromNode(next)
   const dispatch = Bluebird.promisify(router.dispatch, { context: router })
-  // const prefix = get(config, 'prefix', '')
-  // const prefixLength = prefix ? prefix.length + 1 : 0
-  // const normalizeActionName = prefixLength > 0
-  //   ? (routingKey: string): string => (
-  //     routingKey.startsWith(prefix)
-  //       ? routingKey.substr(prefixLength)
-  //       : routingKey
-  //   )
-  //   : (routingKey: string): string => routingKey
+  const prefix = config.prefix || ''
+  const prefixLength = prefix ? prefix.length + 1 : 0
+  const normalizeActionName = prefixLength > 0
+    ? (routingKey: string): string => (
+      routingKey.startsWith(prefix)
+        ? routingKey.substr(prefixLength)
+        : routingKey
+    )
+    : (routingKey: string): string => routingKey
 
   return async (params: any, properties: any, raw: any, next: (...args: any[]) => void = noop): Promise<any> => {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
-    // @todo
-    // const actionName = normalizeActionName(routingKey)
+    // @todo is it possible to route without prefix trim?
+    const actionName = normalizeActionName(routingKey)
 
     const opts: ServiceRequest = {
       // initiate action to ensure that we have prepared proto fo the object
@@ -60,7 +60,7 @@ function getAMQPRouterAdapter(
       method: ActionTransport.amqp as ServiceRequest['method'],
       parentSpan: raw.span,
       query: Object.create(null),
-      route: routingKey,
+      route: actionName,
       span: undefined,
       transport: ActionTransport.amqp,
       transportRequest: Object.create(null),
@@ -68,15 +68,8 @@ function getAMQPRouterAdapter(
 
     increaseCounter()
     try {
-      const promise = dispatch(routingKey, opts)
-
-      // eslint-disable-next-line no-console
-      console.log(3, promise)
-
+      const promise = dispatch(actionName, opts)
       const response = await wrapDispatch(promise, routingKey, raw)
-
-      // eslint-disable-next-line no-console
-      console.log(4, response)
 
       setImmediate(next, null, response)
     } catch (e) {

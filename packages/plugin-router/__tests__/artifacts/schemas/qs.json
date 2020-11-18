@@ -1,10 +1,13 @@
 {
-  "$id": "withoutSchema",
+  "$id": "qs",
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "foo": {
+    "sample": {
       "type": "integer"
+    },
+    "bool": {
+      "type": "boolean"
     }
   }
 }

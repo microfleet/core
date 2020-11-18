@@ -8,7 +8,7 @@ import {
 
 const kUnhealthy = new HttpStatusError(500, 'unhealthy')
 
-async function genericHealthCheck(this: Microfleet, request: ServiceRequest): Promise<{ data: HealthStatus }> {
+export default async function genericHealthCheck(this: Microfleet, request: ServiceRequest): Promise<{ data: HealthStatus }> {
   const data = await this.getHealthStatus()
 
   if (PLUGIN_STATUS_FAIL === data.status) {
@@ -26,5 +26,3 @@ async function genericHealthCheck(this: Microfleet, request: ServiceRequest): Pr
 
   return { data }
 }
-
-export default genericHealthCheck

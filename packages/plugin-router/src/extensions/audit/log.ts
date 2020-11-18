@@ -43,7 +43,7 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): R
         }
 
         if (error) {
-          const err = is.fn(error.toJSON) ? error.toJSON() : error.toString()
+          const err = typeof error.toJSON === 'function' ? error.toJSON() : error.toString()
           const isCodeLevelInfo = (error.statusCode && error.statusCode < 400)
             || (error.name && disableLogErrorsForNames.includes(error.name))
           const level = isCodeLevelInfo ? 'info' : 'error'

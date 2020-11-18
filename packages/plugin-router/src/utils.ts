@@ -82,7 +82,7 @@ export function createServiceAction(route: string, action: ServiceAction): Servi
     throw new ValidationError(`action.auth in ${String(route)} must be a string or an object`)
   }
 
-  if (schema !== undefined && !isString(schema)) {
+  if (schema !== undefined && !isString(schema) && schema !== null && schema !== false) {
     throw new ValidationError(`action.schema in ${String(route)} must be a string`)
   }
 

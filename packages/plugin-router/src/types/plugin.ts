@@ -1,3 +1,4 @@
+import Bluebird from 'bluebird'
 import { Microfleet, ServiceRequest } from '@microfleet/core'
 
 import Router from '../router'
@@ -21,7 +22,7 @@ export interface RouterPlugin {
   dispatch: dispatchHelper
 }
 
-export type dispatchHelper = (route: string, request: Partial<ServiceRequest>) => PromiseLike<any>
+export type dispatchHelper = (route: string, request: Partial<ServiceRequest>) => Bluebird<any>
 
 export type RouterPluginConfig = {
   auth: RouterPluginAuthConfig

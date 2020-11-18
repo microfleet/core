@@ -46,8 +46,7 @@ export function attach(
     onComplete = getReptyOnCompleteFunction(amqpConfig, routerAmqpConfig, logger, retryQueue)
   }
 
-  // const adapter = getAMQPRouterAdapter(this, routerAmqpConfig, onComplete)
-  const adapter = getAMQPRouterAdapter(this, onComplete)
+  const adapter = getAMQPRouterAdapter(this, routerAmqpConfig, onComplete)
 
   return {
     async connect(this: Microfleet & AMQPPlugin) {

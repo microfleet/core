@@ -1,9 +1,13 @@
-// @todo fix
+import { strict as assert } from 'assert'
+import { resolve } from 'path'
+// @todo how to fix double import?
 import * as Bluebird from 'bluebird'
 import { Inspection } from 'bluebird'
-import { strict as assert } from 'assert'
 import * as request from 'request-promise'
 import { StatusCodeError } from 'request-promise/errors'
+import { defaultsDeep } from 'lodash'
+import { Socket } from 'socket.io-client'
+import { OptionsWithUrl } from 'request-promise'
 
 export type Case = {
   expect: string
@@ -23,7 +27,7 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(inspection.value())
-        throw e;
+        throw e
       }
     }
 
@@ -40,8 +44,8 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
   }
 }
 
-export function getHTTPRequest(options: any) {
-  return (action: string, params: any, opts = {}): Bluebird<any> => {
+export function getHTTPRequest(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Bluebird<any> {
+  return (action: string, params?: any, opts: any = {}): Bluebird<any> => {
     const requestOptions = {
       baseUrl: options.url,
       method: 'POST',
@@ -49,7 +53,7 @@ export function getHTTPRequest(options: any) {
       ...options,
       ...opts,
       uri: action,
-    };
+    }
 
     // patch
     delete requestOptions.url
@@ -66,8 +70,39 @@ export function getHTTPRequest(options: any) {
   }
 }
 
-export function getSocketioRequest(client: any) {
+export function getSocketioRequest(client: typeof Socket): (action: string, params: any) => Bluebird<any> {
   return (action: string, params: any): Bluebird<any> =>
     Bluebird.fromCallback((callback) =>
-      client.emit(action, params, callback));
+      client.emit(action, params, callback))
+}
+
+export function withResponseValidateAction(name: string, extra: any = {}): any {
+  const config = {
+    name,
+    plugins: [
+      'validator',
+      'logger',
+      'amqp',
+      'http',
+      'socketio',
+      'router',
+      'router-amqp',
+      'router-http',
+      'router-socketio',
+    ],
+    http: {
+      server: {
+        attachSocketio: true,
+      },
+    },
+    router: {
+      routes: {
+        directory: resolve(__dirname, './actions'),
+        prefix: 'action',
+      },
+    },
+    validator: { schemas: [resolve(__dirname, './schemas')] },
+  }
+
+  return defaultsDeep(config, extra)
 }

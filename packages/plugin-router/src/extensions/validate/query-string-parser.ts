@@ -11,7 +11,7 @@ type QSParserAugmentedAction = ServiceRequest & {
   };
 }
 
-function preValidate(request: QSParserAugmentedAction): QSParserAugmentedAction {
+async function preValidate(request: QSParserAugmentedAction): Promise<any> {
   const { query } = request
 
   // if present - remap, otherwise just noop
@@ -27,8 +27,6 @@ function preValidate(request: QSParserAugmentedAction): QSParserAugmentedAction 
       ...transformOpts,
     }))
   }
-
-  return request
 }
 
 export default [{

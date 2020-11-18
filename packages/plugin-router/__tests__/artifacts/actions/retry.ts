@@ -1,4 +1,4 @@
-const { ActionTransport } = require('../../../..');
+import { ActionTransport, Microfleet, ServiceRequest } from '@microfleet/core'
 
 /**
  * Custom action that rejects based on params.
@@ -7,16 +7,17 @@ const { ActionTransport } = require('../../../..');
  * @param  {Object} request.headers - AMQP properties.
  * @param  {Object} request.headers.headers - AMQP headers.
  */
-module.exports = function retryAction({ params, headers: { headers } }) {
+export default function retryAction(
+  this: Microfleet,
+  { params, headers: { headers } }: ServiceRequest
+): Promise<any> {
   if (headers['x-retry-count'] === undefined || headers['x-retry-count'] < params) {
-    throw new Error(`count: ${headers['x-retry-count'] || 1}`);
+    throw new Error(`count: ${headers['x-retry-count'] || 1}`)
   }
 
-  return headers['x-retry-count'];
-};
+  return headers['x-retry-count']
+}
 
-module.exports.schema = 'retryAction';
-
-module.exports.transports = [
+retryAction.transports = [
   ActionTransport.amqp,
-];
+]
