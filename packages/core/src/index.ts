@@ -77,16 +77,6 @@ export const PluginTypes = constants.PluginTypes
 export const PluginsPriority = constants.PluginsPriority
 
 /**
- * Helper method to enable router extensions.
- * @param name - Pass extension name to require.
- * @returns Extension to router plugin.
- */
-export const routerExtension = (name: string): unknown => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  return require(require.resolve(`./plugins/router/extensions/${name}`)).default
-}
-
-/**
  * Healthcheck statuses
  */
 export {

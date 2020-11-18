@@ -127,6 +127,5 @@ export function attach(
       this.amqp = null
       this.emit('plugin:close:amqp')
     },
-
   }
 }
