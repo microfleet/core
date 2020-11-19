@@ -36,7 +36,9 @@
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.3.4"
+    "@microfleet/core": "^17.3.4",
+    "@types/wtfnode": "^0.7.0",
+    "wtfnode": "^0.8.3"
   },
   "engines": {
     "node": ">= 12.14.0",
