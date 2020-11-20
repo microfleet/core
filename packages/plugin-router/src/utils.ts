@@ -4,7 +4,8 @@ import glob = require('glob')
 import { Tags, Span } from 'opentracing'
 import { isObject, isString } from 'lodash'
 import { ValidationError } from 'common-errors'
-import { ServiceAction } from '@microfleet/core'
+
+import { ServiceAction } from './types/router'
 
 const { ERROR } = Tags
 const filterDefinitions = (x: string) => !x.endsWith('.d.ts')

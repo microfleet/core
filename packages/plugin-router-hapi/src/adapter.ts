@@ -5,8 +5,8 @@ import { Request } from '@hapi/hapi'
 import * as Boom from '@hapi/boom'
 import { noop } from 'lodash'
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
-import { ActionTransport, Microfleet, ServiceRequest, RequestMethods } from '@microfleet/core'
-import { Router } from '@microfleet/plugin-router'
+import { Microfleet } from '@microfleet/core'
+import { Router, ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 export default function getHapiAdapter(actionName: string, service: Microfleet): (r: Request) => Promise<any> {
   const router = service.router as Router
@@ -80,7 +80,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
       action: noop as any,
       locals: Object.create(null),
       log: console as any,
-      method: request.method.toLowerCase() as RequestMethods,
+      method: request.method,
       params: request.payload,
       query: request.query,
       route: actionName,

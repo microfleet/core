@@ -1,6 +1,6 @@
 // @todo remove @microfleet/transport-amqp as dependency
 import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization'
-import { Microfleet, ServiceRequest } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 import { HttpStatusError as HttpError } from '@microfleet/validation'
 import { boomify } from '@hapi/boom'
 import {
@@ -15,6 +15,8 @@ import {
   TimeoutError,
   ValidationError
 } from 'common-errors'
+
+import { ServiceRequest } from '../../types/router'
 
 export default async function responseHandler(this: Microfleet, request: ServiceRequest): Promise<any> {
   const { error } = request

@@ -1,8 +1,9 @@
-import { ServiceRequest, Microfleet } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 import { ArgumentError, NotFoundError, HttpStatusError } from 'common-errors'
 import _debug = require('debug')
 
 import { RouterPlugin } from '../../types/plugin'
+import { ServiceRequest } from '../../types/router'
 
 const debug = _debug('mservice:router:module:request')
 

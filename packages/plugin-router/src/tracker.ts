@@ -1,6 +1,10 @@
-import { Microfleet, ActionTransport, TransportTypes } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 import { once } from 'events'
 
+import Router from './router'
+import { ServiceRequest } from './types/router'
+
+type TransportTypes = ServiceRequest['transport']
 type RequestCountRegistry = {
   [P in TransportTypes]: number
 }
@@ -36,7 +40,7 @@ export default class RequestCountTracker {
 
   constructor(service: Microfleet) {
     this.registry = Object.create(null)
-    const availableTransports = Object.values(ActionTransport)
+    const availableTransports = Object.values(Router.ActionTransport)
 
     this.service = service
 

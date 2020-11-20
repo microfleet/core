@@ -2,9 +2,10 @@ import { HttpStatusError } from 'common-errors'
 import {
   Microfleet,
   HealthStatus,
-  PLUGIN_STATUS_FAIL,
-  ServiceRequest
+  PLUGIN_STATUS_FAIL
 } from '@microfleet/core'
+
+import { ServiceRequest } from '../../types/router'
 
 const kUnhealthy = new HttpStatusError(500, 'unhealthy')
 

@@ -1,8 +1,8 @@
-// move type ServiceRequest to this file
-import { ServiceRequest, Microfleet } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 
 import Runner from './runner'
 import { RouterPluginConfig } from '../types/plugin'
+import { ServiceRequest } from '../types/router'
 
 import requestHandler from './handlers/request'
 import authHandler from './handlers/auth'

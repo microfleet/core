@@ -3,14 +3,13 @@ import { resolve } from 'path'
 import * as Bluebird from 'bluebird'
 import { NotFoundError, NotPermittedError, ConnectionError } from 'common-errors'
 import {
-  ActionTransport,
   Microfleet,
   PluginTypes,
   ValidatorPlugin,
   PluginInterface
 } from '@microfleet/core'
-// @todo move out of this plugin or router plugin
-import { RequestCountTracker } from '@microfleet/plugin-router'
+// @todo should be part of plugin-router-amqp
+import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
 import * as AMQPTransport from '@microfleet/transport-amqp'
 
 import { AMQPPlugin, AMQPPluginConfig } from './types/plugin'
@@ -48,6 +47,7 @@ export function attach(
     this.amqp && this.amqp instanceof AMQPTransport
   )
 
+  // @todo should be part of plugin-router-amqp
   const waitForRequestsToFinish = () => {
     return RequestCountTracker.waitForRequestsToFinish(this, ActionTransport.amqp)
   }
@@ -107,6 +107,7 @@ export function attach(
       return true
     },
 
+    // @todo should be part of plugin-router-amqp
     getRequestCount(this: Microfleet) {
       return RequestCountTracker.getRequestCount(this, ActionTransport.amqp)
     },
@@ -121,6 +122,8 @@ export function attach(
       assert(isStarted(), ERROR_NOT_STARTED)
 
       await this.amqp.closeAllConsumers()
+      // @todo should be part of plugin-router-amqp
+      // e.g. closeRouterConsumers() && waitForRequestsToFinish()
       await waitForRequestsToFinish()
       await this.amqp.close()
 

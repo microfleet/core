@@ -47,12 +47,6 @@ interface StartStopTree {
 export * from './types'
 
 /**
- * Constants with possilble transport values
- * @memberof Microfleet
- */
-export const ActionTransport = constants.ActionTransport
-
-/**
  * Constants with connect types to control order of service bootstrap
  * @memberof Microfleet
  */

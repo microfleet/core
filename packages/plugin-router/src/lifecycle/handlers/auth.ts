@@ -1,12 +1,12 @@
 import { AuthenticationRequiredError, NotImplementedError } from 'common-errors'
 import { isObject, isString } from 'lodash'
-import { Microfleet, ServiceRequest } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 
+import { ServiceRequest } from '../../types/router'
 import {
   RouterPluginConfig,
   RouterPluginAuthStrategy,
   RouterPluginAuthConfig,
-
 } from '../../types/plugin'
 
 export interface AuthStrategyConfig {

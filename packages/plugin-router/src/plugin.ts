@@ -4,15 +4,14 @@ import rfdc = require('rfdc')
 import { isObject } from 'lodash'
 import {
   Microfleet,
-  ActionTransport,
   PluginTypes,
-  ServiceRequest,
   ValidatorPlugin,
   defaultsDeep
 } from '@microfleet/core'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
 
 import { RouterPlugin, RouterPluginConfig } from './types/plugin'
+import { ServiceRequest } from './types/router'
 import Router from './router'
 import { auditLog } from './extensions'
 
@@ -47,7 +46,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
   locals: shallowObjectClone(request.locals),
   auth: shallowObjectClone(request.auth),
   log: console as any,
-  method: ActionTransport.internal as ServiceRequest['method'],
+  method: Router.ActionTransport.internal,
   params: request.params != null
     ? deepClone(request.params)
     : Object.create(null),
@@ -55,7 +54,7 @@ const prepareRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
   query: Object.create(null),
   route: '',
   span: undefined,
-  transport: ActionTransport.internal,
+  transport: Router.ActionTransport.internal,
   transportRequest: Object.create(null),
 })
 

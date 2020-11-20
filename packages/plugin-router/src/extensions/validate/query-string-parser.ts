@@ -1,8 +1,8 @@
 import { identity } from 'lodash'
 import { parse } from 'qs'
-import { ServiceRequest } from '@microfleet/core'
 
 import Lifecycle from '../../lifecycle'
+import { ServiceRequest } from '../../types/router'
 
 type QSParserAugmentedAction = ServiceRequest & {
   action: ServiceRequest['action'] & {

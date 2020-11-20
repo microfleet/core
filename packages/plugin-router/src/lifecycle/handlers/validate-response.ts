@@ -1,9 +1,10 @@
 import { strict as assert } from 'assert'
-import { Microfleet, ServiceRequest, ValidatorPlugin } from '@microfleet/core'
+import { Microfleet, ValidatorPlugin } from '@microfleet/core'
 import { HttpStatusError } from '@microfleet/validation'
 import { Error } from 'common-errors'
 
 import { RouterPluginConfig } from '../../types/plugin'
+import { ServiceRequest } from '../../types/router'
 
 export default async function validateResponseHandler(
   this: Microfleet & ValidatorPlugin,

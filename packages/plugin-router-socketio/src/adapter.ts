@@ -1,16 +1,15 @@
 import createDebug from 'debug'
 import { noop } from 'lodash'
-import { ActionTransport, ServiceRequest } from '@microfleet/core'
-import { Router, RequestCallback } from '@microfleet/plugin-router'
+import { Router, DispatchCallback, ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 const debug = createDebug('plugin-router-socketio')
 
 export interface SocketIOMessage {
-  data: [string, any, RequestCallback];
+  data: [string, any, DispatchCallback]
 }
 
 /* Decrease request count on response */
-function wrapCallback(router: Router, callback: RequestCallback) {
+function wrapCallback(router: Router, callback: DispatchCallback) {
   return (err: any, result?: any) => {
     router.requestCountTracker.decrease(ActionTransport.socketio)
     if (callback) {

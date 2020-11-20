@@ -1,10 +1,9 @@
-import { Microfleet, ValidatorPlugin, ServiceRequest } from '@microfleet/core'
+import { Microfleet, ValidatorPlugin } from '@microfleet/core'
 import { HttpStatusError } from '@microfleet/validation'
 import { Error } from 'common-errors'
 
-import { DATA_KEY_SELECTOR } from '../../types/router'
-
-type ParamsKey = 'query' | 'params'
+import Router from '../../router'
+import { ServiceRequest } from '../../types/router'
 
 async function validateHandler(this: Microfleet & ValidatorPlugin, request: ServiceRequest): Promise<void> {
   const { validator } = this
@@ -15,7 +14,7 @@ async function validateHandler(this: Microfleet & ValidatorPlugin, request: Serv
     return
   }
 
-  const paramsKey: ParamsKey = DATA_KEY_SELECTOR[request.method]
+  const paramsKey = Router.RequestDataKey[request.method]
 
   try {
     // @todo (important) handle schema not found error and log it

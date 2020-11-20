@@ -3,9 +3,10 @@ import { resolve } from 'path'
 import { NotImplementedError, NotFoundError } from 'common-errors'
 import createDebug from 'debug'
 import * as SocketIOStatic from 'socket.io'
-import { ActionTransport, PluginTypes, Microfleet, ValidatorPlugin } from '@microfleet/core'
+import { PluginTypes, Microfleet, ValidatorPlugin } from '@microfleet/core'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
-import { RequestCountTracker } from '@microfleet/plugin-router'
+// @todo shouldn't be here
+import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
 // @todo peer dependency
 import AdapterFactory from 'ms-socket.io-adapter-amqp'
 
@@ -49,6 +50,7 @@ export const attach = function attachSocketioPlugin(
   this.socketio = new SocketIOStatic(socketioServerOptions)
 
   return {
+    // @todo shouldn't be here
     getRequestCount: RequestCountTracker.getRequestCount.bind(undefined, this, ActionTransport.socketio),
   }
 }

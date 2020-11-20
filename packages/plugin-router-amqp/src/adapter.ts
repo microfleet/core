@@ -1,9 +1,8 @@
 import * as Bluebird from 'bluebird'
-// import * as get from 'get-value'
 import * as is from 'is'
 import { noop } from 'lodash'
-import { ActionTransport, ServiceRequest, Microfleet } from '@microfleet/core'
-import { RouterPlugin } from '@microfleet/plugin-router'
+import { Microfleet } from '@microfleet/core'
+import { RouterPlugin, ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 import { RouterAMQPPluginConfig } from './types/plugin'
 
@@ -57,7 +56,7 @@ function getAMQPRouterAdapter(
       headers: properties,
       locals: Object.create(null),
       log: console as any,
-      method: ActionTransport.amqp as ServiceRequest['method'],
+      method: ActionTransport.amqp,
       parentSpan: raw.span,
       query: Object.create(null),
       route: actionName,

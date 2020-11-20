@@ -6,11 +6,8 @@ import {
   PluginTypes,
   ValidatorPlugin,
   PluginInterface,
-  ActionTransport,
 } from '@microfleet/core'
-import { RouterPlugin } from '@microfleet/plugin-router'
-
-// @todo import { AMQPPlugin } from '@microfleet/plugin-amqp' ?
+import { RouterPlugin, ActionTransport } from '@microfleet/plugin-router'
 import type { AMQPPlugin } from '@microfleet/plugin-amqp'
 
 import getReptyOnCompleteFunction from './retry'

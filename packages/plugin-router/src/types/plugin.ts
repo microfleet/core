@@ -1,8 +1,9 @@
 import Bluebird from 'bluebird'
-import { Microfleet, ServiceRequest } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 
 import Router from '../router'
 import Lifecycle from '../lifecycle'
+import { ServiceRequest } from './router'
 
 export type LifecyclePoints = typeof Lifecycle.points
 

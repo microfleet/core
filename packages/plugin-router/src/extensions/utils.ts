@@ -1,7 +1,6 @@
-import { ServiceRequest } from '@microfleet/core'
-
 import Lifecycle from '../lifecycle'
 import { RouterLifecycleExtension } from '../types/plugin'
+import { ServiceRequest } from '../types/router'
 
 interface RequestStartExtension {
   started: [number, number];

@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import * as Bluebird from 'bluebird'
-import { Microfleet, ServiceAction, ServiceRequest } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 import _debug = require('debug')
 import { Tags } from 'opentracing'
 import { v4 as uuidv4 } from 'uuid'
@@ -10,6 +10,7 @@ import Lifecycle from './lifecycle'
 import RequestCountTracker from './tracker'
 import Routes from './routes/collection'
 import { RouterPluginConfig } from './types/plugin'
+import { ServiceAction, ServiceRequest, DispatchCallback } from './types/router'
 import {
   wrapPromiseWithSpan,
   readRoutes,
@@ -20,10 +21,31 @@ import {
 const { COMPONENT } = Tags
 const debug = _debug('@microfleet/router - dispatch')
 
-export type RequestCallback = (err: any, result?: any) => void
-
 export default class Router {
-  static readonly ROUTES_WITH_EMPTY_TRANSPORT = Symbol('empty_transport')
+  // Constants with possilble transport values
+  // @todo maybe set from own router-plugin?
+  static readonly ActionTransport = {
+    amqp: 'amqp',
+    http: 'http',
+    internal: 'internal',
+    socketio: 'socketio',
+  } as const
+
+  // based on this we validate input data
+  static readonly RequestDataKey = {
+    amqp: 'params',
+    delete: 'query',
+    get: 'query',
+    head: 'query',
+    options: 'query',
+    internal: 'params',
+    patch: 'params',
+    post: 'params',
+    put: 'params',
+    socketio: 'params',
+  } as const
+
+  static readonly RoutesWithEmptyTransport = Symbol('empty_transport')
 
   public readonly config: RouterPluginConfig
 
@@ -73,7 +95,7 @@ export default class Router {
 
     const action = createServiceAction(route, handler)
 
-    for (const transport of (handler.transports || [Router.ROUTES_WITH_EMPTY_TRANSPORT])) {
+    for (const transport of (handler.transports || [Router.RoutesWithEmptyTransport])) {
       // @todo enabled[route] can be used for rename route
       routes.add(this.prefix(route), transport, action)
     }
@@ -81,13 +103,13 @@ export default class Router {
 
   public getAction(route: string, transport: string): ServiceAction | undefined {
     return this.routes.get(route, transport) as ServiceAction
-       || this.routes.get(route, Router.ROUTES_WITH_EMPTY_TRANSPORT) as ServiceAction
+       || this.routes.get(route, Router.RoutesWithEmptyTransport) as ServiceAction
   }
 
   public getRoutes(transport: string): Map<string, ServiceAction> {
     return new Map([
       ...this.routes.getForTransport(transport) as Map<string, ServiceAction>,
-      ...this.routes.getForTransport(Router.ROUTES_WITH_EMPTY_TRANSPORT) as Map<string, ServiceAction>,
+      ...this.routes.getForTransport(Router.RoutesWithEmptyTransport) as Map<string, ServiceAction>,
     ])
   }
 
@@ -114,8 +136,8 @@ export default class Router {
   // @todo async?
   // @todo (BC) get route from request
   public dispatch(route: string, request: ServiceRequest): Bluebird<any>
-  public dispatch(route: string, request: ServiceRequest, callback: RequestCallback): void
-  public dispatch(route: string, request: ServiceRequest, callback?: RequestCallback): Bluebird<any> | void {
+  public dispatch(route: string, request: ServiceRequest, callback: DispatchCallback): void
+  public dispatch(route: string, request: ServiceRequest, callback?: DispatchCallback): Bluebird<any> | void {
     debug('initiating request on route %s', route)
 
     const { service } = this

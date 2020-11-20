@@ -1,9 +1,17 @@
-import extensions from './extensions'
-import Router, { RequestCallback } from './router'
+import Extensions from './extensions'
+import Router from './router'
 import RequestCountTracker from './tracker'
 import Lifecycle from './lifecycle'
 
-export { extensions, Router, RequestCountTracker, RequestCallback, Lifecycle }
+const { ActionTransport } = Router
+
+export {
+  Extensions,
+  Router,
+  RequestCountTracker,
+  Lifecycle,
+  ActionTransport,
+}
 
 export * from './plugin'
 export * from './types/plugin'

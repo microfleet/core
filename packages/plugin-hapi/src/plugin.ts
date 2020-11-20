@@ -3,14 +3,14 @@ import { resolve } from 'path'
 import { Server } from '@hapi/hapi'
 import * as Joi from 'joi'
 import {
-  ActionTransport,
   Microfleet,
   PluginInterface,
   ValidatorPlugin,
   PluginTypes,
 } from '@microfleet/core'
 import { LoggerPlugin } from '@microfleet/plugin-logger'
-import { RequestCountTracker } from '@microfleet/plugin-router'
+// @todo shouldn't be here
+import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
 import { SocketIOPlugin } from '@microfleet/plugin-socketio'
 
 import type { HapiPlugin, HapiPluginPlugin, HapiPluginConfig } from './types/plugin'
@@ -99,7 +99,7 @@ export function attach(
     return server
   }
 
-  // @todo should be here?
+  // @todo shouldn't be here
   const getRequestCount = () => {
     return RequestCountTracker.getRequestCount(this, ActionTransport.http)
   }
@@ -111,6 +111,7 @@ export function attach(
       /* Socket depends on Http transport. Wait for its requests here */
       /* Call of socketio.close() causes all active connections close */
       if (config.attachSocketio) {
+        // @todo shouldn't be here
         await RequestCountTracker.waitForRequestsToFinish(this, ActionTransport.socketio)
       }
 

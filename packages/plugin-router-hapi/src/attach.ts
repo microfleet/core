@@ -1,8 +1,8 @@
 import * as get from 'get-value'
 import { Request, ResponseToolkit, Server, ServerRegisterPluginObject } from '@hapi/hapi'
 import { defaults, omit } from 'lodash'
-import { ActionTransport, Microfleet, ServiceAction } from '@microfleet/core'
-import { Router, RouterPlugin } from '@microfleet/plugin-router'
+import { Microfleet } from '@microfleet/core'
+import { Router, RouterPlugin, ActionTransport, ServiceAction } from '@microfleet/plugin-router'
 
 import hapiRouterAdapter from './adapter'
 import { fromNameToPath, fromPathToName } from './utils/action-name'

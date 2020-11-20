@@ -1,5 +1,7 @@
-import { Microfleet, ServiceRequest } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 import { HttpStatusError, NotPermittedError } from 'common-errors'
+
+import { ServiceRequest } from '../../types/router'
 
 async function allowedHandler(this: Microfleet, request: ServiceRequest): Promise<void> {
   const { allowed } = request.action

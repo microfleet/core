@@ -1,7 +1,7 @@
 import { NotSupportedError } from 'common-errors'
-import { ServiceRequest } from '@microfleet/core'
 
 import Lifecycle from '../../lifecycle'
+import { ServiceRequest } from '../../types/router'
 
 export type TransportOptionsAugmentedRequest = ServiceRequest & {
   action: ServiceRequest['action'] & {
