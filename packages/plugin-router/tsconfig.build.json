@@ -4,8 +4,6 @@
     "path": "../core/tsconfig.build.json"
   }, {
     "path": "../plugin-logger/tsconfig.build.json"
-  }, {
-    "path": "../plugin-amqp/tsconfig.build.json"
   }],
   "compilerOptions": {
     "rootDir": "./src",
