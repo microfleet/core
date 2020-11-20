@@ -7,7 +7,7 @@ import * as sinon from 'sinon'
 import * as Bluebird from 'bluebird'
 import { filter, range } from 'lodash'
 import { Microfleet, PLUGIN_STATUS_FAIL } from '@microfleet/core'
-import { extensions } from '@microfleet/plugin-router'
+import { Extensions } from '@microfleet/plugin-router'
 
 import {
   verify,
@@ -20,7 +20,7 @@ const {
   auditLog,
   validateQueryStringParser: qsParser,
   validateTransportOptions: transportOptions
-} = extensions
+} = Extensions
 
 describe('@microfleet/plugin-router', () => {
   it('should throw error if plugin is not included', () => {

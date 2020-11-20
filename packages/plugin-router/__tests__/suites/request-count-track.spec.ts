@@ -3,7 +3,7 @@ import { strict as assert } from 'assert'
 import { spy } from 'sinon'
 import * as SocketIOClient from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
-import { extensions } from '@microfleet/plugin-router'
+import { Extensions } from '@microfleet/plugin-router'
 
 import {
   getHTTPRequest,
@@ -11,7 +11,7 @@ import {
   verify
 } from '../artifacts/utils'
 
-const { auditLog } = extensions
+const { auditLog } = Extensions
 
 describe('service request count', () => {
   it('counts requests on unknown routes', async () => {

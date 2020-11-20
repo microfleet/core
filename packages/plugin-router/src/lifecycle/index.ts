@@ -44,11 +44,11 @@ export default class Lifecycle {
   }
 
   public async run(params: ServiceRequest): Promise<any> {
-    await this.runner.run('request', requestHandler, params)
-    await this.runner.run('auth', authHandler, params, this.config)
-    await this.runner.run('validate', validateHandler, params)
-    await this.runner.run('allowed', allowedHandler, params)
-    await this.runner.run('handler', actionHandler, params)
+    await this.runner.runFn('request', requestHandler, params)
+    await this.runner.runFn('auth', authHandler, params, this.config)
+    await this.runner.runFn('validate', validateHandler, params)
+    await this.runner.runFn('allowed', allowedHandler, params)
+    await this.runner.runFn('handler', actionHandler, params)
 
     return params.response
   }
@@ -56,12 +56,12 @@ export default class Lifecycle {
   public async runWithResponse(params: ServiceRequest): Promise<any> {
     try {
       await this.run(params)
-      await this.runner.run('validateResponse', validateResponseHandler, params, this.config)
+      await this.runner.runFn('validateResponse', validateResponseHandler, params, this.config)
     } catch (error: unknown) {
       params.error = error
     }
 
-    await this.runner.run('response', responseHandler, params)
+    await this.runner.runFn('response', responseHandler, params)
 
     return params.response
   }

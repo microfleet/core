@@ -5,14 +5,14 @@ export interface RunnerConfig {
   context: any
 }
 
-export type RunnerHandler = (this: any, params: any, ...rest: any[]) => PromiseLike<void>
+export type RunnerFn = (this: any, params: any, ...rest: any[]) => PromiseLike<void>
 
 export interface Params {
   error?: unknown
 }
 
 export default class Runner {
-  protected map: Map<string, Set<RunnerHandler>> = new Map()
+  protected map: Map<string, Set<RunnerFn>> = new Map()
 
   protected context: any
 
@@ -20,7 +20,7 @@ export default class Runner {
     this.context = context
   }
 
-  register(id: string, handler: RunnerHandler): void {
+  register(id: string, handler: RunnerFn): void {
     let handlers = this.map.get(id)
 
     if (handlers === undefined) {
@@ -31,16 +31,20 @@ export default class Runner {
     handlers.add(handler)
   }
 
-  async run(id: string, handler: RunnerHandler, params: Params, ...rest: any[]): Promise<void> {
-    const uppercased = upperFirst(id)
-    const pre = `pre${uppercased}`
-    const preHandlers = this.map.get(pre)
+  async run(id: string, params: Params): Promise<void> {
+    const handlers = this.map.get(id)
 
-    if (preHandlers !== undefined) {
-      for (const preHandler of preHandlers) {
-        await preHandler.call(this.context, params)
+    if (handlers !== undefined) {
+      for (const handler of handlers) {
+        await handler.call(this.context, params)
       }
     }
+  }
+
+  async runFn(name: string, handler: RunnerFn, params: Params, ...rest: any[]): Promise<void> {
+    const uppercased = upperFirst(name)
+
+    this.run(`pre${uppercased}`, params)
 
     try {
       await handler.call(this.context, params, ...rest)
@@ -48,14 +52,7 @@ export default class Runner {
       params.error = error
     }
 
-    const post = `post${uppercased}`
-    const postHandlers = this.map.get(post)
-
-    if (postHandlers !== undefined) {
-      for (const postHandler of postHandlers) {
-        await postHandler.call(this.context, params)
-      }
-    }
+    this.run(`post${uppercased}`, params)
 
     if (params.error !== undefined) {
       throw params.error
