@@ -1,8 +1,8 @@
 import * as assert from 'assert'
 import { resolve } from 'path'
 import { ConnectionError } from 'common-errors'
-import { Microfleet, ServiceRequest } from '@microfleet/core'
-import { Lifecycle } from '@microfleet/plugin-router'
+import { Microfleet } from '@microfleet/core'
+import { Lifecycle, ServiceRequest } from '@microfleet/plugin-router'
 
 jest.setTimeout(15000)
 
