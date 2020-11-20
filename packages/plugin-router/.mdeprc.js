@@ -4,7 +4,7 @@ module.exports = {
   auto_compose: true,
   node: '12',
   parallel: 3,
-  test_framework: 'jest --config ../../jest.config.js --runTestsByPath',
+  test_framework: 'jest --runInBand --watch --config ../../jest.config.js --runTestsByPath',
   tests: '__tests__/**/*.spec.ts',
   services: [
     'rabbitmq',

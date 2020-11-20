@@ -32,7 +32,7 @@ export default class Lifecycle {
 
   protected runner: Runner
 
-  constructor(config: RouterPluginConfig, context: Microfleet) {
+  constructor(config: RouterPluginConfig, context?: Microfleet) {
     this.config = config
     this.runner = new Runner({ context })
 

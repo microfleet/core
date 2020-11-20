@@ -18,7 +18,7 @@ import {
 
 import { ServiceRequest } from '../../types/router'
 
-export default async function responseHandler(this: Microfleet, request: ServiceRequest): Promise<any> {
+export default async function responseHandler(this: Microfleet, request: ServiceRequest): Promise<void> {
   const { error } = request
 
   if (error) {

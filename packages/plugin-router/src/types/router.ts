@@ -3,13 +3,14 @@ import { Microfleet } from '@microfleet/core'
 import { Logger } from '@microfleet/plugin-logger'
 
 import Router from '../router'
+import { RunnerParams } from '../lifecycle/runner'
 
 export type ServiceActionHandler = <T>(this: Microfleet, request: ServiceRequest, ...params: any[]) => PromiseLike<T>
 export type ServiceActionAuthGetName = (request: ServiceRequest) => string
 export type DispatchCallback = (err: any, result?: any) => void
 
 // @todo types and documentation
-export interface ServiceRequest {
+export interface ServiceRequest extends RunnerParams {
   route: string
   params: any
   headers: any
@@ -24,7 +25,6 @@ export interface ServiceRequest {
   parentSpan: any
   span: any
   log: Logger
-  error?: any
   response?: unknown
 }
 

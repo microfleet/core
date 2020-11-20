@@ -28,7 +28,6 @@ export type dispatchHelper = (route: string, request: Partial<ServiceRequest>) =
 export type RouterPluginConfig = {
   auth: RouterPluginAuthConfig
   extensions: RouterPluginExtensionsConfig
-  // @todo move validateResponse under routes?
   routes: RouterPluginRoutesConfig
 }
 
@@ -52,7 +51,6 @@ export interface RouterPluginExtensionsConfig {
 
 export interface RouterPluginRoutesConfig {
   directory?: string
-  // @todo string[]
   enabled?: Record<string, string>
   prefix?: string
   responseValidation?: RouterPluginRoutesResponseValidationConfig

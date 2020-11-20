@@ -2,13 +2,16 @@
 import { upperFirst } from 'lodash'
 
 export interface RunnerConfig {
-  context: any
+  context?: any
 }
 
-export type RunnerFn = (this: any, params: any, ...rest: any[]) => PromiseLike<void>
+export interface RunnerFn {
+  // @todo params: RunnerParams
+  (this: any, params: any, ...rest: any[]): PromiseLike<void>
+}
 
-export interface Params {
-  error?: unknown
+export interface RunnerParams {
+  error?: any
 }
 
 export default class Runner {
@@ -16,8 +19,10 @@ export default class Runner {
 
   protected context: any
 
-  constructor({ context }: RunnerConfig) {
-    this.context = context
+  constructor(config?: RunnerConfig) {
+    if (config !== undefined) {
+      this.context = config.context
+    }
   }
 
   register(id: string, handler: RunnerFn): void {
@@ -31,7 +36,7 @@ export default class Runner {
     handlers.add(handler)
   }
 
-  async run(id: string, params: Params): Promise<void> {
+  async run(id: string, params: RunnerParams): Promise<void> {
     const handlers = this.map.get(id)
 
     if (handlers !== undefined) {
@@ -41,7 +46,7 @@ export default class Runner {
     }
   }
 
-  async runFn(name: string, handler: RunnerFn, params: Params, ...rest: any[]): Promise<void> {
+  async runFn(name: string, handler: RunnerFn, params: RunnerParams, ...rest: any[]): Promise<void> {
     const uppercased = upperFirst(name)
 
     this.run(`pre${uppercased}`, params)

@@ -7,7 +7,7 @@ import { ServiceRequest } from '../../types/router'
 
 const debug = _debug('mservice:router:module:request')
 
-async function requestHandler(this: Microfleet & RouterPlugin, request: ServiceRequest): Promise<any> {
+async function requestHandler(this: Microfleet & RouterPlugin, request: ServiceRequest): Promise<void> {
   debug('handler for module "request"')
 
   const { transport, route } = request
