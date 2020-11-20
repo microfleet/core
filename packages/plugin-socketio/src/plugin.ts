@@ -12,7 +12,7 @@ import AdapterFactory from 'ms-socket.io-adapter-amqp'
 
 import { SocketIOPlugin, SocketIOPluginConfig, RequestCounter } from './types/plugin'
 
-const debug = createDebug('mservice:socketIO')
+const debug = createDebug('@microfleet/plugin-socketio')
 
 export const name = 'socketio'
 export const type = PluginTypes.transport

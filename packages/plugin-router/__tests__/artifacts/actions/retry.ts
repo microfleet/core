@@ -1,4 +1,5 @@
-import { ActionTransport, Microfleet, ServiceRequest } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
+import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 /**
  * Custom action that rejects based on params.

@@ -1,4 +1,5 @@
-import { ActionTransport, Microfleet } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
+import { ActionTransport } from '@microfleet/plugin-router'
 import { AMQPPlugin } from '@microfleet/plugin-amqp'
 
 export default async function handler(this: Microfleet & AMQPPlugin): Promise<any> {

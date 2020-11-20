@@ -18,7 +18,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artefacts/actions'),
+          directory: resolve(__dirname, '../artifacts/actions'),
         },
       },
     })
@@ -62,7 +62,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artefacts/actions'),
+          directory: resolve(__dirname, '../artifacts/actions'),
           prefix: 'foo.bar',
         },
       },
@@ -101,7 +101,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artefacts/actions'),
+          directory: resolve(__dirname, '../artifacts/actions'),
         },
       },
     })
@@ -139,7 +139,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artefacts/actions'),
+          directory: resolve(__dirname, '../artifacts/actions'),
           prefix: 'baz.foo',
         },
       },
@@ -175,7 +175,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artefacts/actions'),
+          directory: resolve(__dirname, '../artifacts/actions'),
         },
       },
     })
@@ -210,7 +210,7 @@ describe('@microfleet/plugin-router-hapi', () => {
           engines: {
             hbs: handlebars,
           },
-          path: resolve(__dirname, '../artefacts/templates'),
+          path: resolve(__dirname, '../artifacts/templates'),
         },
       },
       'router-hapi': {
@@ -218,7 +218,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artefacts/actions'),
+          directory: resolve(__dirname, '../artifacts/actions'),
         },
       },
     })

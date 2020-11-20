@@ -1,4 +1,4 @@
-import { ActionTransport } from '@microfleet/core'
+import { ActionTransport } from '@microfleet/plugin-router'
 
 export default function successAction(): any {
   return { redirected: true }

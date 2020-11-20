@@ -1,4 +1,4 @@
-import { ServiceRequest } from '@microfleet/core'
+import { ServiceRequest } from '@microfleet/plugin-router'
 
 export default async function responseValidate(request: ServiceRequest): Promise<any> {
   if (request.params.success) {

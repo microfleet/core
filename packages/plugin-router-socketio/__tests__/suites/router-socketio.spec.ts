@@ -22,7 +22,7 @@ describe('@microfleet/plugin-router-socketio', () => {
     },
     router: {
       routes: {
-        directory: resolve(__dirname, '../artefacts/actions'),
+        directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
   })

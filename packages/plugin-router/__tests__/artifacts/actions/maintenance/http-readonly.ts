@@ -1,4 +1,4 @@
-import { ActionTransport } from '@microfleet/core'
+import { ActionTransport } from '@microfleet/plugin-router'
 
 export default async function handler(): Promise<any> {
   return { success: true }

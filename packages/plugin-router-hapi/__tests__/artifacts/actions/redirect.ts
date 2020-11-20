@@ -1,7 +1,7 @@
-import { ActionTransport, ServiceRequest } from '@microfleet/core'
+import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 export default function redirectAction(request: ServiceRequest): any {
-  return request.transportRequest.redirect('https://google.com')
+  return request.transportRequest.redirect('success')
 }
 
 redirectAction.schema = false

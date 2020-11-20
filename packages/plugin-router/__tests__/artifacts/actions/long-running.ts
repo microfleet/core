@@ -1,5 +1,6 @@
 import { delay } from 'bluebird'
-import { Microfleet, ServiceRequest } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
+import { ServiceRequest } from '@microfleet/plugin-router'
 
 export default async function longAction(this: Microfleet, request: ServiceRequest): Promise<any> {
   const { params } = request

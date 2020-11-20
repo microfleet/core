@@ -1,4 +1,4 @@
-import { ActionTransport, ServiceRequest } from '@microfleet/core'
+import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 export default function rawBodyAction({ transportRequest }: ServiceRequest): any {
   if (Buffer.isBuffer(transportRequest.payload)) {

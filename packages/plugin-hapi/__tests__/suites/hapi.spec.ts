@@ -44,7 +44,7 @@ describe('@microfleet/plugin-hapi', () => {
       },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artefacts/actions'),
+          directory: resolve(__dirname, '../artifacts/actions'),
         },
       },
     })

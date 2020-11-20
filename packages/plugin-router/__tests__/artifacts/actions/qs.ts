@@ -1,4 +1,4 @@
-import { ActionTransport, ServiceRequest } from '@microfleet/core'
+import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 export default async function QSAction(request: ServiceRequest): Promise<any> {
   return {

@@ -1,5 +1,5 @@
 import { NotPermittedError } from 'common-errors'
-import { ServiceRequest } from '@microfleet/core'
+import { ServiceRequest } from '@microfleet/plugin-router'
 
 export default async function simpleAction(request: ServiceRequest): Promise<any> {
   return {
