@@ -49,7 +49,7 @@ export default class Runner {
   async runFn(name: string, handler: RunnerFn, params: RunnerParams, ...rest: any[]): Promise<void> {
     const uppercased = upperFirst(name)
 
-    this.run(`pre${uppercased}`, params)
+    await this.run(`pre${uppercased}`, params)
 
     try {
       await handler.call(this.context, params, ...rest)
@@ -57,7 +57,7 @@ export default class Runner {
       params.error = error
     }
 
-    this.run(`post${uppercased}`, params)
+    await this.run(`post${uppercased}`, params)
 
     if (params.error !== undefined) {
       throw params.error
