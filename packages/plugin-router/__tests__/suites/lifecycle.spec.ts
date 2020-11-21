@@ -80,6 +80,7 @@ describe('@microfleet/plugin-router: lifecycle/runner', () => {
       async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) }
     )
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     await rejects(() => runner.runFn('handler', async () => {}, {}), /the fattest cat is perchik/)
   })
 
@@ -122,6 +123,7 @@ describe('@microfleet/plugin-router: lifecycle/runner', () => {
       async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) }
     )
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     await rejects(() => runner.runFn('handler', async () => {}, {}), /the fattest cat is perchik/)
   })
 

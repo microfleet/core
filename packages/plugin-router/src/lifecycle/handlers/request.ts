@@ -1,32 +1,17 @@
 import { Microfleet } from '@microfleet/core'
-import { ArgumentError, NotFoundError, HttpStatusError } from 'common-errors'
-import _debug = require('debug')
+import { NotFoundError, HttpStatusError } from 'common-errors'
 
 import { RouterPlugin } from '../../types/plugin'
 import { ServiceRequest } from '../../types/router'
 
-const debug = _debug('mservice:router:module:request')
-
 async function requestHandler(this: Microfleet & RouterPlugin, request: ServiceRequest): Promise<void> {
-  debug('handler for module "request"')
+  const { action, route } = request
 
-  const { transport, route } = request
-
-  if (route === undefined) {
-    throw new ArgumentError('"request" must have property "route"')
-  }
-
-  if (transport === undefined) {
-    throw new ArgumentError('"request" must have property "transport"')
-  }
-
-  const action = this.router.getAction(route, transport)
-
+  // @todo optional ServiceRequest.action
   if (action === undefined) {
+    // @todo HttpStatusError
     throw new NotFoundError(`route "${route}" not found`)
   }
-
-  request.action = action
 
   const { maintenanceMode } = this.config
 

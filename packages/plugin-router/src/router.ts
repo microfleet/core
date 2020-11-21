@@ -1,3 +1,4 @@
+import { strict as assert } from 'assert'
 import { resolve } from 'path'
 import * as Bluebird from 'bluebird'
 import { Microfleet } from '@microfleet/core'
@@ -133,15 +134,19 @@ export default class Router {
     }
   }
 
-  // @todo async?
-  // @todo (BC) get route from request
-  public dispatch(route: string, request: ServiceRequest): Bluebird<any>
-  public dispatch(route: string, request: ServiceRequest, callback: DispatchCallback): void
-  public dispatch(route: string, request: ServiceRequest, callback?: DispatchCallback): Bluebird<any> | void {
-    debug('initiating request on route %s', route)
+  // @todo async public function?
+  // @todo (BC) remove first argument
+  public dispatch(_: string, request: ServiceRequest): Bluebird<any>
+  public dispatch(_: string, request: ServiceRequest, callback: DispatchCallback): void
+  public dispatch(_: string, request: ServiceRequest, callback?: DispatchCallback): Bluebird<any> | void {
+    assert(request.route)
+    assert(request.transport)
 
     const { service } = this
     const { tracer, log } = service
+    const { route, transport } = request
+
+    debug('initiating request on route %s', route)
 
     // @todo extension?
     // if we have installed tracer - init span
@@ -154,6 +159,8 @@ export default class Router {
       })
     }
 
+    // @todo fix as ServiceAction
+    request.action = this.getAction(route, transport) as ServiceAction
     request.log = log.child({
       reqId: uuidv4(),
     })
