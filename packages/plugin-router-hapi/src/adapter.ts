@@ -61,8 +61,6 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
   const dispatch = promisify(router.dispatch, { context: router })
 
   return async function handler(request: Request) {
-    // eslint-disable-next-line no-console
-    console.log(actionName, request.payload)
     const { headers } = request
 
     let parentSpan
