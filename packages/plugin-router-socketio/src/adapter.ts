@@ -43,7 +43,7 @@ function getSocketIORouterAdapter(router: Router): (socket: NodeJS.EventEmitter)
 
       debug('prepared request with', packet.data)
       const wrappedCallback = wrapCallback(router, callback)
-      router.dispatch.call(router, actionName, request, wrappedCallback)
+      router.dispatch.call(router, request, wrappedCallback)
     })
   }
 }

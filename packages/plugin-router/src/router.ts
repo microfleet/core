@@ -136,9 +136,15 @@ export default class Router {
 
   // @todo async public function?
   // @todo (BC) remove first argument
-  public dispatch(_: string, request: ServiceRequest): Bluebird<any>
-  public dispatch(_: string, request: ServiceRequest, callback: DispatchCallback): void
-  public dispatch(_: string, request: ServiceRequest, callback?: DispatchCallback): Bluebird<any> | void {
+  public prefixAndDispatch(routeWithoutPrefix: string, request: ServiceRequest): Bluebird<any> {
+    request.route = this.prefix(routeWithoutPrefix)
+    return this.dispatch(request)
+  }
+
+  // @todo async public function?
+  public dispatch(request: ServiceRequest): Bluebird<any>
+  public dispatch(request: ServiceRequest, callback: DispatchCallback): void
+  public dispatch(request: ServiceRequest, callback?: DispatchCallback): Bluebird<any> | void {
     assert(request.route)
     assert(request.transport)
 

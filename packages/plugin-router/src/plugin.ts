@@ -94,16 +94,12 @@ export function attach(
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const config = this.validator.ifError('router', defaultsDeep(options, defaultConfig)) as RouterPluginConfig
-  const { prefix } = config.routes
   const router = this.router = new Router(config, this)
 
   // dispatcher
   this.dispatch = (route: string, request: Partial<ServiceRequest>) => {
     const msg = prepareRequest(request)
-    const routeWithPrefix = prefix ? `${prefix}.${route}` : route
 
-    msg.route = routeWithPrefix
-
-    return router.dispatch(routeWithPrefix, msg)
+    return router.prefixAndDispatch(route, msg)
   }
 }

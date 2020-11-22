@@ -44,7 +44,7 @@ function getAMQPRouterAdapter(
   return async (params: any, properties: any, raw: any, next: (...args: any[]) => void = noop): Promise<any> => {
     const routingKey = properties.headers['routing-key'] || properties.routingKey
     // @todo is it possible to route without prefix trim?
-    const actionName = normalizeActionName(routingKey)
+    const route = normalizeActionName(routingKey)
 
     const opts: ServiceRequest = {
       // initiate action to ensure that we have prepared proto fo the object
@@ -52,6 +52,8 @@ function getAMQPRouterAdapter(
       // make sure we standardize the request
       // to provide similar interfaces
       params,
+      route,
+      // @todo fix type for action (optional?)
       action: noop as any,
       headers: properties,
       locals: Object.create(null),
@@ -59,7 +61,6 @@ function getAMQPRouterAdapter(
       method: ActionTransport.amqp,
       parentSpan: raw.span,
       query: Object.create(null),
-      route: actionName,
       span: undefined,
       transport: ActionTransport.amqp,
       transportRequest: Object.create(null),
@@ -67,8 +68,8 @@ function getAMQPRouterAdapter(
 
     increaseCounter()
     try {
-      const promise = dispatch(actionName, opts)
-      const response = await wrapDispatch(promise, actionName, raw)
+      const promise = dispatch(opts)
+      const response = await wrapDispatch(promise, route, raw)
 
       setImmediate(next, null, response)
     } catch (e) {
