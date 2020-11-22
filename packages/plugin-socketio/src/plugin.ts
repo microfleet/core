@@ -2,29 +2,27 @@
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-logger'
 /* eslint-enable @typescript-eslint/no-unused-vars */
+import { strict as assert } from 'assert'
+import { resolve } from 'path'
+
+import { NotImplementedError } from 'common-errors'
+import { Server as SocketServer } from 'socket.io'
+import { AdapterFactory } from 'ms-socket.io-adapter-amqp'
+
+import { Microfleet } from '@microfleet/core'
+import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
+import { PluginTypes } from '@microfleet/utils'
 import type { PluginInterface } from '@microfleet/core-types'
 
-import { strictEqual } from 'assert'
-import { resolve } from 'path'
-import { NotImplementedError, NotFoundError } from 'common-errors'
-import createDebug from 'debug'
-import { Server as SocketServer } from 'socket.io'
-import { ActionTransport, Microfleet } from '@microfleet/core'
-import { PluginTypes } from '@microfleet/utils'
-import { AdapterFactory } from 'ms-socket.io-adapter-amqp'
-import { RequestCountTracker } from '@microfleet/core/lib/plugins/router/request-tracker'
-
 export type SocketIOAdapterConfig = {
-  name: string;
-  options: any;
+  name: string
+  options: any
 }
 
 export type SocketIOPluginConfig = {
-  adapter?: SocketIOAdapterConfig;
-  socketioOptions: Required<ConstructorParameters<typeof SocketServer>>[1];
+  adapter?: SocketIOAdapterConfig
+  socketioOptions: Required<ConstructorParameters<typeof SocketServer>>[1]
 }
-
-const debug = createDebug('mservice:socketIO')
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
@@ -44,8 +42,7 @@ export const attach = function attachSocketioPlugin(
   this: Microfleet,
   options: Partial<SocketIOPluginConfig> = {}
 ): PluginInterface {
-  debug('Attaching socketIO plugin')
-  strictEqual(this.hasPlugin('validator'), true, new NotFoundError('validator module must be included'))
+  assert(this.hasPlugin('validator'), 'validator module is required')
 
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
@@ -72,6 +69,7 @@ export const attach = function attachSocketioPlugin(
   this.socketio = new SocketServer(socketioServerOptions)
 
   return {
+    // @todo shouldn't be here
     getRequestCount: RequestCountTracker.getRequestCount.bind(undefined, this, ActionTransport.socketio),
   }
 }

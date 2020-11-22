@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { ActionTransport, Microfleet } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 import { resolve } from 'path'
 import { io as SocketIOClient } from 'socket.io-client'
 import { once } from 'events'
@@ -48,7 +48,6 @@ describe('@microfleet/plugin-http', () => {
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
-          transports: [ActionTransport.socketio, ActionTransport.http],
         },
       },
     })

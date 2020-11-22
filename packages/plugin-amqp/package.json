@@ -41,7 +41,9 @@
     "@microfleet/core": "^17.3.4",
     "@types/bluebird": "^3.5.32",
     "@types/sinon": "^9.0.8",
-    "sinon": "^9.2.1"
+    "@types/split2": "^2.1.6",
+    "sinon": "^9.2.1",
+    "split2": "^3.2.2"
   },
   "engines": {
     "node": ">= 12.14.0",

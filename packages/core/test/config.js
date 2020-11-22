@@ -2,7 +2,6 @@
 require('chai').config.includeStack = true;
 const cassandra = require('express-cassandra');
 const path = require('path');
-const { ActionTransport } = require('..');
 
 global.SERVICES = {
   redis: {
@@ -79,10 +78,6 @@ global.SERVICES = {
       enabled: {
         echo: 'echo',
       },
-      transports: [ActionTransport.socketio],
-    },
-    extensions: {
-      register: [],
     },
   },
 };

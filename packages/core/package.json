@@ -6,8 +6,7 @@
   "version": "17.5.3",
   "scripts": {
     "lint": "eslint ./src",
-    "test": "yarn test:unit && yarn test:e2e",
-    "test:unit": "TS_NODE_TRANSPILE_ONLY=true mocha ./src/**/*.spec.?s",
+    "test": "yarn test:e2e",
     "test:e2e": "mdep test run",
     "compile": "tsc -b ./tsconfig.build.json",
     "prepublishOnly": "cp ../../README.md ./README.md",

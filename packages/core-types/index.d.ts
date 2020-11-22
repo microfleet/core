@@ -5,7 +5,6 @@ import type {
   ActionTransport,
   CONNECTORS_PROPERTY,
   ConnectorsTypes,
-  DATA_KEY_SELECTOR,
   DESTRUCTORS_PROPERTY,
   PLUGIN_STATUS_FAIL,
   PLUGIN_STATUS_OK,
@@ -119,52 +118,6 @@ export type MserviceError = Error & {
   toJSON(): any;
 }
 
-export interface AuthConfig {
-  name: string;
-  passAuthError: boolean;
-  strategy: string;
-}
-
 export type HandlerProperties = typeof CONNECTORS_PROPERTY | typeof DESTRUCTORS_PROPERTY
-export type TransportTypes = $Values<typeof ActionTransport>
 export type ConnectorsTypes = $Values<typeof ConnectorsTypes>
-export type RequestMethods = $Keys<typeof DATA_KEY_SELECTOR>
-export type GetAuthName = (req: ServiceRequest) => string
-export type ServiceActionStep = (...args: any[]) => PromiseLike<any>
-
-export declare interface ServiceAction extends ServiceActionStep {
-  allowed?: () => boolean | Promise<boolean>;
-  auth?: string | GetAuthName | AuthConfig;
-  passAuthError?: boolean;
-  schema?: string | null | boolean;
-  responseSchema?: string;
-  validateResponse: boolean;
-  transports: TransportTypes[];
-  actionName: string;
-  readonly?: boolean;
-}
-
-export interface ServiceRequest {
-  route: string;
-  params: any;
-  headers: any;
-  query: any;
-  method: RequestMethods;
-  transport: TransportTypes;
-  transportRequest: any | ClientRequest;
-  action: ServiceAction;
-  locals: any;
-  auth?: any;
-  parentSpan: any;
-  span: any;
-  log: {
-    trace(...args: any[]): void;
-    debug(...args: any[]): void;
-    info(...args: any[]): void;
-    warn(...args: any[]): void;
-    error(...args: any[]): void;
-    fatal(...args: any[]): void;
-  };
-}
-
 export type PluginStatus = typeof PLUGIN_STATUS_OK | typeof PLUGIN_STATUS_FAIL

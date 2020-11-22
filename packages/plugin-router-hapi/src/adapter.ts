@@ -1,15 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type * as _ from '@microfleet/core/lib/plugins/router'
-
-import { HttpStatusError } from '@microfleet/validation'
-import { promisify } from 'bluebird'
 import * as Errors from 'common-errors'
-import { Request } from '@hapi/hapi'
 import { noop } from 'lodash'
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
-import type { Microfleet, ServiceRequest, RequestMethods } from '@microfleet/core-types'
+import { Request } from '@hapi/hapi'
 import { boomify } from '@hapi/boom'
-import { ActionTransport } from '@microfleet/utils'
+
+import { Microfleet } from '@microfleet/core'
+import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
+import { HttpStatusError } from '@microfleet/validation'
 
 declare module '@hapi/boom' {
   interface Payload {
@@ -64,9 +61,6 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
     return replyError
   }
 
-  // pre-wrap the function so that we do not need to actually do fromNode(next)
-  const dispatch = promisify(router.dispatch, { context: router })
-
   return async function handler(request: Request) {
     const { headers } = request
 
@@ -85,10 +79,10 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
       action: noop as any,
       locals: Object.create(null),
       log: console as any,
-      method: request.method.toLowerCase() as RequestMethods,
+      method: request.method,
       params: request.payload,
       query: request.query,
-      route: '',
+      route: actionName,
       span: undefined,
       transport: ActionTransport.http,
       transportRequest: request,
@@ -96,7 +90,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
 
     let response
     try {
-      response = await dispatch(actionName, serviceRequest)
+      response = await router.dispatch(serviceRequest)
     } catch (e) {
       response = reformatError(e)
     }

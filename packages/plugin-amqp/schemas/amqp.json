@@ -35,6 +35,10 @@
         "neck": {
           "type": "integer",
           "minimum": 0
+        },
+        "timeout": {
+          "type": "integer",
+          "minimum": 0
         }
       }
     }

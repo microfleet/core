@@ -1,9 +1,7 @@
 import { strictEqual, deepStrictEqual } from 'assert'
-import { ActionTransport, Microfleet } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core'
 import { resolve } from 'path'
 import { io as SocketIOClient } from 'socket.io-client'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type * as _ from '@microfleet/core/lib/plugins/router'
 
 describe('@microfleet/plugin-hapi', () => {
   // @todo add missing tests for hapi plugins without using plugin-router
@@ -47,7 +45,6 @@ describe('@microfleet/plugin-hapi', () => {
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
-          transports: [ActionTransport.http, ActionTransport.socketio]
         },
       },
     })
