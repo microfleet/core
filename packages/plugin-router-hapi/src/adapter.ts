@@ -1,5 +1,6 @@
 import * as Errors from 'common-errors'
 import { noop } from 'lodash'
+import { promisify } from 'bluebird'
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
 import { Request } from '@hapi/hapi'
 import { boomify } from '@hapi/boom'
@@ -16,6 +17,8 @@ declare module '@hapi/boom' {
 
 export default function getHapiAdapter(actionName: string, service: Microfleet): (r: Request) => Promise<any> {
   const { router } = service
+  // pre-wrap the function so that we do not need to actually do fromNode(next)
+  const dispatch = promisify(router.dispatch, { context: router })
   const reformatError = (error: any) => {
     let statusCode
     let errorMessage
@@ -90,7 +93,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
 
     let response
     try {
-      response = await router.dispatch(serviceRequest)
+      response = await dispatch(serviceRequest)
     } catch (e) {
       response = reformatError(e)
     }
