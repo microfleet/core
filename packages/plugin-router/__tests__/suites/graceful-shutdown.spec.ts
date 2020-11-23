@@ -6,7 +6,7 @@ import { spawn, ChildProcess } from 'child_process'
 import * as split2 from 'split2'
 import { once } from 'events'
 import * as getFreePort from 'get-port'
-import * as SocketIOClient from 'socket.io-client'
+import { io as SocketIOClient } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
 
 import {

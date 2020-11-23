@@ -70,7 +70,7 @@ export function getHTTPRequest(options: OptionsWithUrl): (action: string, params
   }
 }
 
-export function getSocketioRequest(client: typeof Socket): (action: string, params: any) => Bluebird<any> {
+export function getSocketioRequest(client: Socket): (action: string, params: any) => Bluebird<any> {
   return (action: string, params: any): Bluebird<any> =>
     Bluebird.fromCallback((callback) =>
       client.emit(action, params, callback))

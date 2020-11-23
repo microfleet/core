@@ -3,6 +3,7 @@ import { strict as assert, rejects, strictEqual } from 'assert'
 // import Lifecycle from '../../src/lifecycle'
 import Runner from '../../src/lifecycle/runner'
 
+// @todo
 // describe('@microfleet/plugin-router: lifecycle', () => {
 //   it('should be able to register an extension', async () => {
 

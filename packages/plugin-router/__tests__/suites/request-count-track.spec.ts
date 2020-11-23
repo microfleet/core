@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { spy } from 'sinon'
-import * as SocketIOClient from 'socket.io-client'
+import { io as SocketIOClient } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
 import { Extensions } from '@microfleet/plugin-router'
 

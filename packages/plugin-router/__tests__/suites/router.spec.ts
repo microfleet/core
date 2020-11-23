@@ -2,12 +2,12 @@ import { strict, strictEqual, rejects, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
 import { Writable } from 'stream'
 import { AuthenticationRequiredError } from 'common-errors'
-import * as SocketIOClient from 'socket.io-client'
+import { io as SocketIOClient } from 'socket.io-client'
 import * as sinon from 'sinon'
 import * as Bluebird from 'bluebird'
 import { filter, range } from 'lodash'
 import { Microfleet, PLUGIN_STATUS_FAIL } from '@microfleet/core'
-import { Extensions } from '@microfleet/plugin-router'
+import { Extensions, ServiceRequest } from '@microfleet/plugin-router'
 
 import {
   verify,
@@ -70,7 +70,7 @@ describe('@microfleet/plugin-router', () => {
         },
         auth: {
           strategies: {
-            async token(request) {
+            async token(request: ServiceRequest) {
               if (request.params.token) {
                 return 'User'
               }
