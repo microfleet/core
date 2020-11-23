@@ -24,7 +24,6 @@ declare module '@microfleet/core-types' {
   }
 }
 
-
 // @todo shouldn't be here
 import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
 
