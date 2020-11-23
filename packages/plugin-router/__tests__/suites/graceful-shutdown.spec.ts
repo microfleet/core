@@ -131,7 +131,7 @@ class ChildServiceRunner {
 
     process.kill(this.process.pid, signal)
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       const timeout = setTimeout(() => {
         clearTimeout(timeout)
         clearInterval(interval)
