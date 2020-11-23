@@ -67,7 +67,7 @@ class ChildServiceRunner {
     this.processClosed = once(subProcess, 'close')
 
     try {
-      await (new Promise((resolve, reject) => {
+      await (new Promise<void>((resolve, reject) => {
         once(subProcess, 'ready').then(() => {
           clearTimeout(timeout)
           resolve()
