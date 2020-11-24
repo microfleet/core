@@ -1,16 +1,15 @@
 import Bluebird from 'bluebird'
-import { Microfleet } from '@microfleet/core'
 
 import Router from '../router'
-import Lifecycle from '../lifecycle'
 import { ServiceRequest } from './router'
-
-export type LifecyclePoints = typeof Lifecycle.points
+import { AuthConfig } from '../lifecycle/actions/auth'
+import { ValidateResponseConfig } from '../lifecycle/actions/validate-response'
+import { CoreLifecycleOptionsExtension } from '../lifecycle/core'
 
 declare module '@microfleet/core' {
   export interface Microfleet {
     router: Router
-    dispatch: dispatchHelper
+    dispatch: (route: string, request: Partial<ServiceRequest>) => Bluebird<any>
   }
 
   export interface ConfigurationOptional {
@@ -18,47 +17,18 @@ declare module '@microfleet/core' {
   }
 }
 
-export interface RouterPlugin {
-  router: Router
-  dispatch: dispatchHelper
-}
-
-export type dispatchHelper = (route: string, request: Partial<ServiceRequest>) => Bluebird<any>
-
 export type RouterPluginConfig = {
-  auth: RouterPluginAuthConfig
-  extensions: RouterPluginExtensionsConfig
+  auth: AuthConfig
+  extensions: {
+    register: CoreLifecycleOptionsExtension[]
+  }
   routes: RouterPluginRoutesConfig
-}
-
-export interface RouterPluginAuthConfig {
-  readonly strategies: Record<string, RouterPluginAuthStrategy>
-}
-
-// rename to MicrofleetHandler and move out of here
-export interface RouterPluginAuthStrategy {
-  (this: Microfleet, request: ServiceRequest): PromiseLike<any>
-}
-
-export type RouterLifecycleExtension = {
-  point: LifecyclePoints[keyof LifecyclePoints]
-  handler(...args: any[]): PromiseLike<any>;
-}[];
-
-export interface RouterPluginExtensionsConfig {
-  register: RouterLifecycleExtension[];
 }
 
 export interface RouterPluginRoutesConfig {
   directory?: string
   enabled?: Record<string, string>
   prefix?: string
-  responseValidation?: RouterPluginRoutesResponseValidationConfig
+  responseValidation?: ValidateResponseConfig
   enabledGenericActions?: string[]
-}
-
-export interface RouterPluginRoutesResponseValidationConfig {
-  enabled: boolean
-  maxSample: number
-  panic: boolean
 }

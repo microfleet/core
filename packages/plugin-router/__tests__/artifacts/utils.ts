@@ -22,8 +22,8 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
 
     if (inspection.isFulfilled()) {
       try {
-        assert.equal('success', caseOptions.expect)
         caseOptions.verify(inspection.value())
+        assert.equal('success', caseOptions.expect)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(inspection.value())
@@ -33,8 +33,8 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
 
     if (inspection.isRejected()) {
       try {
-        assert.equal('error', caseOptions.expect)
         caseOptions.verify(inspection.reason())
+        assert.equal('error', caseOptions.expect)
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(inspection.reason())

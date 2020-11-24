@@ -1,6 +1,6 @@
 import { NotSupportedError } from 'common-errors'
 
-import Lifecycle from '../../lifecycle'
+import Lifecycle from '../../lifecycle/core'
 import { ServiceRequest } from '../../types/router'
 
 export type TransportOptionsAugmentedRequest = ServiceRequest & {

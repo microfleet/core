@@ -1,37 +1,11 @@
 import { sep, resolve } from 'path'
-import Bluebird from 'bluebird'
 import glob = require('glob')
-import { Tags, Span } from 'opentracing'
 import { isObject, isString } from 'lodash'
 import { ValidationError } from 'common-errors'
 
 import { ServiceAction } from './types/router'
 
-const { ERROR } = Tags
 const filterDefinitions = (x: string) => !x.endsWith('.d.ts')
-
-export function wrapPromiseWithSpan(
-  span: Span,
-  promise: Bluebird<any>,
-  callback?: (err: any, result?: any) => void
-): void {
-  promise
-    .catch((err: Error) => {
-      span.setTag(ERROR, true)
-      span.log({
-        'error.object': err,
-        event: 'error',
-        message: err.message,
-        stack: err.stack,
-      })
-
-      throw err
-    })
-    .finally(() => {
-      span.finish()
-    })
-    .asCallback(callback)
-}
 
 export function readRoutes(directory: string): [string, ServiceAction][] {
   return glob

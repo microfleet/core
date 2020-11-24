@@ -28,8 +28,6 @@ function getAMQPRouterAdapter(
   const decreaseCounter = (): void => requestCountTracker.decrease(ActionTransport.amqp)
   const increaseCounter = (): void => requestCountTracker.increase(ActionTransport.amqp)
 
-  // pre-wrap the function so that we do not need to actually do fromNode(next)
-  const dispatch = Bluebird.promisify(router.dispatch, { context: router })
   const prefix = config.prefix || ''
   const prefixLength = prefix ? prefix.length + 1 : 0
   const normalizeActionName = prefixLength > 0
@@ -63,11 +61,12 @@ function getAMQPRouterAdapter(
       span: undefined,
       transport: ActionTransport.amqp,
       transportRequest: Object.create(null),
+      reformatError: true,
     }
 
     increaseCounter()
     try {
-      const promise = dispatch(opts)
+      const promise = service.router.dispatch(opts)
       const response = await wrapDispatch(promise, route, raw)
 
       setImmediate(next, null, response)

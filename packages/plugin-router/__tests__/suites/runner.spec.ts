@@ -1,7 +1,7 @@
 import { strict as assert, rejects, strictEqual } from 'assert'
 
 // import Lifecycle from '../../src/lifecycle'
-import Runner from '../../src/lifecycle/runner'
+import Runner from '../../src/runner'
 
 // @todo
 // describe('@microfleet/plugin-router: lifecycle', () => {
@@ -18,8 +18,8 @@ describe('@microfleet/plugin-router: lifecycle/runner', () => {
       error: undefined,
     }
 
-    runner.register('preHandler', async (req) => { req.response += 1 })
-    runner.register('preHandler', async (req) => { req.response += 1 })
+    runner.register('preHandler', async (req: any) => { req.response += 1 })
+    runner.register('preHandler', async (req: any) => { req.response += 1 })
 
     await runner.run('preHandler', request)
 
@@ -45,9 +45,9 @@ describe('@microfleet/plugin-router: lifecycle/runner', () => {
       error: undefined,
     }
 
-    runner.register('preHandler', async (req) => { req.response += 1 })
+    runner.register('preHandler', async (req: any) => { req.response += 1 })
 
-    await runner.runFn('handler', async (req) => { req.response += 1 }, request, 1)
+    await runner.runFn('handler', async (req: any) => { req.response += 1 }, request, 1)
 
     assert(request.response === 2)
   })
@@ -59,11 +59,11 @@ describe('@microfleet/plugin-router: lifecycle/runner', () => {
       error: undefined,
     }
 
-    runner.register('preHandler', async (req) => { req.response += 1 })
+    runner.register('preHandler', async (req: any) => { req.response += 1 })
 
     await runner.runFn(
       'handler',
-      async (req, param1, param2) => { req.response += (param1 + param2) },
+      async (req: any, param1, param2) => { req.response += (param1 + param2) },
       request,
       2,
       3,

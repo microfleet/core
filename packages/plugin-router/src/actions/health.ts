@@ -5,7 +5,7 @@ import {
   PLUGIN_STATUS_FAIL
 } from '@microfleet/core'
 
-import { ServiceRequest } from '../../types/router'
+import { ServiceRequest } from '../types/router'
 
 const kUnhealthy = new HttpStatusError(500, 'unhealthy')
 

@@ -1,10 +1,9 @@
 import { Microfleet } from '@microfleet/core'
 import { NotFoundError, HttpStatusError } from 'common-errors'
 
-import { RouterPlugin } from '../../types/plugin'
 import { ServiceRequest } from '../../types/router'
 
-async function requestHandler(this: Microfleet & RouterPlugin, request: ServiceRequest): Promise<void> {
+async function requestHandler(this: Microfleet, request: ServiceRequest): Promise<void> {
   const { action, route } = request
 
   // @todo optional ServiceRequest.action

@@ -302,8 +302,8 @@ describe('@microfleet/plugin-router', () => {
     const validationFailed = {
       expect: 'error',
       verify: (error: any) => {
-        strictEqual(error.name, 'HttpStatusError')
         strictEqual(error.message, 'nested.test validation failed: data.foo should be integer')
+        strictEqual(error.name, 'HttpStatusError')
       },
     }
 
@@ -389,8 +389,8 @@ describe('@microfleet/plugin-router', () => {
         amqp.publishAndWait('amqp.action.generic.health', {}).reflect().then(verify(returnsResult))
       ])
     } finally {
-      await service.close()
       socketioClient.close()
+      await service.close()
     }
   })
 
@@ -480,7 +480,7 @@ describe('@microfleet/plugin-router', () => {
       strictEqual(
         error.message,
         // @todo custom error
-        'Cannot find module \'/src/packages/plugin-router/src/routes/generic/i-dont-know-you\' '
+        'Cannot find module \'/src/packages/plugin-router/src/actions/i-dont-know-you\' '
           + 'from \'packages/plugin-router/src/utils.ts\''
       )
     }

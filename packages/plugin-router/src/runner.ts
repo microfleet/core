@@ -1,21 +1,19 @@
-// @todo tests from old lifecycle
 import { upperFirst } from 'lodash'
 
 export interface RunnerConfig {
   context?: any
 }
 
-export interface RunnerFn {
-  // @todo params: RunnerParams
-  (this: any, params: any, ...rest: any[]): PromiseLike<void>
+export interface RunnerFn<P> {
+  (this: any, params: P, ...rest: any[]): Promise<void>
 }
 
 export interface RunnerParams {
   error?: any
 }
 
-export default class Runner {
-  protected map: Map<string, Set<RunnerFn>> = new Map()
+export default class Runner<F extends RunnerFn<P>, P extends RunnerParams> {
+  protected map: Map<string, Set<F>> = new Map()
 
   protected context: any
 
@@ -25,7 +23,7 @@ export default class Runner {
     }
   }
 
-  register(id: string, handler: RunnerFn): void {
+  register(id: string, handler: F): void {
     let handlers = this.map.get(id)
 
     if (handlers === undefined) {
@@ -36,7 +34,7 @@ export default class Runner {
     handlers.add(handler)
   }
 
-  async run(id: string, params: RunnerParams): Promise<void> {
+  async run(id: string, params: P): Promise<void> {
     const handlers = this.map.get(id)
 
     if (handlers !== undefined) {
@@ -46,7 +44,7 @@ export default class Runner {
     }
   }
 
-  async runFn(name: string, handler: RunnerFn, params: RunnerParams, ...rest: any[]): Promise<void> {
+  async runFn(name: string, handler: F, params: P, ...rest: any[]): Promise<void> {
     const uppercased = upperFirst(name)
 
     await this.run(`pre${uppercased}`, params)
