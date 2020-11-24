@@ -42,7 +42,7 @@ describe('AMQP suite: basic routing', function testSuite() {
   afterAll(() => service.close())
 
   it('able to observe an action', async () => {
-    const amqpRoutes = service.router.getRoutes('amqp')
+    const amqpRoutes = service.router.routes.get('amqp')
 
     assert.ok(typeof amqpRoutes.get('echo') === 'function')
   })
@@ -80,7 +80,7 @@ describe('AMQP suite: prefixed routing', function testSuite() {
   afterAll(() => service.close())
 
   it ('able to observe an action', async () => {
-    const amqpRoutes = service.router.getRoutes('amqp')
+    const amqpRoutes = service.router.routes.get('amqp')
 
     assert.ok(typeof amqpRoutes.get('echo') === 'function')
   })

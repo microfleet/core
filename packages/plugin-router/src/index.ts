@@ -1,7 +1,7 @@
 import Extensions from './extensions'
 import Router from './router'
 import RequestCountTracker from './tracker'
-import Lifecycle from './runner'
+import Lifecycle from './lifecycle/core'
 
 const { ActionTransport } = Router
 
