@@ -2,8 +2,9 @@ import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
 import { MserviceError } from '@microfleet/core-types'
 
-import Lifecycle, { CoreLifecycleOptionsExtension } from '../../lifecycle/core'
-import { getInitTimingExtension, ServiceRequestWithStart } from '../utils'
+import Lifecycle from '../../lifecycle/abstract'
+import { LifecycleExtensions } from '../'
+import { getInitTimingExtension, ServiceRequestWithStart } from './timing'
 
 function extractStatusCode(error: MserviceError): number {
   if (!error) {
@@ -32,7 +33,7 @@ function diff(start: [number, number]): number {
   return parseInt(ms.toFixed(), 10)
 }
 
-export default function metricObservabilityFactory(): CoreLifecycleOptionsExtension {
+export default function metricObservabilityFactory(): LifecycleExtensions {
   return [
     getInitTimingExtension(),
     {

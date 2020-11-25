@@ -1,4 +1,4 @@
-import Extensions from './extensions'
+import * as Extensions from './extensions'
 import Router from './router'
 import RequestCountTracker from './tracker'
 import Lifecycle from './lifecycle/core'

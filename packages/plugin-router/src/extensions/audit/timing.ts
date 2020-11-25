@@ -1,5 +1,6 @@
-import CoreLifecycle, { CoreLifecycleOptionsExtension } from '../lifecycle/core'
-import { ServiceRequest } from '../types/router'
+import Lifecycle from '../../lifecycle/abstract'
+import { LifecycleExtension } from '../'
+import { ServiceRequest } from '../../types/router'
 
 // @todo properties not optional
 export interface ServiceRequestWithStart extends ServiceRequest {
@@ -7,9 +8,9 @@ export interface ServiceRequestWithStart extends ServiceRequest {
   executionTotal?: [number, number];
 }
 
-export function getInitTimingExtension(): CoreLifecycleOptionsExtension[0] {
+export function getInitTimingExtension(): LifecycleExtension {
   return {
-    point: CoreLifecycle.points.preRequest,
+    point: Lifecycle.points.preRequest,
     async handler(request: ServiceRequestWithStart): Promise<void> {
       request.started = request.started || process.hrtime()
     },

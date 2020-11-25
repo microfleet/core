@@ -3,13 +3,12 @@ import { resolve } from 'path'
 import * as Bluebird from 'bluebird'
 import { Tags } from 'opentracing'
 import { v4 as uuidv4 } from 'uuid'
-// @todo
 import { Tracer } from 'opentracing'
 import { Logger } from '@microfleet/plugin-logger'
 
 import RequestCountTracker from './tracker'
 import Routes from './routes'
-import { Lifecycle } from './lifecycle/core'
+import Lifecycle from './lifecycle/abstract'
 import { ServiceAction, ServiceRequest } from './types/router'
 import {
   readRoutes,
@@ -164,7 +163,7 @@ export default class Router {
     assert(request.transport)
 
     const { route, transport } = request
-    const { tracer, log } = this
+    const { tracer, log, lifecycle } = this
 
     // @todo extension?
     // if we have installed tracer - init span
@@ -183,7 +182,7 @@ export default class Router {
     })
 
     return Bluebird
-      .resolve(this.lifecycle.run(request))
+      .resolve(lifecycle.run(request))
       .catch(spanLog(request))
       .finally(finishSpan(request))
       .return(request)

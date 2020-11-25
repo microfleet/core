@@ -4,7 +4,7 @@ import Router from '../router'
 import { ServiceRequest } from './router'
 import { AuthConfig } from '../lifecycle/actions/auth'
 import { ValidateResponseConfig } from '../lifecycle/actions/validate-response'
-import { CoreLifecycleOptionsExtension } from '../lifecycle/core'
+import { LifecycleExtensions } from '../extensions'
 
 declare module '@microfleet/core' {
   export interface Microfleet {
@@ -20,7 +20,7 @@ declare module '@microfleet/core' {
 export type RouterPluginConfig = {
   auth: AuthConfig
   extensions: {
-    register: CoreLifecycleOptionsExtension[]
+    register: LifecycleExtensions[]
   }
   routes: RouterPluginRoutesConfig
 }

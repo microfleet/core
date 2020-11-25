@@ -1,3 +1,5 @@
+import Lifecycle from './abstract'
+import { LifecycleExtensions } from '../extensions'
 import Runner from '../runner'
 import { ServiceRequest, ServiceFn } from '../types/router'
 
@@ -9,47 +11,24 @@ import actionHandler from './actions/handler'
 import validateResponseHandler, { ValidateResponseConfig } from './actions/validate-response'
 import responseHandler from './actions/response'
 
-export interface Lifecycle {
-  run(request: ServiceRequest): Promise<void>
-}
-
 export type CoreLifecycleOptions = {
   runner: Runner<ServiceFn, ServiceRequest>
-  extensions: CoreLifecycleOptionsExtension[]
+  extensions: LifecycleExtensions[]
   config: CoreLifecycleOptionsConfig
 }
-
-export type CoreLifecycleOptionsExtension = {
-  point: keyof typeof CoreLifecycle.points
-  handler: ServiceFn
-}[]
 
 export type CoreLifecycleOptionsConfig = {
   auth: AuthConfig
   validateResponse?: ValidateResponseConfig
 }
 
-export default class CoreLifecycle implements Lifecycle {
-  public static readonly points = {
-    preAllowed: 'preAllowed',
-    postAllowed: 'postAllowed',
-    preAuth: 'preAuth',
-    postAuth: 'postAuth',
-    preHandler: 'preHandler',
-    postHandler: 'postHandler',
-    preRequest: 'preRequest',
-    postRequest: 'postRequest',
-    preResponse: 'preResponse',
-    postResponse: 'postResponse',
-    preValidate: 'preValidate',
-    postValidate: 'postValidate',
-  } as const
-
+export default class CoreLifecycle extends Lifecycle {
   protected config: CoreLifecycleOptionsConfig
 
   protected runner: Runner<ServiceFn, ServiceRequest>
 
   constructor({ config, runner, extensions }: CoreLifecycleOptions) {
+    super()
     this.config = config
     this.runner = runner
 
