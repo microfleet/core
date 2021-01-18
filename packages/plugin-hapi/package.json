@@ -39,7 +39,7 @@
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
     "@types/common-errors": "^1.0.0",
-    "@types/hapi__hapi": "^20.0.3",
+    "@types/hapi__hapi": "^20.0.4",
     "@types/hapi__vision": "^5.5.2"
   },
   "engines": {
