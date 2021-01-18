@@ -105,7 +105,7 @@ export interface LoggerConfig {
   prettifyDefaultLogger: boolean;
   debug: boolean;
   name: string;
-  options: pino.LoggerOptions;
+  options: pinoms.LoggerOptions;
   streams: StreamConfiguration;
 }
 

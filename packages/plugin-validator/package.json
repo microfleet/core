@@ -30,15 +30,15 @@
     "@microfleet/core": "~17.x.x"
   },
   "dependencies": {
-    "@microfleet/validation": "^9.0.1",
+    "@microfleet/validation": "^10.0.2",
     "callsite": "^1.0.0",
     "common-errors": "^1.2.0",
     "lodash": "^4.17.20"
   },
   "devDependencies": {
     "@types/callsite": "^1.0.30",
-    "@types/lodash": "^4.14.165",
-    "@types/common-errors": "^1.0.0"
+    "@types/common-errors": "^1.0.0",
+    "@types/lodash": "^4.14.167"
   },
   "engines": {
     "node": ">= 12.15.0",

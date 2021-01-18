@@ -32,8 +32,8 @@
     "@microfleet/core": "~17.x.x"
   },
   "dependencies": {
-    "knex": "^0.21.12",
-    "pg": "^8.5.0"
+    "knex": "^0.21.15",
+    "pg": "^8.5.1"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.3",

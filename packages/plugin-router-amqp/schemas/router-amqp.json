@@ -2,7 +2,6 @@
   "$id": "router-amqp",
   "type": "object",
   "additionalProperties": false,
-  "default": {},
   "required": ["prefix", "retry"],
   "properties": {
     "prefix": {

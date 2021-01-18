@@ -3,7 +3,6 @@
   "type": "object",
   "additionalProperties": false,
   "required": ["transport"],
-  "default": {},
   "properties": {
     "transport": {
       "type": "object",

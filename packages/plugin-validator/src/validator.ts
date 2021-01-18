@@ -1,6 +1,4 @@
-/* eslint-disable no-console */
 import MicrofleetValidator from '@microfleet/validation'
-import ajv from 'ajv'
 import callsite = require('callsite')
 import { NotPermittedError } from 'common-errors'
 import path = require('path')
@@ -15,6 +13,8 @@ declare module '@microfleet/validation' {
     addLocation(location: string): void;
   }
 }
+
+type ajvOpts = ConstructorParameters<typeof MicrofleetValidator>[2]
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
@@ -52,7 +52,7 @@ export type ValidatorConfig = {
   schemas: string[];
   filter: ((filename: string) => boolean) | null;
   serviceConfigSchemaIds: string[];
-  ajv: ajv.Options;
+  ajv: ajvOpts;
 }
 
 /**
@@ -63,7 +63,7 @@ export const defaultConfig: Partial<ValidatorConfig> = {
   serviceConfigSchemaIds: ['microfleet.core', 'config'],
   filter: null,
   ajv: {
-    strictKeywords: true,
+    strict: true,
   },
 }
 

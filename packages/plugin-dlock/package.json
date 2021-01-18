@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
+    "common-errors": "^1.x.x",
     "dlock": "^12.1.1",
-    "ioredis-lock": "^4.0.0",
-    "common-errors": "^1.x.x"
+    "ioredis-lock": "^4.0.0"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x"
@@ -39,8 +39,8 @@
     "@microfleet/core": "^17.5.3",
     "@microfleet/plugin-logger": "^0.5.4",
     "@types/bluebird": "^3.5.33",
-    "@types/ioredis": "^4.17.7",
     "@types/common-errors": "^1.0.0",
+    "@types/ioredis": "^4.17.11",
     "rimraf": "^3.0.2",
     "ts-essentials": "^7.0.1"
   },

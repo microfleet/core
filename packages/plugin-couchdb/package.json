@@ -32,7 +32,7 @@
     "@microfleet/core": "~17.x.x"
   },
   "dependencies": {
-    "nano": "^9.0.1"
+    "nano": "^9.0.2"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.3",

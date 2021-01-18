@@ -5,7 +5,7 @@ import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 import semver = require('semver')
 import Bluebird = require('bluebird')
-import prometheus = require('prom-client')
+import * as prometheus from 'prom-client'
 
 const usageError = `
 if "prometheus" and "router" plugins are used together - you have to  manually configure router handlers:
@@ -53,15 +53,20 @@ function createMethodsRequestsMetric(buckets: number[]) {
 }
 
 function createMetricHandler(prometheus: any, path: string) {
-  return (req: any, res: any) => {
+  return async (req: any, res: any) => {
     if (req.method === 'GET' && req.url === path) {
-      res.writeHead(200, { 'Content-Type': prometheus.register.contentType })
-      res.write(prometheus.register.metrics())
+      try {
+        const metrics = await prometheus.register.metrics()
+        res.writeHead(200, { 'Content-Type': prometheus.register.contentType })
+        res.end(metrics)
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': prometheus.register.contentType })
+        res.end('500 Internal Error')
+      }
     } else {
       res.writeHead(404, { 'Content-Type': prometheus.register.contentType })
-      res.write('404 Not Found')
+      res.end('404 Not Found')
     }
-    res.end()
   }
 }
 

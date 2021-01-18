@@ -131,7 +131,7 @@ describe('Router suite', function testSuite() {
       expect: 'error',
       verify: (error) => {
         expect(error.name).to.be.equals('HttpStatusError');
-        expect(error.message).to.be.equals('action.simple validation failed: data.isAdmin should be boolean');
+        expect(error.message).to.be.equals('action.simple validation failed: data/isAdmin should be boolean');
       },
     };
 
@@ -283,7 +283,7 @@ describe('Router suite', function testSuite() {
           expect: 'error',
           verify: (error) => {
             expect(error.name).to.be.equals('HttpStatusError');
-            expect(error.message).to.be.equals('withoutSchema validation failed: data.foo should be integer');
+            expect(error.message).to.be.equals('withoutSchema validation failed: data/foo should be integer');
           },
         };
 
@@ -332,7 +332,7 @@ describe('Router suite', function testSuite() {
       expect: 'error',
       verify: (error) => {
         expect(error.name).to.be.equals('HttpStatusError');
-        expect(error.message).to.be.equals('nested.test validation failed: data.foo should be integer');
+        expect(error.message).to.be.equals('nested.test validation failed: data/foo should be integer');
       },
     };
 
@@ -814,7 +814,6 @@ describe('Router suite', function testSuite() {
       });
 
       await Promise.all(promises);
-      console.debug('TEST', { failed, success });
 
       // Math.random does not brings constant results))))
       expect(failed).to.be.below(20);
