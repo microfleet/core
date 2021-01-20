@@ -170,10 +170,10 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
 /**
  * @class Microfleet
  */
-export class Microfleet extends EventEmitter {
+export class Microfleet<C> extends EventEmitter {
   public static readonly version: string = getVersion()
 
-  public config: CoreOptions
+  public config: CoreOptions & C
   public migrators: { [name: string]: AnyFn }
   public readonly plugins: string[]
   public readonly [constants.CONNECTORS_PROPERTY]: StartStopTree
@@ -194,7 +194,7 @@ export class Microfleet extends EventEmitter {
     super()
 
     // init configuration
-    this.config = defaultsDeep(opts, defaultOpts) as CoreOptions
+    this.config = defaultsDeep(opts, defaultOpts) as CoreOptions & C
     this.exit = this.exit.bind(this)
 
     // init migrations
@@ -477,7 +477,7 @@ export class Microfleet extends EventEmitter {
    * @param {Object} config - Service plugins configuration.
    * @private
    */
-  private initPlugins(config: CoreOptions): void {
+  private initPlugins(config: CoreOptions & C): void {
     for (const pluginType of PluginsPriority) {
       this[constants.CONNECTORS_PROPERTY][pluginType] = []
       this[constants.DESTRUCTORS_PROPERTY][pluginType] = []
