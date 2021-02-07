@@ -3,7 +3,8 @@ import { delay } from 'bluebird'
 import { spy } from 'sinon'
 import * as AMQPTransport from '@microfleet/transport-amqp'
 import { Microfleet } from '@microfleet/core'
-import { RequestCountTracker } from '@microfleet/core/lib/plugins/router/request-tracker'
+// @todo RequestCountTracker should be not part of @microfleet/plugin-router
+import { RequestCountTracker } from '@microfleet/plugin-router'
 
 import { findHealthCheck } from '../utils/health-check'
 

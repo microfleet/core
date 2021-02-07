@@ -10,6 +10,8 @@
     "path": "../plugin-logger/tsconfig.build.json"
   }, {
     "path": "../plugin-validator/tsconfig.build.json"
+  }, {
+    "path": "../plugin-router/tsconfig.build.json"
   }],
   "compilerOptions": {
     "rootDir": "./src",

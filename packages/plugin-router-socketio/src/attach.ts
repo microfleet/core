@@ -1,12 +1,8 @@
-import { ActionTransport } from '@microfleet/utils'
-import type { Router } from '@microfleet/core/lib/plugins/router/factory'
-import { verifyAttachPossibility } from '@microfleet/core/lib/plugins/router/verifyAttachPossibility'
-import getSocketIORouterAdapter from './adapter'
 import { Server } from 'socket.io'
+import { Router } from '@microfleet/plugin-router'
+import { Logger } from '@microfleet/plugin-logger'
+import getSocketIORouterAdapter from './adapter'
 
-function attachSocketIORouter(socketIO: Server, config: unknown, router: Router): void {
-  verifyAttachPossibility(router, ActionTransport.socketio)
-  socketIO.on('connection', getSocketIORouterAdapter(config, router))
+export default function attachSocketIORouter(socketIO: Server, router: Router, log: Logger): void {
+  socketIO.on('connection', getSocketIORouterAdapter(router, log))
 }
-
-export default attachSocketIORouter

@@ -7,6 +7,7 @@ import semver = require('semver')
 import Bluebird = require('bluebird')
 import * as prometheus from 'prom-client'
 
+// @todo plugin-router refactoring
 const usageError = `
 if "prometheus" and "router" plugins are used together - you have to  manually configure router handlers:
 

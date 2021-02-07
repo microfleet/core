@@ -3,9 +3,11 @@
   "references": [{
     "path": "../core/tsconfig.build.json"
   }, {
-    "path": "../plugin-logger/tsconfig.build.json"
+    "path": "../core-types/tsconfig.build.json"
   }, {
     "path": "../plugin-socketio/tsconfig.build.json"
+  }, {
+    "path": "../plugin-router/tsconfig.build.json"
   }],
   "compilerOptions": {
     "rootDir": "./src",

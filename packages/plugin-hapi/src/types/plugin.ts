@@ -8,12 +8,12 @@ export type HapiPluginConfig = {
 }
 
 export type HapiPluginPluginsConfig = {
-  list: HapiPlugin[]
+  list: HapiPluginPlugin[]
   options?: any
 }
 
-export interface HapiPlugin<T = any> {
-  plugin: string | Plugin<T>
+export interface HapiPluginPlugin {
+  plugin: string | Plugin<any>
   options?: any
   once?: boolean
 }

@@ -1,0 +1,10 @@
+{
+  "$id": "without-schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "foo": {
+      "type": "integer"
+    }
+  }
+}

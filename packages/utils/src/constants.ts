@@ -1,9 +1,4 @@
 /**
- * This file exports constants used throughout the project
- * @module mservice:constants
- */
-
-/**
  * Returns first arg that is passed to the function
  */
 export const identity = <T>(arg: T): T => arg
@@ -22,31 +17,6 @@ export const DESTRUCTORS_PROPERTY = 'destructors'
  * Health checks property
  */
 export const HEALTH_CHECKS_PROPERTY = 'healthChecks'
-
-/**
- * Constants with possilble transport values
- * @todo plugin-router
- */
-export const ActionTransport = {
-  amqp: 'amqp',
-  http: 'http',
-  internal: 'internal',
-  socketio: 'socketio',
-} as const
-
-// based on this we validate input data
-// @todo plugin-router
-export const DATA_KEY_SELECTOR = {
-  amqp: 'params',
-  delete: 'query',
-  get: 'query',
-  head: 'query',
-  internal: 'params',
-  patch: 'params',
-  post: 'params',
-  put: 'params',
-  socketio: 'params',
-} as const
 
 /**
  * Constants with connect types to control order of service bootstrap

@@ -1,0 +1,13 @@
+{
+  "$id": "qs",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "sample": {
+      "type": "integer"
+    },
+    "bool": {
+      "type": "boolean"
+    }
+  }
+}

@@ -1,11 +1,13 @@
-import type { Request, ResponseToolkit, Server, ServerRegisterPluginObject } from '@hapi/hapi'
-import type { RouterHapiPluginConfig } from './types/plugin'
-
-import get = require('get-value')
 import { defaults, omit } from 'lodash'
-import { ActionTransport, Microfleet } from '@microfleet/core'
-import hapiRouterAdapter from './adapter'
+import * as get from 'get-value'
+import { Request, ResponseToolkit, Server, ServerRegisterPluginObject } from '@hapi/hapi'
+
+import { Microfleet } from '@microfleet/core'
+import { RouterPlugin, ActionTransport } from '@microfleet/plugin-router'
+
 import { fromNameToPath, fromPathToName } from './utils/action-name'
+import hapiRouterAdapter from './adapter'
+import type { RouterHapiPluginConfig } from './types/plugin'
 
 function attachRequestCountEvents(server: Server, router: Microfleet['router']) {
   const { http } = ActionTransport
@@ -32,13 +34,13 @@ function attachRequestCountEvents(server: Server, router: Microfleet['router']) 
   server.events.on('stop', onStop)
 }
 
-export default function attachRouter(service: Microfleet, config: RouterHapiPluginConfig): ServerRegisterPluginObject<any> {
+export default function attachRouter(service: Microfleet & RouterPlugin, config: RouterHapiPluginConfig): ServerRegisterPluginObject<any> {
   return {
     plugin: {
       name: 'microfleetRouter',
       version: '1.0.0',
       async register(server: Server) {
-        for (const [actionName, handler] of Object.entries(service.router.routes.http)) {
+        for (const [actionName, handler] of service.router.getRoutes(ActionTransport.http).entries()) {
           const path = fromNameToPath(actionName, config.prefix)
           const defaultOptions = {
             path,

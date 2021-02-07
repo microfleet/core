@@ -1,0 +1,5 @@
+{
+  "$id": "long-running",
+  "type": "object",
+  "additionalProperties": true
+}

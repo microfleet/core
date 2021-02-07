@@ -43,7 +43,6 @@ export {
   PLUGIN_STATUS_FAIL,
   PluginTypes,
   PluginsPriority,
-  ActionTransport,
   ConnectorsTypes,
   ConnectorsPriority
 } from '@microfleet/utils'

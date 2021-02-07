@@ -5,14 +5,13 @@ import type * as _ from '@microfleet/plugin-amqp'
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
 import { resolve } from 'path'
-import { Microfleet, PluginTypes } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
+import { Microfleet, PluginTypes } from '@microfleet/core'
+import { ActionTransport } from '@microfleet/plugin-router'
 
 import getReptyOnCompleteFunction from './retry'
 import getAMQPRouterAdapter from './adapter'
 import { RouterAMQPPluginConfig } from './types/plugin'
-
-const identity = <T>(arg: T) => arg
 
 declare module '@microfleet/core-types' {
   interface ConfigurationOptional {
@@ -22,7 +21,7 @@ declare module '@microfleet/core-types' {
 
 export const name = 'router-amqp'
 export const type = PluginTypes.transport
-export const priority = 1 // should be after plugin-amqp
+export const priority = 101 // should be after plugin-amqp and plugin router
 
 export function attach(
   this: Microfleet,
@@ -49,7 +48,7 @@ export function attach(
     onComplete = getReptyOnCompleteFunction(amqpConfig, routerAmqpConfig, logger, retryQueue)
   }
 
-  const adapter = getAMQPRouterAdapter(this.router, routerAmqpConfig, onComplete)
+  const adapter = getAMQPRouterAdapter(this, routerAmqpConfig, onComplete)
 
   return {
     async connect(this: Microfleet) {
@@ -70,12 +69,13 @@ export function attach(
         })
       }
 
-      await this.amqp.createConsumedQueue(
-        adapter,
-        Object
-          .keys(this.router.routes.amqp)
-          .map(routerAmqpConfig.prefix ? route => `${routerAmqpConfig.prefix}.${route}` : identity)
-      )
+      const routes = []
+
+      for (const route of this.router.getRoutes(ActionTransport.amqp).keys()) {
+        routes.push(routerAmqpConfig.prefix ? `${routerAmqpConfig.prefix}.${route}` : route)
+      }
+
+      await this.amqp.createConsumedQueue(adapter, routes)
     },
 
     async close(this: Microfleet) {

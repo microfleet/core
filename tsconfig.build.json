@@ -32,6 +32,8 @@
     "path": "./packages/plugin-knex/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-logger/tsconfig.build.json"
+  },{
+    "path": "./packages/plugin-router/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-router-amqp/tsconfig.build.json"
   }, {

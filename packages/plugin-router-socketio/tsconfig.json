@@ -6,5 +6,10 @@
     "path": "../core-types/tsconfig.json"
   }, {
     "path": "../plugin-socketio/tsconfig.json"
-  }]
+  }, {
+    "path": "../plugin-router/tsconfig.json"
+  }],
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
 }

@@ -1,5 +1,5 @@
 import type { PluginInterface } from '@microfleet/core-types'
-import type { HapiPlugin, HapiPluginConfig } from './types/plugin'
+import type { HapiPluginConfig, HapiPluginPlugin } from './types/plugin'
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-logger'
 import type * as __ from '@microfleet/plugin-validator'
@@ -9,9 +9,8 @@ import type * as ___ from '@microfleet/plugin-socketio'
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
 import { Server } from '@hapi/hapi'
-import Joi = require('joi')
-import { RequestCountTracker } from '@microfleet/core/lib/plugins/router/request-tracker'
-import { ActionTransport, Microfleet, PluginTypes } from '@microfleet/core'
+import * as Joi from 'joi'
+import { Microfleet, PluginTypes } from '@microfleet/core'
 
 export { Server }
 
@@ -25,7 +24,10 @@ declare module '@microfleet/core-types' {
   }
 }
 
-const defaultPlugins: HapiPlugin[] = [{
+// @todo shouldn't be here
+import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
+
+const defaultPlugins: HapiPluginPlugin[] = [{
   options: {},
   plugin: './plugins/redirect',
 }, {
@@ -109,7 +111,7 @@ export function attach(
     return server
   }
 
-  // @todo should be here?
+  // @todo shouldn't be here
   const getRequestCount = () => {
     return RequestCountTracker.getRequestCount(this, ActionTransport.http)
   }
@@ -121,6 +123,7 @@ export function attach(
       /* Socket depends on Http transport. Wait for its requests here */
       /* Call of socketio.close() causes all active connections close */
       if (config.attachSocketio) {
+        // @todo shouldn't be here
         await RequestCountTracker.waitForRequestsToFinish(this, ActionTransport.socketio)
       }
 
