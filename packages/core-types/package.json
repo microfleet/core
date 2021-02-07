@@ -20,7 +20,7 @@
     "url": "https://github.com/micofleet/core/issues"
   },
   "devDependencies": {
-    "@types/node": "^14.14.21",
+    "@types/node": "^14.14.25",
     "eventemitter3": "^4.0.7"
   }
 }

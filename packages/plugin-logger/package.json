@@ -32,15 +32,15 @@
   },
   "dependencies": {
     "pino": "^6.11.0",
-    "pino-multi-stream": "^5.1.1",
-    "sonic-boom": "^1.3.0"
+    "pino-multi-stream": "^5.2.0",
+    "sonic-boom": "^1.3.1"
   },
   "devDependencies": {
-    "@sentry/node": "^5.30.0",
+    "@sentry/node": "^6.1.0",
     "@types/pino": "^6.3.5",
     "@types/pino-multi-stream": "^5.1.0",
     "@types/sonic-boom": "^0.7.0",
-    "pino-pretty": "^4.3.0",
+    "pino-pretty": "^4.5.0",
     "rimraf": "^3.0.0"
   },
   "engines": {
