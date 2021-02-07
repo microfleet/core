@@ -1,13 +1,14 @@
 import { ClientRequest } from 'http'
+import { Span } from 'opentracing'
 import { Microfleet } from '@microfleet/core'
 import { Logger } from '@microfleet/plugin-logger'
 
 import Router from '../router'
-import { RunnerParams } from '../lifecycle/runner'
+import { RunnerParams } from '../runner'
 
-export type ServiceActionHandler = <T>(this: Microfleet, request: ServiceRequest, ...params: any[]) => PromiseLike<T>
+export type ServiceFn<R = void> = (this: Microfleet, request: ServiceRequest, ...params: any[]) => Promise<R>
 export type ServiceActionAuthGetName = (request: ServiceRequest) => string
-export type DispatchCallback = (err: any, result?: any) => void
+// export type DispatchCallback = (err: any, result?: any) => void
 
 // @todo types and documentation
 export interface ServiceRequest extends RunnerParams {
@@ -18,17 +19,18 @@ export interface ServiceRequest extends RunnerParams {
   method: keyof typeof Router.RequestDataKey
   transport: typeof Router.ActionTransport[keyof typeof Router.ActionTransport]
   transportRequest: any | ClientRequest
-  action: ServiceAction
+  action: ServiceAction<any>
   locals: any
   auth?: any
   socket?: NodeJS.EventEmitter
   parentSpan: any
-  span: any
+  span?: Span
   log: Logger
   response?: unknown
+  reformatError: boolean
 }
 
-export interface ServiceAction extends ServiceActionHandler {
+export interface ServiceAction<R = unknown> extends ServiceFn<R> {
   actionName: string
   transports: ServiceRequest['transport'][]
   validateResponse: boolean

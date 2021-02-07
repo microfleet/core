@@ -16,8 +16,6 @@ const failedActionEmulator = [{
     if (retryCount <= failAtRetryCount) {
       throw new ConnectionError('Fake connection error first three times')
     }
-
-    return [request]
   },
 }]
 
@@ -42,7 +40,7 @@ describe('AMQP suite: basic routing', function testSuite() {
   afterAll(() => service.close())
 
   it('able to observe an action', async () => {
-    const amqpRoutes = service.router.getRoutes('amqp')
+    const amqpRoutes = service.router.routes.get('amqp')
 
     assert.ok(typeof amqpRoutes.get('echo') === 'function')
   })
@@ -80,7 +78,7 @@ describe('AMQP suite: prefixed routing', function testSuite() {
   afterAll(() => service.close())
 
   it ('able to observe an action', async () => {
-    const amqpRoutes = service.router.getRoutes('amqp')
+    const amqpRoutes = service.router.routes.get('amqp')
 
     assert.ok(typeof amqpRoutes.get('echo') === 'function')
   })
@@ -141,7 +139,7 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
     assert.deepStrictEqual(response, { failAtRetryCount: 2 })
   })
 
-  it ('able to fail when retry count exceeds max retry attempt count', async () => {
+  it('able to fail when retry count exceeds max retry attempt count', async () => {
     const { amqp } = service
 
     await assert.rejects(
@@ -152,7 +150,6 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
         generateMessage: null,
         global_initialize: undefined,
         inner_error: undefined,
-        isOperational: true,
         retryAttempt: 3
       }
     )
@@ -218,7 +215,6 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
         generateMessage: null,
         global_initialize: undefined,
         inner_error: undefined,
-        isOperational: true,
         retryAttempt: 3
       }
     )

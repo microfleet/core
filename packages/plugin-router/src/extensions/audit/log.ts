@@ -1,8 +1,8 @@
 import { Microfleet } from '@microfleet/core'
 
-import { RouterLifecycleExtension } from '../../types/plugin'
-import Lifecycle from '../../lifecycle'
-import { getInitTimingExtension, ServiceRequestWithStart } from '../utils'
+import Lifecycle from '../../lifecycle/abstract'
+import { LifecycleExtensions } from '../'
+import { getInitTimingExtension, ServiceRequestWithStart } from './timing'
 
 export type AuditLogExtensionParams = {
   disableLogErrorsForNames?: string[]
@@ -20,7 +20,7 @@ export type MetaLog = {
   err?: Error
 }
 
-export default function auditLogFactory(params: AuditLogExtensionParams = {}): RouterLifecycleExtension {
+export default function auditLogFactory(params: AuditLogExtensionParams = {}): LifecycleExtensions {
   const disableLogErrorsForNames: string[] = params.disableLogErrorsForNames || []
 
   return [

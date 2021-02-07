@@ -1,30 +1,60 @@
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
 import * as Bluebird from 'bluebird'
-import { Microfleet } from '@microfleet/core'
-import _debug = require('debug')
 import { Tags } from 'opentracing'
 import { v4 as uuidv4 } from 'uuid'
-import { isFunction } from 'lodash'
+import { Tracer } from 'opentracing'
+import { Logger } from '@microfleet/plugin-logger'
 
-import Lifecycle from './lifecycle'
 import RequestCountTracker from './tracker'
-import Routes from './routes/collection'
-import { RouterPluginConfig } from './types/plugin'
-import { ServiceAction, ServiceRequest, DispatchCallback } from './types/router'
+import Routes from './routes'
+import Lifecycle from './lifecycle/abstract'
+import { ServiceAction, ServiceRequest } from './types/router'
 import {
-  wrapPromiseWithSpan,
   readRoutes,
   createServiceAction,
   requireServiceActionHandler,
 } from './utils'
 
-const { COMPONENT } = Tags
-const debug = _debug('@microfleet/router - dispatch')
+const { COMPONENT, ERROR } = Tags
+
+export type RouterOptions = {
+  lifecycle: Lifecycle
+  routes: Routes<any>
+  requestCountTracker: RequestCountTracker
+  log: Logger
+  config?: RouterConfig
+  tracer?: Tracer
+}
+
+export type RouterConfig = {
+  directory?: string
+  enabled?: Record<string, string>
+  prefix?: string
+  enabledGenericActions?: string[]
+}
+
+const finishSpan = ({ span }: ServiceRequest) => () => {
+  if (span !== undefined) {
+    span.finish()
+  }
+}
+const spanLog = (request: ServiceRequest) => (error: any) => {
+  if (request.span !== undefined ) {
+    request.span.setTag(ERROR, true)
+    request.span.log({
+      'error.object': error,
+      event: 'error',
+      message: error.message,
+      stack: error.stack,
+    })
+  }
+
+  throw error
+}
 
 export default class Router {
   // Constants with possilble transport values
-  // @todo maybe set from own router-plugin?
   static readonly ActionTransport = {
     amqp: 'amqp',
     http: 'http',
@@ -32,6 +62,7 @@ export default class Router {
     socketio: 'socketio',
   } as const
 
+  // todo to validation
   // based on this we validate input data
   static readonly RequestDataKey = {
     amqp: 'params',
@@ -46,45 +77,44 @@ export default class Router {
     socketio: 'params',
   } as const
 
-  static readonly RoutesWithEmptyTransport = Symbol.for('microfleet:empty_transport')
-
-  public readonly config: RouterPluginConfig
-
+  public readonly config?: RouterConfig
+  public readonly routes: Routes<ServiceAction>
   public readonly requestCountTracker: RequestCountTracker
 
-  protected readonly service: Microfleet
-
   protected readonly lifecycle: Lifecycle
+  protected readonly log: Logger
+  protected readonly prefix?: string
+  protected readonly tracer?: Tracer
 
-  protected readonly routes: Routes
-
-  // extensions: Extensions
-
-  // routes: RouteMap
-
-  constructor(config: RouterPluginConfig, service: Microfleet) {
+  constructor({ lifecycle, routes, config, requestCountTracker, log, tracer }: RouterOptions) {
+    this.lifecycle = lifecycle
+    this.routes = routes
     this.config = config
-    this.service = service
-    this.lifecycle = new Lifecycle(config, service)
-    this.requestCountTracker = new RequestCountTracker(service)
-    this.routes = new Routes()
+    this.requestCountTracker = requestCountTracker
+    this.log = log
+    this.tracer = tracer
 
-    const { routes: { directory, enabledGenericActions } } = config
+    if (config !== undefined) {
+      const { directory, enabledGenericActions, prefix } = config
 
-    if (directory !== undefined) {
-      this.loadActionsFromDirectory(directory)
-    }
+      if (prefix !== undefined && prefix.length > 0) {
+        this.prefix = prefix
+      }
 
-    if (enabledGenericActions !== undefined) {
-      this.loadGenericActions(enabledGenericActions)
+      if (directory !== undefined) {
+        this.loadActionsFromDirectory(directory)
+      }
+
+      if (enabledGenericActions !== undefined) {
+        this.loadGenericActions(enabledGenericActions)
+      }
     }
   }
 
-  public prefix(route: string): string {
-    const { prefix } = this.config.routes
+  public prefixRoute(route: string): string {
+    const { prefix } = this
 
-    // @todo fix config with empty string
-    if (prefix !== undefined && prefix !== '') {
+    if (prefix !== undefined) {
       return `${prefix}.${route}`
     }
 
@@ -92,67 +122,48 @@ export default class Router {
   }
 
   public addRoute(route: string, handler: ServiceAction): void {
-    const { routes } = this
-
+    const { routes, config } = this
     const action = createServiceAction(route, handler)
+    let name: string = route
 
-    for (const transport of (handler.transports || [Router.RoutesWithEmptyTransport])) {
-      // @todo enabled[route] can be used for rename route
-      routes.add(this.prefix(route), transport, action)
+    if (config !== undefined && config.enabled !== undefined && Object.keys(config.enabled).length > 0) {
+      name = config.enabled[route]
+
+      if (name === undefined) {
+        return
+      }
     }
-  }
 
-  public getAction(route: string, transport: string): ServiceAction | undefined {
-    return this.routes.get(route, transport) as ServiceAction
-       || this.routes.get(route, Router.RoutesWithEmptyTransport) as ServiceAction
-  }
-
-  public getRoutes(transport: string): Map<string, ServiceAction> {
-    return new Map([
-      ...this.routes.getForTransport(transport) as Map<string, ServiceAction>,
-      ...this.routes.getForTransport(Router.RoutesWithEmptyTransport) as Map<string, ServiceAction>,
-    ])
+    for (const transport of (action.transports || Object.keys(Router.ActionTransport))) {
+      routes.add(transport, this.prefixRoute(name), action)
+    }
   }
 
   public loadGenericActions(enabled: string[]): void {
     for (const route of enabled) {
-      const handler = requireServiceActionHandler(resolve(__dirname, `./routes/generic/${route}`))
+      const handler = requireServiceActionHandler(resolve(__dirname, `./actions/${route}`))
 
       this.addRoute(`generic.${route}`, handler)
     }
   }
 
   public loadActionsFromDirectory(directory: string): void {
-    const { config: { routes: { enabled } } } = this
-
     for (const [route, handler] of readRoutes(directory)) {
-      if (enabled !== undefined && enabled[route] === undefined) {
-        continue
-      }
-
       this.addRoute(route, handler)
     }
   }
 
-  // @todo async public function?
-  // @todo (BC) remove first argument
   public prefixAndDispatch(routeWithoutPrefix: string, request: ServiceRequest): Bluebird<any> {
-    request.route = this.prefix(routeWithoutPrefix)
+    request.route = this.prefixRoute(routeWithoutPrefix)
     return this.dispatch(request)
   }
 
-  // @todo async public function?
-  public dispatch(request: ServiceRequest): Bluebird<any>
-  public dispatch(request: ServiceRequest, callback: DispatchCallback): void
-  public dispatch(request: ServiceRequest, callback?: DispatchCallback): Bluebird<any> | void {
+  public dispatch(request: ServiceRequest): Bluebird<any> {
     assert(request.route)
     assert(request.transport)
 
-    const { service } = this
-    const { tracer, log } = service
     const { route, transport } = request
-
-    debug('initiating request on route %s', route)
+    const { tracer, log, lifecycle } = this
 
     // @todo extension?
     // if we have installed tracer - init span
@@ -165,23 +176,16 @@ export default class Router {
       })
     }
 
-    // @todo fix as ServiceAction
-    request.action = this.getAction(route, transport) as ServiceAction
+    request.action = this.routes.handler(transport, route) as ServiceAction
     request.log = log.child({
       reqId: uuidv4(),
     })
 
-    let result: Bluebird<unknown>
-
-    // @todo
-    if (isFunction(callback)) {
-      result = Bluebird.resolve(this.lifecycle.runWithResponse(request))
-    } else {
-      result = Bluebird.resolve(this.lifecycle.run(request))
-    }
-
-    return request.span !== undefined
-      ? wrapPromiseWithSpan(request.span, result, callback)
-      : result.asCallback(callback)
+    return Bluebird
+      .resolve(lifecycle.run(request))
+      .catch(spanLog(request))
+      .finally(finishSpan(request))
+      .return(request)
+      .get('response')
   }
 }

@@ -71,7 +71,7 @@ export function attach(
 
       const routes = []
 
-      for (const route of this.router.getRoutes(ActionTransport.amqp).keys()) {
+      for (const route of this.router.routes.get(ActionTransport.amqp).keys()) {
         routes.push(routerAmqpConfig.prefix ? `${routerAmqpConfig.prefix}.${route}` : route)
       }
 

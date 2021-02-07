@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io'
 import { noop } from 'lodash'
 import { Logger } from '@microfleet/plugin-logger'
-import { Router, DispatchCallback, ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
+import { Router, ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 declare module '@microfleet/core-types' {
   interface ServiceRequest {
@@ -10,19 +10,13 @@ declare module '@microfleet/core-types' {
 }
 
 /* Decrease request count on response */
-function wrapCallback(router: Router, callback: DispatchCallback) {
-  return (err: any, result?: any) => {
-    router.requestCountTracker.decrease(ActionTransport.socketio)
-    if (callback) {
-      callback(err, result)
-    }
-  }
+const decreaseRequestCount = (router: Router) => () => {
+  router.requestCountTracker.decrease(ActionTransport.socketio)
 }
 
 function getSocketIORouterAdapter(router: Router, log: Logger): (socket: Socket) => void {
   return function socketIORouterAdapter(socket: Socket): void {
-    // @todo socket.onAny((actionName: string, params: unknown, callback?: DispatchCallback): void => {
-    socket.onAny((actionName: string, params: unknown, callback: DispatchCallback): void => {
+    socket.onAny((actionName: string, params: unknown, callback: CallableFunction): void => {
       // @todo if (callback !== undefined && typeof callback !== 'function') {
       if (typeof callback !== 'function') {
         // ignore malformed rpc call
@@ -45,12 +39,15 @@ function getSocketIORouterAdapter(router: Router, log: Logger): (socket: Socket)
         span: undefined,
         transport: ActionTransport.socketio,
         transportRequest: [actionName, params, callback],
+        reformatError: true,
       }
-      const wrappedCallback = wrapCallback(router, callback)
 
       /* Increase request count on message */
       router.requestCountTracker.increase(ActionTransport.socketio)
-      router.dispatch(request, wrappedCallback)
+      router
+        .dispatch(request)
+        .finally(decreaseRequestCount(router))
+        .asCallback(callback)
     })
   }
 }

@@ -1,7 +1,7 @@
 import { identity } from 'lodash'
 import { parse } from 'qs'
 
-import Lifecycle from '../../lifecycle'
+import Lifecycle from '../../lifecycle/core'
 import { ServiceRequest } from '../../types/router'
 
 type QSParserAugmentedAction = ServiceRequest & {

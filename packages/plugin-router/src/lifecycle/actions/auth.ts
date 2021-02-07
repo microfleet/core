@@ -2,21 +2,21 @@ import { AuthenticationRequiredError, NotImplementedError } from 'common-errors'
 import { isObject, isString } from 'lodash'
 import { Microfleet } from '@microfleet/core'
 
-import { ServiceRequest } from '../../types/router'
-import {
-  RouterPluginConfig,
-  RouterPluginAuthStrategy,
-  RouterPluginAuthConfig,
-} from '../../types/plugin'
+import { ServiceRequest, ServiceFn } from '../../types/router'
+
+export type AuthStrategy = ServiceFn<any>
+export interface AuthConfig {
+  readonly strategies: Record<string, AuthStrategy>
+}
 
 export interface AuthStrategyConfig {
   name: string
   authStrategy: 'required' | 'try'
   passAuthError: boolean,
-  strategy: RouterPluginAuthStrategy | null
+  strategy: AuthStrategy | null
 }
 
-function retrieveStrategy(request: ServiceRequest, strategies: RouterPluginAuthConfig['strategies']): AuthStrategyConfig {
+function retrieveStrategy(request: ServiceRequest, strategies: AuthConfig['strategies']): AuthStrategyConfig {
   const { action } = request
   const { auth: authConfig } = action
 
@@ -65,14 +65,14 @@ function retrieveStrategy(request: ServiceRequest, strategies: RouterPluginAuthC
 export default async function authHandler(
   this: Microfleet,
   request: ServiceRequest,
-  config: RouterPluginConfig
+  config: AuthConfig
 ): Promise<void> {
   if (request.action.auth === undefined) {
     return
   }
 
   // @todo avoid object creation
-  const authConfig = retrieveStrategy(request, config.auth.strategies)
+  const authConfig = retrieveStrategy(request, config.strategies)
 
   if (authConfig.strategy === null) {
     throw new NotImplementedError(authConfig.name)

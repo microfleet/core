@@ -1,9 +1,10 @@
+import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
 import { MserviceError } from '@microfleet/core-types'
 
-import { RouterLifecycleExtension } from '../../types/plugin'
-import Lifecycle from '../../lifecycle'
-import { getInitTimingExtension, ServiceRequestWithStart } from '../utils'
+import Lifecycle from '../../lifecycle/abstract'
+import { LifecycleExtensions } from '../'
+import { getInitTimingExtension, ServiceRequestWithStart } from './timing'
 
 function extractStatusCode(error: MserviceError): number {
   if (!error) {
@@ -32,12 +33,14 @@ function diff(start: [number, number]): number {
   return parseInt(ms.toFixed(), 10)
 }
 
-export default function metricObservabilityFactory(): RouterLifecycleExtension {
+export default function metricObservabilityFactory(): LifecycleExtensions {
   return [
     getInitTimingExtension(),
     {
       point: Lifecycle.points.postResponse,
-      async handler(this: Microfleet, request: ServiceRequestWithStart) {
+      async handler(this: Microfleet, request: ServiceRequestWithStart): Promise<void> {
+        assert(request.started !== undefined)
+
         const { metricMicrofleetDuration } = this
         const latency = diff(request.started)
         const labels = {
