@@ -31,10 +31,7 @@ global.SERVICES = {
     options: {},
   },
   elasticsearch: {
-    hosts: [
-      'http://elasticsearch:9200',
-      'http://elasticsearch:9200',
-    ],
+    node: 'http://elasticsearch:9200',
     log: {
       type: 'service',
     },
