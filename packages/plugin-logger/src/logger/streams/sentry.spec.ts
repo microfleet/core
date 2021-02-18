@@ -29,6 +29,16 @@ describe('Logger Sentry Stream Suite', () => {
       logLevel: LogLevel.Error,
       release: 'test',
       integrations: [match.instanceOf(Sentry.Integrations.Console)] as any,
+      _metadata: {
+        sdk: {
+          name: 'sentry.javascript.node',
+          packages: [{
+              name: 'npm:@sentry/node',
+              version: Sentry.SDK_VERSION,
+          }],
+          version: Sentry.SDK_VERSION,
+        },
+      },
     })).toBe(true)
   })
 
