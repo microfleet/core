@@ -2,7 +2,7 @@ import assert = require('assert')
 import retry = require('bluebird-retry')
 import Bluebird = require('bluebird')
 import Errors = require('common-errors')
-import Elasticsearch = require('elasticsearch')
+import Elasticsearch = require('@elastic/elasticsearch')
 import { NotFoundError } from 'common-errors'
 import { Microfleet, PluginInterface, ValidatorPlugin } from '../'
 import { PluginTypes } from '../constants'
