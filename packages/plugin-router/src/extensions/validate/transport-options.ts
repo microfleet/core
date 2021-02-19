@@ -5,7 +5,7 @@ import { ServiceRequest } from '../../types/router'
 
 export type TransportOptionsAugmentedRequest = ServiceRequest & {
   action: ServiceRequest['action'] & {
-    transportsOptions: {
+    transportsOptions?: {
       [transport: string]: {
         methods: string[];
       };

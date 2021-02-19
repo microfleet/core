@@ -123,7 +123,7 @@ describe('@microfleet/plugin-router', () => {
       expect: 'error',
       verify: (error: any) => {
         strictEqual(error.name, 'HttpStatusError')
-        strictEqual(error.message, 'simple validation failed: data.isAdmin should be boolean')
+        strictEqual(error.message, 'simple validation failed: data/isAdmin should be boolean')
       },
     }
 
@@ -256,7 +256,7 @@ describe('@microfleet/plugin-router', () => {
       expect: 'error',
       verify: (error: any) => {
         strictEqual(error.name, 'HttpStatusError')
-        strictEqual(error.message, 'without-schema validation failed: data.foo should be integer')
+        strictEqual(error.message, 'without-schema validation failed: data/foo should be integer')
       },
     }
 
@@ -303,7 +303,7 @@ describe('@microfleet/plugin-router', () => {
       expect: 'error',
       verify: (error: any) => {
         strictEqual(error.name, 'HttpStatusError')
-        strictEqual(error.message, 'nested/test validation failed: data.foo should be integer')
+        strictEqual(error.message, 'nested.test validation failed: data/foo should be integer')
       },
     }
 

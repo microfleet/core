@@ -22,6 +22,7 @@ export interface ServiceRequest extends RunnerParams {
   action: ServiceAction<any>
   locals: any
   auth?: any
+  // @todo to socketio plugin
   socket?: NodeJS.EventEmitter
   parentSpan: any
   span?: Span
