@@ -23,7 +23,8 @@ import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, re
 
 const toxiproxy = new Toxiproxy('http://toxy:8474')
 
-describe('#generic', () => {
+// @todo
+describe.skip('#generic', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -1126,7 +1127,7 @@ describe('#generic', () => {
   })
 })
 
-describe('#2s-toxified', () => {
+describe.skip('#2s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -1377,7 +1378,7 @@ describe('#2s-toxified', () => {
 
 })
 
-describe('#consumer parallel reads', () => {
+describe.skip('#consumer parallel reads', () => {
   let service: Microfleet
 
   beforeEach(async () => {
@@ -1474,7 +1475,7 @@ describe('#consumer parallel reads', () => {
   })
 })
 
-describe('#8s-toxified', () => {
+describe.skip('#8s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -1564,7 +1565,7 @@ describe('#8s-toxified', () => {
   })
 })
 
-describe('#connect-toxified', () => {
+describe.skip('#connect-toxified', () => {
   let service: Microfleet
 
   beforeEach(async () => {
