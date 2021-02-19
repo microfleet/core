@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [17.5.4](https://github.com/microfleet/core/compare/@microfleet/core@17.5.3...@microfleet/core@17.5.4) (2021-02-19)
+
+
+### Bug Fixes
+
+* migrate to undeprecated elastic library ([f3ba4d9](https://github.com/microfleet/core/commit/f3ba4d949c2b9fe2717bfed24425ce8728d0a1d6))
+
+
+
+
+
 ## [17.5.3](https://github.com/microfleet/core/compare/@microfleet/core@17.5.2...@microfleet/core@17.5.3) (2020-09-03)
 
 
