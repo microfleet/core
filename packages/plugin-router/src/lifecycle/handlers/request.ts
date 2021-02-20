@@ -1,13 +1,12 @@
 import { Microfleet } from '@microfleet/core'
-import { NotFoundError, HttpStatusError } from 'common-errors'
+import { HttpStatusError, NotFoundError } from 'common-errors'
 import { ServiceRequest } from '../../types/router'
 
 async function requestHandler(this: Microfleet, request: ServiceRequest): Promise<void> {
   const { action, route } = request
 
-  // @todo optional ServiceRequest.action
   if (action === undefined) {
-    // @todo HttpStatusError
+    // @todo HttpStatusError (there is a legacy code)
     throw new NotFoundError(`route "${route}" not found`)
   }
 

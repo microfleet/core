@@ -1,9 +1,10 @@
 import Bluebird from 'bluebird'
+
 import Router from '../router'
 import { ServiceRequest } from './router'
-import { AuthConfig } from '../lifecycle/actions/auth'
-import { ValidateResponseConfig } from '../lifecycle/actions/validate-response'
-import { LifecycleExtensions } from '../extensions'
+import { AuthConfig } from '../lifecycle/handlers/auth'
+import { ValidateResponseConfig } from '../lifecycle/handlers/validate-response'
+import { LifecycleExtensions } from '../lifecycle'
 
 declare module '@microfleet/core-types' {
   export interface Microfleet {

@@ -8,7 +8,7 @@ import { Logger } from '@microfleet/plugin-logger'
 
 import RequestCountTracker from './tracker'
 import Routes from './routes'
-import Lifecycle from './lifecycle/abstract'
+import Lifecycle from './lifecycle'
 import { ServiceAction, ServiceRequest } from './types/router'
 import {
   readRoutes,
@@ -20,7 +20,7 @@ const { COMPONENT, ERROR } = Tags
 
 export type RouterOptions = {
   lifecycle: Lifecycle
-  routes: Routes<any>
+  routes: Routes
   requestCountTracker: RequestCountTracker
   log: Logger
   config?: RouterConfig
@@ -78,7 +78,7 @@ export default class Router {
   } as const
 
   public readonly config?: RouterConfig
-  public readonly routes: Routes<ServiceAction>
+  public readonly routes: Routes
   public readonly requestCountTracker: RequestCountTracker
 
   protected readonly lifecycle: Lifecycle
@@ -176,7 +176,11 @@ export default class Router {
       })
     }
 
-    request.action = this.routes.handler(transport, route) as ServiceAction
+    // "as ServiceAction" is not ok, because getAction() result could be undefined
+    // but there is a addition check for it in lifecycle/handlers/request
+    // otherwise will be a lot of redundant asserts in other lifecycle handlers
+    // maybe you can fix it using a typescript magic
+    request.action = this.routes.getAction(transport, route) as ServiceAction
     request.log = log.child({
       reqId: uuidv4(),
     })

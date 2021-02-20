@@ -7,13 +7,12 @@ import { defaultsDeep } from '@microfleet/utils'
 
 import Router from './router'
 import Routes from './routes'
-import Runner from './runner'
 import Tracker from './tracker'
 import { auditLog } from './extensions'
-import CoreLifecycle from './lifecycle/core'
+import Lifecycle from './lifecycle'
 
 import type { RouterPluginConfig } from './types/plugin'
-import type { ServiceRequest, ServiceAction, ServiceFn } from './types/router'
+import type { ServiceRequest } from './types/router'
 
 export const name = 'router'
 export const type = PluginTypes.transport
@@ -102,10 +101,12 @@ export function attach(
     }
   } = this.validator.ifError<RouterPluginConfig>('router', defaultsDeep(options, defaultConfig))
 
-  const routes = new Routes<ServiceAction>()
-  const runner = new Runner<ServiceFn, ServiceRequest>({ context: this })
-  const lifecycle = new CoreLifecycle({ runner, extensions, config: { auth, validateResponse } })
-
+  const routes = new Routes()
+  const lifecycle = new Lifecycle({
+    extensions,
+    config: { auth, validateResponse },
+    context: this,
+  })
   const router = this.router = new Router({
     routes,
     lifecycle,

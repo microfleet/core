@@ -138,10 +138,10 @@ class ChildServiceRunner {
         reject()
       }, 1000 * 60 * 2)
       const interval = setInterval(() => {
-        // eslint-disable-next-line no-console
         assert(this.process, 'No service started')
+        // in case of emergency uncomment
         // eslint-disable-next-line no-console
-        console.log(`Is ${this.process.pid} alive?`)
+        // console.log(`Is ${this.process.pid} alive?`)
         try {
           process.kill(this.process.pid, 0)
         } catch (error) {

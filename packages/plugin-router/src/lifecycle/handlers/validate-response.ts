@@ -11,10 +11,9 @@ export interface ValidateResponseConfig {
   panic: boolean
 }
 
-export default async function validateResponseHandler(
+export default (config?: ValidateResponseConfig) => async function validateResponseHandler(
   this: Microfleet,
   request: ServiceRequest,
-  config?: ValidateResponseConfig
 ): Promise<void> {
   if (config === undefined) {
     return

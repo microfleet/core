@@ -2,8 +2,7 @@ import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
 import { MserviceError } from '@microfleet/core-types'
 
-import Lifecycle from '../../lifecycle/abstract'
-import { LifecycleExtensions } from '../'
+import Lifecycle, { LifecycleExtensions } from '../../lifecycle'
 import { getInitTimingExtension, ServiceRequestWithStart } from './timing'
 
 function extractStatusCode(error: MserviceError): number {
@@ -37,7 +36,7 @@ export default function metricObservabilityFactory(): LifecycleExtensions {
   return [
     getInitTimingExtension(),
     {
-      point: Lifecycle.points.postResponse,
+      point: Lifecycle.hooks.postResponse,
       async handler(this: Microfleet, request: ServiceRequestWithStart): Promise<void> {
         assert(request.started !== undefined)
 

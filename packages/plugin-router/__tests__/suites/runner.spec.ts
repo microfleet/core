@@ -1,168 +1,169 @@
 import { strict as assert, rejects, strictEqual } from 'assert'
+import { Microfleet } from '@microfleet/core'
 
-// import Lifecycle from '../../src/lifecycle'
-import Runner from '../../src/runner'
+import { runHandler, runHook } from '../../src/lifecycle/utils'
+// import { runHook, runHandler } from '../../src/lifecycle/utils'
 
-// @todo
-// describe('@microfleet/plugin-router: lifecycle', () => {
-//   it('should be able to register an extension', async () => {
+// @todo tests for lifecycle
 
-//   })
-// })
+describe('@microfleet/plugin-router: "runner" utils', () => {
+  const context = new Microfleet({ name: 'tester' })
 
-describe('@microfleet/plugin-router: lifecycle/runner', () => {
   it('shoul be able to run', async () => {
-    const runner = new Runner()
+    const hooks: any = new Map([
+      ['preHandler', new Set([
+        async (req: any) => { req.response += 1 },
+        async (req: any) => { req.response += 1 },
+      ])],
+    ])
     const request = {
       response: 0,
-      error: undefined,
-    }
+    } as any
 
-    runner.register('preHandler', async (req: any) => { req.response += 1 })
-    runner.register('preHandler', async (req: any) => { req.response += 1 })
-
-    await runner.run('preHandler', request)
+    await runHook(hooks, 'preHandler', context, request)
 
     assert(request.response === 2)
   })
 
   it('should not throw if run unknown id', async () => {
-    const runner = new Runner()
+    const hooks: any = new Map([])
     const request = {
       response: 1,
-      error: undefined,
-    } as const
+    } as any
 
-    await runner.run('preUndefined', request)
+    await runHook(hooks, 'preHandler', context, request)
 
     assert(request.response === 1)
   })
 
   it('should be able to run function', async () => {
-    const runner = new Runner()
+    const hooks: any = new Map([
+      ['preHandler', new Set([
+        async (req: any) => { req.response += 1 },
+      ])],
+    ])
     const request = {
       response: 0,
-      error: undefined,
-    }
+    } as any
+    const handler = async (req: any) => { req.response += 1 }
 
-    runner.register('preHandler', async (req: any) => { req.response += 1 })
-
-    await runner.runFn('handler', async (req: any) => { req.response += 1 }, request, 1)
+    await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
 
     assert(request.response === 2)
   })
 
-  it('should be able to run function with adds', async () => {
-    const runner = new Runner()
+  it('should be able to throw error on pre', async () => {
+    const hooks: any = new Map([
+      ['preHandler', new Set([
+        async (req: any) => { req.error = 'perchik' },
+        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) },
+      ])],
+    ])
     const request = {
       response: 0,
-      error: undefined,
-    }
+    } as any
+    const handler = async (req: any) => { req.response += 1 }
 
-    runner.register('preHandler', async (req: any) => { req.response += 1 })
-
-    await runner.runFn(
-      'handler',
-      async (req: any, param1, param2) => { req.response += (param1 + param2) },
-      request,
-      2,
-      3,
+    await rejects(
+      runHandler(handler, hooks, 'preHandler', 'postHandler', context, request),
+      /the fattest cat is perchik/
     )
-
-    assert(request.response === 6)
-  })
-
-  it('should be able to throw error on pre', async () => {
-    const runner = new Runner()
-
-    runner.register('preHandler', async (req: any) => { req.error = 'perchik' })
-    runner.register(
-      'preHandler',
-      async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) }
-    )
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    await rejects(() => runner.runFn('handler', async () => {}, {}), /the fattest cat is perchik/)
   })
 
   it('should return result from handler with "pre-handler"', async () => {
-    const runner = new Runner()
-    const request: any = {}
+    const hooks: any = new Map([
+      ['preHandler', new Set([
+        async (req: any) => { req.cat = 'perchik' },
+      ])],
+    ])
+    const request = {} as any
+    const handler = async (req: any) => { req.response = req.cat }
 
-    runner.register('preHandler', async (req: any) => { req.cat = 'perchik' })
-
-    await runner.runFn('handler', async (req: any) => { req.response = req.cat }, request)
+    await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
 
     strictEqual(request.cat, 'perchik')
     strictEqual(request.response, 'perchik')
   })
 
   it('should return result from handler', async () => {
-    const runner = new Runner()
-    const request: any = {}
+    const hooks: any = new Map()
+    const request = {} as any
+    const handler = async (req: any) => { req.response = 'perchik' }
 
-    await runner.runFn('handler', async (req: any) => { req.response = 'perchik' }, request)
+    await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
 
     strictEqual(request.response, 'perchik')
   })
 
   it('should be able to throw error from handler', async () => {
-    const runner = new Runner()
+    const hooks: any = new Map()
+    const request = {} as any
+    const handler = async () => { throw new Error('too fat cat') }
 
     rejects(
-      () => runner.runFn('handler', async () => { throw new Error('too fat cat') }, {}),
+      () => runHandler(handler, hooks, 'preHandler', 'postHandler', context, request),
       /too fat cat/
     )
   })
 
   it('should be able to error from post-handler', async () => {
-    const runner = new Runner()
+    const hooks: any = new Map([
+      ['postHandler', new Set([
+        async (req: any) => { req.error = 'perchik' },
+        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) },
+      ])],
+    ])
+    const request = {
+      response: 0,
+    } as any
+    const handler = async (req: any) => { req.response += 1 }
 
-    runner.register('postHandler', async (req: any) => { req.error = 'perchik' })
-    runner.register(
-      'postHandler',
-      async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) }
+    await rejects(
+      runHandler(handler, hooks, 'preHandler', 'postHandler', context, request),
+      /the fattest cat is perchik/
     )
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    await rejects(() => runner.runFn('handler', async () => {}, {}), /the fattest cat is perchik/)
   })
 
   it('should be able to modify result if no error returned from handler', async () => {
-    const runner = new Runner()
-    const request: any = {}
+    const hooks: any = new Map([
+      ['postHandler', new Set([
+        async (req: any) => { req.result = 'perchik' },
+      ])],
+    ])
+    const request = {} as any
+    const handler = async (req: any) => { req.result = 'persik' }
 
-    runner.register('postHandler', async (req: any) => { req.result = 'perchik' })
-
-    await runner.runFn('handler', async (req: any) => { req.result = 'persik' }, request)
+    await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
 
     strictEqual(request.result, 'perchik')
   })
 
   it('should be able to modify error returned from handler', async () => {
-    const runner = new Runner()
-
-    runner.register(
-      'postHandler',
-      async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error.message}`) }
-    )
+    const hooks: any = new Map([
+      ['postHandler', new Set([
+        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error.message}`) },
+      ])],
+    ])
+    const request = {} as any
+    const handler = async () => { throw new Error('perchik') }
 
     await rejects(
-      () => runner.runFn('handler', async () => { throw new Error('perchik') }, {}),
+      () => runHandler(handler, hooks, 'preHandler', 'postHandler', context, request),
       /the fattest cat is perchik/
     )
   })
 
   it('should be able to pass arguments to post-handler', async () => {
-    const runner = new Runner()
-
-    runner.register(
-      'postHandler',
-      async (req: any) => { throw new Error(`the name of the fattest cat is ${req.response}`) }
-    )
+    const hooks: any = new Map([
+      ['postHandler', new Set([
+        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.response}`) },
+      ])],
+    ])
+    const request = {} as any
+    const handler = async (req: any) => { req.response = 'perchik' }
 
     await rejects(
-      () => runner.runFn('handler', async (req: any) => { req.response = 'perchik' }, {}),
+      () => runHandler(handler, hooks, 'preHandler', 'postHandler', context, request),
       /the fattest cat is perchik/
     )
   })

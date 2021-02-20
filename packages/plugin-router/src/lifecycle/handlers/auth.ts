@@ -2,9 +2,9 @@ import { AuthenticationRequiredError, NotImplementedError } from 'common-errors'
 import { isObject, isString } from 'lodash'
 import { Microfleet } from '@microfleet/core'
 
-import { ServiceRequest, ServiceFn } from '../../types/router'
+import { ServiceRequest, ServiceActionHandler } from '../../types/router'
 
-export type AuthStrategy = ServiceFn<any>
+export type AuthStrategy = ServiceActionHandler
 export interface AuthConfig {
   readonly strategies: Record<string, AuthStrategy>
 }
@@ -62,10 +62,9 @@ function retrieveStrategy(request: ServiceRequest, strategies: AuthConfig['strat
   throw new Error(`authConfig is invalid: ${authConfig}`)
 }
 
-export default async function authHandler(
+export default (config: AuthConfig) => async function authHandler(
   this: Microfleet,
   request: ServiceRequest,
-  config: AuthConfig
 ): Promise<void> {
   if (request.action.auth === undefined) {
     return
