@@ -1,43 +1,31 @@
-import { strict as assert } from 'assert'
+import { ServiceAction } from './types/router'
 
 export type RouteName = string
-export type TransportName = string | symbol
-export type RoutesCollection<T> = Map<RouteName, T>
-export type TransportsCollection<T> = Map<TransportName, RoutesCollection<T>>
+export type TransportName = string
+export type RoutesCollection = Map<RouteName, ServiceAction>
+export type RoutesGroupedByTransport = Map<TransportName, RoutesCollection>
 
-export default class Routes<T> {
-  protected transports: TransportsCollection<T> = new Map()
+export default class Routes {
+  protected groupedByTransport: RoutesGroupedByTransport = new Map()
 
-  get(transport: TransportName): RoutesCollection<T> {
-    assert(transport !== undefined)
+  get(transport: TransportName): RoutesCollection {
+    const { groupedByTransport } = this
+    const routes: RoutesCollection = groupedByTransport.get(transport) || new Map()
 
-    const routes = this.transports.get(transport)
+    groupedByTransport.set(transport, routes)
 
-    if (routes !== undefined) {
-      return routes
-    }
-
-    const collection = new Map()
-
-    this.transports.set(transport, collection)
-
-    return collection
+    return routes
   }
 
-  handler(transport: TransportName, route: RouteName): T | undefined {
-    assert(route !== undefined)
-
-    const routes = this.get(transport)
-
-    return routes.get(route)
+  getAction(transport: TransportName, route: RouteName): ServiceAction | undefined {
+    return this.groupedByTransport.get(transport)?.get(route)
   }
 
-  add(transport: TransportName, route: RouteName, handler: T): void {
-    assert(transport)
-    assert(route)
-
-    const routes = this.get(transport)
+  add(transport: TransportName, route: RouteName, handler: ServiceAction): void {
+    const { groupedByTransport } = this
+    const routes: RoutesCollection = groupedByTransport.get(transport) || new Map()
 
     routes.set(route, handler)
+    groupedByTransport.set(transport, routes)
   }
 }

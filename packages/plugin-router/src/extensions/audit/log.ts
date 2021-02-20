@@ -1,7 +1,6 @@
 import { Microfleet } from '@microfleet/core'
 
-import Lifecycle from '../../lifecycle/abstract'
-import { LifecycleExtensions } from '../'
+import Lifecycle, { LifecycleExtensions } from '../../lifecycle'
 import { getInitTimingExtension, ServiceRequestWithStart } from './timing'
 
 export type AuditLogExtensionParams = {
@@ -26,7 +25,7 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): L
   return [
     getInitTimingExtension(),
     {
-      point: Lifecycle.points.preResponse,
+      point: Lifecycle.hooks.preResponse,
       async handler(this: Microfleet, request: ServiceRequestWithStart) {
         const { started, error, response } = request
         const execTime = request.executionTotal = process.hrtime(started)

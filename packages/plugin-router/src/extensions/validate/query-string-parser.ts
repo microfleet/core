@@ -1,7 +1,7 @@
 import { identity } from 'lodash'
 import { parse } from 'qs'
 
-import Lifecycle from '../../lifecycle/core'
+import Lifecycle from '../../lifecycle'
 import { ServiceRequest } from '../../types/router'
 
 type QSParserAugmentedAction = ServiceRequest & {
@@ -31,5 +31,5 @@ async function preValidate(request: QSParserAugmentedAction): Promise<any> {
 
 export default [{
   handler: preValidate,
-  point: Lifecycle.points.preValidate,
+  point: Lifecycle.hooks.preValidate,
 }]

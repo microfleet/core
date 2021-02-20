@@ -1,5 +1,4 @@
-import Lifecycle from '../../lifecycle/abstract'
-import { LifecycleExtension } from '../'
+import Lifecycle, { LifecycleExtension } from '../../lifecycle'
 import { ServiceRequest } from '../../types/router'
 
 // @todo properties not optional
@@ -10,7 +9,7 @@ export interface ServiceRequestWithStart extends ServiceRequest {
 
 export function getInitTimingExtension(): LifecycleExtension {
   return {
-    point: Lifecycle.points.preRequest,
+    point: Lifecycle.hooks.preRequest,
     async handler(request: ServiceRequestWithStart): Promise<void> {
       request.started = request.started || process.hrtime()
     },

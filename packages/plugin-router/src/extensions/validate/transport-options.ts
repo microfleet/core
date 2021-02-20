@@ -1,6 +1,6 @@
 import { NotSupportedError } from 'common-errors'
 
-import Lifecycle from '../../lifecycle/core'
+import Lifecycle from '../../lifecycle'
 import { ServiceRequest } from '../../types/router'
 
 export type TransportOptionsAugmentedRequest = ServiceRequest & {
@@ -39,5 +39,5 @@ async function postRequest(request: TransportOptionsAugmentedRequest): Promise<v
 
 export default [{
   handler: postRequest,
-  point: Lifecycle.points.postRequest,
+  point: Lifecycle.hooks.postRequest,
 }]
