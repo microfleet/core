@@ -7,7 +7,7 @@ import { Lifecycle, ServiceRequest } from '@microfleet/plugin-router'
 jest.setTimeout(15000)
 
 const failedActionEmulator = [{
-  point: Lifecycle.points.preHandler,
+  point: Lifecycle.hooks.preHandler,
   async handler(request: ServiceRequest) {
     const { failAtRetryCount } = request.params
     const { headers } = request.headers
