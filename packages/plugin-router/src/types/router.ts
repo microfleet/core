@@ -39,7 +39,7 @@ export interface ServiceRequest {
   locals: any
   auth?: any
   // @todo to socketio plugin
-  socket?: NodeJS.EventEmitter
+  // socket?: NodeJS.EventEmitter
   parentSpan: any
   span?: Span
   log: Logger

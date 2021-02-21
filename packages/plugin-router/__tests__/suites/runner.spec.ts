@@ -2,7 +2,6 @@ import { strict as assert, rejects, strictEqual } from 'assert'
 import { Microfleet } from '@microfleet/core'
 
 import { runHandler, runHook } from '../../src/lifecycle/utils'
-// import { runHook, runHandler } from '../../src/lifecycle/utils'
 
 // @todo tests for lifecycle
 

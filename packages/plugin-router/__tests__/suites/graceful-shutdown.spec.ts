@@ -55,8 +55,9 @@ class ChildServiceRunner {
     })
 
     stdout.pipe(split2()).on('data', (line: string): void => {
+      // in case of emergency uncomment
       // eslint-disable-next-line no-console
-      console.info(line)
+      // console.info(line)
       this.stdout.push(line)
       if (line.includes('childServiceReady')) {
         this.serviceStarted = true
@@ -77,10 +78,6 @@ class ChildServiceRunner {
           reject(new TimeoutError())
         }, 1000 * 59)
       }))
-      // await Promise.race([
-      //   once(subProcess, 'ready'),
-      //   delay(1000 * 59).throw(new TimeoutError()),
-      // ])
     } catch (e: any) {
       // eslint-disable-next-line no-console
       console.error(e)
