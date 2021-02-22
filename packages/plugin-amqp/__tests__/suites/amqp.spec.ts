@@ -41,6 +41,7 @@ describe('AMQP suite: lifecycle', function testSuite() {
     await delay(5000)
     const second = await handler()
     assert(second)
+    assert(service.amqp)
 
     // close connection to the rabbitmq server
     await service.amqp.close()
@@ -54,6 +55,7 @@ describe('AMQP suite: lifecycle', function testSuite() {
 
   it('able to close connection to amqp and consumers', async () => {
     const { amqp } = service
+    assert(amqp)
 
     const closeSpy = spy(service, 'close')
     const consumerSpy = spy(amqp, 'closeAllConsumers')
