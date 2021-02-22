@@ -47,6 +47,12 @@ export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
 
+declare module '@microfleet/core-types' {
+  export interface Microfleet {
+    kafka: KafkaFactory;
+  }
+}
+
 export type KafkaStream = KafkaProducerStream | KafkaConsumerStream
 export type StreamOptions<T> =
   T extends KafkaConsumerStream
@@ -215,11 +221,5 @@ export function attach(
     async close() {
       await kafkaPlugin.close()
     },
-  }
-}
-
-declare module '@microfleet/core-types' {
-  export interface Microfleet {
-    kafka: KafkaFactory;
   }
 }

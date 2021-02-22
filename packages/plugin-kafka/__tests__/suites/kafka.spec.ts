@@ -24,7 +24,7 @@ import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, re
 const toxiproxy = new Toxiproxy('http://toxy:8474')
 
 // @todo
-describe.skip('#generic', () => {
+describe('#generic', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
