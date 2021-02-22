@@ -1,14 +1,8 @@
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
 import * as kafka from 'node-rdkafka'
-import { GlobalConfig, TopicConfig } from 'node-rdkafka'
-import { KafkaFactory, KafkaConsumerStream } from '@microfleet/plugin-kafka'
+import { GlobalConfig, TopicConfig, ConsumerGlobalConfig } from 'node-rdkafka'
 import { Writable, Readable } from 'stream'
-
-declare module '@microfleet/core-types' {
-  export interface Microfleet {
-    kafka: KafkaFactory;
-  }
-}
+import { EventEmitter } from 'events'
 
 export interface KafkaStreamOpts<T extends kafka.ReadStreamOptions | kafka.WriteStreamOptions, U extends kafka.TopicConfig, Z extends kafka.GlobalConfig> {
   streamOptions: T;
@@ -27,16 +21,6 @@ export type ProducerStreamConfig = KafkaStreamOpts<
   kafka.ProducerTopicConfig,
   kafka.ProducerGlobalConfig
 >
-
-export type KafkaStream = kafka.ProducerStream | KafkaConsumerStream
-export type StreamOptions<T> =
-  T extends KafkaConsumerStream
-    ? ConsumerStreamOptions
-    : never
-  |
-  T extends kafka.ProducerStream
-    ? kafka.WriteStreamOptions
-    : never
 
 export type KafkaClient = kafka.KafkaConsumer | kafka.Producer
 
@@ -104,18 +88,17 @@ declare module 'node-rdkafka' {
   }
 
   export interface ConsumerStream extends Readable {
-    // eslint-disable-next-line @typescript-eslint/no-misused-new
-    new (consumer: KafkaConsumer, conf?: kafka.ReadStreamOptions): ConsumerStream;
+    (consumer: KafkaConsumer, conf?: kafka.ReadStreamOptions): ConsumerStream;
 
     consumer: KafkaConsumer;
     connect(options: ConsumerGlobalConfig): void;
     close(cb?: () => void): void;
 
-    messages: ConsumerStreamMessage[];
+    messages: Message[];
     closeAsync(): Promise<void>;
   }
 
-  export interface Client extends EventEmitter {
+  export interface Client<Events extends string> extends EventEmitter {
     // eslint-disable-next-line @typescript-eslint/no-misused-new
     new (c: GlobalConfig, tc: TopicConfig): Client<KafkaClientEvents>;
 
@@ -123,7 +106,7 @@ declare module 'node-rdkafka' {
 
     // Required on dicsonnection cleanup
     globalConfig: GlobalConfig;
-    _client: Client;
+    _client: Client<Events>;
     _metadata: Metadata | null | undefined;
 
     connectAsync(metadataOptions: MetadataOptions): Promise<Metadata>;

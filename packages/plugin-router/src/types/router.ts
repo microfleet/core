@@ -2,8 +2,7 @@ import { ClientRequest } from 'http'
 import { Span } from 'opentracing'
 import { Microfleet } from '@microfleet/core'
 import { Logger } from '@microfleet/plugin-logger'
-
-import Router from '../router'
+import { RequestDataKey, ActionTransport } from '../router'
 
 export type ServiceMiddleware = (this: Microfleet, request: ServiceRequest) => Promise<void>
 export type ServiceActionHandler<R = unknown> = (this: Microfleet, request: ServiceRequest, ...params: any) => Promise<R>
@@ -27,14 +26,14 @@ export interface ServiceActionAuthConfig {
   strategy?: 'required' | 'try'
 }
 
-export interface ServiceRequest {
+export interface ServiceRequest<R = unknown> {
   route: string
-  action: ServiceAction
+  action: ServiceAction<R>
   params: any
   headers: any
   query: any
-  method: keyof typeof Router.RequestDataKey
-  transport: typeof Router.ActionTransport[keyof typeof Router.ActionTransport]
+  method: keyof typeof RequestDataKey
+  transport: typeof ActionTransport[keyof typeof ActionTransport]
   transportRequest: any | ClientRequest
   locals: any
   auth?: any

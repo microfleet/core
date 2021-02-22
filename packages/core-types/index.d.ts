@@ -1,8 +1,6 @@
 import type { Options as RetryOptions } from 'bluebird-retry'
-import type { ClientRequest } from 'http'
 import type { ListenerFn } from 'eventemitter3'
 import type {
-  ActionTransport,
   CONNECTORS_PROPERTY,
   ConnectorsTypes,
   DESTRUCTORS_PROPERTY,

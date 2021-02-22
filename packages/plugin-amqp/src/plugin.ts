@@ -12,7 +12,7 @@ import { PluginInterface } from '@microfleet/core-types'
 import { Microfleet, PluginTypes } from '@microfleet/core'
 // @todo should be part of plugin-router-amqp
 import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
-import * as AMQPTransport from '@microfleet/transport-amqp'
+import AMQPTransport = require('@microfleet/transport-amqp')
 
 import type { AMQPPluginConfig } from './types/plugin'
 
@@ -22,7 +22,7 @@ const ERROR_NOT_HEALTHY = new ConnectionError('amqp is not healthy')
 
 declare module '@microfleet/core-types' {
   export interface Microfleet {
-    amqp: typeof AMQPTransport | null;
+    amqp: InstanceType<typeof AMQPTransport> | null;
   }
 
   export interface ConfigurationOptional {
@@ -68,7 +68,7 @@ export function attach(
    * @param amqp - Instance of AMQPTransport.
    * @returns A truthy value if a provided connection is open.
    */
-  const isConnected = (amqp: typeof AMQPTransport) => (
+  const isConnected = (amqp: InstanceType<typeof AMQPTransport>) => (
     amqp._amqp && amqp._amqp.state === 'open'
   )
 
@@ -94,6 +94,7 @@ export function attach(
       }
       // @todo plugin-router-amqp
       // const amqp = this.amqp = await AMQPTransport.connect(connectionOptions, this.AMQPRouter)
+      // @ts-expect-error helper in augmentation module, not exposed in ts
       const amqp = this.amqp = await AMQPTransport.connect(connectionOptions)
 
       this.emit('plugin:connect:amqp', amqp)

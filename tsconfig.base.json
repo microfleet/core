@@ -13,8 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "preserveConstEnums": true,
-    "composite": true,
-    "skipLibCheck": true
+    "composite": true
   },
   "exclude": [
     "**/node_modules/**",

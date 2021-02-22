@@ -5,7 +5,7 @@ import { isObject } from 'lodash'
 import { Microfleet, PluginTypes } from '@microfleet/core'
 import { defaultsDeep } from '@microfleet/utils'
 
-import Router from './router'
+import { Router, ActionTransport } from './router'
 import Routes from './routes'
 import Tracker from './tracker'
 import { auditLog } from './extensions'
@@ -45,14 +45,14 @@ const prepareInternalRequest = (request: Partial<ServiceRequest>): ServiceReques
   locals: shallowObjectClone(request.locals),
   auth: shallowObjectClone(request.auth),
   log: console as any,
-  method: Router.ActionTransport.internal,
+  method: ActionTransport.internal,
   params: request.params != null
     ? deepClone(request.params)
     : Object.create(null),
   parentSpan: undefined,
   query: Object.create(null),
   route: '',
-  transport: Router.ActionTransport.internal,
+  transport: ActionTransport.internal,
   transportRequest: Object.create(null),
   reformatError: false,
 })

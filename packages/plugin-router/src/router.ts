@@ -52,31 +52,29 @@ const spanLog = (request: ServiceRequest) => (error: any) => {
 
   throw error
 }
-
-export default class Router {
   // Constants with possilble transport values
-  static readonly ActionTransport = {
-    amqp: 'amqp',
-    http: 'http',
-    internal: 'internal',
-    socketio: 'socketio',
-  } as const
+export const ActionTransport = {
+  amqp: 'amqp',
+  http: 'http',
+  internal: 'internal',
+  socketio: 'socketio',
+} as const
 
   // todo to validation
   // based on this we validate input data
-  static readonly RequestDataKey = {
-    amqp: 'params',
-    delete: 'query',
-    get: 'query',
-    head: 'query',
-    options: 'query',
-    internal: 'params',
-    patch: 'params',
-    post: 'params',
-    put: 'params',
-    socketio: 'params',
-  } as const
-
+export const RequestDataKey = {
+  amqp: 'params',
+  delete: 'query',
+  get: 'query',
+  head: 'query',
+  options: 'query',
+  internal: 'params',
+  patch: 'params',
+  post: 'params',
+  put: 'params',
+  socketio: 'params',
+} as const
+export class Router {
   public readonly config?: RouterConfig
   public readonly routes: Routes
   public readonly requestCountTracker: RequestCountTracker
@@ -134,7 +132,7 @@ export default class Router {
       }
     }
 
-    for (const transport of (action.transports || Object.keys(Router.ActionTransport))) {
+    for (const transport of (action.transports || Object.keys(ActionTransport))) {
       routes.add(transport, this.prefixRoute(name), action)
     }
   }
@@ -193,3 +191,5 @@ export default class Router {
       .get('response')
   }
 }
+
+export default Router
