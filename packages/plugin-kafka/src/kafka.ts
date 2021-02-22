@@ -7,11 +7,11 @@ import { PluginTypes } from '@microfleet/utils'
 import type { Logger } from '@microfleet/plugin-logger'
 import '@microfleet/plugin-validator'
 import { map } from 'bluebird'
+import type { WriteStreamOptions } from 'node-rdkafka'
 import type {
   ConsumerStreamConfig,
   ProducerStreamConfig,
-  StreamOptions,
-  KafkaStream,
+  ConsumerStreamOptions,
   KafkaClient,
 } from '@microfleet/plugin-kafka-types'
 import {
@@ -37,7 +37,7 @@ export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
 export * from './custom/rdkafka-extra'
 export type {
   ProducerStreamOptions, ConsumerStreamOptions,
-  ConnectOptions, ConsumerStreamConfig, KafkaStreamOpts, StreamOptions, ProducerStreamConfig
+  ConnectOptions, ConsumerStreamConfig, KafkaStreamOpts, ProducerStreamConfig
 } from '@microfleet/plugin-kafka-types'
 
 /**
@@ -46,6 +46,16 @@ export type {
 export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
+
+export type KafkaStream = KafkaProducerStream | KafkaConsumerStream
+export type StreamOptions<T> =
+  T extends KafkaConsumerStream
+  ? ConsumerStreamOptions
+  : never
+  |
+  T extends KafkaProducerStream
+  ? WriteStreamOptions
+  : never
 
 export class KafkaFactory {
   public rdKafkaConfig: GlobalConfig
@@ -205,5 +215,11 @@ export function attach(
     async close() {
       await kafkaPlugin.close()
     },
+  }
+}
+
+declare module '@microfleet/core-types' {
+  export interface Microfleet {
+    kafka: KafkaFactory;
   }
 }

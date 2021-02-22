@@ -34,12 +34,12 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
-    "@types/cheerio": "^0.22.23",
+    "@types/cheerio": "^0.22.24",
     "@types/handlebars": "^4.1.0",
     "@types/request-promise": "^4.1.47",
     "cheerio": "^1.0.0-rc.5",
     "common-errors": "^1.2.0",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "request-promise": "^4.2.6"
   },
   "engines": {

@@ -52,6 +52,8 @@ export function attach(
 
   return {
     async connect(this: Microfleet) {
+      assert.ok(this.amqp)
+
       // create extra queue for retry logic based on RabbitMQ DLX & headers exchanges
       if (routerAmqpConfig.retry.enabled) {
         // in case defaults were overwritten - throw here

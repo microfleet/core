@@ -2,7 +2,7 @@ import { Error } from 'common-errors'
 import { Microfleet } from '@microfleet/core'
 import { HttpStatusError } from '@microfleet/validation'
 
-import Router from '../../router'
+import { RequestDataKey } from '../../router'
 import { ServiceRequest } from '../../types/router'
 
 async function validateHandler(this: Microfleet, request: ServiceRequest): Promise<void> {
@@ -14,7 +14,7 @@ async function validateHandler(this: Microfleet, request: ServiceRequest): Promi
     return
   }
 
-  const paramsKey = Router.RequestDataKey[request.method]
+  const paramsKey = RequestDataKey[request.method]
 
   try {
     // @todo (important) handle schema not found error and log it

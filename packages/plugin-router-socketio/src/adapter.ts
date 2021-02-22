@@ -3,12 +3,6 @@ import { noop } from 'lodash'
 import { Logger } from '@microfleet/plugin-logger'
 import { Router, ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
-declare module '@microfleet/plugin-router' {
-  export interface ServiceRequest {
-    socket?: Socket
-  }
-}
-
 /* Decrease request count on response */
 const decreaseRequestCount = (router: Router) => () => {
   router.requestCountTracker.decrease(ActionTransport.socketio)

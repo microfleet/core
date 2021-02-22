@@ -1,11 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import type * as _ from '@microfleet/plugin-socketio'
-import type * as __ from '@microfleet/plugin-router'
-/* eslint-enable @typescript-eslint/no-unused-vars */
-
+import '@microfleet/plugin-socketio'
+import '@microfleet/plugin-router'
 import { strict as assert } from 'assert'
 import { Microfleet, PluginTypes } from '@microfleet/core'
+import type { Socket } from 'socket.io'
 import attachSocketioRouter from './attach'
+
+declare module '@microfleet/plugin-router' {
+  export interface ServiceRequest {
+    socket?: Socket
+  }
+}
 
 export const name = 'router-socketio'
 export const type = PluginTypes.transport

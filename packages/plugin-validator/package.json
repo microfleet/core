@@ -33,7 +33,7 @@
     "@microfleet/validation": "^10.0.2",
     "callsite": "^1.0.0",
     "common-errors": "^1.2.0",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/callsite": "^1.0.30",

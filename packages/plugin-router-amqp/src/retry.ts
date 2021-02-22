@@ -133,6 +133,7 @@ export default (
           'error',
         ])
         await Bluebird.resolve(toWrap).timeout(10000)
+        assert(this.amqp)
       } catch (e) {
         message.retry()
         return Bluebird.reject(e)

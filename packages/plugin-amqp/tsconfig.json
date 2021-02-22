@@ -6,8 +6,5 @@
     "path": "../plugin-logger/tsconfig.json"
   }, {
     "path": "../plugin-router/tsconfig.json"
-  }],
-  "compilerOptions": {
-    "skipLibCheck": true
-  }
+  }]
 }
