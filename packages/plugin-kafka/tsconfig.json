@@ -1,7 +1,14 @@
 {
   "extends": "../../tsconfig.json",
+  "exclude": [
+    "**/node_modules/**",
+    "lib",
+    "dist",
+  ],
   "references": [{
     "path": "../core/tsconfig.json"
+  }, {
+    "path": "../plugin-kafka-types/tsconfig.json"
   }, {
     "path": "../plugin-logger/tsconfig.json"
   }]
