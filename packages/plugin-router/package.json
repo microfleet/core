@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/transport-amqp": "^15.2.4",
+    "@microfleet/transport-amqp": "^15.2.5",
     "lodash": "^4.17.21",
     "rfdc": "^1.1.4"
   },
