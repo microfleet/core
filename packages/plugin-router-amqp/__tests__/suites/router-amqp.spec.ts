@@ -1,4 +1,4 @@
-import * as assert from 'assert'
+import { strict as assert, deepStrictEqual, rejects } from 'assert'
 import { resolve } from 'path'
 import { ConnectionError } from 'common-errors'
 import { Microfleet } from '@microfleet/core'
@@ -42,15 +42,18 @@ describe('AMQP suite: basic routing', function testSuite() {
   it('able to observe an action', async () => {
     const amqpRoutes = service.router.routes.get('amqp')
 
-    assert.ok(typeof amqpRoutes.get('echo') === 'function')
+    assert(typeof amqpRoutes.get('echo') === 'function')
   })
 
   it('able to dispatch action and return response', async () => {
     const { amqp } = service
 
+    // @todo dispose of assert
+    assert(amqp)
+
     const response = await amqp.publishAndWait('echo', { foo: 'bar' })
 
-    assert.deepStrictEqual(response, { foo: 'bar' })
+    deepStrictEqual(response, { foo: 'bar' })
   })
 })
 
@@ -80,15 +83,18 @@ describe('AMQP suite: prefixed routing', function testSuite() {
   it ('able to observe an action', async () => {
     const amqpRoutes = service.router.routes.get('amqp')
 
-    assert.ok(typeof amqpRoutes.get('echo') === 'function')
+    assert(typeof amqpRoutes.get('echo') === 'function')
   })
 
   it ('able to dispatch action and return response', async () => {
     const { amqp } = service
 
+    // @todo dispose of assert
+    assert(amqp)
+
     const response = await amqp.publishAndWait('amqp-prefix.echo', { foo: 'bar' })
 
-    assert.deepStrictEqual(response, { foo: 'bar' })
+    deepStrictEqual(response, { foo: 'bar' })
   })
 })
 
@@ -134,16 +140,23 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
   it('able to successfully retry action dispatch', async () => {
     const { amqp } = service
 
+    // @todo dispose of assert
+    assert(amqp)
+
     const response = await amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 2 })
 
-    assert.deepStrictEqual(response, { failAtRetryCount: 2 })
+    deepStrictEqual(response, { failAtRetryCount: 2 })
   })
 
   it('able to fail when retry count exceeds max retry attempt count', async () => {
     const { amqp } = service
 
-    await assert.rejects(
-      amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 3 }),
+    // @todo dispose of assert
+    assert(amqp)
+
+    await rejects(
+      // @todo dispose of Promise.resolve
+      Promise.resolve(amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 3 })),
       {
         message: 'Fake connection error first three times',
         name: 'ConnectionError',
@@ -199,16 +212,23 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
   it ('able to successfully retry action dispatch', async () => {
     const { amqp } = service
 
+    // @todo dispose of assert
+    assert(amqp)
+
     const response = await amqp.publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 2 })
 
-    assert.deepStrictEqual(response, { failAtRetryCount: 2 })
+    deepStrictEqual(response, { failAtRetryCount: 2 })
   })
 
   it ('able to fail when retry count exceeds max retry attempt count', async () => {
     const { amqp } = service
 
-    await assert.rejects(
-      amqp.publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 3 }),
+    // @todo dispose of assert
+    assert(amqp)
+
+    await rejects(
+      // @todo dispose of Promise.resolve
+      Promise.resolve(amqp.publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 3 })),
       {
         message: 'Fake connection error first three times',
         name: 'ConnectionError',
