@@ -2086,6 +2086,11 @@
     "@sentry/types" "5.19.1"
     tslib "^1.9.3"
 
+"@sindresorhus/is@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.0.0.tgz#2ff674e9611b45b528896d820d3d7a812de2f0e4"
+  integrity sha512-FyD2meJpDPjyNQejSjvnhpgI/azsQkA4lGbuu5BQZfjvJ9cbRZXzeWL2HceCekW4lixO9JPesIIQkSoLjeJHNQ==
+
 "@sinonjs/commons@^1", "@sinonjs/commons@^1.6.0", "@sinonjs/commons@^1.7.0", "@sinonjs/commons@^1.7.2":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.0.tgz#c8d68821a854c555bba172f3b06959a0039b236d"
@@ -4618,6 +4623,13 @@ debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
   dependencies:
     ms "2.0.0"
+
+debug@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.1.tgz#f0d229c505e0c6d8c49ac553d1b13dc183f6b2ee"
+  integrity sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
+  dependencies:
+    ms "2.1.2"
 
 debuglog@^1.0.1:
   version "1.0.1"
@@ -8447,6 +8459,11 @@ lodash@^4.17.19:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
+lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
 log-symbols@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
@@ -8927,16 +8944,16 @@ ms-conf@^7.0.0:
     lodash.uniq "^4.5.0"
     nconf "^0.10.0"
 
-ms-socket.io-adapter-amqp@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/ms-socket.io-adapter-amqp/-/ms-socket.io-adapter-amqp-7.0.0.tgz#935c323d49ca11e87988df547a832d0c093fba39"
-  integrity sha512-f6OlKm8LmYernaIuEDsLqg3uunLcQruphW8MIJVKt9Dgn9sClvqDz13yzrjwzMnGaFNaEl5r8KDuA48RsymcSg==
+ms-socket.io-adapter-amqp@^8.0.0:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/ms-socket.io-adapter-amqp/-/ms-socket.io-adapter-amqp-8.0.1.tgz#0508f69765d60cef8000aa4efefffe7f1dad3f96"
+  integrity sha512-FZtAZoli3dQSjjLF1WiwdQeJr3N+f6WMpVTUBxs2Y1gQRWdF4+fGCUUMvrIYHFcNJN3NXoqNlw8gh2jxHqjM9A==
   dependencies:
+    "@sindresorhus/is" "^4.0.0"
     bluebird "^3.7.2"
-    debug "^4.1.1"
-    is "^3.3.0"
-    lodash "^4.17.15"
-    socket.io-adapter "^1.1.2"
+    debug "^4.3.1"
+    lodash "^4.17.21"
+    socket.io-adapter "^2.1.0"
     uid2 "0.0.3"
 
 ms@2.0.0:
@@ -11460,7 +11477,12 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-socket.io-adapter@^1.1.2, socket.io-adapter@~1.1.0:
+socket.io-adapter@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/socket.io-adapter/-/socket.io-adapter-2.2.0.tgz#43af9157c4609e74b8addc6867873ac7eb48fda2"
+  integrity sha512-rG49L+FwaVEwuAdeBRq49M97YI3ElVabJPzvHT9S6a2CWhDKnjSFasvwAwSYPRhQzfn4NtDIbCaGYgOCOU/rlg==
+
+socket.io-adapter@~1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/socket.io-adapter/-/socket.io-adapter-1.1.2.tgz#ab3f0d6f66b8fc7fca3959ab5991f82221789be9"
   integrity sha512-WzZRUj1kUjrTIrUKpZLEzFZ1OLj5FwLlAFQs9kuZJzJi5DKdU7FsWc36SNmA8iDOtwBQyT8FkrriRM8vXLYz8g==
