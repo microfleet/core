@@ -13,7 +13,7 @@ export type Case = {
   expect: string
   verify(params: any): void
 }
-export type CaseInspection = Inspection<Promise<any>>
+export type CaseInspection = Inspection<unknown>
 
 // @todo refactor
 export function verify(caseOptions: Case): (inspection: CaseInspection) => void {

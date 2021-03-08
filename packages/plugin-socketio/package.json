@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/transport-amqp": "^15.2.5",
+    "@microfleet/transport-amqp": "^15.2.6",
     "ms-socket.io-adapter-amqp": "^8.0.1",
-    "socket.io": "^3.1.1"
+    "socket.io": "^3.1.2"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",

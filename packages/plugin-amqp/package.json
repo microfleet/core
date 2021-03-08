@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/transport-amqp": "^15.2.5",
+    "@microfleet/transport-amqp": "^15.2.6",
     "bluebird": "^3.7.2",
     "event-to-promise": "^0.8.0",
     "get-value": "^3.0.1"
@@ -40,7 +40,7 @@
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
     "@types/bluebird": "^3.5.32",
-    "@types/sinon": "^9.0.10",
+    "@types/sinon": "^9.0.11",
     "sinon": "^9.2.4"
   },
   "engines": {

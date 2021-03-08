@@ -22,11 +22,11 @@ const ERROR_NOT_HEALTHY = new ConnectionError('amqp is not healthy')
 
 declare module '@microfleet/core-types' {
   export interface Microfleet {
-    amqp: InstanceType<typeof AMQPTransport> | null;
+    amqp: InstanceType<typeof AMQPTransport>
   }
 
   export interface ConfigurationOptional {
-    amqp: AMQPPluginConfig;
+    amqp: AMQPPluginConfig
   }
 }
 
@@ -112,8 +112,6 @@ export function attach(
      * @returns A truthy value if all checks are passed.
      */
     async status(this: Microfleet) {
-      // @todo assert from isStarted
-      assert(this.amqp && this.amqp instanceof AMQPTransport)
       assert(isStarted(), ERROR_NOT_STARTED)
       assert(isConnected(this.amqp), ERROR_NOT_HEALTHY)
       return true
@@ -129,8 +127,6 @@ export function attach(
      * @returns Closes connection to AMQP.
      */
     async close(this: Microfleet) {
-      // @todo assert from isStarted
-      assert(this.amqp)
       assert(isStarted(), ERROR_NOT_STARTED)
 
       await this.amqp.closeAllConsumers()
@@ -139,7 +135,6 @@ export function attach(
       await waitForRequestsToFinish()
       await this.amqp.close()
 
-      this.amqp = null
       this.emit('plugin:close:amqp')
     },
   }
