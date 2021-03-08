@@ -37,6 +37,7 @@ describe('@microfleet/plugin-socketio', () => {
     })
 
     strict(service.socketio.sockets.adapter instanceof Adapter)
+    // @ts-expect-error
     strict(service.socketio.sockets.adapter.transport instanceof Transport)
   })
 })
