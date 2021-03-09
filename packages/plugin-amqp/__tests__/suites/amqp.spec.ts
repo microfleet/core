@@ -65,7 +65,6 @@ describe('AMQP suite: lifecycle', function testSuite() {
 
     await service.close()
 
-    assert(!service.amqp)
     assert(consumerSpy.called)
     assert(consumerSpy.calledAfter(waitRequestFinishSpy))
     assert(consumerSpy.calledAfter(closeSpy))
