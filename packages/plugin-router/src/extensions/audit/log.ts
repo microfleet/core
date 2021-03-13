@@ -1,15 +1,15 @@
-import { Microfleet } from '@microfleet/core'
-
+import { Microfleet } from '@microfleet/core-types'
+import type { ServiceRequest } from '../../types/router'
 import Lifecycle, { LifecycleExtensions } from '../../lifecycle'
-import { getInitTimingExtension, ServiceRequestWithStart } from './timing'
+import { getInitTimingExtension } from './timing'
 
 export type AuditLogExtensionParams = {
   disableLogErrorsForNames?: string[]
 }
 
 export type MetaLog = {
-  headers: any
-  latency: number
+  headers: Record<string, unknown>
+  latency: number | null
   method: string
   params: any
   query: any
@@ -19,6 +19,27 @@ export type MetaLog = {
   err?: Error
 }
 
+const NS_PER_SEC = 1e9
+const MS_PER_NS = 1e6
+
+/**
+* Get duration in milliseconds from two process.hrtime()
+* @function hrTimeDurationInMs
+* @param {Array} startTime - [seconds, nanoseconds]
+* @param {Array} endTime - [seconds, nanoseconds]
+* @returns {Number | Null} durationInMs
+*/
+export const hrTimeDurationInMs = (startTime?: [number, number], endTime?: [number, number]): number | null => {
+  if (!Array.isArray(startTime) || !Array.isArray(endTime)) {
+    return null
+  }
+
+  const secondDiff = endTime[0] - startTime[0]
+  const nanoSecondDiff = endTime[1] - startTime[1]
+  const diffInNanoSecond = secondDiff * NS_PER_SEC + nanoSecondDiff
+  return Math.round(diffInNanoSecond / MS_PER_NS)
+}
+
 export default function auditLogFactory(params: AuditLogExtensionParams = {}): LifecycleExtensions {
   const disableLogErrorsForNames: string[] = params.disableLogErrorsForNames || []
 
@@ -26,13 +47,13 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): L
     getInitTimingExtension(),
     {
       point: Lifecycle.hooks.preResponse,
-      async handler(this: Microfleet, request: ServiceRequestWithStart) {
-        const { started, error, response } = request
-        const execTime = request.executionTotal = process.hrtime(started)
+      async handler(this: Microfleet, request: ServiceRequest) {
+        const { requestStarted, error, response } = request
+        const requestEnded = request.requestEnded = process.hrtime()
 
         const meta: MetaLog = {
           headers: request.headers,
-          latency: (execTime[0] * 1000) + (+(execTime[1] / 1000000).toFixed(3)),
+          latency: hrTimeDurationInMs(requestStarted, requestEnded),
           method: request.method,
           params: request.params,
           query: request.query,

@@ -1,5 +1,3 @@
-import Bluebird from 'bluebird'
-
 import Router from '../router'
 import { ServiceRequest } from './router'
 import { AuthConfig } from '../lifecycle/handlers/auth'
@@ -9,7 +7,7 @@ import { LifecycleExtensions } from '../lifecycle'
 declare module '@microfleet/core-types' {
   export interface Microfleet {
     router: Router
-    dispatch: (route: string, request: Partial<ServiceRequest>) => Bluebird<any>
+    dispatch(route: string, request: Partial<ServiceRequest>): Promise<any>
   }
 
   export interface ConfigurationOptional {

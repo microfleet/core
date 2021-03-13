@@ -1,0 +1,17 @@
+{
+  "name": "@benchmarks/root",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "compile": "cd .. && yarn compile",
+    "doctor": "NODE_ENV=production clinic doctor --autocannon [ -m GET 'http://localhost:3000/hello' ] -- node",
+    "flame": "NODE_ENV=production clinic flame --on-port 'autocannon localhost:$PORT/hello' -- node"
+  },
+  "dependencies": {
+    "autocannon": "^7.0.5",
+    "clinic": "^8.0.1"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}

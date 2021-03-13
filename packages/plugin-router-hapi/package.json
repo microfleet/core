@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
-    "@types/cheerio": "^0.22.24",
+    "@types/cheerio": "^0.22.27",
     "@types/get-value": "^3.0.1",
     "@types/handlebars": "^4.1.0",
     "@types/request-promise": "^4.1.47",

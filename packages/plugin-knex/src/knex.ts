@@ -4,7 +4,7 @@ import { NotFoundError } from 'common-errors'
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 import retry = require('bluebird-retry')
-import Knex = require('knex')
+import { knex, Knex } from 'knex'
 
 import '@microfleet/plugin-logger'
 import '@microfleet/plugin-validator'
@@ -15,8 +15,14 @@ import '@microfleet/plugin-validator'
 export const priority = 0
 export const name = 'knex'
 export const type = PluginTypes.database
-export interface KnexPlugin {
-  knex: Knex;
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    knex: Knex;
+  }
+
+  interface ConfigurationOptional {
+    knex: Knex.Config
+  }
 }
 
 /**
@@ -65,10 +71,10 @@ export function attach(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const opts = validator.ifError('knex', params)
+  const opts = validator.ifError<Knex.Config>('knex', params)
   const config = validator.ifError<Knex.Config>(`knex.${opts.client}`, opts)
 
-  const knex = this.knex = Knex(config)
+  this.knex = knex(config)
 
-  return startupHandlers(this, knex)
+  return startupHandlers(this, this.knex)
 }

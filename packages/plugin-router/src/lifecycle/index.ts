@@ -79,13 +79,9 @@ export default class Lifecycle {
   }
 
   protected config: CoreLifecycleOptionsConfig
-
   protected context: Microfleet
-
   protected hooks: Map<Hook, HooksCollection> = new Map()
-
   protected authHandler: ServiceMiddleware
-
   protected validateResponseHandler: ServiceMiddleware
 
   constructor({ config, extensions, context }: CoreLifecycleOptions) {
@@ -130,8 +126,8 @@ export default class Lifecycle {
       await runHandler(this.validateResponseHandler, hooks, preValidateResponse, postValidateResponse, context, request)
     } catch (error: any) {
       request.error = error
-    } finally {
-      await runHandler(responseHandler, hooks, preResponse, postResponse, context, request)
     }
+
+    await runHandler(responseHandler, hooks, preResponse, postResponse, context, request)
   }
 }

@@ -1,8 +1,7 @@
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
-import * as Bluebird from 'bluebird'
 import { Tags } from 'opentracing'
-import { v4 as uuidv4 } from 'uuid'
+import hyperid = require('hyperid')
 import { Tracer } from 'opentracing'
 import { Logger } from '@microfleet/plugin-logger'
 
@@ -39,7 +38,7 @@ const finishSpan = ({ span }: ServiceRequest) => () => {
     span.finish()
   }
 }
-const spanLog = (request: ServiceRequest) => (error: any) => {
+const spanLog = (request: ServiceRequest, error: Error) => {
   if (request.span !== undefined ) {
     request.span.setTag(ERROR, true)
     request.span.log({
@@ -83,6 +82,7 @@ export class Router {
   protected readonly log: Logger
   protected readonly prefix?: string
   protected readonly tracer?: Tracer
+  protected readonly idgen: hyperid.Instance
 
   constructor({ lifecycle, routes, config, requestCountTracker, log, tracer }: RouterOptions) {
     this.lifecycle = lifecycle
@@ -91,6 +91,7 @@ export class Router {
     this.requestCountTracker = requestCountTracker
     this.log = log
     this.tracer = tracer
+    this.idgen = hyperid()
 
     if (config !== undefined) {
       const { directory, enabledGenericActions, prefix } = config
@@ -151,12 +152,12 @@ export class Router {
     }
   }
 
-  public prefixAndDispatch(routeWithoutPrefix: string, request: ServiceRequest): Bluebird<any> {
+  public async prefixAndDispatch(routeWithoutPrefix: string, request: ServiceRequest): Promise<any> {
     request.route = this.prefixRoute(routeWithoutPrefix)
     return this.dispatch(request)
   }
 
-  public dispatch(request: ServiceRequest): Bluebird<any> {
+  public async dispatch(request: ServiceRequest): Promise<any> {
     assert(request.route)
     assert(request.transport)
 
@@ -180,15 +181,18 @@ export class Router {
     // maybe you can fix it using a typescript magic
     request.action = this.routes.getAction(transport, route) as ServiceAction
     request.log = log.child({
-      reqId: uuidv4(),
+      reqId: this.idgen(),
     })
 
-    return Bluebird
-      .resolve(lifecycle.run(request))
-      .catch(spanLog(request))
-      .finally(finishSpan(request))
-      .return(request)
-      .get('response')
+    try {
+      await lifecycle.run(request)
+    } catch (e) {
+      spanLog(request, e)
+    } finally {
+      finishSpan(request)
+    }
+
+    return request.response
   }
 }
 

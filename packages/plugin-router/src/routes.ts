@@ -4,7 +4,6 @@ export type RouteName = string
 export type TransportName = string
 export type RoutesCollection = Map<RouteName, ServiceAction>
 export type RoutesGroupedByTransport = Map<TransportName, RoutesCollection>
-
 export default class Routes {
   protected groupedByTransport: RoutesGroupedByTransport = new Map()
 
