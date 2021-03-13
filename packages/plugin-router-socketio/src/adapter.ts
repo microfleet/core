@@ -4,13 +4,13 @@ import { Logger } from '@microfleet/plugin-logger'
 import { Router, ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
 /* Decrease request count on response */
-const decreaseRequestCount = (router: Router) => () => {
+const decreaseRequestCount = (router: Router) => {
   router.requestCountTracker.decrease(ActionTransport.socketio)
 }
 
 function getSocketIORouterAdapter(router: Router, log: Logger): (socket: Socket) => void {
   return function socketIORouterAdapter(socket: Socket): void {
-    socket.onAny((actionName: string, params: unknown, callback: CallableFunction): void => {
+    socket.onAny(async (actionName: string, params: unknown, callback: CallableFunction): Promise<void> => {
       // @todo if (callback !== undefined && typeof callback !== 'function') {
       if (typeof callback !== 'function') {
         // ignore malformed rpc call
@@ -38,10 +38,13 @@ function getSocketIORouterAdapter(router: Router, log: Logger): (socket: Socket)
 
       /* Increase request count on message */
       router.requestCountTracker.increase(ActionTransport.socketio)
-      router
-        .dispatch(request)
-        .finally(decreaseRequestCount(router))
-        .asCallback(callback)
+      try {
+        callback(null, await router.dispatch(request))
+      } catch (e) {
+        callback(e)
+      } finally {
+        decreaseRequestCount(router)
+      }
     })
   }
 }

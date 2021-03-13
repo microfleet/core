@@ -167,7 +167,7 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): void
       }
 
       // @ts-expect-error - outtdated types
-      return new SonicBoom({ fd: process.stdout.fd })
+      return new SonicBoom({ fd: process.stdout.fd || 1 })
     }
 
     streams.push({

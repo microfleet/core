@@ -18,6 +18,8 @@
   "exclude": [
     "**/node_modules/**",
     "lib/**",
-    "dist"
+    "packages/*/lib/**",
+    "dist",
+    "packages/*/dist/**"
   ]
 }

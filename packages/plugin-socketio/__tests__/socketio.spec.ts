@@ -37,7 +37,6 @@ describe('@microfleet/plugin-socketio', () => {
     })
 
     strict(service.socketio.sockets.adapter instanceof Adapter)
-    // @ts-expect-error error TS2339: Property 'transport' does not exist on type 'never'
     strict(service.socketio.sockets.adapter.transport instanceof Transport)
   })
 })

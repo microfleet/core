@@ -1,5 +1,4 @@
-import * as Bluebird from 'bluebird'
-import { noop, isFunction } from 'lodash'
+import { noop, isFunction, identity } from 'lodash'
 import { Microfleet } from '@microfleet/core'
 import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
 
@@ -15,15 +14,18 @@ function getAMQPRouterAdapter(
 
   // @todo or not todo
   const wrapDispatch = isFunction(onComplete)
-    ? (promise: Bluebird<any>, actionName: string, raw: any): Bluebird<any> => promise
-      .reflect()
-      .then((fate) => {
-        const err = fate.isRejected() ? fate.reason() : null
-        const data = fate.isFulfilled() ? fate.value() : null
+    ? async (promise: Promise<any>, actionName: string, raw: any): Promise<any> => {
+        let data: any = null
+        let err: Error | null = null
+        try {
+          data = await promise
+        } catch (e) {
+          err = e
+        }
 
         return onComplete.call(service, err, data, actionName, raw)
-      })
-    : (promise: Bluebird<any>): Bluebird<any> => promise
+      }
+    : identity
 
   const decreaseCounter = (): void => requestCountTracker.decrease(ActionTransport.amqp)
   const increaseCounter = (): void => requestCountTracker.increase(ActionTransport.amqp)
@@ -68,12 +70,12 @@ function getAMQPRouterAdapter(
     try {
       const promise = service.router.dispatch(opts)
       const response = await wrapDispatch(promise, route, raw)
-
-      setImmediate(next, null, response)
+      next(null, response)
     } catch (e) {
-      setImmediate(next, e)
+      next(e)
+    } finally {
+      decreaseCounter()
     }
-    setImmediate(decreaseCounter)
   }
 }
 

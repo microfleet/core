@@ -1,9 +1,10 @@
 import { strict as assert } from 'assert'
-import { Microfleet } from '@microfleet/core'
-import { MserviceError } from '@microfleet/core-types'
+import type { Microfleet, MserviceError } from '@microfleet/core-types'
 
 import Lifecycle, { LifecycleExtensions } from '../../lifecycle'
-import { getInitTimingExtension, ServiceRequestWithStart } from './timing'
+import { getInitTimingExtension } from './timing'
+import { hrTimeDurationInMs } from '../audit/log'
+import type { ServiceRequest } from '../../types/router'
 
 function extractStatusCode(error: MserviceError): number {
   if (!error) {
@@ -26,22 +27,16 @@ function extractStatusCode(error: MserviceError): number {
   }
 }
 
-function diff(start: [number, number]): number {
-  const execTime = process.hrtime(start)
-  const ms = (execTime[0] * 1000) + (+(execTime[1] / 1000000))
-  return parseInt(ms.toFixed(), 10)
-}
-
 export default function metricObservabilityFactory(): LifecycleExtensions {
   return [
     getInitTimingExtension(),
     {
       point: Lifecycle.hooks.postResponse,
-      async handler(this: Microfleet, request: ServiceRequestWithStart): Promise<void> {
-        assert(request.started !== undefined)
+      async handler(this: Microfleet, request: ServiceRequest): Promise<void> {
+        assert(request.requestStarted !== undefined)
 
         const { metricMicrofleetDuration } = this
-        const latency = diff(request.started)
+        const latency = hrTimeDurationInMs(request.requestStarted, request.requestEnded || process.hrtime()) || 0
         const labels = {
           method: request.method,
           // NOTE: route empty in case of 404 - should we extract real path from the `transportRequest` ?

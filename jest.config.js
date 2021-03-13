@@ -1,6 +1,8 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  roots: ["<rootDir>/packages"],
+  maxConcurrency: 1,
   moduleNameMapper: {
     // @todo
     // '@microfleet/core/lib/(.*)': '<rootDir>/packages/core/lib/$1',

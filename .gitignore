@@ -38,3 +38,4 @@ lib
 *.tsbuildinfo
 .releaserc.json
 .vscode
+.clinic

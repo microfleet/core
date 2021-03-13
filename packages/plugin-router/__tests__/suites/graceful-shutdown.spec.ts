@@ -7,7 +7,6 @@ import { once } from 'events'
 import * as getFreePort from 'get-port'
 import { io as SocketIOClient } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
-import '@microfleet/plugin-amqp'
 
 import {
   getHTTPRequest,
@@ -18,17 +17,11 @@ const childServiceFile = resolve(__dirname, '../artifacts/child-service.ts')
 
 class ChildServiceRunner {
   protected cmd: string
-
   protected serviceStarted: boolean
-
   protected stdout: string[]
-
   protected stderr: string[]
-
   protected processClosed?: Promise<any[]>
-
   protected process?: ChildProcess
-
   protected port?: number
 
   constructor(command: string) {

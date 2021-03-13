@@ -29,6 +29,11 @@ export class Microfleet {
    * Allow Extensions
    */
   [property: string]: any;
+
+  /**
+   * Tells whether a plugin is enabled
+   */
+  public hasPlugin(name: string): boolean
 }
 
 export type AnyFn = (...args: any[]) => any;

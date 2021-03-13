@@ -1,6 +1,5 @@
 import { strict as assert } from 'assert'
 import { Microfleet, ConnectorsTypes } from '@microfleet/core'
-import Knex = require('knex')
 
 describe('knex plugin', () => {
   let service: Microfleet
@@ -19,10 +18,11 @@ describe('knex plugin', () => {
   })
 
   it('should be able to connect', async () => {
-    const [knex] = await service.connect()
+    await service.connect()
+    const { knex } = service
 
     // default settings in
-    const { pool } = (knex as Knex).client
+    const { pool } = knex.client
     // this is from tarn (https://github.com/vincit/tarn.js)
     assert.ok(pool.numUsed() + pool.numFree() + pool.numPendingCreates() >= 1, 'not enough connections')
   })

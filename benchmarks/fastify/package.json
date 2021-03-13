@@ -1,0 +1,8 @@
+{
+  "name": "@benchmark/fastify",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {
+    "fastify": "^3.12.0"
+  }
+}
