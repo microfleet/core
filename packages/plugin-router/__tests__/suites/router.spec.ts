@@ -322,7 +322,7 @@ describe('@microfleet/plugin-router', () => {
       await Promise.all([
         amqp.publishAndWait('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
         amqp.publishAndWait('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
-        service.dispatch('nested.test', { params: { foo: 42 } }).reflect().then(verify(returnsResult))
+        Bluebird.resolve(service.dispatch('nested.test', { params: { foo: 42 } })).reflect().then(verify(returnsResult))
       ])
     } finally {
       await service.close()
@@ -383,7 +383,7 @@ describe('@microfleet/plugin-router', () => {
 
     try {
       await Promise.all([
-        service.dispatch('generic.health', {}).reflect().then(verify(returnsResult)),
+        Bluebird.resolve(service.dispatch('generic.health', {})).reflect().then(verify(returnsResult)),
         httpRequest('/action/generic/health').reflect().then(verify(returnsResult)),
         socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult)),
         amqp.publishAndWait('amqp.action.generic.health', {}).reflect().then(verify(returnsResult))
