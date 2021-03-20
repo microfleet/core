@@ -1,4 +1,4 @@
-{
+module.exports = {
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,

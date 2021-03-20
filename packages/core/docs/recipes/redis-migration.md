@@ -36,7 +36,7 @@ For now, your Redis has no data stored. Let's create our first migration, that w
 async function createConstantKeys(service) {
   const { redis } = service
   const pipeline = redis.pipeline()
-  pipeline.set('some.key')
+  pipeline.set('some.key', 'value')
   pipeline.sadd('some.set', 'value')
   pipeline.sadd('some.set', 'other value')
 
