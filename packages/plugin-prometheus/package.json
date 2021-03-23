@@ -31,13 +31,13 @@
   },
   "dependencies": {
     "prom-client": "^13.1.0",
-    "semver": "^7.3.4"
+    "semver": "^7.3.5"
   },
   "devDependencies": {
     "@microfleet/core": "~17.x.x",
-    "@microfleet/plugin-logger": "x.x.x",
-    "@microfleet/plugin-validator": "x.x.x",
-    "@microfleet/plugin-router": "x.x.x",
+    "@microfleet/plugin-logger": "^0.5.4",
+    "@microfleet/plugin-router": "^0.0.0-dev.0",
+    "@microfleet/plugin-validator": "^0.0.0",
     "common-errors": "^1.2.0"
   },
   "engines": {
