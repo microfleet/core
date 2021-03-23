@@ -1,11 +1,12 @@
-import auditLog from './audit/log'
-import auditMetrics from './audit/metrics'
+import auditLog, { hrTimeDurationInMs } from './audit/log'
+import { initTimingExtension } from './audit/timing'
 import validateQueryStringParser from './validate/query-string-parser'
 import validateTransportOptions from './validate/transport-options'
 
 export {
   auditLog,
-  auditMetrics,
   validateQueryStringParser,
   validateTransportOptions,
+  hrTimeDurationInMs,
+  initTimingExtension,
 }

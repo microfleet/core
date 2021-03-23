@@ -9,7 +9,7 @@ import { Router, ActionTransport } from './router'
 import Routes from './routes'
 import Tracker from './tracker'
 import { auditLog } from './extensions'
-import Lifecycle from './lifecycle'
+import { Lifecycle } from './lifecycle'
 
 import type { RouterPluginConfig } from './types/plugin'
 import type { ServiceRequest } from './types/router'

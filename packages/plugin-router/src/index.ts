@@ -1,9 +1,9 @@
 import * as Extensions from './extensions'
 
 import RequestCountTracker from './tracker'
-import Lifecycle from './lifecycle'
+export { Lifecycle, LifecycleExtension } from './lifecycle'
 
-export { Extensions, RequestCountTracker, Lifecycle }
+export { Extensions, RequestCountTracker }
 export { Router, ActionTransport } from './router'
 export * from './plugin'
 export * from './types/plugin'

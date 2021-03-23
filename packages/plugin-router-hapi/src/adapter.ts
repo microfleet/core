@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type * as _ from '@microfleet/plugin-opentracing'
+/* eslint-enable @typescript-eslint/no-unused-vars */
+
 import * as Errors from 'common-errors'
 import { noop } from 'lodash'
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
@@ -67,7 +71,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
 
     let parentSpan
     if (service.tracer !== undefined) {
-      parentSpan = service.tracer.extract(headers, FORMAT_HTTP_HEADERS)
+      parentSpan = service.tracer.extract(FORMAT_HTTP_HEADERS, headers)
     }
 
     const serviceRequest: ServiceRequest = {

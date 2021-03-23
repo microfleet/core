@@ -1,6 +1,6 @@
 import { Microfleet } from '@microfleet/core'
 
-import requestHandler from './handlers/request'
+import requestHandler from   './handlers/request'
 import authHandler, { AuthConfig } from './handlers/auth'
 import validateHandler from './handlers/validate'
 import allowedHandler from './handlers/allowed'
@@ -60,7 +60,7 @@ const postValidate = 'postValidate'
 const preValidateResponse = 'preValidateResponse'
 const postValidateResponse = 'postValidateResponse'
 
-export default class Lifecycle {
+export class Lifecycle {
   public static hooks: Record<Hook, Hook> = {
     preAllowed,
     postAllowed,

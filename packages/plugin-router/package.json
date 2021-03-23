@@ -30,7 +30,8 @@
     "@microfleet/transport-amqp": "^15.2.6",
     "lodash": "^4.17.21",
     "rfdc": "^1.1.4",
-    "hyperid": "^2.1.0"
+    "hyperid": "^2.1.0",
+    "opentracing": "^0.14.5"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",

@@ -2,11 +2,11 @@
   "extends": "../../tsconfig.json",
   "references": [{
     "path": "../core/tsconfig.json"
+  },{
+    "path": "../core-types/tsconfig.json"
   }, {
-    "path": "../plugin-hapi/tsconfig.json"
+    "path": "../plugin-validator/tsconfig.json"
   }, {
     "path": "../plugin-router/tsconfig.json"
-  }, {
-    "path": "../plugin-opentracing/tsconfig.json"
   }]
 }

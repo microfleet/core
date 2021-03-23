@@ -1,13 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "references": [{
-    "path": "../core/tsconfig.build.json"
+    "path": "../core-types/tsconfig.build.json"
   }, {
-    "path": "../plugin-hapi/tsconfig.build.json"
+    "path": "../plugin-validator/tsconfig.build.json"
   }, {
-    "path": "../plugin-router/tsconfig.build.json"
-  }, {
-    "path": "../plugin-opentracing/tsconfig.build.json"
+    "path": "../plugin-logger/tsconfig.build.json"
   }],
   "compilerOptions": {
     "rootDir": "./src",

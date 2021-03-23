@@ -1,7 +1,7 @@
 import { Microfleet } from '@microfleet/core-types'
 import type { ServiceRequest } from '../../types/router'
-import Lifecycle, { LifecycleExtensions } from '../../lifecycle'
-import { getInitTimingExtension } from './timing'
+import { Lifecycle, LifecycleExtensions } from '../../lifecycle'
+import { initTimingExtension } from './timing'
 
 export type AuditLogExtensionParams = {
   disableLogErrorsForNames?: string[]
@@ -44,7 +44,7 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): L
   const disableLogErrorsForNames: string[] = params.disableLogErrorsForNames || []
 
   return [
-    getInitTimingExtension(),
+    initTimingExtension,
     {
       point: Lifecycle.hooks.preResponse,
       async handler(this: Microfleet, request: ServiceRequest) {

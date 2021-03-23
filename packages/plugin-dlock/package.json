@@ -39,7 +39,7 @@
     "@microfleet/core": "^17.5.3",
     "@microfleet/plugin-logger": "^0.5.4",
     "@types/bluebird": "^3.5.33",
-    "@types/ioredis": "^4.22.0",
+    "@types/ioredis": "^4.22.1",
     "rimraf": "^3.0.2",
     "ts-essentials": "^7.0.1"
   },

@@ -7,7 +7,7 @@ import { Logger } from '@microfleet/plugin-logger'
 
 import RequestCountTracker from './tracker'
 import Routes from './routes'
-import Lifecycle from './lifecycle'
+import { Lifecycle } from './lifecycle'
 import { ServiceAction, ServiceRequest } from './types/router'
 import {
   readRoutes,

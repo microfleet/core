@@ -1,25 +1,23 @@
 {
-  "name": "@microfleet/plugin-amqp",
-  "version": "0.0.0-dev.0",
-  "description": "AMQP transport adapter",
+  "name": "@microfleet/plugin-prometheus",
+  "description": "prometheus plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "version": "0.0.0",
   "scripts": {
-    "lint": "eslint ./src ./__tests__",
-    "test": "yarn test:e2e",
-    "test:e2e": "mdep test run",
+    "lint": "eslint './src/**/*.ts'",
+    "test": "mdep test run",
     "compile": "tsc -b ./tsconfig.build.json"
   },
   "tags": [
     "microservice",
     "microfleet",
-    "amqp",
-    "rabbitmq"
+    "prometheus"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/microfleet/core.git",
-    "directory": "packages/plugin-amqp"
+    "directory": "packages/plugin-prometheus"
   },
   "author": "Vitaly Aminev <v@makeomatic.ca>",
   "license": "MIT",
@@ -27,24 +25,23 @@
     "url": "https://github.com/microfleet/core/issues"
   },
   "homepage": "https://github.com/microfleet/core#readme",
-  "dependencies": {
-    "@microfleet/transport-amqp": "^15.2.6",
-    "bluebird": "^3.7.2",
-    "event-to-promise": "^0.8.0",
-    "get-value": "^3.0.1"
-  },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",
     "common-errors": "~1.x.x"
   },
+  "dependencies": {
+    "prom-client": "^13.1.0",
+    "semver": "^7.3.4"
+  },
   "devDependencies": {
-    "@microfleet/core": "^17.3.4",
-    "@types/bluebird": "^3.5.32",
-    "@types/sinon": "^9.0.11",
-    "sinon": "^10.0.0"
+    "@microfleet/core": "~17.x.x",
+    "@microfleet/plugin-logger": "x.x.x",
+    "@microfleet/plugin-validator": "x.x.x",
+    "@microfleet/plugin-router": "x.x.x",
+    "common-errors": "^1.2.0"
   },
   "engines": {
-    "node": ">= 12.14.0",
+    "node": ">= 12.15.0",
     "npm": ">= 4.0.0"
   },
   "files": [

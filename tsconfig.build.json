@@ -44,5 +44,9 @@
     "path": "./packages/plugin-router-socketio/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-socketio/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-opentracing/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-prometheus/tsconfig.build.json"
   }]
 }
