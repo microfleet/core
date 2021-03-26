@@ -1,0 +1,24 @@
+{
+  "$id": "awsElasticsearch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "accessKeyId",
+    "secretAccessKey",
+    "node"
+  ],
+  "properties": {
+    "accessKeyId": {
+      "type": "string"
+    },
+    "secretAccessKey": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "node": {
+      "type": "string"
+    }
+  }
+}

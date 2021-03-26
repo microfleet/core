@@ -1,0 +1,51 @@
+{
+  "name": "@microfleet/plugin-aws-elasticsearch",
+  "description": "Add aws-elasticsearch service support",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "elasticsearch",
+    "aws"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-aws-elasticsearch"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.866.0",
+    "aws4": "^1.11.0"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.5.4",
+    "@types/aws4": "^1.5.1",
+    "rimraf": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 12.14.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

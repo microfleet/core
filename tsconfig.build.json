@@ -50,5 +50,7 @@
     "path": "./packages/plugin-opentracing/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-prometheus/tsconfig.build.json"
-  }]
+  }, {
+    "path": "./packages/plugin-aws-elasticsearch/tsconfig.build.json"
+  }],
 }
