@@ -2,6 +2,7 @@
   "$id": "socketio",
   "type": "object",
   "additionalProperties": false,
+  "description": "Socket.io plugin config",
   "properties": {
     "adapter": {
       "type": "object",
