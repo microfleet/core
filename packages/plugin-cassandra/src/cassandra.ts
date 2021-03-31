@@ -2,10 +2,15 @@ import Bluebird = require('bluebird')
 import assert = require('assert')
 import retry = require('bluebird-retry')
 import { NotPermittedError, NotFoundError } from 'common-errors'
-import is = require('is')
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 import Cassandra = require('express-cassandra')
+import { resolve } from 'path'
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type * as _ from '@microfleet/plugin-logger'
+import type * as __ from '@microfleet/plugin-validator'
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 /**
  * Plugin Name
@@ -22,7 +27,37 @@ export const type = PluginTypes.database
  */
 export const priority = 0
 
-async function factory(this: Microfleet, Cassandra: any, config: any) {
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    cassandra: Cassandra
+  }
+
+  interface ConfigurationOptional {
+    cassandra: Config
+  }
+}
+
+export type Cassandra<T = any> = T
+
+export interface Config {
+  service: {
+    models: string | Record<string, any>
+  },
+  client: {
+    clientOptions: {
+      contactPoints: string[]
+    },
+    protocolOptions: {
+      port: string | number
+    },
+    keyspace: string,
+    queryOptions: {
+      consistency: number
+    }
+  }
+}
+
+async function factory(this: Microfleet, Cassandra: Cassandra, config: Config) {
   const { models } = config.service
   const reconnectOpts = {
     interval: 500,
@@ -41,7 +76,7 @@ async function factory(this: Microfleet, Cassandra: any, config: any) {
     }
   }
 
-  if (is.string(models)) {
+  if (typeof models === 'string') {
     Cassandra.setDirectory(models)
 
     await retry(
@@ -67,11 +102,12 @@ async function factory(this: Microfleet, Cassandra: any, config: any) {
   return client
 }
 
-export function attach(this: Microfleet, params: any = {}): PluginInterface {
+export function attach(this: Microfleet, params: Partial<Config> = {}): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  const config = this.validator.ifError('cassandra', params)
+  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  const config = this.validator.ifError<Config>('cassandra', params)
 
   async function connectCassandra(this: Microfleet) {
     assert(!this.cassandra, new NotPermittedError('Cassandra was already started'))
@@ -87,7 +123,6 @@ export function attach(this: Microfleet, params: any = {}): PluginInterface {
     const { cassandra } = this
 
     assert(cassandra, new NotPermittedError('Cassandra was not started'))
-
     await cassandra.closeAsync()
 
     this.cassandra = null

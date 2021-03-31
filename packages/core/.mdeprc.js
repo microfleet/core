@@ -8,8 +8,7 @@ module.exports = {
     "redisSentinel",
     "redisCluster",
     "rabbitmq",
-    "elasticsearch",
-    "cassandra"
+    "elasticsearch"
   ],
   "extras": {
     "tester": {

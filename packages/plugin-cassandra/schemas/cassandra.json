@@ -9,16 +9,14 @@
                 "models": {
                     "anyOf": [
                         {
-                            "type": "string",
-                            "format": "uri-reference"
+                          "type": "string",
+                          "format": "uri-reference"
                         },
                         {
-                            "type": "object",
-                            "patternProperties": {
-                                ".*": {
-                                    "type": "object"
-                                }
-                            }
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "object"
+                          }
                         }
                     ]
                 }
