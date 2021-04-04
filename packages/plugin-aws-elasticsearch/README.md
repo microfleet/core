@@ -13,12 +13,16 @@ To make use of the plugin, adjust microfleet configuration in the following way:
 ```ts
 exports.plugins = [
   ...,
-  'awsElasticsearch': {
-    'awsAccessKey',
-    'awsSecretKey',
-    'node',
-    'region',
-  },
+  'aws-elasticsearch'
   ...
 ]
+```
+
+```ts
+exports.awsElasticsearch = {
+  'awsAccessKey',
+  'awsSecretKey',
+  'node',
+  'region'
+}
 ```

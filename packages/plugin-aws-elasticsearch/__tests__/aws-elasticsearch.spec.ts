@@ -1,16 +1,15 @@
-const assert = require('assert');
+import { Client } from '@elastic/elasticsearch';
 import { Microfleet } from '@microfleet/core';
-const { expect } = require('chai');
 
 describe('AWS Elasticsearch suite', () => {
-  let service: any;
+  let service: Microfleet;
 
   it('should throw an error when plugin isn\'t included', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: [],
     });
-    assert(!service.awsElasticsearch);
+    expect(!service.awsElasticsearch);
   });
 
   it('able to connect to elasticsearch when plugin is included', async () => {
@@ -19,17 +18,16 @@ describe('AWS Elasticsearch suite', () => {
       plugins: ['validator', 'logger', 'aws-elasticsearch'],
     });
 
-    const [elastic] = await service.connect();
+    await service.connect();
 
-    // Since elastic is not an instance of Elasticsearch.Client due to
-    // its inner implementation, here we do some duck tests to check it
-    expect(elastic).to.have.property('transport');
-    expect(elastic).to.have.property('cluster');
-    assert(service.awsElasticsearch);
+    const { awsElasticsearch } = service
+    expect(awsElasticsearch).toHaveProperty('transport')
+    expect(awsElasticsearch).toBeInstanceOf(Client)
+    expect(service.awsElasticsearch).toBeInstanceOf(Client)
   });
 
   it('able to close connection to elasticsearch', async () => {
     await service.close();
-    assert(!service.elasticsearch);
+    expect(!service.awsElasticsearch)
   });
 });

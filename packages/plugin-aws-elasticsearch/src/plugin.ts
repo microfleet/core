@@ -1,14 +1,18 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import retry = require('bluebird-retry')
-import Bluebird = require('bluebird')
 import Errors = require('common-errors')
 import Elasticsearch = require('@elastic/elasticsearch')
 import { NotFoundError } from 'common-errors'
-import { PluginTypes, Microfleet } from '@microfleet/core'
+import { PluginTypes } from '@microfleet/utils'
 import * as AWS from 'aws-sdk'
-import createAwsElasticsearchConnector from './utils/createAwsElasticsearchConnector'
-import { PluginInterface, ValidatorPlugin } from '@microfleet/core/lib'
+import { createAwsElasticsearchConnector } from './utils/createAwsElasticsearchConnector'
+import { PluginInterface, Microfleet } from '@microfleet/core-types'
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type * as _ from '@microfleet/plugin-logger'
+import type * as __ from '@microfleet/plugin-validator'
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 interface ElasticLogger {
   trace(...args: any[]): void;
@@ -28,6 +32,23 @@ export interface AWSElasticsearchConfig {
   log: any;
 }
 
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    awsElasticsearch: Elasticsearch.Client
+  }
+
+  interface ConfigurationOptional {
+    awsElasticSearch: Config
+  }
+}
+
+export interface Config {
+  accessKeyId: string;
+  secretAccessKey: string;
+  node: string;
+  region?: string;
+}
+
 /**
  * Relative priority inside the same plugin group type
  */
@@ -35,7 +56,7 @@ export const priority = 0
 export const name = 'awsElasticsearch'
 export const type = PluginTypes.database
 export function attach(
-  this: Microfleet & ValidatorPlugin,
+  this: Microfleet,
   opts: Partial<AWSElasticsearchConfig> = {}
 ): PluginInterface {
   assert(
@@ -96,10 +117,7 @@ export function attach(
       const instance = new Elasticsearch.Client({
         ...createAwsElasticsearchConnector(awsConfig),
         node: conf.node,
-        defer() {
-          return Bluebird.defer()
-        },
-        log: Logger || log
+        log: Logger || log,
       })
 
       await retry(instance.nodes.info, {
@@ -121,8 +139,7 @@ export function attach(
      * @returns Closes aws-elasticsearch connection.
      */
     async close(this: Microfleet) {
-      await Bluebird.try(() => this.awsElasticsearch.close())
-      this.awsElasticsearch = null
+      await this.awsElasticsearch.close()
       this.emit('plugin:close:awsElasticsearch')
     },
   }
