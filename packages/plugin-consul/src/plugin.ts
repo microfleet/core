@@ -10,7 +10,6 @@ import consul = require('consul')
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-logger'
-import { Client } from '@elastic/elasticsearch'
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 /**
@@ -55,23 +54,6 @@ export const type = PluginTypes.database
  * Relative priority inside the same plugin group type
  */
 export const priority = 0
-
-declare module '@microfleet/core-types' {
-  interface Microfleet {
-    awsElasticsearch: Client
-  }
-
-  interface ConfigurationOptional {
-    awsElasticSearch: Config
-  }
-}
-
-export interface Config {
-  accessKeyId: string;
-  secretAccessKey: string;
-  node: string;
-  region?: string;
-}
 
 /**
  * Attaches initialized validator based on conf.
