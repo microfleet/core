@@ -53,6 +53,8 @@
   }, {
     "path": "./packages/plugin-prometheus/tsconfig.build.json"
   }, {
+    "path": "./packages/plugin-aws-elasticsearch/tsconfig.build.json"
+  }, {
     "path": "./packages/plugin-redis-core/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-redis-sentinel/tsconfig.build.json"
