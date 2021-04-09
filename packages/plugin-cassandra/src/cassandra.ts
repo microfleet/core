@@ -6,11 +6,8 @@ import type { Microfleet, PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 import Cassandra = require('express-cassandra')
 import { resolve } from 'path'
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-logger'
 import type * as __ from '@microfleet/plugin-validator'
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 /**
  * Plugin Name

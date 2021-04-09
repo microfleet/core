@@ -1,8 +1,8 @@
-import Bluebird from 'bluebird'
+import Bluebird = require('bluebird')
 import { LockAcquisitionError } from 'ioredis-lock'
 import { HttpStatusError } from 'common-errors'
-import { Microfleet } from '@microfleet/core'
-import { ServiceRequest, ServiceAction } from '@microfleet/plugin-router'
+import type { Microfleet } from '@microfleet/core'
+import type { ServiceRequest, ServiceAction } from '@microfleet/plugin-router'
 
 export type RequestMapper = {
   (request: ServiceRequest): string;

@@ -1,7 +1,8 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import type { PluginInterface } from '@microfleet/core-types'
+import type { Microfleet } from '@microfleet/core'
 import { PluginTypes } from '@microfleet/utils'
 import retry = require('bluebird-retry')
 import { knex, Knex } from 'knex'

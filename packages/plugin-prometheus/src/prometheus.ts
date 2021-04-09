@@ -9,11 +9,8 @@ import { NotFoundError } from 'common-errors'
 import { once } from 'events'
 import { resolve } from 'path'
 import { metricObservability } from './metrics'
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-router'
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 export interface Config {
   config: {

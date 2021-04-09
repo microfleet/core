@@ -1,10 +1,8 @@
 import type { PluginInterface } from '@microfleet/core-types'
 import type { HapiPluginConfig, HapiPluginPlugin } from './types/plugin'
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-logger'
 import type * as __ from '@microfleet/plugin-validator'
 import type * as ___ from '@microfleet/plugin-socketio'
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 import { strict as assert } from 'assert'
 import { resolve } from 'path'

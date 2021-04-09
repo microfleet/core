@@ -1,11 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-logger'
-/* eslint-enable @typescript-eslint/no-unused-vars */
-
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
-import * as Bluebird from 'bluebird'
 import { NotFoundError, NotPermittedError, ConnectionError } from 'common-errors'
 
 import { PluginInterface } from '@microfleet/core-types'
@@ -82,7 +78,7 @@ export function attach(
      */
     async connect(this: Microfleet) {
       if (this.amqp) {
-        return Bluebird.reject(ERROR_ALREADY_STARTED)
+        throw ERROR_ALREADY_STARTED
       }
 
       // if this.router is present - we will consume messages

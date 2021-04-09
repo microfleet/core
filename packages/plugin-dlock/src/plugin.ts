@@ -1,19 +1,16 @@
 import type Bluebird from 'bluebird'
-import type { Redis } from 'ioredis'
+import type { Redis, Cluster } from 'ioredis'
 import type { Logger } from '@microfleet/plugin-logger'
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-validator'
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { NotFoundError, HttpStatusError } from 'common-errors'
 import { Microfleet, PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
-import { RedisPlugin } from '@microfleet/core'
 import * as LockManager from 'dlock'
 import { LockAcquisitionError } from 'ioredis-lock'
-
+export { default as actionLockWrapper } from './utils/lock-action-wrapper'
 export interface DLockPlugin {
   manager: typeof LockManager;
   acquireLock(...keys: string[]): Promise<IORedisLock>;
@@ -21,7 +18,7 @@ export interface DLockPlugin {
 
 declare module '@microfleet/core-types' {
   export interface Microfleet {
-    dlock: DLockPlugin | null;
+    dlock: DLockPlugin;
   }
 
   export interface ConfigurationOptional {
@@ -93,11 +90,12 @@ async function acquireLock(this: Microfleet, ...keys: string[]): Promise<IORedis
 }
 
 export const attach = function attachDlockPlugin(
-  this: Microfleet & RedisPlugin,
+  this: Microfleet,
   opts: Partial<DLockPluginConfig> = {}
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('log module must be included'))
+  assert(this.hasPlugin('redis'), new NotFoundError('`redis-cluster` or `redis-sentinel` module must be included'))
 
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
@@ -105,9 +103,9 @@ export const attach = function attachDlockPlugin(
   const config = this.validator.ifError<DLockPluginConfig>(name, opts)
 
   return {
-    async connect(this: Microfleet & RedisPlugin) {
+    async connect(this: Microfleet) {
       const { redis: client } = this
-      const pubsub = this.redisDuplicate()
+      const pubsub = this.redis.duplicate()
 
       await pubsub.connect()
 
@@ -122,18 +120,14 @@ export const attach = function attachDlockPlugin(
       }
     },
     async close(this: Microfleet) {
-      if (this.dlock) {
-        await this.dlock.manager.pubsub.disconnect()
-      }
-
-      this.dlock = null
+      await this.dlock.manager.pubsub.disconnect()
     },
   }
 }
 
 export type DLockConfig = {
-  client: Redis;
-  pubsub: Redis;
+  client: Redis | Cluster;
+  pubsub: Redis | Cluster;
   pubsubChannel: string;
   lock: LockConfig;
   lockPrefix: string;

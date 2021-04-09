@@ -15,6 +15,11 @@ module.exports = {
       volumes: [
         '${PWD}/../../:/src:cached',
       ],
+      environment: {
+        TS_NODE_TRANSPILE_ONLY: "true",
+        TS_NODE_TYPE_CHECK: "false",
+        TS_NODE_FILES: "true"
+      }
     },
   },
 }

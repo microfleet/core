@@ -6,11 +6,8 @@ import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 import retry = require('bluebird-retry')
 import CouchDB = require('nano')
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-logger'
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 /**
  * Relative priority inside the same plugin group type

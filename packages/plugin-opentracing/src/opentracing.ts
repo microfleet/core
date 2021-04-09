@@ -4,12 +4,8 @@ import type { Microfleet } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 import { initTracer, JaegerTracer, TracingConfig, TracingOptions } from 'jaeger-client'
 import { resolve } from 'path'
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-logger'
 import type * as __ from '@microfleet/plugin-validator'
-/* eslint-enable @typescript-eslint/no-unused-vars */
-
 export interface Config {
   config?: TracingConfig
   options?: TracingOptions

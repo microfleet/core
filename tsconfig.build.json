@@ -11,6 +11,8 @@
   }, {
     "path": "./packages/utils/tsconfig.build.json"
   }, {
+    "path": "./packages/plugin-elasticsearch/tsconfig.build.json"
+  }, {
     "path": "./packages/plugin-amqp/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-logger/tsconfig.build.json"
@@ -50,5 +52,11 @@
     "path": "./packages/plugin-opentracing/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-prometheus/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-redis-core/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-redis-sentinel/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-redis-cluster/tsconfig.build.json"
   }]
 }

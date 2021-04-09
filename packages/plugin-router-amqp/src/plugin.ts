@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-amqp'
-/* eslint-enable @typescript-eslint/no-unused-vars */
-
 import { strict as assert } from 'assert'
 import { NotFoundError } from 'common-errors'
 import { resolve } from 'path'

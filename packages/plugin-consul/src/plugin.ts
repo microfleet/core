@@ -6,11 +6,8 @@ import { Microfleet } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
 import { PluginTypes } from '@microfleet/utils'
 import consul = require('consul')
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-logger'
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 /**
  * Consul configuration

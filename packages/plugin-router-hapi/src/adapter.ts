@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-opentracing'
-/* eslint-enable @typescript-eslint/no-unused-vars */
-
 import * as Errors from 'common-errors'
 import { noop } from 'lodash'
 import { FORMAT_HTTP_HEADERS } from 'opentracing'
