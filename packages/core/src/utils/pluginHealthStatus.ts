@@ -1,4 +1,3 @@
-import Bluebird = require('bluebird')
 import retry = require('bluebird-retry')
 import { PLUGIN_STATUS_OK, PLUGIN_STATUS_FAIL } from '@microfleet/utils'
 import type { PluginStatus } from '@microfleet/core-types'
@@ -45,14 +44,14 @@ export async function getHealthStatus(this: Microfleet, handlers: PluginHealthCh
   const alive: PluginHealthStatus[] = []
   const failed: PluginHealthStatus[] = []
 
-  await Bluebird.each(handlers, async ({ name, handler }) => {
+  for (const { name, handler } of handlers.values()) {
     try {
       await retry(handler, opts)
       alive.push(new PluginHealthStatus(name, true))
     } catch (e) {
       failed.push(new PluginHealthStatus(name, false, e))
     }
-  })
+  }
 
   return {
     alive,

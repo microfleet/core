@@ -3,11 +3,8 @@ import { Microfleet } from '@microfleet/core'
 import { resolve } from 'path'
 import { io as SocketIOClient } from 'socket.io-client'
 import { once } from 'events'
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as _ from '@microfleet/plugin-router-socketio'
 import type * as __ from '@microfleet/plugin-socketio'
-/* eslint-enable @typescript-eslint/no-unused-vars */
 
 describe('@microfleet/plugin-http', () => {
   it('should starts \'hapi\' http server when plugin is included', async () => {

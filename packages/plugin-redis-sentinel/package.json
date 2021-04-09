@@ -1,0 +1,55 @@
+{
+  "name": "@microfleet/plugin-redis-sentinel",
+  "description": "redis sentinel plugin for microfleet",
+  "main": "./lib/redis-sentinel.js",
+  "types": "./lib/redis-sentinel.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "compile": "tsc -b ./tsconfig.build.json",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run"
+  },
+  "tags": [
+    "microservice",
+    "microfleet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-redis-sentinel"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "ioredis": "^4.25.0",
+    "common-errors": "^1.2.0",
+    "@microfleet/core": "^17.5.4"
+  },
+  "dependencies": {
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/plugin-validator": "^0.0.0",
+    "@microfleet/plugin-redis-core": "^0.0.0",
+    "@microfleet/utils": "^0.0.0",
+    "bluebird": "^3.7.2",
+    "debug": "^4.3.1",
+    "opentracing-js-ioredis": "^2.1.2"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.5.4",
+    "@types/debug": "^4.1.5",
+    "@types/bluebird": "^3.5.33"
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/"
+  ]
+}

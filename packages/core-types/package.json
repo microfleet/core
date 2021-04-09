@@ -19,8 +19,13 @@
   "bugs": {
     "url": "https://github.com/micofleet/core/issues"
   },
+  "dependencies": {
+    "bluebird-retry": "^0.11.0",
+    "eventemitter3": "^4.0.7",
+    "@microfleet/utils": "^0.0.0"
+  },
   "devDependencies": {
     "@types/node": "^14.14.37",
-    "eventemitter3": "^4.0.7"
+    "@types/bluebird-retry": "^0.11.0"
   }
 }

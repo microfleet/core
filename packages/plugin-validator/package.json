@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@microfleet/validation": "^10.0.2",
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/utils": "^0.0.0",
     "callsite": "^1.0.0",
     "common-errors": "^1.2.0",
     "lodash": "^4.17.21"

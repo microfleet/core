@@ -30,26 +30,32 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@hapi/boom": "^9.1.1",
+    "@hapi/hapi": "^20.1.2",
+    "@microfleet/plugin-hapi": "^0.0.0-dev.0",
+    "@microfleet/plugin-opentracing": "^0.0.0",
+    "@microfleet/plugin-router": "^0.0.0-dev.0",
+    "@microfleet/plugin-validator": "^0.0.0-dev.0",
+    "@microfleet/validation": "^10.0.2",
     "get-value": "^3.0.1",
     "lodash": "^4.17.21",
     "opentracing": "^0.14.5"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",
-    "@microfleet/plugin-opentracing": "^0.0.0",
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
+    "@types/bluebird": "^3.5.33",
     "@types/cheerio": "^0.22.27",
     "@types/get-value": "^3.0.1",
     "@types/handlebars": "^4.1.0",
     "@types/request-promise": "^4.1.47",
-    "cheerio": "^1.0.0-rc.5",
+    "bluebird": "^3.7.2",
+    "cheerio": "^1.0.0-rc.6",
     "common-errors": "^1.2.0",
     "handlebars": "^4.7.7",
-    "request-promise": "^4.2.6",
-    "@microfleet/plugin-opentracing": "^0.0.0"
+    "request-promise": "^4.2.6"
   },
   "engines": {
     "node": ">= 12.14.0",

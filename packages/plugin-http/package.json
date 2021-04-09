@@ -26,14 +26,22 @@
     "url": "https://github.com/microfleet/core/issues"
   },
   "homepage": "https://github.com/microfleet/core#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@microfleet/plugin-logger": "^0.5.0",
+    "@microfleet/plugin-validator": "^0.0.0",
+    "@microfleet/plugin-socketio": "^0.0.0-dev.0",
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/plugin-hapi": "^0.0.0-dev.0"
+  },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.3",
-    "socket.io-client": "^4.0.0"
+    "socket.io-client": "^4.0.1",
+    "@microfleet/plugin-router-socketio": "^0.0.0-dev.0",
+    "@microfleet/plugin-router": "^0.0.0-dev.0"
   },
   "engines": {
     "node": ">= 12.14.0",

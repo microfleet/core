@@ -4,7 +4,7 @@ module.exports = {
   auto_compose: true,
   node: '14',
   parallel: 1,
-  test_framework: 'jest --config ../../jest.config.js --runTestsByPath',
+  test_framework: 'jest --config ../../jest.config.js --runTestsByPath --runInBand',
   tests: '__tests__/**/*.spec.ts',
   services: [
     'rabbitmq',
@@ -15,6 +15,11 @@ module.exports = {
       volumes: [
         '${PWD}/../../:/src:cached',
       ],
+      environment: {
+        TS_NODE_TRANSPILE_ONLY: "true",
+        TS_NODE_TYPE_CHECK: "false",
+        TS_NODE_FILES: "true"
+      }
     },
   },
 }

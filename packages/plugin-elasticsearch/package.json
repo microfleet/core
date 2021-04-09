@@ -1,0 +1,53 @@
+{
+  "name": "@microfleet/plugin-elasticsearch",
+  "description": "elasticsearch plugin for microfleet",
+  "main": "./lib/elasticsearch.js",
+  "types": "./lib/elasticsearch.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "elasticsearch"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-elasticsearch"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x",
+    "common-errors": "^1.2.0"
+  },
+  "dependencies": {
+    "bluebird-retry": "^0.11.0",
+    "@elastic/elasticsearch": "^7.12.0",
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/utils": "^0.0.0",
+    "@microfleet/plugin-logger": "^0.5.5"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.5.4",
+    "@types/bluebird-retry": "^0.11.4"
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

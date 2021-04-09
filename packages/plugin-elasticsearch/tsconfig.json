@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core-types/tsconfig.json"
+  }, {
+    "path": "../plugin-logger/tsconfig.json"
+  }, {
+    "path": "../plugin-validator/tsconfig.json"
+  }]
+}

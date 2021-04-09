@@ -7,9 +7,7 @@ import type { DeepPartial } from 'ts-essentials'
  */
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
-import Bluebird = require('bluebird')
 import { EventEmitter } from 'eventemitter3'
-import is = require('is')
 import * as defaultOpts from './defaults'
 import { HttpStatusError } from '@microfleet/validation'
 import {
@@ -18,7 +16,6 @@ import {
   HealthStatus,
   PluginHealthStatus,
 } from './utils/pluginHealthStatus'
-import { RedisPlugin } from './plugins/redis/types'
 import {
   defaultsDeep,
   getVersion,
@@ -30,11 +27,7 @@ import {
   HEALTH_CHECKS_PROPERTY
 } from '@microfleet/utils'
 
-export {
-  RedisPlugin,
-  PluginHealthStatus,
-  HealthStatus,
-}
+export { PluginHealthStatus, HealthStatus }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 
@@ -177,7 +170,7 @@ export class Microfleet extends EventEmitter {
    */
   public migrate(name: string, ...args: unknown[]): any {
     const migrate = this.migrators[name]
-    assert(is.fn(migrate), `migrator ${name} not defined`)
+    assert(typeof migrate === 'function', `migrator ${name} not defined`)
     return migrate(...args)
   }
 
@@ -233,12 +226,12 @@ export class Microfleet extends EventEmitter {
 
     this.plugins.push(pluginName)
 
-    if (!is.object(expose)) {
+    if (typeof expose !== 'object' || expose == null) {
       return
     }
 
-    const { connect, status, close } = expose as ns.PluginInterface
-    const type = ConnectorsTypes[mod.type] as ns.ConnectorsTypes
+    const { connect, status, close } = expose
+    const type = ConnectorsTypes[mod.type]
 
     assert(type, 'Plugin type must be equal to one of connectors type')
 
@@ -325,13 +318,17 @@ export class Microfleet extends EventEmitter {
   private async exit(): Promise<void> | never {
     this.log.info('received close signal... closing connections...')
 
+    let timeout: NodeJS.Timeout | null = null
     try {
       await Promise.race([
         this.close(),
-        Bluebird.delay(30000).throw(new Bluebird.TimeoutError('failed to close after 10 seconds')),
+        new Promise((_, reject) => {
+          timeout = setTimeout(reject, 30000, new Error('failed to close after 30 seconds'))
+        })
       ])
-    } catch (e) {
-      this.log.error({ error: e }, 'Unable to shutdown')
+    } catch (err) {
+      if (timeout) clearTimeout(timeout)
+      this.log.error({ err }, 'Unable to shutdown')
       process.exit(128)
     }
   }
@@ -404,6 +401,14 @@ export class Microfleet extends EventEmitter {
     const plugins: ns.Plugin[] = []
     for (const plugin of config.plugins) {
       const paths = [`./plugins/${plugin}`, `@microfleet/plugin-${plugin}`]
+
+      // back-compatibility, should be removed when we redo initialization of plugins
+      if (plugin === 'redisCluster') {
+        paths.unshift('@microfleet/plugin-redis-cluster')
+      } else if (plugin === 'redisSentinel') {
+        paths.unshift('@microfleet/plugin-redis-sentinel')
+      }
+
       const pluginModule: ns.Plugin | null = paths.reduce(resolveModule, null)
 
       if (pluginModule === null) {
