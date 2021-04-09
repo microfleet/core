@@ -318,15 +318,17 @@ export class Microfleet extends EventEmitter {
   private async exit(): Promise<void> | never {
     this.log.info('received close signal... closing connections...')
 
+    let timeout: NodeJS.Timeout | null = null
     try {
       await Promise.race([
         this.close(),
         new Promise((_, reject) => {
-          reject(new Error('failed to close after 10 seconds'))
+          timeout = setTimeout(reject, 30000, new Error('failed to close after 30 seconds'))
         })
       ])
-    } catch (e) {
-      this.log.error({ error: e }, 'Unable to shutdown')
+    } catch (err) {
+      if (timeout) clearTimeout(timeout)
+      this.log.error({ err }, 'Unable to shutdown')
       process.exit(128)
     }
   }

@@ -29,8 +29,8 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@microfleet/plugin-http": "^0.0.0-dev.0",
-    "@microfleet/plugin-validator": "^0.0.0",
-    "@microfleet/plugin-router-hapi": "^0.0.0-dev.0"
+    "@microfleet/plugin-router-hapi": "^0.0.0-dev.0",
+    "@microfleet/plugin-validator": "^0.0.0"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",
@@ -38,16 +38,16 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
+    "@microfleet/plugin-router": "^0.0.0-dev.0",
+    "@types/bluebird": "^3.5.33",
     "@types/cheerio": "^0.22.27",
     "@types/handlebars": "^4.1.0",
     "@types/request-promise": "^4.1.47",
-    "cheerio": "^1.0.0-rc.5",
+    "bluebird": "^3.7.2",
+    "cheerio": "^1.0.0-rc.6",
     "common-errors": "^1.2.0",
     "handlebars": "^4.7.7",
-    "request-promise": "^4.2.6",
-    "bluebird": "^3.7.2",
-    "@types/bluebird": "^3.5.33",
-    "@microfleet/plugin-router": "^0.0.0-dev.0"
+    "request-promise": "^4.2.6"
   },
   "engines": {
     "node": ">= 12.14.0",

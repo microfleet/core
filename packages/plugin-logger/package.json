@@ -32,25 +32,25 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/plugin-validator": "^0.0.0",
+    "@microfleet/utils": "^0.0.0",
+    "lsmod": "^1.0.0",
     "pino": "^6.11.2",
     "pino-multi-stream": "^5.3.0",
-    "sonic-boom": "^1.4.1",
-    "lsmod": "^1.0.0",
-    "@microfleet/utils": "^0.0.0",
-    "@microfleet/plugin-validator": "^0.0.0",
-    "@microfleet/core-types": "^0.0.0"
+    "sonic-boom": "^1.4.1"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.4",
     "@sentry/node": "^6.2.5",
-    "@types/pino": "^6.3.6",
+    "@sentry/types": "^6.2.5",
+    "@types/bluebird": "^3.5.33",
+    "@types/pino": "^6.3.7",
     "@types/pino-multi-stream": "^5.1.0",
     "@types/sonic-boom": "^0.7.0",
-    "pino-pretty": "^4.7.1",
     "bluebird": "^3.7.2",
-    "@types/bluebird": "^3.5.33",
     "common-errors": "^1.2.0",
-    "@sentry/types": "^6.2.5",
+    "pino-pretty": "^4.7.1",
     "sinon": "^10.0.1"
   },
   "engines": {
