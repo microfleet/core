@@ -49,7 +49,6 @@
     "@types/bluebird": "^3.5.33",
     "@types/cheerio": "^0.22.27",
     "@types/get-value": "^3.0.1",
-    "@types/handlebars": "^4.1.0",
     "@types/request-promise": "^4.1.47",
     "bluebird": "^3.7.2",
     "cheerio": "^1.0.0-rc.6",

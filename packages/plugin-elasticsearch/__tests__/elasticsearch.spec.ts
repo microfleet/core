@@ -1,14 +1,12 @@
 import assert = require('assert')
 import { Microfleet } from '@microfleet/core'
+import { Config } from '@microfleet/plugin-elasticsearch'
 
 describe('Elasticsearch suite', () => {
   let service: Microfleet
 
-  const getConfig = () => ({
+  const getConfig = (): Config => ({
     node: 'http://elasticsearch:9200',
-    log: {
-      type: 'service',
-    },
   })
 
   it('should throw an error when plugin isn\'t included', async () => {

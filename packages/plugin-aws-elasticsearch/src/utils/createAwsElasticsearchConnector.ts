@@ -1,9 +1,11 @@
-import { AmazonConnection } from './AmazonConnection';
-import { AmazonTransport } from './AmazonTransport';
+import { Config } from 'aws-sdk'
+import { GetAmazonConnection } from './AmazonConnection'
+import { GetAmazonTransport } from './AmazonTransport'
 
-export function createAwsElasticsearchConnector(awsConfig: AWS.Config): any {
-  return ({
-    Connection: AmazonConnection(awsConfig),
-    Transport: AmazonTransport(awsConfig)
-  })
-}
+export const createAwsElasticsearchConnector = (awsConfig: Config): {
+  Connection: ReturnType<typeof GetAmazonConnection>,
+  Transport: ReturnType<typeof GetAmazonTransport>
+} => ({
+  Connection: GetAmazonConnection(awsConfig),
+  Transport: GetAmazonTransport(awsConfig)
+})

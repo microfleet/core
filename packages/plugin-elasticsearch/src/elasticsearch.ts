@@ -1,7 +1,7 @@
 import type * as _ from '@microfleet/plugin-logger'
 import assert = require('assert')
 import retry = require('bluebird-retry')
-import Elasticsearch = require('@elastic/elasticsearch')
+import { ClientOptions as Config, Client } from '@elastic/elasticsearch'
 import { NotFoundError } from 'common-errors'
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
@@ -9,14 +9,14 @@ import { resolve } from 'path'
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
-    elasticsearch: Elasticsearch.Client
+    elasticsearch: Client
   }
-  interface ConfigurationOptional {
+  interface Configuration {
     elasticsearch: Config
   }
 }
 
-export type Config = Elasticsearch.ClientOptions
+export { Config }
 
 /**
  * Relative priority inside the same plugin group type
@@ -33,7 +33,7 @@ export function attach(this: Microfleet, params: Partial<Config> = {}): PluginIn
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const conf = this.validator.ifError<Config>('elasticsearch', params)
-  this.elasticsearch = new Elasticsearch.Client({ ...conf })
+  this.elasticsearch = new Client({ ...conf })
 
   return {
 

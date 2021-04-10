@@ -7,9 +7,9 @@
   "scripts": {
     "prebootstrap": "yarn --frozen-lockfile --check-files",
     "bootstrap": "lerna bootstrap -- --frozen-lockfile --check-files",
-    "lint": "lerna run lint",
+    "lint": "lerna run lint --concurrency 3",
     "pretest": "yarn lint && yarn compile",
-    "test": "lerna run test --concurrency 1 --stream",
+    "test": "lerna run test --stream",
     "precompile": "yarn clean",
     "compile": "tsc -b ./tsconfig.build.json",
     "clean": "rimraf packages/*/lib packages/*/*.tsbuildinfo",
@@ -22,7 +22,7 @@
     "@typescript-eslint/parser": "^4.21.0",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
-    "eslint": "^7.23.0",
+    "eslint": "^7.24.0",
     "eslint-config-makeomatic": "^5.0.4",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-unicorn": "^29.0.0",
@@ -36,7 +36,8 @@
     "typescript": "^4.2.3"
   },
   "resolutions": {
-    "@hapi/podium": "4.1.1"
+    "@hapi/podium": "4.1.1",
+    "@types/pino": "6.3.6"
   },
   "husky": {
     "hooks": {

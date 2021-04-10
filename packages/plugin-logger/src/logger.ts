@@ -39,7 +39,10 @@ const defaultConfig: LoggerConfig = {
         'headers.authentication',
         'params.password',
         'query.token',
-        'query.jwt'
+        'query.jwt',
+        '*.awsElasticsearch.node',
+        '*.awsElasticsearch.accessKeyId',
+        '*.awsElasticsearch.secretAccessKey'
       ],
     },
   },

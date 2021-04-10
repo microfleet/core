@@ -36,6 +36,7 @@
     "nano": "^9.0.3",
     "@microfleet/core-types": "^0.0.0",
     "@microfleet/utils": "^0.0.0",
+    "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "@microfleet/plugin-validator": "^0.0.0",
     "@microfleet/plugin-logger": "^0.5.5"
@@ -43,6 +44,7 @@
   "devDependencies": {
     "@microfleet/core": "^17.5.4",
     "common-errors": "^1.2.0",
+    "@types/bluebird": "^3.5.33",
     "@types/bluebird-retry": "^0.11.4"
   },
   "engines": {

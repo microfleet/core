@@ -20,37 +20,44 @@
   SOFTWARE.
 */
 
-const { Transport } = require('@elastic/elasticsearch')
+import { Transport } from '@elastic/elasticsearch'
+import type { Config } from 'aws-sdk'
+import { strict as assert } from 'assert'
 
-function awaitAwsCredentials(awsConfig: AWS.Config): Promise<void> {
+function awaitAwsCredentials(awsConfig: Config): Promise<void> {
   return new Promise((resolve, reject) => {
     awsConfig.getCredentials((err) => {
       err ? reject(err) : resolve()
     })
   })
 }
+export type TransportOptions = ConstructorParameters<typeof Transport>
 
-export const AmazonTransport: any = (awsConfig: AWS.Config) => {
-  class AmazonTransport extends Transport {
-    request(params: any, options = {}, callback: any = undefined): any {
-      // options is optional, so if it is omitted, options will be the callback
-      if (typeof options === 'function') {
-        callback = options
-        options = {}
-      }
+export class AmazonTransport extends Transport {
+  static awsConfig: Config
 
-      // Promise support
-      if (typeof callback === 'undefined') {
-        return awaitAwsCredentials(awsConfig)
-          .then(() => super.request(params, options))
-      }
-
-      // Callback support
-      awaitAwsCredentials(awsConfig)
-        .then(() => super.request(params, options, callback))
-        .catch(callback)
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  request(params: any, options = {}, callback: any = undefined): any {
+    // options is optional, so if it is omitted, options will be the callback
+    if (typeof options === 'function') {
+      callback = options
+      options = {}
     }
-  }
 
+    const promise = awaitAwsCredentials(AmazonTransport.awsConfig)
+      .then(() => super.request(params, options))
+
+    // Promise support
+    if (typeof callback === 'undefined') {
+      return promise
+    }
+
+    promise.then(resp => callback(null, resp)).catch(callback)
+  }
+}
+
+export const GetAmazonTransport = (awsConfig: Config): typeof Transport => {
+  assert(!AmazonTransport.awsConfig, 'awsConfig redefinedd')
+  AmazonTransport.awsConfig = awsConfig
   return AmazonTransport
 }
