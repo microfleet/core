@@ -4,7 +4,7 @@ module.exports = {
   auto_compose: true,
   node: "14",
   parallel: 3,
-  test_framework: 'jest --config ../../jest.config.js --runTestsByPath --runInBand',
+  test_framework: 'jest --config ./jest.config.js --runTestsByPath --runInBand',
   tests: '__tests__/*.spec.ts',
   extras: {
     tester: {
