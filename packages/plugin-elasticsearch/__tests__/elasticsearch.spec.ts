@@ -2,6 +2,8 @@ import assert = require('assert')
 import { Microfleet } from '@microfleet/core'
 import { Config } from '@microfleet/plugin-elasticsearch'
 
+jest.setTimeout(1000 * 30)
+
 describe('Elasticsearch suite', () => {
   let service: Microfleet
 
