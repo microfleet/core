@@ -36,7 +36,8 @@
     "typescript": "^4.2.3"
   },
   "resolutions": {
-    "@types/pino": "6.3.6"
+    "@types/pino": "6.3.6",
+    "@hapi/podium": "4.1.1"
   },
   "husky": {
     "hooks": {
