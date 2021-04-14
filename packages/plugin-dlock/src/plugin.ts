@@ -13,7 +13,7 @@ import { LockAcquisitionError } from 'ioredis-lock'
 export { default as actionLockWrapper } from './utils/lock-action-wrapper'
 export interface DLockPlugin {
   manager: typeof LockManager;
-  acquireLock(...keys: string[]): Promise<IORedisLock>;
+  acquireLock(...keys: string[]): Bluebird.Disposer<IORedisLock>;
 }
 
 declare module '@microfleet/core-types' {
@@ -52,7 +52,9 @@ export const priority = 10 // should be after redisCluster, redisSentinel
 
 export { LockAcquisitionError }
 
-async function acquireLock(this: Microfleet, ...keys: string[]): Promise<IORedisLock> {
+const kConcurrentAccess = new HttpStatusError(409, 'concurrent access to a locked resource, try again in a few seconds')
+
+function acquireLock(this: Microfleet, ...keys: string[]): Bluebird.Disposer<IORedisLock> {
   const { dlock, log } = this
 
   assert(dlock, 'DLock plugin is not initialized yet')
@@ -66,23 +68,17 @@ async function acquireLock(this: Microfleet, ...keys: string[]): Promise<IORedis
       lockPromise = dlock.manager.multi(keys)
     }
 
-    lockPromise.disposer(async (lock: IORedisLock) => {
+    return lockPromise.disposer(async (lock: IORedisLock) => {
       try {
         await lock.release()
-      } catch (error) {
-        log.error({ error }, 'failed to release lock for', keys)
+      } catch (err) {
+        log.error({ err, keys }, 'failed to release lock')
       }
     })
-
-    return lockPromise
   } catch (error) {
     if (error instanceof LockManager.MultiLockError) {
-      log.warn('failed to lock: %j', keys)
-
-      throw new HttpStatusError(
-        409,
-        'concurrent access to a locked resource, try again in a few seconds'
-      )
+      log.warn({ keys }, 'failed to lock')
+      throw kConcurrentAccess
     }
 
     throw error
