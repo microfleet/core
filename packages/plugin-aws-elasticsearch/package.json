@@ -32,22 +32,22 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "aws-sdk": "^2.866.0",
-    "aws4": "^1.11.0",
+    "@elastic/elasticsearch": "^7.12.0",
+    "@microfleet/core-types": "^0.0.0",
     "@microfleet/plugin-logger": "^0.5.0",
     "@microfleet/plugin-validator": "^0.0.0",
-    "bluebird": "^3.7.2",
-    "bluebird-retry": "^0.11.0",
-    "@elastic/elasticsearch": "^7.12.0",
     "@microfleet/utils": "^0.0.0",
-    "@microfleet/core-types": "^0.0.0"
+    "aws-sdk": "^2.886.0",
+    "aws4": "^1.11.0",
+    "bluebird": "^3.7.2",
+    "bluebird-retry": "^0.11.0"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.4",
     "@types/aws4": "^1.5.1",
-    "common-errors": "^1.2.0",
     "@types/bluebird": "^3.5.33",
-    "@types/bluebird-retry": "^0.11.4"
+    "@types/bluebird-retry": "^0.11.4",
+    "common-errors": "^1.2.0"
   },
   "engines": {
     "node": ">= 12.14.0",
