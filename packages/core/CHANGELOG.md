@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [17.6.0](https://github.com/microfleet/core/compare/@microfleet/core@17.5.4...@microfleet/core@17.6.0) (2021-04-15)
+
+
+### Features
+
+* **plugin-logger:** decr err lvl using "getErrorLevel" in conf ([#499](https://github.com/microfleet/core/issues/499)) ([1ae63a0](https://github.com/microfleet/core/commit/1ae63a0a1df8e60d4cc4e04cf469a215a51cc785))
+
+
+
+
+
 ## [17.5.4](https://github.com/microfleet/core/compare/@microfleet/core@17.5.3...@microfleet/core@17.5.4) (2021-02-19)
 
 
