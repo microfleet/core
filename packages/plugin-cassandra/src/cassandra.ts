@@ -43,6 +43,8 @@ export interface Config {
   client: {
     clientOptions: {
       contactPoints: string[]
+      localDataCenter: string
+      keyspace: string
     },
     protocolOptions: {
       port: string | number

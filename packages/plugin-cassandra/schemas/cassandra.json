@@ -27,7 +27,12 @@
             "properties": {
                 "clientOptions": {
                     "type": "object",
+                    "required": ["localDataCenter", "contactPoints"],
                     "properties": {
+                        "localDataCenter": {
+                          "type": "string",
+                          "default": "datacenter1"
+                        },
                         "contactPoints": {
                             "type": "array",
                             "items": {
