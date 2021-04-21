@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.4",
-    "@types/node": "^14.14.37",
+    "@types/node": "^14.14.41",
     "@types/readable-stream": "^2.3.9",
     "@types/sinon": "^10.0.0",
     "common-errors": "^1.2.0",

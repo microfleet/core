@@ -30,15 +30,15 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "jaeger-client": "^3.18.1",
-    "@microfleet/utils": "^0.0.0",
-    "@microfleet/plugin-validator": "^0.0.0",
+    "@microfleet/core-types": "^0.0.0",
     "@microfleet/plugin-logger": "^0.5.5",
-    "@microfleet/core-types": "^0.0.0"
+    "@microfleet/plugin-validator": "^0.0.0",
+    "@microfleet/utils": "^0.0.0",
+    "jaeger-client": "^3.18.1"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.4",
-    "@types/jaeger-client": "^3.15.4",
+    "@types/jaeger-client": "^3.18.0",
     "common-errors": "^1.2.0"
   },
   "engines": {

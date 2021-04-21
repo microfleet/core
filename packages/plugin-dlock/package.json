@@ -33,9 +33,9 @@
     "@microfleet/utils": "^0.0.0",
     "bluebird": "^3.4.0",
     "common-errors": "^1.x.x",
-    "dlock": "^12.1.1",
+    "@microfleet/dlock": "^13.0.0",
     "ioredis": "^4.26.0",
-    "ioredis-lock": "^4.0.0"
+    "@microfleet/ioredis-lock": "^5.0.0"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x"

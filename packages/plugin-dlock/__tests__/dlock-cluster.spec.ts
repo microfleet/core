@@ -8,7 +8,7 @@ describe('@microfleet/plugin-dlock + cluster', () => {
   it('should be able to initialize dlock with redis cluster', async () => {
     microfleet = new Microfleet({
       name: 'tester',
-      plugins: ['logger', 'validator', 'redisCluster', 'dlock'],
+      plugins: ['logger', 'validator', 'redis-cluster', 'dlock'],
       redis: {
         hosts: [
           { host: 'redis-cluster', port: 7000 },

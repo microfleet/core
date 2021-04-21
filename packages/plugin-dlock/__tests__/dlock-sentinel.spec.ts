@@ -8,7 +8,7 @@ describe('@microfleet/plugin-dlock + sentinel', () => {
   it('should be able to initialize dlock with redis sentinel', async () => {
     microfleet = new Microfleet({
       name: 'tester',
-      plugins: ['logger', 'validator', 'redisSentinel', 'dlock'],
+      plugins: ['logger', 'validator', 'redis-sentinel', 'dlock'],
       redis: {
         name: 'mservice',
         sentinels: [
