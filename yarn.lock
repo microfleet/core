@@ -2423,6 +2423,11 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.157.tgz#fdac1c52448861dfde1a2e1515dbc46e54926dc8"
   integrity sha512-Ft5BNFmv2pHDgxV5JDsndOWTRJ+56zte0ZpYLowp03tW+K+t8u8YMOzAnpuqPgzX6WO1XpDIUm7u04M8vdDiVQ==
 
+"@types/long@^4.0.0":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
+  integrity sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==
+
 "@types/mime-db@*":
   version "1.43.0"
   resolved "https://registry.yarnpkg.com/@types/mime-db/-/mime-db-1.43.0.tgz#c91a4fcae0d6cfe19f2452b3b3e9fc2b95aa9a52"
@@ -2447,6 +2452,11 @@
   version "14.0.13"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.13.tgz#ee1128e881b874c371374c1f72201893616417c9"
   integrity sha512-rouEWBImiRaSJsVA+ITTFM6ZxibuAlTuNOCyxVbwreu6k6+ujs7DfnU9o+PShFhET78pMBl3eH+AGSI5eOTkPA==
+
+"@types/node@>=8":
+  version "14.14.41"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
+  integrity sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==
 
 "@types/node@^14.0.20":
   version "14.0.20"
@@ -2818,6 +2828,11 @@ add-stream@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/add-stream/-/add-stream-1.0.0.tgz#6a7990437ca736d5e1288db92bd3266d5f5cb2aa"
   integrity sha1-anmQQ3ynNtXhKI25K9MmbV9csqo=
+
+adm-zip@^0.5.3:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/adm-zip/-/adm-zip-0.5.5.tgz#b6549dbea741e4050309f1bb4d47c47397ce2c4f"
+  integrity sha512-IWwXKnCbirdbyXSfUDvCCrmYrOHANRZcc8NcRrvTlIApdl7PwE9oGcsYvNeJPAVY1M+70b4PxXGKIf8AEuiQ6w==
 
 after@0.8.2:
   version "0.8.2"
@@ -3711,11 +3726,14 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-cassandra-driver@^3.3.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/cassandra-driver/-/cassandra-driver-3.6.0.tgz#a9fb78ca6fcc1f5bf3f3258efb6cc683a9c3f558"
-  integrity sha512-CkN3V+oPaF5RvakUjD3uUjEm8f6U8S0aT1+YqeQsVT3UDpPT2K8SOdNDEHA1KjamakHch6zkDgHph1xWyqBGGw==
+cassandra-driver@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/cassandra-driver/-/cassandra-driver-4.6.2.tgz#2796e3ae6890c351cce65ae0ed2749173807a517"
+  integrity sha512-XfDMlpyEl+mI1DSaw8YdLBUyc5wXwuVYWN0WEZOC50BrHSPUmCXA7fyyexwk3j5XiYd/7BXWvO9nnZ50asJPoQ==
   dependencies:
+    "@types/long" "^4.0.0"
+    "@types/node" ">=8"
+    adm-zip "^0.5.3"
     long "^2.2.0"
 
 chai@^4.1.2, chai@^4.2.0:
@@ -5568,16 +5586,16 @@ expect@^26.1.0:
     jest-message-util "^26.1.0"
     jest-regex-util "^26.0.0"
 
-express-cassandra@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-2.3.2.tgz#edf744da7e2522395ca0219a684812d7da4a53c3"
-  integrity sha512-Bte+Ks6teFpnlPLcniyOwyML+emvbynergI1hFGrT1ukn47MEDANNzBeYHtThhPXGTCxCLgI8udAn8O0P8oyVw==
+express-cassandra@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/express-cassandra/-/express-cassandra-2.6.0.tgz#e0a3118ca2beba26817d06e144cb38a9623f719d"
+  integrity sha512-Qzo/jcaxkCUciWi1TF/4vBDMMAfynq2+xjPjHajAZhanUqd35jUqPdAXUfoWjEdi61h2zYZkfqw9qVBl/93r+Q==
   dependencies:
     JSONStream "^1.3.1"
     async "^1.5.2"
     babel-polyfill "^6.26.0"
     bluebird "^3.4.6"
-    cassandra-driver "^3.3.0"
+    cassandra-driver "^4.6.2"
     chai "^4.1.2"
     check-types "^7.4.0"
     debug "^3.1.0"
