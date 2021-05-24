@@ -11544,6 +11544,14 @@ sonic-boom@^1.0.0, sonic-boom@^1.0.1:
     atomic-sleep "^1.0.0"
     flatstr "^1.0.12"
 
+sonic-boom@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-2.0.1.tgz#41317a7827aa5305ff71743f8a05d202672a26a4"
+  integrity sha512-FqWhGpVTuP4RNpGyF7tLvmzY17FPt4gQIHx/3hQ9EG0Fareu6IHBuUFIbBxjRWwDXkgCYiEU7AiJh8pNfL61xA==
+  dependencies:
+    atomic-sleep "^1.0.0"
+    flatstr "^1.0.12"
+
 sort-by@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/sort-by/-/sort-by-1.2.0.tgz#ed92bbff9fd2284b41f6503e38496607b225fe6f"

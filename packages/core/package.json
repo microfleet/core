@@ -66,7 +66,7 @@
     "read-pkg-up": "^7.0.1",
     "rfdc": "^1.1.4",
     "semver": "^7.3.2",
-    "sonic-boom": "^1.0.1",
+    "sonic-boom": "^2.0.0",
     "sort-by": "^1.1.1",
     "uuid": "^8.2.0",
     "yargs-parser": "^18.1.3"
