@@ -62,7 +62,7 @@
     "opentracing": "^0.14.4",
     "pino": "^6.3.2",
     "pino-multi-stream": "^5.0.0",
-    "pino-pretty": "^4.0.0",
+    "pino-pretty": "^5.0.0",
     "read-pkg-up": "^7.0.1",
     "rfdc": "^1.1.4",
     "semver": "^7.3.2",
