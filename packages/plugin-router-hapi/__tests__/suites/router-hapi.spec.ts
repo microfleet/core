@@ -96,7 +96,7 @@ describe('@microfleet/plugin-router-hapi', () => {
           port: 3000,
         },
       },
-      'router-hapi': {
+      routerHapi: {
         prefix: 'foo.bar',
       },
       router: {
@@ -134,7 +134,7 @@ describe('@microfleet/plugin-router-hapi', () => {
           port: 3000,
         },
       },
-      'router-hapi': {
+      routerHapi: {
         prefix: 'foo.bar',
       },
       router: {
@@ -213,7 +213,7 @@ describe('@microfleet/plugin-router-hapi', () => {
           path: resolve(__dirname, '../artifacts/templates'),
         },
       },
-      'router-hapi': {
+      routerHapi: {
         prefix: 'foo.bar',
       },
       router: {

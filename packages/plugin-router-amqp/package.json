@@ -33,19 +33,19 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "event-to-promise": "^0.8.0",
-    "lodash": "^4.17.21",
-    "@microfleet/plugin-router": "^0.0.0-dev.0",
-    "@microfleet/plugin-amqp": "^0.0.0-dev.0",
     "@microfleet/core-types": "^0.0.0",
-    "bluebird": "^3.7.2",
+    "@microfleet/plugin-amqp": "^0.0.0-dev.0",
     "@microfleet/plugin-logger": "^0.5.5",
-    "@microfleet/transport-amqp": "^15.2.6"
+    "@microfleet/plugin-router": "^0.0.0-dev.0",
+    "@microfleet/transport-amqp": "^15.2.7",
+    "bluebird": "^3.7.2",
+    "event-to-promise": "^0.8.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
-    "@types/event-to-promise": "^0.7.0",
-    "@types/bluebird": "^3.5.33"
+    "@types/bluebird": "^3.5.35",
+    "@types/event-to-promise": "^0.7.0"
   },
   "engines": {
     "node": ">= 12.14.0",

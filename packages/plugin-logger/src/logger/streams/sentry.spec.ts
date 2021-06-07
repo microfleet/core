@@ -25,9 +25,10 @@ describe('Logger Sentry Stream Suite', () => {
     expect(typeof stream.write === 'function').toBe(true)
     expect(sentryInitSpy.calledOnceWithExactly({
       dsn: 'https://api@sentry.io/1822',
-      defaultIntegrations: false,
+      defaultIntegrations: [],
       logLevel: LogLevel.Error,
       release: 'test',
+      autoSessionTracking: false,
       integrations: [match.instanceOf(Sentry.Integrations.Console)] as any,
       _metadata: {
         sdk: {

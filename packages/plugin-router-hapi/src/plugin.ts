@@ -7,9 +7,15 @@ import { Microfleet, PluginTypes } from '@microfleet/core'
 import attachRouter from './attach'
 import { RouterHapiPluginConfig } from './types/plugin'
 
-export const name = 'router-hapi'
+export const name = 'routerHapi'
 export const type = PluginTypes.transport
 export const priority = 101 // should be after plugin-hapi and plugin router
+
+declare module '@microfleet/core-types' {
+  interface ConfigurationOptional {
+    routerHapi: RouterHapiPluginConfig
+  }
+}
 
 /**
  * Attaches HTTP handler.

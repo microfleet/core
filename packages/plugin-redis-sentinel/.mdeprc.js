@@ -7,6 +7,7 @@ module.exports = {
   "services": [
     "redisSentinel"
   ],
+  "sleep": 10,
   "test_framework": 'jest --config ./jest.config.js --runTestsByPath',
   "tests": '__tests__/*.spec.ts',
   "extras": {

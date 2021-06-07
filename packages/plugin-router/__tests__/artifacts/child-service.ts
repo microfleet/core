@@ -15,7 +15,7 @@ const service = new Microfleet({
     'router-socketio',
   ],
   sigterm: true,
-  'router-amqp': {
+  routerAmqp: {
     prefix: 'amqp',
   },
   http: {

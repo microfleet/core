@@ -8,6 +8,7 @@ export interface KafkaStreamOpts<T extends kafka.ReadStreamOptions | kafka.Write
   streamOptions: T;
   conf?: Z;
   topicConf?: U;
+  meta?: Record<string, any>;
 }
 
 export type ConsumerStreamConfig = KafkaStreamOpts<
@@ -67,6 +68,10 @@ export type ProducerStreamOptions = {
 }
 
 declare module 'node-rdkafka' {
+  export interface TopicPartitionOffset {
+    eof?: boolean
+  }
+
   // event list is hidden by default
   export type KafkaClientEvents = 'disconnected' | 'ready' | 'connection.failure' | 'event.error' | 'event.stats' | 'event.log' | 'event.event' | 'event.throttle';
 

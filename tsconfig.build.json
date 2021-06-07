@@ -29,8 +29,6 @@
   }, {
     "path": "./packages/plugin-hapi/tsconfig.build.json"
   }, {
-    "path": "./packages/plugin-http/tsconfig.build.json"
-  }, {
     "path": "./packages/plugin-kafka/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-knex/tsconfig.build.json"
@@ -42,8 +40,6 @@
     "path": "./packages/plugin-router-amqp/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-router-hapi/tsconfig.build.json"
-  }, {
-    "path": "./packages/plugin-router-http/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-router-socketio/tsconfig.build.json"
   }, {

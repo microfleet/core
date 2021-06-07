@@ -5,10 +5,9 @@ module.exports = {
   "node": "14",
   "tester_flavour": "rdkafka-tester",
   "parallel": 1,
-  "test_framework": "jest --config ./jest.config.js --runTestsByPath --runInBand",
+  "test_framework": "jest --config ./jest.config.js --runTestsByPath",
   "tests": "__tests__/**/*.spec.ts",
   "arbitrary_exec": ["node scripts/rebuild-kafka.js"],
-  "sleep": 5,
   "extras": {
     "tester": {
       "working_dir": "/src/packages/plugin-kafka",

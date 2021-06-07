@@ -27,18 +27,18 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/transport-amqp": "^15.2.6",
-    "@microfleet/core-types": "^0.0.0",
-    "lodash": "^4.17.21",
-    "rfdc": "^1.1.4",
-    "hyperid": "^2.1.0",
-    "opentracing": "^0.14.5",
-    "@microfleet/utils": "^0.0.0",
-    "@microfleet/plugin-logger": "^0.5.0",
-    "glob": "^7.1.6",
-    "@microfleet/validation": "^10.0.2",
     "@hapi/boom": "^9.1.2",
-    "qs": "^6.10.1"
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/plugin-logger": "^0.5.0",
+    "@microfleet/transport-amqp": "^15.2.7",
+    "@microfleet/utils": "^0.0.0",
+    "@microfleet/validation": "^10.0.2",
+    "glob": "^7.1.7",
+    "hyperid": "^2.1.0",
+    "lodash": "^4.17.21",
+    "opentracing": "^0.14.5",
+    "qs": "^6.10.1",
+    "rfdc": "^1.1.4"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",
@@ -46,16 +46,16 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
-    "@types/split2": "^2.1.6",
-    "split2": "^3.2.2",
+    "@types/bluebird": "^3.5.35",
+    "@types/request-promise": "^4.1.47",
+    "@types/split2": "^3.2.0",
     "bluebird": "^3.7.2",
     "get-port": "^5.1.1",
-    "socket.io-client": "^4.0.1",
-    "sinon": "^10.0.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "@types/request-promise": "^4.1.47",
-    "@types/bluebird": "^3.5.33"
+    "sinon": "^11.1.1",
+    "socket.io-client": "^4.1.2",
+    "split2": "^3.2.2"
   },
   "engines": {
     "node": ">= 12.14.0",

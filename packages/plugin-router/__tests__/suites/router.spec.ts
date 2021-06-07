@@ -80,7 +80,7 @@ describe('@microfleet/plugin-router', () => {
           },
         },
       },
-      'router-amqp': {
+      routerAmqp: {
         retry: {
           enabled: true,
           min: 10,
@@ -361,7 +361,7 @@ describe('@microfleet/plugin-router', () => {
         },
       },
       validator: { schemas: ['../artifacts/schemas'] },
-      'router-amqp': {
+      routerAmqp: {
         prefix: 'amqp',
       },
     })

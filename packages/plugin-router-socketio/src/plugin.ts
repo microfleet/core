@@ -1,5 +1,5 @@
-import '@microfleet/plugin-socketio'
-import '@microfleet/plugin-router'
+import type * as _ from '@microfleet/plugin-socketio'
+import type * as __ from '@microfleet/plugin-router'
 import { strict as assert } from 'assert'
 import { Microfleet, PluginTypes } from '@microfleet/core'
 import type { Socket } from 'socket.io'
@@ -11,7 +11,7 @@ declare module '@microfleet/plugin-router' {
   }
 }
 
-export const name = 'router-socketio'
+export const name = 'routerSocketio'
 export const type = PluginTypes.transport
 export const priority = 101 // after plugin-socketio and plugin router
 

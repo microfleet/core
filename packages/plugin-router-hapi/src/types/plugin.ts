@@ -1,6 +1,6 @@
 declare module '@microfleet/core-types' {
   export interface ConfigurationOptional {
-    'router-hapi': RouterHapiPluginConfig
+    routerHapi: RouterHapiPluginConfig
   }
 }
 

@@ -28,23 +28,23 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "consul": "^0.40.0",
-    "common-errors": "^1.2.0",
     "@microfleet/core-types": "^0.0.0",
-    "@microfleet/utils": "^0.0.0",
+    "@microfleet/plugin-logger": "^0.5.5",
     "@microfleet/plugin-validator": "^0.0.0",
-    "@microfleet/plugin-logger": "^0.5.5"
+    "@microfleet/utils": "^0.0.0",
+    "common-errors": "^1.2.0",
+    "consul": "^0.40.0"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x"
   },
   "devDependencies": {
     "@microfleet/core": "^17.5.4",
+    "@types/bluebird": "^3.5.35",
     "@types/consul": "^0.23.34",
-    "nock": "^13.0.11",
     "bluebird": "^3.7.2",
-    "@types/bluebird": "^3.5.33",
-    "sinon": "^10.0.1"
+    "nock": "^13.1.0",
+    "sinon": "^11.1.1"
   },
   "engines": {
     "node": ">= 12.14.0",

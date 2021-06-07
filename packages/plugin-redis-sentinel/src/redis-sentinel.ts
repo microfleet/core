@@ -86,7 +86,9 @@ export function attach(this: Microfleet, opts: Partial<Config> = {}): PluginInte
      * @returns Opens connection to Redis.
      */
     async connect(this: Microfleet) {
+      this.log.debug('redis connecting')
       await this.redis.connect()
+      this.log.debug('redis connected')
 
       // attach to this.redis right away
       if (conf.luaScripts) {

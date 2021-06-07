@@ -8,6 +8,8 @@ import { resolve } from 'path'
 describe('Redis suite', function testSuite() {
   let service: Microfleet
 
+  jest.setTimeout(15000)
+
   const getConfigForRedis = (): Partial<Config> => ({
     sentinels: [
       {

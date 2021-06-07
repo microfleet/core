@@ -89,8 +89,8 @@ export function attach(
         tracer: this.tracer,
       }
       // @todo plugin-router-amqp
-      // const amqp = this.amqp = await AMQPTransport.connect(connectionOptions, this.AMQPRouter)
-      // @ts-expect-error helper in augmentation module, not exposed in ts
+      // const amqp = this.amqp =   await AMQPTransport.connect(connectionOptions, this.AMQPRouter)
+
       const amqp = this.amqp = await AMQPTransport.connect(connectionOptions)
 
       this.emit('plugin:connect:amqp', amqp)

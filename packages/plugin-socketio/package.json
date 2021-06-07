@@ -28,14 +28,14 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/transport-amqp": "^15.2.6",
-    "ms-socket.io-adapter-amqp": "^8.0.1",
-    "socket.io": "^4.0.1",
-    "@microfleet/plugin-validator": "^0.0.0-dev.0",
+    "@microfleet/core-types": "^0.0.0",
     "@microfleet/plugin-logger": "^0.5.0",
     "@microfleet/plugin-router": "^0.0.0-dev.0",
+    "@microfleet/plugin-validator": "^0.0.0-dev.0",
+    "@microfleet/transport-amqp": "^15.2.7",
     "@microfleet/utils": "^0.0.0",
-    "@microfleet/core-types": "^0.0.0"
+    "ms-socket.io-adapter-amqp": "^8.1.0",
+    "socket.io": "^4.1.2"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",

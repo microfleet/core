@@ -78,7 +78,7 @@ describe('service request count', () => {
         'socketio',
         'router-socketio',
       ],
-      'router-amqp': {
+      routerAmqp: {
         prefix: 'amqp',
       },
       http: {

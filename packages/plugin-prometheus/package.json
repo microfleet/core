@@ -40,7 +40,7 @@
     "@microfleet/plugin-router": "^0.0.0-dev.0",
     "@microfleet/plugin-validator": "^0.0.0",
     "@types/request-promise": "^4.1.47",
-    "@types/semver": "^7.3.4",
+    "@types/semver": "^7.3.6",
     "common-errors": "^1.2.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6"

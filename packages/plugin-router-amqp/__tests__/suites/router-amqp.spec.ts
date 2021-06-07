@@ -72,7 +72,7 @@ describe('AMQP suite: prefixed routing', function testSuite() {
         directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
-    'router-amqp': {
+    routerAmqp: {
       prefix: 'amqp-prefix',
     }
   })
@@ -124,7 +124,7 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
         directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
-    'router-amqp': {
+    routerAmqp: {
       prefix: 'amqp-prefix',
       retry: {
         enabled: true,
@@ -196,7 +196,7 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
         directory: resolve(__dirname, '../artifacts/actions'),
       },
     },
-    'router-amqp': {
+    routerAmqp: {
       prefix: 'amqp-prefix',
       retry: {
         enabled: true,

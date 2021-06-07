@@ -116,6 +116,7 @@ export async function sendMessages(
 export function commitBatch(stream: KafkaConsumerStream, msgs: Message[]): void {
   // process.stdout.write(`\n====Commiting batch:====\n${require('util').inspect({ msgs }, { colors: true })} \n=====\n`)
   msgs.map((msg: Message) => stream.consumer.commitMessage(msg))
+  // stream.commit(msgs)
 }
 
 export function msgsToArr(incommingMessage: Message | Message []): Message[] {

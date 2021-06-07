@@ -44,8 +44,8 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
   }
 }
 
-export function getHTTPRequest(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Bluebird<any> {
-  return (action: string, params?: any, opts: any = {}): Bluebird<any> => {
+export function getHTTPRequest(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Promise<any> {
+  return async (action: string, params?: any, opts: any = {}): Promise<any> => {
     const requestOptions = {
       baseUrl: options.url,
       method: 'POST',
@@ -64,9 +64,16 @@ export function getHTTPRequest(options: OptionsWithUrl): (action: string, params
       requestOptions.json = true
     }
 
-    return request(requestOptions)
-      .promise()
-      .catch(StatusCodeError, (err: any) => Bluebird.reject(err.response.body))
+    try {
+      return await request(requestOptions)
+    } catch (err) {
+      if (err instanceof StatusCodeError) {
+        // @ts-expect-error invalid types
+        throw err.response.body
+      }
+
+      throw err
+    }
   }
 }
 

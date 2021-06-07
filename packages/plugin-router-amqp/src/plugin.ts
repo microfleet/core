@@ -12,11 +12,11 @@ import { RouterAMQPPluginConfig } from './types/plugin'
 
 declare module '@microfleet/core-types' {
   interface ConfigurationOptional {
-    'router-amqp': RouterAMQPPluginConfig
+    routerAmqp: RouterAMQPPluginConfig
   }
 }
 
-export const name = 'router-amqp'
+export const name = 'routerAmqp'
 export const type = PluginTypes.transport
 export const priority = 101 // should be after plugin-amqp and plugin router
 

@@ -14,6 +14,7 @@ const {
   ERR_UNKNOWN,
   ERR_REQUEST_TIMED_OUT,
   ERR_NETWORK_EXCEPTION,
+  ERR__WAIT_COORD,
   ERR_COORDINATOR_LOAD_IN_PROGRESS,
   ERR_GROUP_LOAD_IN_PROGRESS,
   ERR_PREFERRED_LEADER_NOT_AVAILABLE,
@@ -37,17 +38,25 @@ export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError',
     return `Kafka critical error: ${this.inner_error.message}`
   },
   globalize: true
-})
+}) as OffsetCommitError
 
-export interface OffsetCommitError extends CommonError {
+export type OffsetCommitError = CommonError & {
+  new (partitions: TopicPartitionOffset[], meta: TrackerMeta, inner_error: Error): OffsetCommitError;
   partitions: TopicPartitionOffset[];
   trackerMeta: TrackerMeta;
+  inner_error: Error;
 }
 
 export const UncommittedOffsetsError = ErrorHelpers.generateClass('UncommittedOffsetsError', {
   args: ['offsetTracker', 'unacknowledgedTracker'],
   generateMessage: () => 'Uncomitted offsets left',
-})
+}) as UncommittedOffsetsError
+
+export type UncommittedOffsetsError = CommonError & {
+  new(offsetTracker: { [k: string]: TopicPartitionOffset }, unacknowledgedTracker: { [k: string]: TopicPartitionOffset }): UncommittedOffsetsError;
+  offsetTracker: { [k: string]: TopicPartitionOffset };
+  unacknowledgedTracker: { [k: string]: TopicPartitionOffset };
+}
 
 export const CriticalErrors: number[] = [
   ERR_UNKNOWN_MEMBER_ID,
@@ -57,6 +66,7 @@ export const CriticalErrors: number[] = [
 export const RetryableErrors: number[] = [
   ERR_NETWORK_EXCEPTION,
   ERR_COORDINATOR_LOAD_IN_PROGRESS,
+  ERR__WAIT_COORD,
   ERR_GROUP_LOAD_IN_PROGRESS,
   ERR_PREFERRED_LEADER_NOT_AVAILABLE,
   ERR_REQUEST_TIMED_OUT

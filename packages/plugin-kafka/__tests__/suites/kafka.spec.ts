@@ -1,12 +1,10 @@
 import { Microfleet } from '@microfleet/core'
 import { once, EventEmitter } from 'events'
-import { Transform, pipeline as origPipeline } from 'readable-stream'
-import * as util from 'util'
+import { promisify } from 'util'
 import { Toxiproxy } from 'toxiproxy-node-client'
-import { delay, TimeoutError } from 'bluebird'
+import { pipeline as p, Writable } from 'stream'
+import { delay } from 'bluebird'
 import * as sinon from 'sinon'
-
-const pipeline = util.promisify(origPipeline)
 
 import {
   KafkaConsumerStream,
@@ -14,13 +12,13 @@ import {
   TopicNotFoundError,
   OffsetCommitError,
   UncommittedOffsetsError,
-  LibrdKafkaErrorClass,
   Message,
   RdKafkaCodes,
 } from '@microfleet/plugin-kafka'
 
 import { createProducerStream, createConsumerStream, sendMessages, msgsToArr, readStream, commitBatch } from '../helpers/kafka'
 
+const pipeline = promisify(p)
 const toxiproxy = new Toxiproxy('http://toxy:8474')
 
 describe('#generic', () => {
@@ -42,7 +40,7 @@ describe('#generic', () => {
   })
 
   afterEach(async () => {
-    await service.close()
+    if (service) await service.close()
   })
 
   describe('connect', () => {
@@ -109,8 +107,9 @@ describe('#generic', () => {
 
     test('should be able to get Admin client and create/delete topic and reuse passed client', async () => {
       const { kafka } = service
-      const readyTopic = {name: 'manually-created-2', partitions: [{id: 0, isrs: [1], leader: 1, replicas: [1]}]}
-      const topic = 'manually-created-2'
+      const topic = `manually-created-2-${Date.now()}`
+      const readyTopic = {name: topic, partitions: [{id: 0, isrs: [1], leader: 1, replicas: [1]}]}
+
 
       const producerTemp = await kafka.createProducerStream({
         streamOptions: { objectMode: true },
@@ -300,8 +299,8 @@ describe('#generic', () => {
       const receivedMessages: any[] = []
       let disconnected = false
 
-      for await (const incommingMessage of consumerStream) {
-        const messages = msgsToArr(incommingMessage)
+      for await (const incomingMessage of consumerStream) {
+        const messages = msgsToArr(incomingMessage)
         receivedMessages.push(...messages)
 
         if (!disconnected && receivedMessages.length >= 1) {
@@ -334,8 +333,8 @@ describe('#generic', () => {
         const receivedMessages: any[] = []
         let disconnected = false
         const errorSim = async () => {
-          for await (const incommingMessage of consumerStream) {
-            const messages = msgsToArr(incommingMessage)
+          for await (const incomingMessage of consumerStream) {
+            const messages = msgsToArr(incomingMessage)
             receivedMessages.push(...messages)
 
             if (!disconnected && receivedMessages.length >= 1) {
@@ -369,22 +368,24 @@ describe('#generic', () => {
         let disconnected = false
         const receivedMessages: any[] = []
 
-        const transformStream = new Transform({
+        const wStream = new Writable({
           objectMode: true,
-          async transform(chunk, _, callback) {
+          async write(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
 
             if (!disconnected && receivedMessages.length >= 1) {
               disconnected = true
               service.log.debug('DISCONNNECTING CONSUMER')
-              consumerStream.consumer.disconnect()
+              await consumerStream.consumer.disconnectAsync()
               callback()
             }
+
+            callback()
           },
         })
 
-        await expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(UncommittedOffsetsError)
+        await expect(pipeline(consumerStream, wStream)).rejects.toThrowError(UncommittedOffsetsError)
       })
     })
 
@@ -407,8 +408,8 @@ describe('#generic', () => {
       const receivedMessages: any[] = []
       let closed = false
       const errorSim = async () => {
-        for await (const incommingMessage of consumerStream) {
-          const messages = msgsToArr(incommingMessage)
+        for await (const incomingMessage of consumerStream) {
+          const messages = msgsToArr(incomingMessage)
           receivedMessages.push(...messages)
 
           if (!closed && receivedMessages.length === 2) {
@@ -418,7 +419,7 @@ describe('#generic', () => {
         }
       }
 
-      await expect(errorSim()).rejects.toThrowError(TimeoutError)
+      await expect(errorSim()).rejects.toThrowError(UncommittedOffsetsError)
     })
 
     describe('throws on offset.commit error', () => {
@@ -441,8 +442,8 @@ describe('#generic', () => {
         const receivedMessages: any[] = []
         let errorEmitted = false
         const errorSim = async () => {
-          for await (const incommingMessage of consumerStream) {
-            const messages = msgsToArr(incommingMessage)
+          for await (const incomingMessage of consumerStream) {
+            const messages = msgsToArr(incomingMessage)
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
 
@@ -480,9 +481,9 @@ describe('#generic', () => {
         const receivedMessages: any[] = []
         let errorEmitted = false
 
-        const transformStream = new Transform({
+        const wStream = new Writable({
           objectMode: true,
-          transform(chunk, _, callback) {
+          write(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
@@ -499,7 +500,7 @@ describe('#generic', () => {
           },
         })
 
-        await expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(OffsetCommitError)
+        await expect(pipeline(consumerStream, wStream)).rejects.toThrowError(OffsetCommitError)
       })
     })
 
@@ -534,8 +535,8 @@ describe('#generic', () => {
         const receivedMessages: any[] = []
         let errorEmitted = false
         const errorSim = async () => {
-          for await (const incommingMessage of consumerStream) {
-            const messages = msgsToArr(incommingMessage)
+          for await (const incomingMessage of consumerStream) {
+            const messages = msgsToArr(incomingMessage)
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
 
@@ -543,8 +544,9 @@ describe('#generic', () => {
               errorEmitted = true
               service.log.debug('EMIT ERROR')
               emitError(consumerStream, { topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 })
+            } else {
+              consumerStream.commit()
             }
-            consumerStream.commit()
           }
         }
 
@@ -574,9 +576,9 @@ describe('#generic', () => {
         const receivedMessages: any[] = []
         let errorEmitted = false
 
-        const transformStream = new Transform({
+        const wStream = new Writable({
           objectMode: true,
-          transform(chunk, _, callback) {
+          write(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
@@ -590,7 +592,7 @@ describe('#generic', () => {
           },
         })
 
-        await pipeline(consumerStream, transformStream)
+        await pipeline(consumerStream, wStream)
         expect(handlerStub.calledOnce).toEqual(true)
       })
     })
@@ -614,8 +616,8 @@ describe('#generic', () => {
       const receivedMessages: any[] = []
       let sent = false
       const errorSim = async () => {
-        for await (const incommingMessage of consumerStream) {
-          const messages = msgsToArr(incommingMessage)
+        for await (const incomingMessage of consumerStream) {
+          const messages = msgsToArr(incomingMessage)
           const lastMessage = messages[messages.length-1]
           receivedMessages.push(...messages)
 
@@ -661,16 +663,16 @@ describe('#generic', () => {
         const receivedMessages: any[] = []
         let unsubscribeCalled = false
 
-        for await (const incommingMessage of consumerStream) {
-          const messages = msgsToArr(incommingMessage)
+        for await (const incomingMessage of consumerStream) {
+          const messages = msgsToArr(incomingMessage)
           receivedMessages.push(...messages)
+          await consumerStream.commitMessages(messages)
 
           if (!unsubscribeCalled && receivedMessages.length > 2) {
             unsubscribeCalled = true
             // unsubscribe consumer
             consumer.unsubscribe()
           }
-          commitBatch(consumerStream, messages)
         }
         // we should receive only 1 pack of messages from first topic
         expect(receivedMessages).toHaveLength(5)
@@ -700,23 +702,24 @@ describe('#generic', () => {
 
         const receivedMessages: any[] = []
         let unsubscribeCalled = false
-        const transformStream = new Transform({
+        const wStream = new Writable({
           objectMode: true,
-          transform(chunk, _, callback) {
+          async write(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
+            await consumerStream.commitMessages(messages)
 
             if (!unsubscribeCalled && receivedMessages.length > 2) {
               unsubscribeCalled = true
               // unsubscribe consumer
               consumer.unsubscribe()
             }
-            commitBatch(consumerStream, messages)
+
             callback()
           },
         })
 
-        await pipeline(consumerStream, transformStream)
+        await pipeline(consumerStream, wStream)
 
         // we should receive only 1 pack of messages from first topic
         expect(receivedMessages).toHaveLength(5)
@@ -742,8 +745,8 @@ describe('#generic', () => {
         })
 
         const receivedMessages: any[] = []
-        for await (const incommingMessage of consumerStream) {
-          const messages = msgsToArr(incommingMessage)
+        for await (const incomingMessage of consumerStream) {
+          const messages = msgsToArr(incomingMessage)
           receivedMessages.push(...messages)
 
           for (const message of messages) {
@@ -780,9 +783,9 @@ describe('#generic', () => {
 
         const receivedMessages: any[] = []
 
-        const transformStream = new Transform({
+        const transformStream = new Writable({
           objectMode: true,
-          transform(chunk, _, callback) {
+          write(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
             for (const message of messages) {
@@ -868,17 +871,16 @@ describe('#generic', () => {
         const receivedMessages: any[] = []
         let closeCalled = false
 
-        for await (const incommingMessage of consumerStream) {
-          const messages = msgsToArr(incommingMessage)
+        for await (const incomingMessage of consumerStream) {
+          const messages = msgsToArr(incomingMessage)
           receivedMessages.push(...messages)
+          const positions = await consumerStream.commitMessages(messages)
+          service.log.info({ positions }, 'commitAsync')
 
-          if (!closeCalled && receivedMessages.length > 2) {
+          if (!closeCalled && receivedMessages.length === 5) {
             closeCalled = true
-            consumerStream.close(() => {
-              service.log.debug('closed connection')
-            })
+            await consumerStream.closeAsync()
           }
-          commitBatch(consumerStream, messages)
         }
         // we should receive only first pack of messages
         expect(receivedMessages).toHaveLength(5)
@@ -905,20 +907,22 @@ describe('#generic', () => {
         let closeCalled = false
         const receivedMessages: any[] = []
 
-        const transformStream = new Transform({
+        const transformStream = new Writable({
           objectMode: true,
-          transform(chunk, _, callback) {
+          async write(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
+            await consumerStream.commitMessages(messages)
 
-            if (!closeCalled && receivedMessages.length > 3) {
+            if (!closeCalled && receivedMessages.length === 5) {
               closeCalled = true
               consumerStream.close(() => {
                 service.log.debug('closed connection')
+                callback()
               })
+            } else {
+              callback()
             }
-            commitBatch(consumerStream, messages)
-            callback()
           },
         })
 
@@ -969,9 +973,9 @@ describe('#generic', () => {
 
         const receivedMessages: any[] = []
 
-        const transformStream = new Transform({
+        const transformStream = new Writable({
           objectMode: true,
-          transform(chunk, _, callback) {
+          write(chunk, _, callback) {
             const messages = msgsToArr(chunk)
             receivedMessages.push(...messages)
             const message = messages[messages.length-1]
@@ -1007,20 +1011,18 @@ describe('#generic', () => {
       const receivedMessages: any[] = []
       let closeCalled = false
 
-      for await (const incommingMessage of consumerStream) {
-        const messages = msgsToArr(incommingMessage)
+      for await (const incomingMessage of consumerStream) {
+        const messages = msgsToArr(incomingMessage)
         receivedMessages.push(...messages)
 
-        if (!closeCalled && receivedMessages.length > 2) {
+        await consumerStream.commitMessages(messages)
+
+        if (!closeCalled && receivedMessages.length === 5) {
           closeCalled = true
           consumerStream.close(() => {
             service.log.debug('closed connection')
           })
         }
-
-        const message = messages[messages.length-1]
-        consumerStream.consumer.commitMessage(message)
-
       }
       // we should receive only 1 pack of messages
       expect(receivedMessages).toHaveLength(5)
@@ -1089,8 +1091,8 @@ describe('#generic', () => {
       })
 
       const receivedMessages: any[] = []
-      for await (const incommingMessage of consumerStream) {
-        const messages = msgsToArr(incommingMessage)
+      for await (const incomingMessage of consumerStream) {
+        const messages = msgsToArr(incomingMessage)
         receivedMessages.push(...messages)
 
         for (const { partition, offset } of messages) {
@@ -1126,7 +1128,7 @@ describe('#generic', () => {
   })
 })
 
-describe.skip('#2s-toxified', () => {
+describe('#2s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -1157,7 +1159,7 @@ describe.skip('#2s-toxified', () => {
 
   describe('no-auto-commit commitSync', () => {
     test('as stream', async () => {
-      const topic = 'toxified-test-no-auto-commit-no-batch-eof-stream'
+      const topic = `toxified-test-no-auto-commit-no-batch-eof-stream-${Date.now()}`
       producer = await createProducerStream(service)
 
       const receivedMessages: any[] = []
@@ -1182,13 +1184,15 @@ describe.skip('#2s-toxified', () => {
       // throw throught sync method
       consumerStream.setOnCommitErrorHandler(() => false)
 
-      const transformStream = new Transform({
+      const transformStream = new Writable({
         objectMode: true,
-        async transform(chunk, _, callback) {
+        async write(chunk, _, callback) {
           const messages = msgsToArr(chunk)
           receivedMessages.push(...messages)
+
           if (!blockedOnce) {
             await setProxyEnabled(false)
+            service.log.debug('proxy disabled')
             delay(2000).then( async () => {
               service.log.debug('Enable proxy')
               await setProxyEnabled(true)
@@ -1199,8 +1203,7 @@ describe.skip('#2s-toxified', () => {
           }
 
           try {
-            const message = messages[messages.length-1]
-            consumerStream.consumer.commitMessageSync(message)
+            await consumerStream.commitMessages(messages)
             callback()
           } catch (e) {
             service.log.debug({ topic, err: e }, 'commit sync error')
@@ -1209,35 +1212,14 @@ describe.skip('#2s-toxified', () => {
         }
       })
 
-      await Promise.allSettled([
-        // We should provide more verbal error description
-        // but here we can receive lots of errors
-        expect(pipeline(consumerStream, transformStream)).rejects.toThrowError(LibrdKafkaErrorClass),
-        () => once(service, 'proxy-enabled')
-      ])
-
+      await pipeline(consumerStream, transformStream)
       await consumerStream.closeAsync()
-
-      service.log.debug({ topic },'start the second read sequence')
-
-      consumerStream = await createConsumerStream(service, {
-        streamOptions: {
-          topics: topic,
-        },
-        conf: {
-          'group.id': topic,
-          'enable.auto.commit': false,
-        },
-      })
-
-      const newMessages = await readStream(consumerStream)
-      service.log.debug({ topic }, 'done the second read sequence')
-      expect(newMessages).toHaveLength(10)
+      expect(receivedMessages).toHaveLength(10)
     })
 
     // shows sync commit failure
     test('as iterable', async () => {
-      const topic = 'toxified-test-no-auto-commit-no-batch-eof'
+      const topic = `toxified-test-no-auto-commit-no-batch-eof-${Date.now()}`
       producer = await createProducerStream(service)
 
       const receivedMessages: any[] = []
@@ -1257,48 +1239,27 @@ describe.skip('#2s-toxified', () => {
 
       let blockedOnce = false
 
-      const simOne = async () => {
-        for await (const incommingMessage of consumerStream) {
-          const messages = msgsToArr(incommingMessage)
-          receivedMessages.push(...messages)
-          if (!blockedOnce) {
-            await setProxyEnabled(false)
-            delay(2000).then(async () => {
-              await setProxyEnabled(true)
-              service.emit('proxy-enabled')
-            })
-            blockedOnce = true
-          }
-
-          try {
-            const message = messages[messages.length-1]
-            consumerStream.consumer.commitMessageSync(message)
-          } catch (e) {
-            service.log.debug({ err: e }, 'commit sync error')
-            throw e
-          }
+      for await (const incomingMessage of consumerStream) {
+        const messages = msgsToArr(incomingMessage)
+        receivedMessages.push(...messages)
+        if (!blockedOnce) {
+          await setProxyEnabled(false)
+          delay(2000).then(async () => {
+            await setProxyEnabled(true)
+            service.emit('proxy-enabled')
+          })
+          blockedOnce = true
         }
-        service.log.debug('TEST ENDOF FOR LOOP')
+
+        try {
+          await consumerStream.commitMessages(messages)
+        } catch (e) {
+          service.log.debug({ err: e }, 'commit sync error')
+          throw e
+        }
       }
 
-        // We should provide more verbal error description
-        // but here we can receive lots of errors
-      await expect(simOne()).rejects.toThrowError(LibrdKafkaErrorClass)
-
-      service.log.debug('start the second read sequence')
-
-      consumerStream = await createConsumerStream(service, {
-        streamOptions: {
-          topics: topic,
-        },
-        conf: {
-          'group.id': topic,
-          'enable.auto.commit': false,
-        },
-      })
-
-      const newMessages = await readStream(consumerStream)
-      expect(newMessages).toHaveLength(10)
+      expect(receivedMessages).toHaveLength(10)
     })
   })
 
@@ -1396,8 +1357,9 @@ describe('#consumer parallel reads', () => {
     await service.close()
   })
 
-  const createConsumer = async (topic: string): Promise<KafkaConsumerStream> => {
+  const createConsumer = async (topic: string, meta = { name: 'testConsumer' }): Promise<KafkaConsumerStream> => {
     return createConsumerStream(service, {
+      meta,
       streamOptions: {
         topics: topic,
         fetchSize: 1,
@@ -1420,13 +1382,15 @@ describe('#consumer parallel reads', () => {
   }
 
   it('processes messages in parallel', async () => {
-    const topic = 'parallel-read'
+    const topic = `parallel-read-${Date.now()}`
 
     const producer = await createProducerStream(service)
     await sendMessages(producer, topic, 33)
 
-    const consumer1 = await createConsumer(topic)
-    const consumer2 = await createConsumer(topic)
+    const [consumer1, consumer2] = await Promise.all([
+      createConsumer(topic, { name: 'AAAA' }),
+      createConsumer(topic, { name: 'BBBB' })
+    ])
 
     const result = await Promise.all([
       consumeMessages(consumer1),
@@ -1434,25 +1398,24 @@ describe('#consumer parallel reads', () => {
     ])
 
     expect([...result[0], ...result[1]]).toHaveLength(33)
-    await consumer1.closeAsync()
-    await consumer2.closeAsync()
+    await Promise.all([consumer1.closeAsync(), consumer2.closeAsync()])
   })
 
   it('additional consumer connects after processing started', async () => {
-    const topic = 'parallel-read-consumer-connect-after'
+    const topic = `parallel-read-consumer-connect-after-${Date.now()}`
     const emitter = new EventEmitter()
 
     const producer = await createProducerStream(service)
     await sendMessages(producer, topic, 22)
 
-    const consumers: { [key: string]: KafkaConsumerStream } = {}
+    const consumers: { [key: string]: KafkaConsumerStream } = Object.create(null)
 
-    consumers['consumer1'] = await createConsumer(topic)
+    consumers['consumer1'] = await createConsumer(topic, { name: 'ZZZZ' })
 
     const firstRead = consumeMessages(consumers.consumer1, async () => {
       if (!consumers.consumer2) {
         await once(consumers.consumer1.consumer, 'offset.commit')
-        consumers.consumer2 = await createConsumer(topic)
+        consumers.consumer2 = await createConsumer(topic, { name: 'YYYY' })
         emitter.emit('start-second')
       }
     })
@@ -1474,7 +1437,7 @@ describe('#consumer parallel reads', () => {
   })
 })
 
-describe('#8s-toxified', () => {
+describe.skip('#8s-toxified', () => {
   let service: Microfleet
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
@@ -1527,8 +1490,8 @@ describe('#8s-toxified', () => {
 
     let blockedOnce = false
     const simOne = async () => {
-      for await (const incommingMessage of consumerStream) {
-        const messages = msgsToArr(incommingMessage)
+      for await (const incomingMessage of consumerStream) {
+        const messages = msgsToArr(incomingMessage)
         receivedMessages.push(...messages)
         const lastMessage = messages[messages.length-1]
 
