@@ -26,7 +26,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "lodash": "^4.17.21",
-    "read-pkg-up": "8.0.0"
+    "read-pkg-up": "7.0.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.170"
