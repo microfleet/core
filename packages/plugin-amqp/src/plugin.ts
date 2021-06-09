@@ -89,8 +89,7 @@ export function attach(
         tracer: this.tracer,
       }
       // @todo plugin-router-amqp
-      // const amqp = this.amqp =   await AMQPTransport.connect(connectionOptions, this.AMQPRouter)
-
+      // const amqp = this.amqp = await AMQPTransport.connect(connectionOptions, this.AMQPRouter)
       const amqp = this.amqp = await AMQPTransport.connect(connectionOptions)
 
       this.emit('plugin:connect:amqp', amqp)

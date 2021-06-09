@@ -3,8 +3,14 @@ import type { ServiceRequest } from '../../types/router'
 import { Lifecycle, LifecycleExtensions } from '../../lifecycle'
 import { initTimingExtension } from './timing'
 
+export type ErrorLevel = typeof ERROR_LEVEL_INFO
+  | typeof ERROR_LEVEL_ERROR
+  | typeof ERROR_LEVEL_WARN
+  | typeof ERROR_LEVEL_DEBUG
+
 export type AuditLogExtensionParams = {
   disableLogErrorsForNames?: string[]
+  getErrorLevel?: (this: Microfleet, error: any) => ErrorLevel | undefined
 }
 
 export type MetaLog = {
@@ -18,6 +24,11 @@ export type MetaLog = {
   response?: any
   err?: Error
 }
+
+export const ERROR_LEVEL_INFO = 'info'
+export const ERROR_LEVEL_ERROR = 'error'
+export const ERROR_LEVEL_WARN = 'warn'
+export const ERROR_LEVEL_DEBUG = 'debug'
 
 const NS_PER_SEC = 1e9
 const MS_PER_NS = 1e6
@@ -41,6 +52,7 @@ export const hrTimeDurationInMs = (startTime?: [number, number], endTime?: [numb
 }
 
 export default function auditLogFactory(params: AuditLogExtensionParams = {}): LifecycleExtensions {
+  const { getErrorLevel } = params
   const disableLogErrorsForNames: string[] = params.disableLogErrorsForNames || []
 
   return [
@@ -64,13 +76,23 @@ export default function auditLogFactory(params: AuditLogExtensionParams = {}): L
 
         if (error) {
           const err = typeof error.toJSON === 'function' ? error.toJSON() : error.toString()
-          const isCodeLevelInfo = (error.statusCode && error.statusCode < 400)
-            || (error.name && disableLogErrorsForNames.includes(error.name))
-          const level = isCodeLevelInfo ? 'info' : 'error'
+          let level: ErrorLevel | undefined
+
+          if (typeof getErrorLevel === 'function') {
+            level = getErrorLevel.call(this, error)
+          }
+
+          if (level === undefined && error.statusCode && error.statusCode < 400) {
+            level = ERROR_LEVEL_INFO
+          }
+
+          if (level === undefined && error.name && disableLogErrorsForNames.includes(error.name)) {
+            level = ERROR_LEVEL_INFO
+          }
 
           meta.err = error
           // just pass data through
-          request.log[level](meta, 'Error performing operation %s', err)
+          request.log[level || ERROR_LEVEL_ERROR](meta, 'Error performing operation %s', err)
         } else {
           if (this.config.debug) {
             meta.response = response

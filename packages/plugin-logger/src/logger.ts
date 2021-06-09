@@ -4,7 +4,7 @@ import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'
 import pino = require('pino')
 import pinoms = require('pino-multi-stream')
-import { SonicBoom } from 'sonic-boom'
+import SonicBoom = require('sonic-boom')
 import type { NodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
 import { Microfleet } from '@microfleet/core-types'

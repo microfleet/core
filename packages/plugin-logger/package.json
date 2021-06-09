@@ -3,7 +3,7 @@
   "description": "logger plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:unit && yarn test:e2e",
@@ -38,14 +38,14 @@
     "lsmod": "^1.0.0",
     "pino": "^6.11.3",
     "pino-multi-stream": "^5.3.0",
-    "sonic-boom": "^2.0.1"
+    "sonic-boom": "1.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.5.4",
+    "@microfleet/core": "^17.6.0",
     "@sentry/node": "^6.5.1",
     "@sentry/types": "^6.5.1",
     "@types/bluebird": "^3.5.35",
-    "@types/pino": "^6.3.8",
+    "@types/pino": "6.3.6",
     "@types/pino-multi-stream": "^5.1.1",
     "@types/sonic-boom": "^0.7.0",
     "bluebird": "^3.7.2",

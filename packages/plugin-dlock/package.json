@@ -3,7 +3,7 @@
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.0.0-dev.8",
+  "version": "0.0.0-dev.9",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -35,14 +35,14 @@
     "@microfleet/utils": "^0.0.0",
     "bluebird": "^3.4.0",
     "common-errors": "^1.x.x",
-    "ioredis": "4.27.5"
+    "ioredis": "^4.27.5"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.5.3",
-    "@microfleet/plugin-logger": "^0.5.4",
+    "@microfleet/core": "^17.6.0",
+    "@microfleet/plugin-logger": "^0.5.6",
     "@microfleet/plugin-redis-cluster": "^0.0.0",
     "@microfleet/plugin-redis-sentinel": "^0.0.0",
     "@microfleet/plugin-router": "^0.0.0-dev.0",

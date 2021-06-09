@@ -565,6 +565,59 @@ describe('@microfleet/plugin-router', () => {
       .find((x) => !!x.err)
 
     strictEqual('NotFoundError', errorCallArgs.err.type)
+    strictEqual(30, errorCallArgs.level)
+  })
+
+  it('should be able to decrease an error level using \'getErrorLevel\' function', async function test() {
+    const spy = sinon.spy()
+    const spyWritable = new Writable({
+      write(chunk, _, callback) {
+        spy(JSON.parse(chunk))
+        callback()
+      },
+      decodeStrings: false,
+    })
+    const service = new Microfleet({
+      name: 'tester',
+      http: { server: { handler: 'hapi' }, router: { enabled: true } },
+      logger: {
+        defaultLogger: true,
+        streams: {
+          spy: { level: 'info', stream: spyWritable },
+        },
+      },
+      plugins: ['validator', 'logger', 'router', 'http'],
+      router: {
+        routes: {
+          directory: resolve(__dirname, '../artifacts/actions'),
+        },
+        extensions: {
+          register: [auditLog({
+            getErrorLevel: function getErrorLevel(error) {
+              if (error.name === 'NotFoundError') {
+                return 'info'
+              }
+
+              return undefined
+            },
+          })]
+        },
+      },
+      validator: { schemas: ['../router/helpers/schemas'] },
+    })
+    const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+
+    await service.connect()
+    await HTTPRequest('/404').reflect()
+    await service.close()
+
+    const errorCallArgs = spy.getCalls()
+      .map((x) => x.args && x.args[0])
+      .filter(Boolean)
+      .find((x) => !!x.err)
+
+    strictEqual('NotFoundError', errorCallArgs.err.type)
+    strictEqual(30, errorCallArgs.level)
   })
 
   it('should return 418 in maintenance mode', async () => {

@@ -3,7 +3,7 @@
   "description": "couchdb adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.2.11",
+  "version": "2.2.12",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -42,7 +42,7 @@
     "nano": "^9.0.3"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.5.4",
+    "@microfleet/core": "^17.6.0",
     "@types/bluebird": "^3.5.35",
     "@types/bluebird-retry": "^0.11.4",
     "common-errors": "^1.2.0"

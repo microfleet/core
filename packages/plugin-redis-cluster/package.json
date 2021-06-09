@@ -38,7 +38,7 @@
     "bluebird": "^3.0.0",
     "debug": "^4.3.1",
     "event-to-promise": "^0.8.0",
-    "ioredis": "4.27.5",
+    "ioredis": "^4.27.5",
     "opentracing-js-ioredis": "^2.1.2"
   },
   "devDependencies": {
