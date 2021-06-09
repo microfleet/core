@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.3.4",
-    "@types/hapi__hapi": "^20.0.7",
+    "@types/hapi__hapi": "20.0.8",
     "@types/hapi__vision": "^5.5.2",
     "socket.io-client": "^4.1.2"
   },

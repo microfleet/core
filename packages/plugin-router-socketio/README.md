@@ -11,14 +11,12 @@ const service = new Microfleet({
     'validator', // essential plugin
     'logger', // essential plugin
     'socketio', // init socket.io
-    'http', // init http and attach socket.io
+    'hapi', // init http and attach socket.io
     'router', // init router
     'router-socketio' // attach socket.io transport to router
   ],
-  http: {
-    server: {
-      attachSocketio: true,
-    },
+  hapi: {
+    attachSocketio: true,
   },
 })
 ```

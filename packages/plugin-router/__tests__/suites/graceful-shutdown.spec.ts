@@ -73,7 +73,7 @@ class ChildServiceRunner {
       }))
     } catch (e: any) {
       // eslint-disable-next-line no-console
-      console.error(e)
+      console.error(e.message)
       // eslint-disable-next-line no-console
       console.error(this.stdout.join('\n'))
       throw new Error(this.stderr.join('\n'))
@@ -119,7 +119,9 @@ class ChildServiceRunner {
 
     if (wait) await delay(500)
 
-    process.kill(this.process.pid, signal)
+    if (this.process.pid !== undefined) {
+      process.kill(this.process.pid, signal)
+    }
 
     return new Promise<void>((resolve, reject) => {
       const timeout = setTimeout(() => {
@@ -133,7 +135,9 @@ class ChildServiceRunner {
         // eslint-disable-next-line no-console
         // console.log(`Is ${this.process.pid} alive?`)
         try {
-          process.kill(this.process.pid, 0)
+          if (this.process.pid !== undefined) {
+            process.kill(this.process.pid, 0)
+          }
         } catch (error) {
           clearTimeout(timeout)
           clearInterval(interval)

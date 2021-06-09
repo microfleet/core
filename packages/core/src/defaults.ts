@@ -6,8 +6,8 @@ export const plugins = [
   'validator',
   'logger',
   'router',
-  'http',
-  'router-http',
+  'hapi',
+  'router-hapi',
 ]
 
 /**

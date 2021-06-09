@@ -49,7 +49,7 @@ export function attach(
   const config = this.validator.ifError<HapiPluginConfig>('hapi', options)
 
   config.server.address = config.server.address || '0.0.0.0'
-  config.server.port = config.server.port || 0
+  config.server.port = config.server.port || 3000
 
   const server = this.hapi = new Server(config.server)
 

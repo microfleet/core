@@ -44,8 +44,8 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
   }
 }
 
-export function getHTTPRequest(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Promise<any> {
-  return async (action: string, params?: any, opts: any = {}): Promise<any> => {
+export function getHTTPRequest(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Bluebird<any> {
+  return (action: string, params?: any, opts: any = {}): Bluebird<any> => {
     const requestOptions = {
       baseUrl: options.url,
       method: 'POST',
@@ -64,16 +64,15 @@ export function getHTTPRequest(options: OptionsWithUrl): (action: string, params
       requestOptions.json = true
     }
 
-    try {
-      return await request(requestOptions)
-    } catch (err) {
-      if (err instanceof StatusCodeError) {
-        // @ts-expect-error invalid types
-        throw err.response.body
-      }
+    return request(requestOptions)
+      .catch((err) => {
+        if (err instanceof StatusCodeError) {
+          // @ts-expect-error invalid types
+          throw err.response.body
+        }
 
-      throw err
-    }
+        throw err
+      })
   }
 }
 
@@ -83,6 +82,10 @@ export function getSocketioRequest(client: Socket): (action: string, params: any
       client.emit(action, params, callback))
 }
 
+export function getAmqpRequest(amqp: any) {
+  return (path: string, params: unknown) => Bluebird.resolve(amqp.publishAndWait(path, params))
+}
+
 export function withResponseValidateAction(name: string, extra: any = {}): any {
   const config = {
     name,
@@ -90,17 +93,15 @@ export function withResponseValidateAction(name: string, extra: any = {}): any {
       'validator',
       'logger',
       'amqp',
-      'http',
+      'hapi',
       'socketio',
       'router',
       'router-amqp',
-      'router-http',
+      'router-hapi',
       'router-socketio',
     ],
-    http: {
-      server: {
-        attachSocketio: true,
-      },
+    hapi: {
+      attachSocketio: true,
     },
     router: {
       routes: {

@@ -6,6 +6,7 @@ import { Microfleet } from '@microfleet/core'
 import { Extensions } from '@microfleet/plugin-router'
 
 import {
+  getAmqpRequest,
   getHTTPRequest,
   getSocketioRequest,
   verify
@@ -21,14 +22,14 @@ describe('service request count', () => {
         'validator',
         'logger',
         'router',
-        'http',
-        'router-http',
+        'hapi',
+        'router-hapi',
         'socketio',
         'router-socketio',
       ],
-      http: {
+      hapi: {
+        attachSocketio: true,
         server: {
-          attachSocketio: true,
           port: 0,
         },
       },
@@ -44,7 +45,7 @@ describe('service request count', () => {
     })
 
     await service.connect()
-    const servicePort = service.http.info.port
+    const servicePort = service.hapi.info.port
     const serviceUrl = `http://0.0.0.0:${servicePort}`
     const { requestCountTracker } = service.router
     const preRequestSpy = spy(requestCountTracker, 'increase')
@@ -73,17 +74,17 @@ describe('service request count', () => {
         'router',
         'amqp',
         'router-amqp',
-        'http',
-        'router-http',
+        'hapi',
+        'router-hapi',
         'socketio',
         'router-socketio',
       ],
       routerAmqp: {
         prefix: 'amqp',
       },
-      http: {
+      hapi: {
+        attachSocketio: true,
         server: {
-          attachSocketio: true,
           port: 0,
         },
       },
@@ -104,8 +105,8 @@ describe('service request count', () => {
 
     await service.connect()
 
-    const { amqp, http, router } = service
-    const servicePort = http.info.port
+    const { amqp, hapi, router } = service
+    const servicePort = hapi.info.port
     const serviceUrl = `http://0.0.0.0:${servicePort}`
 
     const { requestCountTracker } = router
@@ -115,6 +116,7 @@ describe('service request count', () => {
     const httpRequest = getHTTPRequest({ method: 'get', url: serviceUrl })
     const socketioClient = SocketIOClient(serviceUrl)
     const socketioRequest = getSocketioRequest(socketioClient)
+    const amqpRequest = getAmqpRequest(amqp)
 
     const returnsResult = {
       expect: 'success',
@@ -126,7 +128,7 @@ describe('service request count', () => {
 
     try {
       await Promise.all([
-        amqp.publishAndWait('amqp.action.generic.health', {}).reflect().then(verify(returnsResult)),
+        amqpRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult)),
         httpRequest('/action/generic/health').reflect().then(verify(returnsResult)),
         socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult)),
       ])

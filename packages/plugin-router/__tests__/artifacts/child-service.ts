@@ -9,8 +9,8 @@ const service = new Microfleet({
     'router',
     'amqp',
     'router-amqp',
-    'http',
-    'router-http',
+    'hapi',
+    'router-hapi',
     'socketio',
     'router-socketio',
   ],
@@ -18,10 +18,9 @@ const service = new Microfleet({
   routerAmqp: {
     prefix: 'amqp',
   },
-  http: {
+  hapi: {
+    attachSocketio: true,
     server: {
-      attachSocketio: true,
-      handler: 'hapi',
       port: parseInt(process.argv[2], 10),
     },
   },

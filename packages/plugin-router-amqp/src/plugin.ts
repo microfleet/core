@@ -30,7 +30,7 @@ export function attach(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const routerAmqpConfig = this.validator.ifError<RouterAMQPPluginConfig>(name, options)
+  const routerAmqpConfig = this.validator.ifError<RouterAMQPPluginConfig>('router-amqp', options)
   // @todo (!) amqpConfig doesnt contains config defaults
   const amqpConfig = this.config.amqp
   const logger = this.log.child({ namespace: '@microfleet/router-amqp' })

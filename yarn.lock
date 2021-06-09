@@ -2371,7 +2371,7 @@
   resolved "https://registry.yarnpkg.com/@types/hapi__catbox/-/hapi__catbox-10.2.3.tgz#c9279c16d709bf2987491c332e11d18124ae018f"
   integrity sha512-gs6MKMKXzWpSqeYsPaDIDAxD8jLNg7aFxgAJE6Jnc+ns072Z9fuh39/NF5gSk1KNoGCLnIpeZ0etT9gY9QDCKg==
 
-"@types/hapi__hapi@*", "@types/hapi__hapi@^20.0.7":
+"@types/hapi__hapi@*", "@types/hapi__hapi@20.0.8":
   version "20.0.8"
   resolved "https://registry.yarnpkg.com/@types/hapi__hapi/-/hapi__hapi-20.0.8.tgz#83faa2be02d7192eabc1536e802461a9df6bff2a"
   integrity sha512-NNslrYq2XQwm4uOqNcSWKpYtaeMr4DkQdrFzSB7p9rKB9ppJLh3mgP2wak9vBZl7/Cnhhb+JVBcUZCOUcW0JPA==

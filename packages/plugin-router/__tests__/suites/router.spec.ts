@@ -11,6 +11,7 @@ import { Extensions, ServiceRequest } from '@microfleet/plugin-router'
 
 import {
   verify,
+  getAmqpRequest,
   getHTTPRequest,
   getSocketioRequest,
   withResponseValidateAction
@@ -24,7 +25,6 @@ const {
 
 describe('@microfleet/plugin-router', () => {
   it('should throw error if plugin is not included', () => {
-    // eslint-disable-next-line no-console
     const service = new Microfleet({
       name: 'tester',
       plugins: [],
@@ -40,11 +40,11 @@ describe('@microfleet/plugin-router', () => {
         'validator',
         'logger',
         'amqp',
-        'http',
+        'hapi',
         'socketio',
         'router',
         'router-amqp',
-        'router-http',
+        'router-hapi',
         'router-socketio',
       ],
       // @todo one style for pass directory?
@@ -56,11 +56,8 @@ describe('@microfleet/plugin-router', () => {
           bindPersistantQueueToHeadersExchange: true,
         },
       },
-      http: {
-        server: {
-          attachSocketio: true,
-          handler: 'hapi',
-        },
+      hapi: {
+        attachSocketio: true,
       },
       router: {
         routes: {
@@ -98,6 +95,7 @@ describe('@microfleet/plugin-router', () => {
     const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
     const socketioClient = SocketIOClient('http://0.0.0.0:3000')
     const socketioRequest = getSocketioRequest(socketioClient)
+    const amqpRequest = getAmqpRequest(amqp)
 
     const routeNotFound = {
       expect: 'error',
@@ -180,14 +178,14 @@ describe('@microfleet/plugin-router', () => {
         httpRequest('/action/simple', { token: true }).reflect().then(verify(accessDenied)),
         httpRequest('/action/simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
 
-        // // non-existent action will be not processed by ms-amqp-transport
-        amqp.publishAndWait('action.simple', {}).reflect().then(verify(authFailed)),
-        amqp.publishAndWait('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
-        amqp.publishAndWait('action.simple', { token: true }).reflect().then(verify(accessDenied)),
-        amqp.publishAndWait('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
-        amqp.publishAndWait('action.retry', 10).reflect().then(verify(retryFail)),
-        amqp.publishAndWait('action.retry', 3).reflect().then(verify(retrySuccess)),
-        amqp.publishAndWait('action.throws', {}).reflect().then(verify(throwsFail)),
+        // non-existent action will be not processed by ms-amqp-transport
+        amqpRequest('action.simple', {}).reflect().then(verify(authFailed)),
+        amqpRequest('action.simple', { token: true, isAdmin: 42 }).reflect().then(verify(validationFailed)),
+        amqpRequest('action.simple', { token: true }).reflect().then(verify(accessDenied)),
+        amqpRequest('action.simple', { token: true, isAdmin: true }).reflect().then(verify(returnsResult)),
+        amqpRequest('action.retry', 10).reflect().then(verify(retryFail)),
+        amqpRequest('action.retry', 3).reflect().then(verify(retrySuccess)),
+        amqpRequest('action.throws', {}).reflect().then(verify(throwsFail)),
       ])
     } finally {
       await service.close()
@@ -198,7 +196,7 @@ describe('@microfleet/plugin-router', () => {
   it('should be able to parse query string when present & perform validation', async () => {
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger', 'router', 'http', 'router-http'],
+      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -270,11 +268,12 @@ describe('@microfleet/plugin-router', () => {
     await service.connect()
 
     const { amqp } = service
+    const amqpRequest = getAmqpRequest(amqp)
 
     try {
       await Promise.all([
-        amqp.publishAndWait('action.without-schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
-        amqp.publishAndWait('action.without-schema', { foo: 42 }).reflect().then(verify(returnsResult)),
+        amqpRequest('action.without-schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+        amqpRequest('action.without-schema', { foo: 42 }).reflect().then(verify(returnsResult)),
       ])
     } finally {
       await service.close()
@@ -317,11 +316,12 @@ describe('@microfleet/plugin-router', () => {
     await service.connect()
 
     const { amqp } = service
+    const amqpRequest = getAmqpRequest(amqp)
 
     try {
       await Promise.all([
-        amqp.publishAndWait('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
-        amqp.publishAndWait('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
+        amqpRequest('action.nested.test', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+        amqpRequest('action.nested.test', { foo: 42 }).reflect().then(verify(returnsResult)),
         Bluebird.resolve(service.dispatch('nested.test', { params: { foo: 42 } })).reflect().then(verify(returnsResult))
       ])
     } finally {
@@ -336,17 +336,15 @@ describe('@microfleet/plugin-router', () => {
         'validator',
         'logger',
         'amqp',
-        'http',
+        'hapi',
         'socketio',
         'router',
         'router-amqp',
-        'router-http',
+        'router-hapi',
         'router-socketio',
       ],
-      http: {
-        server: {
-          attachSocketio: true,
-        },
+      hapi: {
+        attachSocketio: true,
       },
       router: {
         routes: {
@@ -377,6 +375,7 @@ describe('@microfleet/plugin-router', () => {
     await service.connect()
 
     const { amqp } = service
+    const amqpRequest = getAmqpRequest(amqp)
     const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
     const socketioClient = SocketIOClient('http://0.0.0.0:3000')
     const socketioRequest = getSocketioRequest(socketioClient)
@@ -386,7 +385,7 @@ describe('@microfleet/plugin-router', () => {
         Bluebird.resolve(service.dispatch('generic.health', {})).reflect().then(verify(returnsResult)),
         httpRequest('/action/generic/health').reflect().then(verify(returnsResult)),
         socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult)),
-        amqp.publishAndWait('amqp.action.generic.health', {}).reflect().then(verify(returnsResult))
+        amqpRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult))
       ])
     } finally {
       socketioClient.close()
@@ -403,8 +402,8 @@ describe('@microfleet/plugin-router', () => {
         'router',
         'amqp',
         'router-amqp',
-        'http',
-        'router-http',
+        'hapi',
+        'router-hapi',
       ],
       router: {
         routes: {
@@ -447,11 +446,12 @@ describe('@microfleet/plugin-router', () => {
     await service.connect()
 
     const { amqp } = service
+    const amqpRequest = getAmqpRequest(amqp)
     const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
 
     try {
       await Promise.all([
-        amqp.publishAndWait('action.generic.health', {}).reflect().then(verify(unhealthyState)),
+        amqpRequest('action.generic.health', {}).reflect().then(verify(unhealthyState)),
         httpRequest('/action/generic/health').reflect().then(verify(unhealthyStateHTTP)),
       ])
     } finally {
@@ -497,7 +497,7 @@ describe('@microfleet/plugin-router', () => {
     })
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger', 'router', 'http', 'router-http'],
+      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
       logger: {
         streams: {
           spy: { level: 'error', stream: spyWritable },
@@ -535,7 +535,7 @@ describe('@microfleet/plugin-router', () => {
     })
     const service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'logger', 'router', 'http', 'router-http'],
+      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
       logger: {
         streams: {
           spy: { level: 'info', stream: spyWritable },
@@ -579,14 +579,13 @@ describe('@microfleet/plugin-router', () => {
     })
     const service = new Microfleet({
       name: 'tester',
-      http: { server: { handler: 'hapi' }, router: { enabled: true } },
       logger: {
         defaultLogger: true,
         streams: {
           spy: { level: 'info', stream: spyWritable },
         },
       },
-      plugins: ['validator', 'logger', 'router', 'http'],
+      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -603,7 +602,7 @@ describe('@microfleet/plugin-router', () => {
           })]
         },
       },
-      validator: { schemas: ['../router/helpers/schemas'] },
+      validator: { schemas: ['../artifacts/schemas'] },
     })
     const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
 
@@ -629,8 +628,8 @@ describe('@microfleet/plugin-router', () => {
         'router',
         'amqp',
         'router-amqp',
-        'http',
-        'router-http',
+        'hapi',
+        'router-hapi',
       ],
       maintenanceMode: true,
       router: {
@@ -713,6 +712,7 @@ describe('@microfleet/plugin-router', () => {
       await service.connect()
 
       const { amqp } = service
+      const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
       const socketioClient = SocketIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
@@ -725,12 +725,12 @@ describe('@microfleet/plugin-router', () => {
           socketioRequest('action.validate-response', { success: false }).reflect().then(verify(check)),
           httpRequest('/action/validate-response', { success: true }).reflect().then(verify(returnsResult)),
           httpRequest('/action/validate-response', { success: false }).reflect().then(verify(check)),
-          amqp.publishAndWait('action.validate-response', { success: true }).reflect().then(verify(returnsResult)),
-          amqp.publishAndWait('action.validate-response', { success: false }).reflect().then(verify(check)),
+          amqpRequest('action.validate-response', { success: true }).reflect().then(verify(returnsResult)),
+          amqpRequest('action.validate-response', { success: false }).reflect().then(verify(check)),
           // skip
           socketioRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
           httpRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
-          amqp.publishAndWait('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
+          amqpRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
         ])
       } finally {
         await service.close()
@@ -754,6 +754,7 @@ describe('@microfleet/plugin-router', () => {
       await service.connect()
 
       const { amqp } = service
+      const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
       const socketioClient = SocketIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
@@ -764,11 +765,11 @@ describe('@microfleet/plugin-router', () => {
         await Promise.all([
           socketioRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
           httpRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
-          amqp.publishAndWait('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
+          amqpRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
           // skip
           socketioRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
           httpRequest('/action/validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
-          amqp.publishAndWait('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
+          amqpRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
         ])
       } finally {
         await service.close()
@@ -798,6 +799,7 @@ describe('@microfleet/plugin-router', () => {
       await service.connect()
 
       const { amqp } = service
+      const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
       const socketioClient = SocketIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
@@ -819,8 +821,8 @@ describe('@microfleet/plugin-router', () => {
         await Bluebird.map(range(25), () => Promise.all([
           socketioRequest('action.validate-response', { success: false }).reflect().then(count),
           httpRequest('/action/validate-response', { success: false }).reflect().then(count),
-          amqp.publishAndWait('action.validate-response', { success: false }).reflect().then(count),
-          amqp.publishAndWait('action.validate-response', { success: false }).reflect().then(count),
+          amqpRequest('action.validate-response', { success: false }).reflect().then(count),
+          amqpRequest('action.validate-response', { success: false }).reflect().then(count),
         ]))
       } finally {
         await service.close()
@@ -848,6 +850,7 @@ describe('@microfleet/plugin-router', () => {
       await service.connect()
 
       const { amqp } = service
+      const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
       const socketioClient = SocketIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
@@ -856,7 +859,7 @@ describe('@microfleet/plugin-router', () => {
         await Promise.all([
           socketioRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
           httpRequest('/action/validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
-          amqp.publishAndWait('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
+          amqpRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
         ])
       } finally {
         await service.close()
@@ -880,6 +883,7 @@ describe('@microfleet/plugin-router', () => {
       await service.connect()
 
       const { amqp } = service
+      const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
       const socketioClient = SocketIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
@@ -894,8 +898,8 @@ describe('@microfleet/plugin-router', () => {
           httpRequest('/action/validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult)),
           httpRequest('/action/validate-response-without-schema', { success: false }).reflect().then(verify(check)),
           // amqp
-          amqp.publishAndWait('action.validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult)),
-          amqp.publishAndWait('action.validate-response-without-schema', { success: false }).reflect().then(verify(check)),
+          amqpRequest('action.validate-response-without-schema', { success: true }).reflect().then(verify(returnsResult)),
+          amqpRequest('action.validate-response-without-schema', { success: false }).reflect().then(verify(check)),
         ])
       } finally {
         await service.close()

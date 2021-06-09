@@ -12,12 +12,12 @@ describe('@microfleet/plugin-router-socketio', () => {
       'logger',
       'router',
       'socketio',
-      'http',
+      'hapi',
       'router-socketio'
     ],
-    http: {
+    hapi: {
+      attachSocketio: true,
       server: {
-        attachSocketio: true,
         port: 17003,
       },
     },
