@@ -2,6 +2,7 @@
   "name": "@microfleet/core-types",
   "version": "0.0.0",
   "description": "@microfleet/core Types",
+  "main": "./index.d.ts",
   "types": "./index.d.ts",
   "scripts": {
     "test": "tsc -b ./tsconfig.build.json",
