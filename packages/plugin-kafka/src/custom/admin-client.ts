@@ -1,4 +1,4 @@
-import { Microfleet } from '@microfleet/core'
+import { Microfleet } from '@microfleet/core-types'
 import { promisifyAll } from 'bluebird'
 import { merge } from 'lodash'
 import * as retry from 'bluebird-retry'

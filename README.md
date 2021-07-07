@@ -119,11 +119,13 @@ core toolkit, but expect them to be externalized as toolkit matures.
 
 This includes common functionality plugins:
 
-* [validator](src/plugins/validator.js) - json-schema based input data validation
-* [logger](src/plugins/logger.js) - request logger
-* [router](src/plugins/router.js) - logic layer for multi-transport router
+* [validator](#validator) - json-schema based input data validation
+* [logger](#logger) - request logger
+* [router](#router) - logic layer for multi-transport router
 
 #### Validator
+
+##### [packages/plugins-logger](packages/plugins-validator)
 
 Based on [@microfleet/validation](https://github.com/microfleet/validation) allows to easily validate input args based on json-schema.
 Create directory `schemas` and populate it with schemas, where names correspond to actions.
@@ -136,11 +138,15 @@ Adds following API to the microservice instance:
 
 #### Logger
 
+##### [packages/plugins-logger](packages/plugins-logger)
+
 Creates bunyan logger, with streams based on passed configuration and extends microservice instance with the following methods:
 
 * `.log` - instance of [bunyan](https://github.com/trentm/node-bunyan) logger
 
 #### Router
+
+##### [packages/plugins-logger](packages/plugins-router)
 
 Initializes router, which scans folders for actions and builds routing tree for for enabled transports.
 Router controls request lifecycle, which tries to mimic hapi.js lifecycle as closely as possible, with unified interface for multiple transports.
@@ -154,47 +160,47 @@ On top of it enables 2 router extension, which provide request logging & automat
 
 We've struggled to make sure that requests loop the same regardless of transport selected and the lifecycle was adopted from hapi.js model as it proved to be extremely easy to follow and extend.
 
-[Lifecycle](src/plugins/router/dispatcher.js) goes in the following way:
+[Lifecycle](packages/plugin-router/src/lifecycle) goes in the following way:
 
-0. [Request](src/plugins/router/modules/request.js) - finds `action` based on `route` and `ServiceRequest` object
-  * preRequest: `(route: string, request: ServiceRequest) => mixed`
-  * request: adds `action` and `route` to `ServiceRequest` object
-  * postRequest: can handle errors from `request` part
-0. [Auth](src/plugins/router/modules/auth.js) - performs authentication if `action.auth` is present
-  * preAuth - `(request: ServiceRequest) => mixed`
-  * auth: performs authentication
-  * postAuth: can handle errors from `auth` part
-0. [Validate](src/plugins/router/modules/validate.js) - performs validation based on `json-schema` if `action.schema` is defined
-  * preValidate: `(request: ServiceRequest) => mixed`
-  * validate: performs validation
-  * postValidate: handle validation errors if handlers present
-0. [Allowed](src/plugins/router/modules/allowed.js) - performs arbitrary validation before passing control to actual function handler
-  * preAllowed: `(request: ServiceRequest) => mixed`
-  * allowed: performs arbitrary code defined in `action.allowed`
-  * postAllowed: handle errors from `allowed` part
-0. [Handler](src/plugins/router/modules/handler.js) - runs userland endpoint code:
-  * preHandler: `(request: ServiceRequest) => mixed`
-  * handler: performs userland code
-  * postHandler: handle response from `handler`
-9. [Response](src/plugins/router/modules/response.js) - runs response handler, which makes standard error / standard responses:
-  * preResponse: `(error: ?Error, result: ?Mixed, request: ServiceRequest) => mixed`
-  * response: pushes data to the requester
-  * postResponse: can modify finalized data that goes to the client
+1. [Request](packages/plugin-router/src/lifecycle/handlers/request.ts) -
+checks that there is an `ServiceAction` for the `route` passed from the transport, throws 404 error or `maintance mode` error.
+    * preRequest: `(this: Microfleet, request: ServiceRequest) => void`
+    * request: performs request
+    * postRequest: can handle result or errors (`ServiceRequest.error`) from `request` part
+2. [Auth](packages/plugin-router/src/lifecycle/handlers/auth.ts) - performs authentication if `ServiceAction.auth` is present.
+    * preAuth - `(this: Microfleet, request: ServiceRequest) => void`
+    * auth: adds `auth` property contains credentials to `ServiceRequest`
+    * postAuth: can handle result or errors (`ServiceRequest.error`) from `auth` part
+3. [Validate](packages/plugin-router/src/lifecycle/handlers/validate.ts) - performs validation based on `json-schema` if `ServiceAction.schema` is defined
+    * preValidate: `(this: Microfleet, request: ServiceRequest) => void`
+    * validate: performs validation
+    * postValidate: handle validation result or errors (`ServiceRequest.error`) if handlers present
+4. [Allowed](packages/plugin-router/src/lifecycle/handlers/allowed.ts) - performs arbitrary validation before passing control to actual function handler
+    * preAllowed: `(this: Microfleet, request: ServiceRequest) => void`
+    * allowed: performs arbitrary code defined in `ServiceAction.allowed`
+    * postAllowed: handle result or errors (`ServiceRequest.error`) from `allowed` part
+5. [Handler](packages/plugin-router/src/lifecycle/handlers/handler.ts) - runs userland endpoint code:
+    * preHandler: `(this: Microfleet, request: ServiceRequest) => void`
+    * handler: performs userland code
+    * postHandler: handle response or error from `handler`
+6. [Response](packages/plugin-router/src/lifecycle/handlers/response.ts) - runs response handler, which makes standard error / standard responses:
+    * preResponse: `(this: Microfleet, request: ServiceRequest) => void`
+    * response: pushes data to the requester
+    * postResponse: can modify finalized data that goes to the client
 
 ### Transports
 
-* [amqp](src/plugins/amqp.js) - AMQP transport based on [@microfleet/transport-amqp](https://github.com/microfleet/transport-amqp), requires RabbitMQ
-* [http](src/plugins/http.js):
-  * [hapi.js](src/plugins/http/handlers/hapi) - hapi implementation, recommended for use
-* [socket.io](src/plugins/socketIO.js) - enabled websockets on top of http, therefore, requires `http plugin` to be enabled
+* [amqp](packages/plugin-amqp) - AMQP transport based on [@microfleet/transport-amqp](https://github.com/microfleet/transport-amqp), requires RabbitMQ
+* [hapi](packages/plugin-http) - hapi implementation for http
+* [socket.io](packages/plugin-socketio) - enabled websockets on top of http, therefore, requires `hapi` plugin to be enabled
 
 ### Databases
 
-* [redis cluster](src/plugins/redisCluster.js) - clustered redis implementation, uses [ioredis](https://github.com/luin/ioredis) client
-* [redis sentinel](src/plugins/redisSentinel.js) - HA redis implementation, no sharding, uses [ioredis](https://github.com/luin/ioredis) client
-* [knex](src/plugins/knex.js) - high-level API for SQL based databases (PostgreSQL, MySQL, MariaDB, etc)
-* [elasticsearch](src/plugins/elasticsearch.js) - elasticsearch connector
-* [cassandra](src/plugins/cassandra.js) - cassandra connector
+* [redis cluster](packages/plugin-redis-cluster) - clustered redis implementation, uses [ioredis](https://github.com/luin/ioredis) client
+* [redis sentinel](packages/plugin-redis-sentinel) - HA redis implementation, no sharding, uses [ioredis](https://github.com/luin/ioredis) client
+* [knex](packages/plugin-knex) - high-level API for SQL based databases (PostgreSQL, MySQL, MariaDB, etc)
+* [elasticsearch](packages/plugin-aws-elasticsearch) - elasticsearch connector
+* [cassandra](packages/plugin-cassandra) - cassandra connector
 
 ## Roadmap
 

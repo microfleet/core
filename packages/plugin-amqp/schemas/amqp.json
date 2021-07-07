@@ -1,0 +1,45 @@
+{
+  "$id": "amqp",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["transport"],
+  "properties": {
+    "transport": {
+      "type": "object",
+      "required": ["connection"],
+      "default": {},
+      "properties": {
+        "connection": {
+          "type": "object",
+          "required": ["host", "port"],
+          "default": {},
+          "properties": {
+            "host": {
+              "type": "string",
+              "default": "rabbitmq"
+            },
+            "port": {
+              "type": "integer",
+              "default": 5672,
+              "minimum": 0
+            }
+          }
+        },
+        "bindPersistantQueueToHeadersExchange": {
+          "type": "boolean"
+        },
+        "queue": {
+          "type": "string"
+        },
+        "neck": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "timeout": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,6 @@ import { LogLevel } from '@sentry/types'
 import lsmod = require('lsmod')
 import pino = require('pino')
 import type { Streams } from 'pino-multi-stream'
-import { Microfleet } from '@microfleet/core'
 import {
   extractStackFromError,
   parseStack,
@@ -45,6 +44,8 @@ export class SentryStream {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: A computed property name in a class property declaration must refer to an expression whose type is a literal type or a 'unique symbol' type
   readonly [pino.symbols.needsMetadataGsym]: boolean = true
 
   constructor(opts: SentryStreamOptions) {
@@ -145,6 +146,7 @@ export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
   const { logLevel, dsn } = config
 
   assert(dsn, '"dsn" property must be set')
+  assert(config.release, 'release version must be set')
 
   Sentry.init({
     ...config,
@@ -157,7 +159,7 @@ export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
   })
 
   const dest = new SentryStream({
-    release: Microfleet.version,
+    release: config.release,
   })
 
   let level: pino.Level
@@ -178,4 +180,3 @@ export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
     stream: dest,
   }
 }
-

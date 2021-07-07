@@ -7,16 +7,54 @@
   "references": [{
     "path": "./packages/core/tsconfig.build.json"
   }, {
+    "path": "./packages/core-types/tsconfig.build.json"
+  }, {
+    "path": "./packages/utils/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-elasticsearch/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-amqp/tsconfig.build.json"
+  }, {
     "path": "./packages/plugin-logger/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-validator/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-consul/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-couchdb/tsconfig.build.json"
   }, {
+    "path": "./packages/plugin-cassandra/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-dlock/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-hapi/tsconfig.build.json"
+  }, {
     "path": "./packages/plugin-kafka/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-knex/tsconfig.build.json"
   }, {
-    "path": "./packages/plugin-dlock/tsconfig.build.json"
+    "path": "./packages/plugin-logger/tsconfig.build.json"
+  },{
+    "path": "./packages/plugin-router/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-router-amqp/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-router-hapi/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-router-socketio/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-socketio/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-opentracing/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-prometheus/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-aws-elasticsearch/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-redis-core/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-redis-sentinel/tsconfig.build.json"
+  }, {
+    "path": "./packages/plugin-redis-cluster/tsconfig.build.json"
   }]
 }

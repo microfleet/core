@@ -2,14 +2,16 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
+import type { Microfleet, PluginInterface } from '@microfleet/core-types'
+import { PluginTypes } from '@microfleet/utils'
 import type { Logger } from '@microfleet/plugin-logger'
-import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import '@microfleet/plugin-validator'
 import { map } from 'bluebird'
+import type { WriteStreamOptions } from 'node-rdkafka'
 import type {
   ConsumerStreamConfig,
   ProducerStreamConfig,
-  StreamOptions,
-  KafkaStream,
+  ConsumerStreamOptions,
   KafkaClient,
 } from '@microfleet/plugin-kafka-types'
 import {
@@ -35,7 +37,7 @@ export { KafkaConsumerStream, KafkaProducerStream, RdKafkaCodes }
 export * from './custom/rdkafka-extra'
 export type {
   ProducerStreamOptions, ConsumerStreamOptions,
-  ConnectOptions, ConsumerStreamConfig, KafkaStreamOpts, StreamOptions, ProducerStreamConfig
+  ConnectOptions, ConsumerStreamConfig, KafkaStreamOpts, ProducerStreamConfig
 } from '@microfleet/plugin-kafka-types'
 
 /**
@@ -44,6 +46,22 @@ export type {
 export const priority = 0
 export const name = 'kafka'
 export const type = PluginTypes.transport
+
+declare module '@microfleet/core-types' {
+  export interface Microfleet {
+    kafka: KafkaFactory;
+  }
+}
+
+export type KafkaStream = KafkaProducerStream | KafkaConsumerStream
+export type StreamOptions<T> =
+  T extends KafkaConsumerStream
+  ? ConsumerStreamOptions
+  : never
+  |
+  T extends KafkaProducerStream
+  ? WriteStreamOptions
+  : never
 
 export class KafkaFactory {
   public rdKafkaConfig: GlobalConfig
@@ -68,13 +86,14 @@ export class KafkaFactory {
       offset_commit_cb: opts.conf?.offset_commit_cb || true,
       rebalance_cb: opts.conf?.rebalance_cb || true,
       'enable.auto.offset.store': false,
+      'enable.partition.eof': true, // new feature, allows us to listen to eof event
     }
 
     // pass on original value
     opts.streamOptions.autoOffsetStore = opts.conf?.['enable.auto.offset.store']
 
     const consumerTopicConfig: ConsumerStreamConfig['topicConf'] = { ...opts.topicConf }
-    const logMeta = { topics, type: 'consumer' }
+    const logMeta = { ...opts.meta,  topics, type: 'consumer' }
     const log = this.service.log.child(logMeta)
     const consumer = this.createClient(KafkaConsumer, consumerConfig, consumerTopicConfig)
 
@@ -112,10 +131,17 @@ export class KafkaFactory {
   public async close(): Promise<void> {
     // Disconnect admin client
     this.admin.close()
+    this.service.log.debug('admin closed')
+
     // Some connections will be already closed by streams
+    this.service.log.debug({ size: this.streams.size }, 'closing streams')
     await map(this.streams.values(), stream => stream.closeAsync())
+    this.service.log.debug('streams closed')
+
     // Close other connections
-    await map(this.connections.values(), async (connection) => { await connection.disconnectAsync() })
+    this.service.log.debug({ size: this.connections.size }, 'closing connections')
+    await map(this.connections.values(), (connection): Promise<any> => connection.disconnectAsync())
+    this.service.log.debug('connections closed')
   }
 
   public getStreams(): Set<KafkaStream> {
@@ -142,6 +168,10 @@ export class KafkaFactory {
       log?.info('closed stream')
     })
 
+    stream.on('end', function end(this: T) {
+      log?.info('stream end')
+    })
+
     return stream
   }
 
@@ -165,7 +195,6 @@ export class KafkaFactory {
     client.once('disconnected', function disconnected(this: KafkaClient) {
       log.info(meta, 'client disconnected')
       connections.delete(this)
-      // cleanup event listeners
       this.removeAllListeners()
     })
 
@@ -184,7 +213,7 @@ export class KafkaFactory {
  * @param params - Kafka configuration.
  */
 export function attach(
-  this: Microfleet & ValidatorPlugin,
+  this: Microfleet,
   params: GlobalConfig
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
@@ -193,7 +222,7 @@ export function attach(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const conf: GlobalConfig = this.validator.ifError(name, params)
+  const conf = this.validator.ifError<GlobalConfig>(name, params)
   const kafkaPlugin = this[name] = new KafkaFactory(this, conf)
 
   return {

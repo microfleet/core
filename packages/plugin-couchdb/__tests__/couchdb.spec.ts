@@ -1,8 +1,7 @@
 import { Microfleet } from '@microfleet/core'
-import { CouchDBPlugin } from '@microfleet/plugin-couchdb'
 
-let service: Microfleet | Microfleet & CouchDBPlugin
-let couchdb: CouchDBPlugin['couchdb']
+let service: Microfleet
+let couchdb: Microfleet['couchdb']
 
 test('should be able to initialize', async () => {
   service = new Microfleet({
@@ -29,13 +28,13 @@ test('should be able to connect', async () => {
 })
 
 test('should be able to create document', async () => {
-  const result = await couchdb.insert({
+  const result = await couchdb?.insert({
     _id: 'happy',
     ami: true,
   })
 
-  expect(result.ok).toBe(true)
-  expect(result.id).toBe('happy')
+  expect(result?.ok).toBe(true)
+  expect(result?.id).toBe('happy')
 })
 
 test('should be able to disconnect', async () => {

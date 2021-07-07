@@ -14,5 +14,14 @@
     "dist",
     "**.test.ts",
     "**.spec.ts"
-  ]
+  ],
+  "references": [{
+    "path": "../utils/tsconfig.build.json"
+  }, {
+    "path": "../core-types/tsconfig.build.json"
+  }, {
+    "path": "../plugin-validator/tsconfig.build.json"
+  }, {
+    "path": "../plugin-logger/tsconfig.build.json"
+  }]
 }

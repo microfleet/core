@@ -4,6 +4,11 @@ module.exports = {
   ...globalConfig,
   verbose: true,
   rootDir: '../../',
+  globals: {
+    'ts-jest': {
+      isolatedModules: true,
+    },
+  },
   collectCoverage: true,
   coverageDirectory: 'packages/plugin-kafka/coverage',
   coverageReporters: [ "text-summary", "json", "lcov" ],

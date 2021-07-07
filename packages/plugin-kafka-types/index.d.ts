@@ -1,20 +1,14 @@
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
 import * as kafka from 'node-rdkafka'
-import { Microfleet } from '@microfleet/core'
-import { GlobalConfig, TopicConfig } from 'node-rdkafka'
-import { KafkaFactory, KafkaConsumerStream } from '@microfleet/plugin-kafka'
+import { GlobalConfig, TopicConfig, ConsumerGlobalConfig } from 'node-rdkafka'
 import { Writable, Readable } from 'stream'
-
-declare module '@microfleet/core' {
-  export interface Microfleet {
-    kafka: KafkaFactory;
-  }
-}
+import { EventEmitter } from 'events'
 
 export interface KafkaStreamOpts<T extends kafka.ReadStreamOptions | kafka.WriteStreamOptions, U extends kafka.TopicConfig, Z extends kafka.GlobalConfig> {
   streamOptions: T;
   conf?: Z;
   topicConf?: U;
+  meta?: Record<string, any>;
 }
 
 export type ConsumerStreamConfig = KafkaStreamOpts<
@@ -28,16 +22,6 @@ export type ProducerStreamConfig = KafkaStreamOpts<
   kafka.ProducerTopicConfig,
   kafka.ProducerGlobalConfig
 >
-
-export type KafkaStream = kafka.ProducerStream | KafkaConsumerStream
-export type StreamOptions<T> =
-  T extends KafkaConsumerStream
-    ? ConsumerStreamOptions
-    : never
-  |
-  T extends kafka.ProducerStream
-    ? kafka.WriteStreamOptions
-    : never
 
 export type KafkaClient = kafka.KafkaConsumer | kafka.Producer
 
@@ -84,6 +68,10 @@ export type ProducerStreamOptions = {
 }
 
 declare module 'node-rdkafka' {
+  export interface TopicPartitionOffset {
+    eof?: boolean
+  }
+
   // event list is hidden by default
   export type KafkaClientEvents = 'disconnected' | 'ready' | 'connection.failure' | 'event.error' | 'event.stats' | 'event.log' | 'event.event' | 'event.throttle';
 
@@ -92,7 +80,7 @@ declare module 'node-rdkafka' {
     new(e: Error | Record<string, unknown>): LibrdKafkaError;
   }
 
-  interface ProducerStream extends Writable {
+  export interface ProducerStream extends Writable {
     // eslint-disable-next-line @typescript-eslint/no-misused-new
     new (producer: Producer, conf?: kafka.WriteStreamOptions): ProducerStream;
     producer: Producer;
@@ -104,19 +92,18 @@ declare module 'node-rdkafka' {
     closeAsync(): Promise<void>;
   }
 
-  interface ConsumerStream extends Readable {
-    // eslint-disable-next-line @typescript-eslint/no-misused-new
-    new (consumer: KafkaConsumer, conf?: kafka.ReadStreamOptions): ConsumerStream;
+  export interface ConsumerStream extends Readable {
+    (consumer: KafkaConsumer, conf?: kafka.ReadStreamOptions): ConsumerStream;
 
     consumer: KafkaConsumer;
     connect(options: ConsumerGlobalConfig): void;
     close(cb?: () => void): void;
 
-    messages: ConsumerStreamMessage[];
+    messages: Message[];
     closeAsync(): Promise<void>;
   }
 
-  export interface Client extends EventEmitter {
+  export interface Client<Events extends string> extends EventEmitter {
     // eslint-disable-next-line @typescript-eslint/no-misused-new
     new (c: GlobalConfig, tc: TopicConfig): Client<KafkaClientEvents>;
 
@@ -124,7 +111,7 @@ declare module 'node-rdkafka' {
 
     // Required on dicsonnection cleanup
     globalConfig: GlobalConfig;
-    _client: Client;
+    _client: Client<Events>;
     _metadata: Metadata | null | undefined;
 
     connectAsync(metadataOptions: MetadataOptions): Promise<Metadata>;

@@ -1,0 +1,34 @@
+{
+  "name": "@microfleet/core-types",
+  "version": "0.0.0",
+  "description": "@microfleet/core Types",
+  "main": "./index.d.ts",
+  "types": "./index.d.ts",
+  "scripts": {
+    "test": "tsc -b ./tsconfig.build.json",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "files": [
+    "index.d.ts",
+    "private.d.ts"
+  ],
+  "repository": {
+    "directory": "packages/core-types",
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/micofleet/core/issues"
+  },
+  "dependencies": {
+    "@microfleet/utils": "^0.0.0",
+    "bluebird": "^3.7.2",
+    "bluebird-retry": "^0.11.0",
+    "eventemitter3": "^4.0.7"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.35",
+    "@types/bluebird-retry": "^0.11.0",
+    "@types/node": "^15.12.2"
+  }
+}

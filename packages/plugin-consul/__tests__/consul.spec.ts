@@ -34,9 +34,6 @@ const createService = (name = 'consul-test') => {
         }
       },
     } as Partial<ConsulConfig>,
-    logger: {
-      defaultLogger: true,
-    },
   })
 }
 

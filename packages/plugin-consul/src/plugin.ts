@@ -1,10 +1,13 @@
 import { once } from 'events'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
+import type { PluginInterface } from '@microfleet/core-types'
+import { Microfleet } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
-import { PluginTypes, Microfleet, PluginInterface, ValidatorPlugin } from '@microfleet/core'
-import { LoggerPlugin } from '@microfleet/plugin-logger'
+import { PluginTypes } from '@microfleet/utils'
 import consul = require('consul')
+import type * as _ from '@microfleet/plugin-validator'
+import type * as __ from '@microfleet/plugin-logger'
 
 /**
  * Consul configuration
@@ -22,19 +25,22 @@ type BackoffConfig = {
   factor: number,
 }
 
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    consul: consul.Consul;
+    consulLeader: consul.Lock;
+    whenLeader(): Promise<boolean>;
+  }
+
+  interface ConfigurationOptional {
+    consul: ConsulConfig
+  }
+}
+
 /**
  * Plugin name
  */
 export const name = 'consul'
-
-/**
- * Defines service extension
- */
-export interface ConsulPlugin {
-  consul: consul.Consul;
-  consulLeader: consul.Lock;
-  whenLeader(): Promise<boolean>;
-}
 
 /**
  * Plugin Type
@@ -52,7 +58,7 @@ export const priority = 0
  * @param opts - Consul Configuration Object.
  */
 export const attach = function attachConsulPlugin(
-  this: Microfleet & ValidatorPlugin & LoggerPlugin & ConsulPlugin,
+  this: Microfleet,
   opts: Partial<ConsulConfig> = {}
 ): PluginInterface {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
@@ -61,7 +67,7 @@ export const attach = function attachConsulPlugin(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const config = this.validator.ifError(name, opts) as ConsulConfig
+  const config = this.validator.ifError<ConsulConfig>(name, opts)
   const base = { ...config.base, promisify: true }
   const lockConfig = {
     key: `microfleet/${this.config.name}/leader`,
@@ -121,7 +127,7 @@ export const attach = function attachConsulPlugin(
     setTimeout(() => {
       reconnectCount += 1
       this.consulLeader.acquire()
-    }, reconnectTimeout() )
+    }, reconnectTimeout()).unref()
   }
 
   const onNewListener = (event: string) => {
@@ -147,7 +153,7 @@ export const attach = function attachConsulPlugin(
   }
 
   return {
-    async connect(this: Microfleet & ConsulPlugin) {
+    async connect(this: Microfleet) {
       this.consulLeader.on('acquire', onAcquire)
       this.consulLeader.on('release', onRelease)
       this.consulLeader.on('end', onEnd)
@@ -157,7 +163,7 @@ export const attach = function attachConsulPlugin(
       this.consulLeader.acquire()
     },
 
-    async close(this: Microfleet & ConsulPlugin) {
+    async close(this: Microfleet) {
       this.consulLeader.removeListener('acquire', onAcquire)
       this.consulLeader.removeListener('release', onRelease)
       this.consulLeader.removeListener('retry', onRetry)

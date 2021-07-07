@@ -1,0 +1,50 @@
+{
+  "$id": "router-amqp",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["prefix", "retry"],
+  "properties": {
+    "prefix": {
+      "description": "Prefix for routes",
+      "type": "string",
+      "default": "",
+      "maxLength": 120
+    },
+    "retry": {
+      "type": "object",
+      "default": {},
+      "description": "if present and enabled sets custom QoS onComplete function with delayed retry",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "min": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 1000
+        },
+        "max": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 5000
+        },
+        "maxRetries": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 10
+        },
+        "factor": {
+          "type": "number",
+          "minimum": 1,
+          "default": 1.2
+        },
+        "queue": {
+          "description": "custom DLX queue name",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

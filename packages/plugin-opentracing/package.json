@@ -1,0 +1,53 @@
+{
+  "name": "@microfleet/plugin-opentracing",
+  "description": "opentracing plugin for microfleet",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "test": "true",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "logger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-opentracing"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x",
+    "common-errors": "~1.x.x"
+  },
+  "dependencies": {
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/plugin-logger": "^0.5.5",
+    "@microfleet/plugin-validator": "^0.0.0",
+    "@microfleet/utils": "^0.0.0",
+    "jaeger-client": "^3.18.1"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.5.4",
+    "@types/jaeger-client": "^3.18.0",
+    "common-errors": "^1.2.0"
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

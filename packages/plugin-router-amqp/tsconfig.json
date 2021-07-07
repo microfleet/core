@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [{
+    "path": "../core/tsconfig.json"
+  }, {
+    "path": "../plugin-amqp/tsconfig.json"
+  }, {
+    "path": "../plugin-logger/tsconfig.json"
+  }, {
+    "path": "../plugin-router/tsconfig.json"
+  }]
+}

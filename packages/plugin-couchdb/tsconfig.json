@@ -4,8 +4,5 @@
     "path": "../core/tsconfig.json"
   }, {
     "path": "../plugin-logger/tsconfig.json"
-  }],
-  "compilerOptions": {
-    "skipLibCheck": true
-  }
+  }]
 }

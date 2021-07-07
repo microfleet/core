@@ -1,10 +1,14 @@
 import assert = require('assert')
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
-import { LoggerPlugin } from '@microfleet/plugin-logger'
-import { Microfleet, PluginTypes, PluginInterface, ValidatorPlugin } from '@microfleet/core'
+import type { PluginInterface } from '@microfleet/core-types'
+import type { Microfleet } from '@microfleet/core'
+import { PluginTypes } from '@microfleet/utils'
 import retry = require('bluebird-retry')
-import Knex = require('knex')
+import { knex, Knex } from 'knex'
+
+import '@microfleet/plugin-logger'
+import '@microfleet/plugin-validator'
 
 /**
  * Relative priority inside the same plugin group type
@@ -12,19 +16,25 @@ import Knex = require('knex')
 export const priority = 0
 export const name = 'knex'
 export const type = PluginTypes.database
-export interface KnexPlugin {
-  knex: Knex;
+declare module '@microfleet/core-types' {
+  interface Microfleet {
+    knex: Knex;
+  }
+
+  interface ConfigurationOptional {
+    knex: Knex.Config
+  }
 }
 
 /**
  * Defines closure
  */
-const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): PluginInterface => ({
+const startupHandlers = (service: Microfleet, knex: Knex): PluginInterface => ({
   async connect() {
     const establishConnection = async () => {
       try {
         const result = await knex.raw('SELECT TRUE;')
-        assert.equal(result.rows[0].bool, true)
+        assert.strictEqual(result.rows[0].bool, true)
       } catch (err) {
         service.log.warn({ err }, 'Failed to connect to PGSQL')
         throw err
@@ -52,7 +62,7 @@ const startupHandlers = (service: Microfleet & LoggerPlugin, knex: Knex): Plugin
 })
 
 export function attach(
-  this: Microfleet & LoggerPlugin & ValidatorPlugin,
+  this: Microfleet,
   params: Knex.Config | string = {}
 ): PluginInterface {
   const { validator } = this
@@ -62,10 +72,10 @@ export function attach(
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const opts = validator.ifError('knex', params)
-  const config: Knex.Config = validator.ifError(`knex.${opts.client}`, opts)
+  const opts = validator.ifError<Knex.Config>('knex', params)
+  const config = validator.ifError<Knex.Config>(`knex.${opts.client}`, opts)
 
-  const knex = this.knex = Knex(config)
+  this.knex = knex(config)
 
-  return startupHandlers(this, knex)
+  return startupHandlers(this, this.knex)
 }

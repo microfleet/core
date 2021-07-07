@@ -1,0 +1,14 @@
+{
+  "name": "@benchmark/microfleet-17",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {
+    "@hapi/boom": "^9.1.1",
+    "@hapi/hapi": "^20.1.0",
+    "@hapi/joi": "^17.1.1",
+    "@microfleet/core": "^17.5.4",
+    "@microfleet/transport-amqp": "^15.2.5",
+    "@microfleet/validation": "^10.0.2",
+    "common-errors": "^1.2.0"
+  }
+}

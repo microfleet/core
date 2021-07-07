@@ -1,0 +1,59 @@
+{
+  "name": "@microfleet/plugin-router-amqp",
+  "version": "0.0.0-dev.0",
+  "description": "AMQP transport adapter for router",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "lint": "eslint ./src ./__tests__",
+    "test": "yarn test:e2e",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "router",
+    "amqp",
+    "rabbitmq"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-router-amqp"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "~17.x.x",
+    "common-errors": "~1.x.x"
+  },
+  "dependencies": {
+    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/plugin-amqp": "^0.0.0-dev.0",
+    "@microfleet/plugin-logger": "^0.5.5",
+    "@microfleet/plugin-router": "^0.0.0-dev.0",
+    "@microfleet/transport-amqp": "^15.2.7",
+    "bluebird": "^3.7.2",
+    "event-to-promise": "^0.8.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@microfleet/core": "^17.3.4",
+    "@types/bluebird": "^3.5.35",
+    "@types/event-to-promise": "^0.7.0"
+  },
+  "engines": {
+    "node": ">= 12.14.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

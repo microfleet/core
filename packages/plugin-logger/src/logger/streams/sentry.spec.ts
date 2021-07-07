@@ -2,11 +2,10 @@ import * as Sentry from '@sentry/node'
 import { LogLevel } from '@sentry/types'
 import pinoms = require('pino-multi-stream')
 import { createSandbox, match } from 'sinon'
+import { sentryStreamFactory, SentryStream } from './sentry'
 
 describe('Logger Sentry Stream Suite', () => {
   const sandbox = createSandbox()
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { sentryStreamFactory, SentryStream } = require('./sentry')
 
   afterEach(() => {
     sandbox.restore()
@@ -17,7 +16,8 @@ describe('Logger Sentry Stream Suite', () => {
 
     const { stream, level } = sentryStreamFactory({
       dsn: 'https://api@sentry.io/1822',
-      logLevel: LogLevel.Error
+      logLevel: LogLevel.Error,
+      release: 'test',
     })
 
     expect(level).toBe('error')
@@ -25,17 +25,31 @@ describe('Logger Sentry Stream Suite', () => {
     expect(typeof stream.write === 'function').toBe(true)
     expect(sentryInitSpy.calledOnceWithExactly({
       dsn: 'https://api@sentry.io/1822',
-      defaultIntegrations: false,
+      defaultIntegrations: [],
       logLevel: LogLevel.Error,
+      release: 'test',
+      autoSessionTracking: false,
       integrations: [match.instanceOf(Sentry.Integrations.Console)] as any,
+      _metadata: {
+        sdk: {
+          name: 'sentry.javascript.node',
+          packages: [{
+              name: 'npm:@sentry/node',
+              version: Sentry.SDK_VERSION,
+          }],
+          version: Sentry.SDK_VERSION,
+        },
+      },
     })).toBe(true)
   })
 
   it('sentryStreamFactory() result should be able to handle pinoms message', () => {
     const streamConfig = sentryStreamFactory({
       dsn: 'https://api@sentry.io/1822',
+      release: 'test',
     })
     const { stream } = streamConfig
+    // @ts-expect-error - slightly invalid types, will work
     const logger = pinoms({ streams: [stream] })
 
     const captureEventSpy = sandbox.spy(Sentry, 'captureEvent')
@@ -84,6 +98,7 @@ describe('Logger Sentry Stream Suite', () => {
     ]
 
     invalidFingerprints.forEach(fingerprint => {
+      // @ts-expect-error checking invalid fingerprints
       expect(() => stream.getSentryFingerprint(fingerprint)).toThrow({
         name: 'AssertionError',
         message: '"$fingerprint" option value has to be an array of strings',
