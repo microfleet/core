@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.2.14...@microfleet/plugin-consul@2.3.0) (2021-07-08)
+
+
+### Bug Fixes
+
+* conflicts ([035ec0d](https://github.com/microfleet/core/commit/035ec0da4959036ba6b31c948c0d06713dafa5b8))
+* **tests:** upgrade transport-amqp ([012e4ee](https://github.com/microfleet/core/commit/012e4eecad069782c2c55dde92f88df503669a1e))
+* type updates ([af430df](https://github.com/microfleet/core/commit/af430dff91213d280e5aa3f0fd5592695553e9c2))
+
+
+### Features
+
+* elasticsearch, redis plugins ([79bc4c3](https://github.com/microfleet/core/commit/79bc4c384abb8cf9902697cc3931130e00397a69))
+* externalize opentracing & prometheus ([f32f7fd](https://github.com/microfleet/core/commit/f32f7fd9729aaf849f67a3bfa0612c7b3a43dbe3))
+* kafka upgrades, remove unused plugins ([12f8018](https://github.com/microfleet/core/commit/12f8018ceade8d95759da09eac8bab2ab9a9aade))
+* move out plugin validator ([47abe87](https://github.com/microfleet/core/commit/47abe87e8252eb427ee72de46d7e9740f2071ab5))
+* plugin-router-socketio ([#468](https://github.com/microfleet/core/issues/468)) ([d83468e](https://github.com/microfleet/core/commit/d83468e2d207c4818adcc14e2b2a1560e6f0aa1e))
+
+
+
+
+
 ## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.2.13...@microfleet/plugin-consul@2.2.14) (2021-04-15)
 
 **Note:** Version bump only for package @microfleet/plugin-consul

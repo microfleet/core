@@ -3,7 +3,7 @@
   "description": "knex - universal *sql adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.3.6",
+  "version": "2.4.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -33,17 +33,17 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "^0.0.0",
-    "@microfleet/plugin-logger": "^0.5.0",
-    "@microfleet/plugin-validator": "^0.0.0",
-    "@microfleet/utils": "^0.0.0",
+    "@microfleet/core-types": "^0.1.0",
+    "@microfleet/plugin-logger": "^0.6.0",
+    "@microfleet/plugin-validator": "^0.1.0",
+    "@microfleet/utils": "^0.1.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "knex": "^0.95.6",
     "pg": "^8.6.0"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.6.0",
+    "@microfleet/core": "^17.7.0",
     "@types/bluebird": "^3.5.35",
     "@types/bluebird-retry": "^0.11.4",
     "common-errors": "^1.2.0"

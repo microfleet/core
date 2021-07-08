@@ -3,7 +3,7 @@
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.0.0-dev.9",
+  "version": "0.0.0-dev.10",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/core-types": "^0.0.0",
+    "@microfleet/core-types": "^0.1.0",
     "@microfleet/dlock": "^13.0.0",
     "@microfleet/ioredis-lock": "^5.0.0",
-    "@microfleet/plugin-validator": "^0.0.0",
-    "@microfleet/utils": "^0.0.0",
+    "@microfleet/plugin-validator": "^0.1.0",
+    "@microfleet/utils": "^0.1.0",
     "bluebird": "^3.4.0",
     "common-errors": "^1.x.x",
     "ioredis": "^4.27.5"
@@ -41,11 +41,11 @@
     "@microfleet/core": "~17.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.6.0",
-    "@microfleet/plugin-logger": "^0.5.6",
-    "@microfleet/plugin-redis-cluster": "^0.0.0",
-    "@microfleet/plugin-redis-sentinel": "^0.0.0",
-    "@microfleet/plugin-router": "^0.0.0-dev.0",
+    "@microfleet/core": "^17.7.0",
+    "@microfleet/plugin-logger": "^0.6.0",
+    "@microfleet/plugin-redis-cluster": "^0.1.0",
+    "@microfleet/plugin-redis-sentinel": "^0.1.0",
+    "@microfleet/plugin-router": "^0.0.0-dev.1",
     "@types/bluebird": "^3.5.35",
     "@types/ioredis": "^4.26.4"
   },

@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [17.7.0](https://github.com/microfleet/core/compare/@microfleet/core@17.6.0...@microfleet/core@17.7.0) (2021-07-08)
+
+
+### Bug Fixes
+
+* conflicts ([650e327](https://github.com/microfleet/core/commit/650e3278a612917cea6f30d74826785dfd021d23))
+* conflicts ([035ec0d](https://github.com/microfleet/core/commit/035ec0da4959036ba6b31c948c0d06713dafa5b8))
+* termination sequence ([044fbe8](https://github.com/microfleet/core/commit/044fbe833651680f08e27fd8bebb4c59805d8b7f))
+* **tests:** upgrade transport-amqp ([012e4ee](https://github.com/microfleet/core/commit/012e4eecad069782c2c55dde92f88df503669a1e))
+* **types:** upgrade @microfleet/transport-amqp ([6ae1973](https://github.com/microfleet/core/commit/6ae1973cfdefad44f894cda10dc24c52d80464e1))
+* couchdb plugin ([fd9289b](https://github.com/microfleet/core/commit/fd9289bcad542efe83af1746af2a2c9ca3e75604))
+* linter error ([0de549b](https://github.com/microfleet/core/commit/0de549b44023106ae9a29d9afb45680f5050f84d))
+* merge router to validator branch ([bfb9258](https://github.com/microfleet/core/commit/bfb92589e391a0f2c2d5b232744695b0ae4b8dfc))
+* plugin-socketio tests ([bc3c0ee](https://github.com/microfleet/core/commit/bc3c0ee7d46174e09111cc2f18a8ede1d9277e02))
+* remove old files ([13be308](https://github.com/microfleet/core/commit/13be30889f1aea9b61157b4c9a2d53012b48a1d2))
+* temp fix for CI ([5364807](https://github.com/microfleet/core/commit/53648073309a13e93f0b0030b14513f14dc1c092))
+* try lint on CI ([6288390](https://github.com/microfleet/core/commit/628839088cc12969bad1b76baec6007c0f693226))
+* ts-ignore for pino symbol ([8847eae](https://github.com/microfleet/core/commit/8847eae445f984b58ab95d607a3c62755579697d))
+* type updates ([af430df](https://github.com/microfleet/core/commit/af430dff91213d280e5aa3f0fd5592695553e9c2))
+
+
+### Features
+
+* elasticsearch, redis plugins ([79bc4c3](https://github.com/microfleet/core/commit/79bc4c384abb8cf9902697cc3931130e00397a69))
+* externalize opentracing & prometheus ([f32f7fd](https://github.com/microfleet/core/commit/f32f7fd9729aaf849f67a3bfa0612c7b3a43dbe3))
+* improve perf based on benchmarks ([2ad3aac](https://github.com/microfleet/core/commit/2ad3aac102721d47184263b008ff1d92fa54d754))
+* kafka upgrades, remove unused plugins ([12f8018](https://github.com/microfleet/core/commit/12f8018ceade8d95759da09eac8bab2ab9a9aade))
+* merge router ([c05d1d9](https://github.com/microfleet/core/commit/c05d1d97c3ab0e2d6e55729b4c5fca4bf346751b))
+* merge router amqp ([5f487cb](https://github.com/microfleet/core/commit/5f487cb8173c447111962807bb9fb9fb195e1583))
+* move out plugin validator ([47abe87](https://github.com/microfleet/core/commit/47abe87e8252eb427ee72de46d7e9740f2071ab5))
+* plugin-amqp, plugin-router-amqp ([b661ffb](https://github.com/microfleet/core/commit/b661ffb3c6effa0f4f87c2eff1b7a65653b033ff))
+* plugin-cassandra ([2a53771](https://github.com/microfleet/core/commit/2a5377101a296bec97dddde1349c3de3c509aab9))
+* plugin-http ([1e68ae1](https://github.com/microfleet/core/commit/1e68ae150b09d8656ee3f3518361970908994cd1))
+* plugin-router-http ([70725f9](https://github.com/microfleet/core/commit/70725f9c1cab7a6766b92a8db9999e3624b69742))
+* plugin-router-socketio ([#468](https://github.com/microfleet/core/issues/468)) ([d83468e](https://github.com/microfleet/core/commit/d83468e2d207c4818adcc14e2b2a1560e6f0aa1e))
+
+
+
+
+
 # [17.6.0](https://github.com/microfleet/core/compare/@microfleet/core@17.5.4...@microfleet/core@17.6.0) (2021-04-15)
 
 

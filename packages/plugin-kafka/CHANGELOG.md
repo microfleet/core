@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.6.6...@microfleet/plugin-kafka@2.7.0) (2021-07-08)
+
+
+### Bug Fixes
+
+* conflicts ([035ec0d](https://github.com/microfleet/core/commit/035ec0da4959036ba6b31c948c0d06713dafa5b8))
+* missing schema publish in redis sentinel plugin ([be06397](https://github.com/microfleet/core/commit/be0639786ac3d7d796d7b045d149038f544ea82b))
+* update dlock plugin ([2f506ac](https://github.com/microfleet/core/commit/2f506ac0d472db27cd6637c5138b1b2e38ae91ce))
+* **debug:** skip kafka test ([9e0998d](https://github.com/microfleet/core/commit/9e0998d8ab03827f1404ff410469c94dcc253327))
+* **debug:** skip kafka test ([ccabf1a](https://github.com/microfleet/core/commit/ccabf1a6b0156851b6b830cf1f83e81556548562))
+* **tests:** enable kafka tests ([be9f6b4](https://github.com/microfleet/core/commit/be9f6b4d5574e9a4fd54fea2535df1d2ab23a2bc))
+* **tests:** upgrade transport-amqp ([012e4ee](https://github.com/microfleet/core/commit/012e4eecad069782c2c55dde92f88df503669a1e))
+* kafka typings ([a2a4a7e](https://github.com/microfleet/core/commit/a2a4a7e7c0c2e57639e9dd59b6736d056f7528f6))
+* linter error ([0de549b](https://github.com/microfleet/core/commit/0de549b44023106ae9a29d9afb45680f5050f84d))
+* ts-ignore for pino symbol ([8847eae](https://github.com/microfleet/core/commit/8847eae445f984b58ab95d607a3c62755579697d))
+* type updates ([af430df](https://github.com/microfleet/core/commit/af430dff91213d280e5aa3f0fd5592695553e9c2))
+
+
+### Features
+
+* elasticsearch, redis plugins ([79bc4c3](https://github.com/microfleet/core/commit/79bc4c384abb8cf9902697cc3931130e00397a69))
+* improve perf based on benchmarks ([2ad3aac](https://github.com/microfleet/core/commit/2ad3aac102721d47184263b008ff1d92fa54d754))
+* kafka upgrades, remove unused plugins ([12f8018](https://github.com/microfleet/core/commit/12f8018ceade8d95759da09eac8bab2ab9a9aade))
+* merge router ([c05d1d9](https://github.com/microfleet/core/commit/c05d1d97c3ab0e2d6e55729b4c5fca4bf346751b))
+* move out plugin validator ([47abe87](https://github.com/microfleet/core/commit/47abe87e8252eb427ee72de46d7e9740f2071ab5))
+* plugin-cassandra ([2a53771](https://github.com/microfleet/core/commit/2a5377101a296bec97dddde1349c3de3c509aab9))
+* plugin-http ([1e68ae1](https://github.com/microfleet/core/commit/1e68ae150b09d8656ee3f3518361970908994cd1))
+* plugin-router-http ([70725f9](https://github.com/microfleet/core/commit/70725f9c1cab7a6766b92a8db9999e3624b69742))
+
+
+
+
+
 ## [2.6.6](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.6.5...@microfleet/plugin-kafka@2.6.6) (2021-04-15)
 
 **Note:** Version bump only for package @microfleet/plugin-kafka
