@@ -204,7 +204,7 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public close(cb?: (err?: Error | null, result?: any) => void): void {
-    if ((this.endEmitted || this.destroyed || this.consumerDisconnected())) {
+    if (this.endEmitted || !this.consumer.isConnected()) {
       if (cb) cb()
       return
     }
@@ -308,17 +308,19 @@ export class KafkaConsumerStream extends Readable {
 
   private async handleRebalance(err: LibrdKafkaError, assignments: Assignment[] = []) {
     this.log?.debug({ err, assignments }, 'rebalance')
+
+    // IMPORTANT: assign/unassign executed by the library, we clean only local offsets registries
+    // https://github.com/Blizzard/node-rdkafka/blob/4885043477f5e595a584edf6b37b93233d71bb7a/lib/kafka-consumer.js#L54
+
     switch (err.code) {
       case Generic.ERR__ASSIGN_PARTITIONS:
         // eslint-disable-next-line no-case-declarations
         const committedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
         this.log?.debug({ committedOffsets }, 'Check previous committed offsets')
         this.updatePartitionOffsets(committedOffsets, this.offsetTracker)
-        this.consumer.assign(assignments)
         break
 
       case Generic.ERR__REVOKE_PARTITIONS:
-        this.consumer.unassign()
         if (!this.consumerDisconnected()) {
           this.cleanPartitionOffsets(assignments, this.offsetTracker)
           this.cleanPartitionOffsets(assignments, this.unacknowledgedTracker)
@@ -432,13 +434,6 @@ export class KafkaConsumerStream extends Readable {
         await this.closeAsync()
         return
       }
-
-      // const eof = await this.allMessagesRead()
-      // if (eof) {
-      //   this.log?.debug('eof reached')
-      //   this.push(null)
-      //   return
-      // }
     } catch (err) {
       this.log?.error({ err }, 'check eof error')
 
