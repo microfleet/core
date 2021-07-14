@@ -10,7 +10,6 @@ import { OffsetCommitError, CriticalErrors, RetryableErrors, UncommittedOffsetsE
 import { TopicPartitionOffset, SubscribeTopicList, Assignment, EofEvent } from 'node-rdkafka'
 
 export type CommitOffsetTracker = Map<string, TopicPartitionOffset>
-export const EVENT_CONSUMED = 'consumed'
 export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
 
 const isTopicPartitionOffset = (obj: any): obj is TopicPartitionOffset => {
@@ -51,8 +50,6 @@ export class KafkaConsumerStream extends Readable {
 
   private topics: SubscribeTopicList
   private messages: (Message | Message[])[]
-  // private consuming: boolean
-  private destroying: boolean
   private autoStore: boolean
   private readStarted: boolean
   private hasError: boolean
@@ -68,13 +65,11 @@ export class KafkaConsumerStream extends Readable {
     const fetchSize = config.fetchSize || 1
     const highWaterMark = config.streamAsBatch ? 1 : fetchSize
 
-    super({ highWaterMark, objectMode: true })
+    super({ highWaterMark, objectMode: true, emitClose: true })
 
     if (log) this.log = log.child({ topic: config.topics })
 
     this.config = config
-    // this.consuming = false
-    this.destroying = false
     this.readStarted = false
     this.endEmitted = false
     this.hasError = false
@@ -195,7 +190,7 @@ export class KafkaConsumerStream extends Readable {
       if (callback) callback(err || null)
     }
 
-    if (!this.consumer.isConnected()) {
+    if (this.consumerDisconnected()) {
       next()
       return
     }
@@ -204,6 +199,8 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public close(cb?: (err?: Error | null, result?: any) => void): void {
+    this.consumer.disconnect()
+
     if (this.endEmitted || !this.consumer.isConnected()) {
       if (cb) cb()
       return
@@ -216,12 +213,10 @@ export class KafkaConsumerStream extends Readable {
     this.on('close', () => {
       if (cb) cb()
     })
-
-    this.consumer.disconnect()
   }
 
   private inDestroyingState(): boolean {
-    return this.consumerDisconnected() || this.destroying
+    return this.consumerDisconnected()
   }
 
   private consumerDisconnected(): boolean {
@@ -272,16 +267,8 @@ export class KafkaConsumerStream extends Readable {
       this.updatePartitionOffsets(partitions, this.offsetTracker)
     }
 
-    // once all acks were processed - be done with it
-    // we should check consumer position even if some errors happened
-    // otherwise consumer will not resume reading
     if (!this.hasOutstandingAcks()) {
       await this.checkEof()
-
-      // notify that received chunk processed
-      // this.consuming = false
-      this.emit(EVENT_CONSUMED)
-      return
     }
   }
 
@@ -372,7 +359,7 @@ export class KafkaConsumerStream extends Readable {
     this.log?.debug({ autoStore, offsets: [...unacknowledgedTracker.values()] }, 'Before offset store')
 
     // We already have all max offsets inside unacknowledgedTracker. Let's mark them for commit
-    if (autoStore) this.consumer.offsetsStore([...unacknowledgedTracker.values()])
+    if (autoStore && !this.consumerDisconnected()) this.consumer.offsetsStore([...unacknowledgedTracker.values()])
 
     if (this.config.streamAsBatch) {
       this.messages.push(exceptPreviousOffset)
