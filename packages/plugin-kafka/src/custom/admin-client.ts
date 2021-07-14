@@ -106,14 +106,16 @@ export class KafkaAdminClient {
   }
 
   private async waitFor(client: KafkaClient, topicName: string, criteria: WaitCriteria, params?: retry.Options): Promise<TopicMetadata> {
-    const retryParams = merge(params, this.defaultWaitParams)
+    const retryParams = merge(this.defaultWaitParams, params)
     let attempts = 0
 
     return retry(async () => {
       attempts += 1
       const filtered = await this.getTopicFromMeta(client, topicName)
       if (criteria(filtered)) return filtered
-      throw new TopicWaitError(`topic '${topicName}' wait error`, params, { attempts, operation: criteria.operation })
+      const waitError = new TopicWaitError(`topic '${topicName}' ${criteria.operation} wait error`, params, { attempts, operation: criteria.operation })
+      this.service.log.debug({ error: waitError }, 'Operation retry attempt error')
+      throw waitError
     }, retryParams)
   }
 }

@@ -88,7 +88,12 @@ describe('#generic', () => {
 
       const { admin } = kafka
 
-      await admin.createTopic({ topic: { topic, num_partitions: 1, replication_factor: 1 }})
+      await admin.createTopic({
+        topic: { topic, num_partitions: 1, replication_factor: 1 },
+        params: {
+          interval: 1000,
+        }
+      })
       const meta = await producerTemp.producer.getMetadataAsync({ allTopics: true })
       expect(meta.topics).toEqual(
         expect.arrayContaining([
@@ -96,7 +101,13 @@ describe('#generic', () => {
         ])
       )
 
-      await admin.deleteTopic({ topic })
+      await admin.deleteTopic({
+        topic,
+        params: {
+          interval: 1000,
+        },
+      })
+
       const metaAfter = await producerTemp.producer.getMetadataAsync({ topic })
       expect(metaAfter.topics).not.toEqual(
         expect.arrayContaining([
