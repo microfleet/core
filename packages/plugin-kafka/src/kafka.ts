@@ -28,6 +28,7 @@ import {
 import { getLogFnName, topicExists } from './util'
 import { KafkaConsumerStream } from './custom/consumer-stream'
 import { KafkaAdminClient } from './custom/admin-client'
+import { noop } from 'lodash'
 
 export { OffsetCommitError, UncommittedOffsetsError, TopicNotFoundError } from './custom/errors'
 export { DeleteTopicRequest, CreateTopicRequest, RetryOptions } from './custom/admin-client'
@@ -84,7 +85,10 @@ export class KafkaFactory {
     const consumerConfig: ConsumerStreamConfig['conf'] = {
       ...opts.conf,
       offset_commit_cb: opts.conf?.offset_commit_cb || true,
-      rebalance_cb: opts.conf?.rebalance_cb || true,
+      // consumer stream manages assign/unassing so we should pass function as callback
+      rebalance_cb: typeof opts.conf?.rebalance_cb === 'function'
+        ? opts.conf?.rebalance_cb
+        : noop,
       'enable.auto.offset.store': false,
       'enable.partition.eof': true, // new feature, allows us to listen to eof event
     }

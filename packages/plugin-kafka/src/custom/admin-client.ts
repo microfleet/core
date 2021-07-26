@@ -106,7 +106,7 @@ export class KafkaAdminClient {
   }
 
   private async waitFor(client: KafkaClient, topicName: string, criteria: WaitCriteria, params?: retry.Options): Promise<TopicMetadata> {
-    const retryParams = merge(this.defaultWaitParams, params)
+    const retryParams = merge(Object.create(null), this.defaultWaitParams, params)
     let attempts = 0
 
     return retry(async () => {
