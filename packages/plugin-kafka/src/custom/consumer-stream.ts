@@ -187,7 +187,7 @@ export class KafkaConsumerStream extends Readable {
     const next = () => {
       if (callback) callback(err || null)
     }
-
+    this.log?.debug({ err, disconnected: this.consumerDisconnected() }, '____destroy')
     if (this.consumerDisconnected()) {
       next()
       return
@@ -285,15 +285,18 @@ export class KafkaConsumerStream extends Readable {
   private async handleRebalance(err: LibrdKafkaError, assignments: Assignment[] = []) {
     this.log?.debug({ err, assignments }, 'rebalance')
 
-    // IMPORTANT: assign/unassign executed by the library, we clean only local offsets registries
-    // https://github.com/Blizzard/node-rdkafka/blob/4885043477f5e595a584edf6b37b93233d71bb7a/lib/kafka-consumer.js#L54
-
     switch (err.code) {
       case Generic.ERR__ASSIGN_PARTITIONS:
-        // eslint-disable-next-line no-case-declarations
-        const committedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
-        this.updatePartitionOffsets(committedOffsets, this.offsetTracker)
-        this.consumer.assign(committedOffsets)
+        try {
+          // eslint-disable-next-line no-case-declarations
+          const committedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
+          this.updatePartitionOffsets(committedOffsets, this.offsetTracker)
+          this.consumer.assign(committedOffsets)
+        } catch (assignError) {
+          this.log?.error(assignError, 'ConsumerStream assign partition handler error')
+          this.consumer.unassign()
+          this.destroy(assignError)
+        }
         break
 
       case Generic.ERR__REVOKE_PARTITIONS:

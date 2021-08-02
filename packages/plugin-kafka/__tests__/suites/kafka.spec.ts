@@ -40,6 +40,7 @@ describe('#generic', () => {
   })
 
   afterEach(async () => {
+    sinon.restore()
     if (service) await service.close()
   })
 
@@ -291,6 +292,35 @@ describe('#generic', () => {
   })
 
   describe('connected to broker', () => {
+    test('consumer rebalance error', async () => {
+      const topic = 'test-throw-on-rebalance'
+
+      producer = await createProducerStream(service)
+      await sendMessages(producer, topic, 100)
+      await producer.closeAsync()
+
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+        },
+        conf: {
+          'group.id': topic,
+        },
+      })
+
+      sinon.stub(consumerStream.consumer, 'committedAsync').rejects(new Error('test rebalance error'))
+
+      const receivedMessages: any[] = []
+      const read = async () => {
+        for await (const incomingMessage of consumerStream) {
+          const messages = msgsToArr(incomingMessage)
+          receivedMessages.push(...messages)
+        }
+      }
+
+      await expect(read()).rejects.toThrowError('test rebalance error')
+    })
+
     test('on disconnected consumer with auto.commit', async () => {
       const topic = 'test-throw-disconnected-consumer'
 
