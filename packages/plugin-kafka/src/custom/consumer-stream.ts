@@ -1,16 +1,15 @@
 import { Readable } from 'stream'
 import * as assert from 'assert'
 import { once } from 'events'
-import { find, uniqWith, isEqual } from 'lodash'
-import { map, promisify, delay } from 'bluebird'
+import { uniqWith, isEqual } from 'lodash'
+import { promisify, delay } from 'bluebird'
 import type { Logger } from '@microfleet/plugin-logger'
 import type { ConsumerStreamOptions } from '@microfleet/plugin-kafka-types'
-import { KafkaConsumer, Message, TopicPartition, LibrdKafkaError } from './rdkafka-extra'
+import { KafkaConsumer, Message, LibrdKafkaError } from './rdkafka-extra'
 import { OffsetCommitError, CriticalErrors, RetryableErrors, UncommittedOffsetsError, Generic /*, CommitTimeoutError*/ } from './errors'
 import { TopicPartitionOffset, SubscribeTopicList, Assignment, EofEvent } from 'node-rdkafka'
 
 export type CommitOffsetTracker = Map<string, TopicPartitionOffset>
-export const EVENT_CONSUMED = 'consumed'
 export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'
 
 const isTopicPartitionOffset = (obj: any): obj is TopicPartitionOffset => {
@@ -41,16 +40,16 @@ export class KafkaConsumerStream extends Readable {
   private config: ConsumerStreamOptions
   private fetchSize: number
   private offsetQueryTimeout: number
-  // private offsetCommitTimeout: number
+
   private offsetTracker: CommitOffsetTracker
   private unacknowledgedTracker: CommitOffsetTracker
+  private partitionEofs: CommitOffsetTracker
+
   private log?: Logger
   private endEmitted: boolean
 
   private topics: SubscribeTopicList
   private messages: (Message | Message[])[]
-  // private consuming: boolean
-  private destroying: boolean
   private autoStore: boolean
   private readStarted: boolean
   private hasError: boolean
@@ -66,22 +65,20 @@ export class KafkaConsumerStream extends Readable {
     const fetchSize = config.fetchSize || 1
     const highWaterMark = config.streamAsBatch ? 1 : fetchSize
 
-    super({ highWaterMark, objectMode: true })
-
+    super({ highWaterMark, objectMode: true, emitClose: true })
     if (log) this.log = log.child({ topic: config.topics })
-
     this.config = config
-    // this.consuming = false
-    this.destroying = false
     this.readStarted = false
     this.endEmitted = false
     this.hasError = false
     this.fetchSize = fetchSize
 
     this.offsetQueryTimeout = config.offsetQueryTimeout || 200
-    // this.offsetCommitTimeout = config.offsetCommitTimeout || 5000
+
     this.offsetTracker = new Map()
     this.unacknowledgedTracker = new Map()
+    this.partitionEofs = new Map()
+
     this.consumer = consumer
     this.autoStore = config.autoOffsetStore !== false
 
@@ -190,8 +187,8 @@ export class KafkaConsumerStream extends Readable {
     const next = () => {
       if (callback) callback(err || null)
     }
-
-    if (!this.consumer.isConnected()) {
+    this.log?.debug({ err, disconnected: this.consumerDisconnected() }, '____destroy')
+    if (this.consumerDisconnected()) {
       next()
       return
     }
@@ -200,11 +197,14 @@ export class KafkaConsumerStream extends Readable {
   }
 
   public close(cb?: (err?: Error | null, result?: any) => void): void {
+    if (this.endEmitted || this.consumerDisconnected()) {
+      if (cb) cb()
+    }
     this.consumer.disconnect(cb)
   }
 
   private inDestroyingState(): boolean {
-    return this.consumerDisconnected() || this.destroying
+    return this.consumerDisconnected()
   }
 
   private consumerDisconnected(): boolean {
@@ -221,7 +221,7 @@ export class KafkaConsumerStream extends Readable {
     eof.eof = true
 
     this.log?.info({ eof }, 'eof event')
-    this.handleOffsetCommit(null, [eof])
+    await this.updatePartitionEof(eof, this.partitionEofs)
   }
 
   private async handleOffsetCommit(err: LibrdKafkaError | null | undefined , partitions: TopicPartitionOffset[]): Promise<void> {
@@ -252,19 +252,12 @@ export class KafkaConsumerStream extends Readable {
     }
 
     if (!err) {
+      this.log?.debug({ partitions }, 'handle offset.commit')
       this.updatePartitionOffsets(partitions, this.offsetTracker)
     }
 
-    // once all acks were processed - be done with it
-    // we should check consumer position even if some errors happened
-    // otherwise consumer will not resume reading
     if (!this.hasOutstandingAcks()) {
       await this.checkEof()
-
-      // notify that received chunk processed
-      // this.consuming = false
-      this.emit(EVENT_CONSUMED)
-      return
     }
   }
 
@@ -291,18 +284,28 @@ export class KafkaConsumerStream extends Readable {
 
   private async handleRebalance(err: LibrdKafkaError, assignments: Assignment[] = []) {
     this.log?.debug({ err, assignments }, 'rebalance')
+
     switch (err.code) {
       case Generic.ERR__ASSIGN_PARTITIONS:
-        this.updatePartitionOffsets(assignments, this.offsetTracker)
-        this.consumer.assign(assignments)
+        try {
+          // eslint-disable-next-line no-case-declarations
+          const committedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
+          this.updatePartitionOffsets(committedOffsets, this.offsetTracker)
+          this.consumer.assign(committedOffsets)
+        } catch (assignError) {
+          this.log?.error(assignError, 'ConsumerStream assign partition handler error')
+          this.consumer.unassign()
+          this.destroy(assignError)
+        }
         break
 
       case Generic.ERR__REVOKE_PARTITIONS:
-        this.consumer.unassign()
         if (!this.consumerDisconnected()) {
           this.cleanPartitionOffsets(assignments, this.offsetTracker)
           this.cleanPartitionOffsets(assignments, this.unacknowledgedTracker)
+          this.cleanPartitionOffsets(assignments, this.partitionEofs)
         }
+        this.consumer.unassign()
         break
 
       default:
@@ -349,7 +352,7 @@ export class KafkaConsumerStream extends Readable {
     this.log?.debug({ autoStore, offsets: [...unacknowledgedTracker.values()] }, 'Before offset store')
 
     // We already have all max offsets inside unacknowledgedTracker. Let's mark them for commit
-    if (autoStore) this.consumer.offsetsStore([...unacknowledgedTracker.values()])
+    if (autoStore && !this.consumerDisconnected()) this.consumer.offsetsStore([...unacknowledgedTracker.values()])
 
     if (this.config.streamAsBatch) {
       this.messages.push(exceptPreviousOffset)
@@ -411,13 +414,6 @@ export class KafkaConsumerStream extends Readable {
         await this.closeAsync()
         return
       }
-
-      // const eof = await this.allMessagesRead()
-      // if (eof) {
-      //   this.log?.debug('eof reached')
-      //   this.push(null)
-      //   return
-      // }
     } catch (err) {
       this.log?.error({ err }, 'check eof error')
 
@@ -430,47 +426,6 @@ export class KafkaConsumerStream extends Readable {
     if (!this.inDestroyingState()) {
       this.consumer.resume(this.consumer.assignments())
     }
-  }
-
-  /**
-   * Detects EOF on consumed topic partitions
-   * @deprecated - we are listening to partition.eof method instead now
-   */
-  public async allMessagesRead(): Promise<boolean> {
-    const { consumer } = this
-
-    const assignments: TopicPartition[] = consumer.assignments()
-
-    if (assignments.length === 0) {
-      this.log?.debug('allMessagesRead no assignments')
-      return true
-    }
-
-    const localPositions = await this.getPositions(assignments)
-    const remoteOffsets = await map(assignments, async ({ topic, partition }) => {
-      const offsets = await consumer.queryWatermarkOffsetsAsync(topic, partition, this.offsetQueryTimeout)
-
-      return {
-        topic,
-        partition,
-        ...offsets,
-      }
-    })
-
-    const partitionStatus = remoteOffsets.map((offsetInfo: any) => {
-      const { highOffset, topic, partition } = offsetInfo
-      const localPosition = find(localPositions, { topic, partition })
-
-      if (!localPosition) return false
-      // remote high offset is 0 when there is no data in topic
-      // client offset is -1001 when no data read
-      const localOffset = localPosition.offset === UNKNOWN_OFFSET ? 0 : localPosition.offset
-      return localPosition ? highOffset === localOffset : false
-    })
-
-    this.log?.debug({ result: !partitionStatus.includes(false), remoteOffsets, localPositions }, 'allMessagesRead')
-
-    return !partitionStatus.includes(false)
   }
 
   /**
@@ -499,31 +454,29 @@ export class KafkaConsumerStream extends Readable {
     return false
   }
 
-  /**
-   * Gets consumer committed partitions positions from broker
-   */
-  private async getPositions(assignments: Assignment[]): Promise<TopicPartitionOffset[]> {
-    const commitedAssignments = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
-    const commitedOffsets: TopicPartitionOffset[] = commitedAssignments.map((assignment: Assignment) => {
-      const key = KafkaConsumerStream.trackingKey(assignment)
+  private async updatePartitionEof(topicPartition: TopicPartitionOffset, map: CommitOffsetTracker): Promise<void> {
+      const trackingKey = KafkaConsumerStream.trackingKey(topicPartition)
 
-      if (isTopicPartitionOffset(assignment)) {
-        this.offsetTracker.set(key, assignment)
-        return assignment
+      map.set(trackingKey, topicPartition)
+
+      const currentOffsetData = this.offsetTracker.get(trackingKey)
+      const currentOffset = currentOffsetData?.offset || UNKNOWN_OFFSET
+
+      this.log?.debug({ currentOffsetData, topicPartition }, 'eof check')
+
+      if (
+        currentOffsetData && (
+          currentOffset === topicPartition.offset || currentOffset === UNKNOWN_OFFSET
+        )
+      ) {
+        currentOffsetData.eof = true
       }
 
-      const offset = {
-        topic: assignment.topic,
-        partition: assignment.partition,
-        offset: UNKNOWN_OFFSET
+      const reachedPossibleEOF = topicPartition.offset === 0 || currentOffset !== UNKNOWN_OFFSET
+
+      if (reachedPossibleEOF && !this.hasOutstandingAcks()) {
+        await this.checkEof()
       }
-
-      this.offsetTracker.set(key, offset)
-      return offset
-    })
-
-    this.log?.debug({ commitedOffsets }, 'positions')
-    return commitedOffsets
   }
 
   private updatePartitionOffsets(partitions: Assignment[], map: CommitOffsetTracker): void {
@@ -535,10 +488,8 @@ export class KafkaConsumerStream extends Readable {
         const currentOffsetData = map.get(trackingKey)
         const currentOffset = currentOffsetData?.offset || UNKNOWN_OFFSET
 
-        if (currentOffset < topicPartition.offset || !currentOffsetData) {
+        if (currentOffset <= topicPartition.offset || !currentOffsetData) {
           map.set(KafkaConsumerStream.trackingKey(topicPartition), topicPartition)
-        } else if (currentOffset === topicPartition.offset && topicPartition.eof) {
-          currentOffsetData.eof = true
         }
       // if it has no offset - means its a new assignment, set offset to -1001
       } else if (!map.has(trackingKey)) {

@@ -40,6 +40,7 @@ describe('#generic', () => {
   })
 
   afterEach(async () => {
+    sinon.restore()
     if (service) await service.close()
   })
 
@@ -88,7 +89,12 @@ describe('#generic', () => {
 
       const { admin } = kafka
 
-      await admin.createTopic({ topic: { topic, num_partitions: 1, replication_factor: 1 }})
+      await admin.createTopic({
+        topic: { topic, num_partitions: 1, replication_factor: 1 },
+        params: {
+          interval: 1000,
+        }
+      })
       const meta = await producerTemp.producer.getMetadataAsync({ allTopics: true })
       expect(meta.topics).toEqual(
         expect.arrayContaining([
@@ -96,7 +102,13 @@ describe('#generic', () => {
         ])
       )
 
-      await admin.deleteTopic({ topic })
+      await admin.deleteTopic({
+        topic,
+        params: {
+          interval: 1000,
+        },
+      })
+
       const metaAfter = await producerTemp.producer.getMetadataAsync({ topic })
       expect(metaAfter.topics).not.toEqual(
         expect.arrayContaining([
@@ -280,11 +292,40 @@ describe('#generic', () => {
   })
 
   describe('connected to broker', () => {
+    test('consumer rebalance error', async () => {
+      const topic = 'test-throw-on-rebalance'
+
+      producer = await createProducerStream(service)
+      await sendMessages(producer, topic, 100)
+      await producer.closeAsync()
+
+      consumerStream = await createConsumerStream(service, {
+        streamOptions: {
+          topics: topic,
+        },
+        conf: {
+          'group.id': topic,
+        },
+      })
+
+      sinon.stub(consumerStream.consumer, 'committedAsync').rejects(new Error('test rebalance error'))
+
+      const receivedMessages: any[] = []
+      const read = async () => {
+        for await (const incomingMessage of consumerStream) {
+          const messages = msgsToArr(incomingMessage)
+          receivedMessages.push(...messages)
+        }
+      }
+
+      await expect(read()).rejects.toThrowError('test rebalance error')
+    })
+
     test('on disconnected consumer with auto.commit', async () => {
       const topic = 'test-throw-disconnected-consumer'
 
       producer = await createProducerStream(service)
-      await sendMessages(producer, topic, 10)
+      await sendMessages(producer, topic, 100)
       await producer.closeAsync()
 
       consumerStream = await createConsumerStream(service, {
@@ -309,7 +350,7 @@ describe('#generic', () => {
         }
       }
 
-      expect(receivedMessages).toHaveLength(2)
+      expect(receivedMessages).toHaveLength(20)
     })
 
     describe('on disconnected consumer without auto.commit', () => {
@@ -317,7 +358,7 @@ describe('#generic', () => {
         const topic = 'test-throw-disconnected-consumer-auto-commit'
 
         producer = await createProducerStream(service)
-        await sendMessages(producer, topic, 10)
+        await sendMessages(producer, topic, 100)
         await producer.closeAsync()
 
         consumerStream = await createConsumerStream(service, {
@@ -393,7 +434,7 @@ describe('#generic', () => {
       const topic = 'test-throw-error-commit-timeout'
 
       producer = await createProducerStream(service)
-      await sendMessages(producer, topic, 10)
+      await sendMessages(producer, topic, 100)
 
       consumerStream = await createConsumerStream(service, {
         streamOptions: {
@@ -412,7 +453,7 @@ describe('#generic', () => {
           const messages = msgsToArr(incomingMessage)
           receivedMessages.push(...messages)
 
-          if (!closed && receivedMessages.length === 2) {
+          if (!closed && receivedMessages.length === 20) {
             closed = true
             consumerStream.close()
           }
@@ -427,7 +468,7 @@ describe('#generic', () => {
         const topic = 'test-throw-kafka-error-like'
 
         producer = await createProducerStream(service)
-        await sendMessages(producer, topic, 10)
+        await sendMessages(producer, topic, 40)
 
         consumerStream = await createConsumerStream(service, {
           streamOptions: {
@@ -447,7 +488,7 @@ describe('#generic', () => {
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
 
-            if (!errorEmitted && receivedMessages.length === 2) {
+            if (!errorEmitted && receivedMessages.length === 20) {
               errorEmitted = true
               service.log.debug('EMIT ERROR')
               consumerStream.consumer.emit(
@@ -466,7 +507,7 @@ describe('#generic', () => {
         const topic = 'test-throw-kafka-error-like-stream'
 
         producer = await createProducerStream(service)
-        await sendMessages(producer, topic, 10)
+        await sendMessages(producer, topic, 40)
 
         consumerStream = await createConsumerStream(service, {
           streamOptions: {
@@ -488,7 +529,7 @@ describe('#generic', () => {
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
 
-            if (!errorEmitted && receivedMessages.length === 2) {
+            if (!errorEmitted && receivedMessages.length === 20) {
               errorEmitted = true
               consumerStream.consumer.emit(
                 'offset.commit',
@@ -517,7 +558,7 @@ describe('#generic', () => {
         const topic = 'test-throw-kafka-error-handler'
 
         producer = await createProducerStream(service)
-        await sendMessages(producer, topic, 10)
+        await sendMessages(producer, topic, 100)
 
         consumerStream = await createConsumerStream(service, {
           streamOptions: {
@@ -540,7 +581,7 @@ describe('#generic', () => {
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
 
-            if (!errorEmitted && receivedMessages.length === 2) {
+            if (!errorEmitted && receivedMessages.length === 20) {
               errorEmitted = true
               service.log.debug('EMIT ERROR')
               emitError(consumerStream, { topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 })
@@ -558,7 +599,7 @@ describe('#generic', () => {
         const topic = 'test-throw-kafka-error-handler-stream'
 
         producer = await createProducerStream(service)
-        await sendMessages(producer, topic, 10)
+        await sendMessages(producer, topic, 40)
 
         consumerStream = await createConsumerStream(service, {
           streamOptions: {
@@ -583,7 +624,7 @@ describe('#generic', () => {
             receivedMessages.push(...messages)
             const lastMessage = messages[messages.length-1]
 
-            if (!errorEmitted && receivedMessages.length === 2) {
+            if (!errorEmitted && receivedMessages.length === 20) {
               errorEmitted = true
               emitError(consumerStream, { topic: lastMessage.topic, partition: lastMessage.partition, offset: lastMessage.offset + 1 })
             }
@@ -601,7 +642,7 @@ describe('#generic', () => {
       const topic = 'test-throw-error-invalid-topic'
 
       producer = await createProducerStream(service)
-      await sendMessages(producer, topic, 10)
+      await sendMessages(producer, topic, 40)
 
       consumerStream = await createConsumerStream(service, {
         streamOptions: {
@@ -621,7 +662,7 @@ describe('#generic', () => {
           const lastMessage = messages[messages.length-1]
           receivedMessages.push(...messages)
 
-          if (!sent && receivedMessages.length === 2) {
+          if (!sent && receivedMessages.length === 20) {
             sent = true
             consumerStream.consumer.commitMessage({
               ...lastMessage,

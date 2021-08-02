@@ -57,7 +57,7 @@ export async function createConsumerStream(
     ({
       streamOptions: {
         streamAsBatch: true,
-        fetchSize: 2,
+        fetchSize: 20,
         stopOnPartitionsEOF: true,
         // waitInterval: 0,
         // wait abit longer for broker queries
