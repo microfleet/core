@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.7.0...@microfleet/plugin-kafka@2.7.1) (2021-08-02)
+
+
+### Bug Fixes
+
+* **plugin-kafka:** correct eof handling ([#526](https://github.com/microfleet/core/issues/526)) ([d73a9de](https://github.com/microfleet/core/commit/d73a9dee02c873a3c70dd73787e4ab1753173cbe))
+
+
+
+
+
 # [2.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.6.6...@microfleet/plugin-kafka@2.7.0) (2021-07-08)
 
 
