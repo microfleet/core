@@ -86,9 +86,7 @@ export class KafkaFactory {
       ...opts.conf,
       offset_commit_cb: opts.conf?.offset_commit_cb || true,
       // consumer stream manages assign/unassing so we should pass function as callback
-      rebalance_cb: typeof opts.conf?.rebalance_cb === 'function'
-        ? opts.conf?.rebalance_cb
-        : noop,
+      rebalance_cb: typeof opts.conf?.rebalance_cb === 'function' ? opts.conf?.rebalance_cb : noop,
       'enable.auto.offset.store': false,
       'enable.partition.eof': true, // new feature, allows us to listen to eof event
     }
