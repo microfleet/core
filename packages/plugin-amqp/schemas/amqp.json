@@ -12,13 +12,12 @@
         "connection": {
           "type": "object",
           "required": ["host", "port"],
-          "default": {},
+          "default": { "host": "rabbitmq" },
           "properties": {
             "host": {
               "anyOf": [
                 {
-                  "type": "string",
-                  "default": "rabbitmq"
+                  "type": "string"
                 },
                 {
                   "type": "array",
