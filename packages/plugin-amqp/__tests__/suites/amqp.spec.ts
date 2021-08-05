@@ -94,9 +94,8 @@ describe('AMQP suite', function testSuite() {
 
     it('supports connection config host as string', async () => {
       service = createService({
-        host: 'rabbitmq',
-        port: 5672,
-      })
+        host: 'rabbitmq'
+      } as any)
 
       await service.connect()
     })
