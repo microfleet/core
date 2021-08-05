@@ -1,5 +1,9 @@
+type HostConfig = {
+  host: string,
+  port: number;
+}
 export type AMQPPluginTransportConnectionConfig = {
-  host: string;
+  host: string | string[] | HostConfig[];
   port: number;
 }
 
