@@ -15,8 +15,22 @@
           "default": {},
           "properties": {
             "host": {
-              "type": "string",
-              "default": "rabbitmq"
+              "anyOf": [
+                {
+                  "type": "string",
+                  "default": "rabbitmq"
+                },
+                {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "minItems": 1
+                },
+                {
+                  "type": "array",
+                  "items": { "$ref": "#/definitions/connectionHostConfig" },
+                  "minItems": 1
+                }
+              ]
             },
             "port": {
               "type": "integer",
@@ -36,6 +50,22 @@
           "minimum": 0
         },
         "timeout": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "definitions": {
+    "connectionHostConfig": {
+      "type": "object",
+      "required": ["host", "port"],
+      "default": {},
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
           "type": "integer",
           "minimum": 0
         }

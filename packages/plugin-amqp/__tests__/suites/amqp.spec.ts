@@ -17,8 +17,10 @@ describe('AMQP suite: lifecycle', function testSuite() {
     amqp: {
       transport: {
         connection: {
-          host: 'rabbitmq',
-          port: 5672,
+          host: [{
+            host: 'rabbitmq',
+            port: 5672,
+          }]
         },
       },
     },
