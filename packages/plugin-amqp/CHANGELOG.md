@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.2](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.0.0-dev.1...@microfleet/plugin-amqp@0.0.0-dev.2) (2021-08-05)
+
+
+### Bug Fixes
+
+* **plugin-amqp:** schema + type ([#530](https://github.com/microfleet/core/issues/530)) ([7c344f0](https://github.com/microfleet/core/commit/7c344f0145b895488d5c22edd221442a53181cc4))
+
+
+
+
+
 # 0.0.0-dev.1 (2021-07-08)
 
 
