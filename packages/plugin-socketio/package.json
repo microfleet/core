@@ -32,10 +32,10 @@
     "@microfleet/plugin-logger": "^0.6.0",
     "@microfleet/plugin-router": "^0.0.0-dev.1",
     "@microfleet/plugin-validator": "^0.1.0",
-    "@microfleet/transport-amqp": "^15.2.7",
+    "@microfleet/transport-amqp": "^15.2.8",
     "@microfleet/utils": "^0.1.0",
     "ms-socket.io-adapter-amqp": "^8.1.0",
-    "socket.io": "^4.1.2"
+    "socket.io": "^4.1.3"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",

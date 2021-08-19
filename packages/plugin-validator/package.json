@@ -38,9 +38,9 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/callsite": "^1.0.30",
-    "@types/common-errors": "^1.0.0",
-    "@types/lodash": "^4.14.170"
+    "@types/callsite": "^1.0.31",
+    "@types/common-errors": "^1.0.2",
+    "@types/lodash": "^4.14.172"
   },
   "engines": {
     "node": ">= 12.15.0",

@@ -37,14 +37,14 @@
     "@microfleet/plugin-amqp": "^0.0.0-dev.2",
     "@microfleet/plugin-logger": "^0.6.0",
     "@microfleet/plugin-router": "^0.0.0-dev.1",
-    "@microfleet/transport-amqp": "^15.2.7",
+    "@microfleet/transport-amqp": "^15.2.8",
     "bluebird": "^3.7.2",
     "event-to-promise": "^0.8.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@microfleet/core": "^17.7.0",
-    "@types/bluebird": "^3.5.35",
+    "@types/bluebird": "^3.5.36",
     "@types/event-to-promise": "^0.7.0"
   },
   "engines": {

@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.7.0",
-    "@types/jaeger-client": "^3.18.0",
+    "@types/jaeger-client": "^3.18.2",
     "common-errors": "^1.2.0"
   },
   "engines": {

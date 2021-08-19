@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.7.0",
-    "@types/bluebird": "^3.5.35",
+    "@types/bluebird": "^3.5.36",
     "@types/bluebird-retry": "^0.11.4",
     "common-errors": "^1.2.0"
   },

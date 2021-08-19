@@ -44,14 +44,14 @@
     "@microfleet/core": "^17.7.0",
     "@sentry/node": "^6.5.1",
     "@sentry/types": "^6.5.1",
-    "@types/bluebird": "^3.5.35",
-    "@types/pino": "6.3.6",
-    "@types/pino-multi-stream": "^5.1.1",
+    "@types/bluebird": "^3.5.36",
+    "@types/pino": "6.3.11",
+    "@types/pino-multi-stream": "^5.1.2",
     "@types/sonic-boom": "^0.7.0",
     "bluebird": "^3.7.2",
     "common-errors": "^1.2.0",
     "pino-pretty": "^5.0.2",
-    "sinon": "^11.1.1"
+    "sinon": "^11.1.2"
   },
   "engines": {
     "node": ">= 12.15.0",

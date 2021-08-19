@@ -36,15 +36,15 @@
     "@microfleet/plugin-validator": "^0.1.0",
     "@microfleet/utils": "^0.1.0",
     "bluebird": "^3.0.0",
-    "debug": "^4.3.1",
+    "debug": "^4.3.2",
     "event-to-promise": "^0.8.0",
-    "ioredis": "^4.27.5",
+    "ioredis": "^4.27.8",
     "opentracing-js-ioredis": "^2.1.2"
   },
   "devDependencies": {
     "@microfleet/core": "^17.7.0",
-    "@types/bluebird": "^3.5.35",
-    "@types/debug": "^4.1.5",
+    "@types/bluebird": "^3.5.36",
+    "@types/debug": "^4.1.7",
     "@types/event-to-promise": "^0.7.1"
   },
   "engines": {
