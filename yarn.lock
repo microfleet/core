@@ -10795,10 +10795,10 @@ trim-off-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
-ts-essentials@^7.0.1:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-7.0.2.tgz#e21142df8034dbd444cb9573ed204d0b85fc64fb"
-  integrity sha512-qWPVC1xZGdefbsgFP7tPo+bsgSA2ZIXL1XeEe5M2WoMZxIOr/HbsHxP/Iv75IFhiMHMDGL7cOOwi5SXcgx9mHw==
+ts-essentials@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-8.0.0.tgz#553cc46c1b056ac15534fd133630a0210a23b6cb"
+  integrity sha512-UIN5grvgvuTMeCDtnOUNDLg9o5PBwwQhXo9I0HmlkDMDL4UDX+srs8cddJMCgLUWotE6wWpwXBKQRg/shfzHCg==
 
 ts-jest@^27.0.3:
   version "27.0.3"
