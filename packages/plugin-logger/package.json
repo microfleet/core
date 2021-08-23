@@ -50,7 +50,7 @@
     "@types/sonic-boom": "^0.7.0",
     "bluebird": "^3.7.2",
     "common-errors": "^1.2.0",
-    "pino-pretty": "^5.0.2",
+    "pino-pretty": "^6.0.0",
     "sinon": "^11.1.1"
   },
   "engines": {
