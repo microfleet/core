@@ -155,6 +155,11 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.0.tgz#d26cad8a47c65286b15df1547319a5d0bcf27288"
   integrity sha512-V3ts7zMSu5lfiwWDVWzRDGIN+lnCEUdaXgtVHJgLb1rGaA6jMrtB9EmE7L18foXJIE8Un/A/h6NJfGQp/e1J4A==
 
+"@babel/helper-validator-identifier@^7.14.9":
+  version "7.14.9"
+  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.9.tgz#6654d171b2024f6d8ee151bf2509699919131d48"
+  integrity sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==
+
 "@babel/helper-validator-option@^7.12.17":
   version "7.12.17"
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-option/-/helper-validator-option-7.12.17.tgz#d1fbf012e1a79b7eebbfdc6d270baaf8d9eb9831"
@@ -3689,7 +3694,7 @@ ci-info@^2.0.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
   integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
 
-ci-info@^3.1.1:
+ci-info@^3.1.1, ci-info@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.2.0.tgz#2876cb948a498797b5236f0095bc057d0dca38b6"
   integrity sha512-dVqRX7fLUm8J6FgHJ418XuIgDLZDkYcDFTeL6TA2gt5WlIZUQrrH6EZrNClwT/H0FateUsZkGIOPRrLbP+PR9A==
@@ -4884,22 +4889,21 @@ eslint-plugin-unicorn@^28.0.2:
     safe-regex "^2.1.1"
     semver "^7.3.4"
 
-eslint-plugin-unicorn@^33.0.1:
-  version "33.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-33.0.1.tgz#15c7d210aad77466acb1e899b06b070099e029ce"
-  integrity sha512-VxX/L/9DUEyB3D0v00185LrgsB5/fBwkgA4IC7ehHRu5hFSgA6VecmdpFybhsr4GQ/Y1iyXMHf6q+JKvcR2MwA==
+eslint-plugin-unicorn@^36.0.0:
+  version "36.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-36.0.0.tgz#db50e1426839e401d33c5a279f49d4a5bbb640d8"
+  integrity sha512-xxN2vSctGWnDW6aLElm/LKIwcrmk6mdiEcW55Uv5krcrVcIFSWMmEgc/hwpemYfZacKZ5npFERGNz4aThsp1AA==
   dependencies:
-    ci-info "^3.1.1"
+    "@babel/helper-validator-identifier" "^7.14.9"
+    ci-info "^3.2.0"
     clean-regexp "^1.0.0"
     eslint-template-visitor "^2.3.2"
     eslint-utils "^3.0.0"
-    import-modules "^2.1.0"
     is-builtin-module "^3.1.0"
     lodash "^4.17.21"
     pluralize "^8.0.0"
     read-pkg-up "^7.0.1"
     regexp-tree "^0.1.23"
-    reserved-words "^0.1.2"
     safe-regex "^2.1.1"
     semver "^7.3.5"
 
