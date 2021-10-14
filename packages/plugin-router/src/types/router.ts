@@ -11,8 +11,7 @@ export type ServiceActionAuthGetName = (request: ServiceRequest) => string
 export interface ServiceAction<R = unknown> extends ServiceActionHandler<R> {
   actionName: string
   transports: ServiceRequest['transport'][]
-  transportsOptions: TransportsOptions
-  transportOptions: TransportOptions
+  transportOptions?: TransportOptions
   validateResponse: boolean
   allowed?: (this: Microfleet, request: ServiceRequest) => boolean | Promise<boolean>
   auth?: string | ServiceActionAuthGetName | ServiceActionAuthConfig
@@ -28,15 +27,8 @@ export interface ServiceActionAuthConfig {
   strategy?: 'required' | 'try'
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TransportsOptions extends Record<keyof typeof ActionTransport, TransportsTransportOptions> {}
-
-export type TransportsTransportOptions = {
-  methods: (keyof typeof RequestDataKey)[]
-}
-
 export interface TransportOptions {
-  handlers: TransportOptionsHandlers
+  handlers?: TransportOptionsHandlers
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
