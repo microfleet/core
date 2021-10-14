@@ -14,4 +14,8 @@ export {
   ServiceActionHandler,
   ServiceActionAuthGetName,
   ServiceActionAuthConfig,
+  TransportsOptions,
+  TransportsTransportOptions,
+  TransportOptions,
+  TransportOptionsHandlers,
 } from './types/router'

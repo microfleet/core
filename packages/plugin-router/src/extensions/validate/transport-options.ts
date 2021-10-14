@@ -2,17 +2,7 @@ import { NotSupportedError } from 'common-errors'
 import { Lifecycle } from '../../lifecycle'
 import { ServiceRequest } from '../../types/router'
 
-export type TransportOptionsAugmentedRequest = ServiceRequest & {
-  action: ServiceRequest['action'] & {
-    transportsOptions?: {
-      [transport: string]: {
-        methods: string[];
-      };
-    };
-  };
-}
-
-async function postRequest(request: TransportOptionsAugmentedRequest): Promise<void> {
+async function postRequest(request: ServiceRequest): Promise<void> {
   if (request.error) {
     return
   }
