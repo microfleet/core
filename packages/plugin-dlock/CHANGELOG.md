@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.11](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.10...@microfleet/plugin-dlock@0.0.0-dev.11) (2021-10-18)
+
+**Note:** Version bump only for package @microfleet/plugin-dlock
+
+
+
+
+
 # [0.0.0-dev.10](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.9...@microfleet/plugin-dlock@0.0.0-dev.10) (2021-07-08)
 
 

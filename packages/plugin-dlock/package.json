@@ -3,7 +3,7 @@
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.0.0-dev.10",
+  "version": "0.0.0-dev.11",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -45,7 +45,7 @@
     "@microfleet/plugin-logger": "^0.6.0",
     "@microfleet/plugin-redis-cluster": "^0.1.0",
     "@microfleet/plugin-redis-sentinel": "^0.1.0",
-    "@microfleet/plugin-router": "^0.0.0-dev.1",
+    "@microfleet/plugin-router": "^0.0.0-dev.2",
     "@types/bluebird": "^3.5.35",
     "@types/ioredis": "^4.26.4"
   },
