@@ -1,18 +1,23 @@
 import { NotSupportedError } from 'common-errors'
+
 import { Lifecycle } from '../../lifecycle'
 import { ServiceRequest } from '../../types/router'
+import { RequestDataKey, ActionTransport } from '../../router'
 
-export type TransportOptionsAugmentedRequest = ServiceRequest & {
-  action: ServiceRequest['action'] & {
-    transportsOptions?: {
-      [transport: string]: {
-        methods: string[];
-      };
-    };
-  };
+declare module '../../types/router' {
+  interface ServiceAction {
+    transportsOptions?: TransportsOptions
+  }
 }
 
-async function postRequest(request: TransportOptionsAugmentedRequest): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TransportsOptions extends Record<keyof typeof ActionTransport, TransportsTransportOptions> {}
+
+export type TransportsTransportOptions = {
+  methods?: (keyof typeof RequestDataKey)[]
+}
+
+async function postRequest(request: ServiceRequest): Promise<void> {
   if (request.error) {
     return
   }
@@ -29,7 +34,13 @@ async function postRequest(request: TransportOptionsAugmentedRequest): Promise<v
     return
   }
 
-  if (!transportOptions.methods.includes(method)) {
+  const { methods } = transportOptions
+
+  if (methods === undefined) {
+    return
+  }
+
+  if (!methods.includes(method)) {
     throw new NotSupportedError(`Route ${request.route} method ${method}`)
   }
 
