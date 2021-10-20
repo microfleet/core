@@ -1724,18 +1724,18 @@
     sonic-boom "^2.0.1"
     uuid "^8.3.2"
 
-"@microfleet/validation@^10.0.2":
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/@microfleet/validation/-/validation-10.0.2.tgz#2525f7c87d711d3b08b84943907913b193a5b96f"
-  integrity sha512-QhBZwaWjd2rw895l/t7fxSBP+ABM3YhAVknrhrlbzyXF6kzGyJXUEtAQFDGPsybYKddCbJXinyleFhOclS2HLg==
+"@microfleet/validation@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@microfleet/validation/-/validation-11.0.0.tgz#136bce7375d284c20037e5dbac0a96140c549a56"
+  integrity sha512-Xxhq0xG7k9WnhdssHjxylL466RPIVVgckRJb6mxYGbox2c3oIa3I95TDasnEk3bR0/31DC5QdrxhBrVIGyE/uA==
   dependencies:
-    ajv "^7.0.2"
-    ajv-formats "^1.5.1"
-    ajv-keywords "^4.0.0"
+    ajv "^8.6.2"
+    ajv-formats "^2.1.0"
+    ajv-keywords "^5.0.0"
     callsite "^1.0.0"
     common-errors "^1.2.0"
-    debug "^4.3.1"
-    glob "^7.1.6"
+    debug "^4.3.2"
+    glob "^7.1.7"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -2820,17 +2820,19 @@ aggregate-error@^3.0.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
-ajv-formats@^1.5.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/ajv-formats/-/ajv-formats-1.6.1.tgz#35c7cdcd2a12d509171c37bac32f2e8eb010a536"
-  integrity sha512-4CjkH20If1lhR5CGtqkrVg3bbOtFEG80X9v6jDOIUhbzzbB+UzPBGy8GQhUNVZ0yvMHdMpawCOcy5ydGMsagGQ==
+ajv-formats@^2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ajv-formats/-/ajv-formats-2.1.1.tgz#6e669400659eb74973bbf2e33327180a0996b520"
+  integrity sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==
   dependencies:
-    ajv "^7.0.0"
+    ajv "^8.0.0"
 
-ajv-keywords@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-4.0.1.tgz#3fcd1988846b741ec958b2555c96ccecce2b3a59"
-  integrity sha512-vPmwZT6AL4R7kKrjKOMoKgnompJJS8MUgTB7dPBEknSSv4ahKgu046H+bGOH2eMRbAcz5pYz3fwaSwrCGNvuxA==
+ajv-keywords@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-5.0.0.tgz#d01b3b21715b2f63d02aa511b82fc6eb3b30083c"
+  integrity sha512-ULd1QMjRoH6JDNUQIfDLrlE+OgZlFaxyYCjzt58uNuUQtKXt8/U+vK/8Ql0gyn/C5mqZzUWtKMqr/4YquvTrWA==
+  dependencies:
+    fast-deep-equal "^3.1.3"
 
 ajv@^6.10.0, ajv@^6.12.3, ajv@^6.12.4:
   version "6.12.6"
@@ -2842,10 +2844,10 @@ ajv@^6.10.0, ajv@^6.12.3, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^7.0.0, ajv@^7.0.2:
-  version "7.2.4"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-7.2.4.tgz#8e239d4d56cf884bccca8cca362f508446dc160f"
-  integrity sha512-nBeQgg/ZZA3u3SYxyaDvpvDtgZ/EZPF547ARgZBrG9Bhu1vKDwAIjtIf+sDtJUKa2zOcEbmRLBRSyMraS/Oy1A==
+ajv@^8.0.0, ajv@^8.6.2:
+  version "8.6.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.6.3.tgz#11a66527761dc3e9a3845ea775d2d3c0414e8764"
+  integrity sha512-SMJOdDP6LqTkD0Uq8qLi+gMwSt0imXLSV080qFVwJCpH9U6Mb+SUGHAXM0KNbcBPguytWyvFxcHgMLe2D2XSpw==
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -4314,6 +4316,13 @@ debug@^3.1.0, debug@^3.2.7:
   integrity sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==
   dependencies:
     ms "^2.1.1"
+
+debug@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
+  integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
+  dependencies:
+    ms "2.1.2"
 
 debuglog@^1.0.1:
   version "1.0.1"

@@ -32,7 +32,7 @@
   "dependencies": {
     "@microfleet/core-types": "^0.1.0",
     "@microfleet/utils": "^0.1.0",
-    "@microfleet/validation": "^10.0.2",
+    "@microfleet/validation": "^11.0.0",
     "callsite": "^1.0.0",
     "common-errors": "^1.2.0",
     "lodash": "^4.17.21"

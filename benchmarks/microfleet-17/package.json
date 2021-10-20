@@ -8,7 +8,7 @@
     "@hapi/joi": "^17.1.1",
     "@microfleet/core": "^17.5.4",
     "@microfleet/transport-amqp": "^15.2.5",
-    "@microfleet/validation": "^10.0.2",
+    "@microfleet/validation": "^11.0.0",
     "common-errors": "^1.2.0"
   }
 }
