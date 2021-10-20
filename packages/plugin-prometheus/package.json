@@ -32,7 +32,7 @@
   "dependencies": {
     "@microfleet/core-types": "^0.1.0",
     "@microfleet/utils": "^0.1.0",
-    "prom-client": "^13.1.0",
+    "prom-client": "^14.0.0",
     "semver": "^7.3.5"
   },
   "devDependencies": {
