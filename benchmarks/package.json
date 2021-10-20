@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "autocannon": "^7.0.5",
-    "clinic": "^8.0.1"
+    "clinic": "^9.0.0"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
