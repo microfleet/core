@@ -45,7 +45,7 @@
     "@sentry/node": "^6.5.1",
     "@sentry/types": "^6.5.1",
     "@types/bluebird": "^3.5.35",
-    "@types/pino": "6.3.6",
+    "@types/pino": "6.3.12",
     "@types/pino-multi-stream": "^5.1.1",
     "@types/sonic-boom": "^0.7.0",
     "bluebird": "^3.7.2",
