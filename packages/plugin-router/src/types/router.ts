@@ -13,7 +13,6 @@ export interface ServiceAction<R = unknown> extends ServiceActionHandler<R> {
   transports: ServiceRequest['transport'][]
   transportOptions?: TransportOptions
   validateResponse: boolean
-  allowed?: (this: Microfleet, request: ServiceRequest) => boolean | Promise<boolean>
   auth?: string | ServiceActionAuthGetName | ServiceActionAuthConfig
   passAuthError?: boolean
   schema?: string | null | boolean
