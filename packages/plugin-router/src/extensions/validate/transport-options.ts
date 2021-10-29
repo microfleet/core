@@ -11,7 +11,7 @@ declare module '../../types/router' {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TransportsOptions extends Record<keyof typeof ActionTransport, TransportsTransportOptions> {}
+export interface TransportsOptions extends Partial<Record<keyof typeof ActionTransport, TransportsTransportOptions>> {}
 
 export type TransportsTransportOptions = {
   methods?: (keyof typeof RequestDataKey)[]
