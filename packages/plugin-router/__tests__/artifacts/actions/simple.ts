@@ -5,7 +5,7 @@ export default async function simpleAction(request: ServiceRequest): Promise<any
   return {
     response: 'success',
     token: request.params.token,
-    user: request.auth.credentials,
+    user: request.auth?.credentials as unknown,
   }
 }
 
