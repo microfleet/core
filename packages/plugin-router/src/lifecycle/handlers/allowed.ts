@@ -1,7 +1,7 @@
 import { Microfleet } from '@microfleet/core'
 import { HttpStatusError, NotPermittedError } from 'common-errors'
 
-import { ServiceRequest, ServiceMiddleware } from '../../types/router'
+import { ServiceRequest } from '../../types/router'
 
 declare module '../../types/router' {
   interface ServiceAction {

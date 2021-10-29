@@ -13,17 +13,9 @@ export interface ServiceAction<R = unknown> extends ServiceActionHandler<R> {
   transports: ServiceRequest['transport'][]
   transportOptions?: TransportOptions
   validateResponse: boolean
-  auth?: string | ServiceActionAuthGetName | ServiceActionAuthConfig
-  passAuthError?: boolean
   schema?: string | null | boolean
   responseSchema?: string;
   readonly?: boolean
-}
-
-export interface ServiceActionAuthConfig {
-  name: string
-  passAuthError?: boolean
-  strategy?: 'required' | 'try'
 }
 
 export interface TransportOptions {
@@ -43,7 +35,6 @@ export interface ServiceRequest<R = unknown> {
   transport: typeof ActionTransport[keyof typeof ActionTransport]
   transportRequest: any | ClientRequest
   locals: any
-  auth?: any
   parentSpan: any
   span?: Span
   log: Logger
