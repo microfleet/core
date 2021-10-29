@@ -51,7 +51,9 @@ const spanLog = (request: ServiceRequest, error: Error) => {
 
   throw error
 }
-  // Constants with possilble transport values
+
+// Constants with possilble transport values
+// @TODO is it possible to config it from own transport plugin
 export const ActionTransport = {
   amqp: 'amqp',
   http: 'http',
