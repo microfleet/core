@@ -4,7 +4,23 @@ import { Microfleet } from '@microfleet/core'
 
 import { ServiceRequest, ServiceActionHandler } from '../../types/router'
 
+declare module '../../types/router' {
+  interface ServiceAction {
+    auth?: string | ServiceActionAuthGetName | ServiceActionAuthConfig
+    passAuthError?: boolean
+  }
+}
+
+declare module '../../types/router' {
+  interface ServiceRequest {
+    auth?: {
+      credentials: unknown
+    } | null
+  }
+}
+
 export type AuthStrategy = ServiceActionHandler
+
 export interface AuthConfig {
   readonly strategies: Record<string, AuthStrategy>
 }
@@ -14,6 +30,12 @@ export interface AuthStrategyConfig {
   authStrategy: 'required' | 'try'
   passAuthError: boolean,
   strategy: AuthStrategy | null
+}
+
+export interface ServiceActionAuthConfig {
+  name: string
+  passAuthError?: boolean
+  strategy?: 'required' | 'try'
 }
 
 function retrieveStrategy(request: ServiceRequest, strategies: AuthConfig['strategies']): AuthStrategyConfig {

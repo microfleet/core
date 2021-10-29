@@ -3,6 +3,12 @@ import { HttpStatusError, NotPermittedError } from 'common-errors'
 
 import { ServiceRequest } from '../../types/router'
 
+declare module '../../types/router' {
+  interface ServiceAction {
+    allowed?: ServiceMiddleware
+  }
+}
+
 async function allowedHandler(this: Microfleet, request: ServiceRequest): Promise<void> {
   const { allowed } = request.action
 
