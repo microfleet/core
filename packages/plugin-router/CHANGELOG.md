@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.4](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.0.0-dev.3...@microfleet/plugin-router@0.0.0-dev.4) (2021-10-29)
+
+
+### Bug Fixes
+
+* **router:** action.allowed type ([#555](https://github.com/microfleet/core/issues/555)) ([c46eb92](https://github.com/microfleet/core/commit/c46eb9204fb79dbf607f63fb419de61df6fbaa0f))
+
+
+
+
+
 # [0.0.0-dev.3](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.0.0-dev.2...@microfleet/plugin-router@0.0.0-dev.3) (2021-10-29)
 
 
