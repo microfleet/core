@@ -3,7 +3,7 @@
   "description": "prometheus plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "mdep test run",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.7.0",
-    "@microfleet/plugin-router": "^0.0.0-dev.2",
+    "@microfleet/plugin-router": "^0.0.0-dev.3",
     "@microfleet/plugin-validator": "^0.1.0",
     "@types/request-promise": "^4.1.47",
     "@types/semver": "^7.3.6",
