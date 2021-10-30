@@ -1,5 +1,6 @@
 import * as Extensions from './extensions'
 import RequestCountTracker from './tracker'
+import './lifecycle/handlers/allowed'
 
 export { Lifecycle, LifecycleExtension } from './lifecycle'
 export { ServiceActionAuthConfig } from './lifecycle/handlers/auth'
