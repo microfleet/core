@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router-amqp",
-  "version": "0.0.0-dev.5",
+  "version": "0.0.0-dev.6",
   "description": "AMQP transport adapter for router",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -34,9 +34,9 @@
   },
   "dependencies": {
     "@microfleet/core-types": "^0.1.0",
-    "@microfleet/plugin-amqp": "^0.0.0-dev.5",
+    "@microfleet/plugin-amqp": "^0.0.0-dev.6",
     "@microfleet/plugin-logger": "^0.6.0",
-    "@microfleet/plugin-router": "^0.0.0-dev.4",
+    "@microfleet/plugin-router": "^0.0.0-dev.5",
     "@microfleet/transport-amqp": "^15.2.7",
     "bluebird": "^3.7.2",
     "event-to-promise": "^0.8.0",
