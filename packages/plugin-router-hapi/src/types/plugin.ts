@@ -8,7 +8,7 @@ declare module '@microfleet/core-types' {
 
 declare module '@microfleet/plugin-router' {
   export interface TransportOptionsHandlers {
-    hapi?: ServerRoute
+    hapi?: Partial<ServerRoute>
   }
 }
 
