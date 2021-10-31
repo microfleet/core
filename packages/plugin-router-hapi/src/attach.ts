@@ -1,6 +1,6 @@
 import { defaults, omit } from 'lodash'
 import * as get from 'get-value'
-import { Request, ResponseToolkit, Server, ServerRegisterPluginObject } from '@hapi/hapi'
+import { Request, ResponseToolkit, Server, ServerRegisterPluginObject, ServerRoute } from '@hapi/hapi'
 
 import { Microfleet } from '@microfleet/core'
 import { ActionTransport } from '@microfleet/plugin-router'
@@ -48,7 +48,11 @@ export default function attachRouter(service: Microfleet, config: RouterHapiPlug
             method: ['GET', 'POST'],
           }
 
-          const hapiTransportOptions = get(handler, 'transportOptions.handlers.hapi', Object.create(null))
+          const hapiTransportOptions = get(
+            handler,
+            'transportOptions.handlers.hapi',
+            Object.create(null)
+          ) as Partial<ServerRoute>
           const handlerOptions = omit(hapiTransportOptions, ['path', 'handler'])
 
           server.route(defaults(handlerOptions, defaultOptions))
