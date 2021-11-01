@@ -18,12 +18,8 @@ export interface ServiceAction<R = unknown> extends ServiceActionHandler<R> {
   readonly?: boolean
 }
 
-export interface TransportOptions {
-  handlers?: TransportOptionsHandlers
-}
-
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TransportOptionsHandlers {}
+export interface TransportOptions {}
 
 export interface ServiceRequest<R = unknown> {
   route: string
