@@ -21,3 +21,5 @@ rawBodyAction.transportOptions = {
     method: ['POST'],
   },
 }
+
+export default rawBodyAction
