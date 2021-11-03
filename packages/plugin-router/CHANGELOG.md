@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.6](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.0.0-dev.5...@microfleet/plugin-router@0.0.0-dev.6) (2021-11-03)
+
+
+### Bug Fixes
+
+* **router-hapi:** removed redundant config for transport options ([#560](https://github.com/microfleet/core/issues/560)) ([984626f](https://github.com/microfleet/core/commit/984626f027207b23e9970b877e8a3851424a2f56))
+
+
+
+
+
 # [0.0.0-dev.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.0.0-dev.4...@microfleet/plugin-router@0.0.0-dev.5) (2021-10-31)
 
 
