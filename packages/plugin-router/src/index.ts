@@ -1,4 +1,4 @@
-import * as Extensions from './extensions'
+import * as Extensions from './extensions' // @TODO remove import?
 import RequestCountTracker from './tracker'
 import './lifecycle/handlers/allowed'
 
@@ -18,5 +18,4 @@ export {
   ServiceActionHandler,
   ServiceActionAuthGetName,
   TransportOptions,
-  TransportOptionsHandlers,
 } from './types/router'

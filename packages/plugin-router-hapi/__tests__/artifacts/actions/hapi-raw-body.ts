@@ -1,6 +1,6 @@
-import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
+import { ActionTransport, ServiceRequest, ServiceAction } from '@microfleet/plugin-router'
 
-export default function rawBodyAction({ transportRequest }: ServiceRequest): any {
+const rawBodyAction: Partial<ServiceAction> = function rawBodyAction({ transportRequest }: ServiceRequest): any {
   if (Buffer.isBuffer(transportRequest.payload)) {
     return transportRequest.payload
   }
@@ -11,15 +11,15 @@ export default function rawBodyAction({ transportRequest }: ServiceRequest): any
 rawBodyAction.schema = false
 rawBodyAction.transports = [ActionTransport.http]
 rawBodyAction.transportOptions = {
-  handlers: {
-    hapi: {
-      config: {
-        payload: {
-          output: 'data',
-          parse: false,
-        },
+  hapi: {
+    options: {
+      payload: {
+        output: 'data',
+        parse: false,
       },
-      method: ['POST'],
     },
+    method: ['POST'],
   },
 }
+
+export default rawBodyAction
