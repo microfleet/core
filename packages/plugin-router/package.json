@@ -55,7 +55,7 @@
     "request-promise": "^4.2.6",
     "sinon": "^11.1.1",
     "socket.io-client": "^4.1.2",
-    "split2": "^3.2.2"
+    "split2": "^4.0.0"
   },
   "engines": {
     "node": ">= 12.14.0",
