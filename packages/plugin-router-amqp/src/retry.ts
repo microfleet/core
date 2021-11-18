@@ -1,5 +1,5 @@
-import * as assert from 'assert'
-import * as Bluebird from 'bluebird'
+import { strict as assert } from 'assert'
+import Bluebird = require('bluebird')
 import eventToPromise from 'event-to-promise'
 import { Microfleet } from '@microfleet/core-types'
 import { Logger } from '@microfleet/plugin-logger'
@@ -134,7 +134,7 @@ export default (
         ])
         await Bluebird.resolve(toWrap).timeout(10000)
         assert(this.amqp)
-      } catch (e) {
+      } catch (e: any) {
         message.retry()
         return Bluebird.reject(e)
       }
@@ -142,7 +142,7 @@ export default (
 
     try {
       await this.amqp.send(retryQueue, message.raw, retryMessageOptions)
-    } catch (e) {
+    } catch (e: any) {
       if (logger) {
         logger.error({ err: e }, 'Failed to queue retried message')
       }

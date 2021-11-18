@@ -35,7 +35,10 @@
     "@microfleet/transport-amqp": "^15.2.7",
     "@microfleet/utils": "^0.1.0",
     "ms-socket.io-adapter-amqp": "^8.1.0",
-    "socket.io": "^4.1.2"
+    "socket.io": "^4.3.2"
+  },
+  "devDependencies": {
+    "@types/jest": "27.0.2"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",

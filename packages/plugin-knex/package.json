@@ -39,14 +39,15 @@
     "@microfleet/utils": "^0.1.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
-    "knex": "^0.95.6",
+    "knex": "^0.95.14",
     "pg": "^8.6.0"
   },
   "devDependencies": {
     "@microfleet/core": "^17.7.0",
     "@types/bluebird": "^3.5.35",
     "@types/bluebird-retry": "^0.11.4",
-    "common-errors": "^1.2.0"
+    "common-errors": "^1.2.0",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.14.0",

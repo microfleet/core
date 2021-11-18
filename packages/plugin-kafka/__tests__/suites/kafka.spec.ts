@@ -1246,7 +1246,7 @@ describe('#2s-toxified', () => {
           try {
             await consumerStream.commitMessages(messages)
             callback()
-          } catch (e) {
+          } catch (e: any) {
             service.log.debug({ topic, err: e }, 'commit sync error')
             callback(e)
           }
@@ -1294,7 +1294,7 @@ describe('#2s-toxified', () => {
 
         try {
           await consumerStream.commitMessages(messages)
-        } catch (e) {
+        } catch (e: any) {
           service.log.debug({ err: e }, 'commit sync error')
           throw e
         }
@@ -1351,7 +1351,7 @@ describe('#2s-toxified', () => {
     try {
       await simOne()
       await consumerStream.closeAsync()
-    } catch (e) {
+    } catch (e: any) {
       if (e.code === RdKafkaCodes.ERRORS.ERR__TRANSPORT) {
         service.log.warn('TEST INCONSISTENT - RDKAFKA did not connected. But its OK')
         return

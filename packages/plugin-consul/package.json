@@ -43,8 +43,9 @@
     "@types/bluebird": "^3.5.35",
     "@types/consul": "^0.23.34",
     "bluebird": "^3.7.2",
-    "nock": "^13.1.0",
-    "sinon": "^11.1.1"
+    "nock": "^13.2.1",
+    "sinon": "^12.0.1",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.14.0",

@@ -40,7 +40,7 @@ function getSocketIORouterAdapter(router: Router, log: Logger): (socket: Socket)
       router.requestCountTracker.increase(ActionTransport.socketio)
       try {
         callback(null, await router.dispatch(request))
-      } catch (e) {
+      } catch (e: any) {
         callback(e)
       } finally {
         decreaseRequestCount(router)

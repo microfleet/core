@@ -48,7 +48,7 @@ export async function getHealthStatus(this: Microfleet, handlers: PluginHealthCh
     try {
       await retry(handler, opts)
       alive.push(new PluginHealthStatus(name, true))
-    } catch (e) {
+    } catch (e: any) {
       failed.push(new PluginHealthStatus(name, false, e))
     }
   }

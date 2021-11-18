@@ -35,7 +35,7 @@
     "@microfleet/plugin-opentracing": "^0.1.0",
     "@microfleet/plugin-router": "^0.0.0-dev.6",
     "@microfleet/plugin-validator": "^0.1.0",
-    "@microfleet/validation": "^10.0.2",
+    "@microfleet/validation": "^11.0.0",
     "get-value": "^3.0.1",
     "lodash": "^4.17.21",
     "opentracing": "^0.14.5"
@@ -54,7 +54,8 @@
     "cheerio": "^1.0.0-rc.10",
     "common-errors": "^1.2.0",
     "handlebars": "^4.7.7",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.14.0",

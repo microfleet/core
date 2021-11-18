@@ -2,13 +2,13 @@ import assert = require('assert')
 import { resolve } from 'path'
 import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'
-import pino = require('pino')
-import pinoms = require('pino-multi-stream')
-import SonicBoom = require('sonic-boom')
+import { pino } from 'pino'
 import type { NodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
 import { Microfleet } from '@microfleet/core-types'
+
 import '@microfleet/plugin-validator'
+import { sentryToPinoLogLevel } from './logger/streams/sentry'
 
 export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
@@ -33,6 +33,7 @@ const defaultConfig: LoggerConfig = {
   streams: {},
 
   options: {
+    level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
     redact: {
       paths: [
         'headers.cookie',
@@ -48,23 +49,24 @@ const defaultConfig: LoggerConfig = {
   },
 }
 
-function streamsFactory(streamName: string, options: any): pinoms.Streams[0] {
-  switch (streamName) {
-    case 'sentry': {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { sentryStreamFactory } = require('./logger/streams/sentry')
-      return sentryStreamFactory(options)
+function streamsFactory(streamName: string, options: any): pino.TransportTargetOptions {
+  if (streamName === 'sentry') {
+    return {
+      level: sentryToPinoLogLevel(options),
+      target: resolve(__dirname, '../lib/logger/streams/sentry'),
+      options,
     }
-
-    case 'pretty': {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { prettyStreamFactory } = require('./logger/streams/pretty')
-      return prettyStreamFactory(options)
-    }
-
-    default:
-      return options
   }
+
+  if (streamName === 'pretty') {
+    return {
+      level: options.level || 'debug',
+      target: 'pino-pretty',
+      options,
+    }
+  }
+
+  return options
 }
 
 /**
@@ -101,20 +103,23 @@ export interface StreamConfiguration {
   [streamName: string]: any;
 }
 
-export type Logger = pinoms.Logger
+export type Logger = pino.Logger
 
 export interface LoggerConfig {
-  defaultLogger: pino.Logger | boolean;
+  defaultLogger: pino.Logger | boolean | pino.TransportBaseOptions;
   prettifyDefaultLogger: boolean;
   debug: boolean;
   name: string;
-  options: pinoms.LoggerOptions;
+  options: pino.LoggerOptions;
   streams: StreamConfiguration;
+  worker?: pino.TransportBaseOptions['worker'];
 }
 
 declare module '@microfleet/core-types' {
   export interface Microfleet {
     log: Logger;
+    logTransport?: pino.ThreadStream;
+    logClose?: () => void;
   }
 
   export interface ConfigurationOptional {
@@ -146,6 +151,7 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): void
     defaultLogger,
     prettifyDefaultLogger,
     options,
+    worker,
     name: serviceName,
     streams: streamsConfig,
   } = config
@@ -159,37 +165,52 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): void
     streamsConfig.sentry.release = version
   }
 
-  const streams: pinoms.Streams = []
+  const targets: pino.TransportTargetOptions[]  = []
+  const pinoOptions: pino.LoggerOptions = {
+    ...options,
+    name: applicationName || serviceName,
+  }
 
-  if (defaultLogger === true) {
-    // return either human-readable logger or fast production-ready json logger
-    const getDefaultStream = (): NodeJS.WritableStream | pino.DestinationStream => {
-      if (prettifyDefaultLogger) {
-        const { stream } = streamsFactory('pretty', { translateTime: true })
-        return stream
-      }
-
-      // @ts-expect-error - outtdated types
-      return new SonicBoom({ fd: process.stdout.fd || 1 })
-    }
-
-    streams.push({
-      level: debug ? 'debug' : 'info',
-      stream: getDefaultStream(),
+  if (defaultLogger) {
+    const extra = typeof defaultLogger === 'boolean' ? {} : defaultLogger
+    const level: pino.Level = debug ? 'debug' : 'info'
+    targets.push({
+      level,
+      target: prettifyDefaultLogger
+        ? 'pino-pretty'
+        : 'pino/file',
+      options: prettifyDefaultLogger
+        ? { translateTime: true, ...extra.options }
+        : { destination: process.stdout.fd, ...extra.options },
     })
   }
 
   for (const [streamName, streamConfig] of Object.entries(streamsConfig)) {
-    streams.push(streamsFactory(streamName, streamConfig))
+    targets.push(streamsFactory(streamName, streamConfig))
   }
 
-  this.log = pinoms({
-    ...options,
-    streams,
-    name: applicationName || serviceName,
-  })
+  if (targets.length > 0) {
+    assert(!pinoOptions.transport, 'transport must be undefined when using default streams')
+    pinoOptions.transport = { targets, worker }
+  }
+
+  this.log = pino(pinoOptions)
+
+  if (config.worker?.autoEnd === false) {
+    // @ts-expect-error not-exposed, but present
+    const transport = this.log[pino.symbols.streamSym]
+    assert(transport, 'couldnt get auto-assigned transport')
+    this.logClose = () => {
+      transport.ref()
+      transport.flushSync()
+      transport.end()
+      transport.once('close', () => {
+        transport.unref()
+      })
+    }
+  }
 
   if (process.env.NODE_ENV === 'test') {
-    this.log.debug({ config: this.config }, 'loaded configuration')
+    this.log.debug({ config }, 'loaded logger configuration')
   }
 }

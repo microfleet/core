@@ -2,7 +2,7 @@ module.exports = {
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,
-  "node": "14",
+  "node": "16",
   "tester_flavour": "rdkafka-tester",
   "parallel": 1,
   "test_framework": "jest --config ./jest.config.js --runTestsByPath",

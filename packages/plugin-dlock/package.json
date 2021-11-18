@@ -29,7 +29,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@microfleet/core-types": "^0.1.0",
-    "@microfleet/dlock": "^13.0.0",
+    "@microfleet/dlock": "^13.1.0",
     "@microfleet/ioredis-lock": "^5.0.0",
     "@microfleet/plugin-validator": "^0.1.0",
     "@microfleet/utils": "^0.1.0",
@@ -47,7 +47,8 @@
     "@microfleet/plugin-redis-sentinel": "^0.1.0",
     "@microfleet/plugin-router": "^0.0.0-dev.6",
     "@types/bluebird": "^3.5.35",
-    "@types/ioredis": "^4.26.4"
+    "@types/ioredis": "^4.26.4",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.14.0",

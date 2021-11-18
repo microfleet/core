@@ -169,7 +169,7 @@ export async function performMigration(redis: Redis.Redis | Redis.Cluster, servi
       try {
         // eslint-disable-next-line no-await-in-loop
         await redis.eval(script, keys.length, keys, args)
-      } catch (error) {
+      } catch (error: any) {
         checkVersionError.call(service, error)
       }
     } else if (typeof file.script === 'function') {
@@ -178,7 +178,7 @@ export async function performMigration(redis: Redis.Redis | Redis.Cluster, servi
         // must return promise
         await file.script(service)
         await redis.eval(appendPostScript(final), 1, [VERSION_KEY])
-      } catch (error) {
+      } catch (error: any) {
         checkVersionError.call(service, error)
       }
     } else {

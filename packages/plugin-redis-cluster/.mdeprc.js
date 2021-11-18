@@ -2,7 +2,7 @@ module.exports = {
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,
-  "node": "14",
+  "node": "16",
   "parallel": 3,
   "services": [
     "redisCluster"

@@ -32,7 +32,7 @@
   "dependencies": {
     "@microfleet/core-types": "^0.1.0",
     "@microfleet/utils": "^0.1.0",
-    "@microfleet/validation": "^10.0.2",
+    "@microfleet/validation": "^11.0.0",
     "callsite": "^1.0.0",
     "common-errors": "^1.2.0",
     "lodash": "^4.17.21"
@@ -40,7 +40,8 @@
   "devDependencies": {
     "@types/callsite": "^1.0.30",
     "@types/common-errors": "^1.0.0",
-    "@types/lodash": "^4.14.170"
+    "@types/lodash": "^4.14.177",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.15.0",
