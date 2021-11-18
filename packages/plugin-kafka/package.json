@@ -40,17 +40,18 @@
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "lodash": "^4.17.21",
-    "node-rdkafka": "^2.10.1",
+    "node-rdkafka": "=2.11.0",
     "readable-stream": "^3.6.0"
   },
   "devDependencies": {
     "@microfleet/core": "^17.7.0",
-    "@types/node": "^15.12.2",
+    "@types/node": "^16.11.7",
     "@types/readable-stream": "^2.3.10",
     "@types/sinon": "^10.0.2",
     "common-errors": "^1.2.0",
-    "sinon": "^11.1.1",
-    "toxiproxy-node-client": "^2.0.6"
+    "sinon": "^12.0.1",
+    "toxiproxy-node-client": "^2.0.6",
+    "@types/jest": "27.0.2"
   },
   "files": [
     "lib/",

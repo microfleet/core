@@ -1,5 +1,5 @@
 import { Readable } from 'stream'
-import * as assert from 'assert'
+import { strict as assert } from 'assert'
 import { once } from 'events'
 import { uniqWith, isEqual } from 'lodash'
 import { promisify, delay } from 'bluebird'
@@ -292,7 +292,7 @@ export class KafkaConsumerStream extends Readable {
           const committedOffsets = await this.consumer.committedAsync(assignments, this.offsetQueryTimeout)
           this.updatePartitionOffsets(committedOffsets, this.offsetTracker)
           this.consumer.assign(committedOffsets)
-        } catch (assignError) {
+        } catch (assignError: any) {
           this.log?.error(assignError, 'ConsumerStream assign partition handler error')
           this.consumer.unassign()
           this.destroy(assignError)
@@ -378,7 +378,7 @@ export class KafkaConsumerStream extends Readable {
 
         if (messages.length > 0) this.handleIncomingMessages(messages)
         if (this.config.waitInterval) await delay(this.config.waitInterval)
-      } catch (err) {
+      } catch (err: any) {
         this.log?.error({ err }, 'consume error')
         // We can receive Broker transport error with code -1
         // It's repeatable error
@@ -414,7 +414,7 @@ export class KafkaConsumerStream extends Readable {
         await this.closeAsync()
         return
       }
-    } catch (err) {
+    } catch (err: any) {
       this.log?.error({ err }, 'check eof error')
 
       if (err.code !== Generic.ERR__STATE || !this.inDestroyingState()) {

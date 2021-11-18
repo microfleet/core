@@ -32,7 +32,7 @@
     "@microfleet/plugin-logger": "^0.6.0",
     "@microfleet/transport-amqp": "^15.2.7",
     "@microfleet/utils": "^0.1.0",
-    "@microfleet/validation": "^10.0.2",
+    "@microfleet/validation": "^11.0.0",
     "glob": "^7.1.7",
     "hyperid": "^2.1.0",
     "lodash": "^4.17.21",
@@ -50,12 +50,13 @@
     "@types/request-promise": "^4.1.47",
     "@types/split2": "^3.2.0",
     "bluebird": "^3.7.2",
-    "get-port": "^5.1.1",
+    "get-port": "^6.0.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "sinon": "^11.1.1",
+    "sinon": "^12.0.1",
     "socket.io-client": "^4.1.2",
-    "split2": "^3.2.2"
+    "split2": "^4.1.0",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.14.0",

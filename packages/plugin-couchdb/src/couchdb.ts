@@ -48,7 +48,7 @@ const startupHandlers = (
     const establishConnection = async () => {
       try {
         await nano.db.create(database)
-      } catch (e) {
+      } catch (e: any) {
         if (e.statusCode !== 412 || e.error !== 'file_exists') {
           throw e
         }

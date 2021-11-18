@@ -57,7 +57,7 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
 
   try {
     return require(require.resolve(path))
-  } catch (e) {
+  } catch (e: any) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       // eslint-disable-next-line no-console
       console.warn(e)
@@ -216,7 +216,7 @@ export class Microfleet extends EventEmitter {
       }
 
       expose = mod.attach.call(this, configuration, __filename)
-    } catch (e) {
+    } catch (e: any) {
       if (e.constructor === HttpStatusError) {
         e.message = `[@microfleet/core] Could not attach ${mod.name}:\n${e.message}`
       }

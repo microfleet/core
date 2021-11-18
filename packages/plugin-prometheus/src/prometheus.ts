@@ -77,7 +77,7 @@ function createMetricHandler(path: string) {
         const metrics = await Prometheus.register.metrics()
         res.writeHead(200, { 'Content-Type': Prometheus.register.contentType })
         res.end(metrics)
-      } catch (e) {
+      } catch (e: any) {
         res.writeHead(500, { 'Content-Type': Prometheus.register.contentType })
         res.end('500 Internal Error')
       }

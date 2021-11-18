@@ -5,7 +5,7 @@ module.exports = {
   "services": [
     "rabbitmq"
   ],
-  "node": "14",
+  "node": "16",
   "parallel": 3,
   "test_framework": "jest --config ../../jest.config.js --runTestsByPath --runInBand",
   "tests": "__tests__/**/*.spec.ts",

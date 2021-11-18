@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { basename } = require('path')
 const globalConfig = require('../../jest.config')
+const dir = basename(__dirname)
 
 module.exports = {
   ...globalConfig,
-  verbose: true,
   rootDir: '../../',
   globals: {
     'ts-jest': {
@@ -10,9 +13,9 @@ module.exports = {
     },
   },
   collectCoverage: true,
-  coverageDirectory: 'packages/plugin-redis-sentinel/coverage',
+  coverageDirectory: `packages/${dir}/coverage`,
   coverageReporters: [ "text-summary", "json", "lcov" ],
   collectCoverageFrom: [
-    'packages/plugin-redis-sentinel/src/**/*',
-  ]
+    `packages/${dir}/src/**/*`,
+  ],
 }

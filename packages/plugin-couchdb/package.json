@@ -45,7 +45,8 @@
     "@microfleet/core": "^17.7.0",
     "@types/bluebird": "^3.5.35",
     "@types/bluebird-retry": "^0.11.4",
-    "common-errors": "^1.2.0"
+    "common-errors": "^1.2.0",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.14.0",

@@ -1,7 +1,7 @@
 import { Microfleet } from '@microfleet/core-types'
 import { promisifyAll } from 'bluebird'
 import { merge } from 'lodash'
-import * as retry from 'bluebird-retry'
+import retry = require('bluebird-retry')
 
 import { IAdminClient, AdminClient, TopicMetadata, KafkaClient, Metadata, NewTopic, Producer } from './rdkafka-extra'
 import { TopicWaitError } from './errors'

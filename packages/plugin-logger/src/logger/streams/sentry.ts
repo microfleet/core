@@ -1,9 +1,9 @@
+import build from 'pino-abstract-transport'
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
 import { LogLevel } from '@sentry/types'
 import lsmod = require('lsmod')
-import pino = require('pino')
-import type { Streams } from 'pino-multi-stream'
+import { pino } from 'pino'
 import {
   extractStackFromError,
   parseStack,
@@ -25,11 +25,11 @@ const EVENT_MODIFIERS: { [key: string]: boolean } = {
   $fingerprint: true,
 }
 
-export interface SentryStreamOptions {
+interface SentryStreamOptions {
   release: string
 }
 
-export interface ErrorLike {
+interface ErrorLike {
   message: string
   name: string
   stack?: string
@@ -40,13 +40,10 @@ export interface ErrorLike {
 /**
  * Sentry stream for Pino
  */
-export class SentryStream {
+sentryTransport.SentryStream = class SentryStream {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore: A computed property name in a class property declaration must refer to an expression whose type is a literal type or a 'unique symbol' type
-  readonly [pino.symbols.needsMetadataGsym]: boolean = true
 
   constructor(opts: SentryStreamOptions) {
     this.release = opts.release
@@ -56,8 +53,7 @@ export class SentryStream {
    * Method call by Pino to save log record
    * msg is a stringified set of data
    */
-  public write(msg: string): boolean {
-    const event = JSON.parse(msg)
+  public write(event: Record<string, any>): boolean {
     const extra = Object.create(null)
 
     for (const [key, value] of Object.entries<any>(event)) {
@@ -75,8 +71,9 @@ export class SentryStream {
           const stack = extractStackFromError(event.err)
           const frames = await parseStack(stack)
           stacktrace = { frames: prepareFramesForEvent(frames) }
-        } catch (e) { /* ignore */ }
+        } catch (e: any) { /* ignore */ }
       }
+
       Sentry.captureEvent({
         extra,
         stacktrace,
@@ -142,26 +139,7 @@ export class SentryStream {
   }
 }
 
-export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
-  const { logLevel, dsn } = config
-
-  assert(dsn, '"dsn" property must be set')
-  assert(config.release, 'release version must be set')
-
-  Sentry.init({
-    ...config,
-    defaultIntegrations: false,
-    ...process.env.NODE_ENV === 'test' && {
-      integrations: [
-        new Sentry.Integrations.Console(),
-      ],
-    },
-  })
-
-  const dest = new SentryStream({
-    release: config.release,
-  })
-
+sentryTransport.sentryToPinoLogLevel = ({ logLevel }: Sentry.NodeOptions): pino.Level => {
   let level: pino.Level
   if (logLevel === LogLevel.None) {
     level = 'fatal'
@@ -175,8 +153,45 @@ export function sentryStreamFactory(config: Sentry.NodeOptions): Streams[0] {
     level = 'warn'
   }
 
-  return {
-    level,
-    stream: dest,
-  }
+  return level
 }
+
+async function sentryTransport(config: Sentry.NodeOptions): Promise<ReturnType<typeof build>> {
+  assert(config.dsn, '"dsn" property must be set')
+  assert(config.release, 'release version must be set')
+
+  if (process.env.NODE_ENV === 'test' && !config.transport) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { sentryTransport } = require('sentry-testkit')()
+    config.transport = sentryTransport
+  }
+
+  Sentry.init({
+    autoSessionTracking: false,
+    ...config,
+    defaultIntegrations: false,
+    ...process.env.NODE_ENV === 'test' && {
+      integrations: [
+        new Sentry.Integrations.Console(),
+      ],
+    },
+  })
+
+  const destination = new sentryTransport.SentryStream({ release: config.release })
+
+  return build(async function (source) {
+    for await (const obj of source) {
+      const toDrain = !destination.write(obj)
+      // This block will handle backpressure
+      if (toDrain) {
+        await Sentry.flush(1000)
+      }
+    }
+  }, {
+    async close() {
+      await Sentry.close(1000)
+    }
+  })
+}
+
+export = sentryTransport

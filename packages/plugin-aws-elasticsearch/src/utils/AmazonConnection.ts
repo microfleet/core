@@ -26,7 +26,7 @@ import type { Config } from 'aws-sdk'
 import type { ClientRequestArgs } from 'http'
 import { strict as assert } from 'assert'
 
-type RequestOptions = Parameters<Connection['request']>[0] & {
+type RequestOptions = aws4.Request & {
   service?: string
   region?: string
 }

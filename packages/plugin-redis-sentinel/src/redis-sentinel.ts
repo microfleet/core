@@ -113,7 +113,7 @@ export function attach(this: Microfleet, opts: Partial<Config> = {}): PluginInte
     async close(this: Microfleet) {
       try {
         await this.redis.quit()
-      } catch (e) {
+      } catch (e: any) {
         if (e.message === 'Connection is closed.') {
           return
         }

@@ -188,7 +188,7 @@ export class Router {
 
     try {
       await lifecycle.run(request)
-    } catch (e) {
+    } catch (e: any) {
       spanLog(request, e)
     } finally {
       finishSpan(request)

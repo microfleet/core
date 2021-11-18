@@ -111,7 +111,7 @@ describe('@microfleet/plugin-router', () => {
         try {
           strictEqual(error.name, 'AuthenticationRequiredError')
           strictEqual(error.message, 'An attempt was made to perform an operation without authentication: Invalid token')
-        } catch (e) {
+        } catch (e: any) {
           throw error
         }
       },

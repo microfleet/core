@@ -69,7 +69,7 @@ async function factory(this: Microfleet, Cassandra: Cassandra, config: Config) {
   const reportError = (connect: () => Promise<void>) => async () => {
     try {
       await connect()
-    } catch (e) {
+    } catch (e: any) {
       this.log.warn({ err: e }, 'Failed to connect to cassandra')
       throw e
     }

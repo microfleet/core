@@ -32,7 +32,7 @@
   "dependencies": {
     "@microfleet/core-types": "^0.1.0",
     "@microfleet/utils": "^0.1.0",
-    "prom-client": "^13.1.0",
+    "prom-client": "^14.0.1",
     "semver": "^7.3.5"
   },
   "devDependencies": {
@@ -43,7 +43,8 @@
     "@types/semver": "^7.3.6",
     "common-errors": "^1.2.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.15.0",

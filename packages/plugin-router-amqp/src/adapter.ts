@@ -19,7 +19,7 @@ function getAMQPRouterAdapter(
         let err: Error | null = null
         try {
           data = await promise
-        } catch (e) {
+        } catch (e: any) {
           err = e
         }
 
@@ -71,7 +71,7 @@ function getAMQPRouterAdapter(
       const promise = service.router.dispatch(opts)
       const response = await wrapDispatch(promise, route, raw)
       next(null, response)
-    } catch (e) {
+    } catch (e: any) {
       next(e)
     } finally {
       decreaseCounter()

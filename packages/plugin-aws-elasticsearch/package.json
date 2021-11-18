@@ -37,7 +37,7 @@
     "@microfleet/plugin-logger": "^0.6.0",
     "@microfleet/plugin-validator": "^0.1.0",
     "@microfleet/utils": "^0.1.0",
-    "aws-sdk": "^2.923.0",
+    "aws-sdk": "^2.1030.0",
     "aws4": "^1.11.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0"
@@ -47,7 +47,8 @@
     "@types/aws4": "^1.5.1",
     "@types/bluebird": "^3.5.35",
     "@types/bluebird-retry": "^0.11.4",
-    "common-errors": "^1.2.0"
+    "common-errors": "^1.2.0",
+    "@types/jest": "27.0.2"
   },
   "engines": {
     "node": ">= 12.14.0",

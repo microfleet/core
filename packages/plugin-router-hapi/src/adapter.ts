@@ -94,7 +94,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
     let response
     try {
       response = await router.dispatch(serviceRequest)
-    } catch (e) {
+    } catch (e: any) {
       response = reformatError(e)
     }
 

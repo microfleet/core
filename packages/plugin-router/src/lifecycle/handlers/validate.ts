@@ -21,7 +21,7 @@ async function validateHandler(this: Microfleet, request: ServiceRequest): Promi
     const validationResult = await validator.validate(schema as string, request[paramsKey])
 
     request[paramsKey] = validationResult
-  } catch (error) {
+  } catch (error: any) {
     if (error.constructor === HttpStatusError) {
       throw error
     }
