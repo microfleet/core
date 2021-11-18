@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const { basename } = require('path')
+const { basename, resolve } = require('path')
 const globalConfig = require('../../jest.config')
 const dir = basename(__dirname)
 
@@ -10,6 +10,7 @@ module.exports = {
   globals: {
     'ts-jest': {
       isolatedModules: true,
+      tsconfig: resolve(__dirname, 'tsconfig.json')
     },
   },
   collectCoverage: true,
