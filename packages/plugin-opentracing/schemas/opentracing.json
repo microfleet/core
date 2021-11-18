@@ -70,7 +70,25 @@
       "type": "object",
       "description": "disable metrics for now",
       "not": {
-        "required": ["metrics"]
+        "required": ["metrics"],
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "description": "must be a metrics factory",
+            "required": ["createCounter", "createTimer", "createGauge"],
+            "properties": {
+              "createCounter": {
+                "type": "object"
+              },
+              "createTimer": {
+                "type": "object"
+              },
+              "createGauge": {
+                "type": "object"
+              }
+            }
+          }
+        }
       },
       "additionalProperties": false,
       "properties": {
@@ -79,14 +97,8 @@
           "additionalProperties": {
             "type": "string"
           }
-        },
-        "metrics": {
-          "type": "object",
-          "description": "must be a metrics factory",
-          "required": ["createCounter", "createTimer", "createGauge"]
         }
-      },
-      "default": {}
+      }
     }
   }
 }
