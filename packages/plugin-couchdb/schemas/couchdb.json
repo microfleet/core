@@ -38,6 +38,9 @@
         "type": "object",
         "required": ["index", "name"],
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "index": {
             "type": "object",
             "properties": {
