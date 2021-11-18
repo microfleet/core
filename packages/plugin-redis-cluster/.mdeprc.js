@@ -7,7 +7,7 @@ module.exports = {
   "services": [
     "redisCluster"
   ],
-  "test_framework": 'jest --config ../../jest.config.js --runTestsByPath',
+  "test_framework": 'jest --config ./jest.config.js --runTestsByPath',
   "tests": '__tests__/*.spec.ts',
   "extras": {
     "tester": {
