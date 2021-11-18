@@ -17,6 +17,8 @@
     "composite": true
   },
   "exclude": [
+    "node_modules",
+    "packages/*/node_modules",
     "**/node_modules/**",
     "lib/**",
     "packages/*/lib/**",

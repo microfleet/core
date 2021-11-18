@@ -40,8 +40,10 @@
   "devDependencies": {
     "@types/callsite": "^1.0.30",
     "@types/common-errors": "^1.0.0",
+    "@types/jest": "27.0.2",
     "@types/lodash": "^4.14.177",
-    "@types/jest": "27.0.2"
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7"
   },
   "engines": {
     "node": ">= 12.15.0",
