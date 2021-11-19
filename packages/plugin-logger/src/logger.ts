@@ -5,7 +5,7 @@ import { NotFoundError } from 'common-errors'
 import { pino } from 'pino'
 import type { NodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
-import { Microfleet } from '@microfleet/core-types'
+import { Microfleet, PluginInterface } from '@microfleet/core-types'
 
 import '@microfleet/plugin-validator'
 import { sentryToPinoLogLevel } from './logger/streams/sentry'
@@ -135,11 +135,17 @@ export const isCompatible = (obj: unknown): obj is pino.Logger => {
     && levels.every((level) => typeof (obj as Record<any, unknown>)[level] === 'function')
 }
 
+const noopInterface: PluginInterface = {
+   async close() {
+     return
+   }
+}
+
 /**
  * Plugin init function.
  * @param  opts - Logger configuration.
  */
-export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): void {
+export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): PluginInterface {
   const { version, config: { name: applicationName } } = this
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
@@ -158,7 +164,7 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): void
 
   if (isCompatible(defaultLogger)) {
     this.log = defaultLogger
-    return
+    return noopInterface
   }
 
   if (streamsConfig.sentry && !streamsConfig.sentry.release) {
@@ -195,22 +201,26 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): void
   }
 
   this.log = pino(pinoOptions)
-
-  if (config.worker?.autoEnd === false) {
+  this.logClose = () => {
     // @ts-expect-error not-exposed, but present
     const transport = this.log[pino.symbols.streamSym]
     assert(transport, 'couldnt get auto-assigned transport')
-    this.logClose = () => {
-      transport.ref()
-      transport.flushSync()
-      transport.end()
-      transport.once('close', () => {
-        transport.unref()
-      })
-    }
+    transport.ref()
+    transport.flushSync()
+    transport.end()
+    transport.once('close', () => {
+      transport.unref()
+    })
   }
 
   if (process.env.NODE_ENV === 'test') {
     this.log.debug({ config }, 'loaded logger configuration')
+  }
+
+  return {
+    async close(this: Microfleet): Promise<void> {
+      // @ts-expect-error not-exposed, but present
+      this.log[pino.symbols.streamSym]?.flushSync()
+    }
   }
 }

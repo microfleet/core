@@ -12,6 +12,7 @@ module.exports = {
       isolatedModules: true,
     },
   },
+  testTimeout: 50000,
   collectCoverage: true,
   coverageDirectory: `packages/${dir}/coverage`,
   coverageReporters: [ "text-summary", "json", "lcov" ],
