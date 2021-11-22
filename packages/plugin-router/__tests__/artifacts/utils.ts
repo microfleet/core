@@ -1,9 +1,7 @@
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
-// @todo how to fix double import?
-import * as Bluebird from 'bluebird'
-import { Inspection } from 'bluebird'
-import * as request from 'request-promise'
+import Bluebird = require('bluebird')
+import request = require('request-promise')
 import { StatusCodeError } from 'request-promise/errors'
 import { defaultsDeep } from 'lodash'
 import { Socket } from 'socket.io-client'
@@ -13,7 +11,7 @@ export type Case = {
   expect: string
   verify(params: any): void
 }
-export type CaseInspection = Inspection<unknown>
+export type CaseInspection<T = unknown> = Bluebird.Inspection<T>
 
 // @todo refactor
 export function verify(caseOptions: Case): (inspection: CaseInspection) => void {
@@ -44,8 +42,8 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
   }
 }
 
-export function getHTTPRequest(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Bluebird<any> {
-  return (action: string, params?: any, opts: any = {}): Bluebird<any> => {
+export function getHTTPRequest<T = any>(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Bluebird<T> {
+  return (action: string, params?: any, opts: any = {}): Bluebird<T> => {
     const requestOptions = {
       baseUrl: options.url,
       method: 'POST',

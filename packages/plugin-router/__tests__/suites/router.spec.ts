@@ -1,14 +1,15 @@
-import { strict, strictEqual, rejects, deepStrictEqual } from 'assert'
+import { strict, strictEqual, rejects, doesNotReject, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
-import { Writable } from 'stream'
 import { AuthenticationRequiredError } from 'common-errors'
 import { io as SocketIOClient } from 'socket.io-client'
-import * as sinon from 'sinon'
-import * as Bluebird from 'bluebird'
+import sinon = require('sinon')
+import Bluebird = require('bluebird')
 import { filter, range } from 'lodash'
 import { Microfleet, PLUGIN_STATUS_FAIL } from '@microfleet/core'
 import { Extensions, ServiceRequest } from '@microfleet/plugin-router'
-
+import { file as tmpFile } from 'tempy'
+import { open } from 'fs/promises'
+import { setTimeout } from 'timers/promises'
 import {
   verify,
   getAmqpRequest,
@@ -121,7 +122,7 @@ describe('@microfleet/plugin-router', () => {
       expect: 'error',
       verify: (error: any) => {
         strictEqual(error.name, 'HttpStatusError')
-        strictEqual(error.message, 'simple validation failed: data/isAdmin should be boolean')
+        strictEqual(error.message, 'simple validation failed: data/isAdmin must be boolean')
       },
     }
 
@@ -211,8 +212,7 @@ describe('@microfleet/plugin-router', () => {
 
     const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' })
     const rget = (qs: any, success = true, opts = {}) => {
-      const req = httpRequest('/action/qs', null, { qs, ...opts })
-      return success ? req : rejects(req)
+      return (success ? doesNotReject : rejects)(httpRequest('/action/qs', null, { qs, ...opts }))
     }
 
     await service.connect()
@@ -254,7 +254,7 @@ describe('@microfleet/plugin-router', () => {
       expect: 'error',
       verify: (error: any) => {
         strictEqual(error.name, 'HttpStatusError')
-        strictEqual(error.message, 'without-schema validation failed: data/foo should be integer')
+        strictEqual(error.message, 'without-schema validation failed: data/foo must be integer')
       },
     }
 
@@ -302,7 +302,7 @@ describe('@microfleet/plugin-router', () => {
       expect: 'error',
       verify: (error: any) => {
         strictEqual(error.name, 'HttpStatusError')
-        strictEqual(error.message, 'nested.test validation failed: data/foo should be integer')
+        strictEqual(error.message, 'nested.test validation failed: data/foo must be integer')
       },
     }
 
@@ -487,136 +487,143 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should be able to log error for unknown route', async () => {
-    const spy = sinon.spy()
-    const spyWritable = new Writable({
-      write(chunk: string, _: any, callback: CallableFunction) {
-        spy(JSON.parse(chunk))
-        callback()
-      },
-      decodeStrings: false,
-    })
-    const service = new Microfleet({
-      name: 'tester',
-      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
-      logger: {
-        streams: {
-          spy: { level: 'error', stream: spyWritable },
-        },
-      },
-      router: {
-        routes: {
-          directory: resolve(__dirname, '../artifacts/actions'),
-        },
-        extensions: {
-          register: [
-            auditLog(),
-          ],
-        },
-      },
-      validator: { schemas: ['../artifacts/schemas'] },
-    })
-    const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+    const file = tmpFile()
+    const handle = await open(file, 'w+')
 
-    await service.connect()
-    await httpRequest('/404').reflect()
-    await service.close()
+    try {
+      const service = new Microfleet({
+        name: 'tester',
+        plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
+        logger: {
+          streams: {
+            spy: {
+              level: 'error',
+              target: 'pino/file',
+              options: {
+                destination: file,
+              },
+            },
+          },
+        },
+        router: {
+          routes: {
+            directory: resolve(__dirname, '../artifacts/actions'),
+          },
+          extensions: {
+            register: [
+              auditLog(),
+            ],
+          },
+        },
+        validator: { schemas: ['../artifacts/schemas'] },
+      })
+      const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
 
-    strictEqual('NotFoundError', spy.getCall(0).args[0].err.type)
+      await service.connect()
+      await httpRequest('/404').reflect()
+      await service.close()
+      await setTimeout(500)
+
+      const data = await handle.readFile({ encoding: 'utf8' })
+      const lines = data.split('\n').slice(0, -1).map((x) => JSON.parse(x))
+
+      strictEqual('NotFoundError', lines[0].err.type)
+    } finally {
+      await handle.close()
+    }
   })
 
   it('should be able to disable an error logging for unknown route', async () => {
-    const spy = sinon.spy()
-    const spyWritable = new Writable({
-      write(chunk: string, _: any, callback: CallableFunction) {
-        spy(JSON.parse(chunk))
-        callback()
-      },
-      decodeStrings: false,
-    })
-    const service = new Microfleet({
-      name: 'tester',
-      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
-      logger: {
-        streams: {
-          spy: { level: 'info', stream: spyWritable },
-        },
-      },
-      router: {
-        routes: {
-          directory: resolve(__dirname, '../artifacts/actions'),
-        },
-        extensions: {
-          register: [
-            auditLog({ disableLogErrorsForNames: ['NotFoundError'] })
-          ],
-        },
-      },
-      validator: { schemas: ['../artifacts/schemas'] },
-    })
-    const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+    const file = tmpFile()
+    const handle = await open(file, 'w+')
 
-    await service.connect()
-    await httpRequest('/404').reflect()
-    await service.close()
+    try {
+      const service = new Microfleet({
+        name: 'tester',
+        plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
+        logger: {
+          streams: {
+            spy: { level: 'info', target: 'pino/file', options: { destination: file } },
+          },
+        },
+        router: {
+          routes: {
+            directory: resolve(__dirname, '../artifacts/actions'),
+          },
+          extensions: {
+            register: [
+              auditLog({ disableLogErrorsForNames: ['NotFoundError'] })
+            ],
+          },
+        },
+        validator: { schemas: ['../artifacts/schemas'] },
+      })
+      const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
 
-    const errorCallArgs = spy.getCalls()
-      .map((x) => x.args && x.args[0])
-      .filter(Boolean)
-      .find((x) => !!x.err)
+      await service.connect()
+      await httpRequest('/404').reflect()
+      await service.close()
+      await setTimeout(500)
 
-    strictEqual('NotFoundError', errorCallArgs.err.type)
-    strictEqual(30, errorCallArgs.level)
+      const data = await handle.readFile({ encoding: 'utf8' })
+      const lines = data.split('\n').slice(0, -1).filter(Boolean).map((x) => JSON.parse(x))
+      const errorCallArgs = lines.find((x) => !!x.err)
+
+      strictEqual('NotFoundError', errorCallArgs.err.type)
+      strictEqual(30, errorCallArgs.level)
+    } finally {
+      await handle.close()
+    }
   })
 
   it('should be able to decrease an error level using \'getErrorLevel\' function', async function test() {
-    const spy = sinon.spy()
-    const spyWritable = new Writable({
-      write(chunk, _, callback) {
-        spy(JSON.parse(chunk))
-        callback()
-      },
-      decodeStrings: false,
-    })
-    const service = new Microfleet({
-      name: 'tester',
-      logger: {
-        defaultLogger: true,
-        streams: {
-          spy: { level: 'info', stream: spyWritable },
+    const file = tmpFile()
+    const handle = await open(file, 'w+')
+
+    try {
+      const service = new Microfleet({
+        name: 'tester',
+        logger: {
+          defaultLogger: true,
+          streams: {
+            spy: { level: 'info', target: 'pino/file', options: { destination: file } },
+          },
         },
-      },
-      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
-      router: {
-        routes: {
-          directory: resolve(__dirname, '../artifacts/actions'),
+        plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
+        router: {
+          routes: {
+            directory: resolve(__dirname, '../artifacts/actions'),
+          },
+          extensions: {
+            register: [auditLog({
+              getErrorLevel: function getErrorLevel(error) {
+                if (error.name === 'NotFoundError') {
+                  return 'info'
+                }
+
+                return undefined
+              },
+            })]
+          },
         },
-        extensions: {
-          register: [auditLog({
-            getErrorLevel: function getErrorLevel(error) {
-              if (error.name === 'NotFoundError') {
-                return 'info'
-              }
+        validator: { schemas: ['../artifacts/schemas'] },
+      })
+      const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
 
-              return undefined
-            },
-          })]
-        },
-      },
-      validator: { schemas: ['../artifacts/schemas'] },
-    })
-    const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+      await service.connect()
+      await HTTPRequest('/404').reflect()
+      await service.close()
+      await setTimeout(500)
 
-    await service.connect()
-    await HTTPRequest('/404').reflect()
-    await service.close()
+      const data = await handle.readFile({ encoding: 'utf8' })
+      const lines = data.split('\n').slice(0, -1).filter(Boolean).map((x) => JSON.parse(x))
+      const errorCallArgs = lines.find((x) => !!x.err)
 
-    const errorCallArgs = spy.getCalls()
-      .map((x) => x.args && x.args[0])
-      .filter(Boolean)
-      .find((x) => !!x.err)
-
-    strictEqual('NotFoundError', errorCallArgs.err.type)
-    strictEqual(30, errorCallArgs.level)
+      strictEqual('NotFoundError', errorCallArgs.err.type)
+      strictEqual(30, errorCallArgs.level)
+    } finally {
+      await handle.close()
+    }
   })
 
   it('should return 418 in maintenance mode', async () => {
@@ -692,7 +699,7 @@ describe('@microfleet/plugin-router', () => {
       verify: (error: any) => {
         strictEqual(error.name, 'HttpStatusError')
         strictEqual(error.statusCode, 417)
-        strictEqual(error.message, `response.${schemaName} validation failed: data should NOT have additional properties`)
+        strictEqual(error.message, `response.${schemaName} validation failed: data must NOT have additional properties`)
       },
     })
 

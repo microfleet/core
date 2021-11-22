@@ -64,6 +64,7 @@ export const defaultConfig: Partial<ValidatorConfig> = {
   filter: null,
   ajv: {
     strict: true,
+    strictRequired: false,
   },
 }
 
