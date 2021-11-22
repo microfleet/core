@@ -3,16 +3,15 @@ import type * as __ from '@microfleet/plugin-validator'
 import assert = require('assert')
 import { resolve } from 'path'
 import retry = require('bluebird-retry')
-import Elasticsearch = require('@elastic/elasticsearch')
+import { Client, ClientOptions } from '@opensearch-project/opensearch'
 import { NotFoundError } from 'common-errors'
 import { PluginTypes } from '@microfleet/utils'
 import * as AWS from 'aws-sdk'
 import { createAwsElasticsearchConnector } from './utils/createAwsElasticsearchConnector'
 import { PluginInterface, Microfleet } from '@microfleet/core-types'
-
 declare module '@microfleet/core-types' {
   interface Microfleet {
-    awsElasticsearch: Elasticsearch.Client
+    awsElasticsearch: Client
   }
 
   interface ConfigurationOptional {
@@ -20,7 +19,7 @@ declare module '@microfleet/core-types' {
   }
 }
 
-export type Config = Elasticsearch.ClientOptions & {
+export type Config = ClientOptions & {
   accessKeyId: string;
   secretAccessKey: string;
   region?: string;
@@ -52,7 +51,7 @@ export function attach(
   })
 
   // instead of Constructor for Transport/Connection it says to pass on instances
-  this.awsElasticsearch = new Elasticsearch.Client({
+  this.awsElasticsearch = new Client({
     ...conf,
     ...createAwsElasticsearchConnector(awsConfig),
   })
@@ -62,15 +61,26 @@ export function attach(
      * @returns aws-elasticsearch connection.
      */
     async connect(this: Microfleet) {
-      await retry(this.awsElasticsearch.nodes.info, {
-        context: this.awsElasticsearch.nodes,
-        args: [{ nodeId: '', human: true }],
+      const reportError = (connectFn: () => Promise<void>) => async () => {
+        try {
+          await connectFn()
+        } catch (e: any) {
+          this.log.warn({ err: e }, 'Failed to connect to aws elastic')
+          throw e
+        }
+      }
+
+      const reconnectOpts = {
         interval: 500,
         backoff: 2,
         max_interval: 5000,
         timeout: 60000,
         max_tries: 100,
-      })
+      }
+
+      await retry(reportError(async () => {
+        await this.awsElasticsearch.nodes.info({ human: true })
+      }), reconnectOpts)
 
       this.emit('plugin:connect:awsElasticsearch', this.awsElasticsearch)
       return this.awsElasticsearch
