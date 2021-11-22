@@ -20,7 +20,7 @@
   SOFTWARE.
 */
 
-import { Transport } from '@elastic/elasticsearch'
+import { Transport } from '@opensearch-project/opensearch'
 import type { Config } from 'aws-sdk'
 import { strict as assert } from 'assert'
 

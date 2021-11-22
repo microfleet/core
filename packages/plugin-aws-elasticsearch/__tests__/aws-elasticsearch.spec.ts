@@ -1,4 +1,4 @@
-import { Client } from '@elastic/elasticsearch'
+import { Client } from '@opensearch-project/opensearch'
 import { Microfleet } from '@microfleet/core'
 
 describe('AWS Elasticsearch suite', () => {

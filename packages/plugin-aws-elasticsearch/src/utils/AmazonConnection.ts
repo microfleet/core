@@ -20,7 +20,7 @@
   SOFTWARE.
 */
 
-import { Connection } from '@elastic/elasticsearch'
+import { Connection } from '@opensearch-project/opensearch'
 import aws4 = require('aws4')
 import type { Config } from 'aws-sdk'
 import type { ClientRequestArgs } from 'http'
