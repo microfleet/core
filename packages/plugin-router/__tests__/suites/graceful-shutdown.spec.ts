@@ -2,9 +2,9 @@ import { delay, TimeoutError } from 'bluebird'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { spawn, ChildProcess } from 'child_process'
-import * as split2 from 'split2'
+import split2 = require('split2')
 import { once } from 'events'
-import * as getFreePort from 'get-port'
+import getFreePort = require('get-port')
 import { io as SocketIOClient } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
 
