@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const globalConfig = require('../../jest.config')
 
 module.exports = {
@@ -15,7 +16,5 @@ module.exports = {
   collectCoverageFrom: [
     'packages/plugin-kafka/src/**/*',
   ],
-  setupFilesAfterEnv: [
-    "./packages/plugin-kafka/__tests__/jest.setup.js"
-  ]
+  testTimeout: 60000,
 }

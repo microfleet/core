@@ -92,7 +92,10 @@ describe('#generic', () => {
       await admin.createTopic({
         topic: { topic, num_partitions: 1, replication_factor: 1 },
         params: {
+          max_tries: 40,
           interval: 1000,
+          max_interval: 5000,
+          timeout: 60000,
         }
       })
       const meta = await producerTemp.producer.getMetadataAsync({ allTopics: true })
@@ -133,9 +136,10 @@ describe('#generic', () => {
         client: producerTemp.producer,
         topic: { topic, num_partitions: 1, replication_factor: 1 },
         params: {
-          max_tries: 20,
+          max_tries: 40,
           interval: 1000,
-          timeout: 20000,
+          max_interval: 5000,
+          timeout: 60000,
         }
       })
       const meta = await producerTemp.producer.getMetadataAsync({ allTopics: true })
