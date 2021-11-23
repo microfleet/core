@@ -150,19 +150,12 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
 
   it('able to fail when retry count exceeds max retry attempt count', async () => {
     const { amqp } = service
-
-    // @todo dispose of assert
     assert(amqp)
-
     await rejects(
-      // @todo dispose of Promise.resolve
-      Promise.resolve(amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 3 })),
+      amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 3 }),
       {
         message: 'Fake connection error first three times',
         name: 'ConnectionError',
-        generateMessage: null,
-        global_initialize: undefined,
-        inner_error: undefined,
         retryAttempt: 3
       }
     )
@@ -227,14 +220,10 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
     assert(amqp)
 
     await rejects(
-      // @todo dispose of Promise.resolve
-      Promise.resolve(amqp.publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 3 })),
+      amqp.publishAndWait('amqp-prefix.router-prefix.echo', { failAtRetryCount: 3 }),
       {
         message: 'Fake connection error first three times',
         name: 'ConnectionError',
-        generateMessage: null,
-        global_initialize: undefined,
-        inner_error: undefined,
         retryAttempt: 3
       }
     )
