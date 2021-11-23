@@ -3,7 +3,7 @@
   "description": "opentracing plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "true",
@@ -30,17 +30,17 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "^0.1.0",
-    "@microfleet/plugin-logger": "^0.6.0",
-    "@microfleet/plugin-validator": "^0.1.0",
-    "@microfleet/utils": "^0.1.0",
+    "@microfleet/core-types": "^0.2.0",
+    "@microfleet/plugin-logger": "^0.7.0",
+    "@microfleet/plugin-validator": "^0.2.0",
+    "@microfleet/utils": "^0.2.0",
     "jaeger-client": "^3.18.1"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.7.0",
+    "@microfleet/core": "^17.8.0",
     "@types/jaeger-client": "^3.18.0",
-    "common-errors": "^1.2.0",
-    "@types/jest": "27.0.2"
+    "@types/jest": "27.0.2",
+    "common-errors": "^1.2.0"
   },
   "engines": {
     "node": ">= 12.15.0",

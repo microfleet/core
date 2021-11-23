@@ -1,7 +1,7 @@
 {
   "name": "@microfleet/plugin-kafka",
   "description": "Apache Kafka adapter for microfleet",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -32,11 +32,11 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "^0.1.0",
-    "@microfleet/plugin-kafka-types": "^1.4.0",
-    "@microfleet/plugin-logger": "^0.6.0",
-    "@microfleet/plugin-validator": "^0.1.0",
-    "@microfleet/utils": "^0.1.0",
+    "@microfleet/core-types": "^0.2.0",
+    "@microfleet/plugin-kafka-types": "^1.4.1",
+    "@microfleet/plugin-logger": "^0.7.0",
+    "@microfleet/plugin-validator": "^0.2.0",
+    "@microfleet/utils": "^0.2.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "lodash": "^4.17.21",
@@ -44,14 +44,14 @@
     "readable-stream": "^3.6.0"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.7.0",
+    "@microfleet/core": "^17.8.0",
+    "@types/jest": "27.0.2",
     "@types/node": "^16.11.7",
     "@types/readable-stream": "^2.3.10",
     "@types/sinon": "^10.0.2",
     "common-errors": "^1.2.0",
     "sinon": "^12.0.1",
-    "toxiproxy-node-client": "^2.0.6",
-    "@types/jest": "27.0.2"
+    "toxiproxy-node-client": "^2.0.6"
   },
   "files": [
     "lib/",

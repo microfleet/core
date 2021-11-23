@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.6.0...@microfleet/plugin-cassandra@0.7.0) (2021-11-23)
+
+
+### Bug Fixes
+
+* ts-jest config ([1f58312](https://github.com/microfleet/core/commit/1f58312f54e9c3069af898fe21ec2815fbf4909d))
+
+
+### Features
+
+* pino 7 transports, mocha & jest tests ([3f90cda](https://github.com/microfleet/core/commit/3f90cda510f2891c87087d1b7c0106150d2d7ba1))
+
+
+
+
+
 # 0.6.0 (2021-07-08)
 
 

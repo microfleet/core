@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.1.0...@microfleet/plugin-validator@0.2.0) (2021-11-23)
+
+
+### Bug Fixes
+
+* router tests ([cc67eab](https://github.com/microfleet/core/commit/cc67eab0d01b52965deb574c070444dc22614164))
+* ts-jest config ([1f58312](https://github.com/microfleet/core/commit/1f58312f54e9c3069af898fe21ec2815fbf4909d))
+
+
+### Features
+
+* pino 7 transports, mocha & jest tests ([3f90cda](https://github.com/microfleet/core/commit/3f90cda510f2891c87087d1b7c0106150d2d7ba1))
+
+
+
+
+
 # 0.1.0 (2021-07-08)
 
 

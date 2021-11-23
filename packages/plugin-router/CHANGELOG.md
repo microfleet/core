@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.0.0-dev.6...@microfleet/plugin-router@0.0.0-dev.7) (2021-11-23)
+
+
+### Bug Fixes
+
+* router tests ([cc67eab](https://github.com/microfleet/core/commit/cc67eab0d01b52965deb574c070444dc22614164))
+
+
+### Features
+
+* pino 7 transports, mocha & jest tests ([3f90cda](https://github.com/microfleet/core/commit/3f90cda510f2891c87087d1b7c0106150d2d7ba1))
+
+
+
+
+
 # [0.0.0-dev.6](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.0.0-dev.5...@microfleet/plugin-router@0.0.0-dev.6) (2021-11-03)
 
 

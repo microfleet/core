@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.7.1...@microfleet/plugin-kafka@2.8.0) (2021-11-23)
+
+
+### Features
+
+* pino 7 transports, mocha & jest tests ([3f90cda](https://github.com/microfleet/core/commit/3f90cda510f2891c87087d1b7c0106150d2d7ba1))
+
+
+
+
+
 ## [2.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.7.0...@microfleet/plugin-kafka@2.7.1) (2021-08-02)
 
 

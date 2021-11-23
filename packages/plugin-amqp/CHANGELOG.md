@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.8](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.0.0-dev.7...@microfleet/plugin-amqp@0.0.0-dev.8) (2021-11-23)
+
+
+### Features
+
+* pino 7 transports, mocha & jest tests ([3f90cda](https://github.com/microfleet/core/commit/3f90cda510f2891c87087d1b7c0106150d2d7ba1))
+
+
+
+
+
 # [0.0.0-dev.7](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.0.0-dev.6...@microfleet/plugin-amqp@0.0.0-dev.7) (2021-11-03)
 
 **Note:** Version bump only for package @microfleet/plugin-amqp
