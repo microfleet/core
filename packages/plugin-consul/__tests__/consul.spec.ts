@@ -3,9 +3,9 @@ jest.setTimeout(60000)
 import { Microfleet } from '@microfleet/core'
 import { ConsulConfig } from '@microfleet/plugin-consul'
 
-import * as nock from 'nock'
+import nock = require('nock')
 import { delay } from 'bluebird'
-import * as sinon from 'sinon'
+import sinon = require('sinon')
 
 let service: Microfleet
 

@@ -7,7 +7,7 @@ import type * as ___ from '@microfleet/plugin-socketio'
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
 import { Server } from '@hapi/hapi'
-import * as Joi from 'joi'
+import Joi = require('joi')
 import { Microfleet, PluginTypes } from '@microfleet/core'
 
 export { Server }
