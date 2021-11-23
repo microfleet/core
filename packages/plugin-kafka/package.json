@@ -40,12 +40,12 @@
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "lodash": "^4.17.21",
-    "node-rdkafka": "=2.11.0",
+    "node-rdkafka": "2.12.0",
     "readable-stream": "^3.6.0"
   },
   "devDependencies": {
     "@microfleet/core": "^17.8.0",
-    "@types/jest": "27.0.2",
+    "@types/jest": "27.0.3",
     "@types/node": "^16.11.7",
     "@types/readable-stream": "^2.3.10",
     "@types/sinon": "^10.0.2",

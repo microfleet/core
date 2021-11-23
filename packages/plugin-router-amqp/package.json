@@ -46,7 +46,7 @@
     "@microfleet/core": "^17.8.0",
     "@types/bluebird": "^3.5.35",
     "@types/event-to-promise": "^0.7.0",
-    "@types/jest": "27.0.2"
+    "@types/jest": "27.0.3"
   },
   "engines": {
     "node": ">= 12.14.0",

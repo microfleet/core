@@ -39,7 +39,7 @@
     "@microfleet/core": "^17.8.0",
     "@microfleet/plugin-router": "^0.0.0-dev.7",
     "@microfleet/plugin-validator": "^0.2.0",
-    "@types/jest": "27.0.2",
+    "@types/jest": "27.0.3",
     "@types/request-promise": "^4.1.47",
     "@types/semver": "^7.3.6",
     "common-errors": "^1.2.0",

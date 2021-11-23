@@ -2,8 +2,13 @@
   "name": "root",
   "private": true,
   "workspaces": {
-    "packages": ["packages/*"],
-    "nohoist": ["**/@types\\/jest", "**/@types\\/mocha"]
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@types\\/jest",
+      "**/@types\\/mocha"
+    ]
   },
   "scripts": {
     "prebootstrap": "yarn --frozen-lockfile --check-files",
@@ -26,7 +31,7 @@
     "eslint": "^8.2.0",
     "eslint-config-makeomatic": "^5.0.4",
     "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-unicorn": "^38.0.1",
+    "eslint-plugin-unicorn": "^39.0.0",
     "jest": "^27.3.1",
     "lerna": "^4.0.0",
     "rimraf": "^3.0.2",

@@ -3,6 +3,6 @@
   "private": true,
   "version": "0.0.1",
   "dependencies": {
-    "fastify": "^3.12.0"
+    "fastify": "^3.24.0"
   }
 }
