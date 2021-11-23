@@ -2583,10 +2583,15 @@
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.31.tgz#31b7ca6407128a3d2bbc27fe2d21b345397f6197"
   integrity sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==
 
-"@types/node@*", "@types/node@>=10.0.0", "@types/node@>=8", "@types/node@^16.11.7":
+"@types/node@*", "@types/node@>=10.0.0", "@types/node@>=8":
   version "16.11.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.9.tgz#879be3ad7af29f4c1a5c433421bf99fab7047185"
   integrity sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A==
+
+"@types/node@^16.11.10":
+  version "16.11.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.10.tgz#2e3ad0a680d96367103d3e670d41c2fed3da61ae"
+  integrity sha512-3aRnHa1KlOEEhJ6+CvyHKK5vE9BcLGjtUpwvqYLRvYNQKMfabu3BwfJaA/SLW8dxe28LsNDjtHwePTuzn3gmOA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -3239,10 +3244,10 @@ atomic-sleep@^1.0.0:
   resolved "https://registry.yarnpkg.com/atomic-sleep/-/atomic-sleep-1.0.0.tgz#eb85b77a601fc932cfe432c5acd364a9e2c9075b"
   integrity sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
 
-aws-sdk@^2.1030.0:
-  version "2.1034.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1034.0.tgz#61b0511e712ff765da1e182ac969d5eca38ac5a5"
-  integrity sha512-yo0B9nOZAKgsQqIKXqkeOJ2Wrt8zx4wd1JmCP1XZzdz1O4b1TfZA/mTN5cMiszOaEk8EWqvPESrw8MaIHFS3wA==
+aws-sdk@^2.1035.0:
+  version "2.1035.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1035.0.tgz#89a34c5b1e76e8304201036bf5258bceeebf4137"
+  integrity sha512-BjSGGZIQE/SCLDgj2T4AhtBG4A4NgXhV/Z/I/E7Mst/RpOepTqZGznUbgXTvO+Z3gKqx33jJa6mS7ZxStCb/Wg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -5864,15 +5869,10 @@ get-pkg-repo@^4.0.0:
     through2 "^2.0.0"
     yargs "^16.2.0"
 
-get-port@^5.1.1:
+get-port@=5.x.x, get-port@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/get-port/-/get-port-5.1.1.tgz#0469ed07563479de6efb986baf053dcd7d4e3193"
   integrity sha512-g/Q1aTSDOxFpchXC4i8ZWvxA1lnPqx/JHqcpIw0/LX9T8x/GBbi6YnlN5nhaKIFkT8oFsscUKgDJYxfwfS6QsQ==
-
-get-port@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/get-port/-/get-port-6.0.0.tgz#eeac06c17b9d22c2949d4ce5abcc80753afe9be1"
-  integrity sha512-qSVkVF6Eq1GdL/cBNiFuP4nUHMF7OEMTqEjC6alR2N90u8BFOoO0PFhNTX2QtAUoGrz8NnrSWj85TZ8YXZ6LOA==
 
 get-stream@^6.0.0:
   version "6.0.1"

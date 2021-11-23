@@ -51,7 +51,7 @@
     "@types/request-promise": "^4.1.47",
     "@types/split2": "^3.2.0",
     "bluebird": "^3.7.2",
-    "get-port": "^6.0.0",
+    "get-port": "=5.x.x",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "sinon": "^12.0.1",
