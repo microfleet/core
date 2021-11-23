@@ -37,20 +37,18 @@ export class KafkaAdminClient {
   private kafka: KafkaFactory
 
   public adminClient: IAdminClient
-  public defaultWaitParams: retry.Options
+  public defaultWaitParams: retry.Options = {
+    max_tries: 10,
+    throw_original: true,
+    interval: 100,
+    max_interval: 5000,
+    timeout: 15000,
+  }
 
   constructor(service: Microfleet, kafka: KafkaFactory) {
     this.service = service
     this.kafka = kafka
     this.adminClient = this.createAdminClient()
-
-    this.defaultWaitParams = {
-      max_tries: 10,
-      throw_original: true,
-      interval: 100,
-      max_interval: 5000,
-      timeout: 15000,
-    }
   }
 
   public close(): void {
@@ -101,6 +99,7 @@ export class KafkaAdminClient {
     const meta = await client.getMetadataAsync({
       allTopics: true
     })
+    this.service.log.debug({ meta }, 'getTopicFromMeta')
     const [filtered] = filterTopic(meta, topicName)
     return filtered
   }
