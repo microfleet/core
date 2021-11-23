@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.8](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.0.0-dev.7...@microfleet/plugin-router-socketio@0.0.0-dev.8) (2021-11-23)
+
+
+### Bug Fixes
+
+* update deps ([37f0e04](https://github.com/microfleet/core/commit/37f0e047d8df3ff5d9eb0abd91a98db2bd627d71))
+
+
+
+
+
 # [0.0.0-dev.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.0.0-dev.6...@microfleet/plugin-router-socketio@0.0.0-dev.7) (2021-11-23)
 
 

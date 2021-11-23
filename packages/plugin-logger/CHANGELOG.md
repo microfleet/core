@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.7.0...@microfleet/plugin-logger@0.7.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* update deps ([37f0e04](https://github.com/microfleet/core/commit/37f0e047d8df3ff5d9eb0abd91a98db2bd627d71))
+
+
+
+
+
 # [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.6.0...@microfleet/plugin-logger@0.7.0) (2021-11-23)
 
 

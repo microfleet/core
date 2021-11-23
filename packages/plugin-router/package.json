@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router",
-  "version": "0.0.0-dev.7",
+  "version": "0.0.0-dev.8",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -28,8 +28,8 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@hapi/boom": "^9.1.2",
-    "@microfleet/core-types": "^0.2.0",
-    "@microfleet/plugin-logger": "^0.7.0",
+    "@microfleet/core-types": "^0.2.1",
+    "@microfleet/plugin-logger": "^0.7.1",
     "@microfleet/transport-amqp": "^15.2.7",
     "@microfleet/utils": "^0.2.0",
     "@microfleet/validation": "^11.0.0",
@@ -45,7 +45,7 @@
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.8.0",
+    "@microfleet/core": "^17.8.1",
     "@types/bluebird": "^3.5.35",
     "@types/jest": "27.0.3",
     "@types/request-promise": "^4.1.47",

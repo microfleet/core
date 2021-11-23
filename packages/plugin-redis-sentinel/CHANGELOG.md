@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.2.0...@microfleet/plugin-redis-sentinel@0.2.1) (2021-11-23)
+
+
+### Bug Fixes
+
+* update deps ([37f0e04](https://github.com/microfleet/core/commit/37f0e047d8df3ff5d9eb0abd91a98db2bd627d71))
+
+
+
+
+
 # [0.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.1.0...@microfleet/plugin-redis-sentinel@0.2.0) (2021-11-23)
 
 
