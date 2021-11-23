@@ -1,8 +1,8 @@
 import { strictEqual, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
 import { all } from 'bluebird'
-import * as cheerio from 'cheerio'
-import * as request from 'request-promise'
+import cheerio = require('cheerio')
+import request = require('request-promise')
 import { Microfleet } from '@microfleet/core'
 import handlebars from 'handlebars'
 

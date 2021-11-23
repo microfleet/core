@@ -6,7 +6,7 @@ import retry = require('bluebird-retry')
 import { Client, ClientOptions } from '@opensearch-project/opensearch'
 import { NotFoundError } from 'common-errors'
 import { PluginTypes } from '@microfleet/utils'
-import * as AWS from 'aws-sdk'
+import AWS = require('aws-sdk')
 import { createAwsElasticsearchConnector } from './utils/createAwsElasticsearchConnector'
 import { PluginInterface, Microfleet } from '@microfleet/core-types'
 declare module '@microfleet/core-types' {

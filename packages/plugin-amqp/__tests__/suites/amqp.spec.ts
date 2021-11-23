@@ -1,7 +1,7 @@
 import { strict as assert } from 'assert'
 import { delay } from 'bluebird'
 import { spy } from 'sinon'
-import * as AMQPTransport from '@microfleet/transport-amqp'
+import AMQPTransport = require('@microfleet/transport-amqp')
 import { Microfleet } from '@microfleet/core'
 // @todo RequestCountTracker should be not part of @microfleet/plugin-router
 import { RequestCountTracker } from '@microfleet/plugin-router'

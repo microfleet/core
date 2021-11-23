@@ -1,5 +1,5 @@
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
-import * as kafka from 'node-rdkafka'
+import kafka = require('node-rdkafka')
 import { GlobalConfig, TopicConfig, ConsumerGlobalConfig } from 'node-rdkafka'
 import { Writable, Readable } from 'stream'
 import { EventEmitter } from 'events'
