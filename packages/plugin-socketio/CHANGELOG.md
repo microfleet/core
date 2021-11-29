@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.9](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.0.0-dev.8...@microfleet/plugin-socketio@0.0.0-dev.9) (2021-11-29)
+
+
+### Bug Fixes
+
+* **plugin-socketio:** ms-socket.io-adapter-amqp v8.1.2 ([#566](https://github.com/microfleet/core/issues/566)) ([2b8e336](https://github.com/microfleet/core/commit/2b8e336329018c0cfe75528a451975d1f4c14f59))
+
+
+
+
+
 # [0.0.0-dev.8](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.0.0-dev.7...@microfleet/plugin-socketio@0.0.0-dev.8) (2021-11-23)
 
 

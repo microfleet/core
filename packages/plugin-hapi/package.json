@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-hapi",
-  "version": "0.0.0-dev.9",
+  "version": "0.0.0-dev.10",
   "description": "hapi",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -33,7 +33,7 @@
     "@microfleet/core-types": "^0.2.1",
     "@microfleet/plugin-logger": "^0.7.1",
     "@microfleet/plugin-router": "^0.0.0-dev.8",
-    "@microfleet/plugin-socketio": "^0.0.0-dev.8",
+    "@microfleet/plugin-socketio": "^0.0.0-dev.9",
     "@microfleet/plugin-validator": "^0.2.1",
     "joi": "^17.4.0"
   },
