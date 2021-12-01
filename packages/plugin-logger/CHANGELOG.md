@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.2](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.7.1...@microfleet/plugin-logger@0.7.2) (2021-12-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v2.4.0 ([2d01041](https://github.com/microfleet/core/commit/2d010416fe7848e9f6bcf026cfdd68630ebdad88))
+
+
+
+
+
 ## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.7.0...@microfleet/plugin-logger@0.7.1) (2021-11-23)
 
 

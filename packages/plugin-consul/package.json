@@ -3,7 +3,7 @@
   "description": "hashicorp consul adapter",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -29,7 +29,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@microfleet/core-types": "^0.2.1",
-    "@microfleet/plugin-logger": "^0.7.1",
+    "@microfleet/plugin-logger": "^0.7.2",
     "@microfleet/plugin-validator": "^0.2.1",
     "@microfleet/utils": "^0.2.0",
     "common-errors": "^1.2.0",
