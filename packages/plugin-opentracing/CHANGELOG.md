@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.2.2...@microfleet/plugin-opentracing@0.2.3) (2021-12-06)
+
+**Note:** Version bump only for package @microfleet/plugin-opentracing
+
+
+
+
+
 ## [0.2.2](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.2.1...@microfleet/plugin-opentracing@0.2.2) (2021-12-01)
 
 **Note:** Version bump only for package @microfleet/plugin-opentracing

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.3](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.8.2...@microfleet/plugin-kafka@2.8.3) (2021-12-06)
+
+**Note:** Version bump only for package @microfleet/plugin-kafka
+
+
+
+
+
 ## [2.8.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.8.1...@microfleet/plugin-kafka@2.8.2) (2021-12-01)
 
 **Note:** Version bump only for package @microfleet/plugin-kafka

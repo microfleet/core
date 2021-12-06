@@ -3,7 +3,7 @@
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.0.0-dev.19",
+  "version": "0.0.0-dev.20",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -42,10 +42,10 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.8.1",
-    "@microfleet/plugin-logger": "^0.7.2",
-    "@microfleet/plugin-redis-cluster": "^0.2.3",
-    "@microfleet/plugin-redis-sentinel": "^0.2.3",
-    "@microfleet/plugin-router": "^0.0.0-dev.9",
+    "@microfleet/plugin-logger": "^0.7.3",
+    "@microfleet/plugin-redis-cluster": "^0.2.4",
+    "@microfleet/plugin-redis-sentinel": "^0.2.4",
+    "@microfleet/plugin-router": "^0.0.0-dev.10",
     "@types/bluebird": "^3.5.35",
     "@types/ioredis": "^4.26.4",
     "@types/jest": "27.0.3"

@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router",
-  "version": "0.0.0-dev.9",
+  "version": "0.0.0-dev.10",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -29,7 +29,7 @@
   "dependencies": {
     "@hapi/boom": "^9.1.2",
     "@microfleet/core-types": "^0.2.1",
-    "@microfleet/plugin-logger": "^0.7.2",
+    "@microfleet/plugin-logger": "^0.7.3",
     "@microfleet/transport-amqp": "^15.2.7",
     "@microfleet/utils": "^0.2.0",
     "@microfleet/validation": "^11.0.0",
