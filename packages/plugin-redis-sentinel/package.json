@@ -28,7 +28,7 @@
   "peerDependencies": {
     "@microfleet/core": "^17.5.4",
     "common-errors": "^1.2.0",
-    "ioredis": "=4.28.1"
+    "ioredis": "=4.28.2"
   },
   "dependencies": {
     "@microfleet/core-types": "^0.2.1",
