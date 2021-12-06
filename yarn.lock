@@ -10665,10 +10665,10 @@ socks@^2.3.3, socks@^2.6.1:
     ip "^1.1.5"
     smart-buffer "^4.1.0"
 
-sonic-boom@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-2.4.0.tgz#f896898174023b1212b201a7d815a3aea6975055"
-  integrity sha512-2jSXeHjrovvsrnQ0tvG6eUjDdtMBxtYDAHr18mGDM/Pno/Wdw+pQ1AXUWKCZgriZ9MvCVdUEXXOUfVEwPcrieg==
+sonic-boom@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-2.4.1.tgz#6e1c3762c677425c6ffbd7bd106c4f8258b45b39"
+  integrity sha512-WgtVLfGl347/zS1oTuLaOAvVD5zijgjphAJHgbbnBJGgexnr+C1ULSj0j7ftoGxpuxR4PaV635NkwFemG8m/5w==
   dependencies:
     atomic-sleep "^1.0.0"
 
