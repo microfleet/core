@@ -2379,10 +2379,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/consul@^0.23.34":
-  version "0.23.35"
-  resolved "https://registry.yarnpkg.com/@types/consul/-/consul-0.23.35.tgz#cec8baa324601d07461333a6f23be3ed01135734"
-  integrity sha512-2pJCfrvkdBCP2jZDKdQpJpP14XEZZBMEiJxe32hUr1FDWirOhy3HA4B/n4hHqZwQohM/ziVLDjd3ixnRXhKEWw==
+"@types/consul@^0.40.0":
+  version "0.40.0"
+  resolved "https://registry.yarnpkg.com/@types/consul/-/consul-0.40.0.tgz#9ff03f93e1ab08b58e3df81b1a2a66108b3896e0"
+  integrity sha512-0TPN4MxIKiuv9UcXWNgWQurNNG/J0af+A41eD4T5bFWSRoZJ8xaDocrX47CzGv5620uaPabFDjiAB/+VQu/0SQ==
   dependencies:
     "@types/node" "*"
 
