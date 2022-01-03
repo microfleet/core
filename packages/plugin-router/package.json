@@ -47,7 +47,7 @@
   "devDependencies": {
     "@microfleet/core": "^17.8.1",
     "@types/bluebird": "^3.5.35",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "@types/request-promise": "^4.1.47",
     "@types/split2": "^3.2.0",
     "bluebird": "^3.7.2",

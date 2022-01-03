@@ -38,7 +38,7 @@
     "socket.io": "^4.4.0"
   },
   "devDependencies": {
-    "@types/jest": "27.0.3"
+    "@types/jest": "27.4.0"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x",

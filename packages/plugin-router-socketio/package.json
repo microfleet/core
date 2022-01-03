@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.8.1",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "socket.io-client": "^4.4.0"
   },
   "engines": {

@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@microfleet/core": "^17.8.1",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "@types/node": "^16.11.10",
     "@types/readable-stream": "^2.3.10",
     "@types/sinon": "^10.0.2",
