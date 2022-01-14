@@ -36,18 +36,18 @@
     "@microfleet/plugin-logger": "^0.7.3",
     "@microfleet/plugin-validator": "^0.2.1",
     "@microfleet/utils": "^0.2.0",
-    "@opensearch-project/opensearch": "^1.0.0",
-    "aws-sdk": "^2.1035.0",
+    "@opensearch-project/opensearch": "^1.0.2",
+    "aws-sdk": "^2.1057.0",
     "aws4": "^1.11.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0"
   },
   "devDependencies": {
     "@microfleet/core": "^17.8.1",
-    "@types/aws4": "^1.5.1",
+    "@types/aws4": "^1.11.1",
     "@types/bluebird": "^3.5.35",
     "@types/bluebird-retry": "^0.11.4",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "common-errors": "^1.2.0"
   },
   "engines": {

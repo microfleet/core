@@ -29,7 +29,7 @@
     "read-pkg-up": "7.x.x"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.177"
+    "@types/lodash": "^4.14.178"
   },
   "engines": {
     "node": ">= 12.15.0",

@@ -118,7 +118,7 @@ export interface LoggerConfig {
 declare module '@microfleet/core-types' {
   export interface Microfleet {
     log: Logger;
-    logTransport?: pino.ThreadStream;
+    logTransport?: any; // type ThreadStream = any https://github.com/pinojs/pino/blob/v7.6.3/pino.d.ts#L31
     logClose?: () => void;
   }
 

@@ -35,7 +35,7 @@
     "@microfleet/utils": "^0.2.0",
     "bluebird": "^3.4.0",
     "common-errors": "^1.x.x",
-    "ioredis": "^4.27.5"
+    "ioredis": "^4.28.3"
   },
   "peerDependencies": {
     "@microfleet/core": "~17.x.x"
@@ -47,8 +47,8 @@
     "@microfleet/plugin-redis-sentinel": "^0.2.4",
     "@microfleet/plugin-router": "^0.0.0-dev.10",
     "@types/bluebird": "^3.5.35",
-    "@types/ioredis": "^4.26.4",
-    "@types/jest": "27.0.3"
+    "@types/ioredis": "^4.28.7",
+    "@types/jest": "27.4.0"
   },
   "engines": {
     "node": ">= 12.14.0",
