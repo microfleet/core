@@ -10,7 +10,8 @@ module.exports = {
     tester: {
       working_dir: '/src/packages/plugin-logger',
       volumes: [
-        '${PWD}/../../:/src:cached',
+        '${PWD}/../..:/src:cached',
+        '${PWD}/../../node_modules:/src/node_modules:cached',
       ],
       environment: {
         TS_NODE_TRANSPILE_ONLY: 'true',

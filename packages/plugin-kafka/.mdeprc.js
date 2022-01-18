@@ -11,8 +11,9 @@ module.exports = {
   "extras": {
     "tester": {
       "working_dir": "/src/packages/plugin-kafka",
-      "volumes": [
-        "${PWD}/../../:/src:cached"
+      volumes: [
+        '${PWD}/../..:/src:cached',
+        '${PWD}/../../node_modules:/src/node_modules:cached',
       ],
       environment: {
         TS_NODE_TRANSPILE_ONLY: "true",
