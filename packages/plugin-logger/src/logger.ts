@@ -104,6 +104,8 @@ export interface StreamConfiguration {
 }
 
 export type Logger = pino.Logger
+// @TODO use pino.ThreadStream type in future https://github.com/pinojs/pino/blob/v7.6.3/pino.d.ts#L31
+export type ThreadStream = any
 
 export interface LoggerConfig {
   defaultLogger: pino.Logger | boolean | pino.TransportBaseOptions;
@@ -118,7 +120,7 @@ export interface LoggerConfig {
 declare module '@microfleet/core-types' {
   export interface Microfleet {
     log: Logger;
-    logTransport?: pino.ThreadStream;
+    logTransport?: any; // type ThreadStream = any https://github.com/pinojs/pino/blob/v7.6.3/pino.d.ts#L31
     logClose?: () => void;
   }
 

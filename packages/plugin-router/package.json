@@ -32,12 +32,12 @@
     "@microfleet/plugin-logger": "^0.7.3",
     "@microfleet/transport-amqp": "^15.2.7",
     "@microfleet/utils": "^0.2.0",
-    "@microfleet/validation": "^11.0.0",
+    "@microfleet/validation": "^11.1.1",
     "glob": "^7.1.7",
-    "hyperid": "^2.1.0",
+    "hyperid": "^3.0.0",
     "lodash": "^4.17.21",
-    "opentracing": "^0.14.5",
-    "qs": "^6.10.1",
+    "opentracing": "^0.14.7",
+    "qs": "^6.10.3",
     "rfdc": "^1.1.4"
   },
   "peerDependencies": {
@@ -47,15 +47,15 @@
   "devDependencies": {
     "@microfleet/core": "^17.8.1",
     "@types/bluebird": "^3.5.35",
-    "@types/jest": "27.0.3",
+    "@types/jest": "27.4.0",
     "@types/request-promise": "^4.1.47",
     "@types/split2": "^3.2.0",
     "bluebird": "^3.7.2",
-    "get-port": "=5.x.x",
+    "get-port": "=5.0.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "sinon": "^12.0.1",
-    "socket.io-client": "^4.1.2",
+    "socket.io-client": "^4.4.1",
     "split2": "^4.1.0"
   },
   "engines": {
