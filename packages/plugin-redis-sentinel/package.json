@@ -3,7 +3,7 @@
   "description": "redis sentinel plugin for microfleet",
   "main": "./lib/redis-sentinel.js",
   "types": "./lib/redis-sentinel.d.ts",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "compile": "tsc -b ./tsconfig.build.json",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@microfleet/core-types": "^0.3.0",
-    "@microfleet/plugin-redis-core": "^0.3.0",
+    "@microfleet/plugin-redis-core": "^0.3.1",
     "@microfleet/plugin-validator": "^0.3.0",
     "@microfleet/utils": "^0.3.0",
     "bluebird": "^3.7.2",
