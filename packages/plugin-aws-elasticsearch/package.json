@@ -3,7 +3,7 @@
   "description": "Add aws-elasticsearch service support",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -32,10 +32,10 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "^0.2.1",
-    "@microfleet/plugin-logger": "^0.7.3",
-    "@microfleet/plugin-validator": "^0.2.1",
-    "@microfleet/utils": "^0.2.0",
+    "@microfleet/core-types": "^0.3.0",
+    "@microfleet/plugin-logger": "^0.8.0",
+    "@microfleet/plugin-validator": "^0.3.0",
+    "@microfleet/utils": "^0.3.0",
     "@opensearch-project/opensearch": "^1.0.2",
     "aws-sdk": "^2.1058.0",
     "aws4": "^1.11.0",
@@ -43,7 +43,7 @@
     "bluebird-retry": "^0.11.0"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.8.1",
+    "@microfleet/core": "^17.9.0",
     "@types/aws4": "^1.11.1",
     "@types/bluebird": "^3.5.35",
     "@types/bluebird-retry": "^0.11.4",

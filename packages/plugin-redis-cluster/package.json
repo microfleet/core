@@ -3,7 +3,7 @@
   "description": "redis cluster plugin for microfleet",
   "main": "./lib/redis-cluster.js",
   "types": "./lib/redis-cluster.d.ts",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "yarn test:e2e",
@@ -31,10 +31,10 @@
     "common-errors": "^1.2.0"
   },
   "dependencies": {
-    "@microfleet/core-types": "^0.2.1",
-    "@microfleet/plugin-redis-core": "^0.2.4",
-    "@microfleet/plugin-validator": "^0.2.1",
-    "@microfleet/utils": "^0.2.0",
+    "@microfleet/core-types": "^0.3.0",
+    "@microfleet/plugin-redis-core": "^0.3.0",
+    "@microfleet/plugin-validator": "^0.3.0",
+    "@microfleet/utils": "^0.3.0",
     "bluebird": "^3.0.0",
     "debug": "^4.3.1",
     "event-to-promise": "^0.8.0",
@@ -42,7 +42,7 @@
     "opentracing-js-ioredis": "^2.1.2"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.8.1",
+    "@microfleet/core": "^17.9.0",
     "@types/bluebird": "^3.5.35",
     "@types/debug": "^4.1.5",
     "@types/event-to-promise": "^0.7.1",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.14](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.0.0-dev.13...@microfleet/plugin-router-hapi@0.0.0-dev.14) (2022-01-19)
+
+
+### Features
+
+* upgrade plugin-validation and update deps ([#581](https://github.com/microfleet/core/issues/581)) ([f71edfa](https://github.com/microfleet/core/commit/f71edfa4a753a0dc2918ee7664306f79d5e5a09e))
+
+
+
+
+
 # [0.0.0-dev.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.0.0-dev.12...@microfleet/plugin-router-hapi@0.0.0-dev.13) (2021-12-06)
 
 **Note:** Version bump only for package @microfleet/plugin-router-hapi

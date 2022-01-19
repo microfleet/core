@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.12](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.0.0-dev.11...@microfleet/plugin-amqp@0.0.0-dev.12) (2022-01-19)
+
+
+### Features
+
+* upgrade plugin-validation and update deps ([#581](https://github.com/microfleet/core/issues/581)) ([f71edfa](https://github.com/microfleet/core/commit/f71edfa4a753a0dc2918ee7664306f79d5e5a09e))
+
+
+
+
+
 # [0.0.0-dev.11](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.0.0-dev.10...@microfleet/plugin-amqp@0.0.0-dev.11) (2021-12-06)
 
 **Note:** Version bump only for package @microfleet/plugin-amqp

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [17.9.0](https://github.com/microfleet/core/compare/@microfleet/core@17.8.1...@microfleet/core@17.9.0) (2022-01-19)
+
+
+### Features
+
+* upgrade plugin-validation and update deps ([#581](https://github.com/microfleet/core/issues/581)) ([f71edfa](https://github.com/microfleet/core/commit/f71edfa4a753a0dc2918ee7664306f79d5e5a09e))
+
+
+
+
+
 ## [17.8.1](https://github.com/microfleet/core/compare/@microfleet/core@17.8.0...@microfleet/core@17.8.1) (2021-11-23)
 
 

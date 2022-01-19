@@ -3,7 +3,7 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "17.8.1",
+  "version": "17.9.0",
   "scripts": {
     "lint": "eslint ./src",
     "test": "true",
@@ -42,8 +42,8 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/core-types": "^0.2.1",
-    "@microfleet/utils": "^0.2.0",
+    "@microfleet/core-types": "^0.3.0",
+    "@microfleet/utils": "^0.3.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "eventemitter3": "^4.0.7",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.0.0-dev.21](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.20...@microfleet/plugin-dlock@0.0.0-dev.21) (2022-01-19)
+
+
+### Features
+
+* upgrade plugin-validation and update deps ([#581](https://github.com/microfleet/core/issues/581)) ([f71edfa](https://github.com/microfleet/core/commit/f71edfa4a753a0dc2918ee7664306f79d5e5a09e))
+
+
+
+
+
 # [0.0.0-dev.20](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.0.0-dev.19...@microfleet/plugin-dlock@0.0.0-dev.20) (2021-12-06)
 
 **Note:** Version bump only for package @microfleet/plugin-dlock

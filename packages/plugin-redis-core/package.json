@@ -3,7 +3,7 @@
   "description": "utils for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "compile": "tsc -b ./tsconfig.build.json"
@@ -28,8 +28,8 @@
     "ioredis": "=4.28.2"
   },
   "dependencies": {
-    "@microfleet/core-types": "^0.2.1",
-    "@microfleet/plugin-logger": "^0.7.3",
+    "@microfleet/core-types": "^0.3.0",
+    "@microfleet/plugin-logger": "^0.8.0",
     "debug": "^4.3.1",
     "glob": "^7.1.7",
     "sort-by": "^1.2.0"

@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router-socketio",
-  "version": "0.0.0-dev.11",
+  "version": "0.0.0-dev.12",
   "description": "Socket.io transport adapter for router",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -29,9 +29,9 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/plugin-logger": "^0.7.3",
-    "@microfleet/plugin-router": "^0.0.0-dev.10",
-    "@microfleet/plugin-socketio": "^0.0.0-dev.11",
+    "@microfleet/plugin-logger": "^0.8.0",
+    "@microfleet/plugin-router": "^0.0.0-dev.11",
+    "@microfleet/plugin-socketio": "^0.0.0-dev.12",
     "lodash": "^4.17.21",
     "socket.io": "^4.4.1"
   },
@@ -40,7 +40,7 @@
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.8.1",
+    "@microfleet/core": "^17.9.0",
     "@types/jest": "27.4.0",
     "socket.io-client": "^4.4.1"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/core-types",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "@microfleet/core Types",
   "main": "./index.d.ts",
   "types": "./index.d.ts",
@@ -21,7 +21,7 @@
     "url": "https://github.com/micofleet/core/issues"
   },
   "dependencies": {
-    "@microfleet/utils": "^0.2.0",
+    "@microfleet/utils": "^0.3.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "eventemitter3": "^4.0.7"
