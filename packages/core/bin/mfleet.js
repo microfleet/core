@@ -6,7 +6,7 @@ const argv = require('yargs-parser')(process.argv.slice(2));
 // prepare variables
 const cwd = argv.cwd || process.cwd();
 const source = argv.src ? `${cwd}/${argv.src}` : `${cwd}/src`;
-const babel = argv.babel || 'ts-node/register';
+const babel = argv.babel || '@swc-node/register';
 
 let Service;
 try {

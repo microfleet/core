@@ -33,6 +33,6 @@ export function topicExists(data: TopicMetadata[], topics: SubscribeTopic | Subs
       return topicList.includes(metaDataTopic.name)
     })
 
-    if (!found) throw new TopicNotFoundError('Missing consumer topic', topics)
+    if (!found) throw new TopicNotFoundError('Missing consumer topic', topicList)
   }
 }

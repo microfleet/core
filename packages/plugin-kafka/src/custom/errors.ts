@@ -1,7 +1,8 @@
 import { CODES as KafkaCodes } from './rdkafka-extra'
 import { helpers as ErrorHelpers } from 'common-errors'
 import { TimeoutError } from 'bluebird'
-import { TopicPartitionOffset } from 'node-rdkafka'
+import { TopicPartitionOffset, SubscribeTopicList } from 'node-rdkafka'
+import { Options as RetryOptions } from 'bluebird-retry'
 import type { TrackerMeta } from './consumer-stream'
 
 const { ERRORS: KafkaErrorCodes } = KafkaCodes
@@ -27,7 +28,12 @@ interface CommonError {
 
 export const TopicNotFoundError = ErrorHelpers.generateClass('TopicNotFoundError', {
   args: ['message', 'topics'],
-})
+}) as TopicNotFoundError
+
+export type TopicNotFoundError = CommonError & {
+  new (message: string, topics: SubscribeTopicList): TopicNotFoundError;
+  topics: SubscribeTopicList;
+}
 
 export const OffsetCommitError = ErrorHelpers.generateClass('OffsetCommitError', {
   args: ['partitions', 'trackerMeta', 'inner_error'],
@@ -83,4 +89,10 @@ export const CommitTimeoutError = new TimeoutError('offset commit timeout on shu
 
 export const TopicWaitError = ErrorHelpers.generateClass('TopicWaitError', {
   args: ['message', 'retryConfig', 'retryState'],
-})
+}) as TopicWaitError
+
+export type TopicWaitError = CommonError & {
+  new(message: string, retryConfig: RetryOptions | undefined, retryState: { attempts: number, operation: string }): TopicWaitError;
+  retryConfig: RetryOptions;
+  retryState: { attempts: number, operation: string };
+}

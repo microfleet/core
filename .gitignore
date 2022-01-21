@@ -40,3 +40,13 @@ lib
 .vscode
 .clinic
 .swc
+
+# Rush temporary files
+common/deploy/
+common/temp/
+common/autoinstallers/*/.npmrc
+**/.rush/temp/
+
+# Heft
+.heft
+pnpm-lock.yaml
