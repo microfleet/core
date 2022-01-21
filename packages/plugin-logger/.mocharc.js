@@ -1,6 +1,6 @@
 module.exports = {
   require: [
-    'ts-node/register',
+    '@swc-node/register',
     'tsconfig-paths/register',
   ],
   extensions: ['ts'],

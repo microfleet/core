@@ -39,3 +39,4 @@ lib
 .releaserc.json
 .vscode
 .clinic
+.swc

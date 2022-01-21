@@ -37,9 +37,9 @@
     "@microfleet/plugin-validator": "^0.3.0",
     "@microfleet/utils": "^0.3.0",
     "lsmod": "^1.0.0",
-    "pino": "^7.6.3",
+    "pino": "^7.6.4",
     "pino-abstract-transport": "^0.5.0",
-    "pino-pretty": "^7.3.0",
+    "pino-pretty": "^7.5.0",
     "sonic-boom": "2.6.0"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "@sentry/node": "^6.16.1",
     "@sentry/types": "^6.16.1",
     "@types/bluebird": "^3.5.35",
-    "@types/mocha": "^9.0.0",
+    "@types/mocha": "^9.1.0",
     "@types/node": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",

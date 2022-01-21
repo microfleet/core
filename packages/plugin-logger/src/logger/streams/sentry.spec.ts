@@ -68,7 +68,7 @@ describe('Logger Sentry Stream Suite', () => {
     const logger = pino({ level: 'debug' }, pinoms)
 
     logger.warn({ userId: 123 }, 'Warning message')
-    logger.flush()
+    //logger.flush()
 
     await Sentry.flush()
 

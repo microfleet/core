@@ -1,9 +1,11 @@
 import { TopicMetadata, SubscribeTopic, SubscribeTopicList } from 'node-rdkafka'
 import { TopicNotFoundError } from './custom/errors'
+import type { Level } from 'pino'
+
 /**
  * `librdkafka` uses syslog severity levels
  */
-export const kafkaSeverityToLogMapping: { [level: number]: string } = {
+export const kafkaSeverityToLogMapping: { [level: number]: Level } = {
   0: 'fatal', 1: 'fatal',
   2: 'fatal', 3: 'error',
   4: 'warn', 5: 'info',
@@ -14,7 +16,7 @@ export const kafkaSeverityToLogMapping: { [level: number]: string } = {
  * Convert syslog level to generic level
  * @param level syslog level
  */
-export function getLogFnName(level: number): string {
+export function getLogFnName(level: number): Level {
   return kafkaSeverityToLogMapping[level] || 'debug'
 }
 
