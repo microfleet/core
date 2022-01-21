@@ -1,0 +1,232 @@
+/**
+ * This is the main configuration file for Rush.
+ * For full documentation, please see https://rushjs.io
+ */
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/rush.schema.json",
+  "rushVersion": "5.60.0",
+  "pnpmVersion": "6.27.1",
+  "pnpmOptions": {
+    "useWorkspaces": true
+  },
+  "nodeSupportedVersionRange": ">=16.13.0",
+  "ensureConsistentVersions": true,
+
+  /**
+   * This feature helps you to review and approve new packages before they are introduced
+   * to your monorepo.  For example, you may be concerned about licensing, code quality,
+   * performance, or simply accumulating too many libraries with overlapping functionality.
+   * The approvals are tracked in two config files "browser-approved-packages.json"
+   * and "nonbrowser-approved-packages.json".  See the Rush documentation for details.
+   */
+  // "approvedPackagesPolicy": {
+  //   /**
+  //    * The review categories allow you to say for example "This library is approved for usage
+  //    * in prototypes, but not in production code."
+  //    *
+  //    * Each project can be associated with one review category, by assigning the "reviewCategory" field
+  //    * in the "projects" section of rush.json.  The approval is then recorded in the files
+  //    * "common/config/rush/browser-approved-packages.json" and "nonbrowser-approved-packages.json"
+  //    * which are automatically generated during "rush update".
+  //    *
+  //    * Designate categories with whatever granularity is appropriate for your review process,
+  //    * or you could just have a single category called "default".
+  //    */
+  //   "reviewCategories": [
+  //     // Some example categories:
+  //     "production", // projects that ship to production
+  //     "tools",      // non-shipping projects that are part of the developer toolchain
+  //     "prototypes"  // experiments that should mostly be ignored by the review process
+  //   ],
+  //
+  //   /**
+  //    * A list of NPM package scopes that will be excluded from review.
+  //    * We recommend to exclude TypeScript typings (the "@types" scope), because
+  //    * if the underlying package was already approved, this would imply that the typings
+  //    * are also approved.
+  //    */
+  //   // "ignoredNpmScopes": ["@types"]
+  // },
+
+  /**
+   * If you use Git as your version control system, this section has some additional
+   * optional features you can use.
+   */
+  "gitPolicy": {
+    "versionBumpCommitMessage": "chore(release): publish releases [skip ci]",
+    "changeLogUpdateCommitMessage": "chore(changelog): publish changes [skip ci]"
+  },
+
+  "repository": {
+    "url": "https://github.com/microfleet/core",
+    "defaultBranch": "master",
+    "defaultRemote": "origin"
+  },
+
+  /**
+   * Event hooks are customized script actions that Rush executes when specific events occur
+   */
+  "eventHooks": {
+    "preRushInstall": [
+      // "common/scripts/pre-rush-install.js"
+    ],
+    "postRushInstall": [],
+    "preRushBuild": [],
+    "postRushBuild": []
+  },
+
+  /**
+   * Installation variants allow you to maintain a parallel set of configuration files that can be
+   * used to build the entire monorepo with an alternate set of dependencies.  For example, suppose
+   * you upgrade all your projects to use a new release of an important framework, but during a transition period
+   * you intend to maintain compatibility with the old release.  In this situation, you probably want your
+   * CI validation to build the entire repo twice: once with the old release, and once with the new release.
+   *
+   * Rush "installation variants" correspond to sets of config files located under this folder:
+   *
+   *   common/config/rush/variants/<variant_name>
+   *
+   * The variant folder can contain an alternate common-versions.json file.  Its "preferredVersions" field can be used
+   * to select older versions of dependencies (within a loose SemVer range specified in your package.json files).
+   * To install a variant, run "rush install --variant <variant_name>".
+   *
+   * For more details and instructions, see this article:  https://rushjs.io/pages/advanced/installation_variants/
+   */
+  "variants": [
+    // {
+    //   /**
+    //    * The folder name for this variant.
+    //    */
+    //   "variantName": "old-sdk",
+    //
+    //   /**
+    //    * An informative description
+    //    */
+    //   "description": "Build this repo using the previous release of the SDK"
+    // }
+  ],
+
+
+  "telemetryEnabled": false,
+
+  /**
+   * Allows creation of hotfix changes. This feature is experimental so it is disabled by default.
+   * If this is set, 'rush change' only allows a 'hotfix' change type to be specified. This change type
+   * will be used when publishing subsequent changes from the monorepo.
+   */
+  // "hotfixChangeEnabled": false,
+
+  /**
+   * (Required) This is the inventory of projects to be managed by Rush.
+   *
+   * Rush does not automatically scan for projects using wildcards, for a few reasons:
+   * 1. Depth-first scans are expensive, particularly when tools need to repeatedly collect the list.
+   * 2. On a caching CI machine, scans can accidentally pick up files left behind from a previous build.
+   * 3. It's useful to have a centralized inventory of all projects and their important metadata.
+   */
+  "projects": [{
+    "packageName": "@microfleet/core",
+    "projectFolder": "packages/core",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/core-types",
+    "projectFolder": "packages/core-types",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-amqp",
+    "projectFolder": "packages/plugin-amqp",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-aws-elasticsearch",
+    "projectFolder": "packages/plugin-aws-elasticsearch",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-cassandra",
+    "projectFolder": "packages/plugin-cassandra",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-consul",
+    "projectFolder": "packages/plugin-consul",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-couchdb",
+    "projectFolder": "packages/plugin-couchdb",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-dlock",
+    "projectFolder": "packages/plugin-dlock",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-elasticsearch",
+    "projectFolder": "packages/plugin-elasticsearch",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-hapi",
+    "projectFolder": "packages/plugin-hapi",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-kafka",
+    "projectFolder": "packages/plugin-kafka",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-kafka-types",
+    "projectFolder": "packages/plugin-kafka-types",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-knex",
+    "projectFolder": "packages/plugin-knex",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-logger",
+    "projectFolder": "packages/plugin-logger",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-opentracing",
+    "projectFolder": "packages/plugin-opentracing",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-prometheus",
+    "projectFolder": "packages/plugin-prometheus",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-redis-core",
+    "projectFolder": "packages/plugin-redis-core",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-redis-cluster",
+    "projectFolder": "packages/plugin-redis-cluster",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-redis-sentinel",
+    "projectFolder": "packages/plugin-redis-sentinel",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-router",
+    "projectFolder": "packages/plugin-router",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-router-amqp",
+    "projectFolder": "packages/plugin-router-amqp",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-router-hapi",
+    "projectFolder": "packages/plugin-router-hapi",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-router-socketio",
+    "projectFolder": "packages/plugin-router-socketio",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-socketio",
+    "projectFolder": "packages/plugin-socketio",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/plugin-validator",
+    "projectFolder": "packages/plugin-validator",
+    "versionPolicyName": "Microfleet"
+  }, {
+    "packageName": "@microfleet/utils",
+    "projectFolder": "packages/utils",
+    "versionPolicyName": "Microfleet"
+  }]
+}

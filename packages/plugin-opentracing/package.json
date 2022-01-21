@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "true",
-    "compile": "tsc -b ./tsconfig.build.json"
+    "clean": "rimraf ./lib *.tsbuildinfo",
+    "build": "tsc -b ./tsconfig.build.json"
   },
   "tags": [
     "microservice",
@@ -26,21 +27,42 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "~17.x.x",
+    "@microfleet/core": "workspace:^",
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "^0.3.0",
-    "@microfleet/plugin-logger": "^0.8.0",
-    "@microfleet/plugin-validator": "^0.3.0",
-    "@microfleet/utils": "^0.3.0",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "jaeger-client": "^3.18.1"
   },
   "devDependencies": {
-    "@microfleet/core": "^17.9.0",
+    "@makeomatic/deploy": "^11.0.5",
+    "@microfleet/core": "workspace:^",
+    "@release-it/conventional-changelog": "^4.1.0",
+    "@swc-node/jest": "^1.4.3",
+    "@swc-node/register": "^1.4.2",
+    "@types/common-errors": "^1.0.0",
     "@types/jaeger-client": "^3.18.0",
     "@types/jest": "27.4.0",
-    "common-errors": "^1.2.0"
+    "@types/node": "^17.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "common-errors": "^1.2.0",
+    "conventional-changelog-cli": "^2.2.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.7.0",
+    "eslint-config-makeomatic": "^5.1.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-unicorn": "^40.1.0",
+    "jest": "^27.4.7",
+    "release-it": "^14.12.3",
+    "rimraf": "^3.0.2",
+    "sinon": "^12.0.1",
+    "ts-essentials": "^9.1.2",
+    "tsconfig-paths": "^3.12.0",
+    "typescript": "~4.5.5"
   },
   "engines": {
     "node": ">= 12.15.0",
