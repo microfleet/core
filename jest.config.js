@@ -1,6 +1,18 @@
 module.exports = {
-  preset: 'ts-jest',
   testEnvironment: 'node',
+  transform: {
+    '^.+\\.(t|j)sx?$': ['@swc-node/jest', {
+      experimentalDecorators: true,
+      emitDecoratorMetadata: true,
+      target: 'es2022',
+    }],
+  },
+  moduleFileExtensions: [
+    'ts',
+    'js',
+    'json',
+    'node',
+  ],
   roots: ["<rootDir>/packages"],
   maxConcurrency: 1,
   testTimeout: 30000,

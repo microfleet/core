@@ -1,0 +1,113 @@
+{
+	"folders": [
+		{
+			"name": "✨ root",
+			"path": "."
+		},
+		{
+			"name": "📦 @microfleet/core",
+			"path": "packages/core"
+		},
+		{
+			"name": "📦 @microfleet/core-types",
+			"path": "packages/core-types"
+		},
+		{
+			"name": "📦 @microfleet/plugin-amqp",
+			"path": "packages/plugin-amqp"
+		},
+		{
+			"name": "📦 @microfleet/plugin-aws-elasticsearch",
+			"path": "packages/plugin-aws-elasticsearch"
+		},
+		{
+			"name": "📦 @microfleet/plugin-cassandra",
+			"path": "packages/plugin-cassandra"
+		},
+		{
+			"name": "📦 @microfleet/plugin-consul",
+			"path": "packages/plugin-consul"
+		},
+		{
+			"name": "📦 @microfleet/plugin-couchdb",
+			"path": "packages/plugin-couchdb"
+		},
+		{
+			"name": "📦 @microfleet/plugin-dlock",
+			"path": "packages/plugin-dlock"
+		},
+		{
+			"name": "📦 @microfleet/plugin-elasticsearch",
+			"path": "packages/plugin-elasticsearch"
+		},
+		{
+			"name": "🚀 @microfleet/plugin-hapi",
+			"path": "packages/plugin-hapi"
+		},
+		{
+			"name": "📦 @microfleet/plugin-kafka",
+			"path": "packages/plugin-kafka"
+		},
+		{
+			"name": "📦 @microfleet/plugin-kafka-types",
+			"path": "packages/plugin-kafka-types"
+		},
+		{
+			"name": "📦 @microfleet/plugin-knex",
+			"path": "packages/plugin-knex"
+		},
+		{
+			"name": "📦 @microfleet/plugin-logger",
+			"path": "packages/plugin-logger"
+		},
+		{
+			"name": "📦 @microfleet/plugin-opentracing",
+			"path": "packages/plugin-opentracing"
+		},
+		{
+			"name": "📦 @microfleet/plugin-prometheus",
+			"path": "packages/plugin-prometheus"
+		},
+		{
+			"name": "📦 @microfleet/plugin-redis-cluster",
+			"path": "packages/plugin-redis-cluster"
+		},
+		{
+			"name": "📦 @microfleet/plugin-redis-core",
+			"path": "packages/plugin-redis-core"
+		},
+		{
+			"name": "📦 @microfleet/plugin-redis-sentinel",
+			"path": "packages/plugin-redis-sentinel"
+		},
+		{
+			"name": "📦 @microfleet/plugin-router",
+			"path": "packages/plugin-router"
+		},
+		{
+			"name": "📦 @microfleet/plugin-router-amqp",
+			"path": "packages/plugin-router-amqp"
+		},
+		{
+			"name": "🚀 @microfleet/plugin-router-hapi",
+			"path": "packages/plugin-router-hapi"
+		},
+		{
+			"name": "📦 @microfleet/plugin-router-socketio",
+			"path": "packages/plugin-router-socketio"
+		},
+		{
+			"name": "📦 @microfleet/plugin-socketio",
+			"path": "packages/plugin-socketio"
+		},
+		{
+			"name": "📦 @microfleet/plugin-validator",
+			"path": "packages/plugin-validator"
+		},
+		{
+			"name": "📦 @microfleet/utils",
+			"path": "packages/utils"
+		}
+	],
+	"settings": {}
+}
