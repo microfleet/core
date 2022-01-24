@@ -22,7 +22,7 @@
     "semantic-release": "yarn compile && lerna publish --conventional-commits --create-release=github --yes"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^11.0.5",
+    "@makeomatic/deploy": "^12.0.0",
     "@types/node": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
