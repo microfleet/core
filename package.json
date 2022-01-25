@@ -1,6 +1,14 @@
 {
-  "name": "root",
+  "name": "microfleet",
+  "version": "17.0.0",
   "private": true,
   "scripts": {
+    "semantic-release": "semantic-release",
+    "prepare": "mdep install",
+    "test": "pnpm test -r --workspace-concurrency 1",
+    "version": "pnpm --filter=./packages --workspace-concurrency=4 exec -- pnpm release-it"
+  },
+  "devDependencies": {
+    "@makeomatic/deploy": "^12.2.2"
   }
 }

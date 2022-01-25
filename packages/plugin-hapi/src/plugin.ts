@@ -49,7 +49,7 @@ export function attach(
   const config = this.validator.ifError<HapiPluginConfig>('hapi', options)
 
   config.server.address = config.server.address || '0.0.0.0'
-  config.server.port = config.server.port || 3000
+  config.server.port = config.server.port === undefined ? 3000 : config.server.port // when port === 0 - random port is used
 
   const server = this.hapi = new Server(config.server)
 
@@ -99,7 +99,7 @@ export function attach(
 
     this.log.info(
       { transport: 'http', http: '@hapi/hapi' },
-      'listening on http://%s:%s',
+      ' onlistening http://%s:%s',
       config.server.address,
       server.info.port
     )

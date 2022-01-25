@@ -3,9 +3,13 @@ import { resolve } from 'path'
 import Bluebird = require('bluebird')
 import request = require('request-promise')
 import { StatusCodeError } from 'request-promise/errors'
-import { defaultsDeep } from 'lodash'
-import { Socket } from 'socket.io-client'
+import { mergeDeep } from '@microfleet/utils'
+import { Socket, io } from 'socket.io-client'
 import { OptionsWithUrl } from 'request-promise'
+import { once } from 'events'
+import hyperid from 'hyperid'
+
+const idInstance = hyperid({ urlSafe: true })
 
 export type Case = {
   expect: string
@@ -74,10 +78,35 @@ export function getHTTPRequest<T = any>(options: OptionsWithUrl): (action: strin
   }
 }
 
-export function getSocketioRequest(client: Socket): (action: string, params: any) => Bluebird<any> {
-  return (action: string, params: any): Bluebird<any> =>
-    Bluebird.fromCallback((callback) =>
-      client.emit(action, params, callback))
+export const getIOClient = async (host: string): Promise<Socket> => {
+  const socket = io(host, {
+    forceNew: true,
+    autoConnect: false,
+    transports: ['websocket'],
+    timeout: 1000,
+    reconnection: false,
+  })
+
+  socket.connect()
+  await once(socket, 'connect')
+
+  return socket
+}
+
+export function getSocketioRequest(client: Socket, { ignoreDisconnect = false } = {}): (action: string, params: any) => Bluebird<any> {
+  return (action: string, params: any): Bluebird<any> => {
+    return Bluebird.fromCallback((callback) => {
+      if (client.disconnected) {
+        if (ignoreDisconnect) {
+          return callback(null, ignoreDisconnect)
+        }
+
+        return callback(new Error('client disconnected'))
+      }
+
+      client.emit(action, params, callback)
+    })
+  }
 }
 
 export function getAmqpRequest(amqp: any) {
@@ -98,6 +127,11 @@ export function withResponseValidateAction(name: string, extra: any = {}): any {
       'router-hapi',
       'router-socketio',
     ],
+    amqp: {
+      transport: {
+        exchange: `test-${idInstance()}`
+      }
+    },
     hapi: {
       attachSocketio: true,
     },
@@ -110,5 +144,5 @@ export function withResponseValidateAction(name: string, extra: any = {}): any {
     validator: { schemas: [resolve(__dirname, './schemas')] },
   }
 
-  return defaultsDeep(config, extra)
+  return mergeDeep(config, extra)
 }

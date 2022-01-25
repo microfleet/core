@@ -1,9 +1,7 @@
 import build from 'pino-abstract-transport'
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
-import { LogLevel } from '@sentry/types'
 import lsmod = require('lsmod')
-import { pino } from 'pino'
 import {
   extractStackFromError,
   parseStack,
@@ -11,6 +9,7 @@ import {
 } from '@sentry/node/dist/parsers'
 
 import { SENTRY_FINGERPRINT_DEFAULT } from '../../constants'
+import pino from 'pino'
 
 // keys to be banned
 const BAN_LIST: { [key: string]: boolean } = {
@@ -139,24 +138,7 @@ sentryTransport.SentryStream = class SentryStream {
   }
 }
 
-sentryTransport.sentryToPinoLogLevel = ({ logLevel }: Sentry.NodeOptions): pino.Level => {
-  let level: pino.Level
-  if (logLevel === LogLevel.None) {
-    level = 'fatal'
-  } else if (logLevel === LogLevel.Debug) {
-    level = 'debug'
-  } else if (logLevel === LogLevel.Verbose) {
-    level = 'trace'
-  } else if (logLevel === LogLevel.Error) {
-    level = 'error'
-  } else {
-    level = 'warn'
-  }
-
-  return level
-}
-
-async function sentryTransport(config: Sentry.NodeOptions): Promise<ReturnType<typeof build>> {
+async function sentryTransport({ level, ...config }: Sentry.NodeOptions & { level?: pino.Level }): Promise<ReturnType<typeof build>> {
   assert(config.dsn, '"dsn" property must be set')
   assert(config.release, 'release version must be set')
 
