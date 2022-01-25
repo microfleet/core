@@ -13,3 +13,13 @@ export function defaultsDeep<T>(...sources: Partial<T>[]): T {
 
   return output
 }
+
+export function mergeDeep<T>(...sources: Partial<T>[]): T {
+  const output = Object.create(null)
+
+  for (const source of sources) {
+    mergeWith(output, source, customizer)
+  }
+
+  return output
+}

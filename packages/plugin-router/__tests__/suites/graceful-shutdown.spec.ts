@@ -1,18 +1,20 @@
 import { delay, TimeoutError } from 'bluebird'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
-import { spawn, ChildProcess } from 'child_process'
 import split2 = require('split2')
 import { once } from 'events'
 import getFreePort = require('get-port')
-import { io as SocketIOClient } from 'socket.io-client'
+import { io } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
+import Bluebird = require('bluebird')
+import execa = require('execa')
 
 import {
   getHTTPRequest,
   getSocketioRequest
 } from '../artifacts/utils'
 
+const debug = require('debug')('test')
 const childServiceFile = resolve(__dirname, '../artifacts/child-service.ts')
 
 class ChildServiceRunner {
@@ -21,8 +23,10 @@ class ChildServiceRunner {
   protected stdout: string[]
   protected stderr: string[]
   protected processClosed?: Promise<any[]>
-  protected process?: ChildProcess
+  protected process?: execa.ExecaChildProcess
   protected port?: number
+  public exchange: string = ''
+  public receivedCloseSignal = false
 
   constructor(command: string) {
     this.cmd = command
@@ -33,59 +37,49 @@ class ChildServiceRunner {
 
   async start(): Promise<any> {
     const freePort = await getFreePort()
+    const args = ['-r', '@swc-node/register', '-r', 'tsconfig-paths/register', this.cmd, String(freePort)]
 
-    // @todo return js file for child-service
-    const subProcess = spawn('/src/node_modules/.bin/ts-node', [this.cmd, String(freePort)], {
-      detached: true,
-      stdio: 'pipe',
-      env: { ...process.env, DEBUG: '*' },
-    })
+    debug('node %s', args.join(' '))
 
-    const { stderr, stdout } = subProcess
+    const proc = execa('node', args, {
+      buffer: false,
+      env: { SWC_NODE_PROJECT: './tsconfig.test.json' },
+    });
 
-    stderr.pipe(split2()).on('data', (line: string): void => {
-      this.stderr.push(line)
-    })
+    debug('spawned')
 
-    stdout.pipe(split2()).on('data', (line: string): void => {
+    const { stderr, stdout } = proc
+    stderr?.pipe(process.stderr)
+
+    stdout?.pipe(split2()).on('data', (line: string): void => {
       // in case of emergency uncomment
       // eslint-disable-next-line no-console
       // console.info(line)
-      this.stdout.push(line)
+      process.stdout.write(line)
+      process.stdout.write('\n')
       if (line.includes('childServiceReady')) {
         this.serviceStarted = true
-        subProcess.emit('ready')
+        this.exchange = JSON.parse(line).amqp
+        proc.emit('ready')
+      } else if (line.includes('received close signal')) {
+        this.receivedCloseSignal = true
+        proc.emit('receivedCloseSignal')
       }
     })
 
-    this.processClosed = once(subProcess, 'close')
+    await Promise.race([
+      Bluebird.delay(15000).throw(new TimeoutError('child process isnt ready after 15s')),
+      proc,
+      once(proc, 'ready')
+    ])
 
-    try {
-      await (new Promise<void>((resolve, reject) => {
-        once(subProcess, 'ready').then(() => {
-          clearTimeout(timeout)
-          resolve()
-        })
-        const timeout = setTimeout(() => {
-          clearTimeout(timeout)
-          reject(new TimeoutError())
-        }, 1000 * 59)
-      }))
-    } catch (e: any) {
-      // eslint-disable-next-line no-console
-      console.error(e.message)
-      // eslint-disable-next-line no-console
-      console.error(this.stdout.join('\n'))
-      throw new Error(this.stderr.join('\n'))
-    }
-
-    this.process = subProcess
+    this.process = proc
     this.port = freePort
 
-    return { process: subProcess, port: freePort }
+    return { process: proc, port: freePort, exchange: this.exchange }
   }
 
-  async getServiceConnectors(): Promise<any> {
+  async getServiceConnectors(opts = {}): Promise<any> {
     const service = new Microfleet({
       name: 'requester',
       plugins: ['amqp', 'logger', 'validator'],
@@ -95,21 +89,29 @@ class ChildServiceRunner {
             host: 'rabbitmq',
           },
           timeout: 6996,
+          exchange: this.exchange,
         },
       },
     })
 
     await service.connect()
 
-    const socketioClient = SocketIOClient(`http://0.0.0.0:${this.getPort()}`, {
+    const socket = io(`http://0.0.0.0:${this.getPort()}`, {
       forceNew: true,
+      autoConnect: false,
+      transports: ['websocket'],
+      timeout: 1000,
+      reconnection: false,
     })
+
+    socket.connect()
+    await once(socket, 'connect')
 
     return {
       service,
-      socketioClient,
+      socketioClient: socket,
       http: getHTTPRequest({ url: `http://0.0.0.0:${this.getPort()}` }),
-      socketio: getSocketioRequest(socketioClient),
+      socketio: getSocketioRequest(socket, opts),
     }
   }
 
@@ -119,72 +121,39 @@ class ChildServiceRunner {
 
     if (wait) await delay(500)
 
-    if (this.process.pid !== undefined) {
-      process.kill(this.process.pid, signal)
-    }
+    this.process.kill(signal, {
+      forceKillAfterTimeout: 50000,
+    });
 
-    return new Promise<void>((resolve, reject) => {
-      const timeout = setTimeout(() => {
-        clearTimeout(timeout)
-        clearInterval(interval)
-        reject()
-      }, 1000 * 60 * 2)
-      const interval = setInterval(() => {
-        assert(this.process, 'No service started')
-        // in case of emergency uncomment
-        // eslint-disable-next-line no-console
-        // console.log(`Is ${this.process.pid} alive?`)
-        try {
-          if (this.process.pid !== undefined) {
-            process.kill(this.process.pid, 0)
-          }
-        } catch (error) {
-          clearTimeout(timeout)
-          clearInterval(interval)
-          resolve()
-        }
-      }, 1000 * 5)
-    })
+    await this.process
   }
 
   getPort() {
     assert(this.serviceStarted, 'No service started')
     return this.port
   }
-
-  async getStdout() {
-    await this.processClosed
-    return this.stdout
-  }
-
-  async getStderr() {
-    await this.processClosed
-    return this.stderr
-  }
 }
 
-jest.setTimeout(1000 * 60 * 3)
+jest.setTimeout(1000 * 20 * 3)
 
 describe('service graceful shutdown', () => {
   let childService: ChildServiceRunner
 
   beforeEach(async () => {
+    debug('spawning process')
     childService = new ChildServiceRunner(childServiceFile)
     await childService.start()
+    debug('process spawned')
   })
 
   it('receives SIGTERM event', async () => {
     await childService.kill('SIGTERM')
-    const output = await childService.getStdout()
-
-    assert(output.some((s) => s.includes('received close signal')))
+    assert(childService.receivedCloseSignal)
   })
 
   it('receives SIGINT event', async () => {
     await childService.kill('SIGINT')
-    const output = await childService.getStdout()
-
-    assert(output.some((s) => s.includes('received close signal')))
+    assert(childService.receivedCloseSignal)
   })
 
   it('should wait for amqp request when shutting down', async () => {
@@ -239,14 +208,16 @@ describe('service graceful shutdown', () => {
   })
 
   it('should wait for multiple requests to finish', async () => {
-    const serviceConnector = await childService.getServiceConnectors()
+    const serviceConnector = await childService.getServiceConnectors({ ignoreDisconnect: { success: true, disconnected: true } })
     const actions = [
-      () => serviceConnector.service.amqp.publishAndWait('amqp.action.long-running', { pause: 299 }),
+      () => serviceConnector.service.amqp.publishAndWait('amqp.action.long-running', { pause: 299, timeout: 1000 }),
       () => serviceConnector.http('/action/long-running', { pause: 500 }),
       () => serviceConnector.socketio('action.long-running', { pause: 500 }),
     ]
 
     try {
+      debug('starting requests')
+
       const responses = await Promise.all([
         ...Array.from({ length: 100 })
           .map(() => Math.floor(Math.random() * actions.length))
@@ -254,13 +225,20 @@ describe('service graceful shutdown', () => {
         childService.kill('SIGTERM', true),
       ])
 
+      debug('responses received')
+
       responses.pop()
       responses.every((resp) => {
+        debug(resp)
         assert(resp, 'should respond to action')
-        assert(resp.success)
+        assert(resp.success, 'success isnt true')
         return true
       })
+
+      debug('how many disconnects?', responses.filter(resp => resp.disconnected).length)
+      assert(responses.filter(resp => resp.disconnected).length < 0.15 * responses.length, 'too many disconnected requests')
     } finally {
+      debug('closing socketio & service connector')
       await serviceConnector.service.close()
       serviceConnector.socketioClient.close()
     }

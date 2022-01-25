@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/node'
-import { LogLevel } from '@sentry/types'
 import { createSandbox, match } from 'sinon'
 import sentryStreamFactory, { SentryStream } from './sentry'
 import { pino } from 'pino'
@@ -20,7 +19,7 @@ describe('Logger Sentry Stream Suite', () => {
 
     const stream = await sentryStreamFactory({
       dsn: 'https://api@sentry.io/1822',
-      logLevel: LogLevel.Error,
+      level: 'error',
       release: 'test',
       transport: sentryTransport,
     })
@@ -30,7 +29,6 @@ describe('Logger Sentry Stream Suite', () => {
     assert(sentryInitSpy.calledOnceWithExactly({
       dsn: 'https://api@sentry.io/1822',
       defaultIntegrations: [],
-      logLevel: LogLevel.Error,
       release: 'test',
       autoSessionTracking: false,
       transport: sentryTransport,

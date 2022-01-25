@@ -1,44 +1,29 @@
-import { resolve } from 'path'
 import { Microfleet } from '@microfleet/core'
+import { withResponseValidateAction } from './utils'
+import '@microfleet/plugin-amqp'
 
-const service = new Microfleet({
-  name: 'tester',
-  plugins: [
-    'validator',
-    'logger',
-    'router',
-    'amqp',
-    'router-amqp',
-    'hapi',
-    'router-hapi',
-    'socketio',
-    'router-socketio',
-  ],
+const service = new Microfleet(withResponseValidateAction('tester', {
   sigterm: true,
   routerAmqp: {
     prefix: 'amqp',
   },
   hapi: {
-    attachSocketio: true,
     server: {
       port: parseInt(process.argv[2], 10),
     },
   },
   router: {
     routes: {
-      directory: resolve(__dirname, './actions'),
-      prefix: 'action',
       enabledGenericActions: ['health'],
     },
   },
-  validator: { schemas: ['./schemas'] },
-});
+}));
 
 (async () => {
   try {
     process.stdout.write(`${JSON.stringify(process.argv)}\n`)
     await service.connect()
-    process.stdout.write(`${JSON.stringify({ childServiceReady: true })}\n`)
+    process.stdout.write(`${JSON.stringify({ childServiceReady: true, amqp: service.config.amqp.transport.exchange })}\n`)
   } catch (e: any) {
     /* eslint-disable-next-line no-console */
     console.error(e)

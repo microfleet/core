@@ -1,7 +1,6 @@
 import { strict, strictEqual, rejects, doesNotReject, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
 import { AuthenticationRequiredError } from 'common-errors'
-import { io as SocketIOClient } from 'socket.io-client'
 import sinon = require('sinon')
 import Bluebird = require('bluebird')
 import { filter, range } from 'lodash'
@@ -15,7 +14,8 @@ import {
   getAmqpRequest,
   getHTTPRequest,
   getSocketioRequest,
-  withResponseValidateAction
+  withResponseValidateAction,
+  getIOClient
 } from '../artifacts/utils'
 
 const {
@@ -23,6 +23,8 @@ const {
   validateQueryStringParser: qsParser,
   validateTransportOptions: transportOptions
 } = Extensions
+
+const debug = require('debug')('test')
 
 describe('@microfleet/plugin-router', () => {
   it('should throw error if plugin is not included', () => {
@@ -94,7 +96,7 @@ describe('@microfleet/plugin-router', () => {
 
     const { amqp } = service
     const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-    const socketioClient = SocketIOClient('http://0.0.0.0:3000')
+    const socketioClient = await getIOClient('http://0.0.0.0:3000')
     const socketioRequest = getSocketioRequest(socketioClient)
     const amqpRequest = getAmqpRequest(amqp)
 
@@ -377,7 +379,7 @@ describe('@microfleet/plugin-router', () => {
     const { amqp } = service
     const amqpRequest = getAmqpRequest(amqp)
     const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
-    const socketioClient = SocketIOClient('http://0.0.0.0:3000')
+    const socketioClient = await getIOClient('http://0.0.0.0:3000')
     const socketioRequest = getSocketioRequest(socketioClient)
 
     try {
@@ -627,8 +629,7 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should return 418 in maintenance mode', async () => {
-    const service = new Microfleet({
-      name: 'tester',
+    const service = new Microfleet(withResponseValidateAction('maintenance', {
       plugins: [
         'logger',
         'validator',
@@ -639,13 +640,18 @@ describe('@microfleet/plugin-router', () => {
         'router-hapi',
       ],
       maintenanceMode: true,
+      hapi: {
+        attachSocketio: false,
+      },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions/maintenance'),
           prefix: 'maintenance',
         },
       },
-    })
+    }))
+
+    debug('service config - %j', service.config)
 
     const maintenanceModeIsEnabled = {
       expect: 'error',
@@ -721,7 +727,7 @@ describe('@microfleet/plugin-router', () => {
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = SocketIOClient('http://0.0.0.0:3000')
+      const socketioClient = await getIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
 
       const check = throwsError('validate-response')
@@ -763,7 +769,7 @@ describe('@microfleet/plugin-router', () => {
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = SocketIOClient('http://0.0.0.0:3000')
+      const socketioClient = await getIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
 
       const spy = sinon.spy(service.log, 'warn')
@@ -808,7 +814,7 @@ describe('@microfleet/plugin-router', () => {
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = SocketIOClient('http://0.0.0.0:3000')
+      const socketioClient = await getIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
 
       let failed = 0
@@ -859,7 +865,7 @@ describe('@microfleet/plugin-router', () => {
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = SocketIOClient('http://0.0.0.0:3000')
+      const socketioClient = await getIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
 
       try {
@@ -892,7 +898,7 @@ describe('@microfleet/plugin-router', () => {
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
       const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = SocketIOClient('http://0.0.0.0:3000')
+      const socketioClient = await getIOClient('http://0.0.0.0:3000')
       const socketioRequest = getSocketioRequest(socketioClient)
       const check = throwsError('validate-response-without-schema')
 

@@ -1,11 +1,17 @@
+const path = require('path')
+const cwd = process.cwd()
+const pkg = path.resolve(cwd, 'package.json')
+const { name } = require(pkg)
+
 module.exports = {
   git: {
     changelog: 'git log --pretty=format:\"* %s (%h)\" \${from}...\${to} -- ./',
-    commitMessage: 'chore: release v${version}',
-    tagName: '${name}@${version}',
+    commitMessage: 'chore(release): ${name} -- v${version}',
+    tagName: `${name}@\${version}`,
     commit: false,
     tag: false,
     push: false,
+    requireCleanWorkingDir: false,
   },
   npm: {
     publish: false,

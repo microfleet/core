@@ -1,0 +1,27 @@
+packages:
+  - ./packages/core
+  - ./packages/core-types
+  - ./packages/plugin-amqp
+  - ./packages/plugin-aws-elasticsearch
+  - ./packages/plugin-cassandra
+  - ./packages/plugin-consul
+  - ./packages/plugin-couchdb
+  - ./packages/plugin-dlock
+  - ./packages/plugin-elasticsearch
+  - ./packages/plugin-hapi
+  - ./packages/plugin-kafka
+  - ./packages/plugin-kafka-types
+  - ./packages/plugin-knex
+  - ./packages/plugin-logger
+  - ./packages/plugin-opentracing
+  - ./packages/plugin-prometheus
+  - ./packages/plugin-redis-cluster
+  - ./packages/plugin-redis-core
+  - ./packages/plugin-redis-sentinel
+  - ./packages/plugin-router
+  - ./packages/plugin-router-amqp
+  - ./packages/plugin-router-hapi
+  - ./packages/plugin-router-socketio
+  - ./packages/plugin-socketio
+  - ./packages/plugin-validator
+  - ./packages/utils

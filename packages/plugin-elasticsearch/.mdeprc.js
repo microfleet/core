@@ -1,3 +1,6 @@
+const { basename } = require('path')
+const dir = basename(__dirname)
+
 module.exports = {
   "nycCoverage": false,
   "coverage": false,
@@ -7,20 +10,15 @@ module.exports = {
   "services": [
     "elasticsearch"
   ],
-  "test_framework": 'jest --config ./jest.config.js --runTestsByPath --runInBand',
+  "test_framework": 'jest --config ./jest.config.js --runTestsByPath --runInBand --verbose --colors',
   "tests": '__tests__/*.spec.ts',
-  "extras": {
-    "tester": {
-      "working_dir": "/src/packages/plugin-elasticsearch",
+  root: `/src/packages/${dir}/node_modules/.bin`,
+  extras: {
+    tester: {
+      working_dir: `/src/packages/${dir}`,
       volumes: [
-        '${PWD}/../..:/src:cached',
-        '${PWD}/../../node_modules:/src/node_modules:cached',
-      ],
-      environment: {
-        TS_NODE_TRANSPILE_ONLY: "true",
-        TS_NODE_TYPE_CHECK: "false",
-        TS_NODE_FILES: "true"
-      }
+        '${PWD}/../..:/src:cached'
+      ]
     }
   }
 }

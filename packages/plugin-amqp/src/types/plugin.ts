@@ -14,6 +14,7 @@ export type AMQPPluginTransportConfig = {
   onComplete: CallableFunction;
   neck: number;
   timeout: number;
+  exchange: string;
 }
 
 export type AMQPPluginConfig = {

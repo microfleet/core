@@ -1,18 +1,16 @@
 const { resolve } = require('path');
-const { execSync } = require('child_process');
+const { sync } = require('execa');
 
-const parentPath = '../../../';
+const parentPath = '../';
 
 function rebuildKafka() {
   const parentProjectPath = resolve(__dirname, parentPath);
-  execSync('npm rebuild node-rdkafka', {cwd: parentProjectPath, stdio:  ['inherit', 'inherit', 'inherit']})
+  sync('npm', ['rebuild', 'node-rdkafka'], { cwd: parentProjectPath })
 }
 
-(() => {
-  try {
-    require('node-rdkafka');
-  } catch {
-    console.debug('Rebuilding `node-rdkafka`');
-    rebuildKafka();
-  }
-})()
+try {
+  require('node-rdkafka');
+} catch {
+  console.debug('Rebuilding `node-rdkafka`');
+  rebuildKafka();
+}

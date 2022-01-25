@@ -1,7 +1,5 @@
-import { resolve } from 'path'
 import { strict as assert } from 'assert'
 import { spy } from 'sinon'
-import { io as SocketIOClient } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
 import { Extensions } from '@microfleet/plugin-router'
 
@@ -9,40 +7,31 @@ import {
   getAmqpRequest,
   getHTTPRequest,
   getSocketioRequest,
-  verify
+  verify,
+  getIOClient,
+  withResponseValidateAction,
 } from '../artifacts/utils'
 
 const { auditLog } = Extensions
 
 describe('service request count', () => {
   it('counts requests on unknown routes', async () => {
-    const service = new Microfleet({
-      name: 'tester',
+    const service = new Microfleet(withResponseValidateAction('tester', {
       plugins: [
         'validator',
         'logger',
-        'router',
         'hapi',
-        'router-hapi',
         'socketio',
+        'router',
+        'router-hapi',
         'router-socketio',
       ],
-      hapi: {
-        attachSocketio: true,
-        server: {
-          port: 0,
-        },
-      },
+      hapi: { server: { port: 0 } },
       router: {
-        routes: {
-          directory: resolve(__dirname, '../artifacts/actions'),
-        },
-        extensions: {
-          register: [auditLog()]
-        },
+        routes: { prefix: '' },
+        extensions: { register: [auditLog()] },
       },
-      validator: { schemas: ['../artifacts/schemas'] },
-    })
+    }))
 
     await service.connect()
     const servicePort = service.hapi.info.port
@@ -52,7 +41,7 @@ describe('service request count', () => {
     const postResponseSpy = spy(requestCountTracker, 'decrease')
 
     const httpRequest = getHTTPRequest({ method: 'get', url: serviceUrl })
-    const socketioClient = SocketIOClient(serviceUrl)
+    const socketioClient = await getIOClient(serviceUrl)
     const socketioRequest = getSocketioRequest(socketioClient)
 
     await httpRequest('/404').reflect()
@@ -66,42 +55,18 @@ describe('service request count', () => {
   })
 
   it('counts requests on existing routes', async () => {
-    const service = new Microfleet({
-      name: 'tester',
-      plugins: [
-        'validator',
-        'logger',
-        'router',
-        'amqp',
-        'router-amqp',
-        'hapi',
-        'router-hapi',
-        'socketio',
-        'router-socketio',
-      ],
+    const service = new Microfleet(withResponseValidateAction('tester', {
       routerAmqp: {
         prefix: 'amqp',
       },
-      hapi: {
-        attachSocketio: true,
-        server: {
-          port: 0,
-        },
-      },
+      hapi: { server: { port: 0 } },
       router: {
         routes: {
-          directory: resolve(__dirname, '../artifacts/actions'),
-          prefix: 'action',
           enabledGenericActions: ['health'],
         },
-        extensions: {
-          register: [
-            auditLog(),
-          ],
-        },
+        extensions: { register: [auditLog()] },
       },
-      validator: { schemas: ['../artifacts/schemas'] },
-    })
+    }))
 
     await service.connect()
 
@@ -114,7 +79,7 @@ describe('service request count', () => {
     const postResponseSpy = spy(requestCountTracker, 'decrease')
 
     const httpRequest = getHTTPRequest({ method: 'get', url: serviceUrl })
-    const socketioClient = SocketIOClient(serviceUrl)
+    const socketioClient = await getIOClient(serviceUrl)
     const socketioRequest = getSocketioRequest(socketioClient)
     const amqpRequest = getAmqpRequest(amqp)
 

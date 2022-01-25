@@ -43,8 +43,7 @@ export function attach(
 
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
-
-  const config = this.validator.ifError<AMQPPluginConfig>('amqp', options) as AMQPPluginConfig
+  const config = this.validator.ifError<AMQPPluginConfig>('amqp', options)
 
   /**
    * Check if the service has an amqp transport.

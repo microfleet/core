@@ -1,7 +1,11 @@
+const { resolve } = require('path')
+const cwd = process.cwd()
+const transform = resolve(cwd, 'node_modules/@swc-node/jest')
+
 module.exports = {
   testEnvironment: 'node',
   transform: {
-    '^.+\\.(t|j)sx?$': ['@swc-node/jest', {
+    '^.+\\.(t|j)sx?$': [transform, {
       experimentalDecorators: true,
       emitDecoratorMetadata: true,
       target: 'es2022',

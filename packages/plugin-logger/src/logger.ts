@@ -6,9 +6,7 @@ import { pino } from 'pino'
 import type { NodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
 import { Microfleet, PluginInterface } from '@microfleet/core-types'
-
 import '@microfleet/plugin-validator'
-import { sentryToPinoLogLevel } from './logger/streams/sentry'
 
 export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
@@ -52,7 +50,7 @@ const defaultConfig: LoggerConfig = {
 function streamsFactory(streamName: string, options: any): pino.TransportTargetOptions {
   if (streamName === 'sentry') {
     return {
-      level: sentryToPinoLogLevel(options),
+      level: options.level || 'info',
       target: resolve(__dirname, '../lib/logger/streams/sentry'),
       options,
     }
