@@ -5,6 +5,9 @@
   "scripts": {
     "semantic-release": "semantic-release",
     "prepare": "mdep install",
+    "prebuild": "pnpm -r clean",
+    "build": "pnpm -r run build",
+    "pretest": "pnpm build",
     "test": "pnpm test -r --workspace-concurrency 1",
     "version": "pnpm --filter=./packages --workspace-concurrency=4 exec -- pnpm release-it"
   },

@@ -12,10 +12,11 @@ module.exports = {
     tag: false,
     push: false,
     requireCleanWorkingDir: false,
+    requireBranch: 'master'
   },
   npm: {
     publish: false,
-    ignoreVersion: true
+    ignoreVersion: false,
   },
   plugins: {
     '@release-it/conventional-changelog': {

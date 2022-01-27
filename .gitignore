@@ -49,4 +49,3 @@ common/autoinstallers/*/.npmrc
 
 # Heft
 .heft
-pnpm-lock.yaml
