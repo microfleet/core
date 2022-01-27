@@ -6,7 +6,7 @@
   "types": "./index.d.ts",
   "scripts": {
     "lint": "eslint './**/*.ts'",
-    "test": "npm run lint; tsc",
+    "test": "pnpm run lint; tsc",
     "build": "tsc -b tsconfig.json",
     "clean": "rimraf ./lib *.tsbuildinfo"
   },

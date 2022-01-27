@@ -6,12 +6,12 @@
   "version": "0.8.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
-    "pretest": "npm run compile",
-    "test": "npm run test:unit && npm run test:e2e",
+    "pretest": "pnpm run compile",
+    "test": "pnpm run test:unit && pnpm run test:e2e",
     "test:unit": "NODE_ENV=test mocha src/**/*.spec.ts",
     "test:e2e": "mdep test run",
     "clean": "rimraf ./lib *.tsbuildinfo",
-    "compile": "npm run build",
+    "compile": "pnpm run build",
     "build": "tsc -b ./tsconfig.build.json"
   },
   "tags": [

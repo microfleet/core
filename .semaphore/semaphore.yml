@@ -1,0 +1,45 @@
+version: v1.0
+name: Microfleet test & deploy
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+
+fail_fast:
+  stop:
+    when: "branch != 'master'"
+
+auto_cancel:
+  running:
+    when: "branch != 'master'"
+
+blocks:
+  - name: tests
+    task:
+      prologue:
+        commands:
+        - set -e
+        - sem-version node 16
+        - wget -qO - https://packages.confluent.io/deb/7.0/archive.key | sudo apt-key add -
+        - sudo add-apt-repository --no-update "deb [arch=amd64] https://packages.confluent.io/deb/7.0 stable main"
+        - sudo add-apt-repository --no-update "deb https://packages.confluent.io/clients/deb $(lsb_release -cs) main"
+        - sudo add-apt-repository --no-update -y ppa:ubuntu-toolchain-r/test
+        - sudo apt-get update
+        - sudo apt-get install -y gcc-10 g++-10
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 800 --slave /usr/bin/g++ g++ /usr/bin/g++-10
+        - sudo apt-get install librdkafka-dev=1.7.0-1.cflt~ubu20 librdkafka1=1.7.0-1.cflt~ubu20 librdkafka++1=1.7.0-1.cflt~ubu20
+        - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
+        - checkout
+        - cache restore node-$(checksum pnpm-lock.yaml)
+        - pnpm install
+        - cache store node-$(checksum pnpm-lock.yaml) ~/.pnpm-store
+      jobs:
+      - name: run tests in each folder
+        commands:
+          - cp ~/.env.aws-credentials ./packages/plugin-aws-elasticsearch/.env
+          - pnpm test
+      secrets:
+      - name: aws-credentials
+      env_vars:
+      - name: BUILD_LIBRDKAFKA
+        value: '0'

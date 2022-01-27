@@ -1,16 +1,18 @@
-const { resolve } = require('path');
-const { sync } = require('execa');
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { resolve } = require('path')
+const { sync } = require('execa')
 
-const parentPath = '../';
+const parentPath = '../'
 
 function rebuildKafka() {
-  const parentProjectPath = resolve(__dirname, parentPath);
-  sync('npm', ['rebuild', 'node-rdkafka'], { cwd: parentProjectPath })
+  const parentProjectPath = resolve(__dirname, parentPath)
+  sync('pnpm', ['rebuild', 'node-rdkafka'], { cwd: parentProjectPath })
 }
 
 try {
-  require('node-rdkafka');
+  require('node-rdkafka')
 } catch {
-  console.debug('Rebuilding `node-rdkafka`');
-  rebuildKafka();
+  // eslint-disable-next-line no-console
+  console.debug('Rebuilding `node-rdkafka`')
+  rebuildKafka()
 }

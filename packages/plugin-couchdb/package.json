@@ -6,7 +6,7 @@
   "version": "2.5.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
-    "test": "npm run test:e2e",
+    "test": "pnpm run test:e2e",
     "test:e2e": "mdep test run",
     "clean": "rimraf ./lib *.tsbuildinfo",
     "build": "tsc -b ./tsconfig.build.json"
