@@ -13,39 +13,61 @@ auto_cancel:
   running:
     when: "branch != 'master'"
 
+global_job_config:
+  prologue:
+    commands:
+      - set -e
+      - sem-version node 16
+      # - wget -qO - https://packages.confluent.io/deb/7.0/archive.key | sudo apt-key add -
+      # - sudo add-apt-repository --no-update "deb [arch=amd64] https://packages.confluent.io/deb/7.0 stable main"
+      # - sudo add-apt-repository --no-update "deb https://packages.confluent.io/clients/deb $(lsb_release -cs) main"
+      # - sudo add-apt-repository --no-update -y ppa:ubuntu-toolchain-r/test
+      # - sudo apt-get update
+      # - sudo apt-get install -y gcc-10 g++-10
+      # - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 800 --slave /usr/bin/g++ g++ /usr/bin/g++-10
+      # - sudo apt-get install librdkafka-dev=1.7.0-1.cflt~ubu20 librdkafka1=1.7.0-1.cflt~ubu20 librdkafka++1=1.7.0-1.cflt~ubu20
+      - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
+      - checkout
+      - cache restore node-$(checksum pnpm-lock.yaml)
+      - pnpm i --frozen-lockfile --prefer-offline --ignore-scripts
+      - cache store node-$(checksum pnpm-lock.yaml) ~/.pnpm-store
+      - cp ~/.env.aws-credentials ./packages/plugin-aws-elasticsearch/.env
+      - sudo chgrp -hR +1000 node_modules # so that it matches node uid/gid in the docker container
+
+  secrets:
+  - name: aws-credentials
+  env_vars:
+  - name: BUILD_LIBRDKAFKA
+    value: '0'
+
 blocks:
-  - name: tests
+  - name: build
+    dependencies: []
     task:
-      prologue:
+      jobs:
+      - name: build typescript project
         commands:
-        - set -e
-        - sem-version node 16
-        - wget -qO - https://packages.confluent.io/deb/7.0/archive.key | sudo apt-key add -
-        - sudo add-apt-repository --no-update "deb [arch=amd64] https://packages.confluent.io/deb/7.0 stable main"
-        - sudo add-apt-repository --no-update "deb https://packages.confluent.io/clients/deb $(lsb_release -cs) main"
-        - sudo add-apt-repository --no-update -y ppa:ubuntu-toolchain-r/test
-        - sudo apt-get update
-        - sudo apt-get install -y gcc-10 g++-10
-        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 800 --slave /usr/bin/g++ g++ /usr/bin/g++-10
-        - sudo apt-get install librdkafka-dev=1.7.0-1.cflt~ubu20 librdkafka1=1.7.0-1.cflt~ubu20 librdkafka++1=1.7.0-1.cflt~ubu20
-        - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
-        - checkout
-        - cache restore node-$(checksum pnpm-lock.yaml)
-        - pnpm install
-        - cache store node-$(checksum pnpm-lock.yaml) ~/.pnpm-store
-        - cp ~/.env.aws-credentials ./packages/plugin-aws-elasticsearch/.env
+          - pnpm build
+          - tar -czf intermediary-build.tgz ./packages/*/lib
+          - artifact push workflow intermediary-build.tgz --expire-in 1d
+
+  - name: tests
+    dependencies: ["build"]
+    task:
       jobs:
       - name: run tests in each folder
         commands:
+          - artifact pull workflow intermediary-build.tgz
+          - tar -xzf intermediary-build.tgz -C ./
+          - cache restore node-$(checksum pnpm-lock.yaml)
           - cd ./packages/$TEST_WORKSPACE_NAME
-          - pnpm clean
-          - pnpm build
           - pnpm test
-      matrix:
-      - env_var: TEST_WORKSPACE_NAME
-        value: ["core", "core-types", "plugin-amqp", "plugin-aws-elasticsearch", "plugin-cassandra", "plugin-consul", "plugin-couchdb", "plugin-dlock", "plugin-elasticsearch", "plugin-hapi", "plugin-kafka", "plugin-kafka-types", "plugin-knex", "plugin-logger", "plugin-opentracing", "plugin-prometheus", "plugin-redis-cluster", "plugin-redis-core", "plugin-redis-sentinel", "plugin-router", "plugin-router-amqp", "plugin-router-hapi", "plugin-router-socketio", "plugin-socketio", "plugin-validator", "utils"]
-      secrets:
-      - name: aws-credentials
-      env_vars:
-      - name: BUILD_LIBRDKAFKA
-        value: '0'
+        matrix:
+        - env_var: TEST_WORKSPACE_NAME
+          values: ["core", "core-types", "plugin-amqp", "plugin-aws-elasticsearch",
+                   "plugin-cassandra", "plugin-consul", "plugin-couchdb", "plugin-dlock",
+                   "plugin-elasticsearch", "plugin-hapi", "plugin-kafka", "plugin-kafka-types",
+                   "plugin-knex", "plugin-logger", "plugin-opentracing", "plugin-prometheus",
+                   "plugin-redis-cluster", "plugin-redis-core", "plugin-redis-sentinel",
+                   "plugin-router", "plugin-router-amqp", "plugin-router-hapi",
+                   "plugin-router-socketio", "plugin-socketio", "plugin-validator", "utils"]

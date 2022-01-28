@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "clean": "rimraf ./lib *.tsbuildinfo",
-    "build": "tsc -b ./tsconfig.build.json"
+    "build": "tsc -b ./tsconfig.build.json",
+    "test": "true"
   },
   "tags": [
     "microservice",
