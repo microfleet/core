@@ -6,7 +6,7 @@
   "version": "0.0.22",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
-    "test": "pnpm run test:e2e",
+    "test": "npm run test:e2e",
     "test:e2e": "mdep test run",
     "clean": "rimraf ./lib *.tsbuildinfo",
     "build": "tsc -b ./tsconfig.build.json"
@@ -42,7 +42,7 @@
     "@microfleet/core": "~17.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.2.2",
+    "@makeomatic/deploy": "^12.3.0",
     "@microfleet/core": "workspace:^17.9.0",
     "@microfleet/plugin-logger": "workspace:^0.8.0",
     "@microfleet/plugin-redis-cluster": "workspace:^0.3.1",
@@ -55,7 +55,7 @@
     "@types/common-errors": "^1.0.2",
     "@types/ioredis": "^4.28.7",
     "@types/jest": "27.4.0",
-    "@types/node": "^17.0.12",
+    "@types/node": "^17.0.13",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "conventional-changelog-cli": "^2.2.2",

@@ -33,11 +33,17 @@ blocks:
         - cache restore node-$(checksum pnpm-lock.yaml)
         - pnpm install
         - cache store node-$(checksum pnpm-lock.yaml) ~/.pnpm-store
+        - cp ~/.env.aws-credentials ./packages/plugin-aws-elasticsearch/.env
       jobs:
       - name: run tests in each folder
         commands:
-          - cp ~/.env.aws-credentials ./packages/plugin-aws-elasticsearch/.env
+          - cd ./packages/$TEST_WORKSPACE_NAME
+          - pnpm clean
+          - pnpm build
           - pnpm test
+      matrix:
+      - env_var: TEST_WORKSPACE_NAME
+        value: ["core", "core-types", "plugin-amqp", "plugin-aws-elasticsearch", "plugin-cassandra", "plugin-consul", "plugin-couchdb", "plugin-dlock", "plugin-elasticsearch", "plugin-hapi", "plugin-kafka", "plugin-kafka-types", "plugin-knex", "plugin-logger", "plugin-opentracing", "plugin-prometheus", "plugin-redis-cluster", "plugin-redis-core", "plugin-redis-sentinel", "plugin-router", "plugin-router-amqp", "plugin-router-hapi", "plugin-router-socketio", "plugin-socketio", "plugin-validator", "utils"]
       secrets:
       - name: aws-credentials
       env_vars:
