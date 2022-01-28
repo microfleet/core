@@ -30,12 +30,12 @@
     "read-pkg-up": "7.0.1"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.2.2",
+    "@makeomatic/deploy": "^12.3.0",
     "@release-it/conventional-changelog": "^4.1.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
     "@types/lodash": "^4.14.178",
-    "@types/node": "^17.0.12",
+    "@types/node": "^17.0.13",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "conventional-changelog-cli": "^2.2.2",

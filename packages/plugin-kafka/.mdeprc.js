@@ -10,8 +10,12 @@ module.exports = {
   http: false,
   "test_framework": "jest --config ./jest.config.js --runTestsByPath --maxWorkers=50% --colors --verbose",
   "tests": "__tests__/**/*.spec.ts",
-  "arbitrary_exec": ["node scripts/rebuild-kafka.js"],
   root: `/src/packages/${dir}/node_modules/.bin`,
+  euser: 'node',
+  tuser: 'node',
+  arbitrary_exec: [
+    'node ./scripts/rebuild-kafka.js',
+  ],
   extras: {
     tester: {
       working_dir: `/src/packages/${dir}`,

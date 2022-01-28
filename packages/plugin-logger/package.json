@@ -6,12 +6,12 @@
   "version": "0.8.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
-    "pretest": "pnpm run compile",
-    "test": "pnpm run test:unit && pnpm run test:e2e",
+    "pretest": "npm run compile",
+    "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "NODE_ENV=test mocha src/**/*.spec.ts",
     "test:e2e": "mdep test run",
     "clean": "rimraf ./lib *.tsbuildinfo",
-    "compile": "pnpm run build",
+    "compile": "npm run build",
     "build": "tsc -b ./tsconfig.build.json"
   },
   "tags": [
@@ -45,7 +45,7 @@
     "sonic-boom": "2.6.0"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.2.2",
+    "@makeomatic/deploy": "^12.3.0",
     "@microfleet/core": "workspace:^17.9.0",
     "@release-it/conventional-changelog": "^4.1.0",
     "@sentry/node": "^6.17.1",
@@ -55,8 +55,8 @@
     "@types/bluebird": "^3.5.36",
     "@types/common-errors": "^1.0.2",
     "@types/mocha": "^9.1.0",
-    "@types/node": "^17.0.12",
-    "@types/sinon": "^10.0.8",
+    "@types/node": "^17.0.13",
+    "@types/sinon": "^10.0.9",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "bluebird": "^3.7.2",

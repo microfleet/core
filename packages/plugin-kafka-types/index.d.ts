@@ -126,6 +126,8 @@ declare module 'node-rdkafka' {
   }
 
   export interface KafkaConsumer {
+    globalConfig: ConsumerGlobalConfig;
+
     // https://github.com/Blizzard/node-rdkafka/blob/master/lib/kafka-consumer.js#L176
     committedAsync(toppars: TopicPartition[], timeout: number): Promise<kafka.TopicPartitionOffset[]>;
     consumeAsync(count: number): Promise<kafka.Message[]>;

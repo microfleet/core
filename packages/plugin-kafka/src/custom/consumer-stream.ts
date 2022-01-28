@@ -66,7 +66,6 @@ export class KafkaConsumerStream extends Readable {
     const highWaterMark = config.streamAsBatch ? 1 : fetchSize
 
     super({ highWaterMark, objectMode: true, emitClose: true })
-    if (log) this.log = log.child({ topic: config.topics })
     this.config = config
     this.readStarted = false
     this.endEmitted = false
@@ -102,6 +101,9 @@ export class KafkaConsumerStream extends Readable {
     this.consumer.on('unsubscribed', this.handleUnsubscribed)
 
     this.topics = Array.isArray(config.topics) ? config.topics : [config.topics]
+
+    // remap names for bettter logging
+    if (log) this.log = log.child({ topics: this.topics.map(x => String(x)) })
 
     // to avoid some race conditions in rebalance during parallel consumer connection
     // we should start subscription earlier than read started
@@ -380,9 +382,14 @@ export class KafkaConsumerStream extends Readable {
         if (this.config.waitInterval) await delay(this.config.waitInterval)
       } catch (err: any) {
         this.log?.error({ err }, 'consume error')
-        // We can receive Broker transport error with code -1
-        // It's repeatable error
-        if (err.code !== Generic.ERR_UNKNOWN) {
+
+        if (err.code === Generic.ERR_UNKNOWN_TOPIC_OR_PART
+            && this.consumer.globalConfig['allow.auto.create.topics']) {
+          this.log?.fatal({ err }, 'allow.auto.create.topics is non functional and will throw in case of subscription failure')
+          this.destroy(err)
+        } else if (err.code !== Generic.ERR_UNKNOWN) {
+          // We can receive Broker transport error with code -1
+          // It's repeatable error
           this.destroy(err)
           return
         }

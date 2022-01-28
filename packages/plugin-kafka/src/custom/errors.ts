@@ -83,6 +83,7 @@ export const Generic = {
   ERR__REVOKE_PARTITIONS,
   ERR__STATE,
   ERR_UNKNOWN,
+  ERR_UNKNOWN_TOPIC_OR_PART
 }
 
 export const CommitTimeoutError = new TimeoutError('offset commit timeout on shutdown')

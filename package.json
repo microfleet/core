@@ -12,6 +12,6 @@
     "version": "pnpm --filter=./packages --workspace-concurrency=4 exec -- pnpm release-it"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.2.2"
+    "@makeomatic/deploy": "^12.3.0"
   }
 }
