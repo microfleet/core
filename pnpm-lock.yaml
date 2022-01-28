@@ -5,8 +5,10 @@ importers:
   .:
     specifiers:
       '@makeomatic/deploy': ^12.3.0
+      typescript: ~4.5.5
     devDependencies:
       '@makeomatic/deploy': 12.3.0
+      typescript: 4.5.5
 
   packages/core:
     specifiers:
