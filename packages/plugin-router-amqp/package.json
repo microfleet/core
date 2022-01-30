@@ -34,10 +34,10 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.3.0",
-    "@microfleet/plugin-amqp": "workspace:^0.0.12",
-    "@microfleet/plugin-logger": "workspace:^0.8.0",
-    "@microfleet/plugin-router": "workspace:^0.1.0",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-amqp": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/plugin-router": "workspace:^",
     "@microfleet/transport-amqp": "^15.2.8",
     "bluebird": "^3.7.2",
     "event-to-promise": "^0.8.0",
@@ -45,8 +45,8 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",
-    "@microfleet/core": "workspace:^17.9.0",
-    "@microfleet/plugin-router": "workspace:^0.1.0",
+    "@microfleet/core": "workspace:^",
+    "@microfleet/plugin-router": "workspace:^",
     "@release-it/conventional-changelog": "^4.1.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

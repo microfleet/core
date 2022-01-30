@@ -31,11 +31,11 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.1",
     "@hapi/vision": "^6.1.0",
-    "@microfleet/core-types": "workspace:^0.3.0",
-    "@microfleet/plugin-logger": "workspace:^0.8.0",
-    "@microfleet/plugin-router": "workspace:^0.1.0",
-    "@microfleet/plugin-socketio": "workspace:^0.0.12",
-    "@microfleet/plugin-validator": "workspace:^0.3.0",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/plugin-router": "workspace:^",
+    "@microfleet/plugin-socketio": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
     "joi": "^17.6.0"
   },
   "peerDependencies": {
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",
-    "@microfleet/core": "workspace:^17.9.0",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.1.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

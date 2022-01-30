@@ -33,10 +33,10 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.3.0",
-    "@microfleet/plugin-logger": "workspace:^0.8.0",
-    "@microfleet/plugin-validator": "workspace:^0.3.0",
-    "@microfleet/utils": "workspace:^0.3.0",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "@opensearch-project/opensearch": "^1.0.2",
     "aws-sdk": "^2.1065.0",
     "aws4": "^1.11.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",
-    "@microfleet/core": "workspace:^17.9.0",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.1.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
