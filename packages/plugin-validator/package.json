@@ -31,8 +31,8 @@
     "@microfleet/core": "~17.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.3.0",
-    "@microfleet/utils": "workspace:^0.3.0",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "@microfleet/validation": "^11.1.1",
     "callsite": "^1.0.0",
     "common-errors": "^1.2.0",

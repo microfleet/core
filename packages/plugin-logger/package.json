@@ -35,9 +35,9 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.3.0",
-    "@microfleet/plugin-validator": "workspace:^0.3.0",
-    "@microfleet/utils": "workspace:^0.3.0",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "lsmod": "^1.0.0",
     "pino": "^7.6.4",
     "pino-abstract-transport": "^0.5.0",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",
-    "@microfleet/core": "workspace:^17.9.0",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.1.0",
     "@sentry/node": "^6.17.1",
     "@sentry/types": "^6.17.1",

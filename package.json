@@ -5,7 +5,8 @@
   "scripts": {
     "semantic-release": "semantic-release",
     "prepare": "mdep install",
-    "prebuild": "pnpm -r clean",
+    "prebuild": "pnpm clean",
+    "clean": "pnpm -r clean",
     "build": "pnpm tsc -b ./tsconfig.build.json",
     "pretest": "pnpm build",
     "test": "pnpm test -r --workspace-concurrency 1",
@@ -13,6 +14,11 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",
+    "@release-it/conventional-changelog": "^4.1.0",
+    "glob": "^7.2.0",
+    "js-yaml": "^4.1.0",
+    "prepend-file": "^2.0.1",
+    "release-it": "^14.12.4",
     "typescript": "~4.5.5"
   }
 }

@@ -27,6 +27,10 @@ module.exports = {
           noteKeywords: ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
         }
       }
+    },
+    [path.resolve(__dirname, './ci/aggregate_release.js')]: {
+
     }
-  }
+  },
+  'disable-metrics': true,
 }

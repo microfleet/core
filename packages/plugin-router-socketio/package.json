@@ -30,9 +30,9 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/plugin-logger": "workspace:^0.8.0",
-    "@microfleet/plugin-router": "workspace:^0.1.0",
-    "@microfleet/plugin-socketio": "workspace:^0.0.12",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/plugin-router": "workspace:^",
+    "@microfleet/plugin-socketio": "workspace:^",
     "lodash": "^4.17.21",
     "socket.io": "^4.4.1"
   },
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",
-    "@microfleet/core": "workspace:^17.9.0",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.1.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

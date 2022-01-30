@@ -51,7 +51,6 @@ blocks:
         commands:
           - artifact pull workflow intermediary-build.tgz
           - tar -xzf intermediary-build.tgz -C ./
-          - cache restore node-$(checksum pnpm-lock.yaml)
           - cd ./packages/$TEST_WORKSPACE_NAME
           - pnpm test
         matrix:
@@ -63,3 +62,19 @@ blocks:
                    "plugin-redis-cluster", "plugin-redis-core", "plugin-redis-sentinel",
                    "plugin-router", "plugin-router-amqp", "plugin-router-hapi",
                    "plugin-router-socketio", "plugin-socketio", "plugin-validator", "utils"]
+
+  - name: release
+    dependencies: ["tests"]
+    skip:
+      when: "branch != 'master'"
+    task:
+      secrets:
+        - name: semantic-release
+      jobs:
+      - name: release
+        commands:
+          - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> ~/.npmrc
+          - artifact pull workflow intermediary-build.tgz
+          - tar -xzf intermediary-build.tgz -C ./
+          - pnpm run version
+          - pnpm release-it -c .release-it.root.cjs
