@@ -41,7 +41,7 @@
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "lodash": "^4.17.21",
-    "node-rdkafka": "2.12.0",
+    "@makeomatic/node-rdkafka": "^2.13.4",
     "pino": "^7.6.4",
     "readable-stream": "^3.6.0"
   },

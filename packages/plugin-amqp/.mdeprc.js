@@ -17,8 +17,7 @@ module.exports = {
     tester: {
       working_dir: `/src/packages/${dir}`,
       volumes: [
-        '${PWD}/../..:/src:cached',
-        '${PWD}/../../node_modules:/src/node_modules:cached',
+        '${PWD}/../..:/src:cached'
       ]
     }
   }

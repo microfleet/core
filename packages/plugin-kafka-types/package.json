@@ -47,6 +47,6 @@
     "typescript": "~4.5.5"
   },
   "dependencies": {
-    "node-rdkafka": "2.12.0"
+    "@makeomatic/node-rdkafka": "^2.13.4"
   }
 }

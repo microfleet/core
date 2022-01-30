@@ -1111,7 +1111,7 @@ describe('#generic', () => {
         conf: {
           'enable.auto.commit': false,
           'group.id': topic,
-          'allow.auto.create.topics': true,
+          // 'allow.auto.create.topics': true,
         },
       })
 

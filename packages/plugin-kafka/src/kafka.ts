@@ -7,7 +7,7 @@ import { PluginTypes } from '@microfleet/utils'
 import type { Logger } from '@microfleet/plugin-logger'
 import '@microfleet/plugin-validator'
 import { map } from 'bluebird'
-import type { WriteStreamOptions } from 'node-rdkafka'
+import type { WriteStreamOptions } from '@makeomatic/node-rdkafka'
 import type {
   ConsumerStreamConfig,
   ProducerStreamConfig,
