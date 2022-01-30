@@ -50,3 +50,4 @@ common/autoinstallers/*/.npmrc
 # Heft
 .heft
 *.tgz
+.pnpm-store

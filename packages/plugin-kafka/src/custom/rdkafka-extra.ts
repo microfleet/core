@@ -13,19 +13,19 @@ import {
   LibrdKafkaError as LibrdKafkaError,
   Client,
   KafkaClientEvents,
-} from 'node-rdkafka'
+} from '@makeomatic/node-rdkafka'
 
-export * from 'node-rdkafka'
+export * from '@makeomatic/node-rdkafka'
 
 /**
  * Library hides ConsumerStream or ProducerStream when using typescript
  * https://blizzard.github.io/node-rdkafka/current/KafkaConsumerStream.html
  * But but we want to create Producer or Consumer before streams
  */
-export const KafkaProducerStream = require('node-rdkafka/lib/producer-stream') as ProducerStream
-export const KafkaConsumerStream = require('node-rdkafka/lib/kafka-consumer-stream') as ConsumerStream
-export const KafkaClient = require('node-rdkafka/lib/client') as Client<KafkaClientEvents>
-export const LibrdKafkaErrorClass = require('node-rdkafka/lib/error') as LibrdKafkaError
+export const KafkaProducerStream = require('@makeomatic/node-rdkafka/lib/producer-stream') as ProducerStream
+export const KafkaConsumerStream = require('@makeomatic/node-rdkafka/lib/kafka-consumer-stream') as ConsumerStream
+export const KafkaClient = require('@makeomatic/node-rdkafka/lib/client') as Client<KafkaClientEvents>
+export const LibrdKafkaErrorClass = require('@makeomatic/node-rdkafka/lib/error') as LibrdKafkaError
 
 export type KafkaProducerStream = ProducerStream
 export type KafkaConsumerStream = ConsumerStream

@@ -1,4 +1,4 @@
-import { TopicMetadata, SubscribeTopic, SubscribeTopicList } from 'node-rdkafka'
+import { TopicMetadata, SubscribeTopic, SubscribeTopicList } from '@makeomatic/node-rdkafka'
 import { TopicNotFoundError } from './custom/errors'
 import type { Level } from 'pino'
 

@@ -14,7 +14,7 @@ module.exports = {
   euser: 'node',
   tuser: 'node',
   arbitrary_exec: [
-    'node ./scripts/rebuild-kafka.js',
+    'npm rebuild @makeomatic/node-rdkafka',
   ],
   extras: {
     tester: {

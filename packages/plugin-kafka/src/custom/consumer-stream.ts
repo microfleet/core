@@ -7,7 +7,7 @@ import type { Logger } from '@microfleet/plugin-logger'
 import type { ConsumerStreamOptions } from '@microfleet/plugin-kafka-types'
 import { KafkaConsumer, Message, LibrdKafkaError } from './rdkafka-extra'
 import { OffsetCommitError, CriticalErrors, RetryableErrors, UncommittedOffsetsError, Generic /*, CommitTimeoutError*/ } from './errors'
-import { TopicPartitionOffset, SubscribeTopicList, Assignment, EofEvent } from 'node-rdkafka'
+import { TopicPartitionOffset, SubscribeTopicList, Assignment, EofEvent } from '@makeomatic/node-rdkafka'
 
 export type CommitOffsetTracker = Map<string, TopicPartitionOffset>
 export const EVENT_OFFSET_COMMIT_ERROR = 'offset.commit.error'

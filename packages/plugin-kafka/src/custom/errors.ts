@@ -1,7 +1,7 @@
 import { CODES as KafkaCodes } from './rdkafka-extra'
 import { helpers as ErrorHelpers } from 'common-errors'
 import { TimeoutError } from 'bluebird'
-import { TopicPartitionOffset, SubscribeTopicList } from 'node-rdkafka'
+import { TopicPartitionOffset, SubscribeTopicList } from '@makeomatic/node-rdkafka'
 import { Options as RetryOptions } from 'bluebird-retry'
 import type { TrackerMeta } from './consumer-stream'
 
