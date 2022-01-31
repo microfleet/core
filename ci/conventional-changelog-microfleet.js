@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const angular = require('conventional-changelog-angular')
+const debug = require('debug')('release-it:aggregate-conventional-changelog')
 
 const whatBump = (commits) => {
   let level = undefined
@@ -8,6 +9,8 @@ const whatBump = (commits) => {
   let patches = 0
 
   commits.forEach(commit => {
+    debug(commit)
+
     if (commit.notes.length > 0) {
       breakings += commit.notes.length
       level = 0
@@ -16,7 +19,7 @@ const whatBump = (commits) => {
       if (level === 2) {
         level = 1
       }
-    } else if (commit.type === 'patch') {
+    } else if (['fix', 'patch', 'revert', 'refactor', 'docs', 'style'].includes(commit.type)) {
       patches += 1
       if (level === undefined) {
         level = 2

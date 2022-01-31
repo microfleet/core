@@ -2,7 +2,7 @@ const path = require('path')
 const glob = require('glob')
 
 /* THIS IS A QUICK FALLBACK WHEN THERE ARE NO RELEASES */
-const staged = glob.sync('./ci/staged/*.json')
+const staged = glob.sync('./ci/staged/*.json', { cwd: __dirname })
 if (staged.length === 0) {
   module.exports = {
     git: false,
