@@ -74,7 +74,16 @@ class GitPNPMMonorepo extends Git {
     for (const stagedModule of stagedChanges.values()) {
       const message = format(annotation, { ...context, stagedModule })
       const tagName = format('${name}@${version}', stagedModule)
-      await this.exec(['git', 'tag', '--annotate', '--message', message, ...fixArgs(args), tagName])
+
+      try {
+        await this.exec(['git', 'tag', '--annotate', '--message', message, ...fixArgs(args), tagName])
+      } catch (e) {
+        if (/tag '.+' already exists/.test(e)) {
+          this.log.warn(`Tag "${tagName}" already exists`)
+        } else {
+          throw e
+        }
+      }
     }
 
     await this.exec(['git', 'tag', ...fixArgs(args), context.tagName])

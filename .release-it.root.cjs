@@ -16,9 +16,7 @@ module.exports = {
   npm: {
     publish: false,
   },
-  github: {
-    release: true,
-  },
+  github: false,
   plugins: {
     '@release-it/conventional-changelog': {
       infile: false,
@@ -29,9 +27,10 @@ module.exports = {
         }
       }
     },
-    [path.resolve(__dirname, './ci/pnpm-git.js')]: {
-
-    }
+    [path.resolve(__dirname, './ci/pnpm-git.js')]: {},
+    [require.resolve('release-it/lib/plugin/github/GitHub')]: {
+      release: true,
+    },
   },
   'disable-metrics': true,
 }
