@@ -10,7 +10,7 @@
     "build": "pnpm tsc -b ./tsconfig.build.json",
     "pretest": "pnpm build",
     "test": "pnpm test -r --workspace-concurrency 1",
-    "version": "pnpm --filter=./packages --workspace-concurrency=4 exec -- pnpm release-it"
+    "version": "pnpm --filter=./packages exec -- pnpm release-it"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",

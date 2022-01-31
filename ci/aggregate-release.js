@@ -6,18 +6,20 @@ const { resolve } = require('path')
 const staged = resolve(__dirname, './staged')
 
 module.exports = class AggregateRelease extends Plugin {
-  async init() {
-    this.name = this.config.getContext('name')
-    this.staged = resolve(staged, `${this.name.replace(/\//g, '__')}.json`)
+  async beforeBump() {
+    const { name } = this.config.getContext()
+    const kFilename = resolve(staged, `${name.replace(/\//g, '__')}.json`)
 
+    this.setContext({ staged: kFilename })
     const { isDryRun } = this.config
     if (!isDryRun) {
-      await fs.unlink(this.staged).catch(() => {/* noop */})
+      await fs.unlink(kFilename).catch(() => {/* noop */})
     }
   }
 
   async bump(version) {
     const { name, latestVersion, changelog } = this.config.getContext()
+    this.debug({ name, latestVersion, version })
 
     if (version === latestVersion) {
       this.log.info('skipping %s release', name)
@@ -33,7 +35,7 @@ module.exports = class AggregateRelease extends Plugin {
 
     const { isDryRun } = this.config
     if (!isDryRun) {
-      await fs.writeFile(this.staged, release)
+      await fs.writeFile(this.getContext('staged'), release)
     }
   }
 }

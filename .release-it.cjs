@@ -28,7 +28,7 @@ module.exports = {
         }
       }
     },
-    [path.resolve(__dirname, './ci/aggregate_release.js')]: {
+    [path.resolve(__dirname, './ci/aggregate-release.js')]: {
 
     }
   },
