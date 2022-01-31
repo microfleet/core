@@ -29,7 +29,7 @@ module.exports = {
     },
     [path.resolve(__dirname, './ci/pnpm-git.js')]: {},
     [require.resolve('release-it/lib/plugin/github/GitHub')]: {
-      release: false,
+      release: true,
       releaseName: "Release ${version}",
       releaseNotes: null,
       preRelease: false,
