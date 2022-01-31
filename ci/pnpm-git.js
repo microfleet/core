@@ -71,11 +71,11 @@ class GitPNPMMonorepo extends Git {
   async tag({ annotation = this.options.tagAnnotation, args = this.options.tagArgs } = {}) {
     const context = this.config.getContext()
     const { stagedChanges } = context
-    await Promise.all(stagedChanges.map(async (stagedModule) => {
+    for (const stagedModule of stagedChanges.values()) {
       const message = format(annotation, { ...context, stagedModule })
       const tagName = format('${name}@${version}', stagedModule)
       await this.exec(['git', 'tag', '--annotate', '--message', message, ...fixArgs(args), tagName])
-    }))
+    }
 
     await this.exec(['git', 'tag', ...fixArgs(args), context.tagName])
 
