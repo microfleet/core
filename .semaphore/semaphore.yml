@@ -45,6 +45,8 @@ blocks:
 
   - name: tests
     dependencies: ["build"]
+    run:
+      when: "change_in('/packages/')"
     task:
       jobs:
       - name: run tests in each folder

@@ -51,10 +51,12 @@ class GitPNPMMonorepo extends Git {
   }
 
   // overwrites changelog for release notes
-  beforeRelease() {
+  async beforeRelease() {
     this.config.setContext({
       changelog: this.config.getContext('aggregateChangelog'),
     })
+
+    return super.beforeRelease()
   }
 
   async release() {
