@@ -6,6 +6,16 @@ const { resolve } = require('path')
 const staged = resolve(__dirname, './staged')
 
 module.exports = class AggregateRelease extends Plugin {
+  getIncrementedVersion() {
+    // if we are at this stage then previous plugin
+    // did not return version and we are at the same version as before
+    return this.config.getContext('latestVersion')
+  }
+
+  getIncrementedVersionCI(options) {
+    return this.getIncrementedVersion(options)
+  }
+
   async beforeBump() {
     const { name } = this.config.getContext()
     const kFilename = resolve(staged, `${name.replace(/\//g, '__')}.json`)
@@ -21,8 +31,8 @@ module.exports = class AggregateRelease extends Plugin {
     const { name, latestVersion, changelog } = this.config.getContext()
     this.debug({ name, latestVersion, version })
 
-    if (version === latestVersion) {
-      this.log.info('skipping %s release', name)
+    if (version === latestVersion || !version) {
+      this.debug(`skipping ${name} release`)
       return
     }
 

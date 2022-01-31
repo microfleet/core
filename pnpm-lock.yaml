@@ -6,18 +6,22 @@ importers:
     specifiers:
       '@makeomatic/deploy': ^12.3.0
       '@release-it/conventional-changelog': ^4.1.0
+      conventional-changelog-angular: ^5.0.13
       glob: ^7.2.0
       js-yaml: ^4.1.0
       prepend-file: ^2.0.1
       release-it: ^14.12.4
+      rimraf: ^3.0.2
       typescript: ~4.5.5
     devDependencies:
       '@makeomatic/deploy': 12.3.0
       '@release-it/conventional-changelog': 4.1.0_release-it@14.12.4
+      conventional-changelog-angular: 5.0.13
       glob: 7.2.0
       js-yaml: 4.1.0
       prepend-file: 2.0.1
       release-it: 14.12.4
+      rimraf: 3.0.2
       typescript: 4.5.5
 
   packages/core:

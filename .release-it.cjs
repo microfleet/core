@@ -19,18 +19,17 @@ module.exports = {
     ignoreVersion: false,
   },
   plugins: {
-    '@release-it/conventional-changelog': {
+    [path.resolve(__dirname, './ci/aggregate-conventional-changelog.js')]: {
       infile: "CHANGELOG.md",
       preset: {
-        name: 'angular',
+        name: path.resolve(__dirname, './ci/conventional-changelog-microfleet.js'),
         parserOpts: {
           noteKeywords: ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
-        }
-      }
+        },
+      },
     },
-    [path.resolve(__dirname, './ci/aggregate-release.js')]: {
-
-    }
+    [path.resolve(__dirname, './ci/aggregate-release.js')]: {},
+    [path.resolve(__dirname, './ci/aggregate-npm.js')]: {}
   },
   'disable-metrics': true,
 }
