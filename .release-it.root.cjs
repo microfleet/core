@@ -1,4 +1,17 @@
 const path = require('path')
+const glob = require('glob')
+
+/* THIS IS A QUICK FALLBACK WHEN THERE ARE NO RELEASES */
+const staged = glob.sync('./ci/staged/*.json')
+if (staged.length === 0) {
+  module.exports = {
+    git: false,
+    npm: false,
+    github: false,
+    'disable-metrics': true,
+  }
+  return
+}
 
 module.exports = {
   git: {
