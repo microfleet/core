@@ -52,16 +52,18 @@ class GitPNPMMonorepo extends Git {
 
   // overwrites changelog for release notes
   async beforeRelease() {
+    const { changelog } = this.options
+
     this.config.setContext({
       changelog: this.config.getContext('aggregateChangelog'),
     })
+    await this.step({ enabled: changelog, task: () => this.writeChangelog(), label: 'Aggregated Changelog' })
 
     return super.beforeRelease()
   }
 
   async release() {
-    const { commit, tag, push, pnpm, changelog } = this.options
-    await this.step({ enabled: changelog, task: () => this.writeChangelog(), label: 'Aggregated Changelog' })
+    const { commit, tag, push, pnpm } = this.options
     await this.step({ enabled: commit, task: () => this.commit(), label: 'Git commit' })
     await this.step({ enabled: tag, task: () => this.tag(), label: 'Git tag' })
     await this.step({ enabled: pnpm, task: () => this.pnpm(), label: 'Publish PNPM' })
