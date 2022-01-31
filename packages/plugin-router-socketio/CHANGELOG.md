@@ -1,3 +1,29 @@
+## [0.2.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.1.0...@microfleet/plugin-router-socketio@0.2.2) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.1.0...@microfleet/plugin-router-socketio@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
 # [0.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.0.0-dev.12...@microfleet/plugin-router-socketio@0.2.0) (2022-01-31)
 
 

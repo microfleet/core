@@ -1,3 +1,393 @@
+# @microfleet/core-types 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.4.0...@microfleet/core-types@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/core 17.11.1
+
+## [17.11.1](https://github.com/microfleet/core/compare/@microfleet/core@17.10.0...@microfleet/core@17.11.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-amqp 0.2.1
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.1.0...@microfleet/plugin-amqp@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-aws-elasticsearch 1.5.1
+
+## [1.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.4.0...@microfleet/plugin-aws-elasticsearch@1.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-cassandra 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.9.0...@microfleet/plugin-cassandra@0.10.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-consul 2.7.1
+
+## [2.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.6.0...@microfleet/plugin-consul@2.7.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-couchdb 2.7.1
+
+## [2.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.6.0...@microfleet/plugin-couchdb@2.7.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-dlock 0.2.1
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.1.0...@microfleet/plugin-dlock@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-elasticsearch 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.4.0...@microfleet/plugin-elasticsearch@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-hapi 0.2.1
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.1.0...@microfleet/plugin-hapi@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-kafka-types 1.6.1
+
+## [1.6.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.5.0...@microfleet/plugin-kafka-types@1.6.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-kafka 2.11.1
+
+## [2.11.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.10.0...@microfleet/plugin-kafka@2.11.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-knex 2.8.1
+
+## [2.8.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.7.0...@microfleet/plugin-knex@2.8.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-logger 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.9.0...@microfleet/plugin-logger@0.10.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-opentracing 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.4.0...@microfleet/plugin-opentracing@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-prometheus 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.4.0...@microfleet/plugin-prometheus@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-redis-cluster 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.4.0...@microfleet/plugin-redis-cluster@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-redis-core 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.4.0...@microfleet/plugin-redis-core@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-redis-sentinel 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.4.0...@microfleet/plugin-redis-sentinel@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-router-amqp 0.2.1
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.1.0...@microfleet/plugin-router-amqp@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-router-hapi 0.2.1
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.1.0...@microfleet/plugin-router-hapi@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-router-socketio 0.2.1
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.1.0...@microfleet/plugin-router-socketio@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-router 0.3.1
+
+## [0.3.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.2.0...@microfleet/plugin-router@0.3.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-socketio 0.2.1
+
+## [0.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.1.0...@microfleet/plugin-socketio@0.2.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/plugin-validator 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.4.0...@microfleet/plugin-validator@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
+# @microfleet/utils 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/utils@0.4.0...@microfleet/utils@0.5.1) (2022-01-31)
+
+
+### Bug Fixes
+
+* remove wtfnode from deps ([035482c](https://github.com/microfleet/core/commit/035482cb461afb5399b4ed40b18fc1eab5dd0315))
+* update dependencies ([4d3fcce](https://github.com/microfleet/core/commit/4d3fcce259f8a047a94dc40fc66604fae8a97050))
+
+
+### Reverts
+
+* router types exploration ([40ece1e](https://github.com/microfleet/core/commit/40ece1e8e701ac3e3f34f97016b1a94f517da515))
+
 # @microfleet/core-types 0.4.0
 
 # [0.4.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.3.0...@microfleet/core-types@0.4.0) (2022-01-31)
