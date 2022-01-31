@@ -72,7 +72,7 @@ blocks:
     task:
       secrets:
         - name: semantic-release
-        - name: demo-git-deploy
+        - name: semaphore-git-deploy
       jobs:
       - name: release
         commands:
