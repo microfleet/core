@@ -37,7 +37,7 @@
     "consul": "^0.40.0"
   },
   "peerDependencies": {
-    "@microfleet/core": "~17.x.x"
+    "@microfleet/core": "workspace:^"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.3.0",

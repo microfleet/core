@@ -1797,6 +1797,7 @@ importers:
   packages/plugin-validator:
     specifiers:
       '@makeomatic/deploy': ^12.3.0
+      '@microfleet/core': workspace:^
       '@microfleet/core-types': workspace:^
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.1
@@ -1836,6 +1837,7 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@makeomatic/deploy': 12.3.0
+      '@microfleet/core': link:../core
       '@release-it/conventional-changelog': 4.1.0_release-it@14.12.4
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2

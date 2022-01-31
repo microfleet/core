@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "~17.x.x"
+    "@microfleet/core": "workspace:^"
   },
   "dependencies": {
     "@microfleet/core-types": "workspace:^",
@@ -39,6 +39,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@microfleet/core": "workspace:^",
     "@makeomatic/deploy": "^12.3.0",
     "@release-it/conventional-changelog": "^4.1.0",
     "@swc-node/jest": "^1.4.3",
