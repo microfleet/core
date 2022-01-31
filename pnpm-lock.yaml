@@ -157,6 +157,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-validator': workspace:^
       '@microfleet/transport-amqp': ^15.2.8
       '@release-it/conventional-changelog': ^4.1.0
       '@swc-node/jest': ^1.4.3
@@ -192,6 +193,7 @@ importers:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
+      '@microfleet/plugin-validator': link:../plugin-validator
       '@release-it/conventional-changelog': 4.1.0_release-it@14.12.4
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
@@ -732,6 +734,7 @@ importers:
     specifiers:
       '@makeomatic/deploy': ^12.3.0
       '@makeomatic/node-rdkafka': ^2.13.4
+      '@microfleet/core': workspace:^
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-kafka-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
@@ -785,6 +788,7 @@ importers:
       readable-stream: 3.6.0
     devDependencies:
       '@makeomatic/deploy': 12.3.0
+      '@microfleet/core': link:../core
       '@release-it/conventional-changelog': 4.1.0_release-it@14.12.4
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2

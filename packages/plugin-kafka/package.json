@@ -46,6 +46,7 @@
     "readable-stream": "^3.6.0"
   },
   "devDependencies": {
+    "@microfleet/core": "workspace:^",
     "@makeomatic/deploy": "^12.3.0",
     "@release-it/conventional-changelog": "^4.1.0",
     "@swc-node/jest": "^1.4.3",
