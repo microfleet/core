@@ -46,7 +46,7 @@
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.3.0",
+    "@makeomatic/deploy": "^12.3.1",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
     "@release-it/conventional-changelog": "^4.1.0",

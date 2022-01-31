@@ -13,7 +13,7 @@
     "version": "rimraf ./ci/staged/*.json; pnpm --filter=./packages exec -- pnpm release-it"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.3.0",
+    "@makeomatic/deploy": "^12.3.1",
     "@release-it/conventional-changelog": "^4.1.0",
     "conventional-changelog-angular": "^5.0.13",
     "glob": "^7.2.0",

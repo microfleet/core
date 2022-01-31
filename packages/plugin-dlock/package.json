@@ -42,7 +42,7 @@
     "@microfleet/core": "workspace:^"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.3.0",
+    "@makeomatic/deploy": "^12.3.1",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-logger": "workspace:^",
     "@microfleet/plugin-redis-cluster": "workspace:^",

@@ -1,11 +1,6 @@
 import type * as ns from '@microfleet/core-types'
 import type { DeepPartial } from 'ts-essentials'
 
-let wtf: any
-if (process.env.NODE_ENV === 'test') {
-  wtf = require('wtfnode')
-}
-
 /**
  * Microservice Abstract Class
  * @module Microfleet
@@ -338,11 +333,6 @@ export class Microfleet extends EventEmitter {
 
     if (timeout) clearTimeout(timeout)
     this.log.info('close finished')
-    if (process.env.NODE_ENV === 'test') {
-      process.nextTick(() => {
-        wtf.dump()
-      })
-    }
   }
 
   /**

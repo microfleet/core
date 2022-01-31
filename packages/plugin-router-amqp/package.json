@@ -44,7 +44,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.3.0",
+    "@makeomatic/deploy": "^12.3.1",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
     "@release-it/conventional-changelog": "^4.1.0",
