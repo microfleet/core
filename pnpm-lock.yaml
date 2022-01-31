@@ -54,7 +54,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -91,7 +91,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -121,7 +121,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -149,7 +149,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -184,7 +184,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -218,7 +218,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -257,7 +257,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -295,7 +295,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -332,7 +332,7 @@ importers:
       release-it: ^14.12.4
       rfdc: ^1.3.0
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -368,7 +368,7 @@ importers:
       release-it: 14.12.4
       rfdc: 1.3.0
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -404,7 +404,7 @@ importers:
       nock: ^13.2.2
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -439,7 +439,7 @@ importers:
       nock: 13.2.2
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -475,7 +475,7 @@ importers:
       nano: ^9.0.5
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -510,7 +510,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -550,7 +550,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -589,7 +589,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -624,7 +624,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -658,7 +658,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -693,7 +693,7 @@ importers:
       joi: ^17.6.0
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       socket.io-client: ^4.4.1
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
@@ -728,7 +728,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       socket.io-client: 4.4.1
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
@@ -773,7 +773,7 @@ importers:
       readable-stream: ^3.6.0
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       toxiproxy-node-client: ^2.0.6
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
@@ -817,7 +817,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       toxiproxy-node-client: 2.0.6
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
@@ -842,7 +842,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -865,7 +865,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -902,7 +902,7 @@ importers:
       pg: ^8.7.1
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -938,7 +938,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -979,7 +979,7 @@ importers:
       release-it: ^14.12.4
       rimraf: ^3.0.2
       sentry-testkit: ^3.3.7
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       sonic-boom: 2.6.0
       tempy: ^1.0.1
       ts-essentials: ^9.1.2
@@ -1022,7 +1022,7 @@ importers:
       release-it: 14.12.4
       rimraf: 3.0.2
       sentry-testkit: 3.3.7
-      sinon: 12.0.1
+      sinon: 13.0.0
       tempy: 1.0.1
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
@@ -1056,7 +1056,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -1088,7 +1088,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1125,7 +1125,7 @@ importers:
       request-promise: ^4.2.6
       rimraf: ^3.0.2
       semver: ^7.3.5
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -1161,7 +1161,7 @@ importers:
       request: 2.88.2
       request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1201,7 +1201,7 @@ importers:
       opentracing-js-ioredis: ^2.1.2
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -1240,7 +1240,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1274,7 +1274,7 @@ importers:
       jest: ^27.4.7
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       sort-by: ^1.2.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
@@ -1309,7 +1309,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1347,7 +1347,7 @@ importers:
       opentracing-js-ioredis: ^2.1.2
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -1384,7 +1384,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1437,7 +1437,7 @@ importers:
       request-promise: ^4.2.6
       rfdc: ^1.3.0
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       socket.io-client: ^4.4.1
       split2: ^4.1.0
       tempy: ^1.0.1
@@ -1492,7 +1492,7 @@ importers:
       request: 2.88.2
       request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       socket.io-client: 4.4.1
       split2: 4.1.0
       tempy: 1.0.1
@@ -1533,7 +1533,7 @@ importers:
       lodash: ^4.17.21
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -1570,7 +1570,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1618,7 +1618,7 @@ importers:
       request: ^2.88.2
       request-promise: ^4.2.6
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -1665,7 +1665,7 @@ importers:
       request: 2.88.2
       request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1695,7 +1695,7 @@ importers:
       lodash: ^4.17.21
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       socket.io: ^4.4.1
       socket.io-client: ^4.4.1
       ts-essentials: ^9.1.2
@@ -1727,7 +1727,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       socket.io-client: 4.4.1
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
@@ -1762,7 +1762,7 @@ importers:
       ms-socket.io-adapter-amqp: ^8.1.2
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       socket.io: ^4.4.1
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
@@ -1797,7 +1797,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -1831,7 +1831,7 @@ importers:
       lodash: ^4.17.21
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       ts-jest: ^27.1.3
       tsconfig-paths: ^3.12.0
@@ -1865,7 +1865,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       ts-jest: 27.1.3_a7e53b5e5b59e71a0fd4d8cf128393d5
       tsconfig-paths: 3.12.0
@@ -1892,7 +1892,7 @@ importers:
       read-pkg-up: 7.0.1
       release-it: ^14.12.4
       rimraf: ^3.0.2
-      sinon: ^12.0.1
+      sinon: ^13.0.0
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
@@ -1917,7 +1917,7 @@ importers:
       jest: 27.4.7
       release-it: 14.12.4
       rimraf: 3.0.2
-      sinon: 12.0.1
+      sinon: 13.0.0
       ts-essentials: 9.1.2_typescript@4.5.5
       tsconfig-paths: 3.12.0
       typescript: 4.5.5
@@ -3573,8 +3573,14 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@sinonjs/samsam/6.0.2:
-    resolution: {integrity: sha512-jxPRPp9n93ci7b8hMfJOFDPRLFYadN6FSpeROFTR4UNF4i5b+EK6m4QXPO46BDhFgRy1JuS87zAnFOzCUwMJcQ==}
+  /@sinonjs/fake-timers/9.0.0:
+    resolution: {integrity: sha512-+shXA2X7KNP7H7qNbQTJ3SA+NQc0pZDSBrdvFSRwF8sAo/ohw+ZQFD8Moc+gnz51+1eRXtEQBpKWPiQ4jsRC/w==}
+    dependencies:
+      '@sinonjs/commons': 1.8.3
+    dev: true
+
+  /@sinonjs/samsam/6.1.1:
+    resolution: {integrity: sha512-cZ7rKJTLiE7u7Wi/v9Hc2fs3Ucc3jrWeMgPHbbTCeVAB2S0wOBbYlkJVeNSL04i7fdhT8wIbDq1zhC/PXTD2SA==}
     dependencies:
       '@sinonjs/commons': 1.8.3
       lodash.get: 4.4.2
@@ -11350,12 +11356,12 @@ packages:
       pkg-conf: 2.1.0
     dev: true
 
-  /sinon/12.0.1:
-    resolution: {integrity: sha512-iGu29Xhym33ydkAT+aNQFBINakjq69kKO6ByPvTsm3yyIACfyQttRTP03aBP/I8GfhFmLzrnKwNNkr0ORb1udg==}
+  /sinon/13.0.0:
+    resolution: {integrity: sha512-3tjMDB/tY04b06Bnb4aMKQfNrau2C9HET+R4HVWfv2KegDVLGg4wnBqjVepvxR7S7R1GTwDZzEv52tpFipt6yA==}
     dependencies:
       '@sinonjs/commons': 1.8.3
-      '@sinonjs/fake-timers': 8.1.0
-      '@sinonjs/samsam': 6.0.2
+      '@sinonjs/fake-timers': 9.0.0
+      '@sinonjs/samsam': 6.1.1
       diff: 5.0.0
       nise: 5.1.0
       supports-color: 7.2.0
