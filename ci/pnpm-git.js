@@ -86,7 +86,8 @@ class GitPNPMMonorepo extends Git {
       }
     }
 
-    await this.exec(['git', 'tag', ...fixArgs(args), context.tagName])
+    const message = format('Release ${version}', context)
+    await this.exec(['git', 'tag', '--annotate', '--message', message, ...fixArgs(args), context.tagName])
 
     this.setContext({ isTagged: true })
   }
