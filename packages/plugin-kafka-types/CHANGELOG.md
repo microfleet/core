@@ -1,3 +1,43 @@
+# [1.6.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.4.1...@microfleet/plugin-kafka-types@1.6.0) (2022-01-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v2.4.0 ([2d01041](https://github.com/microfleet/core/commit/2d010416fe7848e9f6bcf026cfdd68630ebdad88))
+* **deps:** update dependency sonic-boom to v2.4.1 ([4050030](https://github.com/microfleet/core/commit/4050030bc0a412c751340bc99abd4418882fe252))
+* **kafka:** kafka throws when connecting to non-existent topics ([5cdf1a8](https://github.com/microfleet/core/commit/5cdf1a8cffaca0d166f97a169209f2d579804f73))
+* **kafka:** use @makeomatic/node-rdkafka ([7627d66](https://github.com/microfleet/core/commit/7627d669ad49032f3a2f4be15a12a678d7136464))
+* **plugin-socketio:** ms-socket.io-adapter-amqp v8.1.2 ([#566](https://github.com/microfleet/core/issues/566)) ([2b8e336](https://github.com/microfleet/core/commit/2b8e336329018c0cfe75528a451975d1f4c14f59))
+* **router:** graceful shutdown fixed ([5f49652](https://github.com/microfleet/core/commit/5f49652458eb6c622f519259ae865cac42b48961))
+* **tooling:** dep versions for pnpm ([cac9f31](https://github.com/microfleet/core/commit/cac9f31a9e1e8577cb0251646410199d2b6c3eb8))
+* update deps ([37f0e04](https://github.com/microfleet/core/commit/37f0e047d8df3ff5d9eb0abd91a98db2bd627d71))
+
+
+### Features
+
+* @swc/node ([260e1bb](https://github.com/microfleet/core/commit/260e1bb049563df1b3795f1ac47699103601a87f))
+* upgrade plugin-validation and update deps ([#581](https://github.com/microfleet/core/issues/581)) ([f71edfa](https://github.com/microfleet/core/commit/f71edfa4a753a0dc2918ee7664306f79d5e5a09e))
+
+# [1.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.4.1...@microfleet/plugin-kafka-types@1.5.0) (2022-01-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v2.4.0 ([2d01041](https://github.com/microfleet/core/commit/2d010416fe7848e9f6bcf026cfdd68630ebdad88))
+* **deps:** update dependency sonic-boom to v2.4.1 ([4050030](https://github.com/microfleet/core/commit/4050030bc0a412c751340bc99abd4418882fe252))
+* **kafka:** kafka throws when connecting to non-existent topics ([5cdf1a8](https://github.com/microfleet/core/commit/5cdf1a8cffaca0d166f97a169209f2d579804f73))
+* **kafka:** use @makeomatic/node-rdkafka ([7627d66](https://github.com/microfleet/core/commit/7627d669ad49032f3a2f4be15a12a678d7136464))
+* **plugin-socketio:** ms-socket.io-adapter-amqp v8.1.2 ([#566](https://github.com/microfleet/core/issues/566)) ([2b8e336](https://github.com/microfleet/core/commit/2b8e336329018c0cfe75528a451975d1f4c14f59))
+* **router:** graceful shutdown fixed ([5f49652](https://github.com/microfleet/core/commit/5f49652458eb6c622f519259ae865cac42b48961))
+* **tooling:** dep versions for pnpm ([cac9f31](https://github.com/microfleet/core/commit/cac9f31a9e1e8577cb0251646410199d2b6c3eb8))
+* update deps ([37f0e04](https://github.com/microfleet/core/commit/37f0e047d8df3ff5d9eb0abd91a98db2bd627d71))
+
+
+### Features
+
+* @swc/node ([260e1bb](https://github.com/microfleet/core/commit/260e1bb049563df1b3795f1ac47699103601a87f))
+* upgrade plugin-validation and update deps ([#581](https://github.com/microfleet/core/issues/581)) ([f71edfa](https://github.com/microfleet/core/commit/f71edfa4a753a0dc2918ee7664306f79d5e5a09e))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
