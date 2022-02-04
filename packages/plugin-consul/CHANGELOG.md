@@ -1,3 +1,17 @@
+## [2.7.4](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.1...@microfleet/plugin-consul@2.7.4) (2022-02-04)
+
+
+### Bug Fixes
+
+* dlock with connect/close interface ([#593](https://github.com/microfleet/core/issues/593)) ([5aa9bae](https://github.com/microfleet/core/commit/5aa9baeddff6c9737a1d36f95859e9895bf99acb))
+
+## [2.7.3](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.1...@microfleet/plugin-consul@2.7.3) (2022-02-04)
+
+
+### Bug Fixes
+
+* dlock with connect/close interface ([#593](https://github.com/microfleet/core/issues/593)) ([5aa9bae](https://github.com/microfleet/core/commit/5aa9baeddff6c9737a1d36f95859e9895bf99acb))
+
 ## [2.7.2](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.6.0...@microfleet/plugin-consul@2.7.2) (2022-01-31)
 
 
