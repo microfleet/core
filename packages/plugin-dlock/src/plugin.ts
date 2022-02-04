@@ -97,13 +97,18 @@ export const attach = function attachDlockPlugin(
 
   return {
     async connect(this: Microfleet) {
-      const { redis: client } = this
-      assert(client instanceof Redis || client instanceof Cluster)
+      const { redis } = this
+      assert(redis instanceof Redis || redis instanceof Cluster)
+
+      // have separate clients specific to pubsub, this is a little extra load
+      // but ultimately wont account to much and we get complete control
+      // of these clients
 
       this.dlock = {
         manager: new DistributedCallbackQueue({
           ...config,
-          client,
+          client: redis.duplicate(),
+          pubsub: redis.duplicate(),
           log: this.log,
         }),
         acquireLock: acquireLock.bind(this),
