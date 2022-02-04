@@ -1,5 +1,5 @@
 import Bluebird = require('bluebird')
-import type { Redis, Cluster } from 'ioredis'
+import Redis, { Cluster } from 'ioredis'
 import type * as __ from '@microfleet/plugin-logger'
 import type * as _ from '@microfleet/plugin-validator'
 
@@ -93,30 +93,32 @@ export const attach = function attachDlockPlugin(
 
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
-
   const config = this.validator.ifError<Config>(name, opts)
-  let pubsub: Redis | Cluster | null = null
 
   return {
     async connect(this: Microfleet) {
-      const { redis: client } = this
-      const pubsubClient = pubsub = this.redis.duplicate()
-      await pubsubClient.connect()
+      const { redis } = this
+      assert(redis instanceof Redis || redis instanceof Cluster)
+
+      // have separate clients specific to pubsub, this is a little extra load
+      // but ultimately wont account to much and we get complete control
+      // of these clients
 
       this.dlock = {
         manager: new DistributedCallbackQueue({
           ...config,
-          client,
-          pubsub: pubsubClient,
+          client: redis.duplicate(),
+          pubsub: redis.duplicate(),
           log: this.log,
         }),
         acquireLock: acquireLock.bind(this),
       }
+
+      await this.dlock.manager.connect()
     },
 
     async close(this: Microfleet) {
-      await pubsub?.quit()
-      pubsub = null
+      await this.dlock.manager.close()
     },
   }
 }
