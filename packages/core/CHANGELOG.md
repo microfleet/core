@@ -1,3 +1,17 @@
+## [17.11.6](https://github.com/microfleet/core/compare/@microfleet/core@17.11.3...@microfleet/core@17.11.6) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+## [17.11.5](https://github.com/microfleet/core/compare/@microfleet/core@17.11.3...@microfleet/core@17.11.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
 ## [17.11.4](https://github.com/microfleet/core/compare/@microfleet/core@17.11.1...@microfleet/core@17.11.4) (2022-02-04)
 
 

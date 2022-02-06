@@ -1,3 +1,17 @@
+## [0.5.6](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.3...@microfleet/core-types@0.5.6) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.3...@microfleet/core-types@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
 ## [0.5.4](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.1...@microfleet/core-types@0.5.4) (2022-02-04)
 
 

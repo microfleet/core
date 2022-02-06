@@ -1,3 +1,17 @@
+## [0.10.6](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.3...@microfleet/plugin-logger@0.10.6) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+## [0.10.5](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.3...@microfleet/plugin-logger@0.10.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
 ## [0.10.4](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.1...@microfleet/plugin-logger@0.10.4) (2022-02-04)
 
 

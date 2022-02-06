@@ -3,7 +3,7 @@
   "description": "knex - universal *sql adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.8.4",
+  "version": "2.8.6",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

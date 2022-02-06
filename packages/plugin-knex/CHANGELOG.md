@@ -1,3 +1,17 @@
+## [2.8.6](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.3...@microfleet/plugin-knex@2.8.6) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+## [2.8.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.3...@microfleet/plugin-knex@2.8.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
 ## [2.8.4](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.1...@microfleet/plugin-knex@2.8.4) (2022-02-04)
 
 

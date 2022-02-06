@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.3...@microfleet/core-types@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/core 17.11.5
+
+## [17.11.5](https://github.com/microfleet/core/compare/@microfleet/core@17.11.3...@microfleet/core@17.11.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-amqp 0.2.5
+
+## [0.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.3...@microfleet/plugin-amqp@0.2.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-aws-elasticsearch 1.5.5
+
+## [1.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.5.3...@microfleet/plugin-aws-elasticsearch@1.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-cassandra 0.10.5
+
+## [0.10.5](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.3...@microfleet/plugin-cassandra@0.10.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-consul 2.7.5
+
+## [2.7.5](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.3...@microfleet/plugin-consul@2.7.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-couchdb 2.7.5
+
+## [2.7.5](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.7.3...@microfleet/plugin-couchdb@2.7.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-dlock 0.2.5
+
+## [0.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.2.3...@microfleet/plugin-dlock@0.2.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-elasticsearch 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.5.3...@microfleet/plugin-elasticsearch@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-hapi 0.2.5
+
+## [0.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.2.3...@microfleet/plugin-hapi@0.2.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-kafka-types 1.6.5
+
+## [1.6.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.3...@microfleet/plugin-kafka-types@1.6.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-kafka 2.11.5
+
+## [2.11.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.11.3...@microfleet/plugin-kafka@2.11.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-knex 2.8.5
+
+## [2.8.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.3...@microfleet/plugin-knex@2.8.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-logger 0.10.5
+
+## [0.10.5](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.3...@microfleet/plugin-logger@0.10.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-opentracing 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.3...@microfleet/plugin-opentracing@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-prometheus 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.5.3...@microfleet/plugin-prometheus@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-redis-cluster 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.5.3...@microfleet/plugin-redis-cluster@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-redis-core 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.3...@microfleet/plugin-redis-core@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-redis-sentinel 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.5.3...@microfleet/plugin-redis-sentinel@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-router-amqp 0.2.5
+
+## [0.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.2.3...@microfleet/plugin-router-amqp@0.2.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-router-hapi 0.2.5
+
+## [0.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.3...@microfleet/plugin-router-hapi@0.2.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-router-socketio 0.2.5
+
+## [0.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.2.3...@microfleet/plugin-router-socketio@0.2.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-router 0.3.5
+
+## [0.3.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.3...@microfleet/plugin-router@0.3.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-socketio 0.2.5
+
+## [0.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.2.3...@microfleet/plugin-socketio@0.2.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/plugin-validator 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.5.3...@microfleet/plugin-validator@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
+# @microfleet/utils 0.5.5
+
+## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/utils@0.5.3...@microfleet/utils@0.5.5) (2022-02-06)
+
+
+### Bug Fixes
+
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+
 # @microfleet/core-types 0.5.3
 
 ## [0.5.3](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.1...@microfleet/core-types@0.5.3) (2022-02-04)
