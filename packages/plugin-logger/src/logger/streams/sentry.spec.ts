@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node'
 import { createSandbox, match } from 'sinon'
-import sentryStreamFactory, { SentryStream } from './sentry'
+import { SentryStream, sentryTransport as sentryStreamFactory } from './sentry'
 import { pino } from 'pino'
 import sentryTestkit from 'sentry-testkit'
 import { strict as assert } from 'assert'
