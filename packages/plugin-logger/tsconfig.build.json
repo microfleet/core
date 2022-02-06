@@ -16,7 +16,7 @@
     "**/node_modules/**",
     "lib",
     "dist",
-    "**.test.ts",
-    "**.spec.ts"
+    "**/**.test.ts",
+    "**/**.spec.ts"
   ]
 }

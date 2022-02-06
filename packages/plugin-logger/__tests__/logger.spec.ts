@@ -4,6 +4,8 @@ import { Microfleet } from '@microfleet/core'
 import type { PluginTypes } from '@microfleet/utils'
 import { file as tmpFile } from 'tempy'
 import { open } from 'fs/promises'
+import { HttpStatusError } from 'common-errors'
+import Fastify from 'fastify'
 
 describe('Logger suite', () => {
   it('when service does not include `logger` plugin, it emits an error or throws', () => {
@@ -74,9 +76,18 @@ describe('Logger suite', () => {
     assert.deepEqual(service.log, logger)
   })
 
-  it('should be able to init sentry stream', async () => {
+  it('should be able to init sentry stream, including external configuration', async () => {
     const file = tmpFile()
     const handle = await open(file, 'w+')
+    const fastify = Fastify({ logger: true })
+    const reports: any[] = []
+
+    fastify.all('/*', async (req) => {
+      reports.push([req.method, req.routerPath, req.query, req.body])
+      return 'ok'
+    })
+
+    await fastify.listen(9999, '0.0.0.0')
 
     try {
       const service = new Microfleet({
@@ -94,7 +105,9 @@ describe('Logger suite', () => {
           },
           streams: {
             sentry: {
-              dsn: 'https://api@sentry.io/1822',
+              dsn: 'http://api@127.0.0.1:9999/io',
+              externalConfiguration: './__tests__/sentry.beforeSend',
+              level: 'debug',
             },
           },
         },
@@ -110,13 +123,15 @@ describe('Logger suite', () => {
       service.log.error('failed to produce message', [], new Error('oops'))
       service.log.error({ err: new Error('somewhere') }, 'empty object?')
       service.log.error({ err: new Error('fatal') }, 'unexpected error')
+      service.log.error({ err: new Error('could not find associated data') }, 'must be filtered')
+      service.log.error({ err: new HttpStatusError(200, '412: upload was already processed') }, 'must be filtered 2')
 
       // when autoEnd is false - must be called
-      service.logClose?.()
+      await service.logClose?.()
 
       const data = await handle.readFile({ encoding: 'utf8' })
       const lines = data.split('\n').slice(0, -1).map((x) => JSON.parse(x))
-      assert.equal(lines.length, 8)
+      assert.equal(lines.length, 10)
 
       lines.forEach((obj) => {
         assert(obj.level)
@@ -124,9 +139,14 @@ describe('Logger suite', () => {
         assert(obj.msg)
       })
 
-      assert.equal(lines.filter((x) => x.err).length, 3)
+      assert.equal(lines.filter((x) => x.err).length, 5)
+
+      // filters last 2 errors
+      assert.equal(reports.length, 8)
+
     } finally {
       await handle.close()
+      await fastify.close()
     }
   })
 })

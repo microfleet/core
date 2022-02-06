@@ -2,11 +2,12 @@ import assert = require('assert')
 import { resolve } from 'path'
 import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'
-import { pino } from 'pino'
-import type { NodeOptions } from '@sentry/node'
+import { pino, PrettyOptions } from 'pino'
+import type { SentryTransportConfig } from './logger/streams/sentry'
 import { defaultsDeep } from '@microfleet/utils'
 import { Microfleet, PluginInterface } from '@microfleet/core-types'
 import '@microfleet/plugin-validator'
+import { once } from 'events'
 
 export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
@@ -51,7 +52,7 @@ function streamsFactory(streamName: string, options: any): pino.TransportTargetO
   if (streamName === 'sentry') {
     return {
       level: options.level || 'info',
-      target: resolve(__dirname, '../lib/logger/streams/sentry'),
+      target: resolve(__dirname, '../lib/logger/streams/sentry-worker'),
       options,
     }
   }
@@ -83,21 +84,8 @@ export const priority = 10
 export const name = 'logger'
 
 export interface StreamConfiguration {
-  sentry?: NodeOptions;
-  pretty?: {
-    colorize?: boolean;
-    crlf?: boolean;
-    errorLikeObjectKeys?: string[];
-    errorProps?: string;
-    levelFirst?: boolean;
-    messageKey?: string;
-    messageFormat?: boolean;
-    timestampKey?: string;
-    translateTime?: boolean;
-    useMetadata?: boolean;
-    outputStream?: NodeJS.WritableStream;
-    customPrettifiers?: any;
-  };
+  sentry?: SentryTransportConfig;
+  pretty?: PrettyOptions;
   [streamName: string]: any;
 }
 
@@ -119,7 +107,7 @@ declare module '@microfleet/core-types' {
   export interface Microfleet {
     log: Logger;
     logTransport?: any; // type ThreadStream = any https://github.com/pinojs/pino/blob/v7.6.3/pino.d.ts#L31
-    logClose?: () => void;
+    logClose?: () => Promise<void>;
   }
 
   export interface ConfigurationOptional {
@@ -201,7 +189,7 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
   }
 
   this.log = pino(pinoOptions)
-  this.logClose = () => {
+  this.logClose = async () => {
     // @ts-expect-error not-exposed, but present
     const transport = this.log[pino.symbols.streamSym]
     assert(transport, 'couldnt get auto-assigned transport')
@@ -211,6 +199,7 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
     transport.once('close', () => {
       transport.unref()
     })
+    await once(transport, 'close')
   }
 
   if (process.env.NODE_ENV === 'test') {

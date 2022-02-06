@@ -2,6 +2,7 @@ const { basename } = require('path')
 const dir = basename(__dirname)
 
 module.exports = {
+  ...require('../../.mdeprc.js'),
   "nycCoverage": false,
   "coverage": false,
   "auto_compose": true,
@@ -15,10 +16,7 @@ module.exports = {
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
     tester: {
-      working_dir: `/src/packages/${dir}`,
-      volumes: [
-        '${PWD}/../..:/src:cached'
-      ]
+      working_dir: `/src/packages/${dir}`
     }
   }
 }

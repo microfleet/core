@@ -1,6 +1,8 @@
 import build from 'pino-abstract-transport'
 import assert = require('assert')
 import * as Sentry from '@sentry/node'
+import { isAbsolute, resolve } from 'path'
+import merge from 'lodash.merge'
 import lsmod = require('lsmod')
 import {
   extractStackFromError,
@@ -39,7 +41,7 @@ interface ErrorLike {
 /**
  * Sentry stream for Pino
  */
-sentryTransport.SentryStream = class SentryStream {
+export class SentryStream {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
@@ -138,14 +140,23 @@ sentryTransport.SentryStream = class SentryStream {
   }
 }
 
-async function sentryTransport({ level, ...config }: Sentry.NodeOptions & { level?: pino.Level }): Promise<ReturnType<typeof build>> {
+export type SentryTransportConfig = Sentry.NodeOptions & {
+  level?: pino.Level
+  externalConfiguration?: string
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function sentryTransport({ level, externalConfiguration, ...config }: SentryTransportConfig): Promise<ReturnType<typeof build>> {
   assert(config.dsn, '"dsn" property must be set')
   assert(config.release, 'release version must be set')
 
-  if (process.env.NODE_ENV === 'test' && !config.transport) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { sentryTransport } = require('sentry-testkit')()
-    config.transport = sentryTransport
+  if (externalConfiguration) {
+    const pathLike = isAbsolute(externalConfiguration)
+      ? externalConfiguration
+      : resolve(process.cwd(), externalConfiguration)
+
+    const extraConfig = await import(pathLike)
+    merge(config, extraConfig)
   }
 
   Sentry.init({
@@ -159,11 +170,14 @@ async function sentryTransport({ level, ...config }: Sentry.NodeOptions & { leve
     },
   })
 
-  const destination = new sentryTransport.SentryStream({ release: config.release })
+  const destination = new SentryStream({ release: config.release })
 
   return build(async function (source) {
     for await (const obj of source) {
+      if (!obj) continue
+
       const toDrain = !destination.write(obj)
+
       // This block will handle backpressure
       if (toDrain) {
         await Sentry.flush(1000)
@@ -175,5 +189,3 @@ async function sentryTransport({ level, ...config }: Sentry.NodeOptions & { leve
     }
   })
 }
-
-export = sentryTransport

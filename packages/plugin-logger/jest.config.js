@@ -7,11 +7,6 @@ const dir = basename(__dirname)
 module.exports = {
   ...globalConfig,
   rootDir: '../../',
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-    },
-  },
   bail: 1,
   collectCoverage: true,
   coverageDirectory: `packages/${dir}/coverage`,
