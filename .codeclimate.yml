@@ -2,3 +2,21 @@ version: "2"
 checks:
   argument-count:
     enabled: false
+exclude_patterns:
+  - config/
+  - db/
+  - dist/
+  - features/
+  - **/node_modules/
+  - script/
+  - **/spec/
+  - **/test/
+  - **/tests/
+  - **/__tests__/
+  - **/*.spec.ts
+  - **/*.spec.js
+  - Tests/
+  - **/vendor/
+  - **/*_test.go
+  - **/*.d.ts
+  
