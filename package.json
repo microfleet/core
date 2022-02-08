@@ -13,10 +13,10 @@
     "version": "rimraf ./ci/staged/*.json; pnpm --filter=./packages exec -- pnpm release-it"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.6.0",
+    "@makeomatic/deploy": "^12.6.2",
     "@node-rs/xxhash-linux-x64-musl": "^1.1.4",
     "@release-it/conventional-changelog": "^4.1.0",
-    "@swc/core-linux-x64-musl": "^1.2.136",
+    "@swc/core-linux-x64-musl": "^1.2.138",
     "conventional-changelog-angular": "^5.0.13",
     "glob": "^7.2.0",
     "js-yaml": "^4.1.0",
