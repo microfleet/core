@@ -36,7 +36,7 @@
     "eslint": "^8.8.0",
     "eslint-config-makeomatic": "^5.1.0",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-unicorn": "^40.1.0",
+    "eslint-plugin-unicorn": "^41.0.0",
     "jest": "^27.5.1",
     "release-it": "^14.12.4",
     "rimraf": "^3.0.2",
