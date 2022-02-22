@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.5...@microfleet/core-types@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/core 17.11.7
+
+## [17.11.7](https://github.com/microfleet/core/compare/@microfleet/core@17.11.5...@microfleet/core@17.11.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-amqp 0.2.7
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.5...@microfleet/plugin-amqp@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-aws-elasticsearch 1.5.7
+
+## [1.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.5.5...@microfleet/plugin-aws-elasticsearch@1.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-cassandra 0.10.7
+
+## [0.10.7](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.5...@microfleet/plugin-cassandra@0.10.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-consul 2.7.7
+
+## [2.7.7](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.5...@microfleet/plugin-consul@2.7.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-couchdb 2.7.7
+
+## [2.7.7](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.7.5...@microfleet/plugin-couchdb@2.7.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-dlock 0.2.7
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.2.5...@microfleet/plugin-dlock@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-elasticsearch 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.5.5...@microfleet/plugin-elasticsearch@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-hapi 0.2.7
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.2.5...@microfleet/plugin-hapi@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-kafka-types 1.6.7
+
+## [1.6.7](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.5...@microfleet/plugin-kafka-types@1.6.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-kafka 2.11.7
+
+## [2.11.7](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.11.5...@microfleet/plugin-kafka@2.11.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-knex 2.8.7
+
+## [2.8.7](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.5...@microfleet/plugin-knex@2.8.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-logger 0.10.7
+
+## [0.10.7](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.5...@microfleet/plugin-logger@0.10.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-opentracing 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.5...@microfleet/plugin-opentracing@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-prometheus 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.5.5...@microfleet/plugin-prometheus@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-redis-cluster 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.5.5...@microfleet/plugin-redis-cluster@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-redis-core 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.5...@microfleet/plugin-redis-core@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-redis-sentinel 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.5.5...@microfleet/plugin-redis-sentinel@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-router-amqp 0.2.7
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.2.5...@microfleet/plugin-router-amqp@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-router-hapi 0.2.7
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.5...@microfleet/plugin-router-hapi@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-router-socketio 0.2.7
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.2.5...@microfleet/plugin-router-socketio@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-router 0.3.7
+
+## [0.3.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.5...@microfleet/plugin-router@0.3.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-socketio 0.2.7
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.2.5...@microfleet/plugin-socketio@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/plugin-validator 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.5.5...@microfleet/plugin-validator@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+# @microfleet/utils 0.5.7
+
+## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/utils@0.5.5...@microfleet/utils@0.5.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
 # @microfleet/core-types 0.5.5
 
 ## [0.5.5](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.3...@microfleet/core-types@0.5.5) (2022-02-06)

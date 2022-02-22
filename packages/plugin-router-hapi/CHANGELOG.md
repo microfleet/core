@@ -1,3 +1,17 @@
+## [0.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.5...@microfleet/plugin-router-hapi@0.2.8) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+## [0.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.5...@microfleet/plugin-router-hapi@0.2.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
 ## [0.2.6](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.3...@microfleet/plugin-router-hapi@0.2.6) (2022-02-06)
 
 

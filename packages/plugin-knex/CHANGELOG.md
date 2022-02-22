@@ -1,3 +1,17 @@
+## [2.8.8](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.5...@microfleet/plugin-knex@2.8.8) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+## [2.8.7](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.5...@microfleet/plugin-knex@2.8.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
 ## [2.8.6](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.3...@microfleet/plugin-knex@2.8.6) (2022-02-06)
 
 

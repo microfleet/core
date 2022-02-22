@@ -1,3 +1,17 @@
+## [0.10.8](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.5...@microfleet/plugin-cassandra@0.10.8) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
+## [0.10.7](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.5...@microfleet/plugin-cassandra@0.10.7) (2022-02-22)
+
+
+### Bug Fixes
+
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+
 ## [0.10.6](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.3...@microfleet/plugin-cassandra@0.10.6) (2022-02-06)
 
 
