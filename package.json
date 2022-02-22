@@ -13,15 +13,15 @@
     "version": "rimraf ./ci/staged/*.json; pnpm --filter=./packages exec -- pnpm release-it"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.6.2",
-    "@node-rs/xxhash-linux-x64-musl": "^1.1.4",
+    "@makeomatic/deploy": "^12.6.3",
+    "@node-rs/xxhash-linux-x64-musl": "^1.2.0",
     "@release-it/conventional-changelog": "^4.1.0",
-    "@swc/core-linux-x64-musl": "^1.2.138",
+    "@swc/core-linux-x64-musl": "^1.2.143",
     "conventional-changelog-angular": "^5.0.13",
     "glob": "^7.2.0",
     "js-yaml": "^4.1.0",
     "prepend-file": "^2.0.1",
-    "release-it": "^14.12.4",
+    "release-it": "^14.12.5",
     "rimraf": "^3.0.2",
     "typescript": "~4.5.5"
   }
