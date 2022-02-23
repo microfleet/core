@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@microfleet/transport-amqp": "^15.2.9",
+    "@microfleet/transport-amqp": "^15.2.10",
     "bluebird": "^3.7.2"
   },
   "peerDependencies": {

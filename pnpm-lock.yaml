@@ -158,7 +158,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-router': workspace:^0.3.4
       '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/transport-amqp': ^15.2.9
+      '@microfleet/transport-amqp': ^15.2.10
       '@release-it/conventional-changelog': ^4.1.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -184,7 +184,7 @@ importers:
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
     dependencies:
-      '@microfleet/transport-amqp': 15.2.9
+      '@microfleet/transport-amqp': 15.2.10
       bluebird: 3.7.2
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -1365,7 +1365,7 @@ importers:
       '@microfleet/core-types': workspace:^0.5.4
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/transport-amqp': ^15.2.9
+      '@microfleet/transport-amqp': ^15.2.10
       '@microfleet/utils': workspace:^0.5.4
       '@microfleet/validation': ^11.1.2
       '@release-it/conventional-changelog': ^4.1.0
@@ -1415,7 +1415,7 @@ importers:
       '@hapi/boom': 9.1.4
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
-      '@microfleet/transport-amqp': 15.2.9
+      '@microfleet/transport-amqp': 15.2.10
       '@microfleet/utils': link:../utils
       '@microfleet/validation': 11.1.2
       glob: 7.2.0
@@ -1474,7 +1474,7 @@ importers:
       '@microfleet/plugin-amqp': workspace:^0.2.4
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/transport-amqp': ^15.2.9
+      '@microfleet/transport-amqp': ^15.2.10
       '@release-it/conventional-changelog': ^4.1.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1507,7 +1507,7 @@ importers:
       '@microfleet/plugin-amqp': link:../plugin-amqp
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
-      '@microfleet/transport-amqp': 15.2.9
+      '@microfleet/transport-amqp': 15.2.10
       bluebird: 3.7.2
       event-to-promise: 0.8.0
       lodash: 4.17.21
@@ -1701,7 +1701,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-router': workspace:^0.3.4
       '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/transport-amqp': ^15.2.9
+      '@microfleet/transport-amqp': ^15.2.10
       '@microfleet/utils': workspace:^0.5.4
       '@release-it/conventional-changelog': ^4.1.0
       '@swc-node/jest': ^1.4.3
@@ -1731,9 +1731,9 @@ importers:
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@microfleet/transport-amqp': 15.2.9
+      '@microfleet/transport-amqp': 15.2.10
       '@microfleet/utils': link:../utils
-      ms-socket.io-adapter-amqp: 8.1.2_b6cb48f87a71c3af43636cee95b85a3b
+      ms-socket.io-adapter-amqp: 8.1.2_aa09c1d58d02dcf18a4f822cf3973159
       socket.io: 4.4.1
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -3039,8 +3039,8 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@microfleet/transport-amqp/15.2.9:
-    resolution: {integrity: sha512-2+zgDg2KimX4CM9Nu8ucvT1PCUcyl9vwyO+jSwpxXsZVbxRP7r5/L2fJDmUGg8DBzGw7rSj16Bf0SzWpCb+4ug==}
+  /@microfleet/transport-amqp/15.2.10:
+    resolution: {integrity: sha512-wQg6P+jmYaA1/LltQmuE48grqQ4TI0yzRYF88WgDKiDviPHFLgY6ta0QhldzpGEz6o2VkWyFd9AqJiF+UZL6gg==}
     engines: {node: '>= 14.17.0'}
     dependencies:
       '@microfleet/amqp-coffee': 1.3.1
@@ -9650,13 +9650,13 @@ packages:
       - supports-color
     dev: true
 
-  /ms-socket.io-adapter-amqp/8.1.2_b6cb48f87a71c3af43636cee95b85a3b:
+  /ms-socket.io-adapter-amqp/8.1.2_aa09c1d58d02dcf18a4f822cf3973159:
     resolution: {integrity: sha512-xYN2b6gQeZLdc4Cn0cbXpvFtP6F5GXixPxpgia+G/lqPYzk+/6Ctut933PQjQRirOQZofFTZC7mgc72Nt6OIkQ==}
     peerDependencies:
       '@microfleet/transport-amqp': '>= 14'
       common-errors: ~1.x.x
     dependencies:
-      '@microfleet/transport-amqp': 15.2.9
+      '@microfleet/transport-amqp': 15.2.10
       '@sindresorhus/is': 4.4.0
       bluebird: 3.7.2
       common-errors: 1.2.0
