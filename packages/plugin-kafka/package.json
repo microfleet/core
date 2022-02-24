@@ -1,7 +1,7 @@
 {
   "name": "@microfleet/plugin-kafka",
   "description": "Apache Kafka adapter for microfleet",
-  "version": "2.11.10",
+  "version": "2.11.12",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

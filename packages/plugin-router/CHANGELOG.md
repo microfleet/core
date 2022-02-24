@@ -1,3 +1,17 @@
+## [0.3.12](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.9...@microfleet/plugin-router@0.3.12) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+## [0.3.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.9...@microfleet/plugin-router@0.3.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
 ## [0.3.10](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.7...@microfleet/plugin-router@0.3.10) (2022-02-24)
 
 

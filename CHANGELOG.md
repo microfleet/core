@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.9...@microfleet/core-types@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/core 17.11.11
+
+## [17.11.11](https://github.com/microfleet/core/compare/@microfleet/core@17.11.9...@microfleet/core@17.11.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-amqp 0.2.11
+
+## [0.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.9...@microfleet/plugin-amqp@0.2.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-aws-elasticsearch 1.5.11
+
+## [1.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.5.9...@microfleet/plugin-aws-elasticsearch@1.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-cassandra 0.10.11
+
+## [0.10.11](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.9...@microfleet/plugin-cassandra@0.10.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-consul 2.7.11
+
+## [2.7.11](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.9...@microfleet/plugin-consul@2.7.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-couchdb 2.7.11
+
+## [2.7.11](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.7.9...@microfleet/plugin-couchdb@2.7.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-dlock 0.2.11
+
+## [0.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.2.9...@microfleet/plugin-dlock@0.2.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-elasticsearch 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.5.9...@microfleet/plugin-elasticsearch@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-hapi 0.2.11
+
+## [0.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.2.9...@microfleet/plugin-hapi@0.2.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-kafka-types 1.6.11
+
+## [1.6.11](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.9...@microfleet/plugin-kafka-types@1.6.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-kafka 2.11.11
+
+## [2.11.11](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.11.9...@microfleet/plugin-kafka@2.11.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-knex 2.8.11
+
+## [2.8.11](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.9...@microfleet/plugin-knex@2.8.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-logger 0.10.11
+
+## [0.10.11](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.9...@microfleet/plugin-logger@0.10.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-opentracing 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.9...@microfleet/plugin-opentracing@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-prometheus 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.5.9...@microfleet/plugin-prometheus@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-redis-cluster 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.5.9...@microfleet/plugin-redis-cluster@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-redis-core 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.9...@microfleet/plugin-redis-core@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-redis-sentinel 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.5.9...@microfleet/plugin-redis-sentinel@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-router-amqp 0.2.11
+
+## [0.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.2.9...@microfleet/plugin-router-amqp@0.2.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-router-hapi 0.2.11
+
+## [0.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.9...@microfleet/plugin-router-hapi@0.2.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-router-socketio 0.2.11
+
+## [0.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.2.9...@microfleet/plugin-router-socketio@0.2.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-router 0.3.11
+
+## [0.3.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.9...@microfleet/plugin-router@0.3.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-socketio 0.2.11
+
+## [0.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.2.9...@microfleet/plugin-socketio@0.2.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/plugin-validator 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.5.9...@microfleet/plugin-validator@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+# @microfleet/utils 0.5.11
+
+## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/utils@0.5.9...@microfleet/utils@0.5.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
 # @microfleet/core-types 0.5.9
 
 ## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.7...@microfleet/core-types@0.5.9) (2022-02-24)

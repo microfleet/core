@@ -1,3 +1,17 @@
+## [17.11.12](https://github.com/microfleet/core/compare/@microfleet/core@17.11.9...@microfleet/core@17.11.12) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
+## [17.11.11](https://github.com/microfleet/core/compare/@microfleet/core@17.11.9...@microfleet/core@17.11.11) (2022-02-24)
+
+
+### Bug Fixes
+
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+
 ## [17.11.10](https://github.com/microfleet/core/compare/@microfleet/core@17.11.7...@microfleet/core@17.11.10) (2022-02-24)
 
 
