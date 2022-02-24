@@ -3,7 +3,7 @@ import Bluebird = require('bluebird')
 import eventToPromise from 'event-to-promise'
 import { Microfleet } from '@microfleet/core-types'
 import { Logger } from '@microfleet/plugin-logger'
-import Backoff = require('@microfleet/transport-amqp/lib/utils/recovery')
+import { Backoff } from '@microfleet/transport-amqp'
 
 import { RouterAMQPPluginConfig } from './types/plugin'
 
