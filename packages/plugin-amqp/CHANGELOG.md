@@ -1,3 +1,21 @@
+## [0.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.7...@microfleet/plugin-amqp@0.2.10) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.7...@microfleet/plugin-amqp@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
 ## [0.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.5...@microfleet/plugin-amqp@0.2.8) (2022-02-22)
 
 

@@ -1,3 +1,289 @@
+# @microfleet/core-types 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.7...@microfleet/core-types@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/core 17.11.9
+
+## [17.11.9](https://github.com/microfleet/core/compare/@microfleet/core@17.11.7...@microfleet/core@17.11.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-amqp 0.2.9
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.7...@microfleet/plugin-amqp@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-aws-elasticsearch 1.5.9
+
+## [1.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.5.7...@microfleet/plugin-aws-elasticsearch@1.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-cassandra 0.10.9
+
+## [0.10.9](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.7...@microfleet/plugin-cassandra@0.10.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-consul 2.7.9
+
+## [2.7.9](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.7...@microfleet/plugin-consul@2.7.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-couchdb 2.7.9
+
+## [2.7.9](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.7.7...@microfleet/plugin-couchdb@2.7.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-dlock 0.2.9
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.2.7...@microfleet/plugin-dlock@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-elasticsearch 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.5.7...@microfleet/plugin-elasticsearch@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-hapi 0.2.9
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.2.7...@microfleet/plugin-hapi@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-kafka-types 1.6.9
+
+## [1.6.9](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.7...@microfleet/plugin-kafka-types@1.6.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-kafka 2.11.9
+
+## [2.11.9](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.11.7...@microfleet/plugin-kafka@2.11.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-knex 2.8.9
+
+## [2.8.9](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.7...@microfleet/plugin-knex@2.8.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-logger 0.10.9
+
+## [0.10.9](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.7...@microfleet/plugin-logger@0.10.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-opentracing 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.7...@microfleet/plugin-opentracing@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-prometheus 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.5.7...@microfleet/plugin-prometheus@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-redis-cluster 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.5.7...@microfleet/plugin-redis-cluster@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-redis-core 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.7...@microfleet/plugin-redis-core@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-redis-sentinel 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.5.7...@microfleet/plugin-redis-sentinel@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-router-amqp 0.2.9
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.2.7...@microfleet/plugin-router-amqp@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-router-hapi 0.2.9
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.7...@microfleet/plugin-router-hapi@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-router-socketio 0.2.9
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.2.7...@microfleet/plugin-router-socketio@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-router 0.3.9
+
+## [0.3.9](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.7...@microfleet/plugin-router@0.3.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-socketio 0.2.9
+
+## [0.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.2.7...@microfleet/plugin-socketio@0.2.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/plugin-validator 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.5.7...@microfleet/plugin-validator@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+# @microfleet/utils 0.5.9
+
+## [0.5.9](https://github.com/microfleet/core/compare/@microfleet/utils@0.5.7...@microfleet/utils@0.5.9) (2022-02-24)
+
+
+### Bug Fixes
+
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
 # @microfleet/core-types 0.5.7
 
 ## [0.5.7](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.5...@microfleet/core-types@0.5.7) (2022-02-22)
