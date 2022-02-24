@@ -158,7 +158,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-router': workspace:^0.3.4
       '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/transport-amqp': ^15.2.10
+      '@microfleet/transport-amqp': ^15.2.12
       '@release-it/conventional-changelog': ^4.1.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -184,7 +184,7 @@ importers:
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
     dependencies:
-      '@microfleet/transport-amqp': 15.2.10
+      '@microfleet/transport-amqp': 15.2.12
       bluebird: 3.7.2
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -1365,7 +1365,7 @@ importers:
       '@microfleet/core-types': workspace:^0.5.4
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/transport-amqp': ^15.2.10
+      '@microfleet/transport-amqp': ^15.2.12
       '@microfleet/utils': workspace:^0.5.4
       '@microfleet/validation': ^11.1.2
       '@release-it/conventional-changelog': ^4.1.0
@@ -1415,7 +1415,7 @@ importers:
       '@hapi/boom': 9.1.4
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
-      '@microfleet/transport-amqp': 15.2.10
+      '@microfleet/transport-amqp': 15.2.12
       '@microfleet/utils': link:../utils
       '@microfleet/validation': 11.1.2
       glob: 7.2.0
@@ -1474,7 +1474,7 @@ importers:
       '@microfleet/plugin-amqp': workspace:^0.2.4
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/transport-amqp': ^15.2.10
+      '@microfleet/transport-amqp': ^15.2.12
       '@release-it/conventional-changelog': ^4.1.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1507,7 +1507,7 @@ importers:
       '@microfleet/plugin-amqp': link:../plugin-amqp
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
-      '@microfleet/transport-amqp': 15.2.10
+      '@microfleet/transport-amqp': 15.2.12
       bluebird: 3.7.2
       event-to-promise: 0.8.0
       lodash: 4.17.21
@@ -1701,7 +1701,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^0.10.4
       '@microfleet/plugin-router': workspace:^0.3.4
       '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/transport-amqp': ^15.2.10
+      '@microfleet/transport-amqp': ^15.2.12
       '@microfleet/utils': workspace:^0.5.4
       '@release-it/conventional-changelog': ^4.1.0
       '@swc-node/jest': ^1.4.3
@@ -1731,9 +1731,9 @@ importers:
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@microfleet/transport-amqp': 15.2.10
+      '@microfleet/transport-amqp': 15.2.12
       '@microfleet/utils': link:../utils
-      ms-socket.io-adapter-amqp: 8.1.2_aa09c1d58d02dcf18a4f822cf3973159
+      ms-socket.io-adapter-amqp: 8.1.2_de876ad39bb597957e8863cc91d9bc6f
       socket.io: 4.4.1
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -3039,11 +3039,12 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@microfleet/transport-amqp/15.2.10:
-    resolution: {integrity: sha512-wQg6P+jmYaA1/LltQmuE48grqQ4TI0yzRYF88WgDKiDviPHFLgY6ta0QhldzpGEz6o2VkWyFd9AqJiF+UZL6gg==}
+  /@microfleet/transport-amqp/15.2.12:
+    resolution: {integrity: sha512-0wJkiQY0fuzKQhlGXNoZfY9yFy1k9y7/TNsSp+5w8vy9r77Cvrx4ZDC8gYeZoipfCWMSx1CFjJMmvEY9AHP2JQ==}
     engines: {node: '>= 14.17.0'}
     dependencies:
       '@microfleet/amqp-coffee': 1.3.1
+      '@types/common-errors': 1.0.2
       bluebird: 3.7.2
       common-errors: 1.2.0
       debug: 4.3.3
@@ -3057,6 +3058,7 @@ packages:
       object-hash: 3.0.0
       opentracing: 0.14.7
       pino: 7.8.0
+      read-pkg: 5.2.0
       sonic-boom: 2.6.0
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -3870,7 +3872,6 @@ packages:
     dependencies:
       '@types/connect': 3.4.35
       '@types/node': 17.0.21
-    dev: true
 
   /@types/cacheable-request/6.0.2:
     resolution: {integrity: sha512-B3xVo+dlKM6nnKTcmm5ZtY/OL8bOAOd2Olee9M1zft65ox50OzjEHW91sDiU9j6cvW8Ejg1/Qkf4xd2kugApUA==}
@@ -3899,7 +3900,6 @@ packages:
     resolution: {integrity: sha512-7AxLJa9klGqI54bhTqW8YI52Lz/+tYkIHba86BQoo+H8ogajDDknPAe6vtCv+c7W+yAaPj8n0p8Nw+DIkIKdDg==}
     dependencies:
       '@types/express': 4.17.13
-    dev: true
 
   /@types/component-emitter/1.2.11:
     resolution: {integrity: sha512-SRXjM+tfsSlA9VuG8hGO2nft2p8zjXCK1VcC6N4NXbBbYbSia9kzCChYQajIjzIqOOOuh5Ock6MmV2oux4jDZQ==}
@@ -3909,7 +3909,6 @@ packages:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 17.0.21
-    dev: true
 
   /@types/consul/0.40.0:
     resolution: {integrity: sha512-0TPN4MxIKiuv9UcXWNgWQurNNG/J0af+A41eD4T5bFWSRoZJ8xaDocrX47CzGv5620uaPabFDjiAB/+VQu/0SQ==}
@@ -3943,7 +3942,6 @@ packages:
       '@types/node': 17.0.21
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
-    dev: true
 
   /@types/express/4.17.13:
     resolution: {integrity: sha512-6bSZTPaTIACxn48l50SR+axgrqm6qXFIxrdAKaG6PaJk3+zuUr35hBlgT7vOmJcum+OEaIBLtHV/qloEAFITeA==}
@@ -3952,7 +3950,6 @@ packages:
       '@types/express-serve-static-core': 4.17.28
       '@types/qs': 6.9.7
       '@types/serve-static': 1.13.10
-    dev: true
 
   /@types/get-value/3.0.2:
     resolution: {integrity: sha512-7bZjzgwTSKJ19KbqnqFklR0BcsTpO6kErRg02TLqA1oJd5XRMMco/3mtOhG2xK95hrCNklMaMhn2T5rW/iAzhA==}
@@ -4082,7 +4079,6 @@ packages:
 
   /@types/mime/1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
-    dev: true
 
   /@types/minimatch/3.0.5:
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
@@ -4116,11 +4112,9 @@ packages:
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
-    dev: true
 
   /@types/range-parser/1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
-    dev: true
 
   /@types/readable-stream/2.3.13:
     resolution: {integrity: sha512-4JSCx8EUzaW9Idevt+9lsRAt1lcSccoQfE+AouM1gk8sFxnnytKNIO3wTl9Dy+4m6jRJ1yXhboLHHT/LXBQiEw==}
@@ -4164,7 +4158,6 @@ packages:
     dependencies:
       '@types/mime': 1.3.2
       '@types/node': 17.0.21
-    dev: true
 
   /@types/sinon/10.0.11:
     resolution: {integrity: sha512-dmZsHlBsKUtBpHriNjlK0ndlvEh8dcb9uV9Afsbt89QIyydpC7NcR+nWlAhASfy3GHnxTl4FX/aKE7XZUt/B4g==}
@@ -9650,13 +9643,13 @@ packages:
       - supports-color
     dev: true
 
-  /ms-socket.io-adapter-amqp/8.1.2_aa09c1d58d02dcf18a4f822cf3973159:
+  /ms-socket.io-adapter-amqp/8.1.2_de876ad39bb597957e8863cc91d9bc6f:
     resolution: {integrity: sha512-xYN2b6gQeZLdc4Cn0cbXpvFtP6F5GXixPxpgia+G/lqPYzk+/6Ctut933PQjQRirOQZofFTZC7mgc72Nt6OIkQ==}
     peerDependencies:
       '@microfleet/transport-amqp': '>= 14'
       common-errors: ~1.x.x
     dependencies:
-      '@microfleet/transport-amqp': 15.2.10
+      '@microfleet/transport-amqp': 15.2.12
       '@sindresorhus/is': 4.4.0
       bluebird: 3.7.2
       common-errors: 1.2.0

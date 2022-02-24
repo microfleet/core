@@ -31,7 +31,7 @@
     "@hapi/boom": "^9.1.4",
     "@microfleet/core-types": "workspace:^0.5.4",
     "@microfleet/plugin-logger": "workspace:^0.10.4",
-    "@microfleet/transport-amqp": "^15.2.10",
+    "@microfleet/transport-amqp": "^15.2.12",
     "@microfleet/utils": "workspace:^0.5.4",
     "@microfleet/validation": "^11.1.2",
     "glob": "^7.2.0",

@@ -38,7 +38,7 @@
     "@microfleet/plugin-amqp": "workspace:^0.2.4",
     "@microfleet/plugin-logger": "workspace:^0.10.4",
     "@microfleet/plugin-router": "workspace:^0.3.4",
-    "@microfleet/transport-amqp": "^15.2.10",
+    "@microfleet/transport-amqp": "^15.2.12",
     "bluebird": "^3.7.2",
     "event-to-promise": "^0.8.0",
     "lodash": "^4.17.21"
