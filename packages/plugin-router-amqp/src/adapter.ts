@@ -41,7 +41,14 @@ function getAMQPRouterAdapter(
     : (routingKey: string): string => routingKey
 
   return async (params: any, properties: any, raw: any, next: (...args: any[]) => void = noop): Promise<any> => {
-    const routingKey = properties.headers['routing-key'] || properties.routingKey
+    const { headers = Object.create(null) } = properties
+    const routingKey = headers['routing-key'] || properties.routingKey
+
+    // normalize headers access
+    if (!properties.headers) {
+      properties.headers = headers
+    }
+
     // @todo is it possible to route without prefix trim?
     const route = normalizeActionName(routingKey)
 
