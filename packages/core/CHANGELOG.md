@@ -1,3 +1,17 @@
+## [17.11.14](https://github.com/microfleet/core/compare/@microfleet/core@17.11.11...@microfleet/core@17.11.14) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+## [17.11.13](https://github.com/microfleet/core/compare/@microfleet/core@17.11.11...@microfleet/core@17.11.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
 ## [17.11.12](https://github.com/microfleet/core/compare/@microfleet/core@17.11.9...@microfleet/core@17.11.12) (2022-02-24)
 
 

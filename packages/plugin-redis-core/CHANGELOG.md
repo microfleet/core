@@ -1,3 +1,17 @@
+## [0.5.14](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.11...@microfleet/plugin-redis-core@0.5.14) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.11...@microfleet/plugin-redis-core@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
 ## [0.5.12](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.9...@microfleet/plugin-redis-core@0.5.12) (2022-02-24)
 
 

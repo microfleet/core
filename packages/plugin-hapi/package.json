@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-hapi",
-  "version": "0.2.12",
+  "version": "0.2.14",
   "description": "hapi",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

@@ -1,3 +1,17 @@
+## [1.6.14](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.11...@microfleet/plugin-kafka-types@1.6.14) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+## [1.6.13](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.11...@microfleet/plugin-kafka-types@1.6.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
 ## [1.6.12](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.9...@microfleet/plugin-kafka-types@1.6.12) (2022-02-24)
 
 

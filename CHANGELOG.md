@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.11...@microfleet/core-types@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/core 17.11.13
+
+## [17.11.13](https://github.com/microfleet/core/compare/@microfleet/core@17.11.11...@microfleet/core@17.11.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-amqp 0.2.13
+
+## [0.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.2.11...@microfleet/plugin-amqp@0.2.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-aws-elasticsearch 1.5.13
+
+## [1.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.5.11...@microfleet/plugin-aws-elasticsearch@1.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-cassandra 0.10.13
+
+## [0.10.13](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.11...@microfleet/plugin-cassandra@0.10.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-consul 2.7.13
+
+## [2.7.13](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.11...@microfleet/plugin-consul@2.7.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-couchdb 2.7.13
+
+## [2.7.13](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.7.11...@microfleet/plugin-couchdb@2.7.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-dlock 0.2.13
+
+## [0.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.2.11...@microfleet/plugin-dlock@0.2.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-elasticsearch 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.5.11...@microfleet/plugin-elasticsearch@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-hapi 0.2.13
+
+## [0.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.2.11...@microfleet/plugin-hapi@0.2.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-kafka-types 1.6.13
+
+## [1.6.13](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.11...@microfleet/plugin-kafka-types@1.6.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-kafka 2.11.13
+
+## [2.11.13](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.11.11...@microfleet/plugin-kafka@2.11.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-knex 2.8.13
+
+## [2.8.13](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.11...@microfleet/plugin-knex@2.8.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-logger 0.10.13
+
+## [0.10.13](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.10.11...@microfleet/plugin-logger@0.10.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-opentracing 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.11...@microfleet/plugin-opentracing@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-prometheus 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.5.11...@microfleet/plugin-prometheus@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-redis-cluster 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.5.11...@microfleet/plugin-redis-cluster@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-redis-core 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.5.11...@microfleet/plugin-redis-core@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-redis-sentinel 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.5.11...@microfleet/plugin-redis-sentinel@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-router-amqp 0.2.13
+
+## [0.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.2.11...@microfleet/plugin-router-amqp@0.2.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-router-hapi 0.2.13
+
+## [0.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.11...@microfleet/plugin-router-hapi@0.2.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-router-socketio 0.2.13
+
+## [0.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.2.11...@microfleet/plugin-router-socketio@0.2.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-router 0.3.13
+
+## [0.3.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.3.11...@microfleet/plugin-router@0.3.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-socketio 0.2.13
+
+## [0.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.2.11...@microfleet/plugin-socketio@0.2.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/plugin-validator 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.5.11...@microfleet/plugin-validator@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
+# @microfleet/utils 0.5.13
+
+## [0.5.13](https://github.com/microfleet/core/compare/@microfleet/utils@0.5.11...@microfleet/utils@0.5.13) (2022-02-25)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+
 # @microfleet/core-types 0.5.11
 
 ## [0.5.11](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.9...@microfleet/core-types@0.5.11) (2022-02-24)
