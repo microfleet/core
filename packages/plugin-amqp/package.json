@@ -46,7 +46,7 @@
     "@microfleet/plugin-logger": "workspace:^0.10.4",
     "@microfleet/plugin-router": "workspace:^0.3.4",
     "@microfleet/plugin-validator": "workspace:^0.5.4",
-    "@release-it/conventional-changelog": "^4.2.0",
+    "@release-it/conventional-changelog": "=4.1.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
     "@types/bluebird": "^3.5.36",
