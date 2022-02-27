@@ -1,4 +1,18 @@
-## [0.10.14](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.11...@microfleet/plugin-cassandra@0.10.14) (2022-02-25)
+undefined
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.13...@microfleet/plugin-cassandra@0.12.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))undefined
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.13...@microfleet/plugin-cassandra@0.11.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))## [0.10.14](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.10.11...@microfleet/plugin-cassandra@0.10.14) (2022-02-25)
 
 
 ### Bug Fixes

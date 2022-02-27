@@ -1,4 +1,18 @@
-## [2.7.14](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.11...@microfleet/plugin-consul@2.7.14) (2022-02-25)
+undefined
+
+# [2.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.13...@microfleet/plugin-consul@2.9.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))undefined
+
+# [2.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.13...@microfleet/plugin-consul@2.8.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))## [2.7.14](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.7.11...@microfleet/plugin-consul@2.7.14) (2022-02-25)
 
 
 ### Bug Fixes

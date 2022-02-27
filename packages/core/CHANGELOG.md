@@ -1,4 +1,18 @@
-## [17.11.14](https://github.com/microfleet/core/compare/@microfleet/core@17.11.11...@microfleet/core@17.11.14) (2022-02-25)
+undefined
+
+# [17.13.0](https://github.com/microfleet/core/compare/@microfleet/core@17.11.13...@microfleet/core@17.13.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))undefined
+
+# [17.12.0](https://github.com/microfleet/core/compare/@microfleet/core@17.11.13...@microfleet/core@17.12.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))## [17.11.14](https://github.com/microfleet/core/compare/@microfleet/core@17.11.11...@microfleet/core@17.11.14) (2022-02-25)
 
 
 ### Bug Fixes

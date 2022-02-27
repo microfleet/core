@@ -1,4 +1,18 @@
-## [0.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.11...@microfleet/plugin-router-hapi@0.2.14) (2022-02-25)
+undefined
+
+# [0.4.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.13...@microfleet/plugin-router-hapi@0.4.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))undefined
+
+# [0.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.13...@microfleet/plugin-router-hapi@0.3.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))## [0.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.2.11...@microfleet/plugin-router-hapi@0.2.14) (2022-02-25)
 
 
 ### Bug Fixes

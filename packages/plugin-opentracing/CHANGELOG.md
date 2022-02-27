@@ -1,4 +1,18 @@
-## [0.5.14](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.11...@microfleet/plugin-opentracing@0.5.14) (2022-02-25)
+undefined
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.13...@microfleet/plugin-opentracing@0.7.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))undefined
+
+# [0.6.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.13...@microfleet/plugin-opentracing@0.6.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))## [0.5.14](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.5.11...@microfleet/plugin-opentracing@0.5.14) (2022-02-25)
 
 
 ### Bug Fixes

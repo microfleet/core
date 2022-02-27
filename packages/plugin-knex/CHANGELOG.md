@@ -1,4 +1,18 @@
-## [2.8.14](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.11...@microfleet/plugin-knex@2.8.14) (2022-02-25)
+undefined
+
+# [2.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.13...@microfleet/plugin-knex@2.10.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))undefined
+
+# [2.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.13...@microfleet/plugin-knex@2.9.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))## [2.8.14](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.8.11...@microfleet/plugin-knex@2.8.14) (2022-02-25)
 
 
 ### Bug Fixes

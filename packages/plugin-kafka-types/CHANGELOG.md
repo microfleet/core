@@ -1,4 +1,18 @@
-## [1.6.14](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.11...@microfleet/plugin-kafka-types@1.6.14) (2022-02-25)
+undefined
+
+# [1.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.13...@microfleet/plugin-kafka-types@1.8.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))undefined
+
+# [1.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.13...@microfleet/plugin-kafka-types@1.7.0) (2022-02-27)
+
+
+### Features
+
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))## [1.6.14](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.6.11...@microfleet/plugin-kafka-types@1.6.14) (2022-02-25)
 
 
 ### Bug Fixes
