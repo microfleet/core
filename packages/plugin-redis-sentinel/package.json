@@ -43,7 +43,7 @@
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
     "@microfleet/core": "workspace:^17.11.4",
-    "@release-it/conventional-changelog": "^4.1.0",
+    "@release-it/conventional-changelog": "^4.2.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
     "@types/bluebird": "^3.5.36",
@@ -56,7 +56,7 @@
     "@typescript-eslint/parser": "^5.12.1",
     "common-errors": "^1.2.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.9.0",
+    "eslint": "^8.10.0",
     "eslint-config-makeomatic": "^5.1.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-unicorn": "^41.0.0",

@@ -48,6 +48,9 @@
           "type": "integer",
           "minimum": 0
         },
+        "noAck": {
+          "type": "boolean"
+        },
         "timeout": {
           "type": "integer",
           "minimum": 0

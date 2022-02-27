@@ -13,6 +13,7 @@ export type AMQPPluginTransportConfig = {
   queue: string;
   onComplete: CallableFunction;
   neck: number;
+  noAck: boolean;
   timeout: number;
   exchange: string;
 }
