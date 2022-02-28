@@ -3,7 +3,7 @@
   "description": "cassandra plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.12.0",
+  "version": "0.12.2",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

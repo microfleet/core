@@ -1,5 +1,19 @@
 undefined
 
+## [0.4.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.3.0...@microfleet/plugin-router-socketio@0.4.2) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))undefined
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.3.0...@microfleet/plugin-router-socketio@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))undefined
+
 # [0.4.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.2.13...@microfleet/plugin-router-socketio@0.4.0) (2022-02-27)
 
 

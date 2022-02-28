@@ -1,5 +1,19 @@
 undefined
 
+## [2.13.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.12.0...@microfleet/plugin-kafka@2.13.2) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))undefined
+
+## [2.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.12.0...@microfleet/plugin-kafka@2.13.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))undefined
+
 # [2.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.11.13...@microfleet/plugin-kafka@2.13.0) (2022-02-27)
 
 

@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.6.0...@microfleet/core-types@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/core 17.13.1
+
+## [17.13.1](https://github.com/microfleet/core/compare/@microfleet/core@17.12.0...@microfleet/core@17.13.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-amqp 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.3.0...@microfleet/plugin-amqp@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-aws-elasticsearch 1.7.1
+
+## [1.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.6.0...@microfleet/plugin-aws-elasticsearch@1.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-cassandra 0.12.1
+
+## [0.12.1](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.11.0...@microfleet/plugin-cassandra@0.12.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-consul 2.9.1
+
+## [2.9.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.8.0...@microfleet/plugin-consul@2.9.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-couchdb 2.9.1
+
+## [2.9.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.8.0...@microfleet/plugin-couchdb@2.9.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-dlock 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.3.0...@microfleet/plugin-dlock@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-elasticsearch 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.6.0...@microfleet/plugin-elasticsearch@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-hapi 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.3.0...@microfleet/plugin-hapi@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-kafka-types 1.8.1
+
+## [1.8.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.7.0...@microfleet/plugin-kafka-types@1.8.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-kafka 2.13.1
+
+## [2.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.12.0...@microfleet/plugin-kafka@2.13.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-knex 2.10.1
+
+## [2.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.9.0...@microfleet/plugin-knex@2.10.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-logger 0.12.1
+
+## [0.12.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.11.0...@microfleet/plugin-logger@0.12.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-opentracing 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.6.0...@microfleet/plugin-opentracing@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-prometheus 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.6.0...@microfleet/plugin-prometheus@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-redis-cluster 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.6.0...@microfleet/plugin-redis-cluster@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-redis-core 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.6.0...@microfleet/plugin-redis-core@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-redis-sentinel 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.6.0...@microfleet/plugin-redis-sentinel@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-router-amqp 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.3.0...@microfleet/plugin-router-amqp@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-router-hapi 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.3.0...@microfleet/plugin-router-hapi@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-router-socketio 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.3.0...@microfleet/plugin-router-socketio@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-router 0.5.1
+
+## [0.5.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.4.0...@microfleet/plugin-router@0.5.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-socketio 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.3.0...@microfleet/plugin-socketio@0.4.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/plugin-validator 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.6.0...@microfleet/plugin-validator@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
+# @microfleet/utils 0.7.1
+
+## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/utils@0.6.0...@microfleet/utils@0.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+
 # @microfleet/core-types 0.6.0
 
 # [0.6.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.5.13...@microfleet/core-types@0.6.0) (2022-02-27)

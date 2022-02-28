@@ -1,5 +1,19 @@
 undefined
 
+## [1.7.2](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.6.0...@microfleet/plugin-aws-elasticsearch@1.7.2) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))undefined
+
+## [1.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.6.0...@microfleet/plugin-aws-elasticsearch@1.7.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))undefined
+
 # [1.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.5.13...@microfleet/plugin-aws-elasticsearch@1.7.0) (2022-02-27)
 
 
