@@ -32,10 +32,6 @@
   "dependencies": {
     "@hapi/boom": "^9.1.4",
     "@hapi/hapi": "^20.2.1",
-    "@microfleet/plugin-hapi": "workspace:^0.2.4",
-    "@microfleet/plugin-opentracing": "workspace:^0.5.4",
-    "@microfleet/plugin-router": "workspace:^0.3.4",
-    "@microfleet/plugin-validator": "workspace:^0.5.4",
     "@microfleet/validation": "^11.1.2",
     "get-value": "^3.0.1",
     "lodash": "^4.17.21",
@@ -43,11 +39,19 @@
   },
   "peerDependencies": {
     "@microfleet/core": "workspace:^",
+    "@microfleet/plugin-hapi": "workspace:^",
+    "@microfleet/plugin-opentracing": "workspace:^",
+    "@microfleet/plugin-router": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
-    "@microfleet/core": "workspace:^17.11.4",
+    "@microfleet/core": "workspace:^",
+    "@microfleet/plugin-hapi": "workspace:^",
+    "@microfleet/plugin-opentracing": "workspace:^",
+    "@microfleet/plugin-router": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
     "@release-it/conventional-changelog": "^4.2.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

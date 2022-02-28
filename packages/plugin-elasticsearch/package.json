@@ -33,15 +33,15 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.17.0",
-    "@microfleet/core-types": "workspace:^0.5.4",
-    "@microfleet/plugin-logger": "workspace:^0.10.4",
-    "@microfleet/utils": "workspace:^0.5.4",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
-    "@microfleet/core": "workspace:^17.11.4",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.2.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

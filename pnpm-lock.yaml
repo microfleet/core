@@ -31,8 +31,8 @@ importers:
   packages/core:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core-types': workspace:^
+      '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
@@ -98,7 +98,7 @@ importers:
   packages/core-types:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -153,11 +153,11 @@ importers:
   packages/plugin-amqp:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-validator': workspace:^
       '@microfleet/transport-amqp': ^16.0.1
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
@@ -220,11 +220,11 @@ importers:
   packages/plugin-aws-elasticsearch:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@opensearch-project/opensearch': ^1.0.2
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
@@ -295,11 +295,11 @@ importers:
   packages/plugin-cassandra:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -366,11 +366,11 @@ importers:
   packages/plugin-consul:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -435,11 +435,11 @@ importers:
   packages/plugin-couchdb:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -504,16 +504,16 @@ importers:
   packages/plugin-dlock:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
       '@microfleet/dlock': ^14.0.0
       '@microfleet/ioredis-lock': ^5.1.0
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-redis-cluster': workspace:^0.5.4
-      '@microfleet/plugin-redis-sentinel': workspace:^0.5.4
-      '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-redis-cluster': workspace:^
+      '@microfleet/plugin-redis-sentinel': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -582,10 +582,10 @@ importers:
     specifiers:
       '@elastic/elasticsearch': ^7.17.0
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -650,12 +650,12 @@ importers:
       '@hapi/hapi': ^20.2.1
       '@hapi/vision': ^6.1.0
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/plugin-socketio': workspace:^0.2.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-socketio': workspace:^
+      '@microfleet/plugin-validator': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -718,12 +718,12 @@ importers:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
       '@makeomatic/node-rdkafka': ^2.13.4
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-kafka-types': workspace:^1.6.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-kafka-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -849,11 +849,11 @@ importers:
   packages/plugin-knex:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -920,10 +920,10 @@ importers:
   packages/plugin-logger:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@sentry/node': ^6.18.0
       '@sentry/types': ^6.18.0
@@ -1009,11 +1009,11 @@ importers:
   packages/plugin-opentracing:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1072,11 +1072,11 @@ importers:
   packages/plugin-prometheus:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1143,11 +1143,11 @@ importers:
   packages/plugin-redis-cluster:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-redis-core': workspace:^0.5.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-redis-core': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1220,8 +1220,8 @@ importers:
   packages/plugin-redis-core:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1287,11 +1287,11 @@ importers:
   packages/plugin-redis-sentinel:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-redis-core': workspace:^0.5.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-redis-core': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1361,12 +1361,12 @@ importers:
     specifiers:
       '@hapi/boom': ^9.1.4
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-validator': workspace:^
       '@microfleet/transport-amqp': ^16.0.1
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
@@ -1413,10 +1413,7 @@ importers:
       typescript: ~4.5.5
     dependencies:
       '@hapi/boom': 9.1.4
-      '@microfleet/core-types': link:../core-types
-      '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/transport-amqp': 16.0.1
-      '@microfleet/utils': link:../utils
       '@microfleet/validation': 11.1.2
       glob: 7.2.0
       hyperid: 3.0.1
@@ -1427,7 +1424,10 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
+      '@microfleet/core-types': link:../core-types
+      '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-validator': link:../plugin-validator
+      '@microfleet/utils': link:../utils
       '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
@@ -1469,11 +1469,11 @@ importers:
   packages/plugin-router-amqp:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-amqp': workspace:^0.2.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-router': workspace:^0.3.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-amqp': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-router': workspace:^
       '@microfleet/transport-amqp': ^16.0.1
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
@@ -1503,10 +1503,6 @@ importers:
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
     dependencies:
-      '@microfleet/core-types': link:../core-types
-      '@microfleet/plugin-amqp': link:../plugin-amqp
-      '@microfleet/plugin-logger': link:../plugin-logger
-      '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/transport-amqp': 16.0.1
       bluebird: 3.7.2
       event-to-promise: 0.8.0
@@ -1514,6 +1510,10 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
+      '@microfleet/core-types': link:../core-types
+      '@microfleet/plugin-amqp': link:../plugin-amqp
+      '@microfleet/plugin-logger': link:../plugin-logger
+      '@microfleet/plugin-router': link:../plugin-router
       '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
@@ -1544,11 +1544,11 @@ importers:
       '@hapi/boom': ^9.1.4
       '@hapi/hapi': ^20.2.1
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/plugin-hapi': workspace:^0.2.4
-      '@microfleet/plugin-opentracing': workspace:^0.5.4
-      '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/plugin-hapi': workspace:^
+      '@microfleet/plugin-opentracing': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-validator': workspace:^
       '@microfleet/validation': ^11.1.2
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
@@ -1588,10 +1588,6 @@ importers:
     dependencies:
       '@hapi/boom': 9.1.4
       '@hapi/hapi': 20.2.1
-      '@microfleet/plugin-hapi': link:../plugin-hapi
-      '@microfleet/plugin-opentracing': link:../plugin-opentracing
-      '@microfleet/plugin-router': link:../plugin-router
-      '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/validation': 11.1.2
       get-value: 3.0.1
       lodash: 4.17.21
@@ -1599,6 +1595,10 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
+      '@microfleet/plugin-hapi': link:../plugin-hapi
+      '@microfleet/plugin-opentracing': link:../plugin-opentracing
+      '@microfleet/plugin-router': link:../plugin-router
+      '@microfleet/plugin-validator': link:../plugin-validator
       '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
@@ -1635,10 +1635,10 @@ importers:
   packages/plugin-router-socketio:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/plugin-socketio': workspace:^0.2.4
+      '@microfleet/core': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-socketio': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1696,13 +1696,13 @@ importers:
   packages/plugin-socketio:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/plugin-logger': workspace:^0.10.4
-      '@microfleet/plugin-router': workspace:^0.3.4
-      '@microfleet/plugin-validator': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-logger': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-validator': workspace:^
       '@microfleet/transport-amqp': ^16.0.1
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1763,9 +1763,9 @@ importers:
   packages/plugin-validator:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^17.11.4
-      '@microfleet/core-types': workspace:^0.5.4
-      '@microfleet/utils': workspace:^0.5.4
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
       '@release-it/conventional-changelog': ^4.2.0
       '@swc-node/jest': ^1.4.3
@@ -1794,8 +1794,6 @@ importers:
       tsconfig-paths: ^3.12.0
       typescript: ~4.5.5
     dependencies:
-      '@microfleet/core-types': link:../core-types
-      '@microfleet/utils': link:../utils
       '@microfleet/validation': 11.1.2
       callsite: 1.0.0
       common-errors: 1.2.0
@@ -1803,6 +1801,8 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
+      '@microfleet/core-types': link:../core-types
+      '@microfleet/utils': link:../utils
       '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2

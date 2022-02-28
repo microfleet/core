@@ -33,10 +33,10 @@
     "ioredis": "^4.28.0"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.5.4",
-    "@microfleet/plugin-redis-core": "workspace:^0.5.4",
-    "@microfleet/plugin-validator": "workspace:^0.5.4",
-    "@microfleet/utils": "workspace:^0.5.4",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-redis-core": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "debug": "^4.3.3",
     "event-to-promise": "^0.8.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
-    "@microfleet/core": "workspace:^17.11.4",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.2.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

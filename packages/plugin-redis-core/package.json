@@ -30,8 +30,8 @@
     "ioredis": "^4.0.0"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.5.4",
-    "@microfleet/plugin-logger": "workspace:^0.10.4",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
     "debug": "^4.3.3",
     "glob": "^7.2.0",
     "sort-by": "^1.2.0"

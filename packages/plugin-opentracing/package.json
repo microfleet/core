@@ -31,15 +31,15 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.5.4",
-    "@microfleet/plugin-logger": "workspace:^0.10.4",
-    "@microfleet/plugin-validator": "workspace:^0.5.4",
-    "@microfleet/utils": "workspace:^0.5.4",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "jaeger-client": "^3.19.0"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
-    "@microfleet/core": "workspace:^17.11.4",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.2.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

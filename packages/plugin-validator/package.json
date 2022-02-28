@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
-    "@microfleet/core": "workspace:^"
+    "@microfleet/core": "workspace:^",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/utils": "workspace:^"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.5.4",
-    "@microfleet/utils": "workspace:^0.5.4",
     "@microfleet/validation": "^11.1.2",
     "callsite": "^1.0.0",
     "common-errors": "^1.2.0",
@@ -40,7 +40,9 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
-    "@microfleet/core": "workspace:^17.11.4",
+    "@microfleet/core": "workspace:^",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "@release-it/conventional-changelog": "^4.2.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",

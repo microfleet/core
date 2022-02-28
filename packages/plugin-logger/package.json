@@ -35,9 +35,9 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/core-types": "workspace:^0.5.4",
-    "@microfleet/plugin-validator": "workspace:^0.5.4",
-    "@microfleet/utils": "workspace:^0.5.4",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "lodash.merge": "^4.6.2",
     "lsmod": "^1.0.0",
     "pino": "^7.8.0",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
-    "@microfleet/core": "workspace:^17.11.4",
+    "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.2.0",
     "@sentry/node": "^6.18.0",
     "@sentry/types": "^6.18.0",

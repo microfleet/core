@@ -29,10 +29,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@hapi/boom": "^9.1.4",
-    "@microfleet/core-types": "workspace:^0.5.4",
-    "@microfleet/plugin-logger": "workspace:^0.10.4",
     "@microfleet/transport-amqp": "^16.0.1",
-    "@microfleet/utils": "workspace:^0.5.4",
     "@microfleet/validation": "^11.1.2",
     "glob": "^7.2.0",
     "hyperid": "^3.0.1",
@@ -43,12 +40,18 @@
   },
   "peerDependencies": {
     "@microfleet/core": "workspace:^",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
-    "@microfleet/core": "workspace:^17.11.4",
-    "@microfleet/plugin-validator": "workspace:^0.5.4",
+    "@microfleet/core": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/plugin-logger": "workspace:^",
+    "@microfleet/utils": "workspace:^",
     "@release-it/conventional-changelog": "^4.2.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
