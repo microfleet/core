@@ -6,7 +6,7 @@ export default async function longAction(this: Microfleet, request: ServiceReque
   const { params } = request
   const delayFromRequest = params.pause || 100
 
-  this.log.debug('got params', { params })
+  this.log.debug({ params, msg: request.transportRequest.properties }, 'got params')
 
   return delay(delayFromRequest).then(() => {
     this.log.debug('delayed response', { params })

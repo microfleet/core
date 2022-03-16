@@ -1,11 +1,10 @@
 import { strict as assert } from 'assert'
-import Bluebird = require('bluebird')
-import eventToPromise from 'event-to-promise'
 import { Microfleet } from '@microfleet/core-types'
 import { Logger } from '@microfleet/plugin-logger'
-import { Backoff } from '@microfleet/transport-amqp'
+import { Backoff, Publish } from '@microfleet/transport-amqp'
 
 import { RouterAMQPPluginConfig } from './types/plugin'
+import { Message } from '@microfleet/amqp-coffee'
 
 const NULL_UUID = '00000000-0000-0000-0000-000000000000'
 
@@ -51,13 +50,13 @@ export default (
   assert.equal(typeof retry.predicate, 'function', '`retry.predicate` must be defined')
 
   const { predicate, maxRetries } = retry
-  const backoff = new Backoff({ qos: retry })
+  const backoff = new Backoff({ qos: retry, private: retry, consumed: retry })
 
   return async function onCompleteRetry(
-    this: Microfleet, err: any, data: any, actionName: string, message: any
+    this: Microfleet, err: any, data: any, actionName: string, message: Message
   ): Promise<any> {
     const { properties } = message
-    const { headers } = properties
+    const { headers = Object.create(null) } = properties
 
     // reassign back so that response can be routed properly
     if (headers['x-original-correlation-id'] !== undefined) {
@@ -69,9 +68,8 @@ export default (
     }
 
     if (!err) {
-      logger.info('Sent, ack: [%s]', actionName)
+      logger.info({ properties: message.properties }, 'Sent, ack: [%s]', actionName)
       message.ack()
-
       return data
     }
 
@@ -89,7 +87,8 @@ export default (
         const logLevel = err.retryAttempt === 0 ? 'warn' : 'error'
         logger[logLevel]({ err, properties }, 'Failed: [%s]', actionName)
       }
-      return Bluebird.reject(err)
+
+      throw err
     }
 
     // assume that predefined accounts must not fail - credentials are correct
@@ -100,14 +99,15 @@ export default (
     // retry message options
     const expiration = backoff.get('qos', retryCount)
     const routingKey = prefix ? `${prefix}.${actionName}` : actionName
-    const retryMessageOptions: any = {
+    const publishHeaders: Record<string, any> = {
+      'routing-key': routingKey,
+      'x-original-error': String(err),
+      'x-retry-count': retryCount,
+    }
+    const retryMessageOptions: Publish = {
       confirm: true,
       expiration: expiration.toString(),
-      headers: {
-        'routing-key': routingKey,
-        'x-original-error': String(err),
-        'x-retry-count': retryCount,
-      },
+      headers: publishHeaders,
       mandatory: true,
       priority: calculatePriority(expiration, retry.max),
       skipSerialize: true,
@@ -119,25 +119,11 @@ export default (
     // correlation id is used in routing stuff back from DLX, so we have to "hide" it
     // same with replyTo
     if (replyTo !== undefined) {
-      retryMessageOptions.headers['x-original-reply-to'] = replyTo
+      publishHeaders['x-original-reply-to'] = replyTo
     }
 
     if (correlationId !== undefined) {
-      retryMessageOptions.headers['x-original-correlation-id'] = correlationId
-    }
-
-    if (this.amqp == null) {
-      try {
-        const toWrap = eventToPromise.multi(this as any, ['plugin:connect:amqp'], [
-          'plugin:close:amqp',
-          'error',
-        ])
-        await Bluebird.resolve(toWrap).timeout(10000)
-        assert(this.amqp)
-      } catch (e: any) {
-        message.retry()
-        return Bluebird.reject(e)
-      }
+      publishHeaders['x-original-correlation-id'] = correlationId
     }
 
     try {
@@ -147,7 +133,7 @@ export default (
         logger.error({ err: e }, 'Failed to queue retried message')
       }
       message.retry()
-      return Bluebird.reject(err)
+      throw err
     }
 
     if (logger) {
@@ -164,6 +150,6 @@ export default (
     properties.correlationId = NULL_UUID
 
     // reject with an error, yet a retry will still occur
-    return Bluebird.reject(err)
+    throw err
   }
 }

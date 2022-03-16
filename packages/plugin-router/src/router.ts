@@ -34,12 +34,12 @@ export type RouterConfig = {
 }
 
 const finishSpan = ({ span }: ServiceRequest) => () => {
-  if (span !== undefined) {
+  if (span != null) {
     span.finish()
   }
 }
 const spanLog = (request: ServiceRequest, error: Error) => {
-  if (request.span !== undefined ) {
+  if (request.span != null) {
     request.span.setTag(ERROR, true)
     request.span.log({
       'error.object': error,
@@ -170,7 +170,7 @@ export class Router {
     // if we have installed tracer - init span
     if (tracer !== undefined) {
       request.span = tracer.startSpan(`dispatch:${route}`, {
-        childOf: request.parentSpan,
+        childOf: request.parentSpan || undefined,
         tags: {
           [COMPONENT]: request.transport,
         },

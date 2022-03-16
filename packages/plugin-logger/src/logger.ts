@@ -209,7 +209,8 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
   return {
     async close(this: Microfleet): Promise<void> {
       // @ts-expect-error not-exposed, but present
-      this.log[pino.symbols.streamSym]?.flushSync()
+      this.log[pino.symbols.streamSym]?.flushSync?.()
+      this.log.flush()
     }
   }
 }

@@ -3,6 +3,8 @@ import { resolve } from 'path'
 import { ConnectionError } from 'common-errors'
 import { Microfleet } from '@microfleet/core'
 import { Lifecycle, ServiceRequest } from '@microfleet/plugin-router'
+import { spy } from 'sinon'
+import { RequestCountTracker } from '@microfleet/plugin-router'
 
 jest.setTimeout(15000)
 
@@ -95,6 +97,23 @@ describe('AMQP suite: prefixed routing', function testSuite() {
     const response = await amqp.publishAndWait('amqp-prefix.echo', { foo: 'bar' })
 
     deepStrictEqual(response, { foo: 'bar' })
+  })
+
+  it('able to close connection to amqp and consumers', async () => {
+    const { amqp } = service
+    assert(amqp)
+
+    const closeSpy = spy(service, 'close')
+    const consumerSpy = spy(amqp, 'closeAllConsumers')
+    // @todo plugin-router-amqp
+    // const waitRequestFinishSpy = spy(service.router.requestCountTracker, 'waitForRequestsToFinish')
+    const waitRequestFinishSpy = spy(RequestCountTracker, 'waitForRequestsToFinish')
+
+    await service.close()
+
+    assert(consumerSpy.called)
+    assert(consumerSpy.calledAfter(waitRequestFinishSpy))
+    assert(consumerSpy.calledAfter(closeSpy))
   })
 })
 
@@ -264,7 +283,7 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
   beforeAll(() => service.connect())
   afterAll(() => service.close())
 
-  it ('able to successfully retry action dispatch', async () => {
+  it('able to successfully retry action dispatch', async () => {
     const { amqp } = service
 
     // @todo dispose of assert

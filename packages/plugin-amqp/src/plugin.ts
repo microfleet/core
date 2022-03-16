@@ -6,9 +6,7 @@ import { NotFoundError, NotPermittedError, ConnectionError } from 'common-errors
 
 import { PluginInterface } from '@microfleet/core-types'
 import { Microfleet, PluginTypes } from '@microfleet/core'
-// @todo should be part of plugin-router-amqp
-import { RequestCountTracker, ActionTransport } from '@microfleet/plugin-router'
-import AMQPTransport = require('@microfleet/transport-amqp')
+import { AMQPTransport, connect } from '@microfleet/transport-amqp'
 
 import type { AMQPPluginConfig } from './types/plugin'
 
@@ -18,7 +16,7 @@ const ERROR_NOT_HEALTHY = new ConnectionError('amqp is not healthy')
 
 declare module '@microfleet/core-types' {
   export interface Microfleet {
-    amqp: InstanceType<typeof AMQPTransport>
+    amqp: AMQPTransport
   }
 
   export interface ConfigurationOptional {
@@ -32,7 +30,7 @@ export const priority = 0
 
 /**
  * Attaches plugin to the Mthis class.
- * @param {Object} config - AMQP plugin configuration.
+ * @param config - AMQP plugin configuration.
  */
 export function attach(
   this: Microfleet,
@@ -53,18 +51,13 @@ export function attach(
     this.amqp && this.amqp instanceof AMQPTransport
   )
 
-  // @todo should be part of plugin-router-amqp
-  const waitForRequestsToFinish = () => {
-    return RequestCountTracker.waitForRequestsToFinish(this, ActionTransport.amqp)
-  }
-
   /**
    * Check the state of a connection to the amqp server.
    * @param amqp - Instance of AMQPTransport.
    * @returns A truthy value if a provided connection is open.
    */
-  const isConnected = (amqp: InstanceType<typeof AMQPTransport>) => (
-    amqp._amqp && amqp._amqp.state === 'open'
+  const isConnected = (amqp: AMQPTransport) => (
+    amqp.state === 'open'
   )
 
   // init logger if this is enabled
@@ -87,9 +80,10 @@ export function attach(
         log: logger || null,
         tracer: this.tracer,
       }
+
       // @todo plugin-router-amqp
       // const amqp = this.amqp = await AMQPTransport.connect(connectionOptions, this.AMQPRouter)
-      const amqp = this.amqp = await AMQPTransport.connect(connectionOptions)
+      const amqp = this.amqp = await connect(connectionOptions)
 
       this.emit('plugin:connect:amqp', amqp)
 
@@ -111,25 +105,14 @@ export function attach(
       return true
     },
 
-    // @todo should be part of plugin-router-amqp
-    getRequestCount(this: Microfleet) {
-      return RequestCountTracker.getRequestCount(this, ActionTransport.amqp)
-    },
-
     /**
      * Generic AMQP disconnector.
      * @returns Closes connection to AMQP.
      */
     async close(this: Microfleet) {
       assert(isStarted(), ERROR_NOT_STARTED)
-
-      await this.amqp.closeAllConsumers()
-      // @todo should be part of plugin-router-amqp
-      // e.g. closeRouterConsumers() && waitForRequestsToFinish()
-      await waitForRequestsToFinish()
       await this.amqp.close()
-
-      this.emit('plugin:close:amqp')
+      this.emit('plugin:close:amqp', this.amqp)
     },
   }
 }

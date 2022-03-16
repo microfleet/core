@@ -62,6 +62,9 @@ describe('@microfleet/plugin-router', () => {
       hapi: {
         attachSocketio: true,
       },
+      logger: {
+        defaultLogger: false,
+      },
       router: {
         routes: {
           // @todo one style for pass directory?
@@ -200,6 +203,9 @@ describe('@microfleet/plugin-router', () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
+      logger: {
+        defaultLogger: false,
+      },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -238,6 +244,9 @@ describe('@microfleet/plugin-router', () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'amqp', 'router-amqp'],
+      logger: {
+        defaultLogger: false,
+      },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -286,6 +295,9 @@ describe('@microfleet/plugin-router', () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'amqp', 'router-amqp'],
+      logger: {
+        defaultLogger: false,
+      },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -345,6 +357,9 @@ describe('@microfleet/plugin-router', () => {
         'router-hapi',
         'router-socketio',
       ],
+      logger: {
+        defaultLogger: false,
+      },
       hapi: {
         attachSocketio: true,
       },
@@ -407,6 +422,9 @@ describe('@microfleet/plugin-router', () => {
         'hapi',
         'router-hapi',
       ],
+      logger: {
+        defaultLogger: false,
+      },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -466,6 +484,9 @@ describe('@microfleet/plugin-router', () => {
     const config = {
       name: 'tester',
       plugins: ['logger', 'validator', 'router'],
+      logger: {
+        defaultLogger: false,
+      },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -639,6 +660,9 @@ describe('@microfleet/plugin-router', () => {
         'hapi',
         'router-hapi',
       ],
+      logger: {
+        defaultLogger: false,
+      },
       maintenanceMode: true,
       hapi: {
         attachSocketio: false,
