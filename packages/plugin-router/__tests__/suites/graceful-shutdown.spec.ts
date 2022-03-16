@@ -83,6 +83,9 @@ class ChildServiceRunner {
     const service = new Microfleet({
       name: 'requester',
       plugins: ['amqp', 'logger', 'validator'],
+      logger: {
+        defaultLogger: false,
+      },
       amqp: {
         transport: {
           connection: {

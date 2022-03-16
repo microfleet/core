@@ -67,6 +67,8 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
   }
 }
 
+export type CoreOptions = ns.ConfigurationRequired & DeepPartial<ns.ConfigurationOptional>
+
 /**
  * @class Microfleet
  */
@@ -91,7 +93,7 @@ export class Microfleet extends EventEmitter {
    * @param [opts={}] - Overrides for configuration.
    * @returns Instance of microservice.
    */
-  constructor(opts: ns.ConfigurationRequired & DeepPartial<ns.ConfigurationOptional>) {
+  constructor(opts: CoreOptions) {
     super()
 
     // init configuration

@@ -13,7 +13,7 @@ module.exports = {
   services: [
     'rabbitmq',
   ],
-  in_one: false,
+  in_one: true,
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
     tester: {

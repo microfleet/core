@@ -8,6 +8,7 @@ import { Socket, io } from 'socket.io-client'
 import { OptionsWithUrl } from 'request-promise'
 import { once } from 'events'
 import hyperid from 'hyperid'
+import { CoreOptions } from '@microfleet/core'
 
 const idInstance = hyperid({ urlSafe: true })
 
@@ -113,8 +114,8 @@ export function getAmqpRequest(amqp: any) {
   return (path: string, params: unknown) => Bluebird.resolve(amqp.publishAndWait(path, params))
 }
 
-export function withResponseValidateAction(name: string, extra: any = {}): any {
-  const config = {
+export function withResponseValidateAction(name: string, extra: Partial<CoreOptions> = {}): any {
+  const config: Partial<CoreOptions> = {
     name,
     plugins: [
       'validator',
@@ -131,6 +132,9 @@ export function withResponseValidateAction(name: string, extra: any = {}): any {
       transport: {
         exchange: `test-${idInstance()}`
       }
+    },
+    logger: {
+      defaultLogger: false,
     },
     hapi: {
       attachSocketio: true,

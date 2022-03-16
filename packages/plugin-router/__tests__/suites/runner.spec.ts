@@ -6,7 +6,12 @@ import { runHandler, runHook } from '../../src/lifecycle/utils'
 // @todo tests for lifecycle
 
 describe('@microfleet/plugin-router: "runner" utils', () => {
-  const context = new Microfleet({ name: 'tester' })
+  const context = new Microfleet({
+    name: 'tester',
+    logger: {
+      defaultLogger: false,
+    },
+ })
 
   it('shoul be able to run', async () => {
     const hooks: any = new Map([
