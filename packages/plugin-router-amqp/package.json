@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router-amqp",
-  "version": "0.4.2",
+  "version": "0.6.0",
   "description": "AMQP transport adapter for router",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

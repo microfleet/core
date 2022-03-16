@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.7.1...@microfleet/core-types@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/core 17.14.0
+
+# [17.14.0](https://github.com/microfleet/core/compare/@microfleet/core@17.13.1...@microfleet/core@17.14.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-amqp 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.4.1...@microfleet/plugin-amqp@0.5.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-aws-elasticsearch 1.8.0
+
+# [1.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.7.1...@microfleet/plugin-aws-elasticsearch@1.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-cassandra 0.13.0
+
+# [0.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.12.1...@microfleet/plugin-cassandra@0.13.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-consul 2.10.0
+
+# [2.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.9.1...@microfleet/plugin-consul@2.10.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-couchdb 2.10.0
+
+# [2.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.9.1...@microfleet/plugin-couchdb@2.10.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-dlock 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.4.1...@microfleet/plugin-dlock@0.5.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-elasticsearch 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.7.1...@microfleet/plugin-elasticsearch@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-hapi 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.4.1...@microfleet/plugin-hapi@0.5.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-kafka-types 1.9.0
+
+# [1.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.8.1...@microfleet/plugin-kafka-types@1.9.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-kafka 2.14.0
+
+# [2.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.13.1...@microfleet/plugin-kafka@2.14.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-knex 2.11.0
+
+# [2.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.10.1...@microfleet/plugin-knex@2.11.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-logger 0.13.0
+
+# [0.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.12.1...@microfleet/plugin-logger@0.13.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-opentracing 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.7.1...@microfleet/plugin-opentracing@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-prometheus 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.7.1...@microfleet/plugin-prometheus@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-redis-cluster 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.7.1...@microfleet/plugin-redis-cluster@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-redis-core 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.7.1...@microfleet/plugin-redis-core@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-redis-sentinel 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.7.1...@microfleet/plugin-redis-sentinel@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-router-amqp 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.4.1...@microfleet/plugin-router-amqp@0.5.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-router-hapi 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.4.1...@microfleet/plugin-router-hapi@0.5.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-router-socketio 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.4.1...@microfleet/plugin-router-socketio@0.5.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-router 0.6.0
+
+# [0.6.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.5.1...@microfleet/plugin-router@0.6.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-socketio 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.4.1...@microfleet/plugin-socketio@0.5.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/plugin-validator 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.7.1...@microfleet/plugin-validator@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
+# @microfleet/utils 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.7.1...@microfleet/utils@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+
 # @microfleet/core-types 0.7.1
 
 ## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.6.0...@microfleet/core-types@0.7.1) (2022-02-28)

@@ -1,4 +1,16 @@
-undefined
+
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.7.1...@microfleet/plugin-elasticsearch@0.9.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.7.1...@microfleet/plugin-elasticsearch@0.8.0) (2022-03-16)
+
+
+### Features
+
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))undefined
 
 ## [0.7.2](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.6.0...@microfleet/plugin-elasticsearch@0.7.2) (2022-02-28)
 
