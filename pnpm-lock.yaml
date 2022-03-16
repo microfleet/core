@@ -6,27 +6,27 @@ importers:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
       '@node-rs/xxhash-linux-x64-musl': ^1.2.0
-      '@release-it/conventional-changelog': ^4.2.0
-      '@swc/core-linux-x64-musl': ^1.2.146
+      '@release-it/conventional-changelog': ^4.2.2
+      '@swc/core-linux-x64-musl': ^1.2.155
       conventional-changelog-angular: ^5.0.13
       glob: ^7.2.0
       js-yaml: ^4.1.0
       prepend-file: ^2.0.1
       release-it: ^14.12.5
       rimraf: ^3.0.2
-      typescript: ~4.5.5
+      typescript: ~4.6.2
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@node-rs/xxhash-linux-x64-musl': 1.2.0
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
-      '@swc/core-linux-x64-musl': 1.2.146
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
+      '@swc/core-linux-x64-musl': 1.2.155
       conventional-changelog-angular: 5.0.13
       glob: 7.2.0
       js-yaml: 4.1.0
       prepend-file: 2.0.1
       release-it: 14.12.5
       rimraf: 3.0.2
-      typescript: 4.5.5
+      typescript: 4.6.2
 
   packages/core:
     specifiers:
@@ -34,7 +34,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -42,13 +42,13 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -58,8 +58,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
       yargs-parser: ^21.0.1
     dependencies:
       '@microfleet/core-types': link:../core-types
@@ -71,7 +71,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/validation': 11.1.2
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -79,38 +79,38 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/core-types:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
       '@types/bluebird-retry': ^0.11.5
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -120,8 +120,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/utils': link:../utils
       bluebird: 3.7.2
@@ -129,26 +129,26 @@ importers:
       eventemitter3: 4.0.7
     devDependencies:
       '@makeomatic/deploy': 12.6.3
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
       '@types/bluebird-retry': 0.11.5
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-amqp:
     specifiers:
@@ -158,8 +158,8 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@microfleet/transport-amqp': ^16.0.1
-      '@release-it/conventional-changelog': ^4.2.0
+      '@microfleet/transport-amqp': ^17.0.4
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -167,12 +167,12 @@ importers:
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
       '@types/sinon': ^10.0.11
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -181,10 +181,10 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
-      '@microfleet/transport-amqp': 16.0.1
+      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
       bluebird: 3.7.2
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -193,7 +193,7 @@ importers:
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -201,21 +201,21 @@ importers:
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
       '@types/sinon': 10.0.11
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-aws-elasticsearch:
     specifiers:
@@ -226,7 +226,7 @@ importers:
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
       '@opensearch-project/opensearch': ^1.0.2
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/aws4': ^1.11.1
@@ -235,15 +235,15 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
-      aws-sdk: ^2.1082.0
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
+      aws-sdk: ^2.1094.0
       aws4: ^1.11.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -252,22 +252,22 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/utils': link:../utils
       '@opensearch-project/opensearch': 1.0.2
-      aws-sdk: 2.1082.0
+      aws-sdk: 2.1094.0
       aws4: 1.11.0
       bluebird: 3.7.2
       bluebird-retry: 0.11.0_bluebird@3.7.2
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/aws4': 1.11.1
@@ -276,21 +276,21 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-cassandra:
     specifiers:
@@ -300,7 +300,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -308,25 +308,25 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
-      express-cassandra: ^2.7.0
+      express-cassandra: ^2.8.0
       jest: ^27.5.1
       release-it: ^14.12.5
       rfdc: ^1.3.0
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
@@ -334,11 +334,11 @@ importers:
       '@microfleet/utils': link:../utils
       bluebird: 3.7.2
       bluebird-retry: 0.11.0_bluebird@3.7.2
-      express-cassandra: 2.7.0
+      express-cassandra: 2.8.0
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -346,22 +346,22 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rfdc: 1.3.0
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-consul:
     specifiers:
@@ -371,7 +371,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -379,13 +379,13 @@ importers:
       '@types/consul': ^0.40.0
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       consul: ^0.40.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -395,8 +395,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
@@ -407,7 +407,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -415,22 +415,22 @@ importers:
       '@types/consul': 0.40.0
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       bluebird: 3.7.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       nock: 13.2.4
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-couchdb:
     specifiers:
@@ -440,7 +440,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -448,13 +448,13 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -464,8 +464,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
@@ -477,7 +477,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -485,21 +485,21 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-dlock:
     specifiers:
@@ -514,7 +514,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -522,12 +522,12 @@ importers:
       '@types/ioredis': ^4.28.8
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -537,8 +537,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/dlock': 14.0.0_ioredis@4.28.5
@@ -555,7 +555,7 @@ importers:
       '@microfleet/plugin-redis-cluster': link:../plugin-redis-cluster
       '@microfleet/plugin-redis-sentinel': link:../plugin-redis-sentinel
       '@microfleet/plugin-router': link:../plugin-router
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -563,20 +563,20 @@ importers:
       '@types/ioredis': 4.28.8
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-elasticsearch:
     specifiers:
@@ -586,7 +586,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -594,13 +594,13 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -609,8 +609,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@elastic/elasticsearch': 7.17.0
       '@microfleet/core-types': link:../core-types
@@ -621,7 +621,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -629,21 +629,21 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-hapi:
     specifiers:
@@ -656,17 +656,17 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-socketio': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/hapi__hapi': 20.0.10
       '@types/hapi__vision': ^5.5.3
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -677,8 +677,8 @@ importers:
       sinon: ^13.0.1
       socket.io-client: ^4.4.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@hapi/hapi': 20.2.1
       '@hapi/vision': 6.1.0
@@ -691,28 +691,28 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/hapi__hapi': 20.0.10
       '@types/hapi__vision': 5.5.3
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
       socket.io-client: 4.4.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-kafka:
     specifiers:
@@ -724,39 +724,39 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
       '@types/bluebird-retry': ^0.11.5
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
-      '@types/lodash': ^4.14.179
+      '@types/lodash': ^4.14.180
       '@types/node': ^17.0.21
       '@types/readable-stream': ^2.3.13
       '@types/sinon': ^10.0.11
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
       execa: ^5.1.1
       jest: ^27.5.1
       lodash: ^4.17.21
-      pino: ^7.8.0
+      pino: ^7.8.1
       readable-stream: ^3.6.0
       release-it: ^14.12.5
       rimraf: ^3.0.2
       sinon: ^13.0.1
       toxiproxy-node-client: ^2.0.6
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@makeomatic/node-rdkafka': 2.13.4
       '@microfleet/core-types': link:../core-types
@@ -767,52 +767,52 @@ importers:
       bluebird: 3.7.2
       bluebird-retry: 0.11.0_bluebird@3.7.2
       lodash: 4.17.21
-      pino: 7.8.0
+      pino: 7.8.1
       readable-stream: 3.6.0
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
       '@types/bluebird-retry': 0.11.5
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.179
+      '@types/lodash': 4.14.180
       '@types/node': 17.0.21
       '@types/readable-stream': 2.3.13
       '@types/sinon': 10.0.11
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       execa: 5.1.1
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
       toxiproxy-node-client: 2.0.6
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-kafka-types:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
       '@makeomatic/node-rdkafka': ^2.13.4
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -821,30 +821,30 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@makeomatic/node-rdkafka': 2.13.4
     devDependencies:
       '@makeomatic/deploy': 12.6.3
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-knex:
     specifiers:
@@ -854,7 +854,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -862,25 +862,25 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
       jest: ^27.5.1
-      knex: ^1.0.3
+      knex: ^1.0.4
       pg: ^8.7.3
       release-it: ^14.12.5
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
@@ -888,12 +888,12 @@ importers:
       '@microfleet/utils': link:../utils
       bluebird: 3.7.2
       bluebird-retry: 0.11.0_bluebird@3.7.2
-      knex: 1.0.3_pg@8.7.3
+      knex: 1.0.4_pg@8.7.3
       pg: 8.7.3
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -901,21 +901,21 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-logger:
     specifiers:
@@ -924,9 +924,9 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
-      '@sentry/node': ^6.18.0
-      '@sentry/types': ^6.18.0
+      '@release-it/conventional-changelog': ^4.2.2
+      '@sentry/node': ^6.18.2
+      '@sentry/types': ^6.18.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -935,23 +935,23 @@ importers:
       '@types/mocha': ^9.1.0
       '@types/node': ^17.0.21
       '@types/sinon': ^10.0.11
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
-      fastify: ^3.27.2
+      fastify: ^3.27.4
       jest: ^27.5.1
       lodash.merge: ^4.6.2
       lsmod: ^1.0.0
-      mocha: ^9.2.1
-      pino: ^7.8.0
+      mocha: ^9.2.2
+      pino: ^7.8.1
       pino-abstract-transport: ^0.5.0
-      pino-pretty: ^7.5.1
+      pino-pretty: ^7.5.3
       release-it: ^14.12.5
       rimraf: ^3.0.2
       sentry-testkit: ^3.3.7
@@ -959,24 +959,24 @@ importers:
       sonic-boom: 2.6.0
       tempy: ^1.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/utils': link:../utils
       lodash.merge: 4.6.2
       lsmod: 1.0.0
-      pino: 7.8.0
+      pino: 7.8.1
       pino-abstract-transport: 0.5.0
-      pino-pretty: 7.5.1
+      pino-pretty: 7.5.3
       sonic-boom: 2.6.0
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
-      '@sentry/node': 6.18.0
-      '@sentry/types': 6.18.0
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
+      '@sentry/node': 6.18.2
+      '@sentry/types': 6.18.2
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -985,26 +985,26 @@ importers:
       '@types/mocha': 9.1.0
       '@types/node': 17.0.21
       '@types/sinon': 10.0.11
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       bluebird: 3.7.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
-      fastify: 3.27.2
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
+      fastify: 3.27.4
       jest: 27.5.1
-      mocha: 9.2.1
+      mocha: 9.2.2
       release-it: 14.12.5
       rimraf: 3.0.2
       sentry-testkit: 3.3.7
       sinon: 13.0.1
       tempy: 1.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-opentracing:
     specifiers:
@@ -1014,18 +1014,18 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
       '@types/jaeger-client': ^3.18.3
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1035,8 +1035,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
@@ -1046,28 +1046,28 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/common-errors': 1.0.2
       '@types/jaeger-client': 3.18.3
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-prometheus:
     specifiers:
@@ -1077,7 +1077,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -1085,11 +1085,11 @@ importers:
       '@types/node': ^17.0.21
       '@types/request-promise': ^4.1.48
       '@types/semver': ^7.3.9
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1102,8 +1102,8 @@ importers:
       semver: ^7.3.5
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
@@ -1114,7 +1114,7 @@ importers:
       '@microfleet/core': link:../core
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/common-errors': 1.0.2
@@ -1122,23 +1122,23 @@ importers:
       '@types/node': 17.0.21
       '@types/request-promise': 4.1.48
       '@types/semver': 7.3.9
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       request: 2.88.2
       request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-redis-cluster:
     specifiers:
@@ -1148,7 +1148,7 @@ importers:
       '@microfleet/plugin-redis-core': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1158,13 +1158,13 @@ importers:
       '@types/ioredis': ^4.28.8
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       cross-env: ^7.0.3
       debug: ^4.3.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1176,8 +1176,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-redis-core': link:../plugin-redis-core
@@ -1191,7 +1191,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -1201,28 +1201,28 @@ importers:
       '@types/ioredis': 4.28.8
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-redis-core:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -1231,12 +1231,12 @@ importers:
       '@types/ioredis': ^4.28.8
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
       debug: ^4.3.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1248,8 +1248,8 @@ importers:
       sinon: ^13.0.1
       sort-by: ^1.2.0
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
@@ -1258,7 +1258,7 @@ importers:
       sort-by: 1.2.0
     devDependencies:
       '@makeomatic/deploy': 12.6.3
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/common-errors': 1.0.2
@@ -1267,22 +1267,22 @@ importers:
       '@types/ioredis': 4.28.8
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       ioredis: 4.28.5
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-redis-sentinel:
     specifiers:
@@ -1292,7 +1292,7 @@ importers:
       '@microfleet/plugin-redis-core': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1301,13 +1301,13 @@ importers:
       '@types/ioredis': ^4.28.8
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       cross-env: ^7.0.3
       debug: ^4.3.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1318,8 +1318,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-redis-core': link:../plugin-redis-core
@@ -1331,7 +1331,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -1340,22 +1340,22 @@ importers:
       '@types/ioredis': 4.28.8
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       ioredis: 4.28.5
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-router:
     specifiers:
@@ -1365,29 +1365,29 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@microfleet/transport-amqp': ^16.0.1
+      '@microfleet/transport-amqp': ^17.0.4
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
       '@types/common-errors': ^1.0.2
       '@types/glob': ^7.2.0
       '@types/jest': 27.4.1
-      '@types/lodash': ^4.14.179
+      '@types/lodash': ^4.14.180
       '@types/node': ^17.0.21
       '@types/qs': ^6.9.7
       '@types/request-promise': ^4.1.48
       '@types/sinon': ^10.0.11
       '@types/split2': ^3.2.1
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       cross-env: ^7.0.3
       debug: ^4.3.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1409,11 +1409,11 @@ importers:
       split2: ^4.1.0
       tempy: ^1.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@hapi/boom': 9.1.4
-      '@microfleet/transport-amqp': 16.0.1
+      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
       '@microfleet/validation': 11.1.2
       glob: 7.2.0
       hyperid: 3.0.1
@@ -1428,29 +1428,29 @@ importers:
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/utils': link:../utils
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
       '@types/common-errors': 1.0.2
       '@types/glob': 7.2.0
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.179
+      '@types/lodash': 4.14.180
       '@types/node': 17.0.21
       '@types/qs': 6.9.7
       '@types/request-promise': 4.1.48
       '@types/sinon': 10.0.11
       '@types/split2': 3.2.1
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       bluebird: 3.7.2
       common-errors: 1.2.0
       cross-env: 7.0.3
       debug: 4.3.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       execa: 5.1.1
       get-port: 5.1.1
       jest: 27.5.1
@@ -1462,34 +1462,36 @@ importers:
       socket.io-client: 4.4.1
       split2: 4.1.0
       tempy: 1.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-router-amqp:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
+      '@microfleet/amqp-coffee': ^2.1.2
       '@microfleet/core': workspace:^
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-amqp': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
-      '@microfleet/transport-amqp': ^16.0.1
-      '@release-it/conventional-changelog': ^4.2.0
+      '@microfleet/transport-amqp': ^17.0.4
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
       '@types/common-errors': ^1.0.2
       '@types/event-to-promise': ^0.7.2
       '@types/jest': 27.4.1
-      '@types/lodash': ^4.14.179
+      '@types/lodash': ^4.14.180
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@types/sinon': ^10.0.11
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1500,10 +1502,11 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
-      '@microfleet/transport-amqp': 16.0.1
+      '@microfleet/amqp-coffee': 2.1.2
+      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
       bluebird: 3.7.2
       event-to-promise: 0.8.0
       lodash: 4.17.21
@@ -1514,30 +1517,31 @@ importers:
       '@microfleet/plugin-amqp': link:../plugin-amqp
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
       '@types/common-errors': 1.0.2
       '@types/event-to-promise': 0.7.2
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.179
+      '@types/lodash': 4.14.180
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@types/sinon': 10.0.11
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-router-hapi:
     specifiers:
@@ -1550,7 +1554,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1559,16 +1563,16 @@ importers:
       '@types/get-value': ^3.0.2
       '@types/hapi__hapi': 20.0.10
       '@types/jest': 27.4.1
-      '@types/lodash': ^4.14.179
+      '@types/lodash': ^4.14.180
       '@types/node': ^17.0.21
       '@types/request-promise': ^4.1.48
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       bluebird: ^3.7.2
       cheerio: ^1.0.0-rc.10
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1583,8 +1587,8 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@hapi/boom': 9.1.4
       '@hapi/hapi': 20.2.1
@@ -1599,7 +1603,7 @@ importers:
       '@microfleet/plugin-opentracing': link:../plugin-opentracing
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/bluebird': 3.5.36
@@ -1608,19 +1612,19 @@ importers:
       '@types/get-value': 3.0.2
       '@types/hapi__hapi': 20.0.10
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.179
+      '@types/lodash': 4.14.180
       '@types/node': 17.0.21
       '@types/request-promise': 4.1.48
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       bluebird: 3.7.2
       cheerio: 1.0.0-rc.10
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       handlebars: 4.7.7
       jest: 27.5.1
       release-it: 14.12.5
@@ -1628,9 +1632,9 @@ importers:
       request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-router-socketio:
     specifiers:
@@ -1639,16 +1643,16 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-socketio': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/jest': 27.4.1
-      '@types/lodash': ^4.14.179
+      '@types/lodash': ^4.14.180
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1660,8 +1664,8 @@ importers:
       socket.io: ^4.4.1
       socket.io-client: ^4.4.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
@@ -1671,27 +1675,27 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.179
+      '@types/lodash': 4.14.180
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
       socket.io-client: 4.4.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-socketio:
     specifiers:
@@ -1701,19 +1705,19 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@microfleet/transport-amqp': ^16.0.1
+      '@microfleet/transport-amqp': ^17.0.4
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1724,41 +1728,41 @@ importers:
       sinon: ^13.0.1
       socket.io: ^4.4.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@microfleet/transport-amqp': 16.0.1
+      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
       '@microfleet/utils': link:../utils
-      ms-socket.io-adapter-amqp: 8.1.2_73d7ccf4353b9dc8da6a960ad420c42c
+      ms-socket.io-adapter-amqp: 8.1.2_7e805875546b6a023d530f1f185cae71
       socket.io: 4.4.1
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       common-errors: 1.2.0
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/plugin-validator:
     specifiers:
@@ -1767,20 +1771,20 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/callsite': ^1.0.31
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
-      '@types/lodash': ^4.14.179
+      '@types/lodash': ^4.14.180
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       callsite: ^1.0.0
       common-errors: ^1.2.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1791,8 +1795,8 @@ importers:
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
       ts-jest: ^27.1.3
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       '@microfleet/validation': 11.1.2
       callsite: 1.0.0
@@ -1803,42 +1807,42 @@ importers:
       '@microfleet/core': link:../core
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
       '@types/callsite': 1.0.31
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
-      '@types/lodash': 4.14.179
+      '@types/lodash': 4.14.180
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      ts-jest: 27.1.3_8fa130d172bf7d71653f05507c50c5a3
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      ts-jest: 27.1.3_60149d457e34ffba7d4e845dde6a1263
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
   packages/utils:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@release-it/conventional-changelog': ^4.2.0
+      '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
-      '@types/lodash': ^4.14.179
+      '@types/lodash': ^4.14.180
       '@types/node': ^17.0.21
-      '@typescript-eslint/eslint-plugin': ^5.12.1
-      '@typescript-eslint/parser': ^5.12.1
+      '@typescript-eslint/eslint-plugin': ^5.15.0
+      '@typescript-eslint/parser': ^5.15.0
       cross-env: ^7.0.3
-      eslint: ^8.10.0
+      eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
@@ -1849,32 +1853,32 @@ importers:
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.12.0
-      typescript: ~4.5.5
+      tsconfig-paths: ^3.14.0
+      typescript: ~4.6.2
     dependencies:
       lodash: 4.17.21
       read-pkg-up: 7.0.1
     devDependencies:
       '@makeomatic/deploy': 12.6.3
-      '@release-it/conventional-changelog': 4.2.0_release-it@14.12.5
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
       '@swc-node/jest': 1.4.3
       '@swc-node/register': 1.4.2
-      '@types/lodash': 4.14.179
+      '@types/lodash': 4.14.180
       '@types/node': 17.0.21
-      '@typescript-eslint/eslint-plugin': 5.12.1_27a0c788acac7d65514027b167e3b3f6
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
       cross-env: 7.0.3
-      eslint: 8.10.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.5.5
-      eslint-plugin-import: 2.25.4_eslint@8.10.0
-      eslint-plugin-unicorn: 41.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.2
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.12.5
       rimraf: 3.0.2
       sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.5.5
-      tsconfig-paths: 3.12.0
-      typescript: 4.5.5
+      ts-essentials: 9.1.2_typescript@4.6.2
+      tsconfig-paths: 3.14.0
+      typescript: 4.6.2
 
 packages:
 
@@ -2282,10 +2286,10 @@ packages:
       '@types/node': 17.0.21
       chalk: 4.1.2
       cosmiconfig: 7.0.1
-      cosmiconfig-typescript-loader: 1.0.5_99a448058f874aec2a353d0e974167cc
+      cosmiconfig-typescript-loader: 1.0.5_e79e62fe450383fd2d418267dc75e645
       lodash: 4.17.21
       resolve-from: 5.0.0
-      typescript: 4.5.5
+      typescript: 4.6.2
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -2381,15 +2385,15 @@ packages:
       - supports-color
     dev: false
 
-  /@eslint/eslintrc/1.2.0:
-    resolution: {integrity: sha512-igm9SjJHNEJRiUnecP/1R5T3wKLEJ7pL6e2P+GUSfCd0dGjPYYZve08uzw8L2J8foVHFz+NGu12JxRcU2gGo6w==}
+  /@eslint/eslintrc/1.2.1:
+    resolution: {integrity: sha512-bxvbYnBPN1Gibwyp6NrpnFzA3YtRL3BBAyEAFVIpNTm2Rn4Vy87GA5M4aSn3InRrlsbX5N0GW7XIx+U4SAEKdQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       ajv: 6.12.6
       debug: 4.3.3
       espree: 9.3.1
-      globals: 13.12.1
-      ignore: 4.0.6
+      globals: 13.13.0
+      ignore: 5.2.0
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       minimatch: 3.1.2
@@ -2976,23 +2980,28 @@ packages:
       - supports-color
     dev: false
 
-  /@microfleet/amqp-codec/1.0.2:
-    resolution: {integrity: sha512-K2K+91c800pRVSP6XcaFqbb/Gq6PVTNHIcPxQ2dpBXA8cN4GX+b82xK0LLVBtZHGAWOIM+E+eHw3/FFEOzn8gw==}
+  /@microfleet/amqp-codec/2.0.0:
+    resolution: {integrity: sha512-ksoIC6GUtaQLcfiFtsTN6X7YFNioL3ygJWU1usTmOSy+Ye+a7GbNNeKiSF9N1Xm9unYaDgDpnAnOH6hmcsPdYA==}
     dependencies:
       debug: 4.3.3
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@microfleet/amqp-coffee/2.0.3:
-    resolution: {integrity: sha512-L36zn5EPyUlD2y4l0RFIH6273AKd2bens3H9QEN0UnoY4VsxIGJS4zpfR8hNBT5oPyZN7FwTNKQNcfcMvaICKw==}
+  /@microfleet/amqp-coffee/2.1.2:
+    resolution: {integrity: sha512-2ne/q0zQC2L9v6S6tyrOnev6mBEkUsviZ+42Y1jQL9uibXakjQHL6Vx7ce7uLGL9YEo6ruQ4sm1Ax4rdNj6jbw==}
     engines: {node: '>= 14.17'}
     dependencies:
-      '@microfleet/amqp-codec': 1.0.2
+      '@microfleet/amqp-codec': 2.0.0
       async: 3.2.3
       bson: 4.6.1
+      bytes: 3.1.2
       debug: 4.3.3
+      fastq: 1.13.0
+      ffi-napi: 4.0.3
       lodash: 4.17.21
+      read-pkg: 5.2.0
+      ref-napi: 3.0.3
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -3033,11 +3042,13 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@microfleet/transport-amqp/16.0.1:
-    resolution: {integrity: sha512-tYR4VYOKBhvebhMFC2mr+5taGQWT9dhMH5qMrLMPPdFs3PLXC+ZrKJ9+EBeRYMDkldJX4lnNOsJSu2EKFmMQSA==}
+  /@microfleet/transport-amqp/17.0.4_common-errors@1.2.0:
+    resolution: {integrity: sha512-YMWf+/jUtIK2T1H0smMSkwLJiSwafnXG8hyLTacMA7Q2vL0CFlxxV6lSDRXojElbxdL194HU7og3uVj7OMPnnA==}
     engines: {node: '>= 14.17.0'}
+    peerDependencies:
+      common-errors: ~1.x.x
     dependencies:
-      '@microfleet/amqp-coffee': 2.0.3
+      '@microfleet/amqp-coffee': 2.1.2
       '@types/common-errors': 1.0.2
       bluebird: 3.7.2
       common-errors: 1.2.0
@@ -3050,10 +3061,9 @@ packages:
       json-stringify-safe: 5.0.1
       lodash: 4.17.21
       object-hash: 3.0.0
-      opentracing: 0.14.7
-      pino: 7.8.0
+      pino: 7.8.1
       read-pkg: 5.2.0
-      sonic-boom: 2.6.0
+      type-fest: 2.12.0
       uuid: 8.3.2
     transitivePeerDependencies:
       - supports-color
@@ -3356,8 +3366,8 @@ packages:
       - supports-color
     dev: false
 
-  /@release-it/conventional-changelog/4.2.0_release-it@14.12.5:
-    resolution: {integrity: sha512-o0XF8HyrUJ7u0bqXbGfq0M87pzK9cZ1ybBwDywZvV37EB1JRUJjpw1yQRcOe1gpaeOOplucb0BXj9SKuNQGBcw==}
+  /@release-it/conventional-changelog/4.2.2_release-it@14.12.5:
+    resolution: {integrity: sha512-cbpfMSKTt8VtyltNls6Kt0WXIRmgILNpF1nqGE2oe3acs286Brrb5WFGyPhYR8XUy0nVsnjG1zmUPP6n0Xd6XA==}
     engines: {node: '>=10'}
     peerDependencies:
       release-it: ^14.12.1
@@ -3467,44 +3477,43 @@ packages:
       - supports-color
     dev: true
 
-  /@sentry/core/6.18.0:
-    resolution: {integrity: sha512-I3iQVfMWHXR/LtevJg83aD7UAiUBLz1xAW8y3gd5lJej96UNv/4TbCmKZumYnEJMXf8EcFlg8t48W0Bl1GxhEg==}
+  /@sentry/core/6.18.2:
+    resolution: {integrity: sha512-r5ad/gq5S/JHc9sd5CUhZQT9ojQ+f+thk/AoGeGawX/8HURZYAgIqD565d6FK0VsZEDkdRMl58z1Qon20h3y1g==}
     engines: {node: '>=6'}
     dependencies:
-      '@sentry/hub': 6.18.0
-      '@sentry/minimal': 6.18.0
-      '@sentry/types': 6.18.0
-      '@sentry/utils': 6.18.0
+      '@sentry/hub': 6.18.2
+      '@sentry/minimal': 6.18.2
+      '@sentry/types': 6.18.2
+      '@sentry/utils': 6.18.2
       tslib: 1.14.1
     dev: true
 
-  /@sentry/hub/6.18.0:
-    resolution: {integrity: sha512-E2GrrNcidyT67ONU3btHO5vyS1bPQNdWqC09sUc1F3q/nQyvc7L2W09TKY2veaMZQtC9EU760fTG1hMmgGwPmw==}
+  /@sentry/hub/6.18.2:
+    resolution: {integrity: sha512-d0AugekMkbnN12b4EXMjseJxtLPc9S20DGobCPUb4oAQT6S2oDQEj1jwP6PQ5vtgyy+GMYWxBMgqAQ4pjVYISQ==}
     engines: {node: '>=6'}
     dependencies:
-      '@sentry/types': 6.18.0
-      '@sentry/utils': 6.18.0
+      '@sentry/types': 6.18.2
+      '@sentry/utils': 6.18.2
       tslib: 1.14.1
     dev: true
 
-  /@sentry/minimal/6.18.0:
-    resolution: {integrity: sha512-QkkWOhX3NMycUNLj96thMQ0BclmfxE2VdDf9ZqRkvdFzxI1FVY5NEArqD4wtlrCIoYN1ioAYrvdb48/BTuGung==}
+  /@sentry/minimal/6.18.2:
+    resolution: {integrity: sha512-n7KYuo34W2LxE+3dnZ47of7XHuORINCnXq66XH72eoj67tf0XeWbIhEJrYGmoLRyRfoCYYrBLWiDl/uTjLzrzQ==}
     engines: {node: '>=6'}
     dependencies:
-      '@sentry/hub': 6.18.0
-      '@sentry/types': 6.18.0
+      '@sentry/hub': 6.18.2
+      '@sentry/types': 6.18.2
       tslib: 1.14.1
     dev: true
 
-  /@sentry/node/6.18.0:
-    resolution: {integrity: sha512-gESzabgJSs3uuOpZQ4tdI3V0k1nl9fqToTHOJDMeOqusHYfY/wlRDtdvN0Qn+vdvkGI/Eh3u8RnFQXCzkbCAbQ==}
+  /@sentry/node/6.18.2:
+    resolution: {integrity: sha512-1S+44c09n3KVpCYjwOfnA9jKvnpPegpQWM81Nu5J6ToGx+ZiddMq6B9GRXUnFfZ7Z6fJHZzFtySasQC7KqkQoA==}
     engines: {node: '>=6'}
     dependencies:
-      '@sentry/core': 6.18.0
-      '@sentry/hub': 6.18.0
-      '@sentry/tracing': 6.18.0
-      '@sentry/types': 6.18.0
-      '@sentry/utils': 6.18.0
+      '@sentry/core': 6.18.2
+      '@sentry/hub': 6.18.2
+      '@sentry/types': 6.18.2
+      '@sentry/utils': 6.18.2
       cookie: 0.4.2
       https-proxy-agent: 5.0.0
       lru_map: 0.3.3
@@ -3513,27 +3522,16 @@ packages:
       - supports-color
     dev: true
 
-  /@sentry/tracing/6.18.0:
-    resolution: {integrity: sha512-thwVrYT+ba58h6F6Im4t+JH9o+7H+75ribkeTgM7NRhNuiGajlXNmb37Dh9gP5Iy76jNV8GATy4cOcuVc7P1jA==}
-    engines: {node: '>=6'}
-    dependencies:
-      '@sentry/hub': 6.18.0
-      '@sentry/minimal': 6.18.0
-      '@sentry/types': 6.18.0
-      '@sentry/utils': 6.18.0
-      tslib: 1.14.1
-    dev: true
-
-  /@sentry/types/6.18.0:
-    resolution: {integrity: sha512-SypDwXL1URE/XLkP4Ve+pFs41e+2OUYZ0lCimNreQQv46//pFXxP3LwU9Tc0Az4ZfxXnGiwofvt73XyBq9VpRQ==}
+  /@sentry/types/6.18.2:
+    resolution: {integrity: sha512-WzpJf/Q5aORTzrSwer/As1NlO90dBAQpaHV2ikDDKqOyMWEgjKb5/4gh59p9gH8JMMnLetP1AvQel0fOj5UnUw==}
     engines: {node: '>=6'}
     dev: true
 
-  /@sentry/utils/6.18.0:
-    resolution: {integrity: sha512-mKegOabkAjoUHfokjI5oi3CMez5GD3xXOrBFcLVc9GFDXCgNMdYnHyEn/mmy8PikFdGHxZ3oI/16ZGU22wi5aw==}
+  /@sentry/utils/6.18.2:
+    resolution: {integrity: sha512-EC619jesknyu4xpwud5WC/5odYLz6JUy7OSFy5405PpdGeh/m8XUvuJAx4zDx0Iz/Mlk0S1Md+ZcQwqkv39dkw==}
     engines: {node: '>=6'}
     dependencies:
-      '@sentry/types': 6.18.0
+      '@sentry/types': 6.18.2
       tslib: 1.14.1
     dev: true
 
@@ -3622,7 +3620,7 @@ packages:
       debug: 4.3.3
       pirates: 4.0.5
       tslib: 2.3.1
-      typescript: 4.5.5
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -3723,12 +3721,11 @@ packages:
     dev: true
     optional: true
 
-  /@swc/core-linux-x64-musl/1.2.146:
-    resolution: {integrity: sha512-iwKiHvV8p48/82+eJRCy/WcnAZBOFr2ZJ5VLtRuV+sz0mkWjoimnLZ8SEshoru9PVoKF7hfG7AMqKaVOUjSJFg==}
+  /@swc/core-linux-x64-musl/1.2.155:
+    resolution: {integrity: sha512-HI2117+Y9vXwPIJOCWhAQHulyD1o+xNfiwjJeF42ukxKsBLoDm1STwNKbx8PUgWTAVwade9UG2YCskVX89OOGA==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
-    hasBin: true
     dev: true
 
   /@swc/core-win32-arm64-msvc/1.2.136:
@@ -4064,8 +4061,8 @@ packages:
     resolution: {integrity: sha512-0d5Wd09ItQWH1qFbEyQ7oTQ3GZrMfth5JkbN3EvTKLXcHLRDSXeLnlvlOn0wvxVIwK5o2M8JzP/OWz7T3NRsbw==}
     dev: true
 
-  /@types/lodash/4.14.179:
-    resolution: {integrity: sha512-uwc1x90yCKqGcIOAT6DwOSuxnrAbpkdPsUOZtwrXb4D/6wZs+6qG7QnIawDuZWg0sWpxl+ltIKCaLoMlna678w==}
+  /@types/lodash/4.14.180:
+    resolution: {integrity: sha512-XOKXa1KIxtNXgASAnwj7cnttJxS4fksBRywK/9LzRV5YxrF80BXZIGeQSuoESQ/VkUj30Ae0+YcuHc15wJCB2g==}
     dev: true
 
   /@types/long/4.0.1:
@@ -4191,8 +4188,8 @@ packages:
       '@types/yargs-parser': 20.2.1
     dev: true
 
-  /@typescript-eslint/eslint-plugin/5.12.1_27a0c788acac7d65514027b167e3b3f6:
-    resolution: {integrity: sha512-M499lqa8rnNK7mUv74lSFFttuUsubIRdAbHcVaP93oFcKkEmHmLqy2n7jM9C8DVmFMYK61ExrZU6dLYhQZmUpw==}
+  /@typescript-eslint/eslint-plugin/5.15.0_f169b8f3df315e002d5a6f2ec1e6b2f2:
+    resolution: {integrity: sha512-u6Db5JfF0Esn3tiAKELvoU5TpXVSkOpZ78cEGn/wXtT2RVqs2vkt4ge6N8cRCyw7YVKhmmLDbwI2pg92mlv7cA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/parser': ^5.0.0
@@ -4202,24 +4199,24 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.12.1_eslint@8.10.0+typescript@4.5.5
-      '@typescript-eslint/scope-manager': 5.12.1
-      '@typescript-eslint/type-utils': 5.12.1_eslint@8.10.0+typescript@4.5.5
-      '@typescript-eslint/utils': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/parser': 5.15.0_eslint@8.6.0+typescript@4.6.2
+      '@typescript-eslint/scope-manager': 5.15.0
+      '@typescript-eslint/type-utils': 5.15.0_eslint@8.6.0+typescript@4.6.2
+      '@typescript-eslint/utils': 5.15.0_eslint@8.6.0+typescript@4.6.2
       debug: 4.3.3
-      eslint: 8.10.0
+      eslint: 8.6.0
       functional-red-black-tree: 1.0.1
       ignore: 5.2.0
       regexpp: 3.2.0
       semver: 7.3.5
-      tsutils: 3.21.0_typescript@4.5.5
-      typescript: 4.5.5
+      tsutils: 3.21.0_typescript@4.6.2
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/eslint-plugin/5.12.1_b960cd49fb0883f004e2bd4428e03a5f:
-    resolution: {integrity: sha512-M499lqa8rnNK7mUv74lSFFttuUsubIRdAbHcVaP93oFcKkEmHmLqy2n7jM9C8DVmFMYK61ExrZU6dLYhQZmUpw==}
+  /@typescript-eslint/eslint-plugin/5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28:
+    resolution: {integrity: sha512-u6Db5JfF0Esn3tiAKELvoU5TpXVSkOpZ78cEGn/wXtT2RVqs2vkt4ge6N8cRCyw7YVKhmmLDbwI2pg92mlv7cA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/parser': ^5.0.0
@@ -4229,24 +4226,24 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.12.1_eslint@8.6.0+typescript@4.5.5
-      '@typescript-eslint/scope-manager': 5.12.1
-      '@typescript-eslint/type-utils': 5.12.1_eslint@8.6.0+typescript@4.5.5
-      '@typescript-eslint/utils': 5.12.1_eslint@8.6.0+typescript@4.5.5
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
+      '@typescript-eslint/scope-manager': 5.15.0
+      '@typescript-eslint/type-utils': 5.15.0_eslint@8.11.0+typescript@4.6.2
+      '@typescript-eslint/utils': 5.15.0_eslint@8.11.0+typescript@4.6.2
       debug: 4.3.3
-      eslint: 8.6.0
+      eslint: 8.11.0
       functional-red-black-tree: 1.0.1
       ignore: 5.2.0
       regexpp: 3.2.0
       semver: 7.3.5
-      tsutils: 3.21.0_typescript@4.5.5
-      typescript: 4.5.5
+      tsutils: 3.21.0_typescript@4.6.2
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser/5.12.1_eslint@8.10.0+typescript@4.5.5:
-    resolution: {integrity: sha512-6LuVUbe7oSdHxUWoX/m40Ni8gsZMKCi31rlawBHt7VtW15iHzjbpj2WLiToG2758KjtCCiLRKZqfrOdl3cNKuw==}
+  /@typescript-eslint/parser/5.15.0_eslint@8.11.0+typescript@4.6.2:
+    resolution: {integrity: sha512-NGAYP/+RDM2sVfmKiKOCgJYPstAO40vPAgACoWPO/+yoYKSgAXIFaBKsV8P0Cc7fwKgvj27SjRNX4L7f4/jCKQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -4255,18 +4252,18 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/scope-manager': 5.12.1
-      '@typescript-eslint/types': 5.12.1
-      '@typescript-eslint/typescript-estree': 5.12.1_typescript@4.5.5
+      '@typescript-eslint/scope-manager': 5.15.0
+      '@typescript-eslint/types': 5.15.0
+      '@typescript-eslint/typescript-estree': 5.15.0_typescript@4.6.2
       debug: 4.3.3
-      eslint: 8.10.0
-      typescript: 4.5.5
+      eslint: 8.11.0
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser/5.12.1_eslint@8.6.0+typescript@4.5.5:
-    resolution: {integrity: sha512-6LuVUbe7oSdHxUWoX/m40Ni8gsZMKCi31rlawBHt7VtW15iHzjbpj2WLiToG2758KjtCCiLRKZqfrOdl3cNKuw==}
+  /@typescript-eslint/parser/5.15.0_eslint@8.6.0+typescript@4.6.2:
+    resolution: {integrity: sha512-NGAYP/+RDM2sVfmKiKOCgJYPstAO40vPAgACoWPO/+yoYKSgAXIFaBKsV8P0Cc7fwKgvj27SjRNX4L7f4/jCKQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -4275,26 +4272,26 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/scope-manager': 5.12.1
-      '@typescript-eslint/types': 5.12.1
-      '@typescript-eslint/typescript-estree': 5.12.1_typescript@4.5.5
+      '@typescript-eslint/scope-manager': 5.15.0
+      '@typescript-eslint/types': 5.15.0
+      '@typescript-eslint/typescript-estree': 5.15.0_typescript@4.6.2
       debug: 4.3.3
       eslint: 8.6.0
-      typescript: 4.5.5
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/scope-manager/5.12.1:
-    resolution: {integrity: sha512-J0Wrh5xS6XNkd4TkOosxdpObzlYfXjAFIm9QxYLCPOcHVv1FyyFCPom66uIh8uBr0sZCrtS+n19tzufhwab8ZQ==}
+  /@typescript-eslint/scope-manager/5.15.0:
+    resolution: {integrity: sha512-EFiZcSKrHh4kWk0pZaa+YNJosvKE50EnmN4IfgjkA3bTHElPtYcd2U37QQkNTqwMCS7LXeDeZzEqnsOH8chjSg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': 5.12.1
-      '@typescript-eslint/visitor-keys': 5.12.1
+      '@typescript-eslint/types': 5.15.0
+      '@typescript-eslint/visitor-keys': 5.15.0
     dev: true
 
-  /@typescript-eslint/type-utils/5.12.1_eslint@8.10.0+typescript@4.5.5:
-    resolution: {integrity: sha512-Gh8feEhsNLeCz6aYqynh61Vsdy+tiNNkQtc+bN3IvQvRqHkXGUhYkUi+ePKzP0Mb42se7FDb+y2SypTbpbR/Sg==}
+  /@typescript-eslint/type-utils/5.15.0_eslint@8.11.0+typescript@4.6.2:
+    resolution: {integrity: sha512-KGeDoEQ7gHieLydujGEFLyLofipe9PIzfvA/41urz4hv+xVxPEbmMQonKSynZ0Ks2xDhJQ4VYjB3DnRiywvKDA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '*'
@@ -4303,17 +4300,17 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/utils': 5.12.1_eslint@8.10.0+typescript@4.5.5
+      '@typescript-eslint/utils': 5.15.0_eslint@8.11.0+typescript@4.6.2
       debug: 4.3.3
-      eslint: 8.10.0
-      tsutils: 3.21.0_typescript@4.5.5
-      typescript: 4.5.5
+      eslint: 8.11.0
+      tsutils: 3.21.0_typescript@4.6.2
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/type-utils/5.12.1_eslint@8.6.0+typescript@4.5.5:
-    resolution: {integrity: sha512-Gh8feEhsNLeCz6aYqynh61Vsdy+tiNNkQtc+bN3IvQvRqHkXGUhYkUi+ePKzP0Mb42se7FDb+y2SypTbpbR/Sg==}
+  /@typescript-eslint/type-utils/5.15.0_eslint@8.6.0+typescript@4.6.2:
+    resolution: {integrity: sha512-KGeDoEQ7gHieLydujGEFLyLofipe9PIzfvA/41urz4hv+xVxPEbmMQonKSynZ0Ks2xDhJQ4VYjB3DnRiywvKDA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '*'
@@ -4322,22 +4319,22 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/utils': 5.12.1_eslint@8.6.0+typescript@4.5.5
+      '@typescript-eslint/utils': 5.15.0_eslint@8.6.0+typescript@4.6.2
       debug: 4.3.3
       eslint: 8.6.0
-      tsutils: 3.21.0_typescript@4.5.5
-      typescript: 4.5.5
+      tsutils: 3.21.0_typescript@4.6.2
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/types/5.12.1:
-    resolution: {integrity: sha512-hfcbq4qVOHV1YRdhkDldhV9NpmmAu2vp6wuFODL71Y0Ixak+FLeEU4rnPxgmZMnGreGEghlEucs9UZn5KOfHJA==}
+  /@typescript-eslint/types/5.15.0:
+    resolution: {integrity: sha512-yEiTN4MDy23vvsIksrShjNwQl2vl6kJeG9YkVJXjXZnkJElzVK8nfPsWKYxcsGWG8GhurYXP4/KGj3aZAxbeOA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree/5.12.1_typescript@4.5.5:
-    resolution: {integrity: sha512-ahOdkIY9Mgbza7L9sIi205Pe1inCkZWAHE1TV1bpxlU4RZNPtXaDZfiiFWcL9jdxvW1hDYZJXrFm+vlMkXRbBw==}
+  /@typescript-eslint/typescript-estree/5.15.0_typescript@4.6.2:
+    resolution: {integrity: sha512-Hb0e3dGc35b75xLzixM3cSbG1sSbrTBQDfIScqdyvrfJZVEi4XWAT+UL/HMxEdrJNB8Yk28SKxPLtAhfCbBInA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -4345,46 +4342,46 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/types': 5.12.1
-      '@typescript-eslint/visitor-keys': 5.12.1
+      '@typescript-eslint/types': 5.15.0
+      '@typescript-eslint/visitor-keys': 5.15.0
       debug: 4.3.3
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.3.5
-      tsutils: 3.21.0_typescript@4.5.5
-      typescript: 4.5.5
+      tsutils: 3.21.0_typescript@4.6.2
+      typescript: 4.6.2
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils/5.12.1_eslint@8.10.0+typescript@4.5.5:
-    resolution: {integrity: sha512-Qq9FIuU0EVEsi8fS6pG+uurbhNTtoYr4fq8tKjBupsK5Bgbk2I32UGm0Sh+WOyjOPgo/5URbxxSNV6HYsxV4MQ==}
+  /@typescript-eslint/utils/5.15.0_eslint@8.11.0+typescript@4.6.2:
+    resolution: {integrity: sha512-081rWu2IPKOgTOhHUk/QfxuFog8m4wxW43sXNOMSCdh578tGJ1PAaWPsj42LOa7pguh173tNlMigsbrHvh/mtA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       '@types/json-schema': 7.0.9
-      '@typescript-eslint/scope-manager': 5.12.1
-      '@typescript-eslint/types': 5.12.1
-      '@typescript-eslint/typescript-estree': 5.12.1_typescript@4.5.5
-      eslint: 8.10.0
+      '@typescript-eslint/scope-manager': 5.15.0
+      '@typescript-eslint/types': 5.15.0
+      '@typescript-eslint/typescript-estree': 5.15.0_typescript@4.6.2
+      eslint: 8.11.0
       eslint-scope: 5.1.1
-      eslint-utils: 3.0.0_eslint@8.10.0
+      eslint-utils: 3.0.0_eslint@8.11.0
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /@typescript-eslint/utils/5.12.1_eslint@8.6.0+typescript@4.5.5:
-    resolution: {integrity: sha512-Qq9FIuU0EVEsi8fS6pG+uurbhNTtoYr4fq8tKjBupsK5Bgbk2I32UGm0Sh+WOyjOPgo/5URbxxSNV6HYsxV4MQ==}
+  /@typescript-eslint/utils/5.15.0_eslint@8.6.0+typescript@4.6.2:
+    resolution: {integrity: sha512-081rWu2IPKOgTOhHUk/QfxuFog8m4wxW43sXNOMSCdh578tGJ1PAaWPsj42LOa7pguh173tNlMigsbrHvh/mtA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       '@types/json-schema': 7.0.9
-      '@typescript-eslint/scope-manager': 5.12.1
-      '@typescript-eslint/types': 5.12.1
-      '@typescript-eslint/typescript-estree': 5.12.1_typescript@4.5.5
+      '@typescript-eslint/scope-manager': 5.15.0
+      '@typescript-eslint/types': 5.15.0
+      '@typescript-eslint/typescript-estree': 5.15.0_typescript@4.6.2
       eslint: 8.6.0
       eslint-scope: 5.1.1
       eslint-utils: 3.0.0_eslint@8.6.0
@@ -4393,11 +4390,11 @@ packages:
       - typescript
     dev: true
 
-  /@typescript-eslint/visitor-keys/5.12.1:
-    resolution: {integrity: sha512-l1KSLfupuwrXx6wc0AuOmC7Ko5g14ZOQ86wJJqRbdLbXLK02pK/DPiDDqCc7BqqiiA04/eAA6ayL0bgOrAkH7A==}
+  /@typescript-eslint/visitor-keys/5.15.0:
+    resolution: {integrity: sha512-+vX5FKtgvyHbmIJdxMJ2jKm9z2BIlXJiuewI8dsDYMp5LzPUcuTT78Ya5iwvQg3VqSVdmxyM8Anj1Jeq7733ZQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': 5.12.1
+      '@typescript-eslint/types': 5.15.0
       eslint-visitor-keys: 3.3.0
     dev: true
 
@@ -4762,8 +4759,19 @@ packages:
       - supports-color
     dev: true
 
-  /aws-sdk/2.1082.0:
-    resolution: {integrity: sha512-aDrUZ63O/ocuC827ursDqFQAm3jhqsJu1DvMCCFg73y+FK9pXXNHp2mwdi3UeeHvtfxISCLCjuyO3VFd/tpVfA==}
+  /avvio/7.2.5:
+    resolution: {integrity: sha512-AOhBxyLVdpOad3TujtC9kL/9r3HnTkxwQ5ggOsYrvvZP1cCFvzHWJd5XxZDFuTn+IN8vkKSG5SEJrd27vCSbeA==}
+    dependencies:
+      archy: 1.0.0
+      debug: 4.3.3
+      fastq: 1.13.0
+      queue-microtask: 1.2.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /aws-sdk/2.1094.0:
+    resolution: {integrity: sha512-g/pjEl1JKs8+UZSdfdTMwUh7oNSWy6LXkjd0WfI3TBVgU5+yE5bd1VtAiJxJ/kIOFwcWyGPy0fNkGjAqL6NAGw==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -5110,6 +5118,11 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
+  /bytes/3.1.2:
+    resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
+    engines: {node: '>= 0.8'}
+    dev: false
+
   /cache-base/1.0.1:
     resolution: {integrity: sha512-AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==}
     engines: {node: '>=0.10.0'}
@@ -5233,7 +5246,7 @@ packages:
       check-error: 1.0.2
       deep-eql: 3.0.1
       get-func-name: 2.0.0
-      loupe: 2.3.3
+      loupe: 2.3.4
       pathval: 1.1.1
       type-detect: 4.0.8
     dev: false
@@ -5254,8 +5267,8 @@ packages:
       supports-color: 7.2.0
     dev: true
 
-  /chalk/5.0.0:
-    resolution: {integrity: sha512-/duVOqst+luxCQRKEo4bNxinsOQtMP80ZYm7mMqzuh5PociNL0PvmHFvREJ9ueYL2TxlHjBcmLCdmocx9Vg+IQ==}
+  /chalk/5.0.1:
+    resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: true
 
@@ -5782,7 +5795,7 @@ packages:
       vary: 1.1.2
     dev: false
 
-  /cosmiconfig-typescript-loader/1.0.5_99a448058f874aec2a353d0e974167cc:
+  /cosmiconfig-typescript-loader/1.0.5_e79e62fe450383fd2d418267dc75e645:
     resolution: {integrity: sha512-FL/YR1nb8hyN0bAcP3MBaIoZravfZtVsN/RuPnoo6UVjqIrDxSNIpXHCGgJe0ZWy5yImpyD6jq5wCJ5f1nUv8g==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -5791,8 +5804,8 @@ packages:
     dependencies:
       '@types/node': 17.0.21
       cosmiconfig: 7.0.1
-      ts-node: 10.5.0_99a448058f874aec2a353d0e974167cc
-      typescript: 4.5.5
+      ts-node: 10.5.0_e79e62fe450383fd2d418267dc75e645
+      typescript: 4.6.2
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -6414,11 +6427,11 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /eslint-config-makeomatic/5.1.0_typescript@4.5.5:
+  /eslint-config-makeomatic/5.1.0_typescript@4.6.2:
     resolution: {integrity: sha512-CZt/arn15KqCPM+YLfv5BwLkHrgjIUaRKMcnB9kJ/cBos3eP49GRKBPmi7XCEMDo4+68gVvKcgPUzffVQjVDqA==}
     dependencies:
-      '@typescript-eslint/eslint-plugin': 5.12.1_b960cd49fb0883f004e2bd4428e03a5f
-      '@typescript-eslint/parser': 5.12.1_eslint@8.6.0+typescript@4.5.5
+      '@typescript-eslint/eslint-plugin': 5.15.0_f169b8f3df315e002d5a6f2ec1e6b2f2
+      '@typescript-eslint/parser': 5.15.0_eslint@8.6.0+typescript@4.6.2
       eslint: 8.6.0
       eslint-config-airbnb-base: 15.0.0_b5a36b8c1535387c8dd00eff7ec6b551
       eslint-plugin-import: 2.25.4_eslint@8.6.0
@@ -6444,7 +6457,7 @@ packages:
       find-up: 2.1.0
     dev: true
 
-  /eslint-plugin-import/2.25.4_eslint@8.10.0:
+  /eslint-plugin-import/2.25.4_eslint@8.11.0:
     resolution: {integrity: sha512-/KJBASVFxpu0xg1kIBn9AUa8hQVnszpwgE7Ld0lKAlx7Ie87yzEzCgSkekt+le/YVhiaosO4Y14GDAOc41nfxA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -6454,7 +6467,7 @@ packages:
       array.prototype.flat: 1.2.5
       debug: 2.6.9
       doctrine: 2.1.0
-      eslint: 8.10.0
+      eslint: 8.11.0
       eslint-import-resolver-node: 0.3.6
       eslint-module-utils: 2.7.3
       has: 1.0.3
@@ -6463,7 +6476,7 @@ packages:
       minimatch: 3.0.4
       object.values: 1.1.5
       resolve: 1.22.0
-      tsconfig-paths: 3.12.0
+      tsconfig-paths: 3.14.0
     dev: true
 
   /eslint-plugin-import/2.25.4_eslint@8.6.0:
@@ -6485,7 +6498,7 @@ packages:
       minimatch: 3.0.4
       object.values: 1.1.5
       resolve: 1.22.0
-      tsconfig-paths: 3.12.0
+      tsconfig-paths: 3.14.0
     dev: true
 
   /eslint-plugin-promise/6.0.0_eslint@8.6.0:
@@ -6520,7 +6533,7 @@ packages:
       strip-indent: 3.0.0
     dev: true
 
-  /eslint-plugin-unicorn/41.0.0_eslint@8.10.0:
+  /eslint-plugin-unicorn/41.0.0_eslint@8.11.0:
     resolution: {integrity: sha512-xoJCaRc1uy5REg9DkVga1BkZV57jJxoqOcrU28QHZB89Lk5LdSqdVyTIt9JQVfHNKaiyJ7X+3iLlIn+VEHWEzA==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -6529,8 +6542,8 @@ packages:
       '@babel/helper-validator-identifier': 7.16.7
       ci-info: 3.3.0
       clean-regexp: 1.0.0
-      eslint: 8.10.0
-      eslint-utils: 3.0.0_eslint@8.10.0
+      eslint: 8.11.0
+      eslint-utils: 3.0.0_eslint@8.11.0
       esquery: 1.4.0
       indent-string: 4.0.0
       is-builtin-module: 3.1.0
@@ -6559,13 +6572,13 @@ packages:
       estraverse: 5.3.0
     dev: true
 
-  /eslint-utils/3.0.0_eslint@8.10.0:
+  /eslint-utils/3.0.0_eslint@8.11.0:
     resolution: {integrity: sha512-uuQC43IGctw68pJA1RgbQS8/NP7rch6Cwd4j3ZBtgo4/8Flj4eGE7ZYSZRN3iq5pVUv6GPdW5Z1RFleo84uLDA==}
     engines: {node: ^10.0.0 || ^12.0.0 || >= 14.0.0}
     peerDependencies:
       eslint: '>=5'
     dependencies:
-      eslint: 8.10.0
+      eslint: 8.11.0
       eslint-visitor-keys: 2.1.0
     dev: true
 
@@ -6589,12 +6602,12 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /eslint/8.10.0:
-    resolution: {integrity: sha512-tcI1D9lfVec+R4LE1mNDnzoJ/f71Kl/9Cv4nG47jOueCMBrCCKYXr4AUVS7go6mWYGFD4+EoN6+eXSrEbRzXVw==}
+  /eslint/8.11.0:
+    resolution: {integrity: sha512-/KRpd9mIRg2raGxHRGwW9ZywYNAClZrHjdueHcrVDuO3a6bj83eoTirCCk0M0yPwOjWYKHwRVRid+xK4F/GHgA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     hasBin: true
     dependencies:
-      '@eslint/eslintrc': 1.2.0
+      '@eslint/eslintrc': 1.2.1
       '@humanwhocodes/config-array': 0.9.5
       ajv: 6.12.6
       chalk: 4.1.2
@@ -6603,7 +6616,7 @@ packages:
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.1.1
-      eslint-utils: 3.0.0_eslint@8.10.0
+      eslint-utils: 3.0.0_eslint@8.11.0
       eslint-visitor-keys: 3.3.0
       espree: 9.3.1
       esquery: 1.4.0
@@ -6612,7 +6625,7 @@ packages:
       file-entry-cache: 6.0.1
       functional-red-black-tree: 1.0.1
       glob-parent: 6.0.2
-      globals: 13.12.1
+      globals: 13.13.0
       ignore: 5.2.0
       import-fresh: 3.3.0
       imurmurhash: 0.1.4
@@ -6638,7 +6651,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     hasBin: true
     dependencies:
-      '@eslint/eslintrc': 1.2.0
+      '@eslint/eslintrc': 1.2.1
       '@humanwhocodes/config-array': 0.9.5
       ajv: 6.12.6
       chalk: 4.1.2
@@ -6657,7 +6670,7 @@ packages:
       file-entry-cache: 6.0.1
       functional-red-black-tree: 1.0.1
       glob-parent: 6.0.2
-      globals: 13.12.1
+      globals: 13.13.0
       ignore: 4.0.6
       import-fresh: 3.3.0
       imurmurhash: 0.1.4
@@ -6816,8 +6829,8 @@ packages:
       jest-message-util: 27.5.1
     dev: true
 
-  /express-cassandra/2.7.0:
-    resolution: {integrity: sha512-v07QDWXrxMWR4FrQMxLxzWCF+hGTxRCxphB3udDAvs1UMrLyx7erGnnpKT4e3IZ9Q+9O16GwKOz4uyeJzBdMkw==}
+  /express-cassandra/2.8.0:
+    resolution: {integrity: sha512-eNEE4nUKJ8IdqKqJfbJzXw+8PVwoR2KUA0+bL7/OTiu9LV4BSfnOT8LMsxLBhCfP898ZRudqDTZOfBk1twP4Ug==}
     engines: {node: '>= 4'}
     dependencies:
       async: 1.5.2
@@ -6959,6 +6972,10 @@ packages:
     resolution: {integrity: sha512-dir8LOnvialLxiXDPESMDHGp82CHi6ZEYTVkcvdn5d7psdv9ZkkButXrOeXST4aqreIRR+N7CYlsrwFuorurVg==}
     engines: {node: '>=6'}
 
+  /fast-redact/3.1.1:
+    resolution: {integrity: sha512-odVmjC8x8jNeMZ3C+rPMESzXVSEU8tSWSHv9HFxP2mm89G/1WwqhrerJDQm9Zus8X6aoRgQDThKqptdNA6bt+A==}
+    engines: {node: '>=6'}
+
   /fast-safe-stringify/2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
@@ -7011,17 +7028,53 @@ packages:
       - supports-color
     dev: true
 
+  /fastify/3.27.4:
+    resolution: {integrity: sha512-SOfnHBxG9zxCSIvt6aHoR/cao8QBddWmGP/mb5KQKRc+KI1kB7b79M2hCDOTSyHdLAF2OX+oI6X3weeLc+MqKg==}
+    dependencies:
+      '@fastify/ajv-compiler': 1.1.0
+      abstract-logging: 2.0.1
+      avvio: 7.2.5
+      fast-json-stringify: 2.7.13
+      fastify-error: 0.3.1
+      find-my-way: 4.5.1
+      flatstr: 1.0.12
+      light-my-request: 4.8.0
+      pino: 6.14.0
+      process-warning: 1.0.0
+      proxy-addr: 2.0.7
+      rfdc: 1.3.0
+      secure-json-parse: 2.4.0
+      semver: 7.3.5
+      tiny-lru: 8.0.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /fastq/1.13.0:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}
     dependencies:
       reusify: 1.0.4
-    dev: true
 
   /fb-watchman/2.0.1:
     resolution: {integrity: sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg==}
     dependencies:
       bser: 2.1.1
     dev: true
+
+  /ffi-napi/4.0.3:
+    resolution: {integrity: sha512-PMdLCIvDY9mS32RxZ0XGb95sonPRal8aqRhLbeEtWKZTe2A87qRFG9HjOhvG8EX2UmQw5XNRMIOT+1MYlWmdeg==}
+    engines: {node: '>=10'}
+    requiresBuild: true
+    dependencies:
+      debug: 4.3.3
+      get-uv-event-loop-napi-h: 1.0.6
+      node-addon-api: 3.2.1
+      node-gyp-build: 4.3.0
+      ref-napi: 3.0.3
+      ref-struct-di: 1.1.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /figures/2.0.0:
     resolution: {integrity: sha1-OrGi0qYsi/tDGgyUy3l6L84nyWI=}
@@ -7339,6 +7392,16 @@ packages:
       get-intrinsic: 1.1.1
     dev: true
 
+  /get-symbol-from-current-process-h/1.0.2:
+    resolution: {integrity: sha512-syloC6fsCt62ELLrr1VKBM1ggOpMdetX9hTrdW77UQdcApPHLmf7CI7OKcN1c9kYuNxKcDe4iJ4FY9sX3aw2xw==}
+    dev: false
+
+  /get-uv-event-loop-napi-h/1.0.6:
+    resolution: {integrity: sha512-t5c9VNR84nRoF+eLiz6wFrEp1SE2Acg0wS+Ysa2zF0eROes+LzOfuTaVHxGy8AbS8rq7FHEJzjnCZo1BupwdJg==}
+    dependencies:
+      get-symbol-from-current-process-h: 1.0.2
+    dev: false
+
   /get-value/2.0.6:
     resolution: {integrity: sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=}
     engines: {node: '>=0.10.0'}
@@ -7463,8 +7526,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /globals/13.12.1:
-    resolution: {integrity: sha512-317dFlgY2pdJZ9rspXDks7073GpDmXdfbM3vYYp0HAMKGDh1FfWPleI2ljVNLQX5M5lXcAslTcPTrOrMEFOjyw==}
+  /globals/13.13.0:
+    resolution: {integrity: sha512-EQ7Q18AJlPwp3vUDL4mKA0KXrXyNIQyWon6T6XQiBQF0XHvRsiCSrWmmeATpUzdJN2HhWZU6Pdl0a9zdep5p6A==}
     engines: {node: '>=8'}
     dependencies:
       type-fest: 0.20.2
@@ -7546,7 +7609,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.15.2
+      uglify-js: 3.15.3
     dev: true
 
   /har-schema/2.0.0:
@@ -9078,8 +9141,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /knex/1.0.3_pg@8.7.3:
-    resolution: {integrity: sha512-rY1T7cgTQGHAUD9TshMka37bd+SEK+koPXXvZQEIoE8yjJ/E8ShsenaAmr3oaNNzqXuKD/SC0qlYtp7Js8tAXA==}
+  /knex/1.0.4_pg@8.7.3:
+    resolution: {integrity: sha512-cMQ81fpkVmr4ia20BtyrD3oPere/ir/Q6IGLAgcREKOzRVhMsasQ4nx1VQuDRJjqq6oK5kfcxmvWoYkHKrnuMA==}
     engines: {node: '>=12'}
     hasBin: true
     peerDependencies:
@@ -9290,8 +9353,8 @@ packages:
     engines: {node: '>=0.6'}
     dev: false
 
-  /loupe/2.3.3:
-    resolution: {integrity: sha512-krIV4Cf1BIGIx2t1e6tucThhrBemUnIUjMtD2vN4mrMxnxpBvrcosBSpooqunBqP/hOEEV1w/Cr1YskGtqw5Jg==}
+  /loupe/2.3.4:
+    resolution: {integrity: sha512-OvKfgCC2Ndby6aSTREl5aCCPTNIzlDfQZvZxNUrBrihDhL3xcrYegTblhmEiCrg2kKQz4XsFIaemE5BF4ybSaQ==}
     dependencies:
       get-func-name: 2.0.0
     dev: false
@@ -9371,7 +9434,7 @@ packages:
     dependencies:
       ansi-escapes: 5.0.0
       cardinal: 2.1.1
-      chalk: 5.0.0
+      chalk: 5.0.1
       cli-table3: 0.6.1
       marked: 4.0.12
       node-emoji: 1.11.0
@@ -9513,6 +9576,13 @@ packages:
     dependencies:
       brace-expansion: 1.1.11
 
+  /minimatch/4.2.1:
+    resolution: {integrity: sha512-9Uq1ChtSZO+Mxa/CL1eGizn2vRn3MlLgzhT0Iz8zaY8NdvxvB0d5QdPFmCKf7JKA9Lerx5vRrnwO03jsSfGG9g==}
+    engines: {node: '>=10'}
+    dependencies:
+      brace-expansion: 1.1.11
+    dev: true
+
   /minimist-options/4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
     engines: {node: '>= 6'}
@@ -9553,8 +9623,8 @@ packages:
     hasBin: true
     dev: false
 
-  /mocha/9.2.1:
-    resolution: {integrity: sha512-T7uscqjJVS46Pq1XDXyo9Uvey9gd3huT/DD9cYBb4K2Xc/vbKRPUWK067bxDQRK0yIz6Jxk73IrnimvASzBNAQ==}
+  /mocha/9.2.2:
+    resolution: {integrity: sha512-L6XC3EdwT6YrIk0yXpavvLkn8h+EU+Y5UcCHKECyMbdUIxyMuZj4bX4U9e1nvnvUUvQVsV2VHQr5zLdcUkhW/g==}
     engines: {node: '>= 12.0.0'}
     hasBin: true
     dependencies:
@@ -9571,9 +9641,9 @@ packages:
       he: 1.2.0
       js-yaml: 4.1.0
       log-symbols: 4.1.0
-      minimatch: 3.0.4
+      minimatch: 4.2.1
       ms: 2.1.3
-      nanoid: 3.2.0
+      nanoid: 3.3.1
       serialize-javascript: 6.0.0
       strip-json-comments: 3.1.1
       supports-color: 8.1.1
@@ -9611,13 +9681,13 @@ packages:
       - supports-color
     dev: true
 
-  /ms-socket.io-adapter-amqp/8.1.2_73d7ccf4353b9dc8da6a960ad420c42c:
+  /ms-socket.io-adapter-amqp/8.1.2_7e805875546b6a023d530f1f185cae71:
     resolution: {integrity: sha512-xYN2b6gQeZLdc4Cn0cbXpvFtP6F5GXixPxpgia+G/lqPYzk+/6Ctut933PQjQRirOQZofFTZC7mgc72Nt6OIkQ==}
     peerDependencies:
       '@microfleet/transport-amqp': '>= 14'
       common-errors: ~1.x.x
     dependencies:
-      '@microfleet/transport-amqp': 16.0.1
+      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
       '@sindresorhus/is': 4.4.0
       bluebird: 3.7.2
       common-errors: 1.2.0
@@ -9659,8 +9729,8 @@ packages:
       - debug
     dev: false
 
-  /nanoid/3.2.0:
-    resolution: {integrity: sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==}
+  /nanoid/3.3.1:
+    resolution: {integrity: sha512-n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
@@ -9737,6 +9807,10 @@ packages:
       - supports-color
     dev: true
 
+  /node-addon-api/3.2.1:
+    resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
+    dev: false
+
   /node-emoji/1.11.0:
     resolution: {integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==}
     dependencies:
@@ -9753,6 +9827,11 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
+
+  /node-gyp-build/4.3.0:
+    resolution: {integrity: sha512-iWjXZvmboq0ja1pUGULQBexmxq8CV4xBhX7VDOTbL7ZR4FOowwY/VOtRxBN/yKxmdGoIp4j5ysNT4u3S2pDQ3Q==}
+    hasBin: true
+    dev: false
 
   /node-int64/0.4.0:
     resolution: {integrity: sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=}
@@ -10439,8 +10518,8 @@ packages:
       duplexify: 4.1.2
       split2: 4.1.0
 
-  /pino-pretty/7.5.1:
-    resolution: {integrity: sha512-xEOUJiokdBGcZ9d0v7OY6SqEp+rrVH2drE3bHOUsK8elw44eh9V83InZqeL1dFwgD1IDnd6crUoec3hIXxfdBQ==}
+  /pino-pretty/7.5.3:
+    resolution: {integrity: sha512-jOGysjWxOfaeUElKTeJPstiitt1Ii7owcb21lDc1BS5F4P4HRDDcGxL1f1jskSA0zkTyj64/iaXlMLGhwtLVtg==}
     hasBin: true
     dependencies:
       args: 5.0.1
@@ -10468,7 +10547,7 @@ packages:
     resolution: {integrity: sha512-iuhEDel3Z3hF9Jfe44DPXR8l07bhjuFY3GMHIXbjnY9XcafbyDDwl2sN2vw2GjMPf5Nkoe+OFao7ffn9SXaKDg==}
     hasBin: true
     dependencies:
-      fast-redact: 3.1.0
+      fast-redact: 3.1.1
       fast-safe-stringify: 2.1.1
       flatstr: 1.0.12
       pino-std-serializers: 3.2.0
@@ -10507,6 +10586,23 @@ packages:
       safe-stable-stringify: 2.3.1
       sonic-boom: 2.6.0
       thread-stream: 0.13.1
+    dev: true
+
+  /pino/7.8.1:
+    resolution: {integrity: sha512-G0AVnaJBBtbdOpZ3z0/QD3R57BWwjVo4K7e+c5mHKjNCYIY1FIKuNlWjVJfCVQ4Bq6iN/yAAh5OCeeTI7OXosA==}
+    hasBin: true
+    dependencies:
+      fast-redact: 3.1.1
+      on-exit-leak-free: 0.2.0
+      pino-abstract-transport: 0.5.0
+      pino-std-serializers: 4.0.0
+      process-warning: 1.0.0
+      quick-format-unescaped: 4.0.4
+      real-require: 0.1.0
+      safe-stable-stringify: 2.3.1
+      sonic-boom: 2.6.0
+      thread-stream: 0.13.2
+    dev: false
 
   /pirates/4.0.5:
     resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
@@ -10886,6 +10982,25 @@ packages:
     dependencies:
       redis-errors: 1.2.0
 
+  /ref-napi/3.0.3:
+    resolution: {integrity: sha512-LiMq/XDGcgodTYOMppikEtJelWsKQERbLQsYm0IOOnzhwE9xYZC7x8txNnFC9wJNOkPferQI4vD4ZkC0mDyrOA==}
+    engines: {node: '>= 10.0'}
+    requiresBuild: true
+    dependencies:
+      debug: 4.3.3
+      get-symbol-from-current-process-h: 1.0.2
+      node-addon-api: 3.2.1
+      node-gyp-build: 4.3.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /ref-struct-di/1.1.1:
+    resolution: {integrity: sha512-2Xyn/0Qgz89VT+++WP0sTosdm9oeowLP23wRJYhG4BFdMUrLj3jhwHZNEytYNYgtPKLNTP3KJX4HEgBvM1/Y2g==}
+    dependencies:
+      debug: 3.2.7
+    dev: false
+
   /regenerator-runtime/0.10.5:
     resolution: {integrity: sha1-M2w+/BIgrc7dosn6tntaeVWjNlg=}
     dev: false
@@ -11130,7 +11245,6 @@ packages:
   /reusify/1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
-    dev: true
 
   /rfdc/1.3.0:
     resolution: {integrity: sha512-V2hovdzFbOi77/WajaSMXk2OLm+xNIeQdMMuB7icj7bk6zi2F8GGAxigcnDFpJHbNyNcgyJDiP+8nOrY5cZGrA==}
@@ -11897,6 +12011,12 @@ packages:
     dependencies:
       real-require: 0.1.0
 
+  /thread-stream/0.13.2:
+    resolution: {integrity: sha512-woZFt0cLFkPdhsa+IGpRo1jiSouaHxMIljzTgt30CMjBWoUYbbcHqnunW5Yv+BXko9H05MVIcxMipI3Jblallw==}
+    dependencies:
+      real-require: 0.1.0
+    dev: false
+
   /thriftrw/3.12.0:
     resolution: {integrity: sha512-4YZvR4DPEI41n4Opwr4jmrLGG4hndxr7387kzRFIIzxHQjarPusH4lGXrugvgb7TtPrfZVTpZCVe44/xUxowEw==}
     engines: {node: '>= 0.10.x'}
@@ -11934,6 +12054,11 @@ packages:
 
   /tiny-lru/8.0.1:
     resolution: {integrity: sha512-eBIAYA0BzSjxBedCaO0CSjertD+u+IvNuFkyD7ESf+qjqHKBr5wFqvEYl91+ZQd7jjq2pO6/fBVwFgb6bxvorw==}
+    engines: {node: '>=6'}
+    dev: true
+
+  /tiny-lru/8.0.2:
+    resolution: {integrity: sha512-ApGvZ6vVvTNdsmt676grvCkUCGwzG9IqXma5Z07xJgiC5L7akUMof5U8G2JTI9Rz/ovtVhJBlY6mNhEvtjzOIg==}
     engines: {node: '>=6'}
     dev: true
 
@@ -12038,15 +12163,15 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-essentials/9.1.2_typescript@4.5.5:
+  /ts-essentials/9.1.2_typescript@4.6.2:
     resolution: {integrity: sha512-EaSmXsAhEiirrTY1Oaa7TSpei9dzuCuFPmjKRJRPamERYtfaGS8/KpOSbjergLz/Y76/aZlV9i/krgzsuWEBbg==}
     peerDependencies:
       typescript: '>=4.1.0'
     dependencies:
-      typescript: 4.5.5
+      typescript: 4.6.2
     dev: true
 
-  /ts-jest/27.1.3_8fa130d172bf7d71653f05507c50c5a3:
+  /ts-jest/27.1.3_60149d457e34ffba7d4e845dde6a1263:
     resolution: {integrity: sha512-6Nlura7s6uM9BVUAoqLH7JHyMXjz8gluryjpPXxr3IxZdAXnU6FhjvVLHFtfd1vsE1p8zD1OJfskkc0jhTSnkA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -12076,11 +12201,11 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.3.5
-      typescript: 4.5.5
+      typescript: 4.6.2
       yargs-parser: 20.2.9
     dev: true
 
-  /ts-node/10.5.0_99a448058f874aec2a353d0e974167cc:
+  /ts-node/10.5.0_e79e62fe450383fd2d418267dc75e645:
     resolution: {integrity: sha512-6kEJKwVxAJ35W4akuiysfKwKmjkbYxwQMTBaAxo9KKAx/Yd26mPUyhGz3ji+EsJoAgrLqVsYHNuuYwQe22lbtw==}
     hasBin: true
     peerDependencies:
@@ -12106,13 +12231,13 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.5.5
+      typescript: 4.6.2
       v8-compile-cache-lib: 3.0.0
       yn: 3.1.1
     dev: true
 
-  /tsconfig-paths/3.12.0:
-    resolution: {integrity: sha512-e5adrnOYT6zqVnWqZu7i/BQ3BnhzvGbjEjejFXO20lKIKpwTaupkCPgEfv4GZK1IBciJUEhYs3J3p75FdaTFVg==}
+  /tsconfig-paths/3.14.0:
+    resolution: {integrity: sha512-cg/1jAZoL57R39+wiw4u/SCC6Ic9Q5NqjBOb+9xISedOYurfog9ZNmKJSxAnb2m/5Bq4lE9lhUcau33Ml8DM0g==}
     dependencies:
       '@types/json5': 0.0.29
       json5: 1.0.1
@@ -12128,14 +12253,14 @@ packages:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
     dev: true
 
-  /tsutils/3.21.0_typescript@4.5.5:
+  /tsutils/3.21.0_typescript@4.6.2:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
-      typescript: 4.5.5
+      typescript: 4.6.2
     dev: true
 
   /tunnel-agent/0.6.0:
@@ -12203,6 +12328,11 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /type-fest/2.12.0:
+    resolution: {integrity: sha512-Qe5GRT+n/4GoqCNGGVp5Snapg1Omq3V7irBJB3EaKsp7HWDo5Gv2d/67gfNyV+d5EXD+x/RF5l1h4yJ7qNkcGA==}
+    engines: {node: '>=12.20'}
+    dev: false
+
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -12221,14 +12351,14 @@ packages:
     resolution: {integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=}
     dev: true
 
-  /typescript/4.5.5:
-    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
+  /typescript/4.6.2:
+    resolution: {integrity: sha512-HM/hFigTBHZhLXshn9sN37H085+hQGeJHJ/X7LpBWLID/fbc2acUMfU+lGD98X81sKP+pFa9f0DZmCwB9GnbAg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
 
-  /uglify-js/3.15.2:
-    resolution: {integrity: sha512-peeoTk3hSwYdoc9nrdiEJk+gx1ALCtTjdYuKSXMTDqq7n1W7dHPqWDdSi+BPL0ni2YMeHD7hKUSdbj3TZauY2A==}
+  /uglify-js/3.15.3:
+    resolution: {integrity: sha512-6iCVm2omGJbsu3JWac+p6kUiOpg3wFO2f8lIXjfEb8RrmLjzog1wTPMmwKB7swfzzqxj9YM+sGUM++u1qN4qJg==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true

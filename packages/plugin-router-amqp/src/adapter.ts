@@ -1,20 +1,18 @@
-import { noop, isFunction, identity } from 'lodash'
+import { noop, identity } from 'lodash'
 import { Microfleet } from '@microfleet/core'
 import { ActionTransport, ServiceRequest } from '@microfleet/plugin-router'
-
+import { MessageConsumer } from '@microfleet/transport-amqp'
 import { RouterAMQPPluginConfig } from './types/plugin'
+import { Message } from '@microfleet/amqp-coffee'
 
 function getAMQPRouterAdapter(
   service: Microfleet,
   config: RouterAMQPPluginConfig,
-  onComplete?: (this: Microfleet, err: Error | null | undefined, data: any, actionName: string, raw: any) => Promise<any>
-): (params: any, properties: any, next: (...args: any[]) => void) => Promise<void> {
-  const { router } = service
-  const { requestCountTracker } = router
-
+  onComplete?: (this: Microfleet, err: Error | null | undefined, data: any, actionName: string, raw: Message) => Promise<any>
+): MessageConsumer {
   // @todo or not todo
-  const wrapDispatch = isFunction(onComplete)
-    ? async (promise: Promise<any>, actionName: string, raw: any): Promise<any> => {
+  const wrapDispatch = typeof onComplete === 'function'
+    ? async (promise: Promise<any>, actionName: string, raw: Message): Promise<any> => {
         let data: any = null
         let err: Error | null = null
         try {
@@ -27,8 +25,6 @@ function getAMQPRouterAdapter(
       }
     : identity
 
-  const decreaseCounter = (): void => requestCountTracker.decrease(ActionTransport.amqp)
-  const increaseCounter = (): void => requestCountTracker.increase(ActionTransport.amqp)
 
   const prefix = config.prefix || ''
   const prefixLength = prefix ? prefix.length + 1 : 0
@@ -40,9 +36,10 @@ function getAMQPRouterAdapter(
     )
     : (routingKey: string): string => routingKey
 
-  return async (params: any, properties: any, raw: any, next: (...args: any[]) => void = noop): Promise<any> => {
+  return async (messageBody: any, raw: Message): Promise<any> => {
+    const { properties } = raw
     const { headers = Object.create(null) } = properties
-    const routingKey = headers['routing-key'] || properties.routingKey
+    const routingKey = headers['routing-key'] || raw.routingKey
 
     // normalize headers access
     if (!properties.headers) {
@@ -57,7 +54,7 @@ function getAMQPRouterAdapter(
       // input params
       // make sure we standardize the request
       // to provide similar interfaces
-      params,
+      params: messageBody,
       route,
       // @todo fix type for action (optional?)
       action: noop as any,
@@ -65,24 +62,15 @@ function getAMQPRouterAdapter(
       locals: Object.create(null),
       log: console as any,
       method: ActionTransport.amqp,
-      parentSpan: raw.span,
+      parentSpan: null,
       query: Object.create(null),
-      span: undefined,
+      span: null,
       transport: ActionTransport.amqp,
-      transportRequest: Object.create(null),
+      transportRequest: raw,
       reformatError: true,
     }
 
-    increaseCounter()
-    try {
-      const promise = service.router.dispatch(opts)
-      const response = await wrapDispatch(promise, route, raw)
-      next(null, response)
-    } catch (e: any) {
-      next(e)
-    } finally {
-      decreaseCounter()
-    }
+    return wrapDispatch(service.router.dispatch(opts), route, raw)
   }
 }
 

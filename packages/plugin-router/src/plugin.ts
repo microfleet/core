@@ -49,7 +49,8 @@ const prepareInternalRequest = (request: Partial<ServiceRequest>): ServiceReques
   params: request.params != null
     ? deepClone(request.params)
     : Object.create(null),
-  parentSpan: undefined,
+  parentSpan: null,
+  span: null,
   query: Object.create(null),
   route: '',
   transport: ActionTransport.internal,

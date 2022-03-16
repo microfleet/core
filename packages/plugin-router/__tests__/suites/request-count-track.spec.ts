@@ -91,16 +91,14 @@ describe('service request count', () => {
       },
     }
 
-    try {
-      await Promise.all([
-        amqpRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult)),
-        httpRequest('/action/generic/health').reflect().then(verify(returnsResult)),
-        socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult)),
-      ])
-    } finally {
-      socketioClient.close()
-      await service.close()
-    }
+    await Promise.all([
+      amqpRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult)),
+      httpRequest('/action/generic/health').reflect().then(verify(returnsResult)),
+      socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult)),
+    ])
+
+    socketioClient.close()
+    await service.close()
 
     assert(preRequestSpy.callCount === 3)
     assert(postResponseSpy.callCount === 3)

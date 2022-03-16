@@ -59,7 +59,7 @@ export default class RequestCountTracker {
       return
     }
 
-    await once(this.service as any, event)
+    await once(this.service, event)
   }
 
   /**

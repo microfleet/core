@@ -1,7 +1,7 @@
 import type * as _ from '@microfleet/plugin-opentracing'
 import Errors = require('common-errors')
 import { noop } from 'lodash'
-import { FORMAT_HTTP_HEADERS } from 'opentracing'
+import { FORMAT_HTTP_HEADERS, SpanContext } from 'opentracing'
 import { Request } from '@hapi/hapi'
 import { boomify } from '@hapi/boom'
 
@@ -66,7 +66,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
   return async function handler(request: Request) {
     const { headers } = request
 
-    let parentSpan
+    let parentSpan: SpanContext | null = null
     if (service.tracer !== undefined) {
       parentSpan = service.tracer.extract(FORMAT_HTTP_HEADERS, headers)
     }
@@ -85,7 +85,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
       params: request.payload,
       query: request.query,
       route: actionName,
-      span: undefined,
+      span: null,
       transport: ActionTransport.http,
       transportRequest: request,
       reformatError: true,

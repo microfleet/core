@@ -1,5 +1,5 @@
 import { ClientRequest } from 'http'
-import { Span } from 'opentracing'
+import { Span, SpanContext } from 'opentracing'
 import { Microfleet } from '@microfleet/core'
 import { Logger } from '@microfleet/plugin-logger'
 import { RequestDataKey, ActionTransport } from '../router'
@@ -31,8 +31,8 @@ export interface ServiceRequest<R = unknown> {
   transport: typeof ActionTransport[keyof typeof ActionTransport]
   transportRequest: any | ClientRequest
   locals: any
-  parentSpan: any
-  span?: Span
+  parentSpan: SpanContext | null
+  span: Span | null
   log: Logger
   response?: unknown
   error?: any

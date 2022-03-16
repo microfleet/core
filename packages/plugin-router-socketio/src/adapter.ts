@@ -27,10 +27,10 @@ function getSocketIORouterAdapter(router: Router, log: Logger): (socket: Socket)
         // @todo real logger
         log: console as any,
         method: 'socketio',
-        parentSpan: undefined,
+        parentSpan: null,
         query: Object.create(null),
         route: actionName,
-        span: undefined,
+        span: null,
         transport: ActionTransport.socketio,
         transportRequest: [actionName, params, callback],
         reformatError: true,

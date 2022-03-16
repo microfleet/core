@@ -25,7 +25,7 @@ class ChildServiceRunner {
   protected processClosed?: Promise<any[]>
   protected process?: execa.ExecaChildProcess
   protected port?: number
-  public exchange: string = ''
+  public exchange = ''
   public receivedCloseSignal = false
 
   constructor(command: string) {
@@ -44,7 +44,7 @@ class ChildServiceRunner {
     const proc = execa('node', args, {
       buffer: false,
       env: { SWC_NODE_PROJECT: './tsconfig.test.json' },
-    });
+    })
 
     debug('spawned')
 
@@ -123,7 +123,7 @@ class ChildServiceRunner {
 
     this.process.kill(signal, {
       forceKillAfterTimeout: 50000,
-    });
+    })
 
     await this.process
   }
@@ -162,7 +162,7 @@ describe('service graceful shutdown', () => {
     try {
       const [serviceResponse] = await Promise.all([
         serviceConnector.service.amqp.publishAndWait('amqp.action.long-running', { pause: 999 }),
-        childService.kill('SIGTERM', true),
+        Bluebird.delay(100).then(() => childService.kill('SIGTERM', true)),
       ])
 
       assert(serviceResponse, 'should respond to action')

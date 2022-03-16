@@ -11,4 +11,6 @@ export type RouterAMQPPluginRetryConfig = {
 export type RouterAMQPPluginConfig = {
   prefix: string;
   retry: RouterAMQPPluginRetryConfig;
+  multiAckEvery: number;
+  multiAckAfter: number;
 }

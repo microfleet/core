@@ -1,10 +1,7 @@
 import { strict as assert } from 'assert'
 import { delay } from 'bluebird'
-import { spy } from 'sinon'
-import AMQPTransport = require('@microfleet/transport-amqp')
+import { AMQPTransport } from '@microfleet/transport-amqp'
 import { Microfleet } from '@microfleet/core'
-// @todo RequestCountTracker should be not part of @microfleet/plugin-router
-import { RequestCountTracker } from '@microfleet/plugin-router'
 
 import { findHealthCheck } from '../utils/health-check'
 import { AMQPPluginTransportConnectionConfig } from '@microfleet/plugin-amqp'
@@ -52,26 +49,6 @@ describe('AMQP suite', function testSuite() {
 
       // wait a while and ask again, should throw an error
       await assert.rejects(delay(5000).then(handler))
-
-      // restore connection for further tests
-      await service.amqp.connect()
-    })
-
-    it('able to close connection to amqp and consumers', async () => {
-      const { amqp } = service
-      assert(amqp)
-
-      const closeSpy = spy(service, 'close')
-      const consumerSpy = spy(amqp, 'closeAllConsumers')
-      // @todo plugin-router-amqp
-      // const waitRequestFinishSpy = spy(service.router.requestCountTracker, 'waitForRequestsToFinish')
-      const waitRequestFinishSpy = spy(RequestCountTracker, 'waitForRequestsToFinish')
-
-      await service.close()
-
-      assert(consumerSpy.called)
-      assert(consumerSpy.calledAfter(waitRequestFinishSpy))
-      assert(consumerSpy.calledAfter(closeSpy))
     })
   })
 
