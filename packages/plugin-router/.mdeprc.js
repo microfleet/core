@@ -8,12 +8,12 @@ module.exports = {
   auto_compose: true,
   node: '16',
   parallel: 1,
-  test_framework: 'jest --config ./jest.config.js --runTestsByPath --maxWorkers=1 --verbose --colors',
+  test_framework: 'jest --config ./jest.config.js --runTestsByPath --maxWorkers=50% --verbose --colors',
   tests: '__tests__/**/*.spec.ts',
   services: [
     'rabbitmq',
   ],
-  in_one: true,
+  in_one: false,
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
     tester: {
