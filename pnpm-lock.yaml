@@ -7,7 +7,7 @@ importers:
       '@makeomatic/deploy': ^12.6.3
       '@node-rs/xxhash-linux-x64-musl': ^1.2.0
       '@release-it/conventional-changelog': ^4.2.2
-      '@swc/core-linux-x64-musl': ^1.2.155
+      '@swc/core-linux-x64-musl': ^1.2.156
       conventional-changelog-angular: ^5.0.13
       glob: ^7.2.0
       js-yaml: ^4.1.0
@@ -19,7 +19,7 @@ importers:
       '@makeomatic/deploy': 12.6.3
       '@node-rs/xxhash-linux-x64-musl': 1.2.0
       '@release-it/conventional-changelog': 4.2.2_release-it@14.12.5
-      '@swc/core-linux-x64-musl': 1.2.155
+      '@swc/core-linux-x64-musl': 1.2.156
       conventional-changelog-angular: 5.0.13
       glob: 7.2.0
       js-yaml: 4.1.0
@@ -158,7 +158,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@microfleet/transport-amqp': ^17.0.4
+      '@microfleet/transport-amqp': ^17.0.7
       '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -184,7 +184,7 @@ importers:
       tsconfig-paths: ^3.14.0
       typescript: ~4.6.2
     dependencies:
-      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
+      '@microfleet/transport-amqp': 17.0.7_common-errors@1.2.0
       bluebird: 3.7.2
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -927,6 +927,7 @@ importers:
       '@release-it/conventional-changelog': ^4.2.2
       '@sentry/node': ^6.18.2
       '@sentry/types': ^6.18.2
+      '@sentry/utils': ^6.18.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -965,6 +966,7 @@ importers:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/utils': link:../utils
+      '@sentry/utils': 6.18.2
       lodash.merge: 4.6.2
       lsmod: 1.0.0
       pino: 7.8.1
@@ -1365,7 +1367,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@microfleet/transport-amqp': ^17.0.4
+      '@microfleet/transport-amqp': ^17.0.7
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
       '@release-it/conventional-changelog': ^4.2.2
@@ -1413,7 +1415,7 @@ importers:
       typescript: ~4.6.2
     dependencies:
       '@hapi/boom': 9.1.4
-      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
+      '@microfleet/transport-amqp': 17.0.7_common-errors@1.2.0
       '@microfleet/validation': 11.1.2
       glob: 7.2.0
       hyperid: 3.0.1
@@ -1469,13 +1471,13 @@ importers:
   packages/plugin-router-amqp:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@microfleet/amqp-coffee': ^2.1.2
+      '@microfleet/amqp-coffee': ^2.1.5
       '@microfleet/core': workspace:^
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-amqp': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
-      '@microfleet/transport-amqp': ^17.0.4
+      '@microfleet/transport-amqp': ^17.0.7
       '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
@@ -1505,8 +1507,8 @@ importers:
       tsconfig-paths: ^3.14.0
       typescript: ~4.6.2
     dependencies:
-      '@microfleet/amqp-coffee': 2.1.2
-      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
+      '@microfleet/amqp-coffee': 2.1.5
+      '@microfleet/transport-amqp': 17.0.7_common-errors@1.2.0
       bluebird: 3.7.2
       event-to-promise: 0.8.0
       lodash: 4.17.21
@@ -1700,12 +1702,13 @@ importers:
   packages/plugin-socketio:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
+      '@microfleet/amqp-coffee': ^2.1.5
       '@microfleet/core': workspace:^
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@microfleet/transport-amqp': ^17.0.4
+      '@microfleet/transport-amqp': ^17.0.7
       '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.2.2
       '@swc-node/jest': ^1.4.3
@@ -1722,7 +1725,7 @@ importers:
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.0
       jest: ^27.5.1
-      ms-socket.io-adapter-amqp: ^8.1.2
+      ms-socket.io-adapter-amqp: ^9.0.1
       release-it: ^14.12.5
       rimraf: ^3.0.2
       sinon: ^13.0.1
@@ -1731,13 +1734,14 @@ importers:
       tsconfig-paths: ^3.14.0
       typescript: ~4.6.2
     dependencies:
+      '@microfleet/amqp-coffee': 2.1.5
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
+      '@microfleet/transport-amqp': 17.0.7_common-errors@1.2.0
       '@microfleet/utils': link:../utils
-      ms-socket.io-adapter-amqp: 8.1.2_7e805875546b6a023d530f1f185cae71
+      ms-socket.io-adapter-amqp: 9.0.1_7a5a17d19edfdcc4aa774c1a1a31019b
       socket.io: 4.4.1
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -2980,19 +2984,19 @@ packages:
       - supports-color
     dev: false
 
-  /@microfleet/amqp-codec/2.0.0:
-    resolution: {integrity: sha512-ksoIC6GUtaQLcfiFtsTN6X7YFNioL3ygJWU1usTmOSy+Ye+a7GbNNeKiSF9N1Xm9unYaDgDpnAnOH6hmcsPdYA==}
+  /@microfleet/amqp-codec/2.0.2:
+    resolution: {integrity: sha512-hI2twe1pm4/t/AKVpKGsUVndvB1AZ+eYjS1hE5wOKNPKekzs3szM9HpPxdeBXJgSH1xJdqjvdYE0er9dFF4Dbg==}
     dependencies:
       debug: 4.3.3
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@microfleet/amqp-coffee/2.1.2:
-    resolution: {integrity: sha512-2ne/q0zQC2L9v6S6tyrOnev6mBEkUsviZ+42Y1jQL9uibXakjQHL6Vx7ce7uLGL9YEo6ruQ4sm1Ax4rdNj6jbw==}
+  /@microfleet/amqp-coffee/2.1.5:
+    resolution: {integrity: sha512-asT6FU/EUnsjSUGROhsN7u3T1nvNLuS2dHLaFBt27Ydc3SeWo0bznyyNhy0h5hAmb4tJQ99tHQEGT9cfpDiLJQ==}
     engines: {node: '>= 14.17'}
     dependencies:
-      '@microfleet/amqp-codec': 2.0.0
+      '@microfleet/amqp-codec': 2.0.2
       async: 3.2.3
       bson: 4.6.1
       bytes: 3.1.2
@@ -3042,13 +3046,13 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@microfleet/transport-amqp/17.0.4_common-errors@1.2.0:
-    resolution: {integrity: sha512-YMWf+/jUtIK2T1H0smMSkwLJiSwafnXG8hyLTacMA7Q2vL0CFlxxV6lSDRXojElbxdL194HU7og3uVj7OMPnnA==}
+  /@microfleet/transport-amqp/17.0.7_common-errors@1.2.0:
+    resolution: {integrity: sha512-O2TJm3IMOSPuRxrqUm6C6rIDUDxNi0jMqgniY/ej8InIYgDw1ZptWroVJwN409VmQHF/7zLUEtDr8BF8MjkxSw==}
     engines: {node: '>= 14.17.0'}
     peerDependencies:
       common-errors: ~1.x.x
     dependencies:
-      '@microfleet/amqp-coffee': 2.1.2
+      '@microfleet/amqp-coffee': 2.1.5
       '@types/common-errors': 1.0.2
       bluebird: 3.7.2
       common-errors: 1.2.0
@@ -3525,7 +3529,6 @@ packages:
   /@sentry/types/6.18.2:
     resolution: {integrity: sha512-WzpJf/Q5aORTzrSwer/As1NlO90dBAQpaHV2ikDDKqOyMWEgjKb5/4gh59p9gH8JMMnLetP1AvQel0fOj5UnUw==}
     engines: {node: '>=6'}
-    dev: true
 
   /@sentry/utils/6.18.2:
     resolution: {integrity: sha512-EC619jesknyu4xpwud5WC/5odYLz6JUy7OSFy5405PpdGeh/m8XUvuJAx4zDx0Iz/Mlk0S1Md+ZcQwqkv39dkw==}
@@ -3533,7 +3536,6 @@ packages:
     dependencies:
       '@sentry/types': 6.18.2
       tslib: 1.14.1
-    dev: true
 
   /@sideway/address/4.1.3:
     resolution: {integrity: sha512-8ncEUtmnTsMmL7z1YPB47kPUq7LpKWJNFPsRzHiIajGC5uXlWGn+AmkYPcHNl8S4tcEGx+cnORnNYaw2wvL+LQ==}
@@ -3555,8 +3557,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /@sindresorhus/is/4.4.0:
-    resolution: {integrity: sha512-QppPM/8l3Mawvh4rn9CNEYIU9bxpXUCRMaX9yUpvBk1nMKusLKpfXGDEKExKaPhLzcn3lzil7pR6rnJ11HgeRQ==}
+  /@sindresorhus/is/4.6.0:
+    resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
     engines: {node: '>=10'}
 
   /@sinonjs/commons/1.8.3:
@@ -3721,8 +3723,8 @@ packages:
     dev: true
     optional: true
 
-  /@swc/core-linux-x64-musl/1.2.155:
-    resolution: {integrity: sha512-HI2117+Y9vXwPIJOCWhAQHulyD1o+xNfiwjJeF42ukxKsBLoDm1STwNKbx8PUgWTAVwade9UG2YCskVX89OOGA==}
+  /@swc/core-linux-x64-musl/1.2.156:
+    resolution: {integrity: sha512-l6xzgNuKB6QQYxWNMDTNVAnle/mNk35AgD83otiKoL23o8m0gxExm8OQbd0HEi/Wf6BrPl3rlxsGpYWvOJHztQ==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
@@ -7561,7 +7563,7 @@ packages:
     resolution: {integrity: sha512-7gtQ5KiPh1RtGS9/Jbv1ofDpBFuq42gyfEib+ejaRBJuj/3tQFeR5+gw57e4ipaU8c/rCjvX6fkQz2lyDlGAOg==}
     engines: {node: '>=10.19.0'}
     dependencies:
-      '@sindresorhus/is': 4.4.0
+      '@sindresorhus/is': 4.6.0
       '@szmarczak/http-timer': 4.0.6
       '@types/cacheable-request': 6.0.2
       '@types/responselike': 1.0.0
@@ -9681,14 +9683,16 @@ packages:
       - supports-color
     dev: true
 
-  /ms-socket.io-adapter-amqp/8.1.2_7e805875546b6a023d530f1f185cae71:
-    resolution: {integrity: sha512-xYN2b6gQeZLdc4Cn0cbXpvFtP6F5GXixPxpgia+G/lqPYzk+/6Ctut933PQjQRirOQZofFTZC7mgc72Nt6OIkQ==}
+  /ms-socket.io-adapter-amqp/9.0.1_7a5a17d19edfdcc4aa774c1a1a31019b:
+    resolution: {integrity: sha512-sGaFwgPpnOZY4O5WhWLD4SKMPKSYTKF6AAFbw8Nf5mLRq1CBm837O6XKPWCR8dcO8wJvHqqamOfL7oGfrfRBlQ==}
     peerDependencies:
-      '@microfleet/transport-amqp': '>= 14'
+      '@microfleet/amqp-coffee': '>= 2'
+      '@microfleet/transport-amqp': '>= 17'
       common-errors: ~1.x.x
     dependencies:
-      '@microfleet/transport-amqp': 17.0.4_common-errors@1.2.0
-      '@sindresorhus/is': 4.4.0
+      '@microfleet/amqp-coffee': 2.1.5
+      '@microfleet/transport-amqp': 17.0.7_common-errors@1.2.0
+      '@sindresorhus/is': 4.6.0
       bluebird: 3.7.2
       common-errors: 1.2.0
       debug: 4.3.3
@@ -12247,7 +12251,6 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-    dev: true
 
   /tslib/2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}

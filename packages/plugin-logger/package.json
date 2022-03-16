@@ -38,6 +38,7 @@
     "@microfleet/core-types": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
     "@microfleet/utils": "workspace:^",
+    "@sentry/utils": "^6.18.2",
     "lodash.merge": "^4.6.2",
     "lsmod": "^1.0.0",
     "pino": "^7.8.1",

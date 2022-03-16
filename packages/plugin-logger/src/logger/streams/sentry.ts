@@ -4,11 +4,7 @@ import * as Sentry from '@sentry/node'
 import { isAbsolute, resolve } from 'path'
 import merge from 'lodash.merge'
 import lsmod = require('lsmod')
-import {
-  extractStackFromError,
-  parseStack,
-  prepareFramesForEvent,
-} from '@sentry/node/dist/parsers'
+import { parseStackFrames } from '@sentry/node/dist/eventbuilder'
 
 import { SENTRY_FINGERPRINT_DEFAULT } from '../../constants'
 import pino from 'pino'
@@ -67,12 +63,11 @@ export class SentryStream {
 
     (async () => {
       let stacktrace = undefined
-      if (event.err && event.err.stack) {
-        try {
-          const stack = extractStackFromError(event.err)
-          const frames = await parseStack(stack)
-          stacktrace = { frames: prepareFramesForEvent(frames) }
-        } catch (e: any) { /* ignore */ }
+      if (event.err) {
+        const frames = parseStackFrames(event.err)
+        if (frames.length) {
+          stacktrace = { frames }
+        }
       }
 
       Sentry.captureEvent({

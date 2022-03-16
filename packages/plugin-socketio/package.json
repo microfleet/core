@@ -29,13 +29,14 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
+    "@microfleet/amqp-coffee": "^2.1.5",
     "@microfleet/core-types": "workspace:^",
     "@microfleet/plugin-logger": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
-    "@microfleet/transport-amqp": "^17.0.4",
+    "@microfleet/transport-amqp": "^17.0.7",
     "@microfleet/utils": "workspace:^",
-    "ms-socket.io-adapter-amqp": "^8.1.2",
+    "ms-socket.io-adapter-amqp": "^9.0.1",
     "socket.io": "^4.4.1"
   },
   "devDependencies": {
