@@ -105,7 +105,7 @@ describe('Logger suite', () => {
           },
           streams: {
             sentry: {
-              dsn: 'http://api@127.0.0.1:9999/io',
+              dsn: 'http://api@127.0.0.1:9999/3123891023810',
               externalConfiguration: './__tests__/sentry.beforeSend',
               level: 'debug',
             },
