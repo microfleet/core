@@ -1,4 +1,3 @@
-// @todo remove @microfleet/transport-amqp as dependency
 import { MSError } from '@microfleet/transport-amqp/lib/utils/serialization'
 import { Microfleet } from '@microfleet/core'
 import { HttpStatusError as HttpError } from '@microfleet/validation'

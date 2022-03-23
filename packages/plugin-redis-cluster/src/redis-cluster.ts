@@ -1,7 +1,7 @@
 import assert = require('assert')
 import Bluebird = require('bluebird')
 import _debug = require('debug')
-import eventToPromise = require('event-to-promise')
+import fromEvent = require('promise-toolbox/fromEvent')
 import type { PluginInterface } from '@microfleet/core-types'
 import type { Microfleet } from '@microfleet/core'
 import Redis = require('ioredis')
@@ -93,16 +93,10 @@ export function attach(this: Microfleet, opts: Partial<Config> = {}): PluginInte
      * @returns Opens redis connection.
      */
     async connect(this: Microfleet) {
-      const $conn = this.redis.connect() as Bluebird<void>
-      const $ready = eventToPromise(this.redis, 'ready', { ignoreErrors: true })
-      await Bluebird.race([$conn, $ready])
+      const $conn = this.redis.connect()
+      const $ready = fromEvent(this.redis, 'ready', { ignoreErrors: true })
 
-      // cancel either promise
-      if ($conn.isPending()) {
-        $conn.cancel()
-      } else {
-        ($ready as any).cancel()
-      }
+      await Promise.race([$conn, $ready])
 
       // attach to instance right away
       if (conf.luaScripts) {
