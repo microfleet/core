@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/core-types@0.9.1...@microfleet/core-types@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/core 17.15.3
+
+## [17.15.3](https://github.com/microfleet/core/compare/@microfleet/core@17.15.1...@microfleet/core@17.15.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-amqp 0.6.3
+
+## [0.6.3](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.6.1...@microfleet/plugin-amqp@0.6.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-aws-elasticsearch 1.9.3
+
+## [1.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.9.1...@microfleet/plugin-aws-elasticsearch@1.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-cassandra 0.14.3
+
+## [0.14.3](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.1...@microfleet/plugin-cassandra@0.14.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-consul 2.11.3
+
+## [2.11.3](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.11.1...@microfleet/plugin-consul@2.11.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-couchdb 2.11.3
+
+## [2.11.3](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.11.1...@microfleet/plugin-couchdb@2.11.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-dlock 0.6.3
+
+## [0.6.3](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.6.1...@microfleet/plugin-dlock@0.6.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-elasticsearch 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.9.1...@microfleet/plugin-elasticsearch@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-hapi 0.6.3
+
+## [0.6.3](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.6.1...@microfleet/plugin-hapi@0.6.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-kafka-types 1.10.3
+
+## [1.10.3](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.1...@microfleet/plugin-kafka-types@1.10.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-kafka 2.15.3
+
+## [2.15.3](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.15.1...@microfleet/plugin-kafka@2.15.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-knex 2.12.3
+
+## [2.12.3](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.12.1...@microfleet/plugin-knex@2.12.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-logger 0.14.3
+
+## [0.14.3](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.14.1...@microfleet/plugin-logger@0.14.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-opentracing 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.9.1...@microfleet/plugin-opentracing@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-prometheus 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.9.1...@microfleet/plugin-prometheus@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-redis-cluster 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.9.1...@microfleet/plugin-redis-cluster@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-redis-core 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.9.1...@microfleet/plugin-redis-core@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-redis-sentinel 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.9.1...@microfleet/plugin-redis-sentinel@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-router-amqp 0.6.3
+
+## [0.6.3](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.6.1...@microfleet/plugin-router-amqp@0.6.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-router-hapi 0.6.3
+
+## [0.6.3](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.6.1...@microfleet/plugin-router-hapi@0.6.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-router-socketio 0.6.3
+
+## [0.6.3](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.6.1...@microfleet/plugin-router-socketio@0.6.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-router 0.7.3
+
+## [0.7.3](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.7.1...@microfleet/plugin-router@0.7.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-socketio 0.6.3
+
+## [0.6.3](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.6.1...@microfleet/plugin-socketio@0.6.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/plugin-validator 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.9.1...@microfleet/plugin-validator@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
+# @microfleet/utils 0.9.3
+
+## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/utils@0.9.1...@microfleet/utils@0.9.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+
 # @microfleet/core-types 0.9.1
 
 ## [0.9.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.8.0...@microfleet/core-types@0.9.1) (2022-03-23)

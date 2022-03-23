@@ -1,6 +1,16 @@
 
 
-## [2.11.2](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.10.0...@microfleet/plugin-couchdb@2.11.2) (2022-03-23)
+## [2.11.4](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.11.1...@microfleet/plugin-couchdb@2.11.4) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))## [2.11.3](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.11.1...@microfleet/plugin-couchdb@2.11.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))## [2.11.2](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.10.0...@microfleet/plugin-couchdb@2.11.2) (2022-03-23)
 
 
 ### Bug Fixes

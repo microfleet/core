@@ -1,6 +1,16 @@
 
 
-## [17.15.2](https://github.com/microfleet/core/compare/@microfleet/core@17.14.0...@microfleet/core@17.15.2) (2022-03-23)
+## [17.15.4](https://github.com/microfleet/core/compare/@microfleet/core@17.15.1...@microfleet/core@17.15.4) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))## [17.15.3](https://github.com/microfleet/core/compare/@microfleet/core@17.15.1...@microfleet/core@17.15.3) (2022-03-23)
+
+
+### Bug Fixes
+
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))## [17.15.2](https://github.com/microfleet/core/compare/@microfleet/core@17.14.0...@microfleet/core@17.15.2) (2022-03-23)
 
 
 ### Bug Fixes
