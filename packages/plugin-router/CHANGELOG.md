@@ -1,6 +1,16 @@
 
 
-# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.5.1...@microfleet/plugin-router@0.7.0) (2022-03-16)
+## [0.7.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.6.0...@microfleet/plugin-router@0.7.2) (2022-03-23)
+
+
+### Bug Fixes
+
+* dependencies, updated transport-amqp ([4ca88c7](https://github.com/microfleet/core/commit/4ca88c7f8b84390f85b64dea3a665558f48d8d3b))## [0.7.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.6.0...@microfleet/plugin-router@0.7.1) (2022-03-23)
+
+
+### Bug Fixes
+
+* dependencies, updated transport-amqp ([4ca88c7](https://github.com/microfleet/core/commit/4ca88c7f8b84390f85b64dea3a665558f48d8d3b))# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.5.1...@microfleet/plugin-router@0.7.0) (2022-03-16)
 
 
 ### Features

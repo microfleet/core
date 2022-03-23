@@ -1,6 +1,16 @@
 
 
-# [2.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.13.1...@microfleet/plugin-kafka@2.15.0) (2022-03-16)
+## [2.15.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.14.0...@microfleet/plugin-kafka@2.15.2) (2022-03-23)
+
+
+### Bug Fixes
+
+* dependencies, updated transport-amqp ([4ca88c7](https://github.com/microfleet/core/commit/4ca88c7f8b84390f85b64dea3a665558f48d8d3b))## [2.15.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.14.0...@microfleet/plugin-kafka@2.15.1) (2022-03-23)
+
+
+### Bug Fixes
+
+* dependencies, updated transport-amqp ([4ca88c7](https://github.com/microfleet/core/commit/4ca88c7f8b84390f85b64dea3a665558f48d8d3b))# [2.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.13.1...@microfleet/plugin-kafka@2.15.0) (2022-03-16)
 
 
 ### Features

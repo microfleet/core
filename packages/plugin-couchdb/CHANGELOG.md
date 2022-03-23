@@ -1,6 +1,16 @@
 
 
-# [2.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.9.1...@microfleet/plugin-couchdb@2.11.0) (2022-03-16)
+## [2.11.2](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.10.0...@microfleet/plugin-couchdb@2.11.2) (2022-03-23)
+
+
+### Bug Fixes
+
+* dependencies, updated transport-amqp ([4ca88c7](https://github.com/microfleet/core/commit/4ca88c7f8b84390f85b64dea3a665558f48d8d3b))## [2.11.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.10.0...@microfleet/plugin-couchdb@2.11.1) (2022-03-23)
+
+
+### Bug Fixes
+
+* dependencies, updated transport-amqp ([4ca88c7](https://github.com/microfleet/core/commit/4ca88c7f8b84390f85b64dea3a665558f48d8d3b))# [2.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.9.1...@microfleet/plugin-couchdb@2.11.0) (2022-03-16)
 
 
 ### Features
