@@ -49,7 +49,7 @@ export const type = PluginTypes.database
 /**
  * Relative priority inside the same plugin group type
  */
-export const priority = 0
+export const priority = 10
 
 /**
  * Attaches Redis Sentinel plugin.

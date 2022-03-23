@@ -13,7 +13,7 @@ declare module '@microfleet/plugin-router' {
 
 export const name = 'routerSocketio'
 export const type = PluginTypes.transport
-export const priority = 101 // after plugin-socketio and plugin router
+export const priority = 30 // after plugin-socketio and plugin router
 
 export const attach = function attachRouterSocketioPlugin(this: Microfleet): void {
   assert(this.hasPlugin('router'), 'router plugin is required')

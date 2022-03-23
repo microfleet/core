@@ -17,6 +17,9 @@ module.exports = {
   extras: {
     tester: {
       working_dir: `/src/packages/${dir}`,
+      environment: {
+        DEBUG: process.env.DEBUG,
+      }
     }
   }
 }

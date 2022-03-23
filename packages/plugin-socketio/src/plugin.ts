@@ -34,7 +34,7 @@ declare module '@microfleet/core-types' {
 
 export const name = 'socketio'
 export const type = PluginTypes.transport
-export const priority = 0
+export const priority = 20
 
 export const attach = function attachSocketioPlugin(
   this: Microfleet,

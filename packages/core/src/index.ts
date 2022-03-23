@@ -26,10 +26,12 @@ import {
   DESTRUCTORS_PROPERTY,
   HEALTH_CHECKS_PROPERTY
 } from '@microfleet/utils'
+import { debug as _debug } from 'debug'
 
 export { PluginHealthStatus, HealthStatus }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
+const debug = _debug('@microfleet:core')
 
 export {
   PLUGIN_STATUS_OK,
@@ -205,6 +207,7 @@ export class Microfleet extends EventEmitter {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public initPlugin<T extends Record<string, unknown>>(mod: ns.Plugin<T>, conf?: any): void {
     const pluginName = mod.name
+    debug('initializing', pluginName)
 
     let expose: ns.PluginInterface
 

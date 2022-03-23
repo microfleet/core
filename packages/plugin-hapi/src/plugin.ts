@@ -35,7 +35,7 @@ const defaultPlugins: HapiPluginPlugin[] = [{
 
 export const name = 'hapi'
 export const type = PluginTypes.transport
-export const priority = 0
+export const priority = 20
 
 export function attach(
   this: Microfleet,

@@ -9,7 +9,7 @@ import { RouterHapiPluginConfig } from './types/plugin'
 
 export const name = 'routerHapi'
 export const type = PluginTypes.transport
-export const priority = 101 // should be after plugin-hapi and plugin router
+export const priority = 30 // should be after plugin-hapi and plugin router
 
 declare module '@microfleet/core-types' {
   interface ConfigurationOptional {

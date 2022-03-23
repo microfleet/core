@@ -26,7 +26,7 @@ declare module '@microfleet/core-types' {
 
 export const name = 'amqp'
 export const type = PluginTypes.transport
-export const priority = 0
+export const priority = 20
 
 /**
  * Attaches plugin to the Mthis class.
@@ -41,7 +41,7 @@ export function attach(
 
   // load local schemas
   this.validator.addLocation(resolve(__dirname, '../schemas'))
-  const config = this.validator.ifError<AMQPPluginConfig>('amqp', options)
+  const config = this.config.amqp = this.validator.ifError<AMQPPluginConfig>('amqp', options)
 
   /**
    * Check if the service has an amqp transport.

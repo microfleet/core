@@ -16,7 +16,7 @@ import type { ServiceRequest } from './types/router'
 
 export const name = 'router'
 export const type = PluginTypes.transport
-export const priority = 100
+export const priority = 10
 
 /**
  * Shallow copies object, pass-through everything else

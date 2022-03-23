@@ -44,7 +44,7 @@ export const type = PluginTypes.database
 /**
  * Relative priority inside the same plugin group type
  */
-export const priority = 10 // should be after redisCluster, redisSentinel
+export const priority = 30 // should be after redisCluster, redisSentinel
 
 export { LockAcquisitionError }
 
