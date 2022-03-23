@@ -45,7 +45,7 @@ export default (
     transport.bindPersistantQueueToHeadersExchange,
     'config.transport.bindPersistantQueueToHeadersExchange must be set to true'
   )
-  assert.equal(typeof transport.neck, 'number', 'neck must be set to >= 0')
+  assert.ok(typeof transport.neck === 'number', 'neck must be set to >= 0')
   assert.ok(transport.neck >= 0, 'neck must be set for the retry to work')
   assert.equal(typeof retry.predicate, 'function', '`retry.predicate` must be defined')
 
