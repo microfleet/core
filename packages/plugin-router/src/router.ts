@@ -28,7 +28,7 @@ export type RouterOptions = {
 
 export type RouterConfig = {
   directory?: string
-  enabled?: Record<string, string>
+  enabled?: Record<string, string | { name: string, config: Record<string, any> }>
   prefix?: string
   enabledGenericActions?: string[]
 }
@@ -124,17 +124,23 @@ export class Router {
 
   public addRoute(route: string, handler: ServiceAction): void {
     const { routes, config } = this
-    const action = createServiceAction(route, handler)
     let name: string = route
 
     if (config !== undefined && config.enabled !== undefined && Object.keys(config.enabled).length > 0) {
-      name = config.enabled[route]
-
-      if (name === undefined) {
+      const updatedConfig = config.enabled[route]
+      if (updatedConfig === undefined) {
         return
+      }
+
+      if (typeof updatedConfig === 'string') {
+        name = updatedConfig
+      } else {
+        Object.assign(handler, updatedConfig.config)
+        name = updatedConfig.name
       }
     }
 
+    const action = createServiceAction(route, handler)
     for (const transport of (action.transports || Object.keys(ActionTransport))) {
       routes.add(transport, this.prefixRoute(name), action)
     }
