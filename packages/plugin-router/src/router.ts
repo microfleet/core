@@ -9,6 +9,7 @@ import RequestCountTracker from './tracker'
 import Routes from './routes'
 import { Lifecycle } from './lifecycle'
 import { ServiceAction, ServiceRequest } from './types/router'
+import { RouterPluginRoutesConfig } from './types/plugin'
 import {
   readRoutes,
   createServiceAction,
@@ -26,12 +27,7 @@ export type RouterOptions = {
   tracer?: Tracer
 }
 
-export type RouterConfig = {
-  directory?: string
-  enabled?: Record<string, string | { name: string, config: Record<string, any> }>
-  prefix?: string
-  enabledGenericActions?: string[]
-}
+export type RouterConfig = RouterPluginRoutesConfig
 
 const finishSpan = ({ span }: ServiceRequest) => () => {
   if (span != null) {
@@ -75,6 +71,7 @@ export const RequestDataKey = {
   put: 'params',
   socketio: 'params',
 } as const
+
 export class Router {
   public readonly config?: RouterConfig
   public readonly routes: Routes
@@ -135,8 +132,8 @@ export class Router {
       if (typeof updatedConfig === 'string') {
         name = updatedConfig
       } else {
-        Object.assign(handler, updatedConfig.config)
-        name = updatedConfig.name
+        if (updatedConfig.config) Object.assign(handler, updatedConfig.config)
+        if (updatedConfig.name) name = updatedConfig.name
       }
     }
 

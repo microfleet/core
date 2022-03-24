@@ -216,7 +216,9 @@ export class Microfleet extends EventEmitter {
 
       // Temporary workaround while we have bundled schemas
       if (pluginName === 'validator') {
-        configuration.schemas ||= []
+        if (!configuration.schemas) {
+          configuration.schemas = []
+        }
         configuration.schemas.push(resolve(__dirname, '../schemas'))
       }
 

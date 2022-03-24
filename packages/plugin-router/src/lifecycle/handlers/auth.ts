@@ -1,5 +1,4 @@
 import { AuthenticationRequiredError, NotImplementedError } from 'common-errors'
-import { isObject, isString } from 'lodash'
 import { Microfleet } from '@microfleet/core'
 
 import { ServiceRequest, ServiceActionHandler } from '../../types/router'
@@ -55,7 +54,7 @@ function retrieveStrategy(request: ServiceRequest, strategies: AuthConfig['strat
   }
 
   // for ```MicrofleetAction.auth = 'token'```
-  if (isString(authConfig)) {
+  if (typeof authConfig === 'string') {
     const name = authConfig
 
     return {
@@ -70,7 +69,7 @@ function retrieveStrategy(request: ServiceRequest, strategies: AuthConfig['strat
   //   name: 'token',
   //   authStrategy: 'try',
   // }```
-  if (isObject(authConfig)) {
+  if (typeof authConfig === 'object') {
     const name = authConfig.name
 
     return {

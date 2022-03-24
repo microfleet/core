@@ -5,10 +5,11 @@ import { Logger } from '@microfleet/plugin-logger'
 import { RequestDataKey, ActionTransport } from '../router'
 
 export type ServiceMiddleware = (this: Microfleet, request: ServiceRequest) => Promise<void>
-export type ServiceActionHandler<R = unknown> = (this: Microfleet, request: ServiceRequest, ...params: any) => Promise<R>
 export type ServiceActionAuthGetName = (request: ServiceRequest) => string
+export type ServiceActionHandler = ServiceAction['handler']
 
-export interface ServiceAction<R = unknown> extends ServiceActionHandler<R> {
+export interface ServiceAction<R = unknown> {
+  handler(this: Microfleet, request: ServiceRequest, ...params: any[]): Promise<R>
   actionName: string
   transports: ServiceRequest['transport'][]
   transportOptions?: TransportOptions

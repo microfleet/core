@@ -26,7 +26,7 @@ function acquireLockWrapper(
   const lock = this.acquireLock(keyParts.join('-'))
 
   return Bluebird
-    .using(this, request, lock, () => action.call(this, request, lock))
+    .using(this, request, lock, () => action.handler.call(this, request, lock))
     .catchThrow(LockAcquisitionError, concurrentRequests)
 }
 

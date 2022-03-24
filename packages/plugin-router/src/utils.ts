@@ -1,6 +1,5 @@
 import { sep, resolve } from 'path'
 import glob = require('glob')
-import { isObject, isString } from 'lodash'
 import { ValidationError } from 'common-errors'
 
 import { ServiceAction } from './types/router'
@@ -21,16 +20,36 @@ export function readRoutes(directory: string): [string, ServiceAction][] {
     })
 }
 
-export function requireServiceActionHandler(path: string): ServiceAction {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const handler = require(path) as ServiceAction | { default: ServiceAction }
-
-  if (typeof handler === 'function') {
-    return handler
+export const transformFileToAction = (input: any, handler?: any): ServiceAction => {
+  const props = Object.getOwnPropertyNames(input)
+  const action = Object.create(null)
+  for (const prop of props) {
+    action[prop] = input[prop]
   }
 
-  if (isObject(handler) && typeof handler.default === 'function') {
-    return handler.default
+  if (handler) {
+    action.handler = handler
+    const handlerProps = Object.getOwnPropertyNames(handler)
+    for (const prop of handlerProps) {
+      action[prop] = handler[prop]
+    }
+  } else {
+    action.handler = input
+  }
+
+  return action
+}
+
+export function requireServiceActionHandler(path: string): ServiceAction {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const baseAction = require(path)
+
+  if (typeof baseAction === 'function') {
+    return transformFileToAction(baseAction)
+  }
+
+  if (baseAction && typeof baseAction.default === 'function') {
+    return transformFileToAction(baseAction, baseAction.default)
   }
 
   throw new Error(`action from ${path} must be a function`)
@@ -53,11 +72,11 @@ export function createServiceAction(route: string, action: ServiceAction): Servi
     throw new ValidationError(`action.allowed in ${String(route)} must be a function`)
   }
 
-  if (auth !== undefined && (isString(auth) || isObject(auth)) !== true) {
+  if (auth !== undefined && (typeof auth !== 'string' && typeof auth !== 'object')) {
     throw new ValidationError(`action.auth in ${String(route)} must be a string or an object`)
   }
 
-  if (schema !== undefined && !isString(schema) && schema !== null && schema !== false) {
+  if (schema !== undefined && typeof schema !== 'string' && schema !== null && schema !== false) {
     throw new ValidationError(`action.schema in ${String(route)} must be a string`)
   }
 

@@ -15,6 +15,15 @@ declare module '@microfleet/core-types' {
   }
 }
 
+declare module '@microfleet/plugin-router' {
+  interface ServiceAction {
+    bindingKey?: string | string[]
+    omitPrefix?: boolean
+  }
+}
+
+const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
+
 export const name = 'routerAmqp'
 export const type = PluginTypes.transport
 export const priority = 30 // should be after plugin-amqp and plugin router
@@ -77,9 +86,12 @@ export function attach(
       }
 
       const routes = []
+      const amqpActions = this.router.routes.get(ActionTransport.amqp)
 
-      for (const route of this.router.routes.get(ActionTransport.amqp).keys()) {
-        routes.push(routerAmqpConfig.prefix ? `${routerAmqpConfig.prefix}.${route}` : route)
+      for (const [name, action] of amqpActions.entries()) {
+        for (const route of toArray(action.bindingKey || name)) {
+          routes.push(routerAmqpConfig.prefix && !action.omitPrefix ? `${routerAmqpConfig.prefix}.${route}` : route)
+        }
       }
 
       await this.amqp.createConsumedQueue(adapter, routes)

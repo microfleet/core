@@ -1,5 +1,5 @@
 import Router from '../router'
-import { ServiceRequest } from './router'
+import { ServiceAction, ServiceRequest } from './router'
 import { AuthConfig } from '../lifecycle/handlers/auth'
 import { ValidateResponseConfig } from '../lifecycle/handlers/validate-response'
 import { LifecycleExtensions } from '../lifecycle'
@@ -25,7 +25,7 @@ export type RouterPluginConfig = {
 
 export interface RouterPluginRoutesConfig {
   directory?: string
-  enabled?: Record<string, string>
+  enabled?: Record<string, string | { name?: string, config?: Partial<ServiceAction> }>
   prefix?: string
   responseValidation?: ValidateResponseConfig
   enabledGenericActions?: string[]

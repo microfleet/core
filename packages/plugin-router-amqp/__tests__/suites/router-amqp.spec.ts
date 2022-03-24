@@ -6,7 +6,7 @@ import { Lifecycle, ServiceRequest } from '@microfleet/plugin-router'
 import { spy } from 'sinon'
 import { RequestCountTracker } from '@microfleet/plugin-router'
 
-jest.setTimeout(15000)
+jest.setTimeout(10000)
 
 const failedActionEmulator = [{
   point: Lifecycle.hooks.preHandler,
@@ -43,18 +43,12 @@ describe('AMQP suite: basic routing', function testSuite() {
 
   it('able to observe an action', async () => {
     const amqpRoutes = service.router.routes.get('amqp')
-
-    assert(typeof amqpRoutes.get('echo') === 'function')
+    assert(typeof amqpRoutes.get('echo')?.handler === 'function')
   })
 
   it('able to dispatch action and return response', async () => {
     const { amqp } = service
-
-    // @todo dispose of assert
-    assert(amqp)
-
     const response = await amqp.publishAndWait('echo', { foo: 'bar' })
-
     deepStrictEqual(response, { foo: 'bar' })
   })
 })
@@ -85,7 +79,7 @@ describe('AMQP suite: prefixed routing', function testSuite() {
   it ('able to observe an action', async () => {
     const amqpRoutes = service.router.routes.get('amqp')
 
-    assert(typeof amqpRoutes.get('echo') === 'function')
+    assert(typeof amqpRoutes.get('echo')?.handler === 'function')
   })
 
   it ('able to dispatch action and return response', async () => {
@@ -114,6 +108,55 @@ describe('AMQP suite: prefixed routing', function testSuite() {
     assert(consumerSpy.called)
     assert(consumerSpy.calledAfter(waitRequestFinishSpy))
     assert(consumerSpy.calledAfter(closeSpy))
+  })
+})
+
+describe('AMQP suite: custom redefined routing', function testSuite() {
+  const service = new Microfleet({
+    name: 'tester',
+    plugins: [
+      'logger', // essensial plugin
+      'validator', // essensial plugin
+      'amqp', // init amqp
+      'router', // enable router
+      'router-amqp' // attach amqp transport to router
+    ],
+    router: {
+      routes: {
+        directory: resolve(__dirname, '../artifacts/actions'),
+        enabled: {
+          'echo': {
+            name: 'renamed',
+            config: {
+              bindingKey: ['10', 'amqp-custom.echo'],
+              omitPrefix: true,
+            }
+          }
+        }
+      },
+    },
+    routerAmqp: {
+      prefix: 'amqp-custom',
+    }
+  })
+
+  beforeAll(() => service.connect())
+  afterAll(() => service.close())
+
+  it('able to observe an action', async () => {
+    const amqpRoutes = service.router.routes.get('amqp')
+    assert(typeof amqpRoutes.get('renamed')?.handler === 'function')
+  })
+
+  it('able to dispatch action and return response', async () => {
+    const { amqp } = service
+
+    const headers = { 'routing-key': 'amqp-custom.renamed' }
+    const response = await amqp.publishAndWait('amqp-custom.echo', { foo: 'bar' }, { headers })
+    deepStrictEqual(response, { foo: 'bar' })
+
+    const response2 = await amqp.publishAndWait('10', { foo: 'bar' }, { headers })
+    deepStrictEqual(response2, { foo: 'bar' })
   })
 })
 

@@ -56,7 +56,6 @@ function getAMQPRouterAdapter(
       // to provide similar interfaces
       params: messageBody,
       route,
-      // @todo fix type for action (optional?)
       action: noop as any,
       headers: properties,
       locals: Object.create(null),
