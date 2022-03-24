@@ -1,6 +1,16 @@
 
 
-## [1.10.4](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.1...@microfleet/plugin-kafka-types@1.10.4) (2022-03-23)
+# [1.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.3...@microfleet/plugin-kafka-types@1.12.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))# [1.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.3...@microfleet/plugin-kafka-types@1.11.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))## [1.10.4](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.1...@microfleet/plugin-kafka-types@1.10.4) (2022-03-23)
 
 
 ### Bug Fixes

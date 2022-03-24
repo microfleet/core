@@ -1,6 +1,16 @@
 
 
-## [0.14.4](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.1...@microfleet/plugin-cassandra@0.14.4) (2022-03-23)
+# [0.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.3...@microfleet/plugin-cassandra@0.16.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.3...@microfleet/plugin-cassandra@0.15.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))## [0.14.4](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.1...@microfleet/plugin-cassandra@0.14.4) (2022-03-23)
 
 
 ### Bug Fixes

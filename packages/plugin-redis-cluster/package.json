@@ -3,7 +3,7 @@
   "description": "redis cluster plugin for microfleet",
   "main": "./lib/redis-cluster.js",
   "types": "./lib/redis-cluster.d.ts",
-  "version": "0.9.4",
+  "version": "0.11.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

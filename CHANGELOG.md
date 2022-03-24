@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.9.3...@microfleet/core-types@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/core 17.16.0
+
+# [17.16.0](https://github.com/microfleet/core/compare/@microfleet/core@17.15.3...@microfleet/core@17.16.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-amqp 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.6.3...@microfleet/plugin-amqp@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-aws-elasticsearch 1.10.0
+
+# [1.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.9.3...@microfleet/plugin-aws-elasticsearch@1.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-cassandra 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.3...@microfleet/plugin-cassandra@0.15.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-consul 2.12.0
+
+# [2.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.11.3...@microfleet/plugin-consul@2.12.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-couchdb 2.12.0
+
+# [2.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.11.3...@microfleet/plugin-couchdb@2.12.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-dlock 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.6.3...@microfleet/plugin-dlock@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-elasticsearch 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.9.3...@microfleet/plugin-elasticsearch@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-hapi 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.6.3...@microfleet/plugin-hapi@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-kafka-types 1.11.0
+
+# [1.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.3...@microfleet/plugin-kafka-types@1.11.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-kafka 2.16.0
+
+# [2.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.15.3...@microfleet/plugin-kafka@2.16.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-knex 2.13.0
+
+# [2.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.12.3...@microfleet/plugin-knex@2.13.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-logger 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.14.3...@microfleet/plugin-logger@0.15.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-opentracing 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.9.3...@microfleet/plugin-opentracing@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-prometheus 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.9.3...@microfleet/plugin-prometheus@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-redis-cluster 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.9.3...@microfleet/plugin-redis-cluster@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-redis-core 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.9.3...@microfleet/plugin-redis-core@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-redis-sentinel 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.9.3...@microfleet/plugin-redis-sentinel@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-router-amqp 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.6.3...@microfleet/plugin-router-amqp@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-router-hapi 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.6.3...@microfleet/plugin-router-hapi@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-router-socketio 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.6.3...@microfleet/plugin-router-socketio@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-router 0.8.0
+
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.7.3...@microfleet/plugin-router@0.8.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-socketio 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.6.3...@microfleet/plugin-socketio@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/plugin-validator 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.9.3...@microfleet/plugin-validator@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
+# @microfleet/utils 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.9.3...@microfleet/utils@0.10.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+
 # @microfleet/core-types 0.9.3
 
 ## [0.9.3](https://github.com/microfleet/core/compare/@microfleet/core-types@0.9.1...@microfleet/core-types@0.9.3) (2022-03-23)

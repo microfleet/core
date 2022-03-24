@@ -1,6 +1,16 @@
 
 
-## [0.6.4](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.6.1...@microfleet/plugin-router-amqp@0.6.4) (2022-03-23)
+# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.6.3...@microfleet/plugin-router-amqp@0.8.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.6.3...@microfleet/plugin-router-amqp@0.7.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))## [0.6.4](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.6.1...@microfleet/plugin-router-amqp@0.6.4) (2022-03-23)
 
 
 ### Bug Fixes

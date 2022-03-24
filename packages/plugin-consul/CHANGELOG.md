@@ -1,6 +1,16 @@
 
 
-## [2.11.4](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.11.1...@microfleet/plugin-consul@2.11.4) (2022-03-23)
+# [2.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.11.3...@microfleet/plugin-consul@2.13.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))# [2.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.11.3...@microfleet/plugin-consul@2.12.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))## [2.11.4](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.11.1...@microfleet/plugin-consul@2.11.4) (2022-03-23)
 
 
 ### Bug Fixes

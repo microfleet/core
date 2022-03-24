@@ -1,6 +1,16 @@
 
 
-## [17.15.4](https://github.com/microfleet/core/compare/@microfleet/core@17.15.1...@microfleet/core@17.15.4) (2022-03-23)
+# [17.17.0](https://github.com/microfleet/core/compare/@microfleet/core@17.15.3...@microfleet/core@17.17.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))# [17.16.0](https://github.com/microfleet/core/compare/@microfleet/core@17.15.3...@microfleet/core@17.16.0) (2022-03-24)
+
+
+### Features
+
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))## [17.15.4](https://github.com/microfleet/core/compare/@microfleet/core@17.15.1...@microfleet/core@17.15.4) (2022-03-23)
 
 
 ### Bug Fixes
