@@ -1,6 +1,16 @@
 
 
-# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.9.3...@microfleet/plugin-prometheus@0.11.0) (2022-03-24)
+# [0.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.10.0...@microfleet/plugin-prometheus@0.13.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.10.0...@microfleet/plugin-prometheus@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.9.3...@microfleet/plugin-prometheus@0.11.0) (2022-03-24)
 
 
 ### Features

@@ -1,6 +1,16 @@
 
 
-# [2.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.11.3...@microfleet/plugin-couchdb@2.13.0) (2022-03-24)
+# [2.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.12.0...@microfleet/plugin-couchdb@2.15.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [2.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.12.0...@microfleet/plugin-couchdb@2.14.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [2.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.11.3...@microfleet/plugin-couchdb@2.13.0) (2022-03-24)
 
 
 ### Features

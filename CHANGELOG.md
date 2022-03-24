@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.10.0...@microfleet/core-types@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/core 17.18.0
+
+# [17.18.0](https://github.com/microfleet/core/compare/@microfleet/core@17.16.0...@microfleet/core@17.18.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-amqp 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.7.0...@microfleet/plugin-amqp@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-aws-elasticsearch 1.12.0
+
+# [1.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.10.0...@microfleet/plugin-aws-elasticsearch@1.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-cassandra 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.15.0...@microfleet/plugin-cassandra@0.17.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-consul 2.14.0
+
+# [2.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.12.0...@microfleet/plugin-consul@2.14.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-couchdb 2.14.0
+
+# [2.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.12.0...@microfleet/plugin-couchdb@2.14.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-dlock 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.7.0...@microfleet/plugin-dlock@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-elasticsearch 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.10.0...@microfleet/plugin-elasticsearch@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-hapi 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.7.0...@microfleet/plugin-hapi@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-kafka-types 1.13.0
+
+# [1.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.11.0...@microfleet/plugin-kafka-types@1.13.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-kafka 2.18.0
+
+# [2.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.16.0...@microfleet/plugin-kafka@2.18.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-knex 2.15.0
+
+# [2.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.13.0...@microfleet/plugin-knex@2.15.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-logger 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.15.0...@microfleet/plugin-logger@0.17.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-opentracing 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.10.0...@microfleet/plugin-opentracing@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-prometheus 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.10.0...@microfleet/plugin-prometheus@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-redis-cluster 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.10.0...@microfleet/plugin-redis-cluster@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-redis-core 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.10.0...@microfleet/plugin-redis-core@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-redis-sentinel 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.10.0...@microfleet/plugin-redis-sentinel@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-router-amqp 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.7.0...@microfleet/plugin-router-amqp@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-router-hapi 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.7.0...@microfleet/plugin-router-hapi@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-router-socketio 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.7.0...@microfleet/plugin-router-socketio@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-router 0.10.0
+
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.8.0...@microfleet/plugin-router@0.10.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-socketio 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.7.0...@microfleet/plugin-socketio@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/plugin-validator 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.10.0...@microfleet/plugin-validator@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
+# @microfleet/utils 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.10.0...@microfleet/utils@0.12.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+
 # @microfleet/core-types 0.10.0
 
 # [0.10.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.9.3...@microfleet/core-types@0.10.0) (2022-03-24)

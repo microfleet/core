@@ -1,6 +1,16 @@
 
 
-# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.6.3...@microfleet/plugin-router-socketio@0.8.0) (2022-03-24)
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.7.0...@microfleet/plugin-router-socketio@0.10.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.7.0...@microfleet/plugin-router-socketio@0.9.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.6.3...@microfleet/plugin-router-socketio@0.8.0) (2022-03-24)
 
 
 ### Features

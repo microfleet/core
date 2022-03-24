@@ -1,6 +1,16 @@
 
 
-# [1.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.3...@microfleet/plugin-kafka-types@1.12.0) (2022-03-24)
+# [1.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.11.0...@microfleet/plugin-kafka-types@1.14.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [1.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.11.0...@microfleet/plugin-kafka-types@1.13.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [1.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.10.3...@microfleet/plugin-kafka-types@1.12.0) (2022-03-24)
 
 
 ### Features

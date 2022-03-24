@@ -1,6 +1,16 @@
 
 
-# [0.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.3...@microfleet/plugin-cassandra@0.16.0) (2022-03-24)
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.15.0...@microfleet/plugin-cassandra@0.18.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.15.0...@microfleet/plugin-cassandra@0.17.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [0.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.14.3...@microfleet/plugin-cassandra@0.16.0) (2022-03-24)
 
 
 ### Features

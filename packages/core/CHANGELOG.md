@@ -1,6 +1,16 @@
 
 
-# [17.17.0](https://github.com/microfleet/core/compare/@microfleet/core@17.15.3...@microfleet/core@17.17.0) (2022-03-24)
+# [17.19.0](https://github.com/microfleet/core/compare/@microfleet/core@17.16.0...@microfleet/core@17.19.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [17.18.0](https://github.com/microfleet/core/compare/@microfleet/core@17.16.0...@microfleet/core@17.18.0) (2022-03-24)
+
+
+### Features
+
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))# [17.17.0](https://github.com/microfleet/core/compare/@microfleet/core@17.15.3...@microfleet/core@17.17.0) (2022-03-24)
 
 
 ### Features
