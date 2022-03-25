@@ -1,6 +1,16 @@
 
 
-# [2.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.12.0...@microfleet/plugin-couchdb@2.15.0) (2022-03-24)
+## [2.15.2](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.14.0...@microfleet/plugin-couchdb@2.15.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))## [2.15.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.14.0...@microfleet/plugin-couchdb@2.15.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))# [2.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.12.0...@microfleet/plugin-couchdb@2.15.0) (2022-03-24)
 
 
 ### Features

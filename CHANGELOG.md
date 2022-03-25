@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.12.0...@microfleet/core-types@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/core 17.19.1
+
+## [17.19.1](https://github.com/microfleet/core/compare/@microfleet/core@17.18.0...@microfleet/core@17.19.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-amqp 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.9.0...@microfleet/plugin-amqp@0.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-aws-elasticsearch 1.13.1
+
+## [1.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.12.0...@microfleet/plugin-aws-elasticsearch@1.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-cassandra 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.17.0...@microfleet/plugin-cassandra@0.18.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-consul 2.15.1
+
+## [2.15.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.14.0...@microfleet/plugin-consul@2.15.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-couchdb 2.15.1
+
+## [2.15.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.14.0...@microfleet/plugin-couchdb@2.15.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-dlock 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.9.0...@microfleet/plugin-dlock@0.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-elasticsearch 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.12.0...@microfleet/plugin-elasticsearch@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-hapi 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.9.0...@microfleet/plugin-hapi@0.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-kafka-types 1.14.1
+
+## [1.14.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.13.0...@microfleet/plugin-kafka-types@1.14.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-kafka 2.19.1
+
+## [2.19.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.18.0...@microfleet/plugin-kafka@2.19.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-knex 2.16.1
+
+## [2.16.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.15.0...@microfleet/plugin-knex@2.16.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-logger 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.17.0...@microfleet/plugin-logger@0.18.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-opentracing 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.12.0...@microfleet/plugin-opentracing@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-prometheus 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.12.0...@microfleet/plugin-prometheus@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-redis-cluster 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.12.0...@microfleet/plugin-redis-cluster@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-redis-core 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.12.0...@microfleet/plugin-redis-core@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-redis-sentinel 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.12.0...@microfleet/plugin-redis-sentinel@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-router-amqp 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.9.0...@microfleet/plugin-router-amqp@0.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-router-hapi 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.9.0...@microfleet/plugin-router-hapi@0.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-router-socketio 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.9.0...@microfleet/plugin-router-socketio@0.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-router 0.11.1
+
+## [0.11.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.10.0...@microfleet/plugin-router@0.11.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-socketio 0.10.1
+
+## [0.10.1](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.9.0...@microfleet/plugin-socketio@0.10.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/plugin-validator 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.12.0...@microfleet/plugin-validator@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
+# @microfleet/utils 0.13.1
+
+## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/utils@0.12.0...@microfleet/utils@0.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+
 # @microfleet/core-types 0.12.0
 
 # [0.12.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.10.0...@microfleet/core-types@0.12.0) (2022-03-24)

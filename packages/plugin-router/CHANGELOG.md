@@ -1,6 +1,16 @@
 
 
-# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.8.0...@microfleet/plugin-router@0.11.0) (2022-03-24)
+## [0.11.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.10.0...@microfleet/plugin-router@0.11.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))## [0.11.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.10.0...@microfleet/plugin-router@0.11.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.8.0...@microfleet/plugin-router@0.11.0) (2022-03-24)
 
 
 ### Features

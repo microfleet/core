@@ -1,6 +1,16 @@
 
 
-# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.15.0...@microfleet/plugin-cassandra@0.18.0) (2022-03-24)
+## [0.18.2](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.17.0...@microfleet/plugin-cassandra@0.18.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.17.0...@microfleet/plugin-cassandra@0.18.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.15.0...@microfleet/plugin-cassandra@0.18.0) (2022-03-24)
 
 
 ### Features

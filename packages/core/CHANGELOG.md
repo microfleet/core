@@ -1,6 +1,16 @@
 
 
-# [17.19.0](https://github.com/microfleet/core/compare/@microfleet/core@17.16.0...@microfleet/core@17.19.0) (2022-03-24)
+## [17.19.2](https://github.com/microfleet/core/compare/@microfleet/core@17.18.0...@microfleet/core@17.19.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))## [17.19.1](https://github.com/microfleet/core/compare/@microfleet/core@17.18.0...@microfleet/core@17.19.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))# [17.19.0](https://github.com/microfleet/core/compare/@microfleet/core@17.16.0...@microfleet/core@17.19.0) (2022-03-24)
 
 
 ### Features

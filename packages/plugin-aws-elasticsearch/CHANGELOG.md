@@ -1,6 +1,16 @@
 
 
-# [1.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.10.0...@microfleet/plugin-aws-elasticsearch@1.13.0) (2022-03-24)
+## [1.13.2](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.12.0...@microfleet/plugin-aws-elasticsearch@1.13.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))## [1.13.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.12.0...@microfleet/plugin-aws-elasticsearch@1.13.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))# [1.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.10.0...@microfleet/plugin-aws-elasticsearch@1.13.0) (2022-03-24)
 
 
 ### Features

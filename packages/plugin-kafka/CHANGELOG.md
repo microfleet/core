@@ -1,6 +1,16 @@
 
 
-# [2.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.16.0...@microfleet/plugin-kafka@2.19.0) (2022-03-24)
+## [2.19.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.18.0...@microfleet/plugin-kafka@2.19.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))## [2.19.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.18.0...@microfleet/plugin-kafka@2.19.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))# [2.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.16.0...@microfleet/plugin-kafka@2.19.0) (2022-03-24)
 
 
 ### Features

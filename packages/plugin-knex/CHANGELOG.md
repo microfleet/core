@@ -1,6 +1,16 @@
 
 
-# [2.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.13.0...@microfleet/plugin-knex@2.16.0) (2022-03-24)
+## [2.16.2](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.15.0...@microfleet/plugin-knex@2.16.2) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))## [2.16.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.15.0...@microfleet/plugin-knex@2.16.1) (2022-03-25)
+
+
+### Bug Fixes
+
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))# [2.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.13.0...@microfleet/plugin-knex@2.16.0) (2022-03-24)
 
 
 ### Features
