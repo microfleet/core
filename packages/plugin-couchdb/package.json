@@ -40,7 +40,7 @@
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
-    "nano": "^9.0.5"
+    "nano": "^10.0.0"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
@@ -52,7 +52,7 @@
     "@types/bluebird-retry": "^0.11.5",
     "@types/common-errors": "^1.0.2",
     "@types/jest": "27.4.1",
-    "@types/node": "^17.0.22",
+    "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "common-errors": "^1.2.0",
@@ -67,7 +67,7 @@
     "sinon": "^13.0.1",
     "ts-essentials": "^9.1.2",
     "tsconfig-paths": "^3.14.1",
-    "typescript": "~4.6.2"
+    "typescript": "~4.6.3"
   },
   "engines": {
     "node": ">= 12.14.0",

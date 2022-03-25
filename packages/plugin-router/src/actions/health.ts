@@ -21,6 +21,7 @@ export default async function genericHealthCheck(this: Microfleet, request: Serv
       }
 
       default:
+        this.log.error({ data }, 'health check failed')
         throw kUnhealthy
     }
   }
