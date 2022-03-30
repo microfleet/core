@@ -1,6 +1,16 @@
 
 
-## [1.13.2](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.12.0...@microfleet/plugin-aws-elasticsearch@1.13.2) (2022-03-25)
+# [1.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.13.1...@microfleet/plugin-aws-elasticsearch@1.15.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))# [1.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.13.1...@microfleet/plugin-aws-elasticsearch@1.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))## [1.13.2](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.12.0...@microfleet/plugin-aws-elasticsearch@1.13.2) (2022-03-25)
 
 
 ### Bug Fixes

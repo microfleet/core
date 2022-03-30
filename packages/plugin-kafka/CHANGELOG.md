@@ -1,6 +1,16 @@
 
 
-## [2.19.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.18.0...@microfleet/plugin-kafka@2.19.2) (2022-03-25)
+# [2.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.19.1...@microfleet/plugin-kafka@2.21.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))# [2.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.19.1...@microfleet/plugin-kafka@2.20.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))## [2.19.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.18.0...@microfleet/plugin-kafka@2.19.2) (2022-03-25)
 
 
 ### Bug Fixes

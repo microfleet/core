@@ -1,6 +1,16 @@
 
 
-## [17.19.2](https://github.com/microfleet/core/compare/@microfleet/core@17.18.0...@microfleet/core@17.19.2) (2022-03-25)
+# [17.21.0](https://github.com/microfleet/core/compare/@microfleet/core@17.19.1...@microfleet/core@17.21.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))# [17.20.0](https://github.com/microfleet/core/compare/@microfleet/core@17.19.1...@microfleet/core@17.20.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))## [17.19.2](https://github.com/microfleet/core/compare/@microfleet/core@17.18.0...@microfleet/core@17.19.2) (2022-03-25)
 
 
 ### Bug Fixes

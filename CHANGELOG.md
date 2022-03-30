@@ -1,3 +1,237 @@
+# @microfleet/core-types 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.13.1...@microfleet/core-types@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/core 17.20.0
+
+# [17.20.0](https://github.com/microfleet/core/compare/@microfleet/core@17.19.1...@microfleet/core@17.20.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-amqp 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.10.1...@microfleet/plugin-amqp@0.11.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-aws-elasticsearch 1.14.0
+
+# [1.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.13.1...@microfleet/plugin-aws-elasticsearch@1.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-cassandra 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.18.1...@microfleet/plugin-cassandra@0.19.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-consul 2.16.0
+
+# [2.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.15.1...@microfleet/plugin-consul@2.16.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-couchdb 2.16.0
+
+# [2.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.15.1...@microfleet/plugin-couchdb@2.16.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-dlock 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.10.1...@microfleet/plugin-dlock@0.11.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-elasticsearch 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.13.1...@microfleet/plugin-elasticsearch@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-hapi 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.10.1...@microfleet/plugin-hapi@0.11.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-kafka-types 1.15.0
+
+# [1.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.14.1...@microfleet/plugin-kafka-types@1.15.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-kafka 2.20.0
+
+# [2.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.19.1...@microfleet/plugin-kafka@2.20.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-knex 2.17.0
+
+# [2.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.16.1...@microfleet/plugin-knex@2.17.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-logger 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.18.1...@microfleet/plugin-logger@0.19.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-opentracing 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.13.1...@microfleet/plugin-opentracing@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-prometheus 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.13.1...@microfleet/plugin-prometheus@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-redis-cluster 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.13.1...@microfleet/plugin-redis-cluster@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-redis-core 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.13.1...@microfleet/plugin-redis-core@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-redis-sentinel 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.13.1...@microfleet/plugin-redis-sentinel@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-router-amqp 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.10.1...@microfleet/plugin-router-amqp@0.11.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-router-hapi 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.10.1...@microfleet/plugin-router-hapi@0.11.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-router-socketio 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.10.1...@microfleet/plugin-router-socketio@0.11.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-router 0.12.0
+
+# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.11.1...@microfleet/plugin-router@0.12.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-socketio 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.10.1...@microfleet/plugin-socketio@0.11.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/plugin-validator 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.13.1...@microfleet/plugin-validator@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
+# @microfleet/utils 0.14.0
+
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.13.1...@microfleet/utils@0.14.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+
 # @microfleet/core-types 0.13.1
 
 ## [0.13.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.12.0...@microfleet/core-types@0.13.1) (2022-03-25)

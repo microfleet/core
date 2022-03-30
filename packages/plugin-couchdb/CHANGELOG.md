@@ -1,6 +1,16 @@
 
 
-## [2.15.2](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.14.0...@microfleet/plugin-couchdb@2.15.2) (2022-03-25)
+# [2.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.15.1...@microfleet/plugin-couchdb@2.17.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))# [2.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.15.1...@microfleet/plugin-couchdb@2.16.0) (2022-03-30)
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))## [2.15.2](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.14.0...@microfleet/plugin-couchdb@2.15.2) (2022-03-25)
 
 
 ### Bug Fixes
