@@ -86,6 +86,12 @@
             }]
           }
         },
+        "disabled": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
         "responseValidation": {
           "description": "Response validation",
           "type": "object",

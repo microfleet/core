@@ -123,17 +123,28 @@ export class Router {
     const { routes, config } = this
     let name: string = route
 
-    if (config !== undefined && config.enabled !== undefined && Object.keys(config.enabled).length > 0) {
-      const updatedConfig = config.enabled[route]
-      if (updatedConfig === undefined) {
-        return
+
+
+    if (config !== undefined) {
+      if (config.disabled !== undefined && Object.keys(config.disabled).length > 0) {
+        const disabledRoute = config.disabled[route]
+        if (disabledRoute === route) {
+          return
+        }
       }
 
-      if (typeof updatedConfig === 'string') {
-        name = updatedConfig
-      } else {
-        if (updatedConfig.config) Object.assign(handler, updatedConfig.config)
-        if (updatedConfig.name) name = updatedConfig.name
+      if (config.enabled !== undefined && Object.keys(config.enabled).length > 0) {
+        const updatedConfig = config.enabled[route]
+        if (updatedConfig === undefined) {
+          return
+        }
+
+        if (typeof updatedConfig === 'string') {
+          name = updatedConfig
+        } else {
+          if (updatedConfig.config) Object.assign(handler, updatedConfig.config)
+          if (updatedConfig.name) name = updatedConfig.name
+        }
       }
     }
 
