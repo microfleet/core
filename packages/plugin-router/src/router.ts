@@ -123,6 +123,11 @@ export class Router {
     const { routes, config } = this
     let name: string = route
 
+    const disabledRoute = config?.disabled?.[route]
+    if (disabledRoute === route) {
+      return
+    }
+
     if (config !== undefined && config.enabled !== undefined && Object.keys(config.enabled).length > 0) {
       const updatedConfig = config.enabled[route]
       if (updatedConfig === undefined) {
