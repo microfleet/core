@@ -9,12 +9,13 @@ declare module '../../types/router' {
     passAuthError?: boolean
   }
 }
+export interface AuthInfo {
+  credentials: unknown
+}
 
 declare module '../../types/router' {
   interface ServiceRequest {
-    auth?: {
-      credentials: unknown
-    } | null
+    auth?: AuthInfo | null
   }
 }
 
@@ -100,7 +101,10 @@ export default (config: AuthConfig) => async function authHandler(
 
   try {
     // @todo make it deprecated, change request.auth inside
-    request.auth = { credentials: await authConfig.strategy.call(this, request) }
+    const credentials = await authConfig.strategy.call(this, request)
+    if (credentials) {
+      request.auth = { credentials }
+    }
   } catch (error: any) {
     // @todo const 'try'
     if (authConfig.authStrategy === 'try') {
