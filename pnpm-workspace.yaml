@@ -25,3 +25,4 @@ packages:
   - ./packages/plugin-socketio
   - ./packages/plugin-validator
   - ./packages/utils
+  - ./packages/plugin-casl
