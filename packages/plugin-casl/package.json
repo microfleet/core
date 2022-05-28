@@ -1,0 +1,82 @@
+{
+  "name": "@microfleet/plugin-casl",
+  "description": "casl rbac/pbac plugin for microfleet",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint './src/**/*.ts'",
+    "test": "mdep test run",
+    "clean": "rimraf ./lib *.tsbuildinfo",
+    "build": "tsc -b ./tsconfig.build.json"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "casl",
+    "rbac",
+    "pbac"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git",
+    "directory": "packages/plugin-casl"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "peerDependencies": {
+    "@microfleet/core": "workspace:^",
+    "common-errors": "~1.x.x"
+  },
+  "dependencies": {
+    "@casl/ability": "^5.4.3",
+    "@microfleet/core-types": "workspace:^",
+    "@microfleet/utils": "workspace:^",
+    "semver": "^7.3.5"
+  },
+  "devDependencies": {
+    "@makeomatic/deploy": "^12.6.3",
+    "@microfleet/core": "workspace:^",
+    "@microfleet/plugin-router": "workspace:^",
+    "@microfleet/plugin-validator": "workspace:^",
+    "@release-it/conventional-changelog": "^4.2.2",
+    "@swc-node/jest": "^1.4.3",
+    "@swc-node/register": "^1.4.2",
+    "@types/common-errors": "^1.0.2",
+    "@types/jest": "27.4.1",
+    "@types/node": "^17.0.23",
+    "@types/request-promise": "^4.1.48",
+    "@types/semver": "^7.3.9",
+    "@types/sinon": "^10.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "common-errors": "^1.2.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.11.0",
+    "eslint-config-makeomatic": "^5.1.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-unicorn": "^41.0.1",
+    "jest": "^27.5.1",
+    "release-it": "^14.13.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "rimraf": "^3.0.2",
+    "sinon": "^13.0.1",
+    "ts-essentials": "^9.1.2",
+    "tsconfig-paths": "^3.14.1",
+    "typescript": "~4.6.3"
+  },
+  "engines": {
+    "node": ">= 12.15.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}
