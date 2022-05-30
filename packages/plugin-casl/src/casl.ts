@@ -1,11 +1,10 @@
 import { Microfleet } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
-import { PluginTypes } from '@microfleet/utils'
+import { defaultsDeep, PluginTypes } from '@microfleet/utils'
 
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-router'
-import type * as ___ from '@microfleet/plugin-router/src/lifecycle/handlers/auth'
-import type * as ____ from './overrides'
+import type * as ___ from './overrides'
 
 import { Rbac } from './rbac'
 import { canExtension } from './allowed-extension'
@@ -26,7 +25,6 @@ export const type = PluginTypes.transport
  */
 export const priority = 15
 
-
 /**
  * Attaches plugin to the MService class.
  */
@@ -35,7 +33,8 @@ export function attach(this: Microfleet): PluginInterface {
     this.router.lifecycle.addHook(canExtension)
   }
 
-  this.rbac = new Rbac()
+  const config = defaultsDeep(this.config.rbac, {})
+  this.rbac = new Rbac(config)
 
   return {}
 }

@@ -10,9 +10,9 @@ export const canExtension: LifecycleExtension = {
 
     if (action.rbacScope && auth?.scopes) {
       const { subject, action: subjectAction } = action.rbacScope
-      const ability = this.rbac.getAbility(auth?.scopes)
+      const ability = this.rbac.createAbility(auth?.scopes)
 
-      if (!this.rbac.isActionPossible(ability, subjectAction, subject)) {
+      if (!this.rbac.can(ability, subjectAction, subject)) {
         throw new NotPermittedError(`cannot execute action '${subjectAction}' on '${subject}'`)
       }
     }

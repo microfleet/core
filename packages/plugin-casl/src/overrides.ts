@@ -1,18 +1,22 @@
-import { Rbac, RuleDefinition } from './rbac'
+import { Rbac, RbacConfig, RuleDefinition } from './rbac'
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
     rbac: Rbac
   }
-}
 
-declare module '@microfleet/plugin-router' {
-  interface AuthInfo {
-    scopes?: RuleDefinition
+  interface ConfigurationOptional {
+    rbac: RbacConfig
   }
 }
 
 declare module '@microfleet/plugin-router' {
+  // Extend credentials
+  interface AuthInfo {
+    scopes?: RuleDefinition
+  }
+
+  // Service action plugin config
   interface ServiceAction {
     rbacScope?: {
       subject: string,

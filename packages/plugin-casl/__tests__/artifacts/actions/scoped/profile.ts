@@ -3,6 +3,7 @@ import { ServiceRequest, ServiceAction, ActionTransport } from '@microfleet/plug
 const actionWithRbac: Partial<ServiceAction> = async function actionWithRbac(request: ServiceRequest): Promise<any> {
   return {
     response: 'success',
+    scope: 'app:profile',
     token: request.params.token,
     user: request.auth,
   }
@@ -14,7 +15,7 @@ actionWithRbac.transports = [
 actionWithRbac.auth = 'token'
 actionWithRbac.rbacScope = {
   action: 'read',
-  subject: 'my-subject'
+  subject: 'app:profile'
 }
 
 export default actionWithRbac
