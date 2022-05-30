@@ -19,3 +19,5 @@ export {
   ServiceActionAuthGetName,
   TransportOptions,
 } from './types/router'
+
+export { AuthInfo } from './lifecycle/handlers/auth'

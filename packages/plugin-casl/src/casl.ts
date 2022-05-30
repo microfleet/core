@@ -5,30 +5,11 @@ import { PluginTypes } from '@microfleet/utils'
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-router'
 import type * as ___ from '@microfleet/plugin-router/src/lifecycle/handlers/auth'
+import type * as ____ from './overrides'
 
-import { Rbac, RuleDefinition } from './casl-wrapper'
+import { Rbac } from './rbac'
 import { canExtension } from './allowed-extension'
 
-declare module '@microfleet/core-types' {
-  interface Microfleet {
-    rbac: Rbac
-  }
-}
-
-declare module '@microfleet/plugin-router/src/lifecycle/handlers/auth' {
-  interface AuthInfo {
-    scopes?: RuleDefinition
-  }
-}
-
-declare module '@microfleet/plugin-router' {
-  interface ServiceAction {
-    rbacScope?: {
-      subject: string,
-      action: string,
-    }
-  }
-}
 
 /**
  * Plugin Name
