@@ -1,4 +1,4 @@
-import { Rbac, RbacConfig, RuleDefinition } from './rbac'
+import { Rbac, RbacConfig, RuleDefinition, ActionRbac } from './rbac'
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
@@ -23,9 +23,6 @@ declare module '@microfleet/plugin-router' {
   // Service action plugin config
   interface ServiceAction {
     /** RBAC/PBAC specific configuration */
-    rbac?: {
-      subject: string,
-      action: string,
-    }
+    rbac?: ActionRbac
   }
 }

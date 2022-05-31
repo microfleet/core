@@ -11,6 +11,11 @@ import { defaultsDeep } from '@microfleet/utils'
 
 export type RuleDefinition = SubjectRawRule<string, ExtractSubjectType<Subject>, MongoQuery<unknown>>[] | undefined
 
+export type ActionRbac = {
+  subject: string,
+  action: string,
+}
+
 export type RbacConfig = {
   /** Specify whether `createAbility` should memoize result or not. Default: enabled */
   cache?: {
