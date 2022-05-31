@@ -8,8 +8,8 @@ export const canExtension: LifecycleExtension = {
   async handler(this: Microfleet, request: ServiceRequest): Promise<void> {
     const { action, auth } = request
 
-    if (action.rbacScope && auth?.scopes) {
-      const { subject, action: subjectAction } = action.rbacScope
+    if (action.rbac && auth?.scopes) {
+      const { subject, action: subjectAction } = action.rbac
       const ability = this.rbac.createAbility(auth?.scopes)
 
       if (!this.rbac.can(ability, subjectAction, subject)) {

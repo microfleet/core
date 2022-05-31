@@ -12,7 +12,7 @@ actionWithRbac.transports = [
   ActionTransport.internal
 ]
 actionWithRbac.auth = 'token'
-actionWithRbac.rbacScope = {
+actionWithRbac.rbac = {
   action: 'read',
   subject: 'my-subject'
 }

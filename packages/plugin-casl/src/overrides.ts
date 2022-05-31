@@ -23,7 +23,7 @@ declare module '@microfleet/plugin-router' {
   // Service action plugin config
   interface ServiceAction {
     /** RBAC/PBAC specific configuration */
-    rbacScope?: {
+    rbac?: {
       subject: string,
       action: string,
     }
