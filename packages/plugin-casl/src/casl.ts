@@ -1,6 +1,6 @@
 import { Microfleet } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
-import { defaultsDeep, PluginTypes } from '@microfleet/utils'
+import { PluginTypes } from '@microfleet/utils'
 
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-router'
@@ -9,6 +9,7 @@ import type * as ___ from './overrides'
 import { Rbac } from './rbac'
 import { canExtension } from './allowed-extension'
 
+export * from './rbac'
 
 /**
  * Plugin Name
@@ -33,8 +34,9 @@ export function attach(this: Microfleet): PluginInterface {
     this.router.lifecycle.addHook(canExtension)
   }
 
-  const config = defaultsDeep(this.config.rbac, {})
-  this.rbac = new Rbac(config)
+  const { rbac } = this.config
+
+  this.rbac = new Rbac(rbac)
 
   return {}
 }
