@@ -323,6 +323,7 @@ importers:
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.1
       jest: ^27.5.1
+      mem: ^8.0.0
       release-it: ^14.13.1
       request: ^2.88.2
       request-promise: ^4.2.6
@@ -336,6 +337,7 @@ importers:
       '@casl/ability': 5.4.3
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
+      mem: 8.1.1
       semver: 7.3.5
     devDependencies:
       '@makeomatic/deploy': 12.6.3
@@ -9459,6 +9461,13 @@ packages:
       tmpl: 1.0.5
     dev: true
 
+  /map-age-cleaner/0.1.3:
+    resolution: {integrity: sha512-bJzx6nMoP6PDLPBFmg7+xRKeFZvFboMrGlxmNj9ClvX53KrmvM5bXFXEWjbz4cz1AFn+jWJ9z/DJSz7hrs0w3w==}
+    engines: {node: '>=6'}
+    dependencies:
+      p-defer: 1.0.0
+    dev: false
+
   /map-cache/0.2.2:
     resolution: {integrity: sha1-wyq9C9ZSXZsFFkW7TyasXcmKDb8=}
     engines: {node: '>=0.10.0'}
@@ -9510,6 +9519,14 @@ packages:
     resolution: {integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=}
     engines: {node: '>= 0.6'}
     dev: true
+
+  /mem/8.1.1:
+    resolution: {integrity: sha512-qFCFUDs7U3b8mBDPyz5EToEKoAkgCzqquIgi9nkkR9bixxOVOre+09lbuH7+9Kn2NFpm56M3GUWVbU2hQgdACA==}
+    engines: {node: '>=10'}
+    dependencies:
+      map-age-cleaner: 0.1.3
+      mimic-fn: 3.1.0
+    dev: false
 
   /meow/8.1.2:
     resolution: {integrity: sha512-r85E3NdZ+mpYk1C6RjPFEMSE+s1iZMuHtsHAqY0DT3jZczl0diWUZ8g6oU7h0M9cD2EL+PzaYghhCLzR0ZNn5Q==}
@@ -9611,6 +9628,11 @@ packages:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
     engines: {node: '>=6'}
     dev: true
+
+  /mimic-fn/3.1.0:
+    resolution: {integrity: sha512-Ysbi9uYW9hFyfrThdDEQuykN4Ey6BuwPD2kpI5ES/nFTDn/98yxYNLZJcgUAKPT/mcrLLKaGzJR9YVxJrIdASQ==}
+    engines: {node: '>=8'}
+    dev: false
 
   /mimic-response/1.0.1:
     resolution: {integrity: sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==}
@@ -10262,6 +10284,11 @@ packages:
     resolution: {integrity: sha512-BZOr3nRQHOntUjTrH8+Lh54smKHoHyur8We1V8DSMVrl5A2malOOwuJRnKRDjSnkoeBh4at6BwEnb5I7Jl31wg==}
     engines: {node: '>=8'}
     dev: true
+
+  /p-defer/1.0.0:
+    resolution: {integrity: sha1-n26xgvbJqozXQwBKfU+WsZaw+ww=}
+    engines: {node: '>=4'}
+    dev: false
 
   /p-each-series/2.2.0:
     resolution: {integrity: sha512-ycIL2+1V32th+8scbpTvyHNaHe02z0sjgh91XXjAk+ZeXoPN4Z46DVUnzdso0aX4KckKw0FNNFHdjZ2UsZvxiA==}
