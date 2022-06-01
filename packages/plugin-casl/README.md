@@ -42,7 +42,7 @@ exports.rbac = {
 
 ## Usage
 
-The `plugin-casl` extends `Microfleet` base type with `rbac` property which provides access to the `Rbac` class instance. This class includes extended support for scoped subjects in form of `['user:profile', 'admin:users']` and define abilities with top-level scopes:
+The `plugin-casl` extends the `Microfleet` base type with `RBAC` property which provides access to the `Rbac` class instance. This class includes extended support for scoped subjects like `['user:profile', 'admin:users']` and defines abilities with top-level scopes:
 
 ```ts
 const scopes = [
@@ -62,9 +62,9 @@ const scopes = [
 
 ### Service action
 
-Plugin extends `ServiceAction` inteface with `rbac` property with the `ActionRbac` type. This property allows to specify action level policy check.
+Plugin extends `ServiceAction` interface with `rbac` property with the `ActionRbac` type. This property allows specifying action level policy checks.
 
-The `plugin-casl` adds own handler on `Router.preAllowed` hook and relies on extended `req.auth` property with the `AuthInfo` type. This property should be set by one of the `auth` strategies.
+The `plugin-casl` adds its handler on the `Router.preAllowed` hook and relies on the extended `req.auth` property with the `AuthInfo` type. This property should provide one of the `auth` strategies.
 
 #### Example
 
@@ -107,7 +107,7 @@ export default actionWithRbac
 
 ### Direct usage
 
-It is possible to create custom policy checks using `Microfleet.rbac` property:
+It is possible to create custom policy checks using the `Microfleet.rbac` property:
 
 #### Predefined abilities
 ```ts
