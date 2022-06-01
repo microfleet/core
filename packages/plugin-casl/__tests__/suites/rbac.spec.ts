@@ -33,7 +33,7 @@ describe('#Casl RBAC plugin', () => {
           },
         },
       },
-      rbac: {
+      casl: {
         anyAction: 'x-manage',
         anySubjectType: 'x-all',
         actions: {

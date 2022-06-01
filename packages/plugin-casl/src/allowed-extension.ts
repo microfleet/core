@@ -3,7 +3,7 @@ import { NotPermittedError } from 'common-errors'
 import { Microfleet } from '@microfleet/core-types'
 import { Lifecycle, LifecycleExtension, ServiceRequest } from '@microfleet/plugin-router'
 
-export const canExtension: LifecycleExtension = {
+export const rbacExtension: LifecycleExtension = {
   point: Lifecycle.hooks.preAllowed,
   async handler(this: Microfleet, request: ServiceRequest): Promise<void> {
     const { action, auth } = request

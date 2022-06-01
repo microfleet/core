@@ -1,3 +1,6 @@
+import type * as _ from '@microfleet/plugin-validator'
+import type * as __ from '@microfleet/plugin-router'
+
 import { Rbac, RbacConfig, RuleDefinition, ActionRbac } from './rbac'
 
 declare module '@microfleet/core-types' {
@@ -6,7 +9,7 @@ declare module '@microfleet/core-types' {
   }
 
   interface ConfigurationOptional {
-    rbac: RbacConfig
+    casl: RbacConfig
   }
 }
 

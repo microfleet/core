@@ -1,20 +1,22 @@
+import { NotFoundError } from 'common-errors'
+import { resolve } from 'path'
+import { strict as assert } from 'assert'
+
 import { Microfleet } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 
-import type * as _ from '@microfleet/plugin-validator'
-import type * as __ from '@microfleet/plugin-router'
-import type * as ___ from './overrides'
+import type * as _ from './overrides'
 
-import { Rbac } from './rbac'
-import { canExtension } from './allowed-extension'
+import { Rbac, RbacConfig } from './rbac'
+import { rbacExtension } from './allowed-extension'
 
 export * from './rbac'
 
 /**
  * Plugin Name
  */
-export const name = 'casl-rbac'
+export const name = 'casl'
 
 /**
  * Plugin Type
@@ -29,14 +31,17 @@ export const priority = 15
 /**
  * Attaches plugin to the MService class.
  */
-export function attach(this: Microfleet): PluginInterface {
+export function attach(this: Microfleet, opts: Partial<RbacConfig> = {}): PluginInterface {
+  assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
+  this.validator.addLocation(resolve(__dirname, '../schemas'))
+
+  const config = this.validator.ifError<RbacConfig>(name, opts)
+
   if (this.hasPlugin('router')) {
-    this.router.lifecycle.addHook(canExtension)
+    this.router.lifecycle.addHook(rbacExtension)
   }
 
-  const { rbac } = this.config
-
-  this.rbac = new Rbac(rbac)
+  this.rbac = new Rbac(config)
 
   return {}
 }
