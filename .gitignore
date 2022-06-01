@@ -51,3 +51,5 @@ common/autoinstallers/*/.npmrc
 .heft
 *.tgz
 .pnpm-store
+
+.DS_Store
