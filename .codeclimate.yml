@@ -19,3 +19,4 @@ exclude_patterns:
   - "**/vendor/"
   - "**/*_test.go"
   - "**/*.d.ts"
+  - "**/jest.config.js"
