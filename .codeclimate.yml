@@ -7,16 +7,16 @@ exclude_patterns:
   - db/
   - dist/
   - features/
-  - **/node_modules/
+  - "**/node_modules/"
   - script/
-  - **/spec/
-  - **/test/
-  - **/tests/
-  - **/__tests__/
-  - **/*.spec.ts
-  - **/*.spec.js
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "**/__tests__/"
+  - "**/*.spec.ts"
+  - "**/*.spec.js"
   - Tests/
-  - **/vendor/
-  - **/*_test.go
-  - **/*.d.ts
-  
+  - "**/vendor/"
+  - "**/*_test.go"
+  - "**/*.d.ts"
+
