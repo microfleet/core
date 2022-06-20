@@ -77,7 +77,7 @@ export class Router {
   public readonly routes: Routes
   public readonly requestCountTracker: RequestCountTracker
 
-  protected readonly lifecycle: Lifecycle
+  public readonly lifecycle: Lifecycle
   protected readonly log: Logger
   protected readonly prefix?: string
   protected readonly tracer?: Tracer
@@ -122,7 +122,6 @@ export class Router {
   public addRoute(route: string, handler: ServiceAction): void {
     const { routes, config } = this
     let name: string = route
-
 
 
     if (config !== undefined) {

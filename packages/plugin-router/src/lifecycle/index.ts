@@ -102,15 +102,20 @@ export class Lifecycle {
     }
 
     for (const extension of extensions) {
-      for (const { point, handler } of extension) {
-        const hooks = this.hooks.get(point)
-
-        if (hooks !== undefined) {
-          hooks.add(handler)
-        } else {
-          throw new Error('Unknown hook name')
-        }
+      for (const ext of extension) {
+        this.addHook(ext)
       }
+    }
+  }
+
+  public addHook(extension: LifecycleExtension): void {
+    const { point, handler } = extension
+    const hooks = this.hooks.get(point)
+
+    if (hooks !== undefined) {
+      hooks.add(handler)
+    } else {
+      throw new Error('Unknown hook name')
     }
   }
 

@@ -63,7 +63,7 @@ blocks:
                    "plugin-knex", "plugin-logger", "plugin-opentracing", "plugin-prometheus",
                    "plugin-redis-cluster", "plugin-redis-core", "plugin-redis-sentinel",
                    "plugin-router", "plugin-router-amqp", "plugin-router-hapi",
-                   "plugin-router-socketio", "plugin-socketio", "plugin-validator", "utils"]
+                   "plugin-router-socketio", "plugin-socketio", "plugin-validator", "plugin-casl", "utils"]
 
   - name: release
     dependencies: ["tests"]

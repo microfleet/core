@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "casl",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "cache": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "object" },
+        "maxAge": { "type": "number", "minimum": 1 }
+      }
+    },
+    "abilities": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/scopes"
+      }
+    },
+    "actions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" },
+        "minItems": 1
+      }
+    },
+    "anyAction": { "type": "string", "minLength": 1 },
+    "anySubjectType": { "type": "string", "minLength": 1},
+    "detectSubjectType": { "description": "Function that detects subject type (obj) => string" }
+  },
+  "definitions": {
+    "scopes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "PBAC/RBAC scopes list. See https://casl.js.org/v5/en/guide/define-rules",
+        "required": ["action"],
+        "properties": {
+          "action": { "type": "string" },
+          "subject": { "type": "string" },
+          "conditions": { "type": "object" },
+          "inverted": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

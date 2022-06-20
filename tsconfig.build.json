@@ -24,6 +24,8 @@
   }, {
     "path": "./packages/plugin-dlock/tsconfig.build.json"
   }, {
+    "path": "./packages/plugin-casl/tsconfig.build.json"
+  },{
     "path": "./packages/plugin-hapi/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-kafka/tsconfig.build.json"
