@@ -53,7 +53,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       eventemitter3: ^4.0.7
       jest: ^27.5.1
       release-it: ^14.13.1
@@ -89,8 +89,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -117,7 +117,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       eventemitter3: ^4.0.7
       jest: ^27.5.1
       release-it: ^14.13.1
@@ -144,8 +144,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -179,7 +179,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       release-it: ^14.13.1
       rimraf: ^3.0.2
@@ -211,8 +211,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -250,7 +250,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       release-it: ^14.13.1
       rimraf: ^3.0.2
@@ -286,8 +286,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -321,7 +321,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       mem: ^8.0.0
       release-it: ^14.13.1
@@ -359,8 +359,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       request: 2.88.2
@@ -396,7 +396,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       express-cassandra: ^2.8.0
       jest: ^27.5.1
       release-it: ^14.13.1
@@ -431,8 +431,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rfdc: 1.3.0
@@ -467,7 +467,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       nock: ^13.2.4
       release-it: ^14.13.1
@@ -500,8 +500,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       nock: 13.2.4
       release-it: 14.13.1
@@ -536,7 +536,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       nano: ^10.0.0
       release-it: ^14.13.1
@@ -570,8 +570,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -609,7 +609,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       ioredis: ^4.28.5
       jest: ^27.5.1
       release-it: ^14.13.1
@@ -647,8 +647,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -682,7 +682,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       release-it: ^14.13.1
       rimraf: ^3.0.2
@@ -714,8 +714,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -748,7 +748,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       joi: ^17.6.0
       release-it: ^14.13.1
@@ -782,8 +782,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -823,7 +823,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       execa: ^5.1.1
       jest: ^27.5.1
       lodash: ^4.17.21
@@ -868,8 +868,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       execa: 5.1.1
       jest: 27.5.1
       release-it: 14.13.1
@@ -894,7 +894,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       release-it: ^14.13.1
       rimraf: ^3.0.2
@@ -915,8 +915,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -950,7 +950,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       knex: ^1.0.4
       pg: ^8.7.3
@@ -986,8 +986,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -1023,7 +1023,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       fastify: ^3.27.4
       jest: ^27.5.1
       lodash.merge: ^4.6.2
@@ -1073,8 +1073,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       fastify: 3.27.4
       jest: 27.5.1
       mocha: 9.2.2
@@ -1109,7 +1109,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jaeger-client: ^3.19.0
       jest: ^27.5.1
       release-it: ^14.13.1
@@ -1140,8 +1140,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -1173,7 +1173,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       prom-client: ^14.0.1
       release-it: ^14.13.1
@@ -1209,8 +1209,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       request: 2.88.2
@@ -1247,7 +1247,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       ioredis: ^4.28.5
       jest: ^27.5.1
       opentracing-js-ioredis: ^2.1.2
@@ -1286,8 +1286,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -1318,7 +1318,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       glob: ^7.2.0
       ioredis: ^4.28.5
       jest: ^27.5.1
@@ -1352,8 +1352,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       ioredis: 4.28.5
       jest: 27.5.1
       release-it: 14.13.1
@@ -1389,7 +1389,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       ioredis: ^4.28.5
       jest: ^27.5.1
       opentracing-js-ioredis: ^2.1.2
@@ -1425,8 +1425,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       ioredis: 4.28.5
       jest: 27.5.1
       release-it: 14.13.1
@@ -1469,7 +1469,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       execa: ^5.1.1
       get-port: ^5.1.1
       glob: ^7.2.0
@@ -1528,8 +1528,8 @@ importers:
       debug: 4.3.4
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       execa: 5.1.1
       get-port: 5.1.1
       jest: 27.5.1
@@ -1572,7 +1572,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       lodash: ^4.17.21
       release-it: ^14.13.1
@@ -1608,8 +1608,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -1650,7 +1650,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       get-value: ^3.0.1
       handlebars: ^4.7.7
       jest: ^27.5.1
@@ -1698,8 +1698,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       handlebars: 4.7.7
       jest: 27.5.1
       release-it: 14.13.1
@@ -1730,7 +1730,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       lodash: ^4.17.21
       release-it: ^14.13.1
@@ -1761,8 +1761,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -1796,7 +1796,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       ms-socket.io-adapter-amqp: ^9.0.1
       release-it: ^14.13.1
@@ -1831,8 +1831,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -1864,7 +1864,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       lodash: ^4.17.21
       release-it: ^14.13.1
@@ -1897,8 +1897,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -1922,7 +1922,7 @@ importers:
       eslint: ^8.11.0
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
+      eslint-plugin-unicorn: ^42.0.0
       jest: ^27.5.1
       lodash: ^4.17.21
       read-pkg-up: 7.0.1
@@ -1947,8 +1947,8 @@ importers:
       cross-env: 7.0.3
       eslint: 8.11.0
       eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      eslint-plugin-import: 2.25.4_c1eb4084354ab3cb47f19ef6879d6379
+      eslint-plugin-unicorn: 42.0.0_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
       rimraf: 3.0.2
@@ -2126,6 +2126,8 @@ packages:
     resolution: {integrity: sha512-VKXSCQx5D8S04ej+Dqsr1CzYvvWgf20jIw2D+YhQCrIlr2UZGaDds23Y0xg75/skOxpLCRpUZvk/1EAVkGoDOw==}
     engines: {node: '>=6.0.0'}
     hasBin: true
+    dependencies:
+      '@babel/types': 7.17.0
     dev: true
 
   /@babel/plugin-syntax-async-generators/7.8.4_@babel+core@7.17.2:
@@ -5069,6 +5071,8 @@ packages:
       qs: 6.9.6
       raw-body: 2.4.2
       type-is: 1.6.18
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /boolbase/1.0.0:
@@ -5113,6 +5117,8 @@ packages:
       snapdragon-node: 2.1.1
       split-string: 3.1.0
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /braces/3.0.2:
@@ -5428,6 +5434,8 @@ packages:
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.3.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /chrome-remote-interface/0.31.2:
@@ -6000,11 +6008,21 @@ packages:
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.0.0
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.1.3
 
@@ -6484,7 +6502,7 @@ packages:
     dev: true
 
   /escape-string-regexp/1.0.5:
-    resolution: {integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=}
+    resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
 
   /escape-string-regexp/2.0.0:
@@ -6519,7 +6537,7 @@ packages:
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 8.6.0
-      eslint-plugin-import: 2.25.4_eslint@8.6.0
+      eslint-plugin-import: 2.25.4_93494aa0b690ed6dbeba8f901e1c88e4
       object.assign: 4.1.2
       object.entries: 1.1.5
       semver: 6.3.0
@@ -6532,10 +6550,12 @@ packages:
       '@typescript-eslint/parser': 5.16.0_eslint@8.6.0+typescript@4.6.3
       eslint: 8.6.0
       eslint-config-airbnb-base: 15.0.0_b5a36b8c1535387c8dd00eff7ec6b551
-      eslint-plugin-import: 2.25.4_eslint@8.6.0
+      eslint-plugin-import: 2.25.4_93494aa0b690ed6dbeba8f901e1c88e4
       eslint-plugin-promise: 6.0.0_eslint@8.6.0
       eslint-plugin-unicorn: 40.1.0_eslint@8.6.0
     transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
       - supports-color
       - typescript
     dev: true
@@ -6545,51 +6565,54 @@ packages:
     dependencies:
       debug: 3.2.7
       resolve: 1.22.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
-  /eslint-module-utils/2.7.3:
+  /eslint-module-utils/2.7.3_0a6e6d239684b262fb8a858a8d2e5c6e:
     resolution: {integrity: sha512-088JEC7O3lDZM9xGe0RerkOMd0EjFl+Yvd1jPWIkMT5u3H9+HC34mWWPnqPrN13gieT9pBOO+Qt07Nb/6TresQ==}
     engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
     dependencies:
+      '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
       debug: 3.2.7
-      find-up: 2.1.0
-    dev: true
-
-  /eslint-plugin-import/2.25.4_eslint@8.11.0:
-    resolution: {integrity: sha512-/KJBASVFxpu0xg1kIBn9AUa8hQVnszpwgE7Ld0lKAlx7Ie87yzEzCgSkekt+le/YVhiaosO4Y14GDAOc41nfxA==}
-    engines: {node: '>=4'}
-    peerDependencies:
-      eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-    dependencies:
-      array-includes: 3.1.4
-      array.prototype.flat: 1.2.5
-      debug: 2.6.9
-      doctrine: 2.1.0
-      eslint: 8.11.0
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.3
-      has: 1.0.3
-      is-core-module: 2.8.1
-      is-glob: 4.0.3
-      minimatch: 3.1.2
-      object.values: 1.1.5
-      resolve: 1.22.0
-      tsconfig-paths: 3.14.1
+      find-up: 2.1.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
-  /eslint-plugin-import/2.25.4_eslint@8.6.0:
+  /eslint-plugin-import/2.25.4_93494aa0b690ed6dbeba8f901e1c88e4:
     resolution: {integrity: sha512-/KJBASVFxpu0xg1kIBn9AUa8hQVnszpwgE7Ld0lKAlx7Ie87yzEzCgSkekt+le/YVhiaosO4Y14GDAOc41nfxA==}
     engines: {node: '>=4'}
     peerDependencies:
+      '@typescript-eslint/parser': '*'
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
     dependencies:
+      '@typescript-eslint/parser': 5.16.0_eslint@8.6.0+typescript@4.6.3
       array-includes: 3.1.4
       array.prototype.flat: 1.2.5
       debug: 2.6.9
       doctrine: 2.1.0
       eslint: 8.6.0
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.3
+      eslint-module-utils: 2.7.3_0a6e6d239684b262fb8a858a8d2e5c6e
       has: 1.0.3
       is-core-module: 2.8.1
       is-glob: 4.0.3
@@ -6597,6 +6620,41 @@ packages:
       object.values: 1.1.5
       resolve: 1.22.0
       tsconfig-paths: 3.14.1
+    transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
+  /eslint-plugin-import/2.25.4_c1eb4084354ab3cb47f19ef6879d6379:
+    resolution: {integrity: sha512-/KJBASVFxpu0xg1kIBn9AUa8hQVnszpwgE7Ld0lKAlx7Ie87yzEzCgSkekt+le/YVhiaosO4Y14GDAOc41nfxA==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
+      array-includes: 3.1.4
+      array.prototype.flat: 1.2.5
+      debug: 2.6.9
+      doctrine: 2.1.0
+      eslint: 8.11.0
+      eslint-import-resolver-node: 0.3.6
+      eslint-module-utils: 2.7.3_0a6e6d239684b262fb8a858a8d2e5c6e
+      has: 1.0.3
+      is-core-module: 2.8.1
+      is-glob: 4.0.3
+      minimatch: 3.1.2
+      object.values: 1.1.5
+      resolve: 1.22.0
+      tsconfig-paths: 3.14.1
+    transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
     dev: true
 
   /eslint-plugin-promise/6.0.0_eslint@8.6.0:
@@ -6631,8 +6689,8 @@ packages:
       strip-indent: 3.0.0
     dev: true
 
-  /eslint-plugin-unicorn/41.0.1_eslint@8.11.0:
-    resolution: {integrity: sha512-gF5vo2dIj0YdNMQ/IMegiBkQdQ22GBFFVpdkJP+0og3w7XD4ypea0xQVRv6iofkLVR2w0phAdikcnU01ybd4Ow==}
+  /eslint-plugin-unicorn/42.0.0_eslint@8.11.0:
+    resolution: {integrity: sha512-ixBsbhgWuxVaNlPTT8AyfJMlhyC5flCJFjyK3oKE8TRrwBnaHvUbuIkCM1lqg8ryYrFStL/T557zfKzX4GKSlg==}
     engines: {node: '>=12'}
     peerDependencies:
       eslint: '>=8.8.0'
@@ -6832,7 +6890,7 @@ packages:
     dev: true
 
   /estraverse/1.9.3:
-    resolution: {integrity: sha1-r2fy3JIlgkFZUJJgkaQAXSnJu0Q=}
+    resolution: {integrity: sha512-25w1fMXQrGdoquWnScXZGckOv+Wes+JDnuN/+7ex3SauFRS72r2lFDec0EKPt2YD1wUJ/IrfEex+9yp4hfSOJA==}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -6910,6 +6968,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /expect/27.5.1:
@@ -6940,6 +7000,8 @@ packages:
       readdirp: 2.2.1
       readline-sync: 1.4.10
       semver: 5.7.1
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /express/4.17.2:
@@ -6976,6 +7038,8 @@ packages:
       type-is: 1.6.18
       utils-merge: 1.0.1
       vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /extend-shallow/2.0.1:
@@ -7018,6 +7082,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /extsprintf/1.3.0:
@@ -7202,6 +7268,8 @@ packages:
       parseurl: 1.3.3
       statuses: 1.5.0
       unpipe: 1.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /find-my-way/4.5.1:
@@ -7215,7 +7283,7 @@ packages:
     dev: true
 
   /find-up/2.1.0:
-    resolution: {integrity: sha1-RdG35QbHF93UgndaK3eSCjwMV6c=}
+    resolution: {integrity: sha512-NWzkk0jSJtTt08+FBFMvXoeZnOJD+jTtsRmBYbAIzJdX6l7dLgR7CTubCM5/eDdPUBvLCeVasP1brfVR/9/EZQ==}
     engines: {node: '>=4'}
     dependencies:
       locate-path: 2.0.0
@@ -7652,6 +7720,8 @@ packages:
     dependencies:
       '@sindresorhus/is': 0.14.0
       '@szmarczak/http-timer': 1.1.2
+      '@types/keyv': 3.1.4
+      '@types/responselike': 1.0.0
       cacheable-request: 6.1.0
       decompress-response: 3.3.0
       duplexer3: 0.1.4
@@ -7712,7 +7782,7 @@ packages:
     dev: true
 
   /has-flag/3.0.0:
-    resolution: {integrity: sha1-tdRU3CGZriJWmfNGfloH87lVuv0=}
+    resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
 
   /has-flag/4.0.0:
@@ -8109,7 +8179,7 @@ packages:
     dev: false
 
   /is-arrayish/0.2.1:
-    resolution: {integrity: sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0=}
+    resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
 
   /is-bigint/1.0.4:
     resolution: {integrity: sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==}
@@ -9299,6 +9369,8 @@ packages:
     dependencies:
       debug: 2.6.9
       marky: 1.2.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /lines-and-columns/1.2.4:
@@ -9315,7 +9387,7 @@ packages:
     dev: true
 
   /locate-path/2.0.0:
-    resolution: {integrity: sha1-K1aLJl7slExtnA3pw9u7ygNUzY4=}
+    resolution: {integrity: sha512-NCI2kiDkyR7VeEKm27Kda/iQHyKJe1Bu0FlTbYp3CqJu+9IFe9bLyAjMxf5ZDDbEg+iMPzB5zYyUTSm8wVTKmA==}
     engines: {node: '>=4'}
     dependencies:
       p-locate: 2.0.0
@@ -9580,6 +9652,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /micromatch/4.0.4:
@@ -9841,6 +9915,8 @@ packages:
       regex-not: 1.0.2
       snapdragon: 0.8.2
       to-regex: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /natural-compare/1.4.0:
@@ -10328,7 +10404,7 @@ packages:
     dev: true
 
   /p-locate/2.0.0:
-    resolution: {integrity: sha1-IKAQOyIqcMj9OcwuWAaA893l7EM=}
+    resolution: {integrity: sha512-nQja7m7gSKuewoVRen45CtVfODR3crN3goVQ0DDZ9N3yHxgpkuBhZqsaiotSQRrADUrne346peY7kT3TSACykg==}
     engines: {node: '>=4'}
     dependencies:
       p-limit: 1.3.0
@@ -10372,7 +10448,7 @@ packages:
     dev: true
 
   /p-try/1.0.0:
-    resolution: {integrity: sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=}
+    resolution: {integrity: sha512-U1etNYuMJoIz3ZXSrrySFjsXQTWOx2/jdi86L+2pRvph/qMKL6sbcCYdH23fqsbm8TH2Gn0OybpT4eSFlCVHww==}
     engines: {node: '>=4'}
     dev: true
 
@@ -10406,7 +10482,7 @@ packages:
     dev: true
 
   /parse-json/4.0.0:
-    resolution: {integrity: sha1-vjX1Qlvh9/bHRxhPmKeIy5lHfuA=}
+    resolution: {integrity: sha512-aOIos8bujGN93/8Ox/jPLh7RwVnPEysynVFE+fQZyg6jKELEHwzgKdLRFHUgXJL6kylijVSBC4BvN9OmsB48Rw==}
     engines: {node: '>=4'}
     dependencies:
       error-ex: 1.3.2
@@ -10469,7 +10545,7 @@ packages:
     dev: false
 
   /path-exists/3.0.0:
-    resolution: {integrity: sha1-zg6+ql94yxiSXqfYENe1mwEP1RU=}
+    resolution: {integrity: sha512-bpC7GYwiDYQ4wYLe+FA8lhRjhQCMcQGuSgGGqDkg/QerRWw9CmGRT0iSOVRSZJ29NMLZgIzqaljJ63oaL4NIJQ==}
     engines: {node: '>=4'}
     dev: true
 
@@ -10950,7 +11026,7 @@ packages:
     dev: true
 
   /read-pkg-up/3.0.0:
-    resolution: {integrity: sha1-PtSWaF26D4/hGNBpHcUfSh/5bwc=}
+    resolution: {integrity: sha512-YFzFrVvpC6frF1sz8psoHDBGF7fLPc+llq/8NB43oagqWkx8ar5zYtsTORtOjw9W2RHLpWP+zTWwBvf1bCmcSw==}
     engines: {node: '>=4'}
     dependencies:
       find-up: 2.1.0
@@ -10966,7 +11042,7 @@ packages:
       type-fest: 0.8.1
 
   /read-pkg/3.0.0:
-    resolution: {integrity: sha1-nLxoaXj+5l0WwA4rGcI3/Pbjg4k=}
+    resolution: {integrity: sha512-BLq/cCO9two+lBgiTYNqD6GdtK8s4NpaWrl6/rCO9w0TUS8oJl7cmToOZfRYllKTISY6nt1U7jQ53brmKqY6BA==}
     engines: {node: '>=4'}
     dependencies:
       load-json-file: 4.0.0
@@ -11009,6 +11085,8 @@ packages:
       graceful-fs: 4.2.9
       micromatch: 3.1.10
       readable-stream: 2.3.7
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /readdirp/3.6.0:
@@ -11085,6 +11163,8 @@ packages:
     resolution: {integrity: sha512-2Xyn/0Qgz89VT+++WP0sTosdm9oeowLP23wRJYhG4BFdMUrLj3jhwHZNEytYNYgtPKLNTP3KJX4HEgBvM1/Y2g==}
     dependencies:
       debug: 3.2.7
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /regenerator-runtime/0.10.5:
@@ -11495,6 +11575,8 @@ packages:
       on-finished: 2.3.0
       range-parser: 1.2.1
       statuses: 1.5.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /sentry-testkit/3.3.7:
@@ -11502,6 +11584,8 @@ packages:
     dependencies:
       body-parser: 1.19.1
       express: 4.17.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /serialize-error/8.1.0:
@@ -11524,6 +11608,8 @@ packages:
       escape-html: 1.0.3
       parseurl: 1.3.3
       send: 0.17.2
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /set-blocking/2.0.0:
@@ -11637,6 +11723,8 @@ packages:
       source-map: 0.5.7
       source-map-resolve: 0.5.3
       use: 3.1.1
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /socket.io-adapter/2.3.3:
