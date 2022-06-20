@@ -1,6 +1,16 @@
 
 
-# [17.21.0](https://github.com/microfleet/core/compare/@microfleet/core@17.19.1...@microfleet/core@17.21.0) (2022-03-30)
+# [17.23.0](https://github.com/microfleet/core/compare/@microfleet/core@17.20.0...@microfleet/core@17.23.0) (2022-06-20)
+
+
+### Features
+
+* casl RBAC plugin ([#617](https://github.com/microfleet/core/issues/617)) ([5e8a2bd](https://github.com/microfleet/core/commit/5e8a2bd703050c06c85f1846af6362e610c7e38f))# [17.22.0](https://github.com/microfleet/core/compare/@microfleet/core@17.20.0...@microfleet/core@17.22.0) (2022-06-20)
+
+
+### Features
+
+* casl RBAC plugin ([#617](https://github.com/microfleet/core/issues/617)) ([5e8a2bd](https://github.com/microfleet/core/commit/5e8a2bd703050c06c85f1846af6362e610c7e38f))# [17.21.0](https://github.com/microfleet/core/compare/@microfleet/core@17.19.1...@microfleet/core@17.21.0) (2022-03-30)
 
 
 ### Features

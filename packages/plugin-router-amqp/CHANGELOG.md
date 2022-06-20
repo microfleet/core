@@ -1,6 +1,16 @@
 
 
-# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.10.1...@microfleet/plugin-router-amqp@0.12.0) (2022-03-30)
+# [0.14.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.11.0...@microfleet/plugin-router-amqp@0.14.0) (2022-06-20)
+
+
+### Features
+
+* casl RBAC plugin ([#617](https://github.com/microfleet/core/issues/617)) ([5e8a2bd](https://github.com/microfleet/core/commit/5e8a2bd703050c06c85f1846af6362e610c7e38f))# [0.13.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.11.0...@microfleet/plugin-router-amqp@0.13.0) (2022-06-20)
+
+
+### Features
+
+* casl RBAC plugin ([#617](https://github.com/microfleet/core/issues/617)) ([5e8a2bd](https://github.com/microfleet/core/commit/5e8a2bd703050c06c85f1846af6362e610c7e38f))# [0.12.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.10.1...@microfleet/plugin-router-amqp@0.12.0) (2022-03-30)
 
 
 ### Features

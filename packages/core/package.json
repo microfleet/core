@@ -3,7 +3,7 @@
   "description": "Abstract microservice core",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "17.21.0",
+  "version": "17.23.0",
   "scripts": {
     "lint": "eslint ./src",
     "clean": "rimraf ./lib *.tsbuildinfo",

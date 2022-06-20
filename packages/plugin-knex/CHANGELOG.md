@@ -1,6 +1,16 @@
 
 
-# [2.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.16.1...@microfleet/plugin-knex@2.18.0) (2022-03-30)
+# [2.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.17.0...@microfleet/plugin-knex@2.20.0) (2022-06-20)
+
+
+### Features
+
+* casl RBAC plugin ([#617](https://github.com/microfleet/core/issues/617)) ([5e8a2bd](https://github.com/microfleet/core/commit/5e8a2bd703050c06c85f1846af6362e610c7e38f))# [2.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.17.0...@microfleet/plugin-knex@2.19.0) (2022-06-20)
+
+
+### Features
+
+* casl RBAC plugin ([#617](https://github.com/microfleet/core/issues/617)) ([5e8a2bd](https://github.com/microfleet/core/commit/5e8a2bd703050c06c85f1846af6362e610c7e38f))# [2.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.16.1...@microfleet/plugin-knex@2.18.0) (2022-03-30)
 
 
 ### Features
