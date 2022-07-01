@@ -107,6 +107,14 @@
 		{
 			"name": "📦 @microfleet/utils",
 			"path": "packages/utils"
+		},
+    {
+			"name": "📦 @microfleet/plugin-casl",
+			"path": "packages/plugin-casl"
+		},
+    {
+			"name": "📦 @microfleet/plugin-http-signature",
+			"path": "packages/plugin-casl"
 		}
 	],
 	"settings": {}
