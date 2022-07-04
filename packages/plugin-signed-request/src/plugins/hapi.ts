@@ -1,6 +1,7 @@
-import type { Server } from '@microfleet/plugin-hapi'
-import { boomify } from '@hapi/boom'
+import type * as _ from '../types'
+import type { Server } from '@hapi/hapi'
 
+import { boomify } from '@hapi/boom'
 import { SignedRequest, CredentialsStore, Config } from '../signed-request'
 
 export const HapiSignedRequestPlugin = (store: CredentialsStore, config: Config) => ({

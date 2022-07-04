@@ -1,3 +1,4 @@
+import type * as _ from '../types'
 import type { Request, Response, Next } from 'restify'
 
 import { SignedRequest, Config, CredentialsStore } from '../signed-request'
