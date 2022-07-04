@@ -49,3 +49,15 @@ declare module '@microfleet/plugin-router' {
   }
 }
 
+declare module '@hapi/hapi' {
+  export interface PluginsStates {
+    signedRequest?: SignedRequest,
+  }
+}
+
+declare module 'restify' {
+  export interface Request {
+    signedRequest?: SignedRequest,
+  }
+}
+

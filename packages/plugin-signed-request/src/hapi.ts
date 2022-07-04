@@ -3,12 +3,6 @@ import { boomify } from '@hapi/boom'
 
 import { SignedRequest, CredentialsStore, Config } from './signed-request'
 
-declare module '@hapi/hapi' {
-  export interface PluginsStates {
-    signedRequest?: SignedRequest,
-  }
-}
-
 export const HapiSignedRequestPlugin = (store: CredentialsStore, config: Config) => ({
   name: 'hapi-signed-request',
   register(server: Server) {
