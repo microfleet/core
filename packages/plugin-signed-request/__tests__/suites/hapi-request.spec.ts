@@ -48,7 +48,7 @@ const defaultConfig = {
     'router',
     'hapi',
     'router-hapi',
-    'http-signed-request',
+    'signed-request',
   ],
   validator: {
     schemas: [resolve(__dirname, '../artifacts/schemas')]
