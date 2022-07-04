@@ -19,7 +19,6 @@ export function attach(
   assert(this.hasPlugin('validator'), 'validator plugin must be included')
   assert(this.hasPlugin('routerHapi'), 'router-hapi plugin must be included')
 
-
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const config = this.validator.ifError<Config>('http-signed-request', options)
