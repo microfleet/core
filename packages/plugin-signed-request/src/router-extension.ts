@@ -7,7 +7,7 @@ export const extendServiceRequest: LifecycleExtension = {
     if (request.transport === ActionTransport.http) {
       const { transportRequest } = request
       if (transportRequest?.plugins?.signedRequest) {
-        request.signedRequest = transportRequest.plugins.signedRequest
+        request.signature = transportRequest.plugins.signedRequest
       }
     }
   },

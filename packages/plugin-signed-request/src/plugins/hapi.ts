@@ -1,7 +1,7 @@
 import type { Server } from '@microfleet/plugin-hapi'
 import { boomify } from '@hapi/boom'
 
-import { SignedRequest, CredentialsStore, Config } from './signed-request'
+import { SignedRequest, CredentialsStore, Config } from '../signed-request'
 
 export const HapiSignedRequestPlugin = (store: CredentialsStore, config: Config) => ({
   name: 'hapi-signed-request',
@@ -9,13 +9,13 @@ export const HapiSignedRequestPlugin = (store: CredentialsStore, config: Config)
     server.ext('onRequest', async (request, h) => {
       if (SignedRequest.isSignedRequest(request.headers)) {
         try {
-          const signedRequest = request.plugins.signedRequest = new SignedRequest(config, store)
-          await signedRequest.initialize(request.raw.req)
+          const signature = request.plugins.signature = new SignedRequest(config, store)
+          await signature.initialize(request.raw.req)
 
-          signedRequest.verifyHeaders()
+          signature.verifyHeaders()
 
           request.events.on('peek', (chunk) => {
-            signedRequest.appendPayload(chunk)
+            signature.appendPayload(chunk)
           })
 
         } catch (e: any) {
@@ -27,9 +27,9 @@ export const HapiSignedRequestPlugin = (store: CredentialsStore, config: Config)
     })
 
     server.ext('onPreHandler', (request, h) => {
-      if (request.plugins.signedRequest) {
+      if (request.plugins.signature) {
         try {
-          request.plugins.signedRequest.verifyPayload()
+          request.plugins.signature.verifyPayload()
         } catch (e: any) {
           throw boomify(e, { statusCode: e.statusCode })
         }

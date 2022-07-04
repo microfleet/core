@@ -45,19 +45,19 @@ declare module '@microfleet/core-types' {
 
 declare module '@microfleet/plugin-router' {
   interface ServiceRequest {
-    signedRequest?: SignedRequest
+    signature?: SignedRequest
   }
 }
 
 declare module '@hapi/hapi' {
   export interface PluginsStates {
-    signedRequest?: SignedRequest,
+    signature?: SignedRequest,
   }
 }
 
 declare module 'restify' {
   export interface Request {
-    signedRequest?: SignedRequest,
+    signature?: SignedRequest,
   }
 }
 

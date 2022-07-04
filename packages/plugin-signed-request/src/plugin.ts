@@ -5,7 +5,7 @@ import { strict as assert } from 'assert'
 import { Microfleet, PluginTypes } from '@microfleet/core'
 import { Config } from './types'
 import { resolve } from 'path'
-import { HapiSignedRequestPlugin } from './hapi'
+import { HapiSignedRequestPlugin } from './plugins/hapi'
 import { extendServiceRequest } from './router-extension'
 
 export const name = 'httpSignedRequest'

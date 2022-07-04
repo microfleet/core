@@ -4,7 +4,7 @@ const action: Partial<ServiceAction> = async function action(request: ServiceReq
   return {
     response: 'success',
     params: request.params,
-    credentials: await request.signedRequest?.getCredentials()
+    credentials: await request.signature?.getCredentials()
   }
 }
 

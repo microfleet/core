@@ -43,8 +43,8 @@ const defaultConfig = {
       strategies: {
         'token-or-signed': async function strategy(this: Microfleet, req: ServiceRequest) {
           if (SignedRequest.isSignedRequest(req.headers)) {
-            assert.ok(req.signedRequest, 'signature information should be available')
-            assert.deepStrictEqual(await req.signedRequest.getCredentials(), { userId: 'id', extra: 'true' })
+            assert.ok(req.signature, 'signature information should be available')
+            assert.deepStrictEqual(await req.signature.getCredentials(), { userId: 'id', extra: 'true' })
           }
         },
       },
@@ -314,7 +314,7 @@ describe('restify plugin', () => {
       res.send({
         response: 'success',
         params: req.body,
-        credentials: await req.signedRequest?.getCredentials()
+        credentials: await req.signature?.getCredentials()
       })
 
       setImmediate(next, false)

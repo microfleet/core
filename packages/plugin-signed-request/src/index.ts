@@ -1,4 +1,4 @@
 export * from './signed-request'
 export * from './plugin'
-export * from './restify'
-export * from './hapi'
+export * from './plugins/restify'
+export * from './plugins/hapi'
