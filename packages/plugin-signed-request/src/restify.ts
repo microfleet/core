@@ -25,7 +25,7 @@ export const RestifySignedRequestPlugin = (store: CredentialsStore, config: Conf
 
       return setImmediate(next)
     } catch(error) {
-      setImmediate(next, error)
+      return setImmediate(next, error)
     }
   }
 }
