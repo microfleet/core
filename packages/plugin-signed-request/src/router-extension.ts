@@ -6,8 +6,8 @@ export const extendServiceRequest: LifecycleExtension = {
   async handler(this: Microfleet, request: ServiceRequest): Promise<void> {
     if (request.transport === ActionTransport.http) {
       const { transportRequest } = request
-      if (transportRequest?.plugins?.signedRequest) {
-        request.signature = transportRequest.plugins.signedRequest
+      if (transportRequest?.plugins?.signature) {
+        request.signature = transportRequest.plugins.signature
       }
     }
   },

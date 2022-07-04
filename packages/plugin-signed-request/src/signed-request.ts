@@ -104,6 +104,6 @@ export class SignedRequest {
 
     const [auth] = authHeader.trim().split(/\s+/, 2).map((str) => str.trim())
 
-    return auth.startsWith('Signature')
+    return auth.toLowerCase().startsWith('signature')
   }
 }
