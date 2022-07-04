@@ -796,85 +796,6 @@ importers:
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
 
-  packages/plugin-signed-request:
-    specifiers:
-      '@hapi/boom': ^9.1.4
-      '@makeomatic/deploy': ^12.6.3
-      '@microfleet/core': workspace:^
-      '@microfleet/core-types': workspace:^
-      '@microfleet/plugin-hapi': workspace:^
-      '@microfleet/plugin-router': workspace:^
-      '@microfleet/plugin-validator': workspace:^
-      '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
-      '@swc-node/jest': ^1.4.3
-      '@swc-node/register': ^1.4.2
-      '@types/common-errors': ^1.0.2
-      '@types/hapi__hapi': 20.0.10
-      '@types/jest': 27.4.1
-      '@types/node': ^17.0.23
-      '@types/request-promise': ^4.1.48
-      '@types/restify': ^8.5.4
-      '@types/semver': ^7.3.9
-      '@types/sinon': ^10.0.11
-      '@typescript-eslint/eslint-plugin': ^5.16.0
-      '@typescript-eslint/parser': ^5.16.0
-      common-errors: ^1.2.0
-      cross-env: ^7.0.3
-      eslint: ^8.11.0
-      eslint-config-makeomatic: ^5.1.0
-      eslint-plugin-import: ^2.25.4
-      eslint-plugin-unicorn: ^41.0.1
-      http-signature: ^1.3.6
-      jest: ^27.5.1
-      release-it: ^14.13.1
-      request: ^2.88.2
-      request-promise: ^4.2.6
-      rimraf: ^3.0.2
-      sinon: ^13.0.1
-      ts-essentials: ^9.1.2
-      tsconfig-paths: ^3.14.1
-      typescript: ~4.6.3
-    dependencies:
-      '@hapi/boom': 9.1.4
-      '@microfleet/core-types': link:../core-types
-      '@microfleet/utils': link:../utils
-      '@types/hapi__hapi': 20.0.10
-      http-signature: 1.3.6
-    devDependencies:
-      '@makeomatic/deploy': 12.6.3
-      '@microfleet/core': link:../core
-      '@microfleet/plugin-hapi': link:../plugin-hapi
-      '@microfleet/plugin-router': link:../plugin-router
-      '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.2.2_release-it@14.13.1
-      '@swc-node/jest': 1.4.3
-      '@swc-node/register': 1.4.2
-      '@types/common-errors': 1.0.2
-      '@types/jest': 27.4.1
-      '@types/node': 17.0.23
-      '@types/request-promise': 4.1.48
-      '@types/restify': 8.5.4
-      '@types/semver': 7.3.9
-      '@types/sinon': 10.0.11
-      '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
-      '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
-      common-errors: 1.2.0
-      cross-env: 7.0.3
-      eslint: 8.11.0
-      eslint-config-makeomatic: 5.1.0_typescript@4.6.3
-      eslint-plugin-import: 2.25.4_eslint@8.11.0
-      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
-      jest: 27.5.1
-      release-it: 14.13.1
-      request: 2.88.2
-      request-promise: 4.2.6_request@2.88.2
-      rimraf: 3.0.2
-      sinon: 13.0.1
-      ts-essentials: 9.1.2_typescript@4.6.3
-      tsconfig-paths: 3.14.1
-      typescript: 4.6.3
-
   packages/plugin-kafka:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
@@ -1850,6 +1771,85 @@ importers:
       rimraf: 3.0.2
       sinon: 13.0.1
       socket.io-client: 4.4.1
+      ts-essentials: 9.1.2_typescript@4.6.3
+      tsconfig-paths: 3.14.1
+      typescript: 4.6.3
+
+  packages/plugin-signed-request:
+    specifiers:
+      '@hapi/boom': ^9.1.4
+      '@makeomatic/deploy': ^12.6.3
+      '@microfleet/core': workspace:^
+      '@microfleet/core-types': workspace:^
+      '@microfleet/plugin-hapi': workspace:^
+      '@microfleet/plugin-router': workspace:^
+      '@microfleet/plugin-validator': workspace:^
+      '@microfleet/utils': workspace:^
+      '@release-it/conventional-changelog': ^4.2.2
+      '@swc-node/jest': ^1.4.3
+      '@swc-node/register': ^1.4.2
+      '@types/common-errors': ^1.0.2
+      '@types/hapi__hapi': 20.0.10
+      '@types/jest': 27.4.1
+      '@types/node': ^17.0.23
+      '@types/request-promise': ^4.1.48
+      '@types/restify': ^8.5.4
+      '@types/semver': ^7.3.9
+      '@types/sinon': ^10.0.11
+      '@typescript-eslint/eslint-plugin': ^5.16.0
+      '@typescript-eslint/parser': ^5.16.0
+      common-errors: ^1.2.0
+      cross-env: ^7.0.3
+      eslint: ^8.11.0
+      eslint-config-makeomatic: ^5.1.0
+      eslint-plugin-import: ^2.25.4
+      eslint-plugin-unicorn: ^41.0.1
+      http-signature: ^1.3.6
+      jest: ^27.5.1
+      release-it: ^14.13.1
+      request: ^2.88.2
+      request-promise: ^4.2.6
+      rimraf: ^3.0.2
+      sinon: ^13.0.1
+      ts-essentials: ^9.1.2
+      tsconfig-paths: ^3.14.1
+      typescript: ~4.6.3
+    dependencies:
+      '@hapi/boom': 9.1.4
+      '@microfleet/core-types': link:../core-types
+      '@microfleet/utils': link:../utils
+      '@types/hapi__hapi': 20.0.10
+      http-signature: 1.3.6
+    devDependencies:
+      '@makeomatic/deploy': 12.6.3
+      '@microfleet/core': link:../core
+      '@microfleet/plugin-hapi': link:../plugin-hapi
+      '@microfleet/plugin-router': link:../plugin-router
+      '@microfleet/plugin-validator': link:../plugin-validator
+      '@release-it/conventional-changelog': 4.2.2_release-it@14.13.1
+      '@swc-node/jest': 1.4.3
+      '@swc-node/register': 1.4.2
+      '@types/common-errors': 1.0.2
+      '@types/jest': 27.4.1
+      '@types/node': 17.0.23
+      '@types/request-promise': 4.1.48
+      '@types/restify': 8.5.4
+      '@types/semver': 7.3.9
+      '@types/sinon': 10.0.11
+      '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
+      '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
+      common-errors: 1.2.0
+      cross-env: 7.0.3
+      eslint: 8.11.0
+      eslint-config-makeomatic: 5.1.0_typescript@4.6.3
+      eslint-plugin-import: 2.25.4_eslint@8.11.0
+      eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
+      jest: 27.5.1
+      release-it: 14.13.1
+      request: 2.88.2
+      request-promise: 4.2.6_request@2.88.2
+      rimraf: 3.0.2
+      sinon: 13.0.1
       ts-essentials: 9.1.2_typescript@4.6.3
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
