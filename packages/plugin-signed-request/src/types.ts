@@ -13,7 +13,7 @@ export type Config = {
 
 export interface CredentialsStore {
   getKey(key: string): Promise<KeyLike>
-  getCredentials<RT extends Record<string, any> = any>(key: string): Promise<RT>
+  getCredentials<RT extends Record<string, any> = any>(key: string, ...args: any[]): Promise<RT>
 }
 
 export type RequestInfo = {

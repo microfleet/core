@@ -89,10 +89,10 @@ export class SignedRequest {
     this.req.payloadSignature.update(chunk)
   }
 
-  async getCredentials() {
+  async getCredentials(...args: any[]) {
     assertRequestInitialized(this.req)
 
-    return this.credStore.getCredentials(this.req.parsedSignature.keyId)
+    return this.credStore.getCredentials(this.req.parsedSignature.keyId, ...args)
   }
 
   static isSignedRequest(headers: IncomingMessage['headers']) {
