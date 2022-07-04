@@ -7,8 +7,8 @@ import type * as __ from '@microfleet/plugin-router'
 import { SignedRequest } from './signed-request'
 
 export type Config = {
-  headers: string[];
-  clockSkew: number;
+  headers?: string[];
+  clockSkew?: number;
 }
 
 export interface CredentialsStore {
@@ -26,9 +26,11 @@ export type RequestInfo = {
 }
 
 export function assertRequestInitialized(req?: RequestInfo): asserts req is RequestInfo {
-  if (!req) throw new AssertionError({
-    message: 'req should be initialized'
-  })
+  if (!req) {
+    throw new AssertionError({
+      message: 'req should be initialized'
+    })
+  }
 }
 
 declare module '@microfleet/core-types' {

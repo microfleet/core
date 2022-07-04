@@ -7,7 +7,7 @@ import { Config, CredentialsStore, assertRequestInitialized, RequestInfo } from 
 
 const authorizationHeader = 'authorization'
 
-export { CredentialsStore, Config }
+export type { CredentialsStore, Config }
 
 export class SignedRequest {
   private config: Config
@@ -45,7 +45,7 @@ export class SignedRequest {
     const { headers, clockSkew } = this.config
     return parseRequest(req, {
       strict: true,
-      headers,
+      headers: headers || [],
       clockSkew,
     })
   }

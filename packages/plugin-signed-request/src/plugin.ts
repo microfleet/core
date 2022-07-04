@@ -21,7 +21,7 @@ export function attach(
 
   this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const config = this.validator.ifError<Config>('http-signed-request', options)
+  const config = this.validator.ifError<Config>('signed-request', options)
 
   if (this.hasPlugin('router')) {
     this.router.lifecycle.addHook(extendServiceRequest)

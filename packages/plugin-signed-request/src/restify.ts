@@ -10,20 +10,20 @@ declare module 'restify' {
 
 export const RestifySignedRequestPlugin = (store: CredentialsStore, config: Config) => {
   return async function verifySignature(req: Request, _res: Response, next: Next) {
+
     if (!SignedRequest.isSignedRequest(req.headers)) {
-      return next()
+      return setImmediate(next)
     }
 
     const signedRequest = req.signedRequest = new SignedRequest(config, store)
 
     try {
-      // parse headers signature and load keys
       await signedRequest.initialize(req)
 
       signedRequest.appendPayload(req.rawBody)
       signedRequest.verifyPayload()
 
-      setImmediate(next, false)
+      return setImmediate(next)
     } catch(error) {
       setImmediate(next, error)
     }
