@@ -68,6 +68,7 @@
     "release-it": "^14.13.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
+    "restify": "^8.6.1",
     "rimraf": "^3.0.2",
     "sinon": "^13.0.1",
     "ts-essentials": "^9.1.2",
