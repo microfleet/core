@@ -1,11 +1,16 @@
-import { HttpStatusError } from 'common-errors'
 import { createHmac, createVerify, Hmac } from 'crypto'
 import { IncomingMessage } from 'http'
 import { HttpSignature, parseRequest, verifyHMAC, verifySignature } from 'http-signature'
+import { defaultsDeep } from '@microfleet/utils'
+import { InvalidSignatureError } from './errors'
 
 import { Config, CredentialsStore, assertRequestInitialized, RequestInfo } from './types'
 
 const authorizationHeader = 'authorization'
+const defaultConfig = {
+  headers: ['digest', '(request-target)', '(algorithm)', '(keyid)'],
+  clockSkew: 600, // seconds to invalidate request if 'x-date' or 'date' set
+}
 
 export type { CredentialsStore, Config }
 
@@ -17,7 +22,7 @@ export class SignedRequest {
   private req?: RequestInfo
 
   constructor(config: Config, credStore: CredentialsStore) {
-    this.config = config
+    this.config = defaultsDeep(config, defaultConfig)
     this.credStore = credStore
   }
 
@@ -43,11 +48,15 @@ export class SignedRequest {
 
   private parseHeaders(req: IncomingMessage): HttpSignature {
     const { headers, clockSkew } = this.config
-    return parseRequest(req, {
-      strict: true,
-      headers: headers || [],
-      clockSkew,
-    })
+    try {
+      return parseRequest(req, {
+        strict: true,
+        headers: headers || [],
+        clockSkew,
+      })
+    } catch (e: any) {
+      throw new InvalidSignatureError('invalid request signature', e)
+    }
   }
 
   verifyHeaders() {
@@ -62,7 +71,7 @@ export class SignedRequest {
       return
     }
 
-    throw new HttpStatusError(403, 'invalid header signature')
+    throw new InvalidSignatureError('invalid header signature')
   }
 
   verifyPayload() {
@@ -73,14 +82,14 @@ export class SignedRequest {
       const digest = payloadSignature.digest('base64')
 
       if (digest !== headers.digest) {
-        throw new HttpStatusError(403, 'invalid payload signature')
+        throw new InvalidSignatureError('invalid payload signature')
       }
 
       return
     }
 
     if (!payloadSignature.verify(signKey, headers.digest, 'base64')) {
-      throw new HttpStatusError(403, 'invalid payload signature')
+      throw new InvalidSignatureError('invalid payload signature')
     }
   }
 

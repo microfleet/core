@@ -20,7 +20,7 @@ declare module 'request-promise' {
 
 const validKeyContents = 'valid-sign-key-contents'
 const validKeyId = 'valid-key-id'
-const httpSignedRequest = {
+const signedRequest = {
   headers: ['digest', '(request-target)', '(algorithm)', '(keyid)']
 }
 const algorithm = 'hmac-sha512'
@@ -50,7 +50,7 @@ const defaultConfig = {
       },
     },
   },
-  httpSignedRequest,
+  signedRequest,
 }
 
 describe('smoke', () => {
@@ -80,7 +80,7 @@ describe('#http-signed-request hapi plugin', () => {
       algorithm,
       keyId: validKeyId,
       key: validKeyContents,
-      headers: httpSignedRequest.headers,
+      headers: signedRequest.headers,
     }
 
     const stubs: CredentialsStore = {
@@ -196,7 +196,7 @@ describe('#http-signed-request hapi plugin', () => {
     const httpSignature = {
       keyId: validKeyId,
       key: privatePemKey,
-      headers: httpSignedRequest.headers,
+      headers: signedRequest.headers,
     }
 
     const stubs: CredentialsStore = {

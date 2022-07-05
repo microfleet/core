@@ -8,14 +8,11 @@ import { resolve } from 'path'
 import { HapiSignedRequestPlugin } from './plugins/hapi'
 import { extendServiceRequest } from './router-extension'
 
-export const name = 'httpSignedRequest'
+export const name = 'signedRequest'
 export const type = PluginTypes.transport
 export const priority = 31
 
-export function attach(
-  this: Microfleet,
-  options: Partial<Config> = {}
-) {
+export function attach(this: Microfleet, options: Partial<Config> = {}) {
   assert(this.hasPlugin('validator'), 'validator plugin must be included')
   assert(this.hasPlugin('routerHapi'), 'router-hapi plugin must be included')
 
