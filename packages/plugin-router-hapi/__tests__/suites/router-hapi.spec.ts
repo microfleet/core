@@ -2,7 +2,8 @@ import { strictEqual, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
 import { all } from 'bluebird'
 import cheerio = require('cheerio')
-import request = require('request-promise')
+import { fetch } from 'undici'
+
 import { Microfleet } from '@microfleet/core'
 import handlebars from 'handlebars'
 
@@ -25,25 +26,26 @@ describe('@microfleet/plugin-router-hapi', () => {
 
     await service.connect()
 
+    const uri = 'http://0.0.0.0:3000/echo'
     const options = {
-      json: true,
+      headers: {
+        'content-type': 'application/json'
+      },
       method: 'POST',
-      resolveWithFullResponse: true,
-      simple: false,
-      uri: 'http://0.0.0.0:3000/echo',
-      body: { message: 'foo' },
+      body: JSON.stringify({ message: 'foo' }),
     }
 
     try {
       await all([
-        request(options).then((response) => {
-          strictEqual(response.statusCode, 200)
-          deepStrictEqual(response.body, { message: 'foo' })
+        fetch(uri, options).then(async (response) => {
+          strictEqual(response.status, 200)
+          deepStrictEqual(await response.json(), { message: 'foo' })
         }),
-        request({ ...options, uri: 'http://0.0.0.0:3000/not-found' }).then((response) => {
-          strictEqual(response.statusCode, 404)
-          strictEqual(response.body.name, 'NotFoundError')
-          deepStrictEqual(response.body.message, 'Not Found: "route "not-found" not found"')
+        fetch('http://0.0.0.0:3000/not-found', options).then(async (response) => {
+          strictEqual(response.status, 404)
+          const body: any = await response.json()
+          strictEqual(body.name, 'NotFoundError')
+          deepStrictEqual(body.message, 'Not Found: "route "not-found" not found"')
         }),
       ])
     } finally {
@@ -71,17 +73,14 @@ describe('@microfleet/plugin-router-hapi', () => {
     await service.connect()
 
     try {
-      const response = await request({
-        json: true,
+      const response = await fetch('http://0.0.0.0:3000/foo/bar/echo', {
         method: 'POST',
-        resolveWithFullResponse: true,
-        simple: false,
-        uri: 'http://0.0.0.0:3000/foo/bar/echo',
-        body: { message: 'foo' },
+        body: JSON.stringify({ message: 'foo' }),
       })
 
-      strictEqual(response.statusCode, 200)
-      deepStrictEqual(response.body, { message: 'foo' })
+      strictEqual(response.status, 200)
+      const body = await response.json()
+      deepStrictEqual(body, { message: 'foo' })
     } finally {
       await service.close()
     }
@@ -109,17 +108,14 @@ describe('@microfleet/plugin-router-hapi', () => {
     await service.connect()
 
     try {
-      const response = await request({
-        json: true,
+      const response = await fetch('http://0.0.0.0:3000/foo/bar/echo', {
         method: 'POST',
-        resolveWithFullResponse: true,
-        simple: false,
-        uri: 'http://0.0.0.0:3000/foo/bar/echo',
-        body: { message: 'foo' },
+        body: JSON.stringify({ message: 'foo' }),
       })
 
-      strictEqual(response.statusCode, 200)
-      deepStrictEqual(response.body, { message: 'foo' })
+      strictEqual(response.status, 200)
+      const body = await response.json()
+      deepStrictEqual(body, { message: 'foo' })
     } finally {
       await service.close()
     }
@@ -148,17 +144,14 @@ describe('@microfleet/plugin-router-hapi', () => {
     await service.connect()
 
     try {
-      const response = await request({
-        json: true,
+      const response = await fetch('http://0.0.0.0:3000/foo/bar/baz/foo/echo', {
         method: 'POST',
-        resolveWithFullResponse: true,
-        simple: false,
-        uri: 'http://0.0.0.0:3000/foo/bar/baz/foo/echo',
-        body: { message: 'foo' },
+        body: JSON.stringify({ message: 'foo' }),
       })
 
-      strictEqual(response.statusCode, 200)
-      deepStrictEqual(response.body, { message: 'foo' })
+      strictEqual(response.status, 200)
+      const body = await response.json()
+      deepStrictEqual(body, { message: 'foo' })
     } finally {
       await service.close()
     }
@@ -183,16 +176,13 @@ describe('@microfleet/plugin-router-hapi', () => {
     await service.connect()
 
     try {
-      const response = await request({
+      const response = await fetch('http://0.0.0.0:3000/hapi-raw-body', {
         method: 'POST',
-        resolveWithFullResponse: true,
-        simple: false,
-        uri: 'http://0.0.0.0:3000/hapi-raw-body',
         body: '{"status":"😿"}',
       })
 
-      strictEqual(response.body, '{"status":"😿"}')
-      strictEqual(response.statusCode, 200)
+      strictEqual(await response.text(), '{"status":"😿"}')
+      strictEqual(response.status, 200)
     } finally {
       await service.close()
     }
@@ -228,56 +218,42 @@ describe('@microfleet/plugin-router-hapi', () => {
 
     it('should be able to send html view', async () => {
       const options = {
-        json: true,
         method: 'post',
-        resolveWithFullResponse: true,
-        simple: false,
-        uri: 'http://0.0.0.0:3000/foo/bar/view',
-        body: {
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
           title: 'title',
           content: 'content',
-        },
+        }),
       }
 
-      const response = await request(options)
+      const response = await fetch('http://0.0.0.0:3000/foo/bar/view', options)
 
-      strictEqual(response.statusCode, 200)
-      strictEqual(response.headers['content-type'], 'text/html; charset=utf-8')
-      strictEqual(typeof response.body, 'string')
+      strictEqual(response.status, 200)
+      strictEqual(response.headers.get('content-type'), 'text/html; charset=utf-8')
+      const body = await response.text()
 
-      const page = cheerio.load(response.body)
+      const page = cheerio.load(body)
 
-      strictEqual(page('title')?.html()?.trim(), options.body.title)
-      strictEqual(page('div#content')?.html()?.trim(), options.body.content)
+      strictEqual(page('title')?.html()?.trim(), 'title')
+      strictEqual(page('div#content')?.html()?.trim(), 'content')
     })
 
     it('should be able to redirect', async () => {
-      const options = {
-        json: true,
-        method: 'get',
-        resolveWithFullResponse: true,
-        simple: false,
-        uri: 'http://0.0.0.0:3000/foo/bar/redirect',
-      }
+      const response = await fetch('http://0.0.0.0:3000/foo/bar/redirect')
 
-      const response = await request(options)
-
-      strictEqual(response.statusCode, 200)
-      deepStrictEqual(response.body, { redirected: true })
+      strictEqual(response.status, 200)
+      const body = await response.json()
+      deepStrictEqual(body, { redirected: true })
     })
 
     it('should be able to redirect', async () => {
-      const options = {
-        method: 'get',
-        resolveWithFullResponse: true,
-        simple: false,
-        uri: 'http://0.0.0.0:3000/foo/bar/external-redirect',
-      }
+      const response = await fetch('http://0.0.0.0:3000/foo/bar/external-redirect')
 
-      const response = await request(options)
-
-      strictEqual(response.statusCode, 200)
-      strictEqual(typeof response.body, 'string')
+      strictEqual(response.status, 200)
+      const body = await response.text()
+      strictEqual(/google/.test(body), true)
     })
   })
 })

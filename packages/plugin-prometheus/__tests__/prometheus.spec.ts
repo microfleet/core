@@ -1,5 +1,6 @@
-import assert = require('assert')
-import request = require('request-promise')
+import assert from 'assert'
+import { fetch } from 'undici'
+
 import { Microfleet } from '@microfleet/core'
 
 describe('prometheus plugin', function testSuite() {
@@ -27,7 +28,7 @@ describe('prometheus plugin', function testSuite() {
 
     await service.connect()
 
-    const text = await request('http://0.0.0.0:9102/metrics')
+    const text = await (await fetch('http://0.0.0.0:9102/metrics')).text()
     assert.ok(text.includes('TYPE application_version_info gauge'))
     assert.ok(text.includes('TYPE microfleet_request_duration_milliseconds histogram'))
   })

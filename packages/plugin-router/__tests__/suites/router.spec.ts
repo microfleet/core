@@ -24,6 +24,7 @@ const {
   validateTransportOptions: transportOptions
 } = Extensions
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const debug = require('debug')('test')
 
 describe('@microfleet/plugin-router', () => {
@@ -698,11 +699,11 @@ describe('@microfleet/plugin-router', () => {
     try {
       await Promise.all([
         // trigger usual route which performs global state update
-        httpRequest('/maintenance/http', {}).reflect().then(verify(maintenanceModeIsEnabled)),
+        httpRequest('/maintenance/http').reflect().then(verify(maintenanceModeIsEnabled)),
         // trigger route marked as read-only
-        httpRequest('/maintenance/http-readonly', {}).reflect().then(verify(resultIsReturned)),
+        httpRequest('/maintenance/http-readonly').reflect().then(verify(resultIsReturned)),
         // trigger read-only route which triggers non-read-only one
-        httpRequest('/maintenance/http-amqp', {}).reflect().then(verify(maintenanceModeIsEnabled)),
+        httpRequest('/maintenance/http-amqp').reflect().then(verify(maintenanceModeIsEnabled)),
       ])
     } finally {
       await service.close()
