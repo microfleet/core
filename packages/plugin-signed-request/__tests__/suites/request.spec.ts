@@ -58,6 +58,27 @@ describe('smoke', () => {
     const signedRequest = new SignedRequest({ headers: [] }, {} as any)
     await assert.rejects(async () => signedRequest.verifyHeaders(), /req should be initialized/)
   })
+
+  it('should panic when CredentialsStore returns empty key', async () => {
+    const signedRequest = new SignedRequest({}, {
+      // @ts-expect-error broken store
+      async getKey() {
+        return null
+      }
+    })
+
+    const promise = signedRequest.initialize({
+      headers: {
+        date: new Date().toISOString(),
+        digest: 'some',
+        authorization: `Signature keyId="foo",algorithm="hmac-sha512",headers="digest (request-target) (algorithm) (keyid)",signature="sig"`
+      },
+      method: 'GET',
+      url: 'foo.bar/baz',
+    } as any)
+
+    await assert.rejects(promise, /sign key is required/)
+  })
 })
 
 describe('#http-signed-request hapi plugin', () => {

@@ -20,7 +20,7 @@ export const HapiSignedRequestPlugin = (store: CredentialsStore, config: Config)
           })
 
         } catch (e: any) {
-          throw boomify(e, { statusCode: e.statusCode })
+          throw boomify(e, { statusCode: e.statusCode || e.status_code })
         }
       }
 

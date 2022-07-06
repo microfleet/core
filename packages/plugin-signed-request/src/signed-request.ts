@@ -1,13 +1,16 @@
 import { createHmac, createVerify, Hmac } from 'crypto'
 import { IncomingMessage } from 'http'
+import assert from 'assert'
 import { HttpSignature, parseRequest, verifyHMAC, verifySignature } from 'http-signature'
 import { defaultsDeep } from '@microfleet/utils'
 import { InvalidSignatureError } from './errors'
 
 import { Config, CredentialsStore, assertRequestInitialized, RequestInfo } from './types'
 
-const authorizationHeader = 'authorization'
+const authorizationHeaderName = 'authorization'
+
 const defaultConfig = {
+  authorizationHeaderName,
   headers: ['digest', '(request-target)', '(algorithm)', '(keyid)'],
   clockSkew: 600, // seconds to invalidate request if 'x-date' or 'date' set
 }
@@ -31,6 +34,7 @@ export class SignedRequest {
 
     const [hash, algorithm] = parsedSignature.algorithm.split('-')
     const signKey = await this.credStore.getKey(parsedSignature.keyId)
+    assert(signKey, 'sign key is required')
 
     const payloadSignature = hash === 'HMAC'
       ? createHmac(algorithm, signKey)
@@ -59,7 +63,7 @@ export class SignedRequest {
     }
   }
 
-  verifyHeaders() {
+  public verifyHeaders(): void {
     assertRequestInitialized(this.req)
 
     const { hash, parsedSignature, signKey } = this.req
@@ -74,7 +78,7 @@ export class SignedRequest {
     throw new InvalidSignatureError('invalid header signature')
   }
 
-  verifyPayload() {
+  public verifyPayload(): void {
     assertRequestInitialized(this.req)
     const { headers, payloadSignature, signKey } = this.req
 
@@ -93,19 +97,19 @@ export class SignedRequest {
     }
   }
 
-  appendPayload(chunk: string | Buffer) {
+  public appendPayload(chunk: string | Buffer): void {
     assertRequestInitialized(this.req)
     this.req.payloadSignature.update(chunk)
   }
 
-  async getCredentials(...args: any[]) {
+  async getCredentials<T = any>(...args: any[]): Promise<T> {
     assertRequestInitialized(this.req)
 
     return this.credStore.getCredentials(this.req.parsedSignature.keyId, ...args)
   }
 
-  static isSignedRequest(headers: IncomingMessage['headers']) {
-    const authHeader = headers[authorizationHeader]
+  static isSignedRequest(headers: IncomingMessage['headers']): boolean {
+    const authHeader = headers[authorizationHeaderName]
 
     if (!authHeader) {
       return false
