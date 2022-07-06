@@ -24,10 +24,5 @@
     "release-it": "^14.13.1",
     "rimraf": "^3.0.2",
     "typescript": "~4.6.3"
-  },
-  "pnpm":{
-    "overrides": {
-      "http-signature": "^1.3.6"
-    }
   }
 }

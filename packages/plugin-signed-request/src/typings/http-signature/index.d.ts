@@ -17,4 +17,5 @@ declare module 'http-signature' {
   export function parseRequest(req: IncomingMessage, opts: ParseOptions): HttpSignature;
   export function verifyHMAC(parsed: HttpSignature, key: KeyLike): boolean;
   export function verifySignature(parsed: HttpSignature, key: KeyLike): boolean;
+  export function sign(req: IncomingMessage, opts: ParseOptions): void;
 }

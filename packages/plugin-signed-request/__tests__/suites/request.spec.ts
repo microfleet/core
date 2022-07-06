@@ -2,21 +2,18 @@ import * as assert from 'assert'
 import * as sinon from 'sinon'
 import { resolve } from 'path'
 import { HttpStatusError } from 'common-errors'
-import rp from 'request-promise'
+import undici, { RequestInit } from 'undici'
 import * as restify from 'restify'
 import { promisify } from 'util'
+import { IncomingMessage } from 'http'
+import url from 'url'
+import { createHmac, createSign, generateKeyPairSync } from 'crypto'
+import { sign } from 'http-signature'
 
 import { CoreOptions, Microfleet } from '@microfleet/core'
-import { createHmac, createSign, generateKeyPairSync } from 'crypto'
 import { ServiceRequest } from '@microfleet/plugin-router'
 
 import { CredentialsStore, SignedRequest, RestifySignedRequestPlugin } from '@microfleet/plugin-signed-request'
-
-declare module 'request-promise' {
-  interface RequestPromiseOptions {
-    httpSignature?: Record<string, any>
-  }
-}
 
 const validKeyContents = 'valid-sign-key-contents'
 const validKeyId = 'valid-key-id'
@@ -51,6 +48,54 @@ const defaultConfig = {
     },
   },
   signedRequest,
+}
+
+class RequestLike {
+  private reqOpts: Record<string, any> = {}
+  private _url: url.URL
+
+  constructor(url: string, req: RequestInit & { json?: any }) {
+    const { json , ...rest } = req
+    const body = json ? Buffer.from(JSON.stringify(json)) : req.body
+
+    this._url = new URL(url)
+    this.reqOpts = {
+      headers: {},
+      ...rest,
+      body,
+    }
+  }
+
+  get url(): string {
+    return this._url.toString()
+  }
+
+  get path(): string {
+    return `${this._url.pathname}${this._url.search || ''}`
+  }
+
+  get method(): string {
+    return this.reqOpts.method || 'GET'
+  }
+
+  setHeader(h: string, value: unknown) {
+    this.reqOpts.headers[h] = value
+  }
+
+  getHeader(h: string): unknown {
+    return this.reqOpts.headers[h]
+  }
+
+  sign(digestfn: any, httpSignature: any) {
+    this.setHeader('digest', digestfn(this.reqOpts.body || ''))
+    this.setHeader('Date', new Date().toISOString())
+
+    sign(this as any as IncomingMessage, httpSignature)
+  }
+
+  getOptions(): RequestInit {
+    return this.reqOpts
+  }
 }
 
 describe('smoke', () => {
@@ -89,10 +134,7 @@ describe('#http-signed-request hapi plugin', () => {
     }
   }
 
-  const req = rp.defaults({
-    baseUrl: 'http://localhost:3000',
-    json: true,
-  })
+  const baseUrl = `http://localhost:3000/`
 
   describe('#hmac', () => {
     let service: Microfleet
@@ -116,6 +158,17 @@ describe('#http-signed-request hapi plugin', () => {
     .update(body)
     .digest('base64')
 
+    const signRequest = (url: string, req: RequestInit & { json?: any }) => {
+      const reqLike = new RequestLike(`${baseUrl}${url}`, req)
+      reqLike.sign(createDigest, httpSignature)
+      return reqLike
+    }
+
+    const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
+      const signed = signRequest(url, req)
+      const request = await undici.fetch(signed.url, signed.getOptions())
+      return request.json()
+    }
 
     beforeAll(async () => {
       service = new MyApp({
@@ -135,17 +188,17 @@ describe('#http-signed-request hapi plugin', () => {
     })
 
     it('ignores non signed request', async () => {
-      const response = await req.get('action/signed?foo=bar')
+      const req = await undici.fetch(`${baseUrl}action/signed?foo=bar`, {
+        method: 'GET',
+      })
+      const response = await req.json()
 
       assert.deepStrictEqual(response, { response: 'success' })
     })
 
     it('should verify #get', async () => {
-      const response = await req.get('action/signed?foo=bar', {
-        headers: {
-          digest: createDigest('')
-        },
-        httpSignature,
+      const response = await signAndRequest('action/signed?foo=bar', {
+        method: 'GET',
       })
 
       assert.deepStrictEqual(response, { response: 'success', credentials: { userId: 'id', extra: 'true' } })
@@ -154,12 +207,9 @@ describe('#http-signed-request hapi plugin', () => {
     it('should verify #post', async () => {
       const body = { data: { type: 'user' }}
 
-      const response = await req.post('action/signed?foo=bar', {
-        headers: {
-          digest: createDigest(JSON.stringify(body))
-        },
-        json: body,
-        httpSignature,
+      const response = await signAndRequest('action/signed?foo=bar',{
+        method: 'post',
+        json: body
       })
 
       assert.deepStrictEqual(response, {
@@ -170,39 +220,33 @@ describe('#http-signed-request hapi plugin', () => {
     })
 
     it('should panic on invalid header signature', async () => {
-      const body = { data: { type: 'user' }}
-
-      const signed = req.post('action/signed?foo=bar', {
-        headers: {
-          digest: `${createDigest(JSON.stringify(body))}`,
-        },
-        httpSignature,
+      const signed = signRequest('action/signed?foo=bar', {
+        method: 'post',
         json: { data: { type: 'user' }},
       })
 
-      const patched = req.post('action/signed?foo=bar', {
-        headers: {
-          ...signed.headers,
-          digest: 'invalid'
-        },
-        json: { data: { type: 'user' }},
-      })
+      signed.setHeader('digest', 'invalid')
 
-      await assert.rejects(async () => patched, /invalid header signature/)
+      const patched = await undici.fetch(signed.url, signed.getOptions())
+      const body: any = await patched.json()
+
+      assert.deepStrictEqual(patched.status, 403)
+      assert.deepStrictEqual(body.message, 'invalid header signature')
     })
 
     it('should panic on invalid payload signature', async () => {
-      const body = { data: { type: 'user' }}
-
-      const promise = req.post('action/signed?foo=bar', {
-        headers: {
-          digest: `${createDigest(JSON.stringify(body))}inv`,
-        },
-        httpSignature,
+      const signed = signRequest('action/signed?foo=bar', {
+        method: 'post',
         json: { data: { type: 'user' }},
       })
+      const opts = signed.getOptions()
+      opts.body = Buffer.from('{}')
 
-      await assert.rejects(async () => promise, /invalid payload signature/)
+      const patched = await undici.fetch(signed.url, signed.getOptions())
+      const body: any = await patched.json()
+
+      assert.deepStrictEqual(patched.status, 403)
+      assert.deepStrictEqual(body.message, 'invalid payload signature')
     })
   })
 
@@ -235,6 +279,18 @@ describe('#http-signed-request hapi plugin', () => {
       return signature.sign(pemKeypair.privateKey, 'base64')
     }
 
+    const signRequest = (url: string, req: RequestInit & { json?: any }) => {
+      const reqLike = new RequestLike(`${baseUrl}${url}`, req)
+      reqLike.sign(createDigest, httpSignature)
+      return reqLike
+    }
+
+    const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
+      const signed = signRequest(url, req)
+      const request = await undici.fetch(signed.url, signed.getOptions())
+      return request.json()
+    }
+
     beforeAll(async () => {
       service = new MyApp({
         ...defaultConfig,
@@ -255,13 +311,7 @@ describe('#http-signed-request hapi plugin', () => {
     it('should verify #post', async () => {
       const body = { data: { type: 'user' }}
 
-      const response = await req.post('action/signed?foo=bar', {
-        headers: {
-          digest: createDigest(JSON.stringify(body))
-        },
-        json: body,
-        httpSignature,
-      })
+      const response = await signAndRequest('action/signed?foo=bar', { method: 'post', json: body })
 
       assert.deepStrictEqual(response, {
         response: 'success',
@@ -271,17 +321,15 @@ describe('#http-signed-request hapi plugin', () => {
     })
 
     it('should panic invalid payload signature #post', async () => {
-      const body = { data: { type: 'user' }}
+      const signed = signRequest('action/signed?foo=bar', { method: 'post', json: { data: { type: 'user' }} })
+      const opts = signed.getOptions()
+      opts.body = Buffer.from('{}')
 
-      const promise = req.post('action/signed?foo=bar', {
-        headers: {
-          digest: `inv${createDigest(JSON.stringify(body))}`,
-        },
-        httpSignature,
-        json: { data: { type: 'user' }},
-      })
+      const patched = await undici.fetch(signed.url, signed.getOptions())
+      const body: any = await patched.json()
 
-      await assert.rejects(async () => promise, /invalid payload signature/)
+      assert.deepStrictEqual(patched.status, 403)
+      assert.deepStrictEqual(body.message, 'invalid payload signature')
     })
   })
 })
@@ -289,16 +337,14 @@ describe('#http-signed-request hapi plugin', () => {
 describe('restify plugin', () => {
   const validKeyContents = 'valid-sign-key-contents'
   const validKeyId = 'valid-key-id'
-  const httpSignedRequest = {
-    headers: ['digest', '(request-target)', '(algorithm)', '(keyid)']
-  }
   const algorithm = 'hmac-sha512'
   const httpSignature = {
     algorithm,
     keyId: validKeyId,
     key: validKeyContents,
-    headers: httpSignedRequest.headers,
+    headers: signedRequest.headers,
   }
+  const baseUrl = 'http://localhost:8088/'
 
   const stubs: CredentialsStore = {
     getKey: sinon.stub()
@@ -309,14 +355,27 @@ describe('restify plugin', () => {
   }
 
   const createDigest = (body?: any) => createHmac('sha512', validKeyContents)
-    .update(body)
+    .update(body || '')
     .digest('base64')
 
-  const req = rp.defaults({
-    baseUrl: 'http://localhost:8088',
-    json: true,
-  })
+  const signRequest = (url: string, req: RequestInit & { json?: any }) => {
+    const reqLike = new RequestLike(`${baseUrl}${url}`, req)
+    reqLike.sign(createDigest, httpSignature)
+    return reqLike
+  }
 
+  const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
+    const signed = signRequest(url, req)
+    const request = await undici.fetch(signed.url, {
+      ...signed.getOptions(),
+      headers: {
+        ...signed.getOptions().headers,
+        'content-type': 'application/json'
+      }
+    })
+
+    return request.json()
+  }
 
   let server: restify.Server
 
@@ -329,7 +388,7 @@ describe('restify plugin', () => {
     server.use(restify.plugins.queryParser())
     server.use(restify.plugins.jsonBodyParser())
 
-    server.use(RestifySignedRequestPlugin(stubs, httpSignedRequest))
+    server.use(RestifySignedRequestPlugin(stubs, signedRequest))
 
     const handler: restify.RequestHandlerType = async function (req, res, next) {
       res.send({
@@ -354,20 +413,15 @@ describe('restify plugin', () => {
   })
 
   it('ignores non signed request', async () => {
-    const response = await req.get('action/signed?foo=bar')
-
+    const req = await undici.fetch(`${baseUrl}action/signed?foo=bar`, { method: 'get' })
+    const response = await req.json()
     assert.deepStrictEqual(response, { response: 'success' })
   })
 
   it('should verify #post', async () => {
-    const body = { data: { type: 'user' }}
-
-    const response = await req.post('action/signed?foo=bar', {
-      headers: {
-        digest: createDigest(JSON.stringify(body))
-      },
-      json: body,
-      httpSignature,
+    const response = await signAndRequest('action/signed?foo=bar', {
+      method: 'post',
+      json: { data: { type: 'user' }},
     })
 
     assert.deepStrictEqual(response, {
@@ -378,16 +432,20 @@ describe('restify plugin', () => {
   })
 
   it('should panic on invalid payload signature #post', async () => {
-    const body = { data: { type: 'user' }}
+    const signed = signRequest('action/signed?foo=bar', { method: 'post', json: { data: { type: 'user' }} })
+    const opts = signed.getOptions()
+    opts.body = Buffer.from('{}')
 
-    const promise = req.post('action/signed?foo=bar', {
+    const patched = await undici.fetch(signed.url, {
+      ...signed.getOptions(),
       headers: {
-        digest: `${createDigest(JSON.stringify(body))}inv`,
-      },
-      httpSignature,
-      json: { data: { type: 'user' }},
+        ...signed.getOptions().headers,
+        'content-type': 'application/json'
+      }
     })
+    const body: any = await patched.json()
 
-    await assert.rejects(async () => promise, /invalid payload signature/)
+    assert.deepStrictEqual(patched.status, 403)
+    assert.deepStrictEqual(body.message, 'invalid payload signature')
   })
 })
