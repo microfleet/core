@@ -311,7 +311,6 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.23
-      '@types/request-promise': ^4.1.48
       '@types/semver': ^7.3.9
       '@types/sinon': ^10.0.11
       '@typescript-eslint/eslint-plugin': ^5.16.0
@@ -325,8 +324,6 @@ importers:
       jest: ^27.5.1
       mem: ^8.0.0
       release-it: ^14.13.1
-      request: ^2.88.2
-      request-promise: ^4.2.6
       rimraf: ^3.0.2
       semver: ^7.3.5
       sinon: ^13.0.1
@@ -350,7 +347,6 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.23
-      '@types/request-promise': 4.1.48
       '@types/semver': 7.3.9
       '@types/sinon': 10.0.11
       '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
@@ -363,8 +359,6 @@ importers:
       eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
-      request: 2.88.2
-      request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
       sinon: 13.0.1
       ts-essentials: 9.1.2_typescript@4.6.3
@@ -1164,7 +1158,6 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.23
-      '@types/request-promise': ^4.1.48
       '@types/semver': ^7.3.9
       '@typescript-eslint/eslint-plugin': ^5.16.0
       '@typescript-eslint/parser': ^5.16.0
@@ -1177,14 +1170,13 @@ importers:
       jest: ^27.5.1
       prom-client: ^14.0.1
       release-it: ^14.13.1
-      request: ^2.88.2
-      request-promise: ^4.2.6
       rimraf: ^3.0.2
       semver: ^7.3.5
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.14.1
       typescript: ~4.6.3
+      undici: ^5.6.0
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
@@ -1201,7 +1193,6 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.23
-      '@types/request-promise': 4.1.48
       '@types/semver': 7.3.9
       '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
       '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
@@ -1213,13 +1204,12 @@ importers:
       eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
       jest: 27.5.1
       release-it: 14.13.1
-      request: 2.88.2
-      request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
       sinon: 13.0.1
       ts-essentials: 9.1.2_typescript@4.6.3
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
+      undici: 5.6.0
 
   packages/plugin-redis-cluster:
     specifiers:
@@ -1457,7 +1447,6 @@ importers:
       '@types/lodash': ^4.14.180
       '@types/node': ^17.0.23
       '@types/qs': ^6.9.7
-      '@types/request-promise': ^4.1.48
       '@types/sinon': ^10.0.11
       '@types/split2': ^3.2.1
       '@typescript-eslint/eslint-plugin': ^5.16.0
@@ -1480,7 +1469,6 @@ importers:
       qs: ^6.10.3
       release-it: ^14.13.1
       request: ^2.88.2
-      request-promise: ^4.2.6
       rfdc: ^1.3.0
       rimraf: ^3.0.2
       sinon: ^13.0.1
@@ -1490,6 +1478,7 @@ importers:
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.14.1
       typescript: ~4.6.3
+      undici: ^5.6.0
     dependencies:
       '@hapi/boom': 9.1.4
       '@microfleet/transport-amqp': 17.2.8_common-errors@1.2.0
@@ -1517,7 +1506,6 @@ importers:
       '@types/lodash': 4.14.180
       '@types/node': 17.0.23
       '@types/qs': 6.9.7
-      '@types/request-promise': 4.1.48
       '@types/sinon': 10.0.11
       '@types/split2': 3.2.1
       '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
@@ -1535,7 +1523,6 @@ importers:
       jest: 27.5.1
       release-it: 14.13.1
       request: 2.88.2
-      request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
       sinon: 13.0.1
       socket.io-client: 4.4.1
@@ -1544,6 +1531,7 @@ importers:
       ts-essentials: 9.1.2_typescript@4.6.3
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
+      undici: 5.6.0
 
   packages/plugin-router-amqp:
     specifiers:
@@ -1640,7 +1628,6 @@ importers:
       '@types/jest': 27.4.1
       '@types/lodash': ^4.14.180
       '@types/node': ^17.0.23
-      '@types/request-promise': ^4.1.48
       '@typescript-eslint/eslint-plugin': ^5.16.0
       '@typescript-eslint/parser': ^5.16.0
       bluebird: ^3.7.2
@@ -1658,12 +1645,12 @@ importers:
       opentracing: ^0.14.7
       release-it: ^14.13.1
       request: ^2.88.2
-      request-promise: ^4.2.6
       rimraf: ^3.0.2
       sinon: ^13.0.1
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.14.1
       typescript: ~4.6.3
+      undici: ^5.6.0
     dependencies:
       '@hapi/boom': 9.1.4
       '@hapi/hapi': 20.2.1
@@ -1689,7 +1676,6 @@ importers:
       '@types/jest': 27.4.1
       '@types/lodash': 4.14.180
       '@types/node': 17.0.23
-      '@types/request-promise': 4.1.48
       '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
       '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
       bluebird: 3.7.2
@@ -1704,12 +1690,12 @@ importers:
       jest: 27.5.1
       release-it: 14.13.1
       request: 2.88.2
-      request-promise: 4.2.6_request@2.88.2
       rimraf: 3.0.2
       sinon: 13.0.1
       ts-essentials: 9.1.2_typescript@4.6.3
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
+      undici: 5.6.0
 
   packages/plugin-router-socketio:
     specifiers:
@@ -4044,10 +4030,6 @@ packages:
     resolution: {integrity: sha512-jrKmIHhuZVGUpOR1s4TgY9BTt/Eh9CFCjHVZ2FsrKmHSo3J/vpl6EpK08SfMLrX2IY1ZEFA+BPRTJQGg4xIHsA==}
     dev: true
 
-  /@types/caseless/0.12.2:
-    resolution: {integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==}
-    dev: true
-
   /@types/cheerio/0.22.31:
     resolution: {integrity: sha512-Kt7Cdjjdi2XWSfrZ53v4Of0wG3ZcmaegFXjMmz9tfNrZSkzzo36G0AL1YqSdcIA78Etjt6E609pt5h1xnQkPUw==}
     dependencies:
@@ -4294,22 +4276,6 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /@types/request-promise/4.1.48:
-    resolution: {integrity: sha512-sLsfxfwP5G3E3U64QXxKwA6ctsxZ7uKyl4I28pMj3JvV+ztWECRns73GL71KMOOJME5u1A5Vs5dkBqyiR1Zcnw==}
-    dependencies:
-      '@types/bluebird': 3.5.36
-      '@types/request': 2.48.8
-    dev: true
-
-  /@types/request/2.48.8:
-    resolution: {integrity: sha512-whjk1EDJPcAR2kYHRbFl/lKeeKYTi05A15K9bnLInCVroNDCtXce57xKdI0/rQaA3K+6q0eFyUBPmqfSndUZdQ==}
-    dependencies:
-      '@types/caseless': 0.12.2
-      '@types/node': 17.0.23
-      '@types/tough-cookie': 4.0.1
-      form-data: 2.5.1
-    dev: true
-
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
@@ -4367,6 +4333,7 @@ packages:
 
   /@types/tough-cookie/4.0.1:
     resolution: {integrity: sha512-Y0K95ThC3esLEYD6ZuqNek29lNX2EM1qxV8y2FTLUB0ff5wWrk7az+mLrnNFUnaXcgKye22+sFBRXOgpPILZNg==}
+    dev: false
 
   /@types/yargs-parser/20.2.1:
     resolution: {integrity: sha512-7tFImggNeNBVMsn0vLrpn1H1uPrUBdnARPTpZoitY37ZrdJREzf7I16tMrlK3hen349gr1NYh8CmZQa7CTG6Aw==}
@@ -7200,7 +7167,6 @@ packages:
   /extsprintf/1.4.1:
     resolution: {integrity: sha512-Wrk35e8ydCKDj/ArClo1VrPVmN8zph5V4AtHwIuHhvMXsKf73UT3BOD+azBIW+3wOJ4FhEH7zyaJCFvChjYvMA==}
     engines: {'0': node >=0.6.0}
-    dev: true
 
   /fast-decode-uri-component/1.0.1:
     resolution: {integrity: sha512-WKgKWg5eUxvRZGwW8FvfbaH7AXSh2cL+3j5fMGzUMCxWBJ3dV3a7Wz8y2f/uQ0e3B6WmodD3oS54jTQ9HVTIIg==}
@@ -7470,15 +7436,6 @@ packages:
 
   /form-data/2.3.3:
     resolution: {integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==}
-    engines: {node: '>= 0.12'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-    dev: true
-
-  /form-data/2.5.1:
-    resolution: {integrity: sha512-m21N3WOmEEURgk6B9GLOE4RuWOFf28Lhh9qGYeNlGq4VDXUlJy2th2slBNU8Gp8EzloYZOibZJ7t5ecIrFSjVA==}
     engines: {node: '>= 0.12'}
     dependencies:
       asynckit: 0.4.0
@@ -8101,6 +8058,15 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /http-signature/1.2.0:
+    resolution: {integrity: sha512-CAbnr6Rz4CYQkLYUtSNXxQPUH2gK8f3iWexVlsnMeD+GjlsQ0Xsy1cOX+mN3dtxYomRy21CiOzU8Uhw6OwncEQ==}
+    engines: {node: '>=0.8', npm: '>=1.3.7'}
+    dependencies:
+      assert-plus: 1.0.0
+      jsprim: 1.4.2
+      sshpk: 1.17.0
     dev: true
 
   /http-signature/1.3.6:
@@ -9375,6 +9341,16 @@ packages:
   /jsonparse/1.3.1:
     resolution: {integrity: sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==}
     engines: {'0': node >= 0.2.0}
+
+  /jsprim/1.4.2:
+    resolution: {integrity: sha512-P2bSOMAc/ciLz6DzgjVlGJP9+BrJWu5UDGK70C2iweC5QBIeFf0ZXRvGjEj2uYgrY2MkAAhsSWHDWlFtEroZWw==}
+    engines: {node: '>=0.6.0'}
+    dependencies:
+      assert-plus: 1.0.0
+      extsprintf: 1.3.0
+      json-schema: 0.4.0
+      verror: 1.10.0
+    dev: true
 
   /jsprim/2.0.2:
     resolution: {integrity: sha512-gqXddjPqQ6G40VdnI6T6yObEC+pDNvyP95wdQhkWkg7crHH3km5qP1FsOXEkzEQwnz6gz5qGTn1c2Y52wP3OyQ==}
@@ -11496,20 +11472,6 @@ packages:
       tough-cookie: 2.5.0
     dev: true
 
-  /request-promise/4.2.6_request@2.88.2:
-    resolution: {integrity: sha512-HCHI3DJJUakkOr8fNoCc73E5nU5bqITjOYFMDrKHYOXWXrgD/SBaC7LjwuPymUprRyuF06UK7hd/lMHkmUXglQ==}
-    engines: {node: '>=0.10.0'}
-    deprecated: request-promise has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142
-    peerDependencies:
-      request: ^2.34
-    dependencies:
-      bluebird: 3.7.2
-      request: 2.88.2
-      request-promise-core: 1.1.4_request@2.88.2
-      stealthy-require: 1.1.1
-      tough-cookie: 2.5.0
-    dev: true
-
   /request/2.88.2:
     resolution: {integrity: sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==}
     engines: {node: '>= 6'}
@@ -11523,7 +11485,7 @@ packages:
       forever-agent: 0.6.1
       form-data: 2.3.3
       har-validator: 5.1.5
-      http-signature: 1.3.6
+      http-signature: 1.2.0
       is-typedarray: 1.0.0
       isstream: 0.1.2
       json-stringify-safe: 5.0.1
@@ -12886,7 +12848,6 @@ packages:
   /undici/5.6.0:
     resolution: {integrity: sha512-mc+8SY1fXubTrdx4CXDkeFFGV8lI3Tq4I/70U1V8Z6g4iscGII0uLO7CPnDt56bXEbvaKwo2T2+VrteWbZiXiQ==}
     engines: {node: '>=12.18'}
-    dev: false
 
   /union-value/1.0.1:
     resolution: {integrity: sha512-tJfXmxMeWYnczCVs7XAEvIV7ieppALdyepWMkHkwciRpZraG/xwT+s2JN8+pr1+8jCRf80FFzvr+MpQeeoF4Xg==}
@@ -13051,7 +13012,7 @@ packages:
     dependencies:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
-      extsprintf: 1.3.0
+      extsprintf: 1.4.1
 
   /w3c-hr-time/1.0.2:
     resolution: {integrity: sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==}
