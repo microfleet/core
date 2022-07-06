@@ -56,11 +56,13 @@ class RequestLike {
 
   constructor(url: string, req: RequestInit & { json?: any }) {
     const { json , ...rest } = req
-    const body = json ? Buffer.from(JSON.stringify(json)) : req.body
+    const body = json ? JSON.stringify(json) : req.body
 
     this._url = new URL(url)
     this.reqOpts = {
-      headers: {},
+      headers: {
+        'content-type': 'application/json',
+      },
       ...rest,
       body,
     }
@@ -240,7 +242,7 @@ describe('#http-signed-request hapi plugin', () => {
         json: { data: { type: 'user' }},
       })
       const opts = signed.getOptions()
-      opts.body = Buffer.from('{}')
+      opts.body = '{}'
 
       const patched = await undici.fetch(signed.url, signed.getOptions())
       const body: any = await patched.json()
@@ -323,7 +325,7 @@ describe('#http-signed-request hapi plugin', () => {
     it('should panic invalid payload signature #post', async () => {
       const signed = signRequest('action/signed?foo=bar', { method: 'post', json: { data: { type: 'user' }} })
       const opts = signed.getOptions()
-      opts.body = Buffer.from('{}')
+      opts.body = '{}'
 
       const patched = await undici.fetch(signed.url, signed.getOptions())
       const body: any = await patched.json()
@@ -434,7 +436,7 @@ describe('restify plugin', () => {
   it('should panic on invalid payload signature #post', async () => {
     const signed = signRequest('action/signed?foo=bar', { method: 'post', json: { data: { type: 'user' }} })
     const opts = signed.getOptions()
-    opts.body = Buffer.from('{}')
+    opts.body = '{}'
 
     const patched = await undici.fetch(signed.url, {
       ...signed.getOptions(),
