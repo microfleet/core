@@ -11,11 +11,13 @@ import {
   getIOClient,
   withResponseValidateAction,
 } from '../artifacts/utils'
+import getFreePort = require('get-port')
 
 const { auditLog } = Extensions
 
 describe('service request count', () => {
   it('counts requests on unknown routes', async () => {
+    const port = await getFreePort()
     const service = new Microfleet(withResponseValidateAction('tester', {
       plugins: [
         'validator',
@@ -26,7 +28,7 @@ describe('service request count', () => {
         'router-hapi',
         'router-socketio',
       ],
-      hapi: { server: { port: 0 } },
+      hapi: { server: { port } },
       router: {
         routes: { prefix: '' },
         extensions: { register: [auditLog()] },
@@ -34,8 +36,8 @@ describe('service request count', () => {
     }))
 
     await service.connect()
-    const servicePort = service.hapi.info.port
-    const serviceUrl = `http://0.0.0.0:${servicePort}`
+
+    const serviceUrl = `http://0.0.0.0:${port}/`
     const { requestCountTracker } = service.router
     const preRequestSpy = spy(requestCountTracker, 'increase')
     const postResponseSpy = spy(requestCountTracker, 'decrease')
@@ -55,11 +57,12 @@ describe('service request count', () => {
   })
 
   it('counts requests on existing routes', async () => {
+    const port = await getFreePort()
     const service = new Microfleet(withResponseValidateAction('tester', {
       routerAmqp: {
         prefix: 'amqp',
       },
-      hapi: { server: { port: 0 } },
+      hapi: { server: { port } },
       router: {
         routes: {
           enabledGenericActions: ['health'],
@@ -70,9 +73,8 @@ describe('service request count', () => {
 
     await service.connect()
 
-    const { amqp, hapi, router } = service
-    const servicePort = hapi.info.port
-    const serviceUrl = `http://0.0.0.0:${servicePort}`
+    const { amqp, router } = service
+    const serviceUrl = `http://0.0.0.0:${port}/`
 
     const { requestCountTracker } = router
     const preRequestSpy = spy(requestCountTracker, 'increase')
@@ -93,7 +95,7 @@ describe('service request count', () => {
 
     await Promise.all([
       amqpRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult)),
-      httpRequest('/action/generic/health').reflect().then(verify(returnsResult)),
+      httpRequest('action/generic/health').reflect().then(verify(returnsResult)),
       socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult)),
     ])
 

@@ -6,7 +6,18 @@ import { Socket, io } from 'socket.io-client'
 import { once } from 'events'
 import hyperid from 'hyperid'
 import { CoreOptions } from '@microfleet/core'
-import undici, { RequestInit } from 'undici'
+import undici, { RequestInit, setGlobalDispatcher, Agent } from 'undici'
+
+const opts: Agent.Options = {
+  keepAliveTimeout: 1, // milliseconds
+  keepAliveMaxTimeout: 1, // milliseconds
+  bodyTimeout: 1000,
+  headersTimeout: 1000,
+  maxRequestsPerClient: 1,
+}
+const agent = new Agent(opts)
+
+setGlobalDispatcher(agent)
 
 const idInstance = hyperid({ urlSafe: true })
 
@@ -45,6 +56,21 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
   }
 }
 
+const reqPromise = async (reqUrl: URL, requestOptions: any) => {
+  const response = await undici.fetch(reqUrl.toString(), {
+    ...requestOptions,
+    keepalive: false,
+  })
+
+  if (response.status !== 200) {
+    const res = await response.json()
+    throw res
+  }
+
+  const parsed = await response.json()
+  return parsed
+}
+
 export function getHTTPRequest<T = any>(_options: RequestInit & {url: string }): (action: string, params?: any, opts?: any) => Bluebird<T> {
   return (action: string, params?: any, opts: any = {}): Bluebird<T> => {
     const { url, ...options } = _options
@@ -58,17 +84,9 @@ export function getHTTPRequest<T = any>(_options: RequestInit & {url: string }):
 
     const reqUrl = new URL(`${url}${action}`)
 
-    requestOptions.body = params || opts.json ? JSON.stringify(opts.json || params) : null
+    requestOptions.body = (params || opts.json) ? JSON.stringify(opts.json || params) : null
     reqUrl.search = opts.qs && new URLSearchParams(opts.qs).toString()
-
-    return Bluebird.method<T>(async () => {
-      const response = await undici.fetch(reqUrl.toString(), requestOptions)
-      if (response.status !== 200) {
-        throw await response.json()
-      }
-
-      return response.json() as any as T
-    })()
+    return Bluebird.resolve(reqPromise(reqUrl, requestOptions)) as Bluebird<T>
   }
 }
 

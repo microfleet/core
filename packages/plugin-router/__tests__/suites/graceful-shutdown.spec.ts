@@ -14,6 +14,7 @@ import {
   getSocketioRequest
 } from '../artifacts/utils'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const debug = require('debug')('test')
 const childServiceFile = resolve(__dirname, '../artifacts/child-service.ts')
 
