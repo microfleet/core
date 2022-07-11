@@ -65,7 +65,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-unicorn": "^41.0.1",
     "jest": "^27.5.1",
-    "node-fetch": "2",
+    "node-fetch": "3",
     "release-it": "^14.13.1",
     "restify": "^8.6.1",
     "rimraf": "^3.0.2",

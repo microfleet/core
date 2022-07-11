@@ -76,7 +76,7 @@
     "eslint-plugin-unicorn": "^41.0.1",
     "handlebars": "^4.7.7",
     "jest": "^27.5.1",
-    "node-fetch": "2",
+    "node-fetch": "3",
     "release-it": "^14.13.1",
     "rimraf": "^3.0.2",
     "sinon": "^13.0.1",
