@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router-socketio",
-  "version": "0.14.0",
+  "version": "0.16.0",
   "description": "Socket.io transport adapter for router",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

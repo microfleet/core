@@ -1,6 +1,16 @@
 
 
-# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.14.0...@microfleet/plugin-elasticsearch@0.17.0) (2022-06-20)
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.16.0...@microfleet/plugin-elasticsearch@0.19.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.16.0...@microfleet/plugin-elasticsearch@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.14.0...@microfleet/plugin-elasticsearch@0.17.0) (2022-06-20)
 
 
 ### Features

@@ -1,6 +1,16 @@
 
 
-# [17.23.0](https://github.com/microfleet/core/compare/@microfleet/core@17.20.0...@microfleet/core@17.23.0) (2022-06-20)
+# [17.25.0](https://github.com/microfleet/core/compare/@microfleet/core@17.22.0...@microfleet/core@17.25.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [17.24.0](https://github.com/microfleet/core/compare/@microfleet/core@17.22.0...@microfleet/core@17.24.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [17.23.0](https://github.com/microfleet/core/compare/@microfleet/core@17.20.0...@microfleet/core@17.23.0) (2022-06-20)
 
 
 ### Features

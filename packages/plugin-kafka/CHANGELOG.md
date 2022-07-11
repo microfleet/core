@@ -1,6 +1,16 @@
 
 
-# [2.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.20.0...@microfleet/plugin-kafka@2.23.0) (2022-06-20)
+# [2.25.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.22.0...@microfleet/plugin-kafka@2.25.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [2.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.22.0...@microfleet/plugin-kafka@2.24.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [2.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.20.0...@microfleet/plugin-kafka@2.23.0) (2022-06-20)
 
 
 ### Features

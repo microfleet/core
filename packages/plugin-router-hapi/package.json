@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router-hapi",
-  "version": "0.14.0",
+  "version": "0.16.0",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

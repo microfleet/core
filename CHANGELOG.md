@@ -1,3 +1,277 @@
+# @microfleet/core-types 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.16.0...@microfleet/core-types@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/core 17.24.0
+
+# [17.24.0](https://github.com/microfleet/core/compare/@microfleet/core@17.22.0...@microfleet/core@17.24.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-amqp 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.13.0...@microfleet/plugin-amqp@0.15.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-aws-elasticsearch 1.18.0
+
+# [1.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.16.0...@microfleet/plugin-aws-elasticsearch@1.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-casl 0.3.0
+
+# [0.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.1.0...@microfleet/plugin-casl@0.3.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-cassandra 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.21.0...@microfleet/plugin-cassandra@0.23.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-consul 2.20.0
+
+# [2.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.18.0...@microfleet/plugin-consul@2.20.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-couchdb 2.20.0
+
+# [2.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.18.0...@microfleet/plugin-couchdb@2.20.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-dlock 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.13.0...@microfleet/plugin-dlock@0.15.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-elasticsearch 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.16.0...@microfleet/plugin-elasticsearch@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-hapi 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.13.0...@microfleet/plugin-hapi@0.15.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-kafka-types 1.19.0
+
+# [1.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.17.0...@microfleet/plugin-kafka-types@1.19.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-kafka 2.24.0
+
+# [2.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.22.0...@microfleet/plugin-kafka@2.24.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-knex 2.21.0
+
+# [2.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.19.0...@microfleet/plugin-knex@2.21.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-logger 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.21.0...@microfleet/plugin-logger@0.23.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-opentracing 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.16.0...@microfleet/plugin-opentracing@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-prometheus 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.16.0...@microfleet/plugin-prometheus@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-redis-cluster 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.16.0...@microfleet/plugin-redis-cluster@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-redis-core 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.16.0...@microfleet/plugin-redis-core@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-redis-sentinel 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.16.0...@microfleet/plugin-redis-sentinel@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-router-amqp 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.13.0...@microfleet/plugin-router-amqp@0.15.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-router-hapi 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.13.0...@microfleet/plugin-router-hapi@0.15.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-router-socketio 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.13.0...@microfleet/plugin-router-socketio@0.15.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-router 0.16.0
+
+# [0.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.14.0...@microfleet/plugin-router@0.16.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-signed-request 0.1.0
+
+# 0.1.0 (2022-07-11)
+
+
+### Bug Fixes
+
+* **amqp:** dont crash on missing headers ([0ca3783](https://github.com/microfleet/core/commit/0ca3783bbde7980c34462da58c7c62fbcc6142f8))
+* better healthcheck message ([7eed724](https://github.com/microfleet/core/commit/7eed724122c7e40890ee26327e992652c892134f))
+* dependencies, updated transport-amqp ([4ca88c7](https://github.com/microfleet/core/commit/4ca88c7f8b84390f85b64dea3a665558f48d8d3b))
+* dlock with connect/close interface ([#593](https://github.com/microfleet/core/issues/593)) ([5aa9bae](https://github.com/microfleet/core/commit/5aa9baeddff6c9737a1d36f95859e9895bf99acb))
+* peer x-deps ([df1619d](https://github.com/microfleet/core/commit/df1619d84d9f9ae404aae2d75e2c0047576176de))
+* remove amqp type stubs ([60c9c7a](https://github.com/microfleet/core/commit/60c9c7a0e85ef68832aa7150469c10f3a8828a04))
+* remove deprecated event-to-promise lib ([3489d98](https://github.com/microfleet/core/commit/3489d9866f8273c86cdff6722e582df747572c8d))
+* **router:** add `enabled` into ajv schema ([b2b4a28](https://github.com/microfleet/core/commit/b2b4a2821fc1cc70b941e8acb15b46b3ff82eba8))
+* sentry fn opts ([4a81984](https://github.com/microfleet/core/commit/4a81984224c4b42d4184ee6d365b7ac8ad4f704d))
+* update deps ([97f391b](https://github.com/microfleet/core/commit/97f391b4d7c24410f532873ece685c072f3453d9))
+* upgrade amqp ([8d735db](https://github.com/microfleet/core/commit/8d735db31e1029fd7f6cb23633686435bb72f4d0))
+* upgrade transport-amqp ([382a1bf](https://github.com/microfleet/core/commit/382a1bf57626d375c5c8d3a959bba8f20bb27801))
+
+
+### Features
+
+* added ability to disable some route ([#607](https://github.com/microfleet/core/issues/607)) ([afbebd2](https://github.com/microfleet/core/commit/afbebd25ba52b8b70f1f1640554a86dca509a1cf))
+* casl RBAC plugin ([#617](https://github.com/microfleet/core/issues/617)) ([5e8a2bd](https://github.com/microfleet/core/commit/5e8a2bd703050c06c85f1846af6362e610c7e38f))
+* microleet/transport-amqp@17 ([#604](https://github.com/microfleet/core/issues/604)) ([c06a64d](https://github.com/microfleet/core/commit/c06a64d10771f71808f01b954472d1ad86786965))
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+* router re-wiring of requests, independent actions ([fb0bea2](https://github.com/microfleet/core/commit/fb0bea24ce83bfaa6ae51e418d30161e8be7d6a0))
+* **router:** reconfigure action through enabled param ([44be4ae](https://github.com/microfleet/core/commit/44be4ae4d3ccda8744f3f7dcbe098553f89386d5))
+* support v16 of @microfleet/transport-amqp ([71579d7](https://github.com/microfleet/core/commit/71579d77cf179607477d1b803cf569c453b354b3))
+
+# @microfleet/plugin-socketio 0.15.0
+
+# [0.15.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.13.0...@microfleet/plugin-socketio@0.15.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/plugin-validator 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.16.0...@microfleet/plugin-validator@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
+# @microfleet/utils 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.16.0...@microfleet/utils@0.18.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))
+
 # @microfleet/core-types 0.16.0
 
 # [0.16.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.14.0...@microfleet/core-types@0.16.0) (2022-06-20)

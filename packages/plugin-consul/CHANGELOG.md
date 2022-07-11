@@ -1,6 +1,16 @@
 
 
-# [2.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.16.0...@microfleet/plugin-consul@2.19.0) (2022-06-20)
+# [2.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.18.0...@microfleet/plugin-consul@2.21.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [2.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.18.0...@microfleet/plugin-consul@2.20.0) (2022-07-11)
+
+
+### Features
+
+* plugin signed request ([#619](https://github.com/microfleet/core/issues/619)) ([fd51e06](https://github.com/microfleet/core/commit/fd51e062b43743c968affc8b5a2aa4b37380c2cc))# [2.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.16.0...@microfleet/plugin-consul@2.19.0) (2022-06-20)
 
 
 ### Features
