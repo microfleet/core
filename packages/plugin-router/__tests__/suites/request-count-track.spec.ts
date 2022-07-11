@@ -37,7 +37,7 @@ describe('service request count', () => {
 
     await service.connect()
 
-    const serviceUrl = `http://0.0.0.0:${port}/`
+    const serviceUrl = `http://0.0.0.0:${port}`
     const { requestCountTracker } = service.router
     const preRequestSpy = spy(requestCountTracker, 'increase')
     const postResponseSpy = spy(requestCountTracker, 'decrease')
@@ -47,7 +47,7 @@ describe('service request count', () => {
     const socketioRequest = getSocketioRequest(socketioClient)
 
     await httpRequest('/404').reflect()
-    await socketioRequest('404', {}).reflect()
+    await socketioRequest('/404', {}).reflect()
 
     assert(preRequestSpy.callCount === 2)
     assert(postResponseSpy.callCount === 2)
@@ -74,7 +74,7 @@ describe('service request count', () => {
     await service.connect()
 
     const { amqp, router } = service
-    const serviceUrl = `http://0.0.0.0:${port}/`
+    const serviceUrl = `http://0.0.0.0:${port}`
 
     const { requestCountTracker } = router
     const preRequestSpy = spy(requestCountTracker, 'increase')
@@ -95,7 +95,7 @@ describe('service request count', () => {
 
     await Promise.all([
       amqpRequest('amqp.action.generic.health', {}).reflect().then(verify(returnsResult)),
-      httpRequest('action/generic/health').reflect().then(verify(returnsResult)),
+      httpRequest('/action/generic/health').reflect().then(verify(returnsResult)),
       socketioRequest('action.generic.health', {}).reflect().then(verify(returnsResult)),
     ])
 

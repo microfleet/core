@@ -9,11 +9,8 @@ import { CoreOptions } from '@microfleet/core'
 import undici, { RequestInit, setGlobalDispatcher, Agent } from 'undici'
 
 const opts: Agent.Options = {
-  keepAliveTimeout: 1, // milliseconds
-  keepAliveMaxTimeout: 1, // milliseconds
-  bodyTimeout: 1000,
-  headersTimeout: 1000,
   maxRequestsPerClient: 1,
+  pipelining: 0
 }
 const agent = new Agent(opts)
 
@@ -85,8 +82,14 @@ export function getHTTPRequest<T = any>(_options: RequestInit & {url: string }):
     const reqUrl = new URL(`${url}${action}`)
 
     requestOptions.body = (params || opts.json) ? JSON.stringify(opts.json || params) : null
-    reqUrl.search = opts.qs && new URLSearchParams(opts.qs).toString()
-    return Bluebird.resolve(reqPromise(reqUrl, requestOptions)) as Bluebird<T>
+    reqUrl.search = opts.qs ? new URLSearchParams(opts.qs).toString() : ''
+
+    try {
+      return Bluebird.resolve<T>(reqPromise(reqUrl, requestOptions) as any)
+    } catch (e) {
+
+      return Bluebird.reject(e)
+    }
   }
 }
 
