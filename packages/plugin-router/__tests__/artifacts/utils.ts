@@ -6,15 +6,7 @@ import { Socket, io } from 'socket.io-client'
 import { once } from 'events'
 import hyperid from 'hyperid'
 import { CoreOptions } from '@microfleet/core'
-import undici, { RequestInit, setGlobalDispatcher, Agent } from 'undici'
-
-const opts: Agent.Options = {
-  maxRequestsPerClient: 1,
-  pipelining: 0
-}
-const agent = new Agent(opts)
-
-setGlobalDispatcher(agent)
+import fetch from 'node-fetch'
 
 const idInstance = hyperid({ urlSafe: true })
 
@@ -54,7 +46,7 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
 }
 
 const reqPromise = async (reqUrl: URL, requestOptions: any) => {
-  const response = await undici.fetch(reqUrl.toString(), {
+  const response = await fetch(reqUrl.toString(), {
     ...requestOptions,
     keepalive: false,
   })
