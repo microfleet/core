@@ -26,3 +26,4 @@ packages:
   - ./packages/plugin-validator
   - ./packages/utils
   - ./packages/plugin-casl
+  - ./packages/plugin-signed-request

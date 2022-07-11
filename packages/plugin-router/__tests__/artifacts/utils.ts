@@ -1,14 +1,12 @@
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
-import Bluebird = require('bluebird')
-import request = require('request-promise')
-import { StatusCodeError } from 'request-promise/errors'
+import Bluebird from 'bluebird'
 import { mergeDeep } from '@microfleet/utils'
 import { Socket, io } from 'socket.io-client'
-import { OptionsWithUrl } from 'request-promise'
 import { once } from 'events'
 import hyperid from 'hyperid'
 import { CoreOptions } from '@microfleet/core'
+import fetch from 'node-fetch'
 
 const idInstance = hyperid({ urlSafe: true })
 
@@ -47,35 +45,43 @@ export function verify(caseOptions: Case): (inspection: CaseInspection) => void 
   }
 }
 
-export function getHTTPRequest<T = any>(options: OptionsWithUrl): (action: string, params?: any, opts?: any) => Bluebird<T> {
+const reqPromise = async (reqUrl: URL, requestOptions: any) => {
+  const response = await fetch(reqUrl.toString(), {
+    ...requestOptions,
+    keepalive: false,
+  })
+
+  if (response.status !== 200) {
+    const res = await response.json()
+    throw res
+  }
+
+  const parsed = await response.json()
+  return parsed
+}
+
+export function getHTTPRequest<T = any>(_options: RequestInit & {url: string }): (action: string, params?: any, opts?: any) => Bluebird<T> {
   return (action: string, params?: any, opts: any = {}): Bluebird<T> => {
+    const { url, ...options } = _options
     const requestOptions = {
-      baseUrl: options.url,
       method: 'POST',
-      simple: true,
+      headers: {
+        'content-type': 'application/json'
+      },
       ...options,
-      ...opts,
-      uri: action,
     }
 
-    // patch
-    delete requestOptions.url
+    const reqUrl = new URL(`${url}${action}`)
 
-    if (params) {
-      requestOptions.json = params
-    } else {
-      requestOptions.json = true
+    requestOptions.body = (params || opts.json) ? JSON.stringify(opts.json || params) : null
+    reqUrl.search = opts.qs ? new URLSearchParams(opts.qs).toString() : ''
+
+    try {
+      return Bluebird.resolve<T>(reqPromise(reqUrl, requestOptions) as any)
+    } catch (e) {
+
+      return Bluebird.reject(e)
     }
-
-    return request(requestOptions)
-      .catch((err) => {
-        if (err instanceof StatusCodeError) {
-          // @ts-expect-error invalid types
-          throw err.response.body
-        }
-
-        throw err
-      })
   }
 }
 

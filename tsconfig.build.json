@@ -55,5 +55,7 @@
     "path": "./packages/plugin-redis-sentinel/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-redis-cluster/tsconfig.build.json"
+  },{
+    "path": "./packages/plugin-signed-request/tsconfig.build.json"
   }]
 }
