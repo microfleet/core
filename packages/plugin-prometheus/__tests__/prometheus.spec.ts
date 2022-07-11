@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { fetch } from 'undici'
+import fetch from 'node-fetch'
 
 import { Microfleet } from '@microfleet/core'
 

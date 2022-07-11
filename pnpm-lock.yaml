@@ -1158,6 +1158,7 @@ importers:
       '@types/common-errors': ^1.0.2
       '@types/jest': 27.4.1
       '@types/node': ^17.0.23
+      '@types/node-fetch': ^2.6.2
       '@types/semver': ^7.3.9
       '@typescript-eslint/eslint-plugin': ^5.16.0
       '@typescript-eslint/parser': ^5.16.0
@@ -1168,6 +1169,7 @@ importers:
       eslint-plugin-import: ^2.25.4
       eslint-plugin-unicorn: ^41.0.1
       jest: ^27.5.1
+      node-fetch: '2'
       prom-client: ^14.0.1
       release-it: ^14.13.1
       rimraf: ^3.0.2
@@ -1176,7 +1178,6 @@ importers:
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.14.1
       typescript: ~4.6.3
-      undici: ^5.6.0
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
@@ -1193,6 +1194,7 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.23
+      '@types/node-fetch': 2.6.2
       '@types/semver': 7.3.9
       '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
       '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
@@ -1203,13 +1205,13 @@ importers:
       eslint-plugin-import: 2.25.4_eslint@8.11.0
       eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
       jest: 27.5.1
+      node-fetch: 2.6.7
       release-it: 14.13.1
       rimraf: 3.0.2
       sinon: 13.0.1
       ts-essentials: 9.1.2_typescript@4.6.3
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
-      undici: 5.6.0
 
   packages/plugin-redis-cluster:
     specifiers:
@@ -1446,6 +1448,7 @@ importers:
       '@types/jest': 28.1.2
       '@types/lodash': ^4.14.180
       '@types/node': ^17.0.23
+      '@types/node-fetch': ^2.6.2
       '@types/qs': ^6.9.7
       '@types/sinon': ^10.0.11
       '@types/split2': ^3.2.1
@@ -1478,7 +1481,6 @@ importers:
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.14.1
       typescript: ~4.6.3
-      undici: ^5.6.0
     dependencies:
       '@hapi/boom': 9.1.4
       '@microfleet/transport-amqp': 17.2.8_common-errors@1.2.0
@@ -1505,6 +1507,7 @@ importers:
       '@types/jest': 28.1.2
       '@types/lodash': 4.14.180
       '@types/node': 17.0.23
+      '@types/node-fetch': 2.6.2
       '@types/qs': 6.9.7
       '@types/sinon': 10.0.11
       '@types/split2': 3.2.1
@@ -1531,7 +1534,6 @@ importers:
       ts-essentials: 9.1.2_typescript@4.6.3
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
-      undici: 5.6.0
 
   packages/plugin-router-amqp:
     specifiers:
@@ -1628,6 +1630,7 @@ importers:
       '@types/jest': 27.4.1
       '@types/lodash': ^4.14.180
       '@types/node': ^17.0.23
+      '@types/node-fetch': ^2.6.2
       '@typescript-eslint/eslint-plugin': ^5.16.0
       '@typescript-eslint/parser': ^5.16.0
       bluebird: ^3.7.2
@@ -1642,6 +1645,7 @@ importers:
       handlebars: ^4.7.7
       jest: ^27.5.1
       lodash: ^4.17.21
+      node-fetch: '2'
       opentracing: ^0.14.7
       release-it: ^14.13.1
       rimraf: ^3.0.2
@@ -1649,7 +1653,6 @@ importers:
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.14.1
       typescript: ~4.6.3
-      undici: ^5.6.0
     dependencies:
       '@hapi/boom': 9.1.4
       '@hapi/hapi': 20.2.1
@@ -1675,6 +1678,7 @@ importers:
       '@types/jest': 27.4.1
       '@types/lodash': 4.14.180
       '@types/node': 17.0.23
+      '@types/node-fetch': 2.6.2
       '@typescript-eslint/eslint-plugin': 5.16.0_bc68a9cd5bf604202498b1a9faaf9387
       '@typescript-eslint/parser': 5.16.0_eslint@8.11.0+typescript@4.6.3
       bluebird: 3.7.2
@@ -1687,13 +1691,13 @@ importers:
       eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
       handlebars: 4.7.7
       jest: 27.5.1
+      node-fetch: 2.6.7
       release-it: 14.13.1
       rimraf: 3.0.2
       sinon: 13.0.1
       ts-essentials: 9.1.2_typescript@4.6.3
       tsconfig-paths: 3.14.1
       typescript: 4.6.3
-      undici: 5.6.0
 
   packages/plugin-router-socketio:
     specifiers:
@@ -1773,6 +1777,7 @@ importers:
       '@types/hapi__hapi': 20.0.10
       '@types/jest': 27.4.1
       '@types/node': ^17.0.23
+      '@types/node-fetch': ^2.6.2
       '@types/restify': ^8.5.4
       '@types/semver': ^7.3.9
       '@types/sinon': ^10.0.11
@@ -1786,6 +1791,7 @@ importers:
       eslint-plugin-unicorn: ^41.0.1
       http-signature: ^1.3.6
       jest: ^27.5.1
+      node-fetch: '2'
       release-it: ^14.13.1
       restify: ^8.6.1
       rimraf: ^3.0.2
@@ -1793,14 +1799,12 @@ importers:
       ts-essentials: ^9.1.2
       tsconfig-paths: ^3.14.1
       typescript: ~4.6.3
-      undici: ^5.6.0
     dependencies:
       '@hapi/boom': 9.1.4
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
       '@types/hapi__hapi': 20.0.10
       http-signature: 1.3.6
-      undici: 5.6.0
     devDependencies:
       '@makeomatic/deploy': 12.6.3
       '@microfleet/core': link:../core
@@ -1813,6 +1817,7 @@ importers:
       '@types/common-errors': 1.0.2
       '@types/jest': 27.4.1
       '@types/node': 17.0.23
+      '@types/node-fetch': 2.6.2
       '@types/restify': 8.5.4
       '@types/semver': 7.3.9
       '@types/sinon': 10.0.11
@@ -1825,6 +1830,7 @@ importers:
       eslint-plugin-import: 2.25.4_eslint@8.11.0
       eslint-plugin-unicorn: 41.0.1_eslint@8.11.0
       jest: 27.5.1
+      node-fetch: 2.6.7
       release-it: 14.13.1
       restify: 8.6.1
       rimraf: 3.0.2
@@ -4479,6 +4485,13 @@ packages:
 
   /@types/ms/0.7.31:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
+    dev: true
+
+  /@types/node-fetch/2.6.2:
+    resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
+    dependencies:
+      '@types/node': 17.0.23
+      form-data: 3.0.1
     dev: true
 
   /@types/node/17.0.23:
@@ -13569,10 +13582,6 @@ packages:
     resolution: {integrity: sha512-WJ+g+XqiZcATcBaUeluCajqy4pEDcQfK1vy+Fo+bC4/mqXI9IIQD/XWHLS70fkGUT6P52Drm7IFslO651OdLPQ==}
     engines: {node: '>=12.18'}
     dev: true
-
-  /undici/5.6.0:
-    resolution: {integrity: sha512-mc+8SY1fXubTrdx4CXDkeFFGV8lI3Tq4I/70U1V8Z6g4iscGII0uLO7CPnDt56bXEbvaKwo2T2+VrteWbZiXiQ==}
-    engines: {node: '>=12.18'}
 
   /union-value/1.0.1:
     resolution: {integrity: sha512-tJfXmxMeWYnczCVs7XAEvIV7ieppALdyepWMkHkwciRpZraG/xwT+s2JN8+pr1+8jCRf80FFzvr+MpQeeoF4Xg==}

@@ -2,7 +2,7 @@ import { strictEqual, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
 import { all } from 'bluebird'
 import cheerio = require('cheerio')
-import { fetch } from 'undici'
+import fetch from 'node-fetch'
 
 import { Microfleet } from '@microfleet/core'
 import handlebars from 'handlebars'

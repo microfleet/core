@@ -2,7 +2,7 @@ import * as assert from 'assert'
 import * as sinon from 'sinon'
 import { resolve } from 'path'
 import { HttpStatusError } from 'common-errors'
-import undici, { RequestInit } from 'undici'
+import fetch, { RequestInit } from 'node-fetch'
 import * as restify from 'restify'
 import { promisify } from 'util'
 import { IncomingMessage } from 'http'
@@ -168,7 +168,7 @@ describe('#http-signed-request hapi plugin', () => {
 
     const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
       const signed = signRequest(url, req)
-      const request = await undici.fetch(signed.url, signed.getOptions())
+      const request = await fetch(signed.url, signed.getOptions())
       return request.json()
     }
 
@@ -190,7 +190,7 @@ describe('#http-signed-request hapi plugin', () => {
     })
 
     it('ignores non signed request', async () => {
-      const req = await undici.fetch(`${baseUrl}action/signed?foo=bar`, {
+      const req = await fetch(`${baseUrl}action/signed?foo=bar`, {
         method: 'GET',
       })
       const response = await req.json()
@@ -229,7 +229,7 @@ describe('#http-signed-request hapi plugin', () => {
 
       signed.setHeader('digest', 'invalid')
 
-      const patched = await undici.fetch(signed.url, signed.getOptions())
+      const patched = await fetch(signed.url, signed.getOptions())
       const body: any = await patched.json()
 
       assert.deepStrictEqual(patched.status, 403)
@@ -244,7 +244,7 @@ describe('#http-signed-request hapi plugin', () => {
       const opts = signed.getOptions()
       opts.body = '{}'
 
-      const patched = await undici.fetch(signed.url, signed.getOptions())
+      const patched = await fetch(signed.url, signed.getOptions())
       const body: any = await patched.json()
 
       assert.deepStrictEqual(patched.status, 403)
@@ -289,7 +289,7 @@ describe('#http-signed-request hapi plugin', () => {
 
     const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
       const signed = signRequest(url, req)
-      const request = await undici.fetch(signed.url, signed.getOptions())
+      const request = await fetch(signed.url, signed.getOptions())
       return request.json()
     }
 
@@ -327,7 +327,7 @@ describe('#http-signed-request hapi plugin', () => {
       const opts = signed.getOptions()
       opts.body = '{}'
 
-      const patched = await undici.fetch(signed.url, signed.getOptions())
+      const patched = await fetch(signed.url, signed.getOptions())
       const body: any = await patched.json()
 
       assert.deepStrictEqual(patched.status, 403)
@@ -368,7 +368,7 @@ describe('restify plugin', () => {
 
   const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
     const signed = signRequest(url, req)
-    const request = await undici.fetch(signed.url, {
+    const request = await fetch(signed.url, {
       ...signed.getOptions(),
       headers: {
         ...signed.getOptions().headers,
@@ -415,7 +415,7 @@ describe('restify plugin', () => {
   })
 
   it('ignores non signed request', async () => {
-    const req = await undici.fetch(`${baseUrl}action/signed?foo=bar`, { method: 'get' })
+    const req = await fetch(`${baseUrl}action/signed?foo=bar`, { method: 'get' })
     const response = await req.json()
     assert.deepStrictEqual(response, { response: 'success' })
   })
@@ -438,7 +438,7 @@ describe('restify plugin', () => {
     const opts = signed.getOptions()
     opts.body = '{}'
 
-    const patched = await undici.fetch(signed.url, {
+    const patched = await fetch(signed.url, {
       ...signed.getOptions(),
       headers: {
         ...signed.getOptions().headers,

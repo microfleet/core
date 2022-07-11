@@ -61,6 +61,7 @@
     "@types/jest": "28.1.2",
     "@types/lodash": "^4.14.180",
     "@types/node": "^17.0.23",
+    "@types/node-fetch": "^2.6.2",
     "@types/qs": "^6.9.7",
     "@types/sinon": "^10.0.11",
     "@types/split2": "^3.2.1",
@@ -86,8 +87,7 @@
     "tempy": "^1.0.1",
     "ts-essentials": "^9.1.2",
     "tsconfig-paths": "^3.14.1",
-    "typescript": "~4.6.3",
-    "undici": "^5.6.0"
+    "typescript": "~4.6.3"
   },
   "engines": {
     "node": ">= 12.14.0",
