@@ -33,7 +33,7 @@
     "@microfleet/core-types": "workspace:^",
     "@microfleet/plugin-logger": "workspace:^",
     "debug": "^4.3.4",
-    "glob": "^7.2.0",
+    "glob": "^8.0.0",
     "sort-by": "^1.2.0"
   },
   "devDependencies": {

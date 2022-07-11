@@ -18,7 +18,7 @@
     "@release-it/conventional-changelog": "^4.2.2",
     "@swc/core-linux-x64-musl": "^1.2.160",
     "conventional-changelog-angular": "^5.0.13",
-    "glob": "^7.2.0",
+    "glob": "^8.0.0",
     "js-yaml": "^4.1.0",
     "prepend-file": "^2.0.1",
     "release-it": "^14.13.1",
