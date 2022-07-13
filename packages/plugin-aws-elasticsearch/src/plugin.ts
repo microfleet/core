@@ -1,6 +1,6 @@
 import type * as _ from '@microfleet/plugin-logger'
 import type * as __ from '@microfleet/plugin-validator'
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import { resolve } from 'path'
 import retry = require('bluebird-retry')
 import { Client, ClientOptions } from '@opensearch-project/opensearch'

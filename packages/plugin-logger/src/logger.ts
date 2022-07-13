@@ -1,9 +1,9 @@
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import { resolve } from 'path'
 import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'
 import { pino, PrettyOptions } from 'pino'
-import type { SentryTransportConfig } from './logger/streams/sentry'
+import type { NodeOptions as SentryNodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
 import { Microfleet, PluginInterface } from '@microfleet/core-types'
 import '@microfleet/plugin-validator'
@@ -84,7 +84,12 @@ export const priority = 10
 export const name = 'logger'
 
 export interface StreamConfiguration {
-  sentry?: SentryTransportConfig;
+  sentry?: {
+    minLevel?: number,
+    level?: pino.Level,
+    externalConfiguration?: string,
+    sentry: SentryNodeOptions,
+  };
   pretty?: PrettyOptions;
   [streamName: string]: any;
 }
@@ -155,8 +160,8 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
     return noopInterface
   }
 
-  if (streamsConfig.sentry && !streamsConfig.sentry.release) {
-    streamsConfig.sentry.release = version
+  if (streamsConfig.sentry && !streamsConfig.sentry.sentry.release) {
+    streamsConfig.sentry.sentry.release = version
   }
 
   const targets: pino.TransportTargetOptions[]  = []

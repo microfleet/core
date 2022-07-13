@@ -1,5 +1,5 @@
 import type * as _ from '@microfleet/plugin-validator'
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import Bluebird = require('bluebird')
 import _debug = require('debug')
 import type { PluginInterface } from '@microfleet/core-types'

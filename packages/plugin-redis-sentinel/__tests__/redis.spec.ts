@@ -1,4 +1,4 @@
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import { findHealthCheck } from './utils/health-check'
 import { Microfleet } from '@microfleet/core'
 import type { Config } from '@microfleet/plugin-redis-sentinel'

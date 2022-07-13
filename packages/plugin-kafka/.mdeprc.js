@@ -3,10 +3,9 @@ const dir = basename(__dirname)
 
 module.exports = {
   ...require('../../.mdeprc.js'),
-  "nycCoverage": false,
-  "coverage": false,
-  "auto_compose": true,
-  "node": "16",
+  nycCoverage: false,
+  auto_compose: true,
+  node: "16",
   "tester_flavour": "rdkafka-tester",
   http: false,
   "test_framework": "jest --config ./jest.config.js --runTestsByPath --maxWorkers=50% --colors --verbose",

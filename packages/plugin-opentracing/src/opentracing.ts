@@ -1,4 +1,4 @@
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import { NotFoundError } from 'common-errors'
 import type { Microfleet } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'

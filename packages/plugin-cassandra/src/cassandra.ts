@@ -1,5 +1,5 @@
 import Bluebird = require('bluebird')
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import retry = require('bluebird-retry')
 import { NotPermittedError, NotFoundError } from 'common-errors'
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'
