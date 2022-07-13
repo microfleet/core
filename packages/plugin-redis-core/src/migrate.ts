@@ -29,12 +29,12 @@
 import type { Microfleet } from '@microfleet/core-types'
 
 import { strict as assert } from 'assert'
-import _debug = require('debug')
-import fs = require('fs')
-import glob = require('glob')
-import Redis = require('ioredis')
-import path = require('path')
-import sortBy = require('sort-by')
+import _debug from 'debug'
+import fs from 'fs'
+import glob from 'glob'
+import Redis from 'ioredis'
+import path from 'path'
+import sortBy from 'sort-by'
 
 // some constant helpers
 const VERSION_KEY = 'version'

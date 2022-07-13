@@ -1,6 +1,5 @@
 import assert from 'assert'
-import fetch from 'node-fetch'
-
+import { fetch, getGlobalDispatcher } from 'undici'
 import { Microfleet } from '@microfleet/core'
 
 describe('prometheus plugin', function testSuite() {
@@ -28,7 +27,8 @@ describe('prometheus plugin', function testSuite() {
 
     await service.connect()
 
-    const text = await (await fetch('http://0.0.0.0:9102/metrics')).text()
+    const res = await fetch('http://0.0.0.0:9102/metrics')
+    const text = await res.text()
     assert.ok(text.includes('TYPE application_version_info gauge'))
     assert.ok(text.includes('TYPE microfleet_request_duration_milliseconds histogram'))
   })
@@ -36,4 +36,8 @@ describe('prometheus plugin', function testSuite() {
   afterEach(() => (
     service && service.close()
   ))
+
+  afterAll(async () => {
+    await getGlobalDispatcher().close()
+  })
 })

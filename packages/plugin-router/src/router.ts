@@ -1,7 +1,7 @@
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
 import { Tags } from 'opentracing'
-import hyperid = require('hyperid')
+import hyperid from 'hyperid'
 import { Tracer } from 'opentracing'
 import { Logger } from '@microfleet/plugin-logger'
 

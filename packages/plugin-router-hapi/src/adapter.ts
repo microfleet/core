@@ -1,5 +1,5 @@
 import type * as _ from '@microfleet/plugin-opentracing'
-import Errors = require('common-errors')
+import Errors from 'common-errors'
 import { noop } from 'lodash'
 import { FORMAT_HTTP_HEADERS, SpanContext } from 'opentracing'
 import { Request } from '@hapi/hapi'

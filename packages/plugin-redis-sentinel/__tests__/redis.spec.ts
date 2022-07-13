@@ -2,7 +2,7 @@ import { strict as assert } from 'node:assert'
 import { findHealthCheck } from './utils/health-check'
 import { Microfleet } from '@microfleet/core'
 import type { Config } from '@microfleet/plugin-redis-sentinel'
-import Redis = require('ioredis')
+import Redis from 'ioredis'
 import { resolve } from 'path'
 
 describe('Redis suite', function testSuite() {

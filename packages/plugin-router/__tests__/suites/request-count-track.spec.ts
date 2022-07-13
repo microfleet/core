@@ -11,7 +11,8 @@ import {
   getIOClient,
   withResponseValidateAction,
 } from '../artifacts/utils'
-import getFreePort = require('get-port')
+import getFreePort from 'get-port'
+import { getGlobalDispatcher } from 'undici'
 
 const { auditLog } = Extensions
 
@@ -104,5 +105,9 @@ describe('service request count', () => {
 
     assert(preRequestSpy.callCount === 3)
     assert(postResponseSpy.callCount === 3)
+  })
+
+  afterAll(async () => {
+    await getGlobalDispatcher().close()
   })
 })

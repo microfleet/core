@@ -1,6 +1,6 @@
 import type * as _ from '@microfleet/plugin-logger'
 import { strict as assert } from 'node:assert'
-import retry = require('bluebird-retry')
+import retry from 'bluebird-retry'
 import { ClientOptions as Config, Client } from '@elastic/elasticsearch'
 import { NotFoundError } from 'common-errors'
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'

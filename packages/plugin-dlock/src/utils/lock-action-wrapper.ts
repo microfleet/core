@@ -1,4 +1,4 @@
-import Bluebird = require('bluebird')
+import Bluebird from 'bluebird'
 import { LockAcquisitionError } from '@microfleet/ioredis-lock'
 import { HttpStatusError } from 'common-errors'
 import type { Microfleet } from '@microfleet/core'

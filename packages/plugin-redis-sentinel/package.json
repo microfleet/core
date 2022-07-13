@@ -37,8 +37,7 @@
     "@microfleet/plugin-validator": "workspace:^",
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
-    "debug": "^4.3.4",
-    "opentracing-js-ioredis": "^2.1.2"
+    "debug": "^4.3.4"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",

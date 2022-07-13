@@ -1,8 +1,8 @@
 import { Microfleet } from '@microfleet/core'
-import Cassandra = require('express-cassandra')
+import Cassandra from 'express-cassandra'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
-import rfdc = require('rfdc')
+import rfdc from 'rfdc'
 import { lookup } from 'dns'
 import { config } from './config'
 
