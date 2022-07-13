@@ -168,8 +168,12 @@ describe('#http-signed-request hapi plugin', () => {
 
     const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
       const signed = signRequest(url, req)
-      const request = await fetch(signed.url, signed.getOptions())
-      return request.json()
+      try {
+        const request = await fetch(signed.url, signed.getOptions())
+        return await request.json()
+      } catch (e: any) {
+        throw e.cause
+      }
     }
 
     beforeAll(async () => {
@@ -190,11 +194,8 @@ describe('#http-signed-request hapi plugin', () => {
     })
 
     it('ignores non signed request', async () => {
-      const req = await fetch(`${baseUrl}action/signed?foo=bar`, {
-        method: 'GET',
-      })
+      const req = await fetch(`${baseUrl}action/signed?foo=bar`)
       const response = await req.json()
-
       assert.deepStrictEqual(response, { response: 'success' })
     })
 
@@ -308,7 +309,6 @@ describe('#http-signed-request hapi plugin', () => {
       if (service) {
         await service.close()
       }
-      await getGlobalDispatcher().close()
     })
 
     it('should verify #post', async () => {
@@ -413,18 +413,24 @@ describe('restify plugin', () => {
     if (server) {
       await server.close()
     }
+
+    await getGlobalDispatcher().close()
   })
 
   it('ignores non signed request', async () => {
-    const req = await fetch(`${baseUrl}action/signed?foo=bar`, { method: 'get' })
-    const response = await req.json()
-    assert.deepStrictEqual(response, { response: 'success' })
+    try {
+      const req = await fetch(`${baseUrl}action/signed?foo=bar`)
+      const response = await req.json()
+      assert.deepStrictEqual(response, { response: 'success' })
+    } catch (e: any) {
+      throw e.cause
+    }
   })
 
   it('should verify #post', async () => {
     const response = await signAndRequest('action/signed?foo=bar', {
-      method: 'post',
-      json: { data: { type: 'user' }},
+      method: 'POST',
+      body: JSON.stringify({ data: { type: 'user' } }),
     })
 
     assert.deepStrictEqual(response, {
@@ -435,7 +441,10 @@ describe('restify plugin', () => {
   })
 
   it('should panic on invalid payload signature #post', async () => {
-    const signed = signRequest('action/signed?foo=bar', { method: 'post', json: { data: { type: 'user' }} })
+    const signed = signRequest('action/signed?foo=bar', {
+      method: 'POST',
+      body: JSON.stringify({ data: { type: 'user' } })
+    })
     const opts = signed.getOptions()
     opts.body = '{}'
 
