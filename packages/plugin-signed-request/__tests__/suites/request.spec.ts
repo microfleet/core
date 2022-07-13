@@ -2,7 +2,7 @@ import * as assert from 'assert'
 import * as sinon from 'sinon'
 import { resolve } from 'path'
 import { HttpStatusError } from 'common-errors'
-import fetch, { RequestInit } from 'node-fetch'
+import { fetch, getGlobalDispatcher, RequestInit } from 'undici'
 import * as restify from 'restify'
 import { promisify } from 'util'
 import { IncomingMessage } from 'http'
@@ -308,6 +308,7 @@ describe('#http-signed-request hapi plugin', () => {
       if (service) {
         await service.close()
       }
+      await getGlobalDispatcher().close()
     })
 
     it('should verify #post', async () => {

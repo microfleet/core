@@ -5,7 +5,7 @@ import type { PluginInterface } from '@microfleet/core-types'
 import { Microfleet } from '@microfleet/core'
 import { NotFoundError } from 'common-errors'
 import { PluginTypes } from '@microfleet/utils'
-import consul = require('consul')
+import consul from 'consul'
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-logger'
 

@@ -4,8 +4,8 @@ import { NotFoundError } from 'common-errors'
 import type { Microfleet } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
-import retry = require('bluebird-retry')
-import CouchDB = require('nano')
+import retry from 'bluebird-retry'
+import CouchDB from 'nano'
 import type * as _ from '@microfleet/plugin-validator'
 import type * as __ from '@microfleet/plugin-logger'
 

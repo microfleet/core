@@ -1,18 +1,19 @@
 import { delay, TimeoutError } from 'bluebird'
 import { resolve } from 'path'
 import { strict as assert } from 'assert'
-import split2 = require('split2')
+import split2 from 'split2'
 import { once } from 'events'
-import getFreePort = require('get-port')
+import getFreePort from 'get-port'
 import { io } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
-import Bluebird = require('bluebird')
-import execa = require('execa')
+import Bluebird from 'bluebird'
+import execa from 'execa'
 
 import {
   getHTTPRequest,
   getSocketioRequest
 } from '../artifacts/utils'
+import { getGlobalDispatcher } from 'undici'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const debug = require('debug')('test')
@@ -246,5 +247,9 @@ describe('service graceful shutdown', () => {
       await serviceConnector.service.close()
       serviceConnector.socketioClient.close()
     }
+  })
+
+  afterAll(async () => {
+    await getGlobalDispatcher().close()
   })
 })

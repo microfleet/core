@@ -3,12 +3,12 @@ import type * as _ from '@microfleet/plugin-logger'
 import { promisify } from 'util'
 import { strict as assert } from 'assert'
 import { ArgumentError } from 'common-errors'
-import _debug = require('debug')
-import fs = require('fs')
-import _glob = require('glob')
-import path = require('path')
+import _debug from 'debug'
+import fs from 'fs'
+import _glob from 'glob'
+import path from 'path'
 import { ERROR_NOT_HEALTHY, ERROR_NOT_STARTED } from './constants'
-import Redis = require('ioredis')
+import Redis from 'ioredis'
 
 const debug = _debug('mservice:lua')
 const glob = promisify(_glob)

@@ -1,6 +1,6 @@
 import { strict as assert } from 'assert'
 import { resolve } from 'path'
-import rfdc = require('rfdc')
+import rfdc from 'rfdc'
 import { isObject } from 'lodash'
 import { Microfleet, PluginTypes } from '@microfleet/core'
 import { defaultsDeep } from '@microfleet/utils'

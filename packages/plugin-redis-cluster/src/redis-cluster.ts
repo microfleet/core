@@ -1,7 +1,7 @@
 import { strict as assert } from 'node:assert'
-import Bluebird = require('bluebird')
-import _debug = require('debug')
-import fromEvent = require('promise-toolbox/fromEvent')
+import Bluebird from 'bluebird'
+import _debug from 'debug'
+import fromEvent from 'promise-toolbox/fromEvent'
 import type { PluginInterface } from '@microfleet/core-types'
 import type { Microfleet } from '@microfleet/core'
 import Redis from 'ioredis'
@@ -80,12 +80,6 @@ export function attach(this: Microfleet, opts: Partial<Config> = {}): PluginInte
   this.redisType = REDIS_TYPE_CLUSTER
   this.log.debug({ conf }, 'redis config')
   this.redis = new Cluster(conf.hosts, { ...conf.options, lazyConnect: true })
-
-  if (this.tracer) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const applyInstrumentation = require('opentracing-js-ioredis')
-    applyInstrumentation(this.tracer, this.redis)
-  }
 
   return {
 

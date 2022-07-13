@@ -3,8 +3,8 @@ import { strict as assert } from 'node:assert'
 import { Microfleet } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
-import semver = require('semver')
-import Prometheus = require('prom-client')
+import semver from 'semver'
+import Prometheus from 'prom-client'
 import { NotFoundError } from 'common-errors'
 import { once } from 'events'
 import { resolve } from 'path'

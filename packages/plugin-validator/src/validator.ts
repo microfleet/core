@@ -1,7 +1,7 @@
 import MicrofleetValidator from '@microfleet/validation'
-import callsite = require('callsite')
+import callsite from 'callsite'
 import { NotPermittedError } from 'common-errors'
-import path = require('path')
+import path from 'path'
 import { strictEqual } from 'assert'
 import { isString, isPlainObject, isFunction } from 'lodash'
 import { deprecate } from 'util'

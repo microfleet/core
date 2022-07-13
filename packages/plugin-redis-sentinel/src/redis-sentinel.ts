@@ -1,7 +1,7 @@
 import type * as _ from '@microfleet/plugin-validator'
 import { strict as assert } from 'node:assert'
-import Bluebird = require('bluebird')
-import _debug = require('debug')
+import Bluebird from 'bluebird'
+import _debug from 'debug'
 import type { PluginInterface } from '@microfleet/core-types'
 import type { Microfleet } from '@microfleet/core'
 import { PluginTypes } from '@microfleet/utils'
@@ -72,12 +72,6 @@ export function attach(this: Microfleet, opts: Partial<Config> = {}): PluginInte
     name: conf.name,
     sentinels: conf.sentinels,
   })
-
-  if (this.tracer) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const applyInstrumentation = require('opentracing-js-ioredis')
-    applyInstrumentation(this.tracer, this.redis)
-  }
 
   return {
 

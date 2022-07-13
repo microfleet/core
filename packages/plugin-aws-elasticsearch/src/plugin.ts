@@ -2,11 +2,11 @@ import type * as _ from '@microfleet/plugin-logger'
 import type * as __ from '@microfleet/plugin-validator'
 import { strict as assert } from 'node:assert'
 import { resolve } from 'path'
-import retry = require('bluebird-retry')
+import retry from 'bluebird-retry'
 import { Client, ClientOptions } from '@opensearch-project/opensearch'
 import { NotFoundError } from 'common-errors'
 import { PluginTypes } from '@microfleet/utils'
-import AWS = require('aws-sdk')
+import AWS from 'aws-sdk'
 import { createAwsElasticsearchConnector } from './utils/createAwsElasticsearchConnector'
 import { PluginInterface, Microfleet } from '@microfleet/core-types'
 declare module '@microfleet/core-types' {

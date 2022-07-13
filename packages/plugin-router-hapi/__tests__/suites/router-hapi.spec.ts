@@ -1,8 +1,8 @@
 import { strictEqual, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
 import { all } from 'bluebird'
-import cheerio = require('cheerio')
-import fetch from 'node-fetch'
+import cheerio from 'cheerio'
+import { fetch, getGlobalDispatcher } from 'undici'
 
 import { Microfleet } from '@microfleet/core'
 import handlebars from 'handlebars'
@@ -255,5 +255,9 @@ describe('@microfleet/plugin-router-hapi', () => {
       const body = await response.text()
       strictEqual(/google/.test(body), true)
     })
+  })
+
+  afterAll(async () => {
+    await getGlobalDispatcher().close()
   })
 })

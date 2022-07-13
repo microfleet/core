@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+const { resolve } = require('node:path')
 const cwd = process.cwd()
 const transform = resolve(cwd, 'node_modules/@swc-node/jest')
 

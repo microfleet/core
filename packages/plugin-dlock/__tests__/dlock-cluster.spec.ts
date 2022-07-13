@@ -1,6 +1,6 @@
 import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
-import Bluebird = require('bluebird')
+import Bluebird from 'bluebird'
 
 describe('@microfleet/plugin-dlock + cluster', () => {
   let microfleet: Microfleet

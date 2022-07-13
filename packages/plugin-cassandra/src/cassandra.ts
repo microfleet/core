@@ -1,10 +1,10 @@
-import Bluebird = require('bluebird')
+import Bluebird from 'bluebird'
 import { strict as assert } from 'node:assert'
-import retry = require('bluebird-retry')
+import retry from 'bluebird-retry'
 import { NotPermittedError, NotFoundError } from 'common-errors'
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
-import Cassandra = require('express-cassandra')
+import Cassandra from 'express-cassandra'
 import { resolve } from 'path'
 import type * as _ from '@microfleet/plugin-logger'
 import type * as __ from '@microfleet/plugin-validator'

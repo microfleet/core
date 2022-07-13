@@ -1,4 +1,4 @@
-import cassandra = require('express-cassandra')
+import cassandra from 'express-cassandra'
 
 export const config = {
   cassandra: {

@@ -1,5 +1,5 @@
 import { sep, resolve } from 'path'
-import glob = require('glob')
+import glob from 'glob'
 import { ValidationError } from 'common-errors'
 
 import { ServiceAction } from './types/router'

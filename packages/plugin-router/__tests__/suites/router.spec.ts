@@ -1,8 +1,8 @@
 import { strict, strictEqual, rejects, doesNotReject, deepStrictEqual } from 'assert'
 import { resolve } from 'path'
 import { AuthenticationRequiredError } from 'common-errors'
-import sinon = require('sinon')
-import Bluebird = require('bluebird')
+import sinon from 'sinon'
+import Bluebird from 'bluebird'
 import { filter, range } from 'lodash'
 import { Microfleet, PLUGIN_STATUS_FAIL } from '@microfleet/core'
 import { Extensions, ServiceRequest } from '@microfleet/plugin-router'
@@ -17,6 +17,7 @@ import {
   withResponseValidateAction,
   getIOClient
 } from '../artifacts/utils'
+import { getGlobalDispatcher } from 'undici'
 
 const {
   auditLog,
@@ -944,5 +945,9 @@ describe('@microfleet/plugin-router', () => {
         socketioClient.close()
       }
     })
+  })
+
+  afterAll(async () => {
+    await getGlobalDispatcher().close()
   })
 })

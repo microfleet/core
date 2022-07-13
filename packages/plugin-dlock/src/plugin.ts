@@ -1,4 +1,4 @@
-import Bluebird = require('bluebird')
+import Bluebird from 'bluebird'
 import Redis, { Cluster } from 'ioredis'
 import type * as __ from '@microfleet/plugin-logger'
 import type * as _ from '@microfleet/plugin-validator'

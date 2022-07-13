@@ -6,7 +6,7 @@ import { Socket, io } from 'socket.io-client'
 import { once } from 'events'
 import hyperid from 'hyperid'
 import { CoreOptions } from '@microfleet/core'
-import fetch from 'node-fetch'
+import { fetch } from 'undici'
 
 const idInstance = hyperid({ urlSafe: true })
 
@@ -50,14 +50,13 @@ const reqPromise = async (reqUrl: URL, requestOptions: any) => {
     ...requestOptions,
     keepalive: false,
   })
+  const res = await response.json()
 
   if (response.status !== 200) {
-    const res = await response.json()
-    throw res
+    throw res // TODO: gotta wrap in a normal error
   }
 
-  const parsed = await response.json()
-  return parsed
+  return res
 }
 
 export function getHTTPRequest<T = any>(_options: RequestInit & {url: string }): (action: string, params?: any, opts?: any) => Bluebird<T> {

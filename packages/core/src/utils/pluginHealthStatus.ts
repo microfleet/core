@@ -1,4 +1,4 @@
-import retry = require('bluebird-retry')
+import retry from 'bluebird-retry'
 import { PLUGIN_STATUS_OK, PLUGIN_STATUS_FAIL } from '@microfleet/utils'
 import type { PluginStatus } from '@microfleet/core-types'
 import type { Microfleet } from '../'
