@@ -4,7 +4,6 @@ const dir = basename(__dirname)
 module.exports = {
   ...require('../../.mdeprc.js'),
   "nycCoverage": false,
-  "coverage": false,
   "auto_compose": true,
   "services": ["cassandra"],
   "node": "16",
@@ -15,6 +14,9 @@ module.exports = {
   extras: {
     tester: {
       working_dir: `/src/packages/${dir}`,
+    },
+    cassandra: {
+      image: 'cassandra:3'
     }
   }
 }

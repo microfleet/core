@@ -1,5 +1,5 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http'
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import { Microfleet } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'

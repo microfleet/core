@@ -3,10 +3,9 @@ const dir = basename(__dirname)
 
 module.exports = {
   ...require('../../.mdeprc.js'),
-  "nycCoverage": false,
-  "coverage": false,
-  "auto_compose": true,
-  "node": "16",
+  nycCoverage: false,
+  auto_compose: true,
+  node: "16",
   "parallel": 3,
   "services": [
     "redisSentinel"

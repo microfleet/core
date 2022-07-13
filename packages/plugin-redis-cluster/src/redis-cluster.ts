@@ -1,4 +1,4 @@
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import Bluebird = require('bluebird')
 import _debug = require('debug')
 import fromEvent = require('promise-toolbox/fromEvent')

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import { resolve } from 'path'
 import { NotFoundError } from 'common-errors'
 import type { Microfleet, PluginInterface } from '@microfleet/core-types'

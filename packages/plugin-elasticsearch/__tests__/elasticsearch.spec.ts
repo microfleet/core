@@ -1,4 +1,4 @@
-import assert = require('assert')
+import { strict as assert } from 'node:assert'
 import { Microfleet } from '@microfleet/core'
 import { Config } from '@microfleet/plugin-elasticsearch'
 

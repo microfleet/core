@@ -6,6 +6,7 @@ import { file as tmpFile } from 'tempy'
 import { open } from 'fs/promises'
 import { HttpStatusError } from 'common-errors'
 import Fastify from 'fastify'
+import { setTimeout } from 'timers/promises'
 
 describe('Logger suite', () => {
   it('when service does not include `logger` plugin, it emits an error or throws', () => {
@@ -28,9 +29,6 @@ describe('Logger suite', () => {
             destination: '/dev/null'
           }
         },
-        worker: {
-          autoEnd: false
-        },
       }
     })
 
@@ -50,9 +48,6 @@ describe('Logger suite', () => {
           options: {
             destination: '/dev/null'
           }
-        },
-        worker: {
-          autoEnd: false
         },
       },
     })
@@ -87,16 +82,13 @@ describe('Logger suite', () => {
       return 'ok'
     })
 
-    await fastify.listen(9999, '0.0.0.0')
+    await fastify.listen({ port: 9999, host: '0.0.0.0' })
 
     try {
       const service = new Microfleet({
         name: 'tester',
         plugins: ['validator', 'logger'],
         logger: {
-          worker: {
-            autoEnd: false,
-          },
           prettifyDefaultLogger: false,
           defaultLogger: {
             options: {
@@ -105,9 +97,17 @@ describe('Logger suite', () => {
           },
           streams: {
             sentry: {
-              dsn: 'http://api@127.0.0.1:9999/3123891023810',
+              sentry: {
+                dsn: 'http://api@127.0.0.1:9999/3123891023810',
+                transportOptions: {
+                  headers: {
+                    'content-type': 'text/plain', // so that fastify can read data
+                  },
+                },
+              },
               externalConfiguration: './__tests__/sentry.beforeSend',
               level: 'debug',
+              minLevel: 10,
             },
           },
         },
@@ -126,8 +126,7 @@ describe('Logger suite', () => {
       service.log.error({ err: new Error('could not find associated data') }, 'must be filtered')
       service.log.error({ err: new HttpStatusError(200, '412: upload was already processed') }, 'must be filtered 2')
 
-      // when autoEnd is false - must be called
-      await service.logClose?.()
+      await setTimeout(1000)
 
       const data = await handle.readFile({ encoding: 'utf8' })
       const lines = data.split('\n').slice(0, -1).map((x) => JSON.parse(x))
