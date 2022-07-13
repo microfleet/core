@@ -4,7 +4,7 @@ import _debug = require('debug')
 import fromEvent = require('promise-toolbox/fromEvent')
 import type { PluginInterface } from '@microfleet/core-types'
 import type { Microfleet } from '@microfleet/core'
-import Redis = require('ioredis')
+import Redis from 'ioredis'
 import { resolve } from 'path'
 import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'

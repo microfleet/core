@@ -5,7 +5,7 @@ import Bluebird = require('bluebird')
 describe('@microfleet/plugin-dlock + sentinel', () => {
   let microfleet: Microfleet
 
-  it('should be able to initialize dlock with redis sentinel', async () => {
+  beforeAll(async () => {
     microfleet = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'redis-sentinel', 'dlock'],

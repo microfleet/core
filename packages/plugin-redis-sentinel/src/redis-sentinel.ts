@@ -14,7 +14,7 @@ import {
   isStarted,
   loadLuaScripts,
 } from '@microfleet/plugin-redis-core'
-import Redis = require('ioredis')
+import Redis from 'ioredis'
 
 const debug = _debug('mservice:redisSentinel')
 
