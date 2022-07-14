@@ -1,5 +1,31 @@
 
 
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.15.0...@microfleet/plugin-dlock@0.18.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.15.0...@microfleet/plugin-dlock@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
 # [0.16.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.13.0...@microfleet/plugin-dlock@0.16.0) (2022-07-11)
 
 

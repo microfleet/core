@@ -1,3 +1,423 @@
+# @microfleet/core-types 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.18.0...@microfleet/core-types@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/core 17.26.0
+
+# [17.26.0](https://github.com/microfleet/core/compare/@microfleet/core@17.24.0...@microfleet/core@17.26.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-amqp 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.15.0...@microfleet/plugin-amqp@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-aws-elasticsearch 1.20.0
+
+# [1.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.18.0...@microfleet/plugin-aws-elasticsearch@1.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-casl 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.3.0...@microfleet/plugin-casl@0.5.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-cassandra 0.25.0
+
+# [0.25.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.23.0...@microfleet/plugin-cassandra@0.25.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-consul 2.22.0
+
+# [2.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.20.0...@microfleet/plugin-consul@2.22.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-couchdb 2.22.0
+
+# [2.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.20.0...@microfleet/plugin-couchdb@2.22.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-dlock 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.15.0...@microfleet/plugin-dlock@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-elasticsearch 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.18.0...@microfleet/plugin-elasticsearch@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-hapi 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.15.0...@microfleet/plugin-hapi@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-kafka-types 1.21.0
+
+# [1.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.19.0...@microfleet/plugin-kafka-types@1.21.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-kafka 2.26.0
+
+# [2.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.24.0...@microfleet/plugin-kafka@2.26.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-knex 2.23.0
+
+# [2.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.21.0...@microfleet/plugin-knex@2.23.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-logger 0.25.0
+
+# [0.25.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.23.0...@microfleet/plugin-logger@0.25.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-opentracing 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.18.0...@microfleet/plugin-opentracing@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-prometheus 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.18.0...@microfleet/plugin-prometheus@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-redis-cluster 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.18.0...@microfleet/plugin-redis-cluster@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-redis-core 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.18.0...@microfleet/plugin-redis-core@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-redis-sentinel 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.18.0...@microfleet/plugin-redis-sentinel@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-router-amqp 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.15.0...@microfleet/plugin-router-amqp@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-router-hapi 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.15.0...@microfleet/plugin-router-hapi@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-router-socketio 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.15.0...@microfleet/plugin-router-socketio@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-router 0.18.0
+
+# [0.18.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.16.0...@microfleet/plugin-router@0.18.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-signed-request 0.3.0
+
+# [0.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.1.0...@microfleet/plugin-signed-request@0.3.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-socketio 0.17.0
+
+# [0.17.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.15.0...@microfleet/plugin-socketio@0.17.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/plugin-validator 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.18.0...@microfleet/plugin-validator@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
+# @microfleet/utils 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.18.0...@microfleet/utils@0.20.0) (2022-07-14)
+
+
+### Bug Fixes
+
+* increase test timeout for slow machines on CI ([61cc970](https://github.com/microfleet/core/commit/61cc970b9c636b4b3a076a3715dc9ec20d6f838d))
+* undici vs node-fetch ([bd38a18](https://github.com/microfleet/core/commit/bd38a18f005d0c29a2b73b9e181948cc30ec0543))
+
+
+### Features
+
+* pino 8 and other deps ([15dfb1b](https://github.com/microfleet/core/commit/15dfb1b3834584ec2c5c6bb20cdd5911055e6dda))
+
 # @microfleet/core-types 0.18.0
 
 # [0.18.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.16.0...@microfleet/core-types@0.18.0) (2022-07-11)
