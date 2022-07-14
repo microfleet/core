@@ -8,11 +8,12 @@ module.exports = {
   node: '16',
   parallel: 1,
   test_framework: 'jest --config ./jest.config.js --runTestsByPath --runInBand --verbose --colors',
-  tests: '__tests__/**/{request-count-track,runner,graceful-shutdown,router}.spec.ts',
+  tests: '__tests__/**/*.spec.ts',
   services: [
     'rabbitmq',
   ],
-  in_one: true,
+  http: true,
+  in_one: false,
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
     tester: {
