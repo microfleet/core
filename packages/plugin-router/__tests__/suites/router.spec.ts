@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { AuthenticationRequiredError } from 'common-errors'
 import sinon from 'sinon'
 import Bluebird from 'bluebird'
+import getFreePort from 'get-port'
 import { filter, range } from 'lodash'
 import { Microfleet, PLUGIN_STATUS_FAIL } from '@microfleet/core'
 import { Extensions, ServiceRequest } from '@microfleet/plugin-router'
@@ -17,7 +18,7 @@ import {
   withResponseValidateAction,
   getIOClient
 } from '../artifacts/utils'
-import { getGlobalDispatcher } from 'undici'
+import { getGlobalDispatcher, setGlobalDispatcher, Agent } from 'undici'
 
 const {
   auditLog,
@@ -29,8 +30,26 @@ const {
 const debug = require('debug')('test')
 
 describe('@microfleet/plugin-router', () => {
+  let port: number
+  let service: Microfleet
+
+  beforeEach(async () => {
+    port = await getFreePort()
+    setGlobalDispatcher(new Agent({
+      keepAliveMaxTimeout: 10,
+      keepAliveTimeout: 10,
+      bodyTimeout: 1e3,
+      headersTimeout: 1e3,
+    }))
+  })
+
+  afterEach(async () => {
+    await getGlobalDispatcher().close()
+    await service?.close()
+  })
+
   it('should throw error if plugin is not included', () => {
-    const service = new Microfleet({
+    service = new Microfleet({
       name: 'tester',
       plugins: [],
     })
@@ -39,7 +58,7 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should return response', async () => {
-    const service = new Microfleet({
+    service = new Microfleet({
       name: 'tester',
       plugins: [
         'validator',
@@ -62,6 +81,7 @@ describe('@microfleet/plugin-router', () => {
         },
       },
       hapi: {
+        server: { port },
         attachSocketio: true,
       },
       logger: {
@@ -100,8 +120,8 @@ describe('@microfleet/plugin-router', () => {
     await service.connect()
 
     const { amqp } = service
-    const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-    const socketioClient = await getIOClient('http://0.0.0.0:3000')
+    const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}` })
+    const socketioClient = await getIOClient(`http://0.0.0.0:${port}`)
     const socketioRequest = getSocketioRequest(socketioClient)
     const amqpRequest = getAmqpRequest(amqp)
 
@@ -202,12 +222,13 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should be able to parse query string when present & perform validation', async () => {
-    const service = new Microfleet({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
       logger: {
         defaultLogger: false,
       },
+      hapi: { server: { port } },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -220,30 +241,25 @@ describe('@microfleet/plugin-router', () => {
       validator: { schemas: ['../artifacts/schemas'] },
     })
 
-    const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' })
+    const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}`, method: 'GET' })
     const rget = (qs: any, success = true, opts = {}) => {
       return (success ? doesNotReject : rejects)(httpRequest('/action/qs', null, { qs, ...opts }))
     }
 
     await service.connect()
-
-    try {
-      await Promise.all([
-        rget({ sample: 1, bool: true }),
-        rget({ sample: 'crap', bool: true }, false),
-        rget({ sample: 13, bool: 'invalid' }, false),
-        rget({ sample: 13, bool: '0' }),
-        rget({ sample: 13, bool: '0', oops: 'q' }, false),
-        rget({ sample: 13.4, bool: '0' }, false),
-        rget(null, false, { json: { sample: 13.4, bool: '0' }, method: 'post' }),
-      ])
-    } finally {
-      await service.close()
-    }
+    await Promise.all([
+      rget({ sample: 1, bool: true }),
+      rget({ sample: 'crap', bool: true }, false),
+      rget({ sample: 13, bool: 'invalid' }, false),
+      rget({ sample: 13, bool: '0' }),
+      rget({ sample: 13, bool: '0', oops: 'q' }, false),
+      rget({ sample: 13.4, bool: '0' }, false),
+      rget(null, false, { json: { sample: 13.4, bool: '0' }, method: 'post' }),
+    ])
   })
 
   it('should be able to set schema and responseSchema from action name', async () => {
-    const service = new Microfleet({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'amqp', 'router-amqp'],
       logger: {
@@ -283,18 +299,14 @@ describe('@microfleet/plugin-router', () => {
     const { amqp } = service
     const amqpRequest = getAmqpRequest(amqp)
 
-    try {
-      await Promise.all([
-        amqpRequest('action.without-schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
-        amqpRequest('action.without-schema', { foo: 42 }).reflect().then(verify(returnsResult)),
-      ])
-    } finally {
-      await service.close()
-    }
+    await Promise.all([
+      amqpRequest('action.without-schema', { foo: 'bar' }).reflect().then(verify(validationFailed)),
+      amqpRequest('action.without-schema', { foo: 42 }).reflect().then(verify(returnsResult)),
+    ])
   })
 
   it('should scan for nested routes', async () => {
-    const service = new Microfleet({
+    service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'amqp', 'router-amqp'],
       logger: {
@@ -346,7 +358,7 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should scan for generic routes', async () => {
-    const service = new Microfleet({
+    service = new Microfleet({
       name: 'tester',
       plugins: [
         'validator',
@@ -363,6 +375,7 @@ describe('@microfleet/plugin-router', () => {
         defaultLogger: false,
       },
       hapi: {
+        server: { port },
         attachSocketio: true,
       },
       router: {
@@ -395,8 +408,8 @@ describe('@microfleet/plugin-router', () => {
 
     const { amqp } = service
     const amqpRequest = getAmqpRequest(amqp)
-    const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
-    const socketioClient = await getIOClient('http://0.0.0.0:3000')
+    const httpRequest = getHTTPRequest({ method: 'get', url: `http://0.0.0.0:${port}` })
+    const socketioClient = await getIOClient(`http://0.0.0.0:${port}`)
     const socketioRequest = getSocketioRequest(socketioClient)
 
     try {
@@ -408,12 +421,11 @@ describe('@microfleet/plugin-router', () => {
       ])
     } finally {
       socketioClient.close()
-      await service.close()
     }
   })
 
   it('should return an error when some service fails his healthcheck', async () => {
-    const service = new Microfleet({
+    service = new Microfleet({
       name: 'tester',
       plugins: [
         'validator',
@@ -427,6 +439,7 @@ describe('@microfleet/plugin-router', () => {
       logger: {
         defaultLogger: false,
       },
+      hapi: { server: { port } },
       router: {
         routes: {
           directory: resolve(__dirname, '../artifacts/actions'),
@@ -469,7 +482,7 @@ describe('@microfleet/plugin-router', () => {
 
     const { amqp } = service
     const amqpRequest = getAmqpRequest(amqp)
-    const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+    const httpRequest = getHTTPRequest({ method: 'get', url: `http://0.0.0.0:${port}` })
 
     try {
       await Promise.all([
@@ -477,7 +490,6 @@ describe('@microfleet/plugin-router', () => {
         httpRequest('/action/generic/health').reflect().then(verify(unhealthyStateHTTP)),
       ])
     } finally {
-      await service.close()
       stub.reset()
     }
   })
@@ -516,7 +528,7 @@ describe('@microfleet/plugin-router', () => {
     const handle = await open(file, 'w+')
 
     try {
-      const service = new Microfleet({
+      service = new Microfleet({
         name: 'tester',
         plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
         logger: {
@@ -530,6 +542,7 @@ describe('@microfleet/plugin-router', () => {
             },
           },
         },
+        hapi: { server: { port } },
         router: {
           routes: {
             directory: resolve(__dirname, '../artifacts/actions'),
@@ -542,11 +555,13 @@ describe('@microfleet/plugin-router', () => {
         },
         validator: { schemas: ['../artifacts/schemas'] },
       })
-      const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+      const httpRequest = getHTTPRequest({ method: 'get', url: `http://0.0.0.0:${port}` })
 
       await service.connect()
       await httpRequest('/404').reflect()
       await service.close()
+      // @ts-expect-error so we dont double close
+      service = undefined
       await setTimeout(500)
 
       const data = await handle.readFile({ encoding: 'utf8' })
@@ -563,7 +578,7 @@ describe('@microfleet/plugin-router', () => {
     const handle = await open(file, 'w+')
 
     try {
-      const service = new Microfleet({
+      service = new Microfleet({
         name: 'tester',
         plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
         logger: {
@@ -571,6 +586,7 @@ describe('@microfleet/plugin-router', () => {
             spy: { level: 'info', target: 'pino/file', options: { destination: file } },
           },
         },
+        hapi: { server: { port } },
         router: {
           routes: {
             directory: resolve(__dirname, '../artifacts/actions'),
@@ -583,11 +599,13 @@ describe('@microfleet/plugin-router', () => {
         },
         validator: { schemas: ['../artifacts/schemas'] },
       })
-      const httpRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+      const httpRequest = getHTTPRequest({ method: 'get', url: `http://0.0.0.0:${port}` })
 
       await service.connect()
       await httpRequest('/404').reflect()
       await service.close()
+      // @ts-expect-error so we dont double close
+      service = undefined
       await setTimeout(500)
 
       const data = await handle.readFile({ encoding: 'utf8' })
@@ -606,7 +624,7 @@ describe('@microfleet/plugin-router', () => {
     const handle = await open(file, 'w+')
 
     try {
-      const service = new Microfleet({
+      service = new Microfleet({
         name: 'tester',
         logger: {
           defaultLogger: true,
@@ -614,6 +632,7 @@ describe('@microfleet/plugin-router', () => {
             spy: { level: 'info', target: 'pino/file', options: { destination: file } },
           },
         },
+        hapi: { server: { port } },
         plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
         router: {
           routes: {
@@ -633,11 +652,13 @@ describe('@microfleet/plugin-router', () => {
         },
         validator: { schemas: ['../artifacts/schemas'] },
       })
-      const HTTPRequest = getHTTPRequest({ method: 'get', url: 'http://0.0.0.0:3000' })
+      const HTTPRequest = getHTTPRequest({ method: 'get', url: `http://0.0.0.0:${port}` })
 
       await service.connect()
       await HTTPRequest('/404').reflect()
       await service.close()
+      // @ts-expect-error so we dont double close
+      service = undefined
       await setTimeout(500)
 
       const data = await handle.readFile({ encoding: 'utf8' })
@@ -652,7 +673,7 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should return 418 in maintenance mode', async () => {
-    const service = new Microfleet(withResponseValidateAction('maintenance', {
+    service = new Microfleet(withResponseValidateAction('maintenance', {
       plugins: [
         'logger',
         'validator',
@@ -667,6 +688,7 @@ describe('@microfleet/plugin-router', () => {
       },
       maintenanceMode: true,
       hapi: {
+        server: { port },
         attachSocketio: false,
       },
       router: {
@@ -693,22 +715,18 @@ describe('@microfleet/plugin-router', () => {
         strictEqual(result.success, true)
       },
     }
-    const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000', method: 'GET' })
+    const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}`, method: 'GET' })
 
     await service.connect()
 
-    try {
-      await Promise.all([
-        // trigger usual route which performs global state update
-        httpRequest('/maintenance/http').reflect().then(verify(maintenanceModeIsEnabled)),
-        // trigger route marked as read-only
-        httpRequest('/maintenance/http-readonly').reflect().then(verify(resultIsReturned)),
-        // trigger read-only route which triggers non-read-only one
-        httpRequest('/maintenance/http-amqp').reflect().then(verify(maintenanceModeIsEnabled)),
-      ])
-    } finally {
-      await service.close()
-    }
+    await Promise.all([
+      // trigger usual route which performs global state update
+      httpRequest('/maintenance/http').reflect().then(verify(maintenanceModeIsEnabled)),
+      // trigger route marked as read-only
+      httpRequest('/maintenance/http-readonly').reflect().then(verify(resultIsReturned)),
+      // trigger read-only route which triggers non-read-only one
+      httpRequest('/maintenance/http-amqp').reflect().then(verify(maintenanceModeIsEnabled)),
+    ])
   })
 
   describe('response-validation', () => {
@@ -736,7 +754,8 @@ describe('@microfleet/plugin-router', () => {
     })
 
     it('should validate response if schema provided and global validation enabled', async () => {
-      const service = new Microfleet(withResponseValidateAction('validate-response-test', {
+      service = new Microfleet(withResponseValidateAction('validate-response-test', {
+        hapi: { server: { port } },
         router: {
           routes: {
             responseValidation: {
@@ -752,8 +771,8 @@ describe('@microfleet/plugin-router', () => {
 
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
-      const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = await getIOClient('http://0.0.0.0:3000')
+      const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}` })
+      const socketioClient = await getIOClient(`http://0.0.0.0:${port}`)
       const socketioRequest = getSocketioRequest(socketioClient)
 
       const check = throwsError('validate-response')
@@ -772,13 +791,13 @@ describe('@microfleet/plugin-router', () => {
           amqpRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
         ])
       } finally {
-        await service.close()
         socketioClient.close()
       }
     })
 
     it('should validate response and warn if `panic` is false', async () => {
-      const service = new Microfleet(withResponseValidateAction('validate-response-test', {
+      service = new Microfleet(withResponseValidateAction('validate-response-test', {
+        hapi: { server: { port } },
         router: {
           routes: {
             responseValidation: {
@@ -794,8 +813,8 @@ describe('@microfleet/plugin-router', () => {
 
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
-      const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = await getIOClient('http://0.0.0.0:3000')
+      const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}` })
+      const socketioClient = await getIOClient(`http://0.0.0.0:${port}`)
       const socketioRequest = getSocketioRequest(socketioClient)
 
       const spy = sinon.spy(service.log, 'warn')
@@ -811,7 +830,6 @@ describe('@microfleet/plugin-router', () => {
           amqpRequest('action.validate-response-skip', { success: false }).reflect().then(verify(returnsInvalidResult)),
         ])
       } finally {
-        await service.close()
         socketioClient.close()
       }
 
@@ -823,7 +841,8 @@ describe('@microfleet/plugin-router', () => {
     })
 
     it('should validate response if schema provided and global validation enabled with limited percent', async () => {
-      const service = new Microfleet(withResponseValidateAction('validate-response-test', {
+      service = new Microfleet(withResponseValidateAction('validate-response-test', {
+        hapi: { server: { port } },
         router: {
           routes: {
             responseValidation: {
@@ -839,8 +858,8 @@ describe('@microfleet/plugin-router', () => {
 
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
-      const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = await getIOClient('http://0.0.0.0:3000')
+      const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}` })
+      const socketioClient = await getIOClient(`http://0.0.0.0:${port}`)
       const socketioRequest = getSocketioRequest(socketioClient)
 
       let failed = 0
@@ -864,7 +883,6 @@ describe('@microfleet/plugin-router', () => {
           amqpRequest('action.validate-response', { success: false }).reflect().then(count),
         ]))
       } finally {
-        await service.close()
         socketioClient.close()
       }
 
@@ -874,7 +892,8 @@ describe('@microfleet/plugin-router', () => {
     })
 
     it('should not validate response if schema provided and global validation disabled', async () => {
-      const service = new Microfleet(withResponseValidateAction('validate-response-disabled-test', {
+      service = new Microfleet(withResponseValidateAction('validate-response-disabled-test', {
+        hapi: { server: { port } },
         router: {
           routes: {
             responseValidation: {
@@ -890,8 +909,8 @@ describe('@microfleet/plugin-router', () => {
 
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
-      const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = await getIOClient('http://0.0.0.0:3000')
+      const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}` })
+      const socketioClient = await getIOClient(`http://0.0.0.0:${port}`)
       const socketioRequest = getSocketioRequest(socketioClient)
 
       try {
@@ -901,13 +920,13 @@ describe('@microfleet/plugin-router', () => {
           amqpRequest('action.validate-response', { success: false }).reflect().then(verify(returnsInvalidResult)),
         ])
       } finally {
-        await service.close()
         socketioClient.close()
       }
     })
 
     it('should validate response if schema provided and schemaless action', async () => {
-      const service = new Microfleet(withResponseValidateAction('shemaless-action-response-test', {
+      service = new Microfleet(withResponseValidateAction('shemaless-action-response-test', {
+        hapi: { server: { port } },
         router: {
           routes: {
             responseValidation: {
@@ -923,8 +942,8 @@ describe('@microfleet/plugin-router', () => {
 
       const { amqp } = service
       const amqpRequest = getAmqpRequest(amqp)
-      const httpRequest = getHTTPRequest({ url: 'http://0.0.0.0:3000' })
-      const socketioClient = await getIOClient('http://0.0.0.0:3000')
+      const httpRequest = getHTTPRequest({ url: `http://0.0.0.0:${port}` })
+      const socketioClient = await getIOClient(`http://0.0.0.0:${port}`)
       const socketioRequest = getSocketioRequest(socketioClient)
       const check = throwsError('validate-response-without-schema')
 
@@ -941,13 +960,8 @@ describe('@microfleet/plugin-router', () => {
           amqpRequest('action.validate-response-without-schema', { success: false }).reflect().then(verify(check)),
         ])
       } finally {
-        await service.close()
         socketioClient.close()
       }
     })
-  })
-
-  afterAll(async () => {
-    await getGlobalDispatcher().close()
   })
 })
