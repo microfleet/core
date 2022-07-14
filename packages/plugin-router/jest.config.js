@@ -8,7 +8,7 @@ module.exports = {
   ...globalConfig,
   rootDir: '../../',
   bail: 1,
-  testTimeout: 60000,
+  testTimeout: 30000,
   collectCoverage: true,
   coverageDirectory: `packages/${dir}/coverage`,
   coverageReporters: [ "text-summary", "json", "lcov" ],
