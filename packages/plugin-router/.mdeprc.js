@@ -7,8 +7,8 @@ module.exports = {
   auto_compose: true,
   node: '16',
   parallel: 1,
-  test_framework: 'jest --config ./jest.config.js --runTestsByPath --maxWorkers=50% --verbose --colors',
-  tests: '__tests__/**/*.spec.ts',
+  test_framework: 'jest --config ./jest.config.js --runTestsByPath --runInBand --verbose --colors',
+  tests: '__tests__/**/{request-count-track,runner,graceful-shutdown,router}.spec.ts',
   services: [
     'rabbitmq',
   ],
