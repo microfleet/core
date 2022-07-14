@@ -12,7 +12,7 @@ import {
   withResponseValidateAction,
 } from '../artifacts/utils'
 import getFreePort from 'get-port'
-import { getGlobalDispatcher } from 'undici'
+import { Agent, getGlobalDispatcher, setGlobalDispatcher } from 'undici'
 
 const { auditLog } = Extensions
 
@@ -81,7 +81,7 @@ describe('service request count', () => {
     const preRequestSpy = spy(requestCountTracker, 'increase')
     const postResponseSpy = spy(requestCountTracker, 'decrease')
 
-    const httpRequest = getHTTPRequest({ method: 'get', url: serviceUrl })
+    const httpRequest = getHTTPRequest({ method: 'GET', url: serviceUrl })
     const socketioClient = await getIOClient(serviceUrl)
     const socketioRequest = getSocketioRequest(socketioClient)
     const amqpRequest = getAmqpRequest(amqp)
@@ -107,7 +107,15 @@ describe('service request count', () => {
     assert(postResponseSpy.callCount === 3)
   })
 
-  afterAll(async () => {
+  beforeEach(async () => {
+    setGlobalDispatcher(new Agent({
+      bodyTimeout: 1e3,
+      headersTimeout: 1e3,
+      connections: 1,
+    }))
+  })
+
+  afterEach(async () => {
     await getGlobalDispatcher().close()
   })
 })
