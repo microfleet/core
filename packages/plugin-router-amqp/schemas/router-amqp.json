@@ -12,14 +12,12 @@
     },
     "multiAckEvery": {
       "type": "number",
-      "minimum": 0,
-      "default": 0
+      "minimum": 0
     },
     "multiAckAfter": {
       "type": "number",
       "description": "multi-ack message at least that often in miliseconds",
-      "minimum": 100,
-      "default": 3000
+      "minimum": 100
     },
     "retry": {
       "type": "object",
