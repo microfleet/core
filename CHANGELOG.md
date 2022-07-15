@@ -1,3 +1,255 @@
+# @microfleet/core-types 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.20.0...@microfleet/core-types@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/core 17.27.1
+
+## [17.27.1](https://github.com/microfleet/core/compare/@microfleet/core@17.26.0...@microfleet/core@17.27.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-amqp 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.17.0...@microfleet/plugin-amqp@0.18.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-aws-elasticsearch 1.21.1
+
+## [1.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.20.0...@microfleet/plugin-aws-elasticsearch@1.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-casl 0.6.1
+
+## [0.6.1](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.5.0...@microfleet/plugin-casl@0.6.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-cassandra 0.26.1
+
+## [0.26.1](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.25.0...@microfleet/plugin-cassandra@0.26.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-consul 2.23.1
+
+## [2.23.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.22.0...@microfleet/plugin-consul@2.23.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-couchdb 2.23.1
+
+## [2.23.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.22.0...@microfleet/plugin-couchdb@2.23.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-dlock 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.17.0...@microfleet/plugin-dlock@0.18.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-elasticsearch 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.20.0...@microfleet/plugin-elasticsearch@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-hapi 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.17.0...@microfleet/plugin-hapi@0.18.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-kafka-types 1.22.1
+
+## [1.22.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.21.0...@microfleet/plugin-kafka-types@1.22.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-kafka 2.27.1
+
+## [2.27.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.26.0...@microfleet/plugin-kafka@2.27.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-knex 2.24.1
+
+## [2.24.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.23.0...@microfleet/plugin-knex@2.24.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-logger 0.26.1
+
+## [0.26.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.25.0...@microfleet/plugin-logger@0.26.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-opentracing 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.20.0...@microfleet/plugin-opentracing@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-prometheus 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.20.0...@microfleet/plugin-prometheus@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-redis-cluster 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.20.0...@microfleet/plugin-redis-cluster@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-redis-core 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.20.0...@microfleet/plugin-redis-core@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-redis-sentinel 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.20.0...@microfleet/plugin-redis-sentinel@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-router-amqp 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.17.0...@microfleet/plugin-router-amqp@0.18.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-router-hapi 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.17.0...@microfleet/plugin-router-hapi@0.18.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-router-socketio 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.17.0...@microfleet/plugin-router-socketio@0.18.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-router 0.19.1
+
+## [0.19.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.18.0...@microfleet/plugin-router@0.19.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-signed-request 0.4.1
+
+## [0.4.1](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.3.0...@microfleet/plugin-signed-request@0.4.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-socketio 0.18.1
+
+## [0.18.1](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.17.0...@microfleet/plugin-socketio@0.18.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/plugin-validator 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.20.0...@microfleet/plugin-validator@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+# @microfleet/utils 0.21.1
+
+## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/utils@0.20.0...@microfleet/utils@0.21.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
 # @microfleet/core-types 0.20.0
 
 # [0.20.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.18.0...@microfleet/core-types@0.20.0) (2022-07-14)

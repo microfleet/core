@@ -1,5 +1,19 @@
 
 
+## [1.22.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.21.0...@microfleet/plugin-kafka-types@1.22.2) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+## [1.22.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.21.0...@microfleet/plugin-kafka-types@1.22.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
 # [1.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.19.0...@microfleet/plugin-kafka-types@1.22.0) (2022-07-14)
 
 

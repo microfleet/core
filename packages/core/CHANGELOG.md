@@ -1,5 +1,19 @@
 
 
+## [17.27.2](https://github.com/microfleet/core/compare/@microfleet/core@17.26.0...@microfleet/core@17.27.2) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
+## [17.27.1](https://github.com/microfleet/core/compare/@microfleet/core@17.26.0...@microfleet/core@17.27.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* remove timer based ack defaults ([0babab1](https://github.com/microfleet/core/commit/0babab1a98bedc98c39991f0d07fbd61c5c50409))
+
 # [17.27.0](https://github.com/microfleet/core/compare/@microfleet/core@17.24.0...@microfleet/core@17.27.0) (2022-07-14)
 
 
