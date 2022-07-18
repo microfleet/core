@@ -45,7 +45,7 @@
     "@swc-node/register": "^1.4.2",
     "@types/common-errors": "^1.0.2",
     "@types/jaeger-client": "^3.18.3",
-    "@types/jest": "28.1.4",
+    "@types/jest": "28.1.6",
     "@types/node": "^18.0.3",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",

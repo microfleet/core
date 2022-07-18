@@ -45,7 +45,7 @@
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
     "@types/common-errors": "^1.0.2",
-    "@types/jest": "28.1.4",
+    "@types/jest": "28.1.6",
     "@types/node": "^18.0.3",
     "undici": "^5.7.0",
     "@types/semver": "^7.3.9",
