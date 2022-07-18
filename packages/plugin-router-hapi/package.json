@@ -60,7 +60,7 @@
     "@types/common-errors": "^1.0.2",
     "@types/get-value": "^3.0.2",
     "@types/hapi__hapi": "20.0.12",
-    "@types/jest": "28.1.4",
+    "@types/jest": "28.1.6",
     "@types/lodash": "^4.14.180",
     "@types/node": "^18.0.3",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
@@ -75,13 +75,13 @@
     "eslint-plugin-unicorn": "^43.0.1",
     "handlebars": "^4.7.7",
     "jest": "^28.1.2",
-    "undici": "^5.7.0",
     "release-it": "^14.13.1",
     "rimraf": "^3.0.2",
     "sinon": "^14.0.0",
     "ts-essentials": "^9.1.2",
     "tsconfig-paths": "^4.0.0",
-    "typescript": "~4.7.4"
+    "typescript": "~4.7.4",
+    "undici": "^5.7.0"
   },
   "engines": {
     "node": ">= 12.14.0",
