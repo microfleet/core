@@ -74,7 +74,9 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
       const scope = new Sentry.Scope()
       scope.setLevel(pinoLevelToSentryLevel(level))
       if (isObject(tags)) {
-        Object.keys(tags).forEach(tag => scope.setTag(tag, tags[tag]));
+        for (const [tag, value] of Object.entries<string>(obj)) {
+          scope.setTag(tag, value)
+        }
       }
       if (level > minLevel) {
         const stack = obj?.err?.stack
