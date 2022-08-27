@@ -17,6 +17,11 @@ class ExtendedError extends Error {
   }
 }
 
+const isObject = (obj: any): boolean => {
+  const type = typeof obj;
+  return type === 'function' || type === 'object' && !!obj;
+}
+
 export const pinoLevelToSentryLevel = (level: number): Sentry.SeverityLevel => {
   if (level == 60) {
     return "fatal"
@@ -65,9 +70,14 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
 
   return build(async function (source) {
     for await (const obj of source) {
-      const level = obj.level
+      const { level, tags } = obj
       const scope = new Sentry.Scope()
       scope.setLevel(pinoLevelToSentryLevel(level))
+      if (isObject(tags)) {
+        for (const [tag, value] of Object.entries<string>(tags)) {
+          scope.setTag(tag, value)
+        }
+      }
       if (level > minLevel) {
         const stack = obj?.err?.stack
         if (stack) {
