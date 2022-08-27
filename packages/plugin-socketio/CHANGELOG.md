@@ -1,5 +1,29 @@
 
 
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.18.1...@microfleet/plugin-socketio@0.20.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.18.1...@microfleet/plugin-socketio@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
 ## [0.18.2](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.17.0...@microfleet/plugin-socketio@0.18.2) (2022-07-15)
 
 

@@ -1,3 +1,395 @@
+# @microfleet/core-types 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.21.1...@microfleet/core-types@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/core 17.28.0
+
+# [17.28.0](https://github.com/microfleet/core/compare/@microfleet/core@17.27.1...@microfleet/core@17.28.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-amqp 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.18.1...@microfleet/plugin-amqp@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-aws-elasticsearch 1.22.0
+
+# [1.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.21.1...@microfleet/plugin-aws-elasticsearch@1.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-casl 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.6.1...@microfleet/plugin-casl@0.7.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-cassandra 0.27.0
+
+# [0.27.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.26.1...@microfleet/plugin-cassandra@0.27.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-consul 2.24.0
+
+# [2.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.23.1...@microfleet/plugin-consul@2.24.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-couchdb 2.24.0
+
+# [2.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.23.1...@microfleet/plugin-couchdb@2.24.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-dlock 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.18.1...@microfleet/plugin-dlock@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-elasticsearch 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.21.1...@microfleet/plugin-elasticsearch@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-hapi 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.18.1...@microfleet/plugin-hapi@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-kafka-types 1.23.0
+
+# [1.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.22.1...@microfleet/plugin-kafka-types@1.23.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-kafka 2.28.0
+
+# [2.28.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.27.1...@microfleet/plugin-kafka@2.28.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-knex 2.25.0
+
+# [2.25.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.24.1...@microfleet/plugin-knex@2.25.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-logger 0.27.0
+
+# [0.27.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.26.1...@microfleet/plugin-logger@0.27.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-opentracing 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.21.1...@microfleet/plugin-opentracing@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-prometheus 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.21.1...@microfleet/plugin-prometheus@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-redis-cluster 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.21.1...@microfleet/plugin-redis-cluster@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-redis-core 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.21.1...@microfleet/plugin-redis-core@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-redis-sentinel 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.21.1...@microfleet/plugin-redis-sentinel@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-router-amqp 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.18.1...@microfleet/plugin-router-amqp@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-router-hapi 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.18.1...@microfleet/plugin-router-hapi@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-router-socketio 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.18.1...@microfleet/plugin-router-socketio@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-router 0.20.0
+
+# [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.19.1...@microfleet/plugin-router@0.20.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-signed-request 0.5.0
+
+# [0.5.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.4.1...@microfleet/plugin-signed-request@0.5.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-socketio 0.19.0
+
+# [0.19.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.18.1...@microfleet/plugin-socketio@0.19.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/plugin-validator 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.21.1...@microfleet/plugin-validator@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
+# @microfleet/utils 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.21.1...@microfleet/utils@0.22.0) (2022-08-27)
+
+
+### Bug Fixes
+
+* upgrade deps ([5ed4b64](https://github.com/microfleet/core/commit/5ed4b64f5bac473ebd267e9dd1abb1077dd7738f))
+
+
+### Features
+
+* improve sentry logger ([#633](https://github.com/microfleet/core/issues/633)) ([d50fba9](https://github.com/microfleet/core/commit/d50fba93835a0fceb9ada8f52075946e5bf2bed7)), closes [#635](https://github.com/microfleet/core/issues/635)
+
 # @microfleet/core-types 0.21.1
 
 ## [0.21.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.20.0...@microfleet/core-types@0.21.1) (2022-07-15)
