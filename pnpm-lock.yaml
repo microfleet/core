@@ -1034,7 +1034,7 @@ importers:
       rimraf: ^3.0.2
       sentry-testkit: ^4.0.1
       sinon: ^14.0.0
-      sonic-boom: 3.0.0
+      sonic-boom: 3.2.0
       tempy: ^1.0.1
       ts-essentials: ^9.1.2
       tsconfig-paths: ^4.0.0
@@ -1049,7 +1049,7 @@ importers:
       pino: 8.2.0
       pino-abstract-transport: 1.0.0
       pino-pretty: 8.1.0
-      sonic-boom: 3.0.0
+      sonic-boom: 3.2.0
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
@@ -11031,7 +11031,7 @@ packages:
       pump: 3.0.0
       readable-stream: 4.1.0
       secure-json-parse: 2.4.0
-      sonic-boom: 3.0.0
+      sonic-boom: 3.2.0
       strip-json-comments: 3.1.1
     dev: false
 
@@ -11072,7 +11072,7 @@ packages:
       quick-format-unescaped: 4.0.4
       real-require: 0.1.0
       safe-stable-stringify: 2.3.1
-      sonic-boom: 3.0.0
+      sonic-boom: 3.2.0
       thread-stream: 2.0.0
 
   /pirates/4.0.5:
@@ -12254,8 +12254,8 @@ packages:
       atomic-sleep: 1.0.0
     dev: false
 
-  /sonic-boom/3.0.0:
-    resolution: {integrity: sha512-p5DiZOZHbJ2ZO5MADczp5qrfOd3W5Vr2vHxfCpe7G4AzPwVOweIjbfgku8wSQUuk+Y5Yuo8W7JqRe6XKmKistg==}
+  /sonic-boom/3.2.0:
+    resolution: {integrity: sha512-SbbZ+Kqj/XIunvIAgUZRlqd6CGQYq71tRRbXR92Za8J/R3Yh4Av+TWENiSiEgnlwckYLyP0YZQWVfyNC0dzLaA==}
     dependencies:
       atomic-sleep: 1.0.0
 
