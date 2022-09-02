@@ -64,7 +64,7 @@ describe('Logger Sentry Stream Suite', () => {
 
     const logger = pino({ level: 'debug' }, pinoms)
 
-    logger.warn({ userId: 123, tags: { testTag: 'test' } }, 'Warning message')
+    logger.warn({ userId: 123, tags: { testTag: 'test' }, extras: { someData: 'test' }, user: { id: 1234 } }, 'Warning message')
     logger.flush()
 
     await Sentry.flush()
@@ -78,9 +78,9 @@ describe('Logger Sentry Stream Suite', () => {
       _eventProcessors: [],
       _breadcrumbs: [],
       _attachments: [],
-      _user: {},
+      _user: { id: 1234 },
       _tags: { testTag: 'test' },
-      _extra: {},
+      _extra: { someData: 'test' },
       _contexts: {},
       _sdkProcessingMetadata: {},
       _level: 'warning'
