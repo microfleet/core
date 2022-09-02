@@ -33,7 +33,7 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@casl/ability": "^5.4.3",
+    "@casl/ability": "^6.0.0",
     "@microfleet/core-types": "workspace:^",
     "@microfleet/utils": "workspace:^",
     "mem": "^8.1.1",
