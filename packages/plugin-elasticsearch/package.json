@@ -3,7 +3,7 @@
   "description": "elasticsearch plugin for microfleet",
   "main": "./lib/elasticsearch.js",
   "types": "./lib/elasticsearch.d.ts",
-  "version": "0.23.0",
+  "version": "0.23.2",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

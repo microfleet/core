@@ -3,7 +3,7 @@
   "description": "couchdb adapter for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.25.0",
+  "version": "2.25.2",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

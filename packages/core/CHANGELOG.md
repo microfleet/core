@@ -1,5 +1,19 @@
 
 
+## [17.29.2](https://github.com/microfleet/core/compare/@microfleet/core@17.28.0...@microfleet/core@17.29.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
+## [17.29.1](https://github.com/microfleet/core/compare/@microfleet/core@17.28.0...@microfleet/core@17.29.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
 # [17.29.0](https://github.com/microfleet/core/compare/@microfleet/core@17.27.1...@microfleet/core@17.29.0) (2022-08-27)
 
 

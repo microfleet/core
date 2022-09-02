@@ -1,5 +1,19 @@
 
 
+## [0.23.2](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.22.0...@microfleet/plugin-opentracing@0.23.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
+## [0.23.1](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.22.0...@microfleet/plugin-opentracing@0.23.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
 # [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.21.1...@microfleet/plugin-opentracing@0.23.0) (2022-08-27)
 
 

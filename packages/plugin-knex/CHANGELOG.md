@@ -1,5 +1,19 @@
 
 
+## [2.26.2](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.25.0...@microfleet/plugin-knex@2.26.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
+## [2.26.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.25.0...@microfleet/plugin-knex@2.26.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
 # [2.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.24.1...@microfleet/plugin-knex@2.26.0) (2022-08-27)
 
 

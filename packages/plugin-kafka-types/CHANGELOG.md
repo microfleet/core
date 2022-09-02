@@ -1,5 +1,19 @@
 
 
+## [1.24.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.23.0...@microfleet/plugin-kafka-types@1.24.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
+## [1.24.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.23.0...@microfleet/plugin-kafka-types@1.24.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
 # [1.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.22.1...@microfleet/plugin-kafka-types@1.24.0) (2022-08-27)
 
 

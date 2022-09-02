@@ -1,5 +1,19 @@
 
 
+## [0.20.2](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.19.0...@microfleet/plugin-hapi@0.20.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
+## [0.20.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.19.0...@microfleet/plugin-hapi@0.20.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
 # [0.20.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.18.1...@microfleet/plugin-hapi@0.20.0) (2022-08-27)
 
 

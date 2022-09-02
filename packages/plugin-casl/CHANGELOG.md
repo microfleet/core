@@ -1,5 +1,19 @@
 
 
+## [0.8.2](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.7.0...@microfleet/plugin-casl@0.8.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
+## [0.8.1](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.7.0...@microfleet/plugin-casl@0.8.1) (2022-09-02)
+
+
+### Bug Fixes
+
+* improve sentry logger ([#636](https://github.com/microfleet/core/issues/636)) ([93e75da](https://github.com/microfleet/core/commit/93e75da4f3a34606940c2673460c4719dcef2012))
+
 # [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.6.1...@microfleet/plugin-casl@0.8.0) (2022-08-27)
 
 
