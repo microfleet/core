@@ -30,7 +30,7 @@
   "peerDependencies": {
     "@microfleet/core": "workspace:^",
     "common-errors": "^1.2.0",
-    "ioredis": "^4.28.0"
+    "ioredis": "^5.0.0"
   },
   "dependencies": {
     "@microfleet/core-types": "workspace:^",
@@ -39,7 +39,7 @@
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "debug": "^4.3.4",
-    "ioredis": "^4.28.5",
+    "ioredis": "^5.0.0",
     "opentracing-js-ioredis": "^2.1.2",
     "promise-toolbox": "^0.21.0"
   },
@@ -63,7 +63,7 @@
     "eslint-config-makeomatic": "^5.1.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-unicorn": "^43.0.1",
-    "ioredis": "^4.28.3",
+    "ioredis": "^5.0.0",
     "jest": "^28.1.2",
     "release-it": "^14.13.1",
     "rimraf": "^3.0.2",
