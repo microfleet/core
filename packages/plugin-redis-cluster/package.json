@@ -65,7 +65,7 @@
     "eslint-plugin-unicorn": "^43.0.1",
     "ioredis": "^4.28.3",
     "jest": "^28.1.2",
-    "release-it": "^14.13.1",
+    "release-it": "^15.0.0",
     "rimraf": "^3.0.2",
     "sinon": "^14.0.0",
     "ts-essentials": "^9.1.2",
