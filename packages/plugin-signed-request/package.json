@@ -64,7 +64,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-unicorn": "^43.0.1",
     "jest": "^28.1.2",
-    "release-it": "^14.13.1",
+    "release-it": "^15.0.0",
     "restify": "^8.6.1",
     "rimraf": "^3.0.2",
     "sinon": "^14.0.0",
