@@ -2,8 +2,9 @@ import * as assert from 'assert'
 import * as sinon from 'sinon'
 import { resolve } from 'path'
 import { HttpStatusError } from 'common-errors'
-import { fetch, getGlobalDispatcher, RequestInit } from 'undici'
+import { fetch, RequestInit } from 'undici'
 import * as restify from 'restify'
+import * as fastify from 'fastify'
 import { promisify } from 'util'
 import { IncomingMessage } from 'http'
 import url from 'url'
@@ -13,7 +14,10 @@ import { sign } from 'http-signature'
 import { CoreOptions, Microfleet } from '@microfleet/core'
 import { ServiceRequest } from '@microfleet/plugin-router'
 
-import { CredentialsStore, SignedRequest, RestifySignedRequestPlugin } from '@microfleet/plugin-signed-request'
+import {
+  CredentialsStore, SignedRequest,
+  RestifySignedRequestPlugin, FastifyRequestSignaturePlugin,
+} from '@microfleet/plugin-signed-request'
 
 const validKeyContents = 'valid-sign-key-contents'
 const validKeyId = 'valid-key-id'
@@ -31,6 +35,9 @@ const defaultConfig = {
     'router-hapi',
     'signed-request',
   ],
+  logger: {
+    defaultLogger: true,
+  },
   router: {
     routes: {
       directory: resolve(__dirname, '../artifacts/actions'),
@@ -413,8 +420,129 @@ describe('restify plugin', () => {
     if (server) {
       await server.close()
     }
+  })
 
-    await getGlobalDispatcher().close()
+  it('ignores non signed request', async () => {
+    try {
+      const req = await fetch(`${baseUrl}action/signed?foo=bar`)
+      const response = await req.json()
+      assert.deepStrictEqual(response, { response: 'success' })
+    } catch (e: any) {
+      throw e.cause
+    }
+  })
+
+  it('should verify #post', async () => {
+    const response = await signAndRequest('action/signed?foo=bar', {
+      method: 'POST',
+      body: JSON.stringify({ data: { type: 'user' } }),
+    })
+
+    assert.deepStrictEqual(response, {
+      response: 'success',
+      credentials: { userId: 'id', extra: 'true' },
+      params: { data: { type: 'user'} }
+    })
+  })
+
+  it('should panic on invalid payload signature #post', async () => {
+    const signed = signRequest('action/signed?foo=bar', {
+      method: 'POST',
+      body: JSON.stringify({ data: { type: 'user' } })
+    })
+    const opts = signed.getOptions()
+    opts.body = '{}'
+
+    const patched = await fetch(signed.url, {
+      ...signed.getOptions(),
+      headers: {
+        ...signed.getOptions().headers,
+        'content-type': 'application/json'
+      }
+    })
+    const body: any = await patched.json()
+
+    assert.deepStrictEqual(patched.status, 403)
+    assert.deepStrictEqual(body.message, 'invalid payload signature')
+  })
+})
+
+describe('fastify plugin', () => {
+  const validKeyContents = 'valid-sign-key-contents'
+  const validKeyId = 'valid-key-id'
+  const algorithm = 'hmac-sha512'
+  const httpSignature = {
+    algorithm,
+    keyId: validKeyId,
+    key: validKeyContents,
+    headers: signedRequest.headers,
+  }
+  const baseUrl = 'http://localhost:8089/'
+
+  const stubs: CredentialsStore = {
+    getKey: sinon.stub()
+      .withArgs().rejects(new HttpStatusError(404, 'key not found'))
+      .withArgs(validKeyId).resolves(validKeyContents),
+    getCredentials: sinon.stub()
+      .withArgs([validKeyId]).resolves({ userId: 'id', extra: 'true' })
+  }
+
+  const createDigest = (body?: any) => createHmac('sha512', validKeyContents)
+    .update(body || '')
+    .digest('base64')
+
+  const signRequest = (url: string, req: RequestInit & { json?: any }) => {
+    const reqLike = new RequestLike(`${baseUrl}${url}`, req)
+    reqLike.sign(createDigest, httpSignature)
+    return reqLike
+  }
+
+  const signAndRequest = async (url: string, req: RequestInit & { json?: any }) => {
+    const signed = signRequest(url, req)
+    const request = await fetch(signed.url, {
+      ...signed.getOptions(),
+      headers: {
+        ...signed.getOptions().headers,
+        'content-type': 'application/json'
+      }
+    })
+
+    return request.json()
+  }
+
+  let server: fastify.FastifyInstance
+
+  beforeAll(async () => {
+    server = fastify.fastify({
+      forceCloseConnections: true,
+      keepAliveTimeout: 100,
+      connectionTimeout: 100,
+      logger: {
+        level: 'debug'
+      }
+    })
+    server.register(FastifyRequestSignaturePlugin(stubs, signedRequest))
+
+    const handler: fastify.RouteHandlerMethod = async function (req) {
+      return {
+        response: 'success',
+        params: req.body,
+        credentials: await req.signature?.getCredentials()
+      }
+    }
+
+    server.get('/action/signed', handler)
+    server.post('/action/signed', handler)
+
+    await server.listen({
+      port: 8089
+    })
+  })
+
+  afterAll(async () => {
+    if (server) {
+      await server.close()
+    }
   })
 
   it('ignores non signed request', async () => {
