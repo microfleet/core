@@ -1,7 +1,7 @@
 import { Client } from '@opensearch-project/opensearch'
 import { Microfleet } from '@microfleet/core'
 
-describe('AWS Elasticsearch suite', () => {
+describe.skip('AWS Elasticsearch suite', () => {
   let service: Microfleet
 
   it('should throw an error when plugin isn\'t included', async () => {
