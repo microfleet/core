@@ -76,7 +76,7 @@
     "rimraf": "^3.0.2",
     "sentry-testkit": "^4.0.1",
     "sinon": "^14.0.0",
-    "tempy": "^1.0.1",
+    "tempy": "^3.0.0",
     "ts-essentials": "^9.1.2",
     "tsconfig-paths": "^4.0.0",
     "typescript": "~4.7.4"
