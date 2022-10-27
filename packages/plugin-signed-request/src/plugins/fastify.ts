@@ -1,6 +1,7 @@
 import type * as _ from '../types'
 
-import { FastifyInstance} from 'fastify'
+import { strict } from 'assert'
+import { FastifyInstance } from 'fastify'
 import fp from 'fastify-plugin'
 
 import { Config, CredentialsStore, SignedRequest } from '../signed-request'
@@ -13,6 +14,10 @@ declare module 'fastify' {
 
 export const FastifyRequestSignaturePlugin = (store: CredentialsStore, config: Config) => {
   return fp(async function fastifyRequestSignaturePlugin(instance: FastifyInstance) {
+    strict(store, 'Credential store is required')
+
+    instance.decorateRequest('signature', null)
+
     instance.addHook('onRequest', async (req) => {
       if (SignedRequest.isSignedRequest(req.raw.headers)) {
         req.signature = new SignedRequest(config, store)
