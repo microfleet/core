@@ -12,7 +12,7 @@ declare module 'fastify' {
   }
 }
 
-export const FastifyRequestSignaturePlugin = (store: CredentialsStore, config: Config) => {
+export const FastifyRequestSignaturePlugin = (store: CredentialsStore, config: Config = {}) => {
   return fp(async function fastifyRequestSignaturePlugin(instance: FastifyInstance) {
     strict(store, 'Credential store is required')
 
