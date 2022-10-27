@@ -43,7 +43,7 @@
   "devDependencies": {
     "@makeomatic/deploy": "^12.6.3",
     "@microfleet/core": "workspace:^",
-    "@release-it/conventional-changelog": "^4.2.2",
+    "@release-it/conventional-changelog": "^5.0.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
     "@types/jest": "28.1.6",

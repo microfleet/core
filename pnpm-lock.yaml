@@ -7,7 +7,7 @@ importers:
       '@makeomatic/deploy': ^12.6.3
       '@node-rs/xxhash-linux-arm64-musl': ^1.2.0
       '@node-rs/xxhash-linux-x64-musl': ^1.2.0
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc/core-linux-arm64-musl': ^1.2.160
       '@swc/core-linux-x64-musl': ^1.2.160
       conventional-changelog-angular: ^5.0.13
@@ -21,7 +21,7 @@ importers:
       '@makeomatic/deploy': 12.7.0
       '@node-rs/xxhash-linux-arm64-musl': 1.2.1
       '@node-rs/xxhash-linux-x64-musl': 1.2.1
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc/core-linux-arm64-musl': 1.2.218
       '@swc/core-linux-x64-musl': 1.2.218
       conventional-changelog-angular: 5.0.13
@@ -38,7 +38,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -78,7 +78,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/validation': 11.1.2_common-errors@1.2.0
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -107,7 +107,7 @@ importers:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -137,7 +137,7 @@ importers:
       eventemitter3: 4.0.7
     devDependencies:
       '@makeomatic/deploy': 12.7.0
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -167,7 +167,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/transport-amqp': ^17.2.8
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -201,7 +201,7 @@ importers:
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -234,7 +234,7 @@ importers:
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
       '@opensearch-project/opensearch': ^2.0.0
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/aws4': ^1.11.1
@@ -275,7 +275,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/aws4': 1.11.2
@@ -309,7 +309,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -345,7 +345,7 @@ importers:
       '@microfleet/core': link:../core
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/common-errors': 1.0.2
@@ -377,7 +377,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -415,7 +415,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -448,7 +448,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -484,7 +484,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -517,7 +517,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -554,7 +554,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -591,7 +591,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -632,7 +632,7 @@ importers:
       '@microfleet/plugin-redis-cluster': link:../plugin-redis-cluster
       '@microfleet/plugin-redis-sentinel': link:../plugin-redis-sentinel
       '@microfleet/plugin-router': link:../plugin-router
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -663,7 +663,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -698,7 +698,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -733,7 +733,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-socketio': workspace:^
       '@microfleet/plugin-validator': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/hapi__hapi': 20.0.12
@@ -768,7 +768,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/hapi__hapi': 20.0.12
@@ -801,7 +801,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -849,7 +849,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -882,7 +882,7 @@ importers:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
       '@makeomatic/node-rdkafka': ^2.13.4
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/node': ^18.0.3
@@ -904,7 +904,7 @@ importers:
       '@makeomatic/node-rdkafka': 2.13.4
     devDependencies:
       '@makeomatic/deploy': 12.7.0
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/node': 18.0.6
@@ -931,7 +931,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -970,7 +970,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -1001,7 +1001,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@sentry/node': ^7.6.0
       '@sentry/types': ^7.6.0
       '@sentry/utils': ^7.6.0
@@ -1053,7 +1053,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@sentry/node': 7.7.0
       '@sentry/types': 7.7.0
       '@swc-node/jest': 1.5.2_typescript@4.7.4
@@ -1093,7 +1093,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -1125,7 +1125,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/common-errors': 1.0.2
@@ -1156,7 +1156,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -1191,7 +1191,7 @@ importers:
       '@microfleet/core': link:../core
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/common-errors': 1.0.2
@@ -1223,7 +1223,7 @@ importers:
       '@microfleet/plugin-redis-core': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1265,7 +1265,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -1295,7 +1295,7 @@ importers:
       '@makeomatic/deploy': ^12.6.3
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-logger': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -1331,7 +1331,7 @@ importers:
       sort-by: 1.2.0
     devDependencies:
       '@makeomatic/deploy': 12.7.0
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/common-errors': 1.0.2
@@ -1365,7 +1365,7 @@ importers:
       '@microfleet/plugin-redis-core': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1402,7 +1402,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -1439,7 +1439,7 @@ importers:
       '@microfleet/transport-amqp': ^17.2.8
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1497,7 +1497,7 @@ importers:
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/utils': link:../utils
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -1543,7 +1543,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
       '@microfleet/transport-amqp': ^17.2.8
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1581,7 +1581,7 @@ importers:
       '@microfleet/plugin-amqp': link:../plugin-amqp
       '@microfleet/plugin-logger': link:../plugin-logger
       '@microfleet/plugin-router': link:../plugin-router
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -1617,7 +1617,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/bluebird': ^3.5.36
@@ -1664,7 +1664,7 @@ importers:
       '@microfleet/plugin-opentracing': link:../plugin-opentracing
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/bluebird': 3.5.36
@@ -1702,7 +1702,7 @@ importers:
       '@microfleet/plugin-logger': workspace:^
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-socketio': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/jest': 28.1.6
@@ -1734,7 +1734,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/jest': 28.1.6
@@ -1766,7 +1766,7 @@ importers:
       '@microfleet/plugin-router': workspace:^
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -1808,7 +1808,7 @@ importers:
       '@microfleet/plugin-hapi': link:../plugin-hapi
       '@microfleet/plugin-router': link:../plugin-router
       '@microfleet/plugin-validator': link:../plugin-validator
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/common-errors': 1.0.2
@@ -1848,7 +1848,7 @@ importers:
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/transport-amqp': ^17.2.8
       '@microfleet/utils': workspace:^
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/common-errors': ^1.0.2
@@ -1884,7 +1884,7 @@ importers:
     devDependencies:
       '@makeomatic/deploy': 12.7.0
       '@microfleet/core': link:../core
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/common-errors': 1.0.2
@@ -1913,7 +1913,7 @@ importers:
       '@microfleet/core-types': workspace:^
       '@microfleet/utils': workspace:^
       '@microfleet/validation': ^11.1.2
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/callsite': ^1.0.31
@@ -1949,7 +1949,7 @@ importers:
       '@microfleet/core': link:../core
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/callsite': 1.0.31
@@ -1976,7 +1976,7 @@ importers:
   packages/utils:
     specifiers:
       '@makeomatic/deploy': ^12.6.3
-      '@release-it/conventional-changelog': ^4.2.2
+      '@release-it/conventional-changelog': ^5.0.0
       '@swc-node/jest': ^1.4.3
       '@swc-node/register': ^1.4.2
       '@types/lodash': ^4.14.180
@@ -2002,7 +2002,7 @@ importers:
       read-pkg-up: 7.0.1
     devDependencies:
       '@makeomatic/deploy': 12.7.0
-      '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
+      '@release-it/conventional-changelog': 5.1.1_release-it@14.14.3
       '@swc-node/jest': 1.5.2_typescript@4.7.4
       '@swc-node/register': 1.5.1_typescript@4.7.4
       '@types/lodash': 4.14.182
@@ -3217,7 +3217,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.3.7
+      semver: 7.3.8
       tar: 6.1.11
     transitivePeerDependencies:
       - encoding
@@ -3720,16 +3720,17 @@ packages:
       - supports-color
     dev: false
 
-  /@release-it/conventional-changelog/4.3.0_release-it@14.14.3:
-    resolution: {integrity: sha512-SAdattAPXyxADh+cWbNqlk7OBWh/SskYCj0hAb5VPmm/wrIR1dQrlKpsUQ/7O0WGGe7uhvj4YB8kVTIZipcc9w==}
-    engines: {node: '>=10'}
+  /@release-it/conventional-changelog/5.1.1_release-it@14.14.3:
+    resolution: {integrity: sha512-QtbDBe36dQfzexAfDYrbLPvd5Cb5bMWmLcjcGhCOWBss7fe1/gCjoxDULVz+7N7G5Nu2UMeBwHcUp/w8RDh5VQ==}
+    engines: {node: '>=14'}
     peerDependencies:
-      release-it: ^14.12.1
+      release-it: ^15.4.1
     dependencies:
       concat-stream: 2.0.0
       conventional-changelog: 3.1.25
       conventional-recommended-bump: 6.1.0
       release-it: 14.14.3
+      semver: 7.3.8
     dev: true
 
   /@semantic-release/commit-analyzer/9.0.2_semantic-release@19.0.3:
@@ -3805,7 +3806,7 @@ packages:
       read-pkg: 5.2.0
       registry-auth-token: 4.2.2
       semantic-release: 19.0.3
-      semver: 7.3.7
+      semver: 7.3.8
       tempy: 1.0.1
     dev: true
 
@@ -4654,7 +4655,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.3.7
+      semver: 7.3.8
       tsutils: 3.21.0_typescript@4.7.4
       typescript: 4.7.4
     transitivePeerDependencies:
@@ -6925,7 +6926,7 @@ packages:
       read-pkg-up: 7.0.1
       regexp-tree: 0.1.24
       safe-regex: 2.1.1
-      semver: 7.3.7
+      semver: 7.3.8
       strip-indent: 3.0.0
     dev: true
 
@@ -7080,7 +7081,7 @@ packages:
       optionator: 0.9.1
       progress: 2.0.3
       regexpp: 3.2.0
-      semver: 7.3.7
+      semver: 7.3.8
       strip-ansi: 6.0.1
       strip-json-comments: 3.1.1
       text-table: 0.2.0
@@ -9293,7 +9294,7 @@ packages:
       jest-util: 28.1.3
       natural-compare: 1.4.0
       pretty-format: 28.1.3
-      semver: 7.3.7
+      semver: 7.3.8
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -10322,7 +10323,7 @@ packages:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.9.0
-      semver: 7.3.7
+      semver: 7.3.8
       validate-npm-package-license: 3.0.4
     dev: true
 
@@ -11937,7 +11938,7 @@ packages:
       p-reduce: 2.1.0
       read-pkg-up: 7.0.1
       resolve-from: 5.0.0
-      semver: 7.3.7
+      semver: 7.3.8
       semver-diff: 3.1.1
       signale: 1.4.0
       yargs: 16.2.0
@@ -11980,6 +11981,13 @@ packages:
 
   /semver/7.3.7:
     resolution: {integrity: sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+
+  /semver/7.3.8:
+    resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -13123,7 +13131,7 @@ packages:
       is-yarn-global: 0.3.0
       latest-version: 5.1.0
       pupa: 2.1.1
-      semver: 7.3.7
+      semver: 7.3.8
       semver-diff: 3.1.1
       xdg-basedir: 4.0.0
     dev: true
@@ -13519,7 +13527,7 @@ packages:
       require-directory: 2.1.1
       string-width: 4.2.3
       y18n: 5.0.8
-      yargs-parser: 20.2.4
+      yargs-parser: 20.2.9
     dev: true
 
   /yargs/17.5.1:
