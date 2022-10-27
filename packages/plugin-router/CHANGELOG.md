@@ -1,5 +1,19 @@
 
 
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.21.1...@microfleet/plugin-router@0.23.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.21.1...@microfleet/plugin-router@0.22.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 ## [0.21.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.20.0...@microfleet/plugin-router@0.21.2) (2022-09-02)
 
 

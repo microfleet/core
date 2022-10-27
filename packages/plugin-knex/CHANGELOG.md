@@ -1,5 +1,19 @@
 
 
+# [2.28.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.26.1...@microfleet/plugin-knex@2.28.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# [2.27.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.26.1...@microfleet/plugin-knex@2.27.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 ## [2.26.2](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.25.0...@microfleet/plugin-knex@2.26.2) (2022-09-02)
 
 

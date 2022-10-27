@@ -1,5 +1,19 @@
 
 
+# [17.31.0](https://github.com/microfleet/core/compare/@microfleet/core@17.29.1...@microfleet/core@17.31.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# [17.30.0](https://github.com/microfleet/core/compare/@microfleet/core@17.29.1...@microfleet/core@17.30.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 ## [17.29.2](https://github.com/microfleet/core/compare/@microfleet/core@17.28.0...@microfleet/core@17.29.2) (2022-09-02)
 
 

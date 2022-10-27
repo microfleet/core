@@ -1,5 +1,19 @@
 
 
+# [0.25.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.23.1...@microfleet/plugin-prometheus@0.25.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.23.1...@microfleet/plugin-prometheus@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 ## [0.23.2](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.22.0...@microfleet/plugin-prometheus@0.23.2) (2022-09-02)
 
 

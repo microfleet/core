@@ -3,7 +3,7 @@
   "description": "validator plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "0.23.2",
+  "version": "0.25.0",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

@@ -1,5 +1,19 @@
 
 
+# [0.30.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.28.1...@microfleet/plugin-cassandra@0.30.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# [0.29.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.28.1...@microfleet/plugin-cassandra@0.29.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 ## [0.28.2](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.27.0...@microfleet/plugin-cassandra@0.28.2) (2022-09-02)
 
 

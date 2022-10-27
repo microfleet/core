@@ -1,5 +1,19 @@
 
 
+# [2.31.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.29.1...@microfleet/plugin-kafka@2.31.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# [2.30.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.29.1...@microfleet/plugin-kafka@2.30.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 ## [2.29.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.28.0...@microfleet/plugin-kafka@2.29.2) (2022-09-02)
 
 

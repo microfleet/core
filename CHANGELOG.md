@@ -1,3 +1,255 @@
+# @microfleet/core-types 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.23.1...@microfleet/core-types@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/core 17.30.0
+
+# [17.30.0](https://github.com/microfleet/core/compare/@microfleet/core@17.29.1...@microfleet/core@17.30.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-amqp 0.21.0
+
+# [0.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.20.1...@microfleet/plugin-amqp@0.21.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-aws-elasticsearch 1.24.0
+
+# [1.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.23.1...@microfleet/plugin-aws-elasticsearch@1.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-casl 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.8.1...@microfleet/plugin-casl@0.9.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-cassandra 0.29.0
+
+# [0.29.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.28.1...@microfleet/plugin-cassandra@0.29.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-consul 2.26.0
+
+# [2.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.25.1...@microfleet/plugin-consul@2.26.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-couchdb 2.26.0
+
+# [2.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.25.1...@microfleet/plugin-couchdb@2.26.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-dlock 0.21.0
+
+# [0.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.20.1...@microfleet/plugin-dlock@0.21.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-elasticsearch 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.23.1...@microfleet/plugin-elasticsearch@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-hapi 0.21.0
+
+# [0.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.20.1...@microfleet/plugin-hapi@0.21.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-kafka-types 1.25.0
+
+# [1.25.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.24.1...@microfleet/plugin-kafka-types@1.25.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-kafka 2.30.0
+
+# [2.30.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.29.1...@microfleet/plugin-kafka@2.30.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-knex 2.27.0
+
+# [2.27.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.26.1...@microfleet/plugin-knex@2.27.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-logger 0.29.0
+
+# [0.29.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.28.1...@microfleet/plugin-logger@0.29.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-opentracing 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.23.1...@microfleet/plugin-opentracing@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-prometheus 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.23.1...@microfleet/plugin-prometheus@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-redis-cluster 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.23.1...@microfleet/plugin-redis-cluster@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-redis-core 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.23.1...@microfleet/plugin-redis-core@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-redis-sentinel 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.23.1...@microfleet/plugin-redis-sentinel@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-router-amqp 0.21.0
+
+# [0.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.20.1...@microfleet/plugin-router-amqp@0.21.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-router-hapi 0.21.0
+
+# [0.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.20.1...@microfleet/plugin-router-hapi@0.21.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-router-socketio 0.21.0
+
+# [0.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.20.1...@microfleet/plugin-router-socketio@0.21.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-router 0.22.0
+
+# [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.21.1...@microfleet/plugin-router@0.22.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-signed-request 0.7.0
+
+# [0.7.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.6.1...@microfleet/plugin-signed-request@0.7.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-socketio 0.21.0
+
+# [0.21.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.20.1...@microfleet/plugin-socketio@0.21.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/plugin-validator 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.23.1...@microfleet/plugin-validator@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# @microfleet/utils 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.23.1...@microfleet/utils@0.24.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 # @microfleet/core-types 0.23.1
 
 ## [0.23.1](https://github.com/microfleet/core/compare/@microfleet/core-types@0.22.0...@microfleet/core-types@0.23.1) (2022-09-02)

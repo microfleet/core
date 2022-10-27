@@ -1,5 +1,19 @@
 
 
+# [1.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.24.1...@microfleet/plugin-kafka-types@1.26.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
+# [1.25.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.24.1...@microfleet/plugin-kafka-types@1.25.0) (2022-10-27)
+
+
+### Features
+
+* **plugin-signed-request:** fastify plugin ([#637](https://github.com/microfleet/core/issues/637)) ([ee3d4dd](https://github.com/microfleet/core/commit/ee3d4dd1adc3025dbd6d831aeeb0dce9f44117f0))
+
 ## [1.24.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.23.0...@microfleet/plugin-kafka-types@1.24.2) (2022-09-02)
 
 
