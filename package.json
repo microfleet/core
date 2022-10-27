@@ -16,7 +16,7 @@
     "@makeomatic/deploy": "^12.6.3",
     "@node-rs/xxhash-linux-x64-musl": "^1.2.0",
     "@node-rs/xxhash-linux-arm64-musl": "^1.2.0",
-    "@release-it/conventional-changelog": "^4.2.2",
+    "@release-it/conventional-changelog": "^5.0.0",
     "@swc/core-linux-x64-musl": "^1.2.160",
     "@swc/core-linux-arm64-musl": "^1.2.160",
     "conventional-changelog-angular": "^5.0.13",

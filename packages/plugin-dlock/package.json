@@ -48,7 +48,7 @@
     "@microfleet/plugin-redis-cluster": "workspace:^",
     "@microfleet/plugin-redis-sentinel": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
-    "@release-it/conventional-changelog": "^4.2.2",
+    "@release-it/conventional-changelog": "^5.0.0",
     "@swc-node/jest": "^1.4.3",
     "@swc-node/register": "^1.4.2",
     "@types/bluebird": "^3.5.36",
