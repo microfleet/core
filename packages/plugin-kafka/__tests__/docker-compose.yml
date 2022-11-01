@@ -35,6 +35,7 @@ services:
       KAFKA_NUM_NETWORK_THREADS: 4
       KAFKA_NUM_IO_THREADS: 4
       KAFKA_BACKGROUND_THREADS: 4
+      TOPIC_AUTO_CREATE: 'true'
       KAFKA_HEAP_OPTS: "-Xmx512m -Xms512m"
 
   toxy:

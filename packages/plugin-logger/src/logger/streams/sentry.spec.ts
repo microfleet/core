@@ -22,7 +22,6 @@ describe('Logger Sentry Stream Suite', () => {
       sentry: {
         dsn: 'https://api@sentry.io/1822',
         release: 'test',
-        // @ts-expect-error options ignored
         transport: sentryTransport,
       },
       level: 'error',
@@ -35,7 +34,6 @@ describe('Logger Sentry Stream Suite', () => {
       defaultIntegrations: [],
       release: 'test',
       autoSessionTracking: false,
-      // @ts-expect-error options ignored
       transport: sentryTransport,
       integrations: [match.instanceOf(Sentry.Integrations.Console)] as any,
     }))
@@ -49,7 +47,6 @@ describe('Logger Sentry Stream Suite', () => {
       sentry: {
         dsn: 'https://api@sentry.io/1822',
         release: 'test',
-        // @ts-expect-error options ignored
         transport: sentryTransport,
       },
       minLevel: 10,
