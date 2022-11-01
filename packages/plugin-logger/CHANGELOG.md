@@ -1,5 +1,19 @@
 
 
+# [0.32.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.29.0...@microfleet/plugin-logger@0.32.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# [0.31.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.29.0...@microfleet/plugin-logger@0.31.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
 # [0.30.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.28.1...@microfleet/plugin-logger@0.30.0) (2022-10-27)
 
 

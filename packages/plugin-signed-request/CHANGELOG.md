@@ -1,5 +1,19 @@
 
 
+# [0.10.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.7.0...@microfleet/plugin-signed-request@0.10.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.7.0...@microfleet/plugin-signed-request@0.9.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
 # [0.8.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.6.1...@microfleet/plugin-signed-request@0.8.0) (2022-10-27)
 
 

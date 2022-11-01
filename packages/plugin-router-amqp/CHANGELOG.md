@@ -1,5 +1,19 @@
 
 
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.21.0...@microfleet/plugin-router-amqp@0.24.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.21.0...@microfleet/plugin-router-amqp@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
 # [0.22.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.20.1...@microfleet/plugin-router-amqp@0.22.0) (2022-10-27)
 
 

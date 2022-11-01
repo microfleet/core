@@ -1,5 +1,19 @@
 
 
+# [2.33.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.30.0...@microfleet/plugin-kafka@2.33.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# [2.32.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.30.0...@microfleet/plugin-kafka@2.32.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
 # [2.31.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.29.1...@microfleet/plugin-kafka@2.31.0) (2022-10-27)
 
 

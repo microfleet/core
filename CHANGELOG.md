@@ -1,3 +1,255 @@
+# @microfleet/core-types 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.24.0...@microfleet/core-types@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/core 17.32.0
+
+# [17.32.0](https://github.com/microfleet/core/compare/@microfleet/core@17.30.0...@microfleet/core@17.32.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-amqp 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.21.0...@microfleet/plugin-amqp@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-aws-elasticsearch 1.26.0
+
+# [1.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.24.0...@microfleet/plugin-aws-elasticsearch@1.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-casl 0.11.0
+
+# [0.11.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.9.0...@microfleet/plugin-casl@0.11.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-cassandra 0.31.0
+
+# [0.31.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.29.0...@microfleet/plugin-cassandra@0.31.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-consul 2.28.0
+
+# [2.28.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.26.0...@microfleet/plugin-consul@2.28.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-couchdb 2.28.0
+
+# [2.28.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.26.0...@microfleet/plugin-couchdb@2.28.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-dlock 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.21.0...@microfleet/plugin-dlock@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-elasticsearch 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.24.0...@microfleet/plugin-elasticsearch@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-hapi 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.21.0...@microfleet/plugin-hapi@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-kafka-types 1.27.0
+
+# [1.27.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.25.0...@microfleet/plugin-kafka-types@1.27.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-kafka 2.32.0
+
+# [2.32.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.30.0...@microfleet/plugin-kafka@2.32.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-knex 2.29.0
+
+# [2.29.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.27.0...@microfleet/plugin-knex@2.29.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-logger 0.31.0
+
+# [0.31.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.29.0...@microfleet/plugin-logger@0.31.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-opentracing 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.24.0...@microfleet/plugin-opentracing@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-prometheus 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.24.0...@microfleet/plugin-prometheus@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-redis-cluster 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.24.0...@microfleet/plugin-redis-cluster@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-redis-core 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.24.0...@microfleet/plugin-redis-core@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-redis-sentinel 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.24.0...@microfleet/plugin-redis-sentinel@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-router-amqp 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.21.0...@microfleet/plugin-router-amqp@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-router-hapi 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.21.0...@microfleet/plugin-router-hapi@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-router-socketio 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.21.0...@microfleet/plugin-router-socketio@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-router 0.24.0
+
+# [0.24.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.22.0...@microfleet/plugin-router@0.24.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-signed-request 0.9.0
+
+# [0.9.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.7.0...@microfleet/plugin-signed-request@0.9.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-socketio 0.23.0
+
+# [0.23.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.21.0...@microfleet/plugin-socketio@0.23.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/plugin-validator 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.24.0...@microfleet/plugin-validator@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# @microfleet/utils 0.26.0
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.24.0...@microfleet/utils@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
 # @microfleet/core-types 0.24.0
 
 # [0.24.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.23.1...@microfleet/core-types@0.24.0) (2022-10-27)

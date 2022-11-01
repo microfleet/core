@@ -1,5 +1,19 @@
 
 
+# [1.28.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.25.0...@microfleet/plugin-kafka-types@1.28.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# [1.27.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.25.0...@microfleet/plugin-kafka-types@1.27.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
 # [1.26.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.24.1...@microfleet/plugin-kafka-types@1.26.0) (2022-10-27)
 
 

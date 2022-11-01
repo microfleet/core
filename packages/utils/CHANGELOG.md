@@ -1,5 +1,19 @@
 
 
+# [0.27.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.24.0...@microfleet/utils@0.27.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
+# [0.26.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.24.0...@microfleet/utils@0.26.0) (2022-11-01)
+
+
+### Features
+
+* upgrade dependencies, no breaking changes ([#638](https://github.com/microfleet/core/issues/638)) ([2d4de4d](https://github.com/microfleet/core/commit/2d4de4d080be30dcf01ba3f05599ec15618dde90))
+
 # [0.25.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.23.1...@microfleet/utils@0.25.0) (2022-10-27)
 
 
