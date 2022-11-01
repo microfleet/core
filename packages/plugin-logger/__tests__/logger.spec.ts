@@ -125,8 +125,10 @@ describe('Logger suite', () => {
       service.log.error({ err: new Error('fatal') }, 'unexpected error')
       service.log.error({ err: new Error('could not find associated data') }, 'must be filtered')
       service.log.error({ err: new HttpStatusError(200, '412: upload was already processed') }, 'must be filtered 2')
+      service.log.flush() // writing is async, we need to flush the data
 
-      await setTimeout(1000)
+      // to ensure it actually flushes to disk
+      await setTimeout(3000)
 
       const data = await handle.readFile({ encoding: 'utf8' })
       const lines = data.split('\n').slice(0, -1).map((x) => JSON.parse(x))
@@ -141,7 +143,7 @@ describe('Logger suite', () => {
       assert.equal(lines.filter((x) => x.err).length, 5)
 
       // filters last 2 errors
-      assert.equal(reports.length, 8)
+      assert.equal(reports.length, 8, JSON.stringify(reports))
 
     } finally {
       await handle.close()

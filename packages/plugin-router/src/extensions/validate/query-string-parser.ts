@@ -1,6 +1,4 @@
-import { identity } from 'lodash'
 import { parse } from 'qs'
-
 import { Lifecycle } from '../../lifecycle'
 import { ServiceRequest } from '../../types/router'
 
@@ -10,6 +8,8 @@ type QSParserAugmentedAction = ServiceRequest & {
     transformOpts?: any;
   };
 }
+
+const identity = <T>(param: T): T => param
 
 async function preValidate(request: QSParserAugmentedAction): Promise<any> {
   const { query } = request
