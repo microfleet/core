@@ -981,7 +981,7 @@ describe('#generic', () => {
 
     describe('should exit when topic is empty', () => {
 
-      test.skip('as iterable', async () => {
+      test('as iterable', async () => {
         const topic = 'test-empty-topic'
 
         consumerStream = await createConsumerStream(service, {
@@ -1015,6 +1015,7 @@ describe('#generic', () => {
           conf: {
             'enable.auto.commit': false,
             'group.id': topic,
+            'allow.auto.create.topics': true,
           },
         })
 

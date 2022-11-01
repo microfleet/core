@@ -1,6 +1,5 @@
 // Extend types defined in https://github.com/Blizzard/node-rdkafka/blob/master/index.d.ts
-import kafka from '@makeomatic/node-rdkafka'
-import { GlobalConfig, TopicConfig, ConsumerGlobalConfig } from '@makeomatic/node-rdkafka'
+import kafka, { GlobalConfig, TopicConfig, ConsumerGlobalConfig } from '@makeomatic/node-rdkafka'
 import { Writable, Readable } from 'stream'
 import { EventEmitter } from 'events'
 
@@ -73,7 +72,7 @@ declare module '@makeomatic/node-rdkafka' {
   }
 
   // event list is hidden by default
-  export type KafkaClientEvents = 'disconnected' | 'ready' | 'connection.failure' | 'event.error' | 'event.stats' | 'event.log' | 'event.event' | 'event.throttle';
+  // export type KafkaClientEvents = 'disconnected' | 'ready' | 'connection.failure' | 'event.error' | 'event.stats' | 'event.log' | 'event.event' | 'event.throttle';
 
   export interface LibrdKafkaError {
     // eslint-disable-next-line @typescript-eslint/no-misused-new

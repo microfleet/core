@@ -9,7 +9,7 @@ const service = new Microfleet(withResponseValidateAction('tester', {
   },
   hapi: {
     server: {
-      port: parseInt(process.argv[2], 10),
+      port: parseInt(process.argv[2], 10) || 8000,
     },
   },
   router: {

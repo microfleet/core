@@ -102,10 +102,10 @@ export class SignedRequest {
     this.req.payloadSignature.update(chunk)
   }
 
-  async getCredentials<T = any>(...args: any[]): Promise<T> {
+  async getCredentials<T extends Record<string, any> = any>(...args: any[]): Promise<T> {
     assertRequestInitialized(this.req)
 
-    return this.credStore.getCredentials(this.req.parsedSignature.keyId, ...args)
+    return this.credStore.getCredentials<T>(this.req.parsedSignature.keyId, ...args)
   }
 
   static isSignedRequest(headers: IncomingMessage['headers']): boolean {

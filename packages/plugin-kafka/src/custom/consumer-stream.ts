@@ -189,6 +189,7 @@ export class KafkaConsumerStream extends Readable {
     const next = () => {
       if (callback) callback(err || null)
     }
+
     this.log?.debug({ err, disconnected: this.consumerDisconnected() }, '____destroy')
     if (this.consumerDisconnected()) {
       next()
@@ -383,10 +384,9 @@ export class KafkaConsumerStream extends Readable {
       } catch (err: any) {
         this.log?.error({ err }, 'consume error')
 
-        if (err.code === Generic.ERR_UNKNOWN_TOPIC_OR_PART
-            && this.consumer.globalConfig['allow.auto.create.topics']) {
-          this.log?.fatal({ err }, 'allow.auto.create.topics is non functional and will throw in case of subscription failure')
-          this.destroy(err)
+        if (err.code === Generic.ERR_UNKNOWN_TOPIC_OR_PART) {
+          this.log?.warn({ err }, 'topic doesnt exist - closing')
+          this.close()
         } else if (err.code !== Generic.ERR_UNKNOWN) {
           // We can receive Broker transport error with code -1
           // It's repeatable error

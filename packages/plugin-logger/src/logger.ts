@@ -2,7 +2,8 @@ import { strict as assert } from 'node:assert'
 import { resolve } from 'path'
 import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'
-import { pino, PrettyOptions } from 'pino'
+import { pino } from 'pino'
+import { PrettyOptions } from 'pino-pretty'
 import type { NodeOptions as SentryNodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
 import { Microfleet, PluginInterface } from '@microfleet/core-types'
@@ -94,7 +95,7 @@ export interface StreamConfiguration {
   [streamName: string]: any;
 }
 
-export type Logger = pino.Logger
+export type Logger = pino.Logger<any>
 // @TODO use pino.ThreadStream type in future https://github.com/pinojs/pino/blob/v7.6.3/pino.d.ts#L31
 export type ThreadStream = any
 
