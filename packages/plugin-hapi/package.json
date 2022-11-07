@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
-    "@hapi/hapi": "^20.2.2",
+    "@hapi/hapi": "^21.0.0",
     "@hapi/vision": "^7.0.0",
     "@microfleet/core-types": "workspace:^",
     "@microfleet/plugin-logger": "workspace:^",
