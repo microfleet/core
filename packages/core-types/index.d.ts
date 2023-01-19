@@ -1,5 +1,5 @@
 import type { Options as RetryOptions } from 'bluebird-retry'
-import type { ListenerFn } from 'eventemitter3'
+import type { EventEmitter } from 'eventemitter3'
 import type {
   CONNECTORS_PROPERTY,
   ConnectorsTypes,
@@ -37,7 +37,7 @@ export class Microfleet {
 }
 
 export type AnyFn = (...args: any[]) => any;
-export type Hook = ListenerFn | ListenerFn[];
+export type Hook = EventEmitter.ListenerFn | EventEmitter.ListenerFn[];
 
 /**
  * Interface for optional params

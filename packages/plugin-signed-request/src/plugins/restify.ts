@@ -1,26 +1,19 @@
 import type * as _ from '../types'
-import type { Request, Response, Next } from 'restify'
+import type { Request } from 'restify'
 
 import { SignedRequest, Config, CredentialsStore } from '../signed-request'
 
 export const RestifySignedRequestPlugin = (store: CredentialsStore, config: Config) => {
-  return async function verifySignature(req: Request, _res: Response, next: Next) {
+  return async function verifySignature(req: Request) {
 
     if (!SignedRequest.isSignedRequest(req.headers)) {
-      return setImmediate(next)
+      return
     }
 
     const signature = req.signature = new SignedRequest(config, store)
+    await signature.initialize(req)
 
-    try {
-      await signature.initialize(req)
-
-      signature.appendPayload(req.rawBody)
-      signature.verifyPayload()
-
-      return setImmediate(next)
-    } catch(error) {
-      return setImmediate(next, error)
-    }
+    signature.appendPayload(req.rawBody)
+    signature.verifyPayload()
   }
 }
