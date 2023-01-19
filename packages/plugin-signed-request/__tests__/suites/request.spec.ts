@@ -400,14 +400,14 @@ describe('restify plugin', () => {
 
     server.use(RestifySignedRequestPlugin(stubs, signedRequest))
 
-    const handler: restify.RequestHandlerType = async function (req, res, next) {
+    const handler: restify.RequestHandlerType = async function (req, res) {
       res.send({
         response: 'success',
         params: req.body,
         credentials: await req.signature?.getCredentials()
       })
 
-      setImmediate(next, false)
+      return false
     }
 
     server.get('/action/signed', handler)
