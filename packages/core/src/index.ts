@@ -5,7 +5,7 @@ import type { DeepPartial } from 'ts-essentials'
  * Microservice Abstract Class
  * @module Microfleet
  */
-import { resolve } from 'path'
+import { isAbsolute, resolve } from 'path'
 import { strict as assert } from 'assert'
 import { EventEmitter } from 'eventemitter3'
 import * as defaultOpts from './defaults'
@@ -402,14 +402,16 @@ export class Microfleet extends EventEmitter {
    */
   private initPlugins(config: ns.CoreOptions): void {
     for (const pluginType of PluginsPriority) {
-      this[CONNECTORS_PROPERTY][pluginType] = []
+        this[CONNECTORS_PROPERTY][pluginType] = []
       this[DESTRUCTORS_PROPERTY][pluginType] = []
     }
 
     // require all modules
     const plugins: ns.Plugin[] = []
     for (const plugin of config.plugins) {
-      const paths = [`./plugins/${plugin}`, `@microfleet/plugin-${plugin}`]
+      const paths = isAbsolute(plugin)
+        ? [plugin]
+        : [`./plugins/${plugin}`, `@microfleet/plugin-${plugin}`]
 
       // back-compatibility, should be removed when we redo initialization of plugins
       if (plugin === 'redisCluster') {
