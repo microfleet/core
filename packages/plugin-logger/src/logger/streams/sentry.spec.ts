@@ -33,6 +33,7 @@ describe('Logger Sentry Stream Suite', () => {
       dsn: 'https://api@sentry.io/1822',
       defaultIntegrations: [],
       release: 'test',
+      instrumenter: 'sentry',
       autoSessionTracking: false,
       transport: sentryTransport,
       integrations: [match.instanceOf(Sentry.Integrations.Console)] as any,
