@@ -40,7 +40,7 @@
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
-    "knex": "^2.4.1",
+    "knex": "^2.4.2",
     "pg": "^8.8.0"
   },
   "devDependencies": {

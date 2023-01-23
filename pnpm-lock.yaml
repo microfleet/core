@@ -270,7 +270,7 @@ importers:
       '@types/node': ^18.11.18
       '@typescript-eslint/eslint-plugin': ^5.48.2
       '@typescript-eslint/parser': ^5.48.2
-      aws-sdk: ^2.1297.0
+      aws-sdk: ^2.1299.0
       aws4: ^1.12.0
       bluebird: ^3.7.2
       bluebird-retry: ^0.11.0
@@ -293,7 +293,7 @@ importers:
       '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/utils': link:../utils
       '@opensearch-project/opensearch': 2.1.0
-      aws-sdk: 2.1297.0
+      aws-sdk: 2.1299.0
       aws4: 1.12.0
       bluebird: 3.7.2
       bluebird-retry: 0.11.0_bluebird@3.7.2
@@ -862,7 +862,7 @@ importers:
   packages/plugin-kafka:
     specifiers:
       '@makeomatic/deploy': ^12.9.0
-      '@makeomatic/node-rdkafka': ^2.14.2
+      '@makeomatic/node-rdkafka': ^2.16.0
       '@microfleet/core': workspace:^
       '@microfleet/core-types': workspace:^
       '@microfleet/plugin-kafka-types': workspace:^
@@ -906,7 +906,7 @@ importers:
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.4
     dependencies:
-      '@makeomatic/node-rdkafka': 2.14.2
+      '@makeomatic/node-rdkafka': 2.16.0
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-kafka-types': link:../plugin-kafka-types
       '@microfleet/plugin-logger': link:../plugin-logger
@@ -955,7 +955,7 @@ importers:
   packages/plugin-kafka-types:
     specifiers:
       '@makeomatic/deploy': ^12.9.0
-      '@makeomatic/node-rdkafka': ^2.14.2
+      '@makeomatic/node-rdkafka': ^2.16.0
       '@release-it/conventional-changelog': ^4.3.0
       '@swc-node/jest': ^1.5.6
       '@swc-node/register': ^1.5.5
@@ -978,7 +978,7 @@ importers:
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.4
     dependencies:
-      '@makeomatic/node-rdkafka': 2.14.2
+      '@makeomatic/node-rdkafka': 2.16.0
     devDependencies:
       '@makeomatic/deploy': 12.9.0_@swc+core@1.3.27
       '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
@@ -1033,7 +1033,7 @@ importers:
       eslint-plugin-import: ^2.27.5
       eslint-plugin-unicorn: ^45.0.2
       jest: ^29.3.1
-      knex: ^2.4.1
+      knex: ^2.4.2
       pg: ^8.8.0
       release-it: ^14.14.3
       rimraf: ^4.1.1
@@ -1048,7 +1048,7 @@ importers:
       '@microfleet/utils': link:../utils
       bluebird: 3.7.2
       bluebird-retry: 0.11.0_bluebird@3.7.2
-      knex: 2.4.1_pg@8.8.0
+      knex: 2.4.2_pg@8.8.0
       pg: 8.8.0
     devDependencies:
       '@makeomatic/deploy': 12.9.0_@swc+core@1.3.27
@@ -1088,9 +1088,9 @@ importers:
       '@microfleet/plugin-validator': workspace:^
       '@microfleet/utils': workspace:^
       '@release-it/conventional-changelog': ^4.3.0
-      '@sentry/node': ^7.31.1
-      '@sentry/types': ^7.31.1
-      '@sentry/utils': ^7.31.1
+      '@sentry/node': ^7.32.1
+      '@sentry/types': ^7.32.1
+      '@sentry/utils': ^7.32.1
       '@swc-node/jest': ^1.5.6
       '@swc-node/register': ^1.5.5
       '@swc/core': ^1.3.27
@@ -1111,7 +1111,7 @@ importers:
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.27.5
       eslint-plugin-unicorn: ^45.0.2
-      fastify: ^4.11.0
+      fastify: ^4.12.0
       jest: ^29.3.1
       lodash.merge: ^4.6.2
       lsmod: ^1.0.0
@@ -1132,7 +1132,7 @@ importers:
       '@microfleet/core-types': link:../core-types
       '@microfleet/plugin-validator': link:../plugin-validator
       '@microfleet/utils': link:../utils
-      '@sentry/utils': 7.31.1
+      '@sentry/utils': 7.32.1
       lodash.merge: 4.6.2
       lsmod: 1.0.0
       pino: 8.8.0
@@ -1143,8 +1143,8 @@ importers:
       '@makeomatic/deploy': 12.9.0_@swc+core@1.3.27
       '@microfleet/core': link:../core
       '@release-it/conventional-changelog': 4.3.0_release-it@14.14.3
-      '@sentry/node': 7.31.1
-      '@sentry/types': 7.31.1
+      '@sentry/node': 7.32.1
+      '@sentry/types': 7.32.1
       '@swc-node/jest': 1.5.6_vie36g7wyuxvffmgig7f6jubwe
       '@swc-node/register': 1.5.5_vie36g7wyuxvffmgig7f6jubwe
       '@swc/core': 1.3.27
@@ -1165,7 +1165,7 @@ importers:
       eslint-config-makeomatic: 5.1.0_typescript@4.9.4
       eslint-plugin-import: 2.27.5_2l6piu6guil2f63lj3qmhzbnn4
       eslint-plugin-unicorn: 45.0.2_eslint@8.32.0
-      fastify: 4.11.0
+      fastify: 4.12.0
       jest: 29.3.1_@types+node@18.11.18
       mocha: 10.2.0
       release-it: 14.14.3
@@ -1281,7 +1281,7 @@ importers:
       ts-essentials: ^9.3.0
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.4
-      undici: ^5.15.1
+      undici: ^5.16.0
     dependencies:
       '@microfleet/core-types': link:../core-types
       '@microfleet/utils': link:../utils
@@ -1317,7 +1317,7 @@ importers:
       ts-essentials: 9.3.0_typescript@4.9.4
       tsconfig-paths: 4.1.2
       typescript: 4.9.4
-      undici: 5.15.1
+      undici: 5.16.0
 
   packages/plugin-redis-cluster:
     specifiers:
@@ -1413,7 +1413,7 @@ importers:
       '@swc/core-linux-x64-musl': ^1.3.27
       '@types/common-errors': ^1.0.2
       '@types/debug': ^4.1.7
-      '@types/glob': ^8.0.0
+      '@types/glob': ^8.0.1
       '@types/ioredis': ^4.28.10
       '@types/jest': 29.2.6
       '@types/node': ^18.11.18
@@ -1452,7 +1452,7 @@ importers:
       '@swc/core-linux-x64-musl': 1.3.27
       '@types/common-errors': 1.0.2
       '@types/debug': 4.1.7
-      '@types/glob': 8.0.0
+      '@types/glob': 8.0.1
       '@types/ioredis': 4.28.10
       '@types/jest': 29.2.6
       '@types/node': 18.11.18
@@ -1569,7 +1569,7 @@ importers:
       '@swc/core-linux-x64-musl': ^1.3.27
       '@types/bluebird': ^3.5.38
       '@types/common-errors': ^1.0.2
-      '@types/glob': ^8.0.0
+      '@types/glob': ^8.0.1
       '@types/jest': 29.2.6
       '@types/lodash': ^4.14.191
       '@types/node': ^18.11.18
@@ -1605,7 +1605,7 @@ importers:
       ts-essentials: ^9.3.0
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.4
-      undici: ^5.15.1
+      undici: ^5.16.0
     dependencies:
       '@hapi/boom': 10.0.0
       '@microfleet/transport-amqp': 17.3.0_common-errors@1.2.0
@@ -1632,7 +1632,7 @@ importers:
       '@swc/core-linux-x64-musl': 1.3.27
       '@types/bluebird': 3.5.38
       '@types/common-errors': 1.0.2
-      '@types/glob': 8.0.0
+      '@types/glob': 8.0.1
       '@types/jest': 29.2.6
       '@types/lodash': 4.14.191
       '@types/node': 18.11.18
@@ -1661,7 +1661,7 @@ importers:
       ts-essentials: 9.3.0_typescript@4.9.4
       tsconfig-paths: 4.1.2
       typescript: 4.9.4
-      undici: 5.15.1
+      undici: 5.16.0
 
   packages/plugin-router-amqp:
     specifiers:
@@ -1787,7 +1787,7 @@ importers:
       ts-essentials: ^9.3.0
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.4
-      undici: ^5.15.1
+      undici: ^5.16.0
     dependencies:
       '@hapi/boom': 10.0.0
       '@hapi/hapi': 21.2.0
@@ -1833,7 +1833,7 @@ importers:
       ts-essentials: 9.3.0_typescript@4.9.4
       tsconfig-paths: 4.1.2
       typescript: 4.9.4
-      undici: 5.15.1
+      undici: 5.16.0
 
   packages/plugin-router-socketio:
     specifiers:
@@ -1933,7 +1933,7 @@ importers:
       eslint-config-makeomatic: ^5.1.0
       eslint-plugin-import: ^2.27.5
       eslint-plugin-unicorn: ^45.0.2
-      fastify: ^4.11.0
+      fastify: ^4.12.0
       fastify-plugin: ^4.5.0
       http-signature: ^1.3.6
       jest: ^29.3.1
@@ -1944,7 +1944,7 @@ importers:
       ts-essentials: ^9.3.0
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.4
-      undici: ^5.15.1
+      undici: ^5.16.0
     dependencies:
       '@hapi/boom': 10.0.0
       '@microfleet/core-types': link:../core-types
@@ -1977,7 +1977,7 @@ importers:
       eslint-config-makeomatic: 5.1.0_typescript@4.9.4
       eslint-plugin-import: 2.27.5_2l6piu6guil2f63lj3qmhzbnn4
       eslint-plugin-unicorn: 45.0.2_eslint@8.32.0
-      fastify: 4.11.0
+      fastify: 4.12.0
       fastify-plugin: 4.5.0
       jest: 29.3.1_@types+node@18.11.18
       release-it: 14.14.3
@@ -1987,7 +1987,7 @@ importers:
       ts-essentials: 9.3.0_typescript@4.9.4
       tsconfig-paths: 4.1.2
       typescript: 4.9.4
-      undici: 5.15.1
+      undici: 5.16.0
 
   packages/plugin-socketio:
     specifiers:
@@ -3378,9 +3378,9 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@makeomatic/node-rdkafka/2.14.2:
-    resolution: {integrity: sha512-nt153SjvOfX1XSgiZmf6GTw4vCo4zCS4n2WxCMNsfdIonWnFTGqye5Kio6az/Rg5GsJVUeeIStaHV+6pskLZLA==}
-    engines: {node: '>=6.0.0'}
+  /@makeomatic/node-rdkafka/2.16.0:
+    resolution: {integrity: sha512-6oO8HtocZw9mD/2PGiAr9jjwYNv4G98hsHuWGS7QIKaBZg3HoosJxU75ySv+xB9YQA0gc4jGK0Y2bWNe54dLYQ==}
+    engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.10
@@ -3593,6 +3593,7 @@ packages:
     engines: {node: '>= 12'}
     cpu: [arm64]
     os: [linux]
+    requiresBuild: true
     dev: true
 
   /@node-rs/xxhash-linux-x64-gnu/1.3.0:
@@ -3609,6 +3610,7 @@ packages:
     engines: {node: '>= 12'}
     cpu: [x64]
     os: [linux]
+    requiresBuild: true
     dev: true
 
   /@node-rs/xxhash-win32-arm64-msvc/1.3.0:
@@ -4035,22 +4037,22 @@ packages:
       - supports-color
     dev: true
 
-  /@sentry/core/7.31.1:
-    resolution: {integrity: sha512-quaNU6z8jabmatBTDi28Wpff2yzfWIp/IU4bbi2QOtEiCNT+TQJXqlRTRMu9xLrX7YzyKCL5X2gbit/85lyWUg==}
+  /@sentry/core/7.32.1:
+    resolution: {integrity: sha512-WHCFdlvK+YiGPjjmwLLvueH7zMYxLgNl0esCQUrqoTHhZ4asIV8k3/5OXgUi4kV2DW+NjzhmtK3qKeWZxgitfw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.31.1
-      '@sentry/utils': 7.31.1
+      '@sentry/types': 7.32.1
+      '@sentry/utils': 7.32.1
       tslib: 1.14.1
     dev: true
 
-  /@sentry/node/7.31.1:
-    resolution: {integrity: sha512-4VzfOU1YHeoGkBQmkVXlXoXITf+1NkZEREKhdzgpVAkVjb2Tk3sMoFov4wOKWnNTTj4ka50xyaw/ZmqApgQ4Pw==}
+  /@sentry/node/7.32.1:
+    resolution: {integrity: sha512-wHC3hZzirYLeT2CB6co4PE9og3aVEqUyKi4YUsFKxigWyftIzkWyuQag4DNStlUpaBI1uFusBmhp87J0ZC6PQA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.31.1
-      '@sentry/types': 7.31.1
-      '@sentry/utils': 7.31.1
+      '@sentry/core': 7.32.1
+      '@sentry/types': 7.32.1
+      '@sentry/utils': 7.32.1
       cookie: 0.4.2
       https-proxy-agent: 5.0.1
       lru_map: 0.3.3
@@ -4059,15 +4061,15 @@ packages:
       - supports-color
     dev: true
 
-  /@sentry/types/7.31.1:
-    resolution: {integrity: sha512-1uzr2l0AxEnxUX/S0EdmXUQ15/kDsam8Nbdw4Gai8SU764XwQgA/TTjoewVP597CDI/AHKan67Y630/Ylmkx9w==}
+  /@sentry/types/7.32.1:
+    resolution: {integrity: sha512-yWS5no9Xxftgb6IGjj7iK6TvOk6rfy2H5gKcj4DrPqSWKmh0jfszUoX4B+olkt7H75sTSQqv3yiuMsySsMh+6Q==}
     engines: {node: '>=8'}
 
-  /@sentry/utils/7.31.1:
-    resolution: {integrity: sha512-ZsIPq29aNdP9q3R7qIzJhZ9WW+4DzE9g5SfGwx3UjTIxoRRBfdUJUbf7S+LKEdvCkKbyoDt6FLt5MiSJV43xBA==}
+  /@sentry/utils/7.32.1:
+    resolution: {integrity: sha512-kZVpqRTC+UiI/PlSxEuv0G5G0lZeTZTL/pyRb8sptLhFo7QxEaGO/XCDNzWC4vQdm5PrpCVZ6w/XCYCHEhx4Tw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.31.1
+      '@sentry/types': 7.32.1
       tslib: 1.14.1
 
   /@sideway/address/4.1.4:
@@ -4453,8 +4455,8 @@ packages:
     resolution: {integrity: sha512-jsTl/XtZumQfYgn50a0fPkpIyF2xvpsyzZmSLrrwXR8NWiDlw4N5XJiGQYrLckZGGUvbIr920Hz2wqmH1ZfjlQ==}
     dev: true
 
-  /@types/glob/8.0.0:
-    resolution: {integrity: sha512-l6NQsDDyQUVeoTynNpC9uRvCUint/gSUXQA2euwmTuWGvPY5LSDUu6tkCtJB2SvGQlJQzLaKqcGZP4//7EDveA==}
+  /@types/glob/8.0.1:
+    resolution: {integrity: sha512-8bVUjXZvJacUFkJXHdyZ9iH1Eaj5V7I8c4NdH5sQJsdXkqT4CA5Dhb4yb4VE/3asyx4L9ayZr1NIhTsWHczmMw==}
     dependencies:
       '@types/minimatch': 5.1.2
       '@types/node': 18.11.18
@@ -5143,7 +5145,7 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.1.4
       es-abstract: 1.21.1
-      get-intrinsic: 1.1.3
+      get-intrinsic: 1.2.0
       is-string: 1.0.7
     dev: true
 
@@ -5266,8 +5268,8 @@ packages:
       - supports-color
     dev: true
 
-  /aws-sdk/2.1297.0:
-    resolution: {integrity: sha512-hZbG8tfluU2ijCCBQnQzCiPbArFtaWqAUFAWAGZ0+Df7OzTm7ya9fLYV3j3L6p2PacAyAuxXaeMbgMHlHi/D3w==}
+  /aws-sdk/2.1299.0:
+    resolution: {integrity: sha512-xTh6pmCUEJljkFfTM3sE8UozDxal80uX/5WZl8GcjQ+NbrGeQEdvL6wFWBwEEVbhR0VBVuU37cKPuQlfENbRYA==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -7662,28 +7664,6 @@ packages:
     resolution: {integrity: sha512-79ak0JxddO0utAXAQ5ccKhvs6vX2MGyHHMMsmZkBANrq3hXc1CHzvNPHOcvTsVMEPl5I+NT+RO4YKMGehOfSIg==}
     dev: true
 
-  /fastify/4.11.0:
-    resolution: {integrity: sha512-JteZ8pjEqd+6n+azQnQfSJV8MUMxAmxbvC2Dx/Mybj039Lf/u3kda9Kq84uy/huCpqCzZoyHIZS5JFGF3wLztw==}
-    dependencies:
-      '@fastify/ajv-compiler': 3.5.0
-      '@fastify/error': 3.2.0
-      '@fastify/fast-json-stringify-compiler': 4.2.0
-      abstract-logging: 2.0.1
-      avvio: 8.2.0
-      content-type: 1.0.4
-      find-my-way: 7.4.0
-      light-my-request: 5.8.0
-      pino: 8.8.0
-      process-warning: 2.1.0
-      proxy-addr: 2.0.7
-      rfdc: 1.3.0
-      secure-json-parse: 2.7.0
-      semver: 7.3.8
-      tiny-lru: 10.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /fastify/4.12.0:
     resolution: {integrity: sha512-Hh2GCsOCqnOuewWSvqXlpq5V/9VA+/JkVoooQWUhrU6gryO9+/UGOoF/dprGcKSDxkM/9TkMXSffYp8eA/YhYQ==}
     dependencies:
@@ -8022,14 +8002,6 @@ packages:
   /get-func-name/2.0.0:
     resolution: {integrity: sha512-Hm0ixYtaSZ/V7C8FJrtZIuBBI+iSgL+1Aq82zSu8VQNB4S3Gk8e7Qs3VwBDJAhmRZcFqkl3tQu36g/Foh5I5ig==}
     dev: false
-
-  /get-intrinsic/1.1.3:
-    resolution: {integrity: sha512-QJVz1Tj7MS099PevUG5jvnt9tSkXN8K14dxQlikJuPt4uD9hHAHjLyLBiLR5zELelBdD9QNRAXZzsJx0WaDL9A==}
-    dependencies:
-      function-bind: 1.1.1
-      has: 1.0.3
-      has-symbols: 1.0.3
-    dev: true
 
   /get-intrinsic/1.2.0:
     resolution: {integrity: sha512-L049y6nFOuom5wGyRc3/gdTLO94dySVKRACj1RmJZBQXlbTMhtNIgkWkUHq+jYmZvKf14EW1EoJnnjbmoHij0Q==}
@@ -9854,8 +9826,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /knex/2.4.1_pg@8.8.0:
-    resolution: {integrity: sha512-5wylehvnTOE8EdypPFakccA1zgo6Lp+TNultncvBUCUD0PasY+PLVa9qPrTFCioxPSPVha1u9ye2niAVVbLM0Q==}
+  /knex/2.4.2_pg@8.8.0:
+    resolution: {integrity: sha512-tMI1M7a+xwHhPxjbl/H9K1kHX+VncEYcvCx5K00M16bWvpYPKAZd6QrCu68PtHAdIZNQPWZn0GVhqVBEthGWCg==}
     engines: {node: '>=12'}
     hasBin: true
     peerDependencies:
@@ -13321,15 +13293,15 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /undici/5.15.1:
-    resolution: {integrity: sha512-XLk8g0WAngdvFqTI+VKfBtM4YWXgdxkf1WezC771Es0Dd+Pm1KmNx8t93WTC+Hh9tnghmVxkclU1HN+j+CvIUA==}
+  /undici/5.15.2:
+    resolution: {integrity: sha512-JsN6meyJESMJaLqOuozstwrolSkLWlTIT4qpGoKepNdnZy7HJMPKB0v0Td/CepGgoiPpUSvVO9Nh/5N9QrmDgQ==}
     engines: {node: '>=12.18'}
     dependencies:
       busboy: 1.6.0
     dev: true
 
-  /undici/5.15.2:
-    resolution: {integrity: sha512-JsN6meyJESMJaLqOuozstwrolSkLWlTIT4qpGoKepNdnZy7HJMPKB0v0Td/CepGgoiPpUSvVO9Nh/5N9QrmDgQ==}
+  /undici/5.16.0:
+    resolution: {integrity: sha512-KWBOXNv6VX+oJQhchXieUznEmnJMqgXMbs0xxH2t8q/FUAWSJvOSr/rMaZKnX5RIVq7JDn0JbP4BOnKG2SGXLQ==}
     engines: {node: '>=12.18'}
     dependencies:
       busboy: 1.6.0
