@@ -27,7 +27,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "peerDependencies": {
     "common-errors": "^1.2.0",
-    "ioredis": "^4.0.0"
+    "ioredis": "^5.0.0"
   },
   "dependencies": {
     "@microfleet/core-types": "workspace:^",
@@ -58,7 +58,7 @@
     "eslint-config-makeomatic": "^5.1.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-unicorn": "^45.0.2",
-    "ioredis": "^4.28.5",
+    "ioredis": "^5.0.0",
     "jest": "^29.3.1",
     "release-it": "^14.14.3",
     "rimraf": "^4.1.1",
