@@ -1,3 +1,507 @@
+# @microfleet/core-types 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.26.0...@microfleet/core-types@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/core 18.0.0
+
+# [18.0.0](https://github.com/microfleet/core/compare/@microfleet/core@17.32.0...@microfleet/core@18.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-amqp 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@0.23.0...@microfleet/plugin-amqp@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-aws-elasticsearch 2.0.0
+
+# [2.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.26.0...@microfleet/plugin-aws-elasticsearch@2.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-casl 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@0.11.0...@microfleet/plugin-casl@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-cassandra 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@0.31.0...@microfleet/plugin-cassandra@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-consul 3.0.0
+
+# [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@2.28.0...@microfleet/plugin-consul@3.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-couchdb 3.0.0
+
+# [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@2.28.0...@microfleet/plugin-couchdb@3.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-dlock 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@0.23.0...@microfleet/plugin-dlock@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-elasticsearch 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@0.26.0...@microfleet/plugin-elasticsearch@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-hapi 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@0.23.0...@microfleet/plugin-hapi@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-kafka-types 2.0.0
+
+# [2.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.27.0...@microfleet/plugin-kafka-types@2.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-kafka 3.0.0
+
+# [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.32.0...@microfleet/plugin-kafka@3.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-knex 3.0.0
+
+# [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@2.29.0...@microfleet/plugin-knex@3.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-logger 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@0.31.0...@microfleet/plugin-logger@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-opentracing 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@0.26.0...@microfleet/plugin-opentracing@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-prometheus 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@0.26.0...@microfleet/plugin-prometheus@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-redis-cluster 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@0.26.0...@microfleet/plugin-redis-cluster@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-redis-core 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@0.26.0...@microfleet/plugin-redis-core@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-redis-sentinel 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@0.26.0...@microfleet/plugin-redis-sentinel@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-router-amqp 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@0.23.0...@microfleet/plugin-router-amqp@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-router-hapi 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@0.23.0...@microfleet/plugin-router-hapi@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-router-socketio 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@0.23.0...@microfleet/plugin-router-socketio@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-router 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@0.24.0...@microfleet/plugin-router@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-signed-request 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@0.9.0...@microfleet/plugin-signed-request@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-socketio 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@0.23.0...@microfleet/plugin-socketio@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/plugin-validator 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.26.0...@microfleet/plugin-validator@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# @microfleet/utils 1.0.0
+
+# [1.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@0.26.0...@microfleet/utils@1.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
 # @microfleet/core-types 0.26.0
 
 # [0.26.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.24.0...@microfleet/core-types@0.26.0) (2022-11-01)

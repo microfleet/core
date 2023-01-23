@@ -1,5 +1,37 @@
 
 
+# [19.0.0](https://github.com/microfleet/core/compare/@microfleet/core@17.32.0...@microfleet/core@19.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# [18.0.0](https://github.com/microfleet/core/compare/@microfleet/core@17.32.0...@microfleet/core@18.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
 # [17.33.0](https://github.com/microfleet/core/compare/@microfleet/core@17.30.0...@microfleet/core@17.33.0) (2022-11-01)
 
 

@@ -1,5 +1,37 @@
 
 
+# [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.26.0...@microfleet/plugin-aws-elasticsearch@3.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
+# [2.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.26.0...@microfleet/plugin-aws-elasticsearch@2.0.0) (2023-01-23)
+
+
+### Features
+
+* init custom plugin with abs path from core ([#641](https://github.com/microfleet/core/issues/641)) ([b9e0a30](https://github.com/microfleet/core/commit/b9e0a30a8f262d50aa325185aca9b49ae4da6eb8))
+
+
+### BREAKING CHANGES
+
+* several plugins had major version of node updates in its req, hence boosting this
+
+* chore: lockfile
+* feat: init custom plugin with abs path from core
+* chore: update test env
+
 # [1.27.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.24.0...@microfleet/plugin-aws-elasticsearch@1.27.0) (2022-11-01)
 
 
