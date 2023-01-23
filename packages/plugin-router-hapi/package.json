@@ -77,7 +77,7 @@
     "eslint-plugin-unicorn": "^45.0.2",
     "handlebars": "^4.7.7",
     "jest": "^29.3.1",
-    "release-it": "^14.14.3",
+    "release-it": "^15.0.0",
     "rimraf": "^4.1.1",
     "sinon": "^15.0.1",
     "ts-essentials": "^9.3.0",
