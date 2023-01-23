@@ -58,6 +58,7 @@ export const attach = function attachSocketioPlugin(
   // setup socket.io adapter
   if (adapterConfig !== undefined) {
     if (adapterConfig.name === 'amqp') {
+      // @ts-expect-error returns AdapterConstructor
       socketioServerOptions.adapter = AdapterFactory.fromOptions(adapterConfig.options)
     } else {
       throw new NotImplementedError(`Socket.io adapter "${adapterConfig.name}" is not implemented`)

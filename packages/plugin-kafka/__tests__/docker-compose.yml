@@ -59,3 +59,7 @@ services:
     environment:
       DEBUG: ${DEBUG}
       UV_THREADPOOL_SIZE: 16 # assume 4+n consumers active and give some more place
+    user: "${UID:-1000}:${UID:-1000}"
+    volumes:
+      - ${PNPM_STORE:-~/.pnpm-store}:/tmp/.pnpm-store
+
