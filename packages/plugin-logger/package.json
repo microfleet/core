@@ -75,7 +75,7 @@
     "fastify": "^4.12.0",
     "jest": "^29.3.1",
     "mocha": "^10.2.0",
-    "release-it": "^14.14.3",
+    "release-it": "^15.0.0",
     "rimraf": "^4.1.1",
     "sentry-testkit": "^5.0.5",
     "sinon": "^15.0.1",
