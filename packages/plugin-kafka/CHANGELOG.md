@@ -1,5 +1,19 @@
 
 
+# [4.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@3.0.0...@microfleet/plugin-kafka@4.2.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# [4.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@3.0.0...@microfleet/plugin-kafka@4.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
 # [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@2.32.0...@microfleet/plugin-kafka@4.0.0) (2023-01-23)
 
 

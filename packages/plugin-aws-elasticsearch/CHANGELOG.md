@@ -1,5 +1,19 @@
 
 
+# [3.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@2.0.0...@microfleet/plugin-aws-elasticsearch@3.2.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@2.0.0...@microfleet/plugin-aws-elasticsearch@3.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
 # [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@1.26.0...@microfleet/plugin-aws-elasticsearch@3.0.0) (2023-01-23)
 
 

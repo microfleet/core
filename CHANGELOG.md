@@ -1,3 +1,255 @@
+# @microfleet/core-types 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/core-types@1.0.0...@microfleet/core-types@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/core 19.1.0
+
+# [19.1.0](https://github.com/microfleet/core/compare/@microfleet/core@18.0.0...@microfleet/core@19.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-amqp 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@1.0.0...@microfleet/plugin-amqp@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-aws-elasticsearch 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@2.0.0...@microfleet/plugin-aws-elasticsearch@3.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-casl 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@1.0.0...@microfleet/plugin-casl@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-cassandra 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@1.0.0...@microfleet/plugin-cassandra@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-consul 4.1.0
+
+# [4.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@3.0.0...@microfleet/plugin-consul@4.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-couchdb 4.1.0
+
+# [4.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@3.0.0...@microfleet/plugin-couchdb@4.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-dlock 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@1.0.0...@microfleet/plugin-dlock@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-elasticsearch 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@1.0.0...@microfleet/plugin-elasticsearch@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-hapi 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@1.0.0...@microfleet/plugin-hapi@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-kafka-types 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@2.0.0...@microfleet/plugin-kafka-types@3.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-kafka 4.1.0
+
+# [4.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@3.0.0...@microfleet/plugin-kafka@4.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-knex 4.1.0
+
+# [4.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@3.0.0...@microfleet/plugin-knex@4.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-logger 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@1.0.0...@microfleet/plugin-logger@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-opentracing 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@1.0.0...@microfleet/plugin-opentracing@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-prometheus 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@1.0.0...@microfleet/plugin-prometheus@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-redis-cluster 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@1.0.0...@microfleet/plugin-redis-cluster@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-redis-core 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@1.0.0...@microfleet/plugin-redis-core@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-redis-sentinel 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@1.0.0...@microfleet/plugin-redis-sentinel@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-router-amqp 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@1.0.0...@microfleet/plugin-router-amqp@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-router-hapi 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@1.0.0...@microfleet/plugin-router-hapi@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-router-socketio 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@1.0.0...@microfleet/plugin-router-socketio@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-router 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@1.0.0...@microfleet/plugin-router@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-signed-request 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@1.0.0...@microfleet/plugin-signed-request@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-socketio 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@1.0.0...@microfleet/plugin-socketio@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/plugin-validator 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@1.0.0...@microfleet/plugin-validator@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# @microfleet/utils 2.1.0
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/utils@1.0.0...@microfleet/utils@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
 # @microfleet/core-types 1.0.0
 
 # [1.0.0](https://github.com/microfleet/core/compare/@microfleet/core-types@0.26.0...@microfleet/core-types@1.0.0) (2023-01-23)

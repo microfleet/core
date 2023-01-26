@@ -1,5 +1,19 @@
 
 
+# [3.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@2.0.0...@microfleet/plugin-kafka-types@3.2.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@2.0.0...@microfleet/plugin-kafka-types@3.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
 # [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@1.27.0...@microfleet/plugin-kafka-types@3.0.0) (2023-01-23)
 
 

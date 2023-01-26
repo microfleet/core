@@ -1,5 +1,19 @@
 
 
+# [2.2.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@1.0.0...@microfleet/plugin-validator@2.2.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
+# [2.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@1.0.0...@microfleet/plugin-validator@2.1.0) (2023-01-26)
+
+
+### Features
+
+* common action overrides ([516cebb](https://github.com/microfleet/core/commit/516cebb5f24b6eb050fd524c83e4468dd6f8d82d))
+
 # [2.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@0.26.0...@microfleet/plugin-validator@2.0.0) (2023-01-23)
 
 
