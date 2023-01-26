@@ -123,13 +123,17 @@ export class Router {
     const { routes, config } = this
     let name: string = route
 
-
     if (config !== undefined) {
       if (config.disabled !== undefined && Object.keys(config.disabled).length > 0) {
         const disabledRoute = config.disabled[route]
         if (disabledRoute === route) {
           return
         }
+      }
+
+      // allows generic overwrites
+      if (config.allRoutes) {
+        Object.assign(handler, config.allRoutes)
       }
 
       if (config.enabled !== undefined && Object.keys(config.enabled).length > 0) {

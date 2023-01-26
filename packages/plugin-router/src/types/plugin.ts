@@ -27,6 +27,7 @@ export interface RouterPluginRoutesConfig {
   directory?: string
   enabled?: Record<string, string | { name?: string, config?: Partial<ServiceAction> }>
   disabled?: Record<string, string>
+  allRoutes?: Partial<ServiceAction>
   prefix?: string
   responseValidation?: ValidateResponseConfig
   enabledGenericActions?: string[]

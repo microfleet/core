@@ -160,6 +160,51 @@ describe('AMQP suite: custom redefined routing', function testSuite() {
   })
 })
 
+describe('AMQP suite: allRoutes config', function testSuite() {
+  const service = new Microfleet({
+    name: 'tester',
+    plugins: [
+      'logger', // essensial plugin
+      'validator', // essensial plugin
+      'amqp', // init amqp
+      'router', // enable router
+      'router-amqp' // attach amqp transport to router
+    ],
+    router: {
+      routes: {
+        directory: resolve(__dirname, '../artifacts/actions'),
+        allRoutes: {
+          bindingKey: ['10', 'amqp-custom.echo'],
+          omitPrefix: true,
+        },
+      },
+    },
+    routerAmqp: {
+      prefix: 'amqp-custom',
+    }
+  })
+
+  beforeAll(() => service.connect())
+  afterAll(() => service.close())
+
+  it('able to observe an action', async () => {
+    const amqpRoutes = service.router.routes.get('amqp')
+    assert(typeof amqpRoutes.get('echo')?.handler === 'function')
+  })
+
+  it('able to dispatch action and return response', async () => {
+    const { amqp } = service
+
+    const headers = { 'routing-key': 'amqp-custom.echo' }
+
+    const response = await amqp.publishAndWait('amqp-custom.echo', { foo: 'bar' }, { headers })
+    deepStrictEqual(response, { foo: 'bar' })
+
+    const response2 = await amqp.publishAndWait('10', { foo: 'bar' }, { headers })
+    deepStrictEqual(response2, { foo: 'bar' })
+  })
+})
+
 describe('AMQP suite: retry + amqp router prefix', function testSuite() {
   const service = new Microfleet({
     name: 'tester',

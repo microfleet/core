@@ -22,7 +22,7 @@ export const priority = 10
  * Shallow copies object, pass-through everything else
  */
 const shallowObjectClone = (prop: any) => isObject(prop)
-  ? Object.assign(Object.create(null), prop)
+  ? { ...prop }
   : prop
 
 /**
@@ -97,6 +97,7 @@ export function attach(
       prefix,
       directory,
       enabled,
+      allRoutes,
       enabledGenericActions,
       responseValidation: validateResponse
     }
@@ -116,6 +117,7 @@ export function attach(
       directory,
       enabled,
       enabledGenericActions,
+      allRoutes,
     },
     log: this.log,
     requestCountTracker: new Tracker(this)
