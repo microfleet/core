@@ -62,7 +62,7 @@
     "@types/bluebird": "^3.5.38",
     "@types/common-errors": "^1.0.2",
     "@types/glob": "^8.0.1",
-    "@types/jest": "29.2.6",
+    "@types/jest": "29.4.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
     "@types/qs": "^6.9.7",

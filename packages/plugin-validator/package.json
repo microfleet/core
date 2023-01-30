@@ -51,7 +51,7 @@
     "@swc/core-linux-x64-musl": "^1.3.27",
     "@types/callsite": "^1.0.31",
     "@types/common-errors": "^1.0.2",
-    "@types/jest": "29.2.6",
+    "@types/jest": "29.4.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
