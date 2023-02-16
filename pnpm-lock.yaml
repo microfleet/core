@@ -1124,7 +1124,7 @@ importers:
       sentry-testkit: ^5.0.5
       sinon: ^15.0.1
       sonic-boom: 3.2.1
-      tempy: ^1.0.1
+      tempy: ^3.0.0
       ts-essentials: ^9.3.0
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.5
@@ -1172,7 +1172,7 @@ importers:
       rimraf: 4.1.2
       sentry-testkit: 5.0.5
       sinon: 15.0.1
-      tempy: 1.0.1
+      tempy: 3.0.0
       ts-essentials: 9.3.0_typescript@4.9.5
       tsconfig-paths: 4.1.2
       typescript: 4.9.5
@@ -1601,7 +1601,7 @@ importers:
       sinon: ^15.0.1
       socket.io-client: ^4.6.0
       split2: ^4.1.0
-      tempy: ^1.0.1
+      tempy: ^3.0.0
       ts-essentials: ^9.3.0
       tsconfig-paths: ^4.1.2
       typescript: ~4.9.5
@@ -1657,7 +1657,7 @@ importers:
       sinon: 15.0.1
       socket.io-client: 4.6.0
       split2: 4.1.0
-      tempy: 1.0.1
+      tempy: 3.0.0
       ts-essentials: 9.3.0_typescript@4.9.5
       tsconfig-paths: 4.1.2
       typescript: 4.9.5
@@ -6362,6 +6362,13 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /crypto-random-string/4.0.0:
+    resolution: {integrity: sha512-x8dy3RnvYdlUcPOjkEHqozhiwzKNSq7GcPuXFbnyMOCHxX8V3OgIg/pYuabl2sbUPfIJaeAQB7PMOK8DFIdoRA==}
+    engines: {node: '>=12'}
+    dependencies:
+      type-fest: 1.4.0
+    dev: true
+
   /css-select/5.1.0:
     resolution: {integrity: sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==}
     dependencies:
@@ -9088,6 +9095,11 @@ packages:
   /is-stream/2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
     engines: {node: '>=8'}
+    dev: true
+
+  /is-stream/3.0.0:
+    resolution: {integrity: sha512-LnQR4bZ9IADDRSkvpqMGvt/tEJWclzklNgSw48V5EAaAeDd6qGvN8ei6k5p0tvxSR171VmGyHuTiAOfxAbr8kA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
   /is-string/1.0.7:
@@ -12969,6 +12981,16 @@ packages:
       unique-string: 2.0.0
     dev: true
 
+  /tempy/3.0.0:
+    resolution: {integrity: sha512-B2I9X7+o2wOaW4r/CWMkpOO9mdiTRCxXNgob6iGvPmfPWgH/KyUD6Uy5crtWBxIBe3YrNZKR2lSzv1JJKWD4vA==}
+    engines: {node: '>=14.16'}
+    dependencies:
+      is-stream: 3.0.0
+      temp-dir: 2.0.0
+      type-fest: 2.19.0
+      unique-string: 3.0.0
+    dev: true
+
   /test-exclude/6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
     engines: {node: '>=8'}
@@ -13292,7 +13314,6 @@ packages:
   /type-fest/2.19.0:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
-    dev: false
 
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
@@ -13376,6 +13397,13 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       crypto-random-string: 2.0.0
+    dev: true
+
+  /unique-string/3.0.0:
+    resolution: {integrity: sha512-VGXBUVwxKMBUznyffQweQABPRRW1vHZAbadFZud4pLFAqRGvv/96vafgjWFqzourzr8YonlQiPgH0YCJfawoGQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      crypto-random-string: 4.0.0
     dev: true
 
   /universal-user-agent/6.0.0:
