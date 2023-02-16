@@ -23,7 +23,7 @@ function acquireLockWrapper(
     keyParts.push(mapper(request))
   }
 
-  const lock = this.acquireLock(keyParts.join('-'))
+  const lock = this.dlock.acquireLock(keyParts.join('-'))
 
   return Bluebird
     .using(this, request, lock, () => action.handler.call(this, request, lock))
