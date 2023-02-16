@@ -36,7 +36,7 @@
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "common-errors": "^1.2.0",
-    "ioredis": "^4.28.5"
+    "ioredis": "^5.0.0"
   },
   "peerDependencies": {
     "@microfleet/core": "workspace:^"
