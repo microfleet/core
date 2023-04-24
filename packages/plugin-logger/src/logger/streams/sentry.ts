@@ -71,7 +71,7 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
       scope.setExtras(extras)
       scope.setUser(user)
       scope.setTags(tags)
-      if (level > minLevel) {
+      if (level >= minLevel) {
         const stack = obj?.err?.stack
         if (stack) {
           const errorMessage = obj.err.message
