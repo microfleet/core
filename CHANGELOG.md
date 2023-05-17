@@ -1,3 +1,255 @@
+# @microfleet/utils 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.3...@microfleet/utils@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-validator 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.3...@microfleet/plugin-validator@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-socketio 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.3...@microfleet/plugin-socketio@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-signed-request 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.3...@microfleet/plugin-signed-request@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-router 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.3...@microfleet/plugin-router@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-router-socketio 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.3...@microfleet/plugin-router-socketio@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-router-hapi 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.3...@microfleet/plugin-router-hapi@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-router-amqp 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.3...@microfleet/plugin-router-amqp@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-redis-sentinel 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.3...@microfleet/plugin-redis-sentinel@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-redis-core 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.3...@microfleet/plugin-redis-core@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-redis-cluster 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.3...@microfleet/plugin-redis-cluster@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-prometheus 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.3...@microfleet/plugin-prometheus@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-opentracing 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.3...@microfleet/plugin-opentracing@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-logger 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.3...@microfleet/plugin-logger@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-knex 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.3...@microfleet/plugin-knex@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-kafka 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.3...@microfleet/plugin-kafka@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-kafka-types 3.2.5
+
+## [3.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.3...@microfleet/plugin-kafka-types@3.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-hapi 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.3...@microfleet/plugin-hapi@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-elasticsearch 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.3...@microfleet/plugin-elasticsearch@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-dlock 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.3...@microfleet/plugin-dlock@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-couchdb 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.3...@microfleet/plugin-couchdb@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-consul 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.3...@microfleet/plugin-consul@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-cassandra 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.3...@microfleet/plugin-cassandra@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-casl 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.3...@microfleet/plugin-casl@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.5
+
+## [3.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.3...@microfleet/plugin-aws-elasticsearch@3.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/plugin-amqp 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.3...@microfleet/plugin-amqp@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/core 19.2.5
+
+## [19.2.5](https://github.com/microfleet/core/compare/@microfleet/core@19.2.3...@microfleet/core@19.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+# @microfleet/core-types 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.3...@microfleet/core-types@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
 # @microfleet/utils 2.2.3
 
 ## [2.2.3](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.1...@microfleet/utils@2.2.3) (2023-05-17)

@@ -1,5 +1,19 @@
 
 
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.3...@microfleet/plugin-knex@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.3...@microfleet/plugin-knex@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* no double increment ([b2e654c](https://github.com/microfleet/core/commit/b2e654c8d3fe000a26e651a4313eed073b3afaf6))
+
 ## [4.2.4](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.1...@microfleet/plugin-knex@4.2.4) (2023-05-17)
 
 
