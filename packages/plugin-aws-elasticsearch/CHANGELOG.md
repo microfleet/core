@@ -1,5 +1,21 @@
 
 
+## [3.2.6](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.5...@microfleet/plugin-aws-elasticsearch@3.2.6) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+* update compatibility for mfleet bin ([01285ed](https://github.com/microfleet/core/commit/01285ed96ce21b68e1eadbddda70c8587c288fd0))
+
+## [3.2.6](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.5...@microfleet/plugin-aws-elasticsearch@3.2.6) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+* update compatibility for mfleet bin ([01285ed](https://github.com/microfleet/core/commit/01285ed96ce21b68e1eadbddda70c8587c288fd0))
+
 ## [3.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.5...@microfleet/plugin-aws-elasticsearch@3.2.5) (2023-05-17)
 
 
