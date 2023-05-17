@@ -10,7 +10,8 @@
     "build": "pnpm tsc -b ./tsconfig.build.json",
     "pretest": "pnpm build",
     "test": "pnpm test -r --workspace-concurrency 1",
-    "version": "rimraf ./ci/staged/*.json; pnpm --filter='./packages/*' exec -- pnpm release-it"
+    "version": "rimraf ./ci/staged/*.json; pnpm --filter='./packages/*' exec -- pnpm release-it",
+    "release-it": "release-it -c .release-it.root.cjs"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.10.3",

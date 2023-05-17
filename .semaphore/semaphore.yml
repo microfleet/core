@@ -86,4 +86,4 @@ blocks:
           - chmod 600 ~/.ssh/id_rsa_git_deploy
           - ssh-add ~/.ssh/id_rsa_git_deploy
           - pnpm run version
-          - pnpm release-it -c .release-it.root.cjs
+          - pnpm release-it
