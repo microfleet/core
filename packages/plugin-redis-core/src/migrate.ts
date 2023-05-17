@@ -28,9 +28,10 @@
 
 import type { Microfleet } from '@microfleet/core-types'
 
-import { strict as assert } from 'assert'
-import _debug from 'debug'
 import fs from 'node:fs/promises'
+import { strict as assert } from 'node:assert'
+
+import _debug from 'debug'
 import { glob } from 'glob'
 import Redis from 'ioredis'
 import path from 'path'
@@ -115,9 +116,9 @@ export async function performMigration(redis: Redis.Redis | Redis.Cluster, servi
   if (typeof scripts === 'string') {
     debug('looking for files in %s', scripts)
     files = await glob('*{.js,/}', { cwd: scripts })
-      .then((scripts: string[]) => Promise.all(scripts.map(async (script: string) => {
-        const mod = await import(`${scripts}/${script}`)
-        return mod.default
+      .then((migrationScripts: string[]) => Promise.all(migrationScripts.map(async (script: string) => {
+        const mod = await import(path.resolve(scripts, script))
+        return mod.default || mod
       })))
   } else if (Array.isArray(scripts)) {
     files = scripts
