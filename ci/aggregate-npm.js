@@ -14,10 +14,13 @@ class AggregateNPM extends NPM {
   async bump(version) {
     if (version === this.getContext('latestVersion') || !version) {
       this.debug('skipping npm version')
-      return
+      return false
     }
 
-    return super.bump(version)
+    const tag = this.options.tag || (await this.resolveTag(version))
+    this.setContext({ version, tag })
+
+    return false
   }
 }
 
