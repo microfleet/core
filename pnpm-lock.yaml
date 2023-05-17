@@ -14,8 +14,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc/core':
         specifier: ^1.3.58
         version: 1.3.58(@swc/helpers@0.5.1)
@@ -81,8 +81,8 @@ importers:
         specifier: ^11.1.3
         version: 11.1.3(common-errors@1.2.0)
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -181,8 +181,8 @@ importers:
         specifier: ^12.10.3
         version: 12.10.3(@swc/core@1.3.58)(typescript@5.0.4)
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -278,8 +278,8 @@ importers:
         specifier: workspace:^
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -393,8 +393,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -505,8 +505,8 @@ importers:
         specifier: workspace:^
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -614,8 +614,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -723,8 +723,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -835,8 +835,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -959,8 +959,8 @@ importers:
         specifier: workspace:^
         version: link:../plugin-router
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1062,8 +1062,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1177,8 +1177,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1292,8 +1292,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1395,8 +1395,8 @@ importers:
         specifier: ^12.10.3
         version: 12.10.3(@swc/core@1.3.58)(typescript@5.0.4)
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1492,8 +1492,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1610,8 +1610,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@sentry/node':
         specifier: ^7.52.1
         version: 7.52.1
@@ -1737,8 +1737,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1840,8 +1840,8 @@ importers:
         specifier: workspace:^
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -1955,8 +1955,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2058,8 +2058,8 @@ importers:
         specifier: ^12.10.3
         version: 12.10.3(@swc/core@1.3.58)(typescript@5.0.4)
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2170,8 +2170,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2306,8 +2306,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2454,8 +2454,8 @@ importers:
         specifier: workspace:^
         version: link:../plugin-router
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2575,8 +2575,8 @@ importers:
         specifier: workspace:^
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2699,8 +2699,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2805,8 +2805,8 @@ importers:
         specifier: workspace:^
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -2935,8 +2935,8 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -3035,8 +3035,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -3126,8 +3126,8 @@ importers:
         specifier: ^12.10.3
         version: 12.10.3(@swc/core@1.3.58)(typescript@5.0.4)
       '@release-it/conventional-changelog':
-        specifier: ^4.3.0
-        version: 4.3.0(release-it@14.14.3)
+        specifier: ^5.0.0
+        version: 5.0.0(release-it@14.14.3)
       '@swc-node/jest':
         specifier: ^1.6.5
         version: 1.6.5(@swc/core@1.3.58)(typescript@5.0.4)
@@ -5006,11 +5006,11 @@ packages:
       config-chain: 1.1.13
     dev: true
 
-  /@release-it/conventional-changelog@4.3.0(release-it@14.14.3):
-    resolution: {integrity: sha512-SAdattAPXyxADh+cWbNqlk7OBWh/SskYCj0hAb5VPmm/wrIR1dQrlKpsUQ/7O0WGGe7uhvj4YB8kVTIZipcc9w==}
-    engines: {node: '>=10'}
+  /@release-it/conventional-changelog@5.0.0(release-it@14.14.3):
+    resolution: {integrity: sha512-YAvGgxA8cIQSbmyHmAmLMwzCkNP74upLST8jFuDJTI+AVfK2Grp2HbZu0/NeV3sHYD20sT8YMzNVUeRxNlyHeg==}
+    engines: {node: '>=14'}
     peerDependencies:
-      release-it: ^14.12.1
+      release-it: ^15.0.0-esm.4
     dependencies:
       concat-stream: 2.0.0
       conventional-changelog: 3.1.25
@@ -14795,7 +14795,7 @@ packages:
       is-yarn-global: 0.3.0
       latest-version: 5.1.0
       pupa: 2.1.1
-      semver: 7.3.5
+      semver: 7.5.1
       semver-diff: 3.1.1
       xdg-basedir: 4.0.0
     dev: true
@@ -15201,7 +15201,7 @@ packages:
       require-directory: 2.1.1
       string-width: 4.2.3
       y18n: 5.0.8
-      yargs-parser: 20.2.4
+      yargs-parser: 20.2.9
     dev: true
 
   /yargs@17.7.2:

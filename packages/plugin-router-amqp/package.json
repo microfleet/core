@@ -50,7 +50,7 @@
     "@microfleet/plugin-amqp": "workspace:^",
     "@microfleet/plugin-logger": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
-    "@release-it/conventional-changelog": "^4.3.0",
+    "@release-it/conventional-changelog": "^5.0.0",
     "@swc-node/jest": "^1.6.5",
     "@swc-node/register": "^1.6.5",
     "@swc/core": "^1.3.58",
