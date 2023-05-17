@@ -19,6 +19,7 @@ module.exports = {
     ignoreVersion: false,
   },
   plugins: {
+    [path.resolve(__dirname, './ci/aggregate-npm.js')]: {},
     [path.resolve(__dirname, './ci/aggregate-conventional-changelog.js')]: {
       infile: "CHANGELOG.md",
       preset: {
@@ -29,7 +30,6 @@ module.exports = {
       },
     },
     [path.resolve(__dirname, './ci/aggregate-release.js')]: {},
-    [path.resolve(__dirname, './ci/aggregate-npm.js')]: {}
   },
   'disable-metrics': true,
 }
