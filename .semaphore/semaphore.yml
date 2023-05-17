@@ -18,7 +18,7 @@ global_job_config:
     commands:
       - set -e
       - sem-version node 18
-      - curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=7.25.1 sh -
+      - curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=8.5.1 sh -
       - source /home/semaphore/.bashrc
       - pnpm config set store-dir=~/.pnpm-store
       - checkout

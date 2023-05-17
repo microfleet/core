@@ -6,6 +6,7 @@ import { Microfleet, PluginTypes } from '@microfleet/core'
 
 import attachRouter from './attach'
 import { RouterHapiPluginConfig } from './types/plugin'
+import { PluginInterface } from '@microfleet/core-types'
 
 export const name = 'routerHapi'
 export const type = PluginTypes.transport
@@ -24,7 +25,7 @@ declare module '@microfleet/core-types' {
 export function attach(
   this: Microfleet,
   options: Partial<RouterHapiPluginConfig> = {}
-): void {
+): PluginInterface {
   assert(this.hasPlugin('validator'), 'validator module must be included')
 
   this.validator.addLocation(resolve(__dirname, '../schemas'))
@@ -32,5 +33,9 @@ export function attach(
   const config = this.validator.ifError<RouterHapiPluginConfig>('router-hapi', options)
   const routerPlugin = attachRouter(this, config)
 
-  this.hapi.register(routerPlugin)
+  return {
+    async connect(this: Microfleet) {
+      await this.hapi.register(routerPlugin)
+    }
+  }
 }
