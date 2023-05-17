@@ -1,5 +1,257 @@
 # @microfleet/utils 2.2.5
 
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.5...@microfleet/utils@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-validator 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.5...@microfleet/plugin-validator@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-socketio 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.5...@microfleet/plugin-socketio@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-signed-request 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.5...@microfleet/plugin-signed-request@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-router 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.5...@microfleet/plugin-router@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-router-socketio 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.5...@microfleet/plugin-router-socketio@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-router-hapi 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.5...@microfleet/plugin-router-hapi@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-router-amqp 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.5...@microfleet/plugin-router-amqp@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-redis-sentinel 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.5...@microfleet/plugin-redis-sentinel@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-redis-core 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.5...@microfleet/plugin-redis-core@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-redis-cluster 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.5...@microfleet/plugin-redis-cluster@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-prometheus 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.5...@microfleet/plugin-prometheus@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-opentracing 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.5...@microfleet/plugin-opentracing@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-logger 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.5...@microfleet/plugin-logger@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-knex 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.5...@microfleet/plugin-knex@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-kafka 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.5...@microfleet/plugin-kafka@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-kafka-types 3.2.5
+
+## [3.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.5...@microfleet/plugin-kafka-types@3.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-hapi 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.5...@microfleet/plugin-hapi@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-elasticsearch 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.5...@microfleet/plugin-elasticsearch@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-dlock 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.5...@microfleet/plugin-dlock@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-couchdb 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.5...@microfleet/plugin-couchdb@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-consul 4.2.5
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.5...@microfleet/plugin-consul@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-cassandra 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.5...@microfleet/plugin-cassandra@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-casl 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.5...@microfleet/plugin-casl@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.5
+
+## [3.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.5...@microfleet/plugin-aws-elasticsearch@3.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/plugin-amqp 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.5...@microfleet/plugin-amqp@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/core 19.2.5
+
+## [19.2.5](https://github.com/microfleet/core/compare/@microfleet/core@19.2.5...@microfleet/core@19.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/core-types 2.2.5
+
+## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.5...@microfleet/core-types@2.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+# @microfleet/utils 2.2.5
+
 ## [2.2.5](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.3...@microfleet/utils@2.2.5) (2023-05-17)
 
 

@@ -1,5 +1,19 @@
 
 
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.5...@microfleet/plugin-consul@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
+## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.5...@microfleet/plugin-consul@4.2.5) (2023-05-17)
+
+
+### Bug Fixes
+
+* set npm version during release ([24edf47](https://github.com/microfleet/core/commit/24edf478bab0547560103707267226e7105ac363))
+
 ## [4.2.5](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.3...@microfleet/plugin-consul@4.2.5) (2023-05-17)
 
 
