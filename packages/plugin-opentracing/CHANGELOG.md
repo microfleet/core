@@ -1,5 +1,19 @@
 
 
+## [2.2.4](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.1...@microfleet/plugin-opentracing@2.2.4) (2023-05-17)
+
+
+### Bug Fixes
+
+* adjust mfleet loader ([43a2dbe](https://github.com/microfleet/core/commit/43a2dbe0ed1a2a9c6e0263fbae91f74637c6ef98))
+
+## [2.2.3](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.1...@microfleet/plugin-opentracing@2.2.3) (2023-05-17)
+
+
+### Bug Fixes
+
+* adjust mfleet loader ([43a2dbe](https://github.com/microfleet/core/commit/43a2dbe0ed1a2a9c6e0263fbae91f74637c6ef98))
+
 ## [2.2.2](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.1.0...@microfleet/plugin-opentracing@2.2.2) (2023-05-17)
 
 
