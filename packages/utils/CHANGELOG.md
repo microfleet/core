@@ -1,5 +1,21 @@
 
 
+## [2.2.2](https://github.com/microfleet/core/compare/@microfleet/utils@2.1.0...@microfleet/utils@2.2.2) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/utils@2.1.0...@microfleet/utils@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
 # [2.2.0](https://github.com/microfleet/core/compare/@microfleet/utils@1.0.0...@microfleet/utils@2.2.0) (2023-01-26)
 
 

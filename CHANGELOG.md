@@ -1,3 +1,283 @@
+# @microfleet/utils 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/utils@2.1.0...@microfleet/utils@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-validator 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.1.0...@microfleet/plugin-validator@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-socketio 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.1.0...@microfleet/plugin-socketio@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-signed-request 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.1.0...@microfleet/plugin-signed-request@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-router 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.1.0...@microfleet/plugin-router@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-router-socketio 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.1.0...@microfleet/plugin-router-socketio@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-router-hapi 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.1.0...@microfleet/plugin-router-hapi@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-router-amqp 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.1.0...@microfleet/plugin-router-amqp@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-redis-sentinel 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.1.0...@microfleet/plugin-redis-sentinel@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-redis-core 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.1.0...@microfleet/plugin-redis-core@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-redis-cluster 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.1.0...@microfleet/plugin-redis-cluster@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-prometheus 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.1.0...@microfleet/plugin-prometheus@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-opentracing 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.1.0...@microfleet/plugin-opentracing@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-logger 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.1.0...@microfleet/plugin-logger@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-knex 4.2.1
+
+## [4.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.1.0...@microfleet/plugin-knex@4.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-kafka 4.2.1
+
+## [4.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.1.0...@microfleet/plugin-kafka@4.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-kafka-types 3.2.1
+
+## [3.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.1.0...@microfleet/plugin-kafka-types@3.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-hapi 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.1.0...@microfleet/plugin-hapi@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-elasticsearch 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.1.0...@microfleet/plugin-elasticsearch@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-dlock 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.1.0...@microfleet/plugin-dlock@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-couchdb 4.2.1
+
+## [4.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.1.0...@microfleet/plugin-couchdb@4.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-consul 4.2.1
+
+## [4.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.1.0...@microfleet/plugin-consul@4.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-cassandra 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.1.0...@microfleet/plugin-cassandra@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-casl 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.1.0...@microfleet/plugin-casl@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.1
+
+## [3.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.1.0...@microfleet/plugin-aws-elasticsearch@3.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/plugin-amqp 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.1.0...@microfleet/plugin-amqp@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/core 19.2.1
+
+## [19.2.1](https://github.com/microfleet/core/compare/@microfleet/core@19.1.0...@microfleet/core@19.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
+# @microfleet/core-types 2.2.1
+
+## [2.2.1](https://github.com/microfleet/core/compare/@microfleet/core-types@2.1.0...@microfleet/core-types@2.2.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* update dependencies ([#645](https://github.com/microfleet/core/issues/645)) ([9e2a778](https://github.com/microfleet/core/commit/9e2a7785bc818dd6f1a920c65c671400a42842cd))
+* update dlock wrapper ([7c16a15](https://github.com/microfleet/core/commit/7c16a152d55f9d3a41838944f9e272475cca0977))
+
 # @microfleet/core-types 2.1.0
 
 # [2.1.0](https://github.com/microfleet/core/compare/@microfleet/core-types@1.0.0...@microfleet/core-types@2.1.0) (2023-01-26)

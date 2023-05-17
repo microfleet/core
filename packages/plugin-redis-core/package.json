@@ -3,7 +3,7 @@
   "description": "utils for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.2.0",
+  "version": "2.2.2",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "clean": "rimraf ./lib *.tsbuildinfo",
