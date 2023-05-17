@@ -30,8 +30,8 @@ import type { Microfleet } from '@microfleet/core-types'
 
 import { strict as assert } from 'assert'
 import _debug from 'debug'
-import fs from 'fs'
-import glob from 'glob'
+import fs from 'node:fs/promises'
+import { glob } from 'glob'
 import Redis from 'ioredis'
 import path from 'path'
 import sortBy from 'sort-by'
@@ -114,15 +114,11 @@ export async function performMigration(redis: Redis.Redis | Redis.Cluster, servi
   let files: Migration[]
   if (typeof scripts === 'string') {
     debug('looking for files in %s', scripts)
-    files = await new Promise((resolve, reject) => {
-      glob('*{.js,/}', { cwd: scripts }, (err, results) => {
-        if (err) {
-          return reject(err)
-        }
-
-        resolve(results.map((script: string): Migration => require(`${scripts}/${script}`)))
-      })
-    })
+    files = await glob('*{.js,/}', { cwd: scripts })
+      .then((scripts: string[]) => Promise.all(scripts.map(async (script: string) => {
+        const mod = await import(`${scripts}/${script}`)
+        return mod.default
+      })))
   } else if (Array.isArray(scripts)) {
     files = scripts
   } else {
@@ -156,7 +152,7 @@ export async function performMigration(redis: Redis.Redis | Redis.Cluster, servi
     if (typeof file.script === 'string') {
       // read file contents
       if (path.isAbsolute(file.script)) {
-        file.script = fs.readFileSync(file.script, 'utf8')
+        file.script = await fs.readFile(file.script, 'utf8')
       }
 
       // finalize content
