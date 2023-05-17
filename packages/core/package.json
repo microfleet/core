@@ -29,7 +29,7 @@
     "directory": "packages/core"
   },
   "bin": {
-    "mfleet": "./bin/mfleet.js"
+    "mfleet": "./bin/mfleet.cjs"
   },
   "author": "Vitaly Aminev <v@makeomatic.ca>",
   "contributors": [
