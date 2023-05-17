@@ -13,6 +13,7 @@ import { Lifecycle } from './lifecycle'
 
 import type { RouterPluginConfig } from './types/plugin'
 import type { ServiceRequest } from './types/router'
+import { PluginInterface } from '@microfleet/core-types'
 
 export const name = 'router'
 export const type = PluginTypes.transport
@@ -83,7 +84,7 @@ const defaultConfig: Partial<RouterPluginConfig> = {
 export function attach(
   this: Microfleet,
   options: Partial<RouterPluginConfig>
-): void {
+): PluginInterface {
   assert(this.hasPlugin('logger'), 'log module must be included')
   assert(this.hasPlugin('validator'), 'validator module must be included')
 
@@ -126,4 +127,10 @@ export function attach(
   // dispatcher
   this.dispatch = (route: string, request: Partial<ServiceRequest>) =>
     router.prefixAndDispatch(route, prepareInternalRequest(request))
+
+  return {
+    async connect() {
+      await router.ready()
+    }
+  }
 }

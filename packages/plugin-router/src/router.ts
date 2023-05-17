@@ -82,6 +82,8 @@ export class Router {
   protected readonly prefix?: string
   protected readonly tracer?: Tracer
   protected readonly idgen: hyperid.Instance
+  protected readonly directory?: string
+  protected readonly enabledGenericActions?: string[]
 
   constructor({ lifecycle, routes, config, requestCountTracker, log, tracer }: RouterOptions) {
     this.lifecycle = lifecycle
@@ -99,13 +101,18 @@ export class Router {
         this.prefix = prefix
       }
 
-      if (directory !== undefined) {
-        this.loadActionsFromDirectory(directory)
-      }
+      this.directory = directory
+      this.enabledGenericActions = enabledGenericActions
+    }
+  }
 
-      if (enabledGenericActions !== undefined) {
-        this.loadGenericActions(enabledGenericActions)
-      }
+  public async ready(): Promise<void> {
+    if (this.directory !== undefined) {
+      await this.loadActionsFromDirectory(this.directory)
+    }
+
+    if (this.enabledGenericActions !== undefined) {
+      this.loadGenericActions(this.enabledGenericActions)
     }
   }
 
@@ -165,8 +172,8 @@ export class Router {
     }
   }
 
-  public loadActionsFromDirectory(directory: string): void {
-    for (const [route, handler] of readRoutes(directory)) {
+  public async loadActionsFromDirectory(directory: string): Promise<void> {
+    for (const [route, handler] of await readRoutes(directory)) {
       this.addRoute(route, handler)
     }
   }

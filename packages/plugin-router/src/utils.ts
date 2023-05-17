@@ -1,23 +1,24 @@
 import { sep, resolve } from 'path'
-import glob from 'glob'
+import { glob } from 'glob'
 import { ValidationError } from 'common-errors'
 
 import { ServiceAction } from './types/router'
 
-const filterDefinitions = (x: string) => !x.endsWith('.d.ts')
+export async function readRoutes(directory: string): Promise<[string, ServiceAction][]> {
+  const files = await glob('*.{js,ts}', {
+    cwd: directory,
+    matchBase: true,
+    ignore: ['*.d.ts']
+  })
 
-export function readRoutes(directory: string): [string, ServiceAction][] {
-  return glob
-    .sync('*.{js,ts}', { cwd: directory, matchBase: true })
-    .filter(filterDefinitions)
-    .map((file) => {
-      // remove .js/.ts from route
-      const route = file.slice(0, -3)
-      // replace / with . for route
-      const routeKey = route.split(sep).join('.')
+  return files.map((file) => {
+    // remove .js/.ts from route
+    const route = file.slice(0, -3)
+    // replace / with . for route
+    const routeKey = route.split(sep).join('.')
 
-      return [routeKey, requireServiceActionHandler(resolve(directory, file))]
-    })
+    return [routeKey, requireServiceActionHandler(resolve(directory, file))]
+  })
 }
 
 export const transformFileToAction = (input: any, handler?: any): ServiceAction => {
