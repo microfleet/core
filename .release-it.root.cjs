@@ -24,6 +24,7 @@ module.exports = {
     tagAnnotation: 'Release ${stagedModule.version}\n\n${stagedModule.changelog}',
     pnpm: true,
     changelog: true,
+    bump: true,
     infile: 'CHANGELOG.md',
   },
   npm: {
