@@ -34,7 +34,7 @@
     "@microfleet/plugin-validator": "workspace:^",
     "@microfleet/utils": "workspace:^",
     "common-errors": "^1.2.0",
-    "consul": "0.40.0"
+    "consul": "1.2.0"
   },
   "peerDependencies": {
     "@microfleet/core": "workspace:^"
