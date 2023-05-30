@@ -28,7 +28,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "lodash": "^4.17.21",
-    "read-pkg-up": "7.0.1"
+    "read-pkg-up": "9.1.0"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.11.0",
