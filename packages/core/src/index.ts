@@ -191,7 +191,12 @@ export class Microfleet extends EventEmitter {
    * @returns Walks over registered destructors and emits close event upon completion.
    */
   public async close(): Promise<any> {
-    return this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse())
+    const r = await this.processAndEmit(this.getDestructors(), 'close', [...ConnectorsPriority].reverse())
+    if (this.config.sigterm) {
+      process.removeListener('SIGTERM', this.exit)
+      process.removeListener('SIGINT', this.exit)
+    }
+    return r
   }
 
   // ****************************** Plugin section: public ************************************
@@ -331,6 +336,7 @@ export class Microfleet extends EventEmitter {
         this.close(),
         new Promise((_, reject) => {
           timeout = setTimeout(reject, 30000, new Error('failed to close after 30 seconds'))
+          timeout.unref()
         })
       ])
     } catch (err) {
