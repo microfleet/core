@@ -1,5 +1,19 @@
 
 
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.6...@microfleet/plugin-router@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.6...@microfleet/plugin-router@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
 ## [2.2.6](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.5...@microfleet/plugin-router@2.2.6) (2023-05-17)
 
 

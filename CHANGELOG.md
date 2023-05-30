@@ -1,3 +1,255 @@
+# @microfleet/utils 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.6...@microfleet/utils@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-validator 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.6...@microfleet/plugin-validator@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-socketio 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.6...@microfleet/plugin-socketio@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-signed-request 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.6...@microfleet/plugin-signed-request@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-router 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.6...@microfleet/plugin-router@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-router-socketio 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.6...@microfleet/plugin-router-socketio@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-router-hapi 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.6...@microfleet/plugin-router-hapi@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-router-amqp 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.6...@microfleet/plugin-router-amqp@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-redis-sentinel 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.6...@microfleet/plugin-redis-sentinel@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-redis-core 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.6...@microfleet/plugin-redis-core@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-redis-cluster 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.6...@microfleet/plugin-redis-cluster@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-prometheus 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.6...@microfleet/plugin-prometheus@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-opentracing 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.6...@microfleet/plugin-opentracing@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-logger 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.6...@microfleet/plugin-logger@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-knex 4.2.7
+
+## [4.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.6...@microfleet/plugin-knex@4.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-kafka 4.2.7
+
+## [4.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.6...@microfleet/plugin-kafka@4.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-kafka-types 3.2.7
+
+## [3.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.6...@microfleet/plugin-kafka-types@3.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-hapi 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.6...@microfleet/plugin-hapi@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-elasticsearch 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.6...@microfleet/plugin-elasticsearch@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-dlock 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.6...@microfleet/plugin-dlock@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-couchdb 4.2.7
+
+## [4.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.6...@microfleet/plugin-couchdb@4.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-consul 4.2.7
+
+## [4.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.6...@microfleet/plugin-consul@4.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-cassandra 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.6...@microfleet/plugin-cassandra@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-casl 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.6...@microfleet/plugin-casl@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.7
+
+## [3.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.6...@microfleet/plugin-aws-elasticsearch@3.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/plugin-amqp 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.6...@microfleet/plugin-amqp@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/core 19.2.7
+
+## [19.2.7](https://github.com/microfleet/core/compare/@microfleet/core@19.2.6...@microfleet/core@19.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
+# @microfleet/core-types 2.2.7
+
+## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.6...@microfleet/core-types@2.2.7) (2023-05-30)
+
+
+### Bug Fixes
+
+* cleanup sigterm listeners on close ([cd19c53](https://github.com/microfleet/core/commit/cd19c53f1e52fb1a5c5ca1ec82f2bbd055a529ee))
+
 # @microfleet/utils 2.2.6
 
 ## [2.2.6](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.5...@microfleet/utils@2.2.6) (2023-05-17)
