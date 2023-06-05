@@ -84,7 +84,7 @@
     "sinon": "^15.1.0",
     "ts-essentials": "^9.3.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "~5.0.4"
+    "typescript": "~5.1.0"
   },
   "engines": {
     "node": ">= 12.14.0",
