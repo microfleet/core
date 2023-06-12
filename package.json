@@ -22,7 +22,7 @@
     "@swc/core-linux-arm64-musl": "^1.3.61",
     "@swc/core-linux-x64-musl": "^1.3.61",
     "@swc/helpers": "^0.5.1",
-    "conventional-changelog-angular": "^5.0.13",
+    "conventional-changelog-angular": "^6.0.0",
     "glob": "^10.2.6",
     "js-yaml": "^4.1.0",
     "prepend-file": "^2.0.1",
