@@ -1,5 +1,19 @@
 
 
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.7...@microfleet/plugin-redis-cluster@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.7...@microfleet/plugin-redis-cluster@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
 ## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.6...@microfleet/plugin-redis-cluster@2.2.7) (2023-05-30)
 
 

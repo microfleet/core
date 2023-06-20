@@ -1,3 +1,255 @@
+# @microfleet/utils 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.7...@microfleet/utils@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-validator 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.7...@microfleet/plugin-validator@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-socketio 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.7...@microfleet/plugin-socketio@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-signed-request 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.7...@microfleet/plugin-signed-request@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-router 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.7...@microfleet/plugin-router@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-router-socketio 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.7...@microfleet/plugin-router-socketio@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-router-hapi 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.7...@microfleet/plugin-router-hapi@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-router-amqp 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.7...@microfleet/plugin-router-amqp@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-redis-sentinel 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.7...@microfleet/plugin-redis-sentinel@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-redis-core 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.7...@microfleet/plugin-redis-core@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-redis-cluster 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.7...@microfleet/plugin-redis-cluster@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-prometheus 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.7...@microfleet/plugin-prometheus@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-opentracing 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.7...@microfleet/plugin-opentracing@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-logger 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.7...@microfleet/plugin-logger@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-knex 4.2.8
+
+## [4.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.7...@microfleet/plugin-knex@4.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-kafka 4.2.8
+
+## [4.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.7...@microfleet/plugin-kafka@4.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-kafka-types 3.2.8
+
+## [3.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.7...@microfleet/plugin-kafka-types@3.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-hapi 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.7...@microfleet/plugin-hapi@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-elasticsearch 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.7...@microfleet/plugin-elasticsearch@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-dlock 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.7...@microfleet/plugin-dlock@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-couchdb 4.2.8
+
+## [4.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.7...@microfleet/plugin-couchdb@4.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-consul 4.2.8
+
+## [4.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.7...@microfleet/plugin-consul@4.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-cassandra 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.7...@microfleet/plugin-cassandra@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-casl 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.7...@microfleet/plugin-casl@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.8
+
+## [3.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.7...@microfleet/plugin-aws-elasticsearch@3.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/plugin-amqp 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.7...@microfleet/plugin-amqp@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/core 19.2.8
+
+## [19.2.8](https://github.com/microfleet/core/compare/@microfleet/core@19.2.7...@microfleet/core@19.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
+# @microfleet/core-types 2.2.8
+
+## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.7...@microfleet/core-types@2.2.8) (2023-06-20)
+
+
+### Bug Fixes
+
+* update deps, ensure fastify-plugin is not required ([08f0239](https://github.com/microfleet/core/commit/08f023940232068022aeaecbbb88b619204921d8))
+
 # @microfleet/utils 2.2.7
 
 ## [2.2.7](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.6...@microfleet/utils@2.2.7) (2023-05-30)
