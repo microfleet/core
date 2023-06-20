@@ -1,5 +1,5 @@
-import { AssertionError } from 'assert'
-import type { KeyLike, Verify, Hmac } from 'crypto'
+import { AssertionError } from 'node:assert'
+import type { KeyLike, Verify, Hmac } from 'node:crypto'
 import { HttpSignature } from 'http-signature'
 
 import type * as _ from '@microfleet/plugin-validator'

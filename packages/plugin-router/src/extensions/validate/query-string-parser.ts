@@ -19,7 +19,6 @@ async function preValidate(request: QSParserAugmentedAction): Promise<any> {
     const { action } = request
     const { transformQuery = identity, transformOpts } = action
 
-    // eslint-disable-next-line no-param-reassign
     request.query = transformQuery(parse(query, {
       depth: 1,
       parameterLimit: 10,
