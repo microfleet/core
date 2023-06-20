@@ -86,7 +86,7 @@
     "sinon": "^15.1.2",
     "socket.io-client": "^4.6.2",
     "split2": "^4.2.0",
-    "tempy": "^1.0.1",
+    "tempy": "^3.0.0",
     "ts-essentials": "^9.3.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.1.3",
