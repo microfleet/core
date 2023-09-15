@@ -57,7 +57,7 @@
     "@types/bluebird": "^3.5.38",
     "@types/common-errors": "^1.0.2",
     "@types/ioredis": "^4.28.10",
-    "@types/jest": "29.5.2",
+    "@types/jest": "29.5.5",
     "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
