@@ -3,7 +3,7 @@
   "description": "Add aws-elasticsearch service support",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "3.2.8",
+  "version": "3.2.9",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "npm run test:e2e",

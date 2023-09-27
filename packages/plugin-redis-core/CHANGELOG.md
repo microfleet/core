@@ -1,5 +1,19 @@
 
 
+## [2.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.8...@microfleet/plugin-redis-core@2.2.9) (2023-09-27)
+
+
+### Bug Fixes
+
+* update deps, router .d.ts ([#664](https://github.com/microfleet/core/issues/664)) ([b9df1ac](https://github.com/microfleet/core/commit/b9df1ac56760499418018c723a2f6f8c3fbbbda9))
+
+## [2.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.8...@microfleet/plugin-redis-core@2.2.9) (2023-09-27)
+
+
+### Bug Fixes
+
+* update deps, router .d.ts ([#664](https://github.com/microfleet/core/issues/664)) ([b9df1ac](https://github.com/microfleet/core/commit/b9df1ac56760499418018c723a2f6f8c3fbbbda9))
+
 ## [2.2.8](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.7...@microfleet/plugin-redis-core@2.2.8) (2023-06-20)
 
 

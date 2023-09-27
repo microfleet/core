@@ -3,7 +3,7 @@
   "description": "logger plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "pretest": "npm run compile",
