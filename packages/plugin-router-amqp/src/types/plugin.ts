@@ -10,6 +10,7 @@ export type RouterAMQPPluginRetryConfig = {
 
 export type RouterAMQPPluginConfig = {
   prefix: string;
+  autoDeserialize: boolean;
   retry: RouterAMQPPluginRetryConfig;
   multiAckEvery: number;
   multiAckAfter: number;

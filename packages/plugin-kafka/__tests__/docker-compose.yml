@@ -62,4 +62,3 @@ services:
     user: "${UID:-1000}:${UID:-1000}"
     volumes:
       - ${PNPM_STORE:-~/.pnpm-store}:/tmp/.pnpm-store
-
