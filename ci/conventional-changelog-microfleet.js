@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const angular = require('conventional-changelog-angular')
+const createAngularPreset = require('conventional-changelog-angular')
 const debug = require('debug')('release-it:aggregate-conventional-changelog')
 
 const whatBump = (commits) => {
@@ -35,7 +35,7 @@ const whatBump = (commits) => {
   }
 }
 
-module.exports = angular.then((opts) => {
+module.exports = createAngularPreset().then((opts) => {
   opts.recommendedBumpOpts.whatBump = whatBump
   return opts
 })
