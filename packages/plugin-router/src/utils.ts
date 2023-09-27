@@ -8,7 +8,7 @@ export async function readRoutes(directory: string): Promise<[string, ServiceAct
   const files = await glob('*.{js,ts}', {
     cwd: directory,
     matchBase: true,
-    ignore: ['*.d.ts']
+    ignore: ['*.d.ts', '**/*.d.ts']
   })
 
   return files.map((file) => {
