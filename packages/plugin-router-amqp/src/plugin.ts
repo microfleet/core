@@ -94,7 +94,9 @@ export function attach(
         }
       }
 
-      await this.amqp.createConsumedQueue(adapter, routes)
+      await this.amqp.createConsumedQueue(adapter, routes, {
+        autoDeserialize: routerAmqpConfig.autoDeserialize,
+      })
     },
 
     async close(this: Microfleet) {
