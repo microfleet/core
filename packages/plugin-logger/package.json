@@ -44,7 +44,7 @@
     "pino": "^8.15.1",
     "pino-abstract-transport": "^1.1.0",
     "pino-pretty": "^10.2.0",
-    "sonic-boom": "3.4.0"
+    "sonic-boom": "3.6.1"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.11.1",
