@@ -45,13 +45,23 @@
         },
         "sentry": {
           "type": "object",
-          "description": "Options: https://docs.sentry.io/error-reporting/configuration/?platform=javascript",
+          "required": ["sentry"],
           "properties": {
-            "dsn": {
-              "type": "string"
+            "level": {
+              "type": "string",
+              "description": "Pino minimal log level (default: info)"
             },
-            "logLevel": {
-              "type": "string"
+            "minLevel": {
+              "type": "number",
+              "description": "Sentry minimal log level (default: 50)"
+            },
+            "externalConfiguration": {
+              "type": "string",
+              "description": "External configuration path"
+            },
+            "sentry": {
+              "type": "object",
+              "description": "Options: https://docs.sentry.io/platforms/node/configuration/options/"
             }
           }
         }
