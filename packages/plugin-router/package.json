@@ -90,7 +90,7 @@
     "ts-essentials": "^9.4.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.2.2",
-    "undici": "^5.25.2"
+    "undici": "^5.26.2"
   },
   "engines": {
     "node": ">= 12.14.0",
