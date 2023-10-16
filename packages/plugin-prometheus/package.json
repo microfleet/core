@@ -33,7 +33,7 @@
   "dependencies": {
     "@microfleet/core-types": "workspace:^",
     "@microfleet/utils": "workspace:^",
-    "prom-client": "^14.2.0",
+    "prom-client": "^15.0.0",
     "semver": "^7.5.4"
   },
   "devDependencies": {
