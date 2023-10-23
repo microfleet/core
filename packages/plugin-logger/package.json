@@ -78,7 +78,7 @@
     "release-it": "^14.14.3",
     "rimraf": "^5.0.5",
     "sentry-testkit": "^5.0.6",
-    "sinon": "^16.0.0",
+    "sinon": "^17.0.0",
     "tempy": "^1.0.1",
     "ts-essentials": "^9.4.0",
     "tsconfig-paths": "^4.2.0",
