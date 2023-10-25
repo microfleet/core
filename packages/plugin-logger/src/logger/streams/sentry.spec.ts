@@ -24,7 +24,7 @@ describe('Logger Sentry Stream Suite', () => {
         release: 'test',
         transport: sentryTransport,
       },
-      level: 'error',
+      minLevel: 30,
     })
 
     assert(stream)
