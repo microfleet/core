@@ -63,6 +63,8 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
     },
   })
 
+  const kOmitKeys = ['message', 'signal', 'code', 'stack']
+
   return build(async function (source) {
     for await (const obj of source) {
       const { level, tags, extras, user } = obj
@@ -71,8 +73,19 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
       scope.setExtras(extras)
       scope.setUser(user)
       scope.setTags(tags)
+
+      // extend scope with enumerable error properties if they exist, omit manually processed ones
+      if (obj.err) {
+        for (const [key, prop] of Object.entries(obj)) {
+          if (!kOmitKeys.includes(key)) {
+            scope.setExtra(key, prop)
+          }
+        }
+      }
+
       if (level > minLevel) {
-        const stack = obj?.err?.stack
+        const stack = obj.err?.stack
+
         if (stack) {
           const errorMessage = obj.err.message
           const signal = obj.err.signal
