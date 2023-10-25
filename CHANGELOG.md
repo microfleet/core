@@ -1,3 +1,255 @@
+# @microfleet/utils 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.9...@microfleet/utils@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-validator 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.9...@microfleet/plugin-validator@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-socketio 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.9...@microfleet/plugin-socketio@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-signed-request 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.9...@microfleet/plugin-signed-request@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-router 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.9...@microfleet/plugin-router@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-router-socketio 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.9...@microfleet/plugin-router-socketio@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-router-hapi 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.9...@microfleet/plugin-router-hapi@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-router-amqp 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.9...@microfleet/plugin-router-amqp@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-redis-sentinel 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.9...@microfleet/plugin-redis-sentinel@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-redis-core 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.9...@microfleet/plugin-redis-core@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-redis-cluster 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.9...@microfleet/plugin-redis-cluster@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-prometheus 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.9...@microfleet/plugin-prometheus@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-opentracing 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.9...@microfleet/plugin-opentracing@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-logger 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.9...@microfleet/plugin-logger@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-knex 4.2.10
+
+## [4.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.9...@microfleet/plugin-knex@4.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-kafka 4.2.10
+
+## [4.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.9...@microfleet/plugin-kafka@4.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-kafka-types 3.2.10
+
+## [3.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.9...@microfleet/plugin-kafka-types@3.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-hapi 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.9...@microfleet/plugin-hapi@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-elasticsearch 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.9...@microfleet/plugin-elasticsearch@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-dlock 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.9...@microfleet/plugin-dlock@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-couchdb 4.2.10
+
+## [4.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.9...@microfleet/plugin-couchdb@4.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-consul 4.2.10
+
+## [4.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.9...@microfleet/plugin-consul@4.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-cassandra 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.9...@microfleet/plugin-cassandra@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-casl 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.9...@microfleet/plugin-casl@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.10
+
+## [3.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.9...@microfleet/plugin-aws-elasticsearch@3.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/plugin-amqp 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.9...@microfleet/plugin-amqp@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/core 19.2.10
+
+## [19.2.10](https://github.com/microfleet/core/compare/@microfleet/core@19.2.9...@microfleet/core@19.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+# @microfleet/core-types 2.2.10
+
+## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.9...@microfleet/core-types@2.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
 # @microfleet/utils 2.2.9
 
 ## [2.2.9](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.8...@microfleet/utils@2.2.9) (2023-09-27)

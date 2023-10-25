@@ -1,5 +1,19 @@
 
 
+## [4.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.9...@microfleet/plugin-couchdb@4.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
+## [4.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.9...@microfleet/plugin-couchdb@4.2.10) (2023-10-25)
+
+
+### Bug Fixes
+
+* upgrade deps, extras for sentry ([#674](https://github.com/microfleet/core/issues/674)) ([209eb8d](https://github.com/microfleet/core/commit/209eb8dd8b2ba086ebda004ead7b25739bade72f))
+
 ## [4.2.9](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.8...@microfleet/plugin-couchdb@4.2.9) (2023-09-27)
 
 
