@@ -75,7 +75,7 @@
     "cross-env": "^7.0.3",
     "debug": "^4.3.4",
     "eslint": "^8.52.0",
-    "eslint-config-makeomatic": "^5.1.0",
+    "eslint-config-makeomatic": "^6.0.0",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-unicorn": "^48.0.1",
     "execa": "^5.1.1",
