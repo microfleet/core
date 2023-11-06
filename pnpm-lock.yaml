@@ -315,8 +315,8 @@ importers:
         specifier: ^20.8.8
         version: 20.8.8
       '@types/sinon':
-        specifier: ^10.0.20
-        version: 10.0.20
+        specifier: ^17.0.0
+        version: 17.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.9.0
         version: 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -542,8 +542,8 @@ importers:
         specifier: ^7.5.4
         version: 7.5.4
       '@types/sinon':
-        specifier: ^10.0.20
-        version: 10.0.20
+        specifier: ^17.0.0
+        version: 17.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.9.0
         version: 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -1338,8 +1338,8 @@ importers:
         specifier: ^4.0.4
         version: 4.0.4
       '@types/sinon':
-        specifier: ^10.0.20
-        version: 10.0.20
+        specifier: ^17.0.0
+        version: 17.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.9.0
         version: 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -1656,8 +1656,8 @@ importers:
         specifier: ^20.8.8
         version: 20.8.8
       '@types/sinon':
-        specifier: ^10.0.20
-        version: 10.0.20
+        specifier: ^17.0.0
+        version: 17.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.9.0
         version: 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -2352,8 +2352,8 @@ importers:
         specifier: ^6.9.9
         version: 6.9.9
       '@types/sinon':
-        specifier: ^10.0.20
-        version: 10.0.20
+        specifier: ^17.0.0
+        version: 17.0.0
       '@types/split2':
         specifier: ^4.2.2
         version: 4.2.2
@@ -2494,8 +2494,8 @@ importers:
         specifier: ^20.8.8
         version: 20.8.8
       '@types/sinon':
-        specifier: ^10.0.20
-        version: 10.0.20
+        specifier: ^17.0.0
+        version: 17.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.9.0
         version: 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -2845,8 +2845,8 @@ importers:
         specifier: ^7.5.4
         version: 7.5.4
       '@types/sinon':
-        specifier: ^10.0.20
-        version: 10.0.20
+        specifier: ^17.0.0
+        version: 17.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.9.0
         version: 6.9.0(@typescript-eslint/parser@6.9.0)(eslint@8.52.0)(typescript@5.2.2)
@@ -5704,8 +5704,8 @@ packages:
       '@types/mime': 3.0.3
       '@types/node': 20.8.8
 
-  /@types/sinon@10.0.20:
-    resolution: {integrity: sha512-2APKKruFNCAZgx3daAyACGzWuJ028VVCUDk6o2rw/Z4PXT0ogwdV4KUegW0MwVs0Zu59auPXbbuBJHF12Sx1Eg==}
+  /@types/sinon@17.0.0:
+    resolution: {integrity: sha512-oN4AeDMFCeNZrAffCjhLcwwVymRZL2c9mljUmhPnd0eiM06d4ELDg0Q0TSvnZXrCIFlSA859qIdcfu1HapswPQ==}
     dependencies:
       '@types/sinonjs__fake-timers': 8.1.4
     dev: true
