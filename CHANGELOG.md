@@ -1,3 +1,283 @@
+# @microfleet/utils 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.10...@microfleet/utils@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-validator 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.10...@microfleet/plugin-validator@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-socketio 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.10...@microfleet/plugin-socketio@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-signed-request 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.10...@microfleet/plugin-signed-request@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-router 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.10...@microfleet/plugin-router@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-router-socketio 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.10...@microfleet/plugin-router-socketio@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-router-hapi 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.10...@microfleet/plugin-router-hapi@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-router-amqp 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.10...@microfleet/plugin-router-amqp@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-redis-sentinel 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.10...@microfleet/plugin-redis-sentinel@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-redis-core 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.10...@microfleet/plugin-redis-core@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-redis-cluster 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.10...@microfleet/plugin-redis-cluster@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-prometheus 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.10...@microfleet/plugin-prometheus@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-opentracing 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.10...@microfleet/plugin-opentracing@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-logger 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.10...@microfleet/plugin-logger@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-knex 4.2.11
+
+## [4.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.10...@microfleet/plugin-knex@4.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-kafka 4.2.11
+
+## [4.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.10...@microfleet/plugin-kafka@4.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-kafka-types 3.2.11
+
+## [3.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.10...@microfleet/plugin-kafka-types@3.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-hapi 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.10...@microfleet/plugin-hapi@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-elasticsearch 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.10...@microfleet/plugin-elasticsearch@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-dlock 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.10...@microfleet/plugin-dlock@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-couchdb 4.2.11
+
+## [4.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.10...@microfleet/plugin-couchdb@4.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-consul 4.2.11
+
+## [4.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.10...@microfleet/plugin-consul@4.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-cassandra 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.10...@microfleet/plugin-cassandra@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-casl 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.10...@microfleet/plugin-casl@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.11
+
+## [3.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.10...@microfleet/plugin-aws-elasticsearch@3.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/plugin-amqp 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.10...@microfleet/plugin-amqp@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/core 19.2.11
+
+## [19.2.11](https://github.com/microfleet/core/compare/@microfleet/core@19.2.10...@microfleet/core@19.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+# @microfleet/core-types 2.2.11
+
+## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.10...@microfleet/core-types@2.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
 # @microfleet/utils 2.2.10
 
 ## [2.2.10](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.9...@microfleet/utils@2.2.10) (2023-10-25)

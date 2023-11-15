@@ -1,5 +1,21 @@
 
 
+## [4.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.10...@microfleet/plugin-couchdb@4.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
+## [4.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.10...@microfleet/plugin-couchdb@4.2.11) (2023-11-15)
+
+
+### Bug Fixes
+
+* upgrade dependencies ([3462882](https://github.com/microfleet/core/commit/3462882b1b6017f8e5072468f38e7fbd7903d044))
+* upgrade deps, more granular log level control in logger plugin ([fa59e6f](https://github.com/microfleet/core/commit/fa59e6f6a8959b81bd38f5b2bdb12d335b6e5844))
+
 ## [4.2.10](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.9...@microfleet/plugin-couchdb@4.2.10) (2023-10-25)
 
 
