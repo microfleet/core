@@ -34,7 +34,7 @@
     "@microfleet/plugin-logger": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
-    "@microfleet/transport-amqp": "^17.6.0",
+    "@microfleet/transport-amqp": "^17.6.1",
     "@microfleet/utils": "workspace:^",
     "ms-socket.io-adapter-amqp": "^9.0.1",
     "socket.io": "^4.7.2"

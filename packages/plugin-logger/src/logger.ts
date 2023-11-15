@@ -8,7 +8,6 @@ import type { NodeOptions as SentryNodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
 import { Microfleet, PluginInterface } from '@microfleet/core-types'
 import '@microfleet/plugin-validator'
-import { once } from 'events'
 
 export { SENTRY_FINGERPRINT_DEFAULT } from './constants'
 
@@ -173,7 +172,7 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
 
   if (defaultLogger) {
     const extra = typeof defaultLogger === 'boolean' ? {} : defaultLogger
-    const level: pino.Level = debug ? 'debug' : 'info'
+    const level: pino.LevelWithSilentOrString = options.level || (debug ? 'debug' : 'info')
     targets.push({
       level,
       target: prettifyDefaultLogger
@@ -195,18 +194,9 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
   }
 
   this.log = pino(pinoOptions)
-  this.logClose = async () => {
-    // @ts-expect-error not-exposed, but present
-    const transport = this.log[pino.symbols.streamSym]
-    assert(transport, 'couldnt get auto-assigned transport')
-    transport.ref()
-    transport.flushSync()
-    transport.end()
-    transport.once('close', () => {
-      transport.unref()
-    })
-    await once(transport, 'close')
-  }
+  this.logClose = () => new Promise((resolve, reject) => {
+    this.log.flush((err) => err ? reject(err) : resolve())
+  })
 
   if (process.env.NODE_ENV === 'test') {
     this.log.debug({ config }, 'loaded logger configuration')
@@ -214,8 +204,6 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
 
   return {
     async close(this: Microfleet): Promise<void> {
-      // @ts-expect-error not-exposed, but present
-      this.log[pino.symbols.streamSym]?.flushSync?.()
       this.log.flush()
     }
   }

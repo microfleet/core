@@ -49,7 +49,12 @@ export default (
   assert.equal(typeof retry.predicate, 'function', '`retry.predicate` must be defined')
 
   const { predicate, maxRetries } = retry
-  const backoff = new Backoff({ qos: retry, private: retry, consumed: retry })
+
+  const backoff = new Backoff({
+    qos: retry,
+    private: retry,
+    consumed: retry
+  })
 
   return async function onCompleteRetry(
     this: Microfleet, err: any, data: any, actionName: string, message: Message
@@ -82,18 +87,14 @@ export default (
       // we must ack, otherwise message would be returned to sender with reject
       // instead of promise.reject
       message.ack()
-      if (logger !== undefined) {
-        const logLevel = err.retryAttempt === 0 ? 'warn' : 'error'
-        logger[logLevel]({ err, properties }, 'Failed: [%s]', actionName)
-      }
+      const logLevel = err.retryAttempt === 0 ? 'warn' : 'error'
+      logger[logLevel]({ err, properties }, 'Failed: [%s]', actionName)
 
       throw err
     }
 
     // assume that predefined accounts must not fail - credentials are correct
-    if (logger) {
-      logger.warn({ err, properties }, 'Retry: [%s]', actionName)
-    }
+    logger.warn({ err, properties }, 'Retry: [%s]', actionName)
 
     // retry message options
     const expiration = backoff.get('qos', retryCount)
@@ -135,9 +136,8 @@ export default (
       throw err
     }
 
-    if (logger) {
-      logger.debug('queued retry message')
-    }
+
+    logger.debug({ retryQueue, raw: message.raw, retryMessageOptions }, 'queued retry message')
     message.ack()
 
     // enrich error

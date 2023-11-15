@@ -5,7 +5,7 @@ module.exports = {
   ...require('../../.mdeprc.js'),
   nycCoverage: false,
   auto_compose: true,
-  node: '16',
+  node: '20',
   parallel: 3,
   test_framework: 'jest --config ./jest.config.js --runTestsByPath',
   tests: '__tests__/**/*.spec.ts',
@@ -14,6 +14,9 @@ module.exports = {
   ],
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
+    rabbitmq: {
+      ports: ['15672']
+    },
     tester: {
       working_dir: `/src/packages/${dir}`,
       environment: {

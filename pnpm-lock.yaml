@@ -98,7 +98,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -198,7 +198,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -260,8 +260,8 @@ importers:
   packages/plugin-amqp:
     dependencies:
       '@microfleet/transport-amqp':
-        specifier: ^17.6.0
-        version: 17.6.0(common-errors@1.2.0)
+        specifier: ^17.6.1
+        version: 17.6.1(common-errors@1.2.0)
       bluebird:
         specifier: ^3.7.2
         version: 3.7.2
@@ -295,7 +295,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -381,8 +381,8 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0
       aws-sdk:
-        specifier: ^2.1496.0
-        version: 2.1496.0
+        specifier: ^2.1497.0
+        version: 2.1497.0
       aws4:
         specifier: ^1.12.0
         version: 1.12.0
@@ -410,7 +410,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -522,7 +522,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -631,7 +631,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -740,7 +740,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -832,8 +832,8 @@ importers:
         specifier: ^0.11.0
         version: 0.11.0(bluebird@3.7.2)
       nano:
-        specifier: ^10.1.2
-        version: 10.1.2
+        specifier: ^10.1.3
+        version: 10.1.3(debug@4.3.4)
     devDependencies:
       '@makeomatic/deploy':
         specifier: ^12.11.1
@@ -852,7 +852,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -976,7 +976,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1079,7 +1079,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1194,7 +1194,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1286,8 +1286,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       pino:
-        specifier: ^8.16.1
-        version: 8.16.1
+        specifier: ^8.16.2
+        version: 8.16.2
       readable-stream:
         specifier: ^4.4.2
         version: 4.4.2
@@ -1309,7 +1309,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1381,7 +1381,7 @@ importers:
         version: 17.0.1
       toxiproxy-node-client:
         specifier: ^3.0.0
-        version: 3.0.0
+        version: 3.0.0(debug@4.3.4)
       ts-essentials:
         specifier: ^9.4.1
         version: 9.4.1(typescript@5.2.2)
@@ -1412,7 +1412,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1509,7 +1509,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1598,8 +1598,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       pino:
-        specifier: ^8.16.1
-        version: 8.16.1
+        specifier: ^8.16.2
+        version: 8.16.2
       pino-abstract-transport:
         specifier: ^1.1.0
         version: 1.1.0
@@ -1633,7 +1633,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1754,7 +1754,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1857,7 +1857,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -1972,7 +1972,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2075,7 +2075,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2187,7 +2187,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2267,8 +2267,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1
       '@microfleet/transport-amqp':
-        specifier: ^17.6.0
-        version: 17.6.0(common-errors@1.2.0)
+        specifier: ^17.6.1
+        version: 17.6.1(common-errors@1.2.0)
       '@microfleet/validation':
         specifier: ^11.1.3
         version: 11.1.3(common-errors@1.2.0)
@@ -2323,7 +2323,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2433,8 +2433,8 @@ importers:
         specifier: ^2.7.0
         version: 2.7.0
       '@microfleet/transport-amqp':
-        specifier: ^17.6.0
-        version: 17.6.0(common-errors@1.2.0)
+        specifier: ^17.6.1
+        version: 17.6.1(common-errors@1.2.0)
       bluebird:
         specifier: ^3.7.2
         version: 3.7.2
@@ -2471,7 +2471,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2592,7 +2592,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2716,7 +2716,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2822,7 +2822,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -2923,14 +2923,14 @@ importers:
         specifier: workspace:^
         version: link:../plugin-validator
       '@microfleet/transport-amqp':
-        specifier: ^17.6.0
-        version: 17.6.0(common-errors@1.2.0)
+        specifier: ^17.6.1
+        version: 17.6.1(common-errors@1.2.0)
       '@microfleet/utils':
         specifier: workspace:^
         version: link:../utils
       ms-socket.io-adapter-amqp:
         specifier: ^9.0.1
-        version: 9.0.1(@microfleet/amqp-coffee@2.7.0)(@microfleet/transport-amqp@17.6.0)(common-errors@1.2.0)
+        version: 9.0.1(@microfleet/amqp-coffee@2.7.0)(@microfleet/transport-amqp@17.6.1)(common-errors@1.2.0)
       socket.io:
         specifier: ^4.7.2
         version: 4.7.2
@@ -2952,7 +2952,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -3052,7 +3052,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -3143,7 +3143,7 @@ importers:
         version: 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
       '@swc/core':
         specifier: ^1.3.96
-        version: 1.3.96
+        version: 1.3.96(@swc/helpers@0.5.3)
       '@swc/core-linux-arm64-musl':
         specifier: ^1.3.96
         version: 1.3.96
@@ -4388,7 +4388,7 @@ packages:
       lodash.merge: 4.6.2
       lodash.set: 4.3.2
       npm-path: 2.0.4
-      pino: 8.16.1
+      pino: 8.16.2
       read-pkg: 5.2.0
       rimraf: 5.0.5
       semantic-release: 21.0.7(typescript@5.2.2)
@@ -4485,7 +4485,7 @@ packages:
       denque: 2.1.0
       ioredis: 4.28.5
       lodash: 4.17.21
-      pino: 8.16.1
+      pino: 8.16.2
       read-pkg-up: 7.0.1
       serialize-error: 8.1.0
     transitivePeerDependencies:
@@ -4502,8 +4502,8 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@microfleet/transport-amqp@17.6.0(common-errors@1.2.0):
-    resolution: {integrity: sha512-60Hk3quL17daGl87v1qwp/7or0wlYS9HzaYbv99HI0hTW7Qgi7w/XkxUsQMij4hKiIESnF3A9/mpbXQ2OuvXEQ==}
+  /@microfleet/transport-amqp@17.6.1(common-errors@1.2.0):
+    resolution: {integrity: sha512-RnHOzaS/SS2Wc/Uc0SzMvTkvCEGu1VBpc3dCi/K7E17R/xol/JqOg2SqpcU8TYofhuS1vVXfk7AtCpScSbHwzA==}
     engines: {node: '>= 18.17.0'}
     peerDependencies:
       common-errors: ~1.x.x
@@ -4520,7 +4520,7 @@ packages:
       json-stringify-safe: 5.0.1
       lodash: 4.17.21
       mnemonist: 0.39.5
-      pino: 8.16.1
+      pino: 8.16.2
       read-pkg: 5.2.0
       reusify: 1.0.4
       safe-stable-stringify: 2.4.3
@@ -5184,7 +5184,7 @@ packages:
     peerDependencies:
       '@swc/core': '>= 1.3'
     dependencies:
-      '@swc/core': 1.3.96
+      '@swc/core': 1.3.96(@swc/helpers@0.5.3)
     dev: true
 
   /@swc-node/jest@1.6.8(@swc/core@1.3.96)(typescript@5.2.2):
@@ -5196,7 +5196,7 @@ packages:
       '@node-rs/xxhash': 1.4.2
       '@swc-node/core': 1.10.6(@swc/core@1.3.96)
       '@swc-node/register': 1.6.8(@swc/core@1.3.96)(typescript@5.2.2)
-      '@swc/core': 1.3.96
+      '@swc/core': 1.3.96(@swc/helpers@0.5.3)
       typescript: 5.2.2
     transitivePeerDependencies:
       - supports-color
@@ -5210,7 +5210,7 @@ packages:
     dependencies:
       '@swc-node/core': 1.10.6(@swc/core@1.3.96)
       '@swc-node/sourcemap-support': 0.3.0
-      '@swc/core': 1.3.96
+      '@swc/core': 1.3.96(@swc/helpers@0.5.3)
       colorette: 2.0.20
       debug: 4.3.4(supports-color@8.1.1)
       pirates: 4.0.6
@@ -5312,31 +5312,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@swc/core@1.3.96:
-    resolution: {integrity: sha512-zwE3TLgoZwJfQygdv2SdCK9mRLYluwDOM53I+dT6Z5ZvrgVENmY3txvWDvduzkV+/8IuvrRbVezMpxcojadRdQ==}
-    engines: {node: '>=10'}
-    requiresBuild: true
-    peerDependencies:
-      '@swc/helpers': ^0.5.0
-    peerDependenciesMeta:
-      '@swc/helpers':
-        optional: true
-    dependencies:
-      '@swc/counter': 0.1.2
-      '@swc/types': 0.1.5
-    optionalDependencies:
-      '@swc/core-darwin-arm64': 1.3.96
-      '@swc/core-darwin-x64': 1.3.96
-      '@swc/core-linux-arm-gnueabihf': 1.3.96
-      '@swc/core-linux-arm64-gnu': 1.3.96
-      '@swc/core-linux-arm64-musl': 1.3.96
-      '@swc/core-linux-x64-gnu': 1.3.96
-      '@swc/core-linux-x64-musl': 1.3.96
-      '@swc/core-win32-arm64-msvc': 1.3.96
-      '@swc/core-win32-ia32-msvc': 1.3.96
-      '@swc/core-win32-x64-msvc': 1.3.96
-    dev: true
 
   /@swc/core@1.3.96(@swc/helpers@0.5.3):
     resolution: {integrity: sha512-zwE3TLgoZwJfQygdv2SdCK9mRLYluwDOM53I+dT6Z5ZvrgVENmY3txvWDvduzkV+/8IuvrRbVezMpxcojadRdQ==}
@@ -6406,8 +6381,8 @@ packages:
       - supports-color
     dev: true
 
-  /aws-sdk@2.1496.0:
-    resolution: {integrity: sha512-w/JnK6kmYBDSJ+vt9KKJbYYh3SXak5NFB7uLiev0Ysl3dkxnA3ScSmc1x7KZvDkHcbkACI0VeMPTkftEGvY9kQ==}
+  /aws-sdk@2.1497.0:
+    resolution: {integrity: sha512-X8bDAMVToQ+vr3Ctizt4GRGYFhfwOQ0+dyBRTt9tyuOQ0BQQFIicBoUM6WHqGez6G2EZWPAYjBQQNj4zsCUMCw==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -6426,10 +6401,10 @@ packages:
     resolution: {integrity: sha512-NmWvPnx0F1SfrQbYwOi7OeaNGokp9XhzNioJ/CSBs8Qa4vxug81mhJEAVZwxXuBmYB5KDRfMq/F3RR0BIU7sWg==}
     dev: false
 
-  /axios@1.6.2:
+  /axios@1.6.2(debug@4.3.4):
     resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
     dependencies:
-      follow-redirects: 1.15.3
+      follow-redirects: 1.15.3(debug@4.3.4)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -6698,7 +6673,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001562
-      electron-to-chromium: 1.4.583
+      electron-to-chromium: 1.4.584
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: true
@@ -7984,8 +7959,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: true
 
-  /electron-to-chromium@1.4.583:
-    resolution: {integrity: sha512-93y1gcONABZ7uqYe/JWDVQP/Pj/sQSunF0HVAPdlg/pfBnOyBMLlQUxWvkqcljJg1+W6cjvPuYD+r1Th9Tn8mA==}
+  /electron-to-chromium@1.4.584:
+    resolution: {integrity: sha512-rXCtDiXCBtfTfEegkthruCvyWZnr1/FCrUGY/nYQiF+lSZDmwQBDxp0rivZxV8trXb6cbgojhcSTW5xsDcHQ8g==}
     dev: true
 
   /emittery@0.13.1:
@@ -8816,7 +8791,6 @@ packages:
   /extsprintf@1.4.1:
     resolution: {integrity: sha512-Wrk35e8ydCKDj/ArClo1VrPVmN8zph5V4AtHwIuHhvMXsKf73UT3BOD+azBIW+3wOJ4FhEH7zyaJCFvChjYvMA==}
     engines: {'0': node >=0.6.0}
-    dev: true
 
   /fast-content-type-parse@1.1.0:
     resolution: {integrity: sha512-fBHHqSTFLVnR61C+gltJuE5GkVQMV0S2nqUO8TJ+5Z3qAKG8vAx4FKai1s5jq/inV1+sREynIWSuQ6HgoSXpDQ==}
@@ -8896,7 +8870,7 @@ packages:
       fast-json-stringify: 5.9.1
       find-my-way: 7.7.0
       light-my-request: 5.11.0
-      pino: 8.16.1
+      pino: 8.16.2
       process-warning: 2.3.0
       proxy-addr: 2.0.7
       rfdc: 1.3.0
@@ -9073,7 +9047,7 @@ packages:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
 
-  /follow-redirects@1.15.3:
+  /follow-redirects@1.15.3(debug@4.3.4):
     resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
     engines: {node: '>=4.0'}
     peerDependencies:
@@ -9081,6 +9055,8 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dependencies:
+      debug: 4.3.4(supports-color@8.1.1)
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -11696,7 +11672,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /ms-socket.io-adapter-amqp@9.0.1(@microfleet/amqp-coffee@2.7.0)(@microfleet/transport-amqp@17.6.0)(common-errors@1.2.0):
+  /ms-socket.io-adapter-amqp@9.0.1(@microfleet/amqp-coffee@2.7.0)(@microfleet/transport-amqp@17.6.1)(common-errors@1.2.0):
     resolution: {integrity: sha512-sGaFwgPpnOZY4O5WhWLD4SKMPKSYTKF6AAFbw8Nf5mLRq1CBm837O6XKPWCR8dcO8wJvHqqamOfL7oGfrfRBlQ==}
     peerDependencies:
       '@microfleet/amqp-coffee': '>= 2'
@@ -11704,7 +11680,7 @@ packages:
       common-errors: ~1.x.x
     dependencies:
       '@microfleet/amqp-coffee': 2.7.0
-      '@microfleet/transport-amqp': 17.6.0(common-errors@1.2.0)
+      '@microfleet/transport-amqp': 17.6.1(common-errors@1.2.0)
       '@sindresorhus/is': 4.6.0
       bluebird: 3.7.2
       common-errors: 1.2.0
@@ -11734,11 +11710,11 @@ packages:
   /nan@2.18.0:
     resolution: {integrity: sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==}
 
-  /nano@10.1.2:
-    resolution: {integrity: sha512-P3zSoD/sxAgDs/IE9eqpeAXqTdQ/gA9e9dnzaltr4A3WUo/n+eh66T873L+md5v8lXOutX/7dvcHFOO22f5hDw==}
+  /nano@10.1.3(debug@4.3.4):
+    resolution: {integrity: sha512-q/hKQJJH3FhkkuJ3ojbgDph2StlSXFBPNkpZBZlsvZDbuYfxKJ4VtunEeilthcZtuIplIk1zVX5o2RgKTUTO+Q==}
     engines: {node: '>=14'}
     dependencies:
-      axios: 1.6.2
+      axios: 1.6.2(debug@4.3.4)
       node-abort-controller: 3.1.1
       qs: 6.11.2
     transitivePeerDependencies:
@@ -12667,8 +12643,8 @@ packages:
   /pino-std-serializers@6.2.2:
     resolution: {integrity: sha512-cHjPPsE+vhj/tnhCy/wiMh3M3z3h/j15zHQX+S9GkTBgqJuTuJzYJ4gUyACLhDaJ7kk9ba9iRDmbH2tJU03OiA==}
 
-  /pino@8.16.1:
-    resolution: {integrity: sha512-3bKsVhBmgPjGV9pyn4fO/8RtoVDR8ssW1ev819FsRXlRNgW8gR/9Kx+gCK4UPWd4JjrRDLWpzd/pb1AyWm3MGA==}
+  /pino@8.16.2:
+    resolution: {integrity: sha512-2advCDGVEvkKu9TTVSa/kWW7Z3htI/sBKEZpqiHk6ive0i/7f5b1rsU8jn0aimxqfnSz5bj/nOYkwhBUn5xxvg==}
     hasBin: true
     dependencies:
       atomic-sleep: 1.0.0
@@ -13367,7 +13343,7 @@ packages:
       negotiator: 0.6.3
       once: 1.4.0
       pidusage: 3.0.2
-      pino: 8.16.1
+      pino: 8.16.2
       qs: 6.11.2
       restify-errors: 8.0.2
       semver: 7.5.4
@@ -14392,10 +14368,10 @@ packages:
     engines: {node: '>=0.6'}
     dev: true
 
-  /toxiproxy-node-client@3.0.0:
+  /toxiproxy-node-client@3.0.0(debug@4.3.4):
     resolution: {integrity: sha512-upJhLabs37Ttc/uFjQMlkYv+5QFl2r/ZkqiB234reCLnZmYLdKLSqgAfVmpLA86Le6xG2knY3vMfNkon754uCw==}
     dependencies:
-      axios: 1.6.2
+      axios: 1.6.2(debug@4.3.4)
     transitivePeerDependencies:
       - debug
     dev: true
@@ -14481,7 +14457,7 @@ packages:
         optional: true
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
-      '@swc/core': 1.3.96
+      '@swc/core': 1.3.96(@swc/helpers@0.5.3)
       '@tsconfig/node10': 1.0.9
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
@@ -14886,7 +14862,7 @@ packages:
     dependencies:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
-      extsprintf: 1.3.0
+      extsprintf: 1.4.1
 
   /vm2@3.9.19:
     resolution: {integrity: sha512-J637XF0DHDMV57R6JyVsTak7nIL8gy5KH4r1HiwWLf/4GBbb5MKL5y7LpmF4A8E2nR6XmzpmMFQ7V7ppPTmUQg==}

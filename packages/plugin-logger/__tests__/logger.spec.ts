@@ -78,7 +78,7 @@ describe('Logger suite', () => {
     const reports: any[] = []
 
     fastify.all('/*', async (req) => {
-      reports.push([req.method, req.routerPath, req.query, req.body])
+      reports.push([req.method, req.routeOptions.url, req.query, req.body])
       return 'ok'
     })
 

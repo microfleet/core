@@ -29,7 +29,7 @@
   "homepage": "https://github.com/microfleet/core#readme",
   "dependencies": {
     "@hapi/boom": "^10.0.1",
-    "@microfleet/transport-amqp": "^17.6.0",
+    "@microfleet/transport-amqp": "^17.6.1",
     "@microfleet/validation": "^11.1.3",
     "fast-querystring": "^1.1.2",
     "glob": "^10.3.10",

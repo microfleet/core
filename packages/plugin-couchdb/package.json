@@ -40,7 +40,7 @@
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
-    "nano": "^10.1.2"
+    "nano": "^10.1.3"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^12.11.1",

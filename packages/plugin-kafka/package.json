@@ -42,7 +42,7 @@
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0",
     "lodash": "^4.17.21",
-    "pino": "^8.16.1",
+    "pino": "^8.16.2",
     "readable-stream": "^4.4.2"
   },
   "devDependencies": {

@@ -5,7 +5,7 @@ module.exports = {
   ...require('../../.mdeprc.js'),
   nycCoverage: false,
   auto_compose: true,
-  node: '16',
+  node: '20',
   parallel: 3,
   test_framework: 'jest --config ./jest.config.js --runTestsByPath',
   tests: '__tests__/**/*.spec.ts',

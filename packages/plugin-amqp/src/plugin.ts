@@ -61,7 +61,7 @@ export function attach(
   )
 
   // init logger if this is enabled
-  const logger = this.log.child({ namespace: '@microfleet/transport-amqp' })
+  const logger = this.log.child({ namespace: '@microfleet/transport-amqp', ...config.transport.logOptions })
 
   return {
     /**

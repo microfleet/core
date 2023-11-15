@@ -5,8 +5,9 @@ import { Microfleet } from '@microfleet/core'
 import { Lifecycle, ServiceRequest } from '@microfleet/plugin-router'
 import { spy } from 'sinon'
 import { RequestCountTracker } from '@microfleet/plugin-router'
+import { AMQPTransport, connect } from '@microfleet/transport-amqp'
 
-jest.setTimeout(10000)
+jest.setTimeout(5000)
 
 const failedActionEmulator = [{
   point: Lifecycle.hooks.preHandler,
@@ -15,11 +16,28 @@ const failedActionEmulator = [{
     const { headers } = request.headers
     const retryCount = headers['x-retry-count'] || 0
 
+    request.log.info({ headers: request.headers, params: request.params }, 'evaluation emulator')
+
     if (retryCount <= failAtRetryCount) {
       throw new ConnectionError(`Fake connection error first ${failAtRetryCount} times`)
     }
   },
 }]
+
+let publisher: AMQPTransport
+
+beforeAll(async () => {
+  publisher = await connect({
+    connection: { host: 'rabbitmq' },
+    debug: true,
+    name: 'publisher',
+    logOptions: {
+      level: 'trace',
+    },
+  })
+})
+
+afterAll(() => publisher.close())
 
 describe('AMQP suite: basic routing', function testSuite() {
   const service = new Microfleet({
@@ -31,6 +49,19 @@ describe('AMQP suite: basic routing', function testSuite() {
       'router', // enable router
       'router-amqp' // attach amqp transport to router
     ],
+    amqp: {
+      transport: {
+        debug: true,
+        logOptions: {
+          level: 'trace'
+        }
+      }
+    },
+    logger: {
+      defaultLogger: {
+        level: 'trace'
+      },
+    },
     router: {
       routes: {
         directory: resolve(__dirname, '../artifacts/actions'),
@@ -207,7 +238,7 @@ describe('AMQP suite: allRoutes config', function testSuite() {
 
 describe('AMQP suite: retry + amqp router prefix', function testSuite() {
   const service = new Microfleet({
-    name: 'tester',
+    name: 'tester-consumer',
     plugins: [
       'logger', // essensial plugin
       'validator', // essensial plugin
@@ -221,6 +252,18 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
         queue: 'test-queue',
         bindPersistantQueueToHeadersExchange: true,
         neck: 10,
+        debug: true,
+        logOptions: {
+          name: 'amqp-consumer',
+          level: 'trace',
+        }
+      },
+    },
+    logger: {
+      debug: true,
+      defaultLogger: true,
+      options: {
+        level: 'trace',
       },
     },
     router: {
@@ -235,6 +278,9 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
       prefix: 'amqp-prefix',
       retry: {
         enabled: true,
+        min: 50,
+        max: 250,
+        factor: 1.5,
         maxRetries: 3, // 3 attempts only
         predicate: (_: any, actionName: string) => actionName !== 'echo',
       },
@@ -245,12 +291,7 @@ describe('AMQP suite: retry + amqp router prefix', function testSuite() {
   afterAll(() => service.close())
 
   it('able to successfully retry action dispatch', async () => {
-    const { amqp } = service
-
-    // @todo dispose of assert
-    assert(amqp)
-
-    const response = await amqp.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 2 })
+    const response = await publisher.publishAndWait('amqp-prefix.echo', { failAtRetryCount: 2 })
 
     deepStrictEqual(response, { failAtRetryCount: 2 })
   })
@@ -363,6 +404,9 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
       retry: {
         enabled: true,
         maxRetries: 3, // 3 attempts only
+        min: 50,
+        max: 250,
+        factor: 1.5,
         predicate: (_: any, actionName: string) => actionName !== 'router-prefix.echo',
       },
     },

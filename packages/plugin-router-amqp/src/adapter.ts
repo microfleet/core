@@ -31,7 +31,7 @@ function getAMQPRouterAdapter(
   const normalizeActionName = prefixLength > 0
     ? (routingKey: string): string => (
       routingKey.startsWith(prefix)
-        ? routingKey.substr(prefixLength)
+        ? routingKey.slice(prefixLength)
         : routingKey
     )
     : (routingKey: string): string => routingKey
