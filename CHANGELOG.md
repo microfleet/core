@@ -1,3 +1,255 @@
+# @microfleet/utils 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.11...@microfleet/utils@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-validator 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.11...@microfleet/plugin-validator@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-socketio 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.11...@microfleet/plugin-socketio@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-signed-request 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.11...@microfleet/plugin-signed-request@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-router 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.11...@microfleet/plugin-router@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-router-socketio 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.11...@microfleet/plugin-router-socketio@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-router-hapi 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.11...@microfleet/plugin-router-hapi@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-router-amqp 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.11...@microfleet/plugin-router-amqp@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-redis-sentinel 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.11...@microfleet/plugin-redis-sentinel@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-redis-core 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.11...@microfleet/plugin-redis-core@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-redis-cluster 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.11...@microfleet/plugin-redis-cluster@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-prometheus 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.11...@microfleet/plugin-prometheus@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-opentracing 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.11...@microfleet/plugin-opentracing@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-logger 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.11...@microfleet/plugin-logger@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-knex 4.2.12
+
+## [4.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.11...@microfleet/plugin-knex@4.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-kafka 4.2.12
+
+## [4.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.11...@microfleet/plugin-kafka@4.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-kafka-types 3.2.12
+
+## [3.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.11...@microfleet/plugin-kafka-types@3.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-hapi 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.11...@microfleet/plugin-hapi@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-elasticsearch 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.11...@microfleet/plugin-elasticsearch@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-dlock 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.11...@microfleet/plugin-dlock@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-couchdb 4.2.12
+
+## [4.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.11...@microfleet/plugin-couchdb@4.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-consul 4.2.12
+
+## [4.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.11...@microfleet/plugin-consul@4.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-cassandra 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.11...@microfleet/plugin-cassandra@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-casl 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.11...@microfleet/plugin-casl@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.12
+
+## [3.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.11...@microfleet/plugin-aws-elasticsearch@3.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/plugin-amqp 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.11...@microfleet/plugin-amqp@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/core 19.2.12
+
+## [19.2.12](https://github.com/microfleet/core/compare/@microfleet/core@19.2.11...@microfleet/core@19.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+# @microfleet/core-types 2.2.12
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.11...@microfleet/core-types@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
 # @microfleet/utils 2.2.11
 
 ## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.10...@microfleet/utils@2.2.11) (2023-11-15)

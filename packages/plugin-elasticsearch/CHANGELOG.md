@@ -1,5 +1,19 @@
 
 
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.11...@microfleet/plugin-elasticsearch@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
+## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.11...@microfleet/plugin-elasticsearch@2.2.12) (2023-11-21)
+
+
+### Bug Fixes
+
+* kafka update ([a720d81](https://github.com/microfleet/core/commit/a720d8179aecb4a161b72eefbf2579252b56fcc0))
+
 ## [2.2.11](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.10...@microfleet/plugin-elasticsearch@2.2.11) (2023-11-15)
 
 
