@@ -1,5 +1,5 @@
 import type * as ns from '@microfleet/core-types'
-import type { DeepPartial } from 'ts-essentials'
+import type { PartialDeep } from 'type-fest'
 
 /**
  * Microservice Abstract Class
@@ -69,7 +69,7 @@ function resolveModule<T>(cur: T | null, path: string): T | null {
   }
 }
 
-export type CoreOptions = ns.ConfigurationRequired & DeepPartial<ns.ConfigurationOptional>
+export type CoreOptions = ns.ConfigurationRequired & PartialDeep<ns.ConfigurationOptional>
 
 /**
  * @class Microfleet

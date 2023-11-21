@@ -5,7 +5,6 @@ module.exports = {
   ...require('../../.mdeprc.js'),
   nycCoverage: false,
   auto_compose: true,
-  node: '16', // crashes in 18, needs investigating
   tester_flavour: "rdkafka-tester",
   http: false,
   test_framework: "jest --config ./jest.config.js --runTestsByPath --maxWorkers=50% --colors --verbose",
