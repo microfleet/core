@@ -1874,8 +1874,8 @@ importers:
         specifier: ~5.3.2
         version: 5.3.2
       undici:
-        specifier: ^5.27.2
-        version: 5.27.2
+        specifier: ^6.0.0
+        version: 6.0.1
 
   packages/plugin-redis-cluster:
     dependencies:
@@ -2364,8 +2364,8 @@ importers:
         specifier: ~5.3.2
         version: 5.3.2
       undici:
-        specifier: ^5.27.2
-        version: 5.27.2
+        specifier: ^6.0.0
+        version: 6.0.1
 
   packages/plugin-router-amqp:
     dependencies:
@@ -2609,8 +2609,8 @@ importers:
         specifier: ~5.3.2
         version: 5.3.2
       undici:
-        specifier: ^5.27.2
-        version: 5.27.2
+        specifier: ^6.0.0
+        version: 6.0.1
 
   packages/plugin-router-socketio:
     dependencies:
@@ -2830,8 +2830,8 @@ importers:
         specifier: ~5.3.2
         version: 5.3.2
       undici:
-        specifier: ^5.27.2
-        version: 5.27.2
+        specifier: ^6.0.0
+        version: 6.0.1
 
   packages/plugin-socketio:
     dependencies:
@@ -14562,6 +14562,13 @@ packages:
     engines: {node: '>=14.0'}
     dependencies:
       '@fastify/busboy': 2.1.0
+
+  /undici@6.0.1:
+    resolution: {integrity: sha512-eZFYQLeS9BiXpsU0cuFhCwfeda2MnC48EVmmOz/eCjsTgmyTdaHdVsPSC/kwC2GtW2e0uH0HIPbadf3/bRWSxw==}
+    engines: {node: '>=18.0'}
+    dependencies:
+      '@fastify/busboy': 2.1.0
+    dev: true
 
   /unicorn-magic@0.1.0:
     resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
