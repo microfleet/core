@@ -94,12 +94,12 @@ export interface StreamConfiguration {
   [streamName: string]: any;
 }
 
-export type Logger = pino.Logger<any>
+export type Logger = pino.Logger
 // @TODO use pino.ThreadStream type in future https://github.com/pinojs/pino/blob/v7.6.3/pino.d.ts#L31
 export type ThreadStream = any
 
 export interface LoggerConfig {
-  defaultLogger: pino.Logger | boolean | pino.TransportBaseOptions;
+  defaultLogger: Logger | boolean | pino.TransportBaseOptions;
   prettifyDefaultLogger: boolean;
   debug: boolean;
   name: string;
@@ -122,7 +122,7 @@ declare module '@microfleet/core-types' {
 
 export const levels = ['trace', 'debug', 'info', 'warn', 'error', 'fatal'] as const
 
-export const isCompatible = (obj: unknown): obj is pino.Logger => {
+export const isCompatible = (obj: unknown): obj is Logger => {
   return typeof obj === 'object'
     && obj !== null
     && levels.every((level) => typeof (obj as Record<any, unknown>)[level] === 'function')
