@@ -3,7 +3,7 @@
   "description": "redis sentinel plugin for microfleet",
   "main": "./lib/redis-sentinel.js",
   "types": "./lib/redis-sentinel.d.ts",
-  "version": "2.2.12",
+  "version": "2.2.13",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "clean": "rimraf ./lib *.tsbuildinfo",

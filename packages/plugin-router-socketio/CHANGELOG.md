@@ -1,5 +1,19 @@
 
 
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.12...@microfleet/plugin-router-socketio@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.12...@microfleet/plugin-router-socketio@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
 ## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.11...@microfleet/plugin-router-socketio@2.2.12) (2023-11-21)
 
 

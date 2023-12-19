@@ -1,3 +1,255 @@
+# @microfleet/utils 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.12...@microfleet/utils@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-validator 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.12...@microfleet/plugin-validator@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-socketio 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.12...@microfleet/plugin-socketio@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-signed-request 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.12...@microfleet/plugin-signed-request@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-router 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.12...@microfleet/plugin-router@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-router-socketio 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.12...@microfleet/plugin-router-socketio@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-router-hapi 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.12...@microfleet/plugin-router-hapi@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-router-amqp 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.12...@microfleet/plugin-router-amqp@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-redis-sentinel 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.12...@microfleet/plugin-redis-sentinel@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-redis-core 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.12...@microfleet/plugin-redis-core@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-redis-cluster 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.12...@microfleet/plugin-redis-cluster@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-prometheus 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.12...@microfleet/plugin-prometheus@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-opentracing 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.12...@microfleet/plugin-opentracing@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-logger 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.12...@microfleet/plugin-logger@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-knex 4.2.13
+
+## [4.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.12...@microfleet/plugin-knex@4.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-kafka 4.2.13
+
+## [4.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.12...@microfleet/plugin-kafka@4.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-kafka-types 3.2.13
+
+## [3.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.12...@microfleet/plugin-kafka-types@3.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-hapi 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.12...@microfleet/plugin-hapi@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-elasticsearch 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.12...@microfleet/plugin-elasticsearch@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-dlock 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.12...@microfleet/plugin-dlock@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-couchdb 4.2.13
+
+## [4.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.12...@microfleet/plugin-couchdb@4.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-consul 4.2.13
+
+## [4.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.12...@microfleet/plugin-consul@4.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-cassandra 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.12...@microfleet/plugin-cassandra@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-casl 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.12...@microfleet/plugin-casl@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.13
+
+## [3.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.12...@microfleet/plugin-aws-elasticsearch@3.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/plugin-amqp 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.12...@microfleet/plugin-amqp@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/core 19.2.13
+
+## [19.2.13](https://github.com/microfleet/core/compare/@microfleet/core@19.2.12...@microfleet/core@19.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
+# @microfleet/core-types 2.2.13
+
+## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.12...@microfleet/core-types@2.2.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* update deps ([e6e043b](https://github.com/microfleet/core/commit/e6e043b1c4c59c4e39bcb6ed81f3e57c1434e19a))
+
 # @microfleet/utils 2.2.12
 
 ## [2.2.12](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.11...@microfleet/utils@2.2.12) (2023-11-21)

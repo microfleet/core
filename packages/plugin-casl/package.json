@@ -3,7 +3,7 @@
   "description": "casl rbac/pbac plugin for microfleet",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "version": "2.2.12",
+  "version": "2.2.13",
   "scripts": {
     "lint": "eslint './src/**/*.ts'",
     "test": "mdep test run",
