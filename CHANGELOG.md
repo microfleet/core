@@ -1,3 +1,255 @@
+# @microfleet/utils 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.13...@microfleet/utils@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-validator 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.13...@microfleet/plugin-validator@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-socketio 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.13...@microfleet/plugin-socketio@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-signed-request 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.13...@microfleet/plugin-signed-request@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-router 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.13...@microfleet/plugin-router@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-router-socketio 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.13...@microfleet/plugin-router-socketio@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-router-hapi 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.13...@microfleet/plugin-router-hapi@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-router-amqp 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.13...@microfleet/plugin-router-amqp@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-redis-sentinel 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.13...@microfleet/plugin-redis-sentinel@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-redis-core 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.13...@microfleet/plugin-redis-core@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-redis-cluster 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.13...@microfleet/plugin-redis-cluster@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-prometheus 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.13...@microfleet/plugin-prometheus@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-opentracing 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.13...@microfleet/plugin-opentracing@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-logger 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.13...@microfleet/plugin-logger@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-knex 4.2.14
+
+## [4.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.13...@microfleet/plugin-knex@4.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-kafka 4.2.14
+
+## [4.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.13...@microfleet/plugin-kafka@4.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-kafka-types 3.2.14
+
+## [3.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.13...@microfleet/plugin-kafka-types@3.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-hapi 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.13...@microfleet/plugin-hapi@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-elasticsearch 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.13...@microfleet/plugin-elasticsearch@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-dlock 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.13...@microfleet/plugin-dlock@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-couchdb 4.2.14
+
+## [4.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.13...@microfleet/plugin-couchdb@4.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-consul 4.2.14
+
+## [4.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.13...@microfleet/plugin-consul@4.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-cassandra 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.13...@microfleet/plugin-cassandra@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-casl 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.13...@microfleet/plugin-casl@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-aws-elasticsearch 3.2.14
+
+## [3.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.13...@microfleet/plugin-aws-elasticsearch@3.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/plugin-amqp 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.13...@microfleet/plugin-amqp@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/core 19.2.14
+
+## [19.2.14](https://github.com/microfleet/core/compare/@microfleet/core@19.2.13...@microfleet/core@19.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+# @microfleet/core-types 2.2.14
+
+## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.13...@microfleet/core-types@2.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
 # @microfleet/utils 2.2.13
 
 ## [2.2.13](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.12...@microfleet/utils@2.2.13) (2023-12-19)

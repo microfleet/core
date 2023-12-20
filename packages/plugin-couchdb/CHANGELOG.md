@@ -1,5 +1,19 @@
 
 
+## [4.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.13...@microfleet/plugin-couchdb@4.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
+## [4.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.13...@microfleet/plugin-couchdb@4.2.14) (2023-12-20)
+
+
+### Bug Fixes
+
+* @microfleet/validation v11.2.1 ([#683](https://github.com/microfleet/core/issues/683)) ([09339f0](https://github.com/microfleet/core/commit/09339f07ee876798076c56d0fc25c5b5435247c1))
+
 ## [4.2.13](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.12...@microfleet/plugin-couchdb@4.2.13) (2023-12-19)
 
 
