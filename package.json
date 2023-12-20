@@ -27,7 +27,7 @@
     "glob": "^10.3.10",
     "js-yaml": "^4.1.0",
     "prepend-file": "^2.0.1",
-    "release-it": "^14.14.3",
+    "release-it": "^17.0.0",
     "rimraf": "^5.0.5",
     "typescript": "~5.3.3"
   }
