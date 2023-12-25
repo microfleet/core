@@ -44,7 +44,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.11.2",
+    "@makeomatic/deploy": "^13.0.0",
     "@microfleet/core": "workspace:^",
     "@microfleet/core-types": "workspace:^",
     "@microfleet/plugin-amqp": "workspace:^",

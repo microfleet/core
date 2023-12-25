@@ -37,7 +37,7 @@
     "semver": "^7.5.4"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.11.2",
+    "@makeomatic/deploy": "^13.0.0",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
