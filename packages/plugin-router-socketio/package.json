@@ -42,7 +42,7 @@
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.11.2",
+    "@makeomatic/deploy": "^13.0.0",
     "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.3.0",
     "@swc-node/jest": "^1.6.8",

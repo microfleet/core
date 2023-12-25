@@ -14,7 +14,7 @@
     "release-it": "release-it -c .release-it.root.cjs"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.11.2",
+    "@makeomatic/deploy": "^13.0.0",
     "@node-rs/xxhash-linux-arm64-musl": "^1.4.2",
     "@node-rs/xxhash-linux-x64-musl": "^1.4.2",
     "@release-it/conventional-changelog": "^4.3.0",

@@ -46,7 +46,7 @@
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^12.11.2",
+    "@makeomatic/deploy": "^13.0.0",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-hapi": "workspace:^",
     "@microfleet/plugin-opentracing": "workspace:^",
