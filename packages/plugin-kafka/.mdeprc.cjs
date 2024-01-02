@@ -2,7 +2,7 @@ const { basename } = require('path')
 const dir = basename(__dirname)
 
 module.exports = {
-  ...require('../../.mdeprc.js'),
+  ...require('../../.mdeprc.cjs'),
   nycCoverage: false,
   auto_compose: true,
   tester_flavour: "rdkafka-tester",
