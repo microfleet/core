@@ -3,7 +3,7 @@ const path = require('path')
 const dir = path.basename(__dirname)
 
 module.exports = {
-  ...require('../../.mdeprc.js'),
+  ...require('../../.mdeprc.cjs'),
   nycCoverage: false,
   auto_compose: true,
   "parallel": 3,

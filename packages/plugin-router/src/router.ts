@@ -164,12 +164,13 @@ export class Router {
     }
   }
 
-  public loadGenericActions(enabled: string[]): void {
-    for (const route of enabled) {
-      const handler = requireServiceActionHandler(resolve(__dirname, `./actions/${route}`))
-
+  public async loadGenericActions(enabled: string[]): Promise<void> {
+    const handlers = enabled.map(async (route) => {
+      const handler = await requireServiceActionHandler(resolve(__dirname, `./actions/${route}`))
       this.addRoute(`generic.${route}`, handler)
-    }
+    })
+
+    await Promise.all(handlers)
   }
 
   public async loadActionsFromDirectory(directory: string): Promise<void> {
