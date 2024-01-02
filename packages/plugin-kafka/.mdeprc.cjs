@@ -3,7 +3,6 @@ const dir = basename(__dirname)
 
 module.exports = {
   ...require('../../.mdeprc.cjs'),
-  nycCoverage: false,
   auto_compose: true,
   tester_flavour: "rdkafka-tester",
   http: false,

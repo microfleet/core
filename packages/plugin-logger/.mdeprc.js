@@ -3,7 +3,6 @@ const dir = basename(__dirname)
 
 module.exports = {
   ...require('../../.mdeprc.cjs'),
-  nycCoverage: false,
   auto_compose: true,
   node: '20',
   test_framework: 'jest --config ./jest.config.js --runTestsByPath --runInBand --colors --verbose',
