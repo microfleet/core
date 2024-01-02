@@ -1,5 +1,19 @@
 
 
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.14...@microfleet/plugin-opentracing@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.14...@microfleet/plugin-opentracing@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
 ## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.13...@microfleet/plugin-opentracing@2.2.14) (2023-12-20)
 
 

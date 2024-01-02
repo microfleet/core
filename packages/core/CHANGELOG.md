@@ -1,5 +1,19 @@
 
 
+# [19.3.0](https://github.com/microfleet/core/compare/@microfleet/core@19.2.14...@microfleet/core@19.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# [19.3.0](https://github.com/microfleet/core/compare/@microfleet/core@19.2.14...@microfleet/core@19.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
 ## [19.2.14](https://github.com/microfleet/core/compare/@microfleet/core@19.2.13...@microfleet/core@19.2.14) (2023-12-20)
 
 

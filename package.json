@@ -1,6 +1,6 @@
 {
   "name": "microfleet",
-  "version": "19.1.13",
+  "version": "19.2.0",
   "private": true,
   "scripts": {
     "semantic-release": "semantic-release",

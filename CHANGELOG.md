@@ -1,3 +1,255 @@
+# @microfleet/utils 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.14...@microfleet/utils@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-validator 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@2.2.14...@microfleet/plugin-validator@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-socketio 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@2.2.14...@microfleet/plugin-socketio@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-signed-request 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@2.2.14...@microfleet/plugin-signed-request@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-router 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@2.2.14...@microfleet/plugin-router@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-router-socketio 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@2.2.14...@microfleet/plugin-router-socketio@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-router-hapi 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.14...@microfleet/plugin-router-hapi@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-router-amqp 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@2.2.14...@microfleet/plugin-router-amqp@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-redis-sentinel 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@2.2.14...@microfleet/plugin-redis-sentinel@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-redis-core 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@2.2.14...@microfleet/plugin-redis-core@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-redis-cluster 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@2.2.14...@microfleet/plugin-redis-cluster@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-prometheus 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@2.2.14...@microfleet/plugin-prometheus@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-opentracing 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@2.2.14...@microfleet/plugin-opentracing@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-logger 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@2.2.14...@microfleet/plugin-logger@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-knex 4.3.0
+
+# [4.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@4.2.14...@microfleet/plugin-knex@4.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-kafka 4.3.0
+
+# [4.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@4.2.14...@microfleet/plugin-kafka@4.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-kafka-types 3.3.0
+
+# [3.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@3.2.14...@microfleet/plugin-kafka-types@3.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-hapi 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@2.2.14...@microfleet/plugin-hapi@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-elasticsearch 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@2.2.14...@microfleet/plugin-elasticsearch@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-dlock 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@2.2.14...@microfleet/plugin-dlock@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-couchdb 4.3.0
+
+# [4.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@4.2.14...@microfleet/plugin-couchdb@4.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-consul 4.3.0
+
+# [4.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@4.2.14...@microfleet/plugin-consul@4.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-cassandra 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@2.2.14...@microfleet/plugin-cassandra@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-casl 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@2.2.14...@microfleet/plugin-casl@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-aws-elasticsearch 3.3.0
+
+# [3.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@3.2.14...@microfleet/plugin-aws-elasticsearch@3.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/plugin-amqp 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@2.2.14...@microfleet/plugin-amqp@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/core 19.3.0
+
+# [19.3.0](https://github.com/microfleet/core/compare/@microfleet/core@19.2.14...@microfleet/core@19.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
+# @microfleet/core-types 2.3.0
+
+# [2.3.0](https://github.com/microfleet/core/compare/@microfleet/core-types@2.2.14...@microfleet/core-types@2.3.0) (2024-01-02)
+
+
+### Features
+
+* use dynamic import in readRoutes ([#686](https://github.com/microfleet/core/issues/686)) ([e62ce12](https://github.com/microfleet/core/commit/e62ce12d2b8449813977f345164fcc41b61aa748))
+
 # @microfleet/utils 2.2.14
 
 ## [2.2.14](https://github.com/microfleet/core/compare/@microfleet/utils@2.2.13...@microfleet/utils@2.2.14) (2023-12-20)
