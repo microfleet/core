@@ -2,25 +2,23 @@ const { basename } = require('path')
 const dir = basename(__dirname)
 
 module.exports = {
-  ...require('../../.mdeprc.js'),
-  nycCoverage: false,
+  ...require('../../.mdeprc.cjs'),
   auto_compose: true,
-  node: '20',
-  parallel: 3,
-  test_framework: 'jest --config ./jest.config.js --runTestsByPath',
+  parallel: 1,
+  test_framework: 'jest --config ./jest.config.js --runTestsByPath --runInBand --verbose --colors',
   tests: '__tests__/**/*.spec.ts',
   services: [
     'rabbitmq',
   ],
+  http: true,
+  in_one: false,
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
-    rabbitmq: {
-      ports: ['15672']
-    },
     tester: {
       working_dir: `/src/packages/${dir}`,
       environment: {
-        DEBUG: process.env.DEBUG,
+        // DEBUG: 'test',
+        UV_THREADPOOL_SIZE: 8,
       }
     }
   }
