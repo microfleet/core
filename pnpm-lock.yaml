@@ -705,8 +705,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       consul:
-        specifier: 0.40.0
-        version: 0.40.0
+        specifier: 1.2.0
+        version: 1.2.0
     devDependencies:
       '@makeomatic/deploy':
         specifier: ^13.0.5
@@ -7101,10 +7101,10 @@ packages:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}
     dev: false
 
-  /consul@0.40.0:
-    resolution: {integrity: sha512-GJdxzLAXJZZDddGhgVBeac2KeBGPABWeAlxGVjct5fAwSa2P0Zqy/e2MDPa6O1OvR5h2ko10zCyRrMjctbfytg==}
+  /consul@1.2.0:
+    resolution: {integrity: sha512-xWMEDRszShfzKI7XQKq12gr3359VUHUFOrAC2ETNpNe8PFO6AUnY0sbscB7JW5WhUEfuveDcI5ScYqM//20bow==}
     dependencies:
-      papi: 0.29.1
+      papi: 1.1.2
     dev: false
 
   /content-disposition@0.5.4:
@@ -12223,8 +12223,9 @@ packages:
     resolution: {integrity: sha512-HAKu/fG3HpHFO0AA8WE8q2g+gBJaZ9MG7fcKk+IJPLTGAD6Psw4443l+9DGRbOIh3/aXr7Phy0TjilYivJo5XQ==}
     dev: false
 
-  /papi@0.29.1:
-    resolution: {integrity: sha512-Y9ipSMfWuuVFO3zY9PlxOmEg+bQ7CeJ28sa9/a0veYNynLf9fwjR3+3fld5otEy7okUaEOUuCHVH62MyTmACXQ==}
+  /papi@1.1.2:
+    resolution: {integrity: sha512-cwM6pPpfAYgPe3EQi23SmB5J5s4XFS9lou9z63I5BbnMGmFaR8LAKvKboW7n1IUAKj76OtnyK0YU16JjnZrqVg==}
+    engines: {node: '>=10.0.0'}
     dev: false
 
   /parent-module@1.0.1:
