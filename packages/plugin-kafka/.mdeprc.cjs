@@ -1,5 +1,8 @@
+const { userInfo } = require('node:os')
 const { basename } = require('path')
 const dir = basename(__dirname)
+
+const { uid } = userInfo()
 
 module.exports = {
   ...require('../../.mdeprc.cjs'),
@@ -9,8 +12,8 @@ module.exports = {
   test_framework: "jest --config ./jest.config.js --runTestsByPath --maxWorkers=50% --colors --verbose",
   tests: "__tests__/**/*.spec.ts",
   root: `/src/packages/${dir}/node_modules/.bin`,
-  euser: 'tester',
-  tuser: 'tester',
+  euser: uid,
+  tuser: uid,
   arbitrary_exec: [
     'npm rebuild @makeomatic/node-rdkafka',
   ],
