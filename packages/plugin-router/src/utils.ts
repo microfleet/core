@@ -1,4 +1,4 @@
-import { sep, resolve } from 'path'
+import { sep, resolve } from 'node:path'
 import { glob } from 'glob'
 import { ValidationError } from 'common-errors'
 
@@ -11,28 +11,46 @@ export async function readRoutes(directory: string): Promise<[string, ServiceAct
     ignore: ['*.d.ts', '**/*.d.ts']
   })
 
-  return files.map((file) => {
+
+  const routes = []
+  const actions = []
+  for (const file of files) {
     // remove .js/.ts from route
     const route = file.slice(0, -3)
     // replace / with . for route
     const routeKey = route.split(sep).join('.')
 
-    return [routeKey, requireServiceActionHandler(resolve(directory, file))]
-  })
+    const entry: [string, ServiceAction] = [routeKey, null as any]
+    const action = requireServiceActionHandler(resolve(directory, file)).then((resolvedAction) => {
+      entry[1] = resolvedAction
+    })
+
+    routes.push(entry)
+    actions.push(action)
+  }
+
+  await Promise.all(actions)
+
+  return routes
 }
 
 export const transformFileToAction = (input: any, handler?: any): ServiceAction => {
+  const omitProps = ['length', 'name', 'default', '__esModule']
   const props = Object.getOwnPropertyNames(input)
   const action = Object.create(null)
   for (const prop of props) {
-    action[prop] = input[prop]
+    if (!omitProps.includes(prop)) {
+      action[prop] = input[prop]
+    }
   }
 
   if (handler) {
     action.handler = handler
     const handlerProps = Object.getOwnPropertyNames(handler)
     for (const prop of handlerProps) {
-      action[prop] = handler[prop]
+      if (!omitProps.includes(prop)) {
+        action[prop] = handler[prop]
+      }
     }
   } else {
     action.handler = input
@@ -41,10 +59,10 @@ export const transformFileToAction = (input: any, handler?: any): ServiceAction 
   return action
 }
 
-export function requireServiceActionHandler(path: string): ServiceAction {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const baseAction = require(path)
+export async function requireServiceActionHandler(path: string): Promise<ServiceAction> {
+  const baseAction = await import(path)
 
+  // debug
   if (typeof baseAction === 'function') {
     return transformFileToAction(baseAction)
   }
