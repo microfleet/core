@@ -88,8 +88,8 @@ importers:
         specifier: ^13.0.5
         version: 13.0.5(typescript@5.3.3)
       '@microfleet/validation':
-        specifier: ^11.2.1
-        version: 11.2.1(common-errors@1.2.0)
+        specifier: ^12.0.0
+        version: 12.0.0(common-errors@1.2.0)
       '@release-it/conventional-changelog':
         specifier: ^4.3.0
         version: 4.3.0(release-it@14.14.3)
@@ -747,6 +747,9 @@ importers:
       '@types/node':
         specifier: ^20.10.6
         version: 20.10.6
+      '@types/sinon':
+        specifier: ^17.0.2
+        version: 17.0.2
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.17.0
         version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -2213,8 +2216,8 @@ importers:
         specifier: ^17.8.0
         version: 17.8.0(common-errors@1.2.0)
       '@microfleet/validation':
-        specifier: ^11.2.1
-        version: 11.2.1(common-errors@1.2.0)
+        specifier: ^12.0.0
+        version: 12.0.0(common-errors@1.2.0)
       fast-querystring:
         specifier: ^1.1.2
         version: 1.1.2
@@ -2288,6 +2291,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
       '@types/node':
         specifier: ^20.10.6
         version: 20.10.6
@@ -2309,6 +2315,9 @@ importers:
       bluebird:
         specifier: ^3.7.2
         version: 3.7.2
+      c8:
+        specifier: ^8.0.1
+        version: 8.0.1
       common-errors:
         specifier: ^1.2.0
         version: 1.2.0
@@ -2339,6 +2348,9 @@ importers:
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.10.6)
+      mocha:
+        specifier: ^10.2.0
+        version: 10.2.0
       release-it:
         specifier: ^14.14.3
         version: 14.14.3
@@ -2488,8 +2500,8 @@ importers:
         specifier: ^21.3.2
         version: 21.3.2
       '@microfleet/validation':
-        specifier: ^11.2.1
-        version: 11.2.1(common-errors@1.2.0)
+        specifier: ^12.0.0
+        version: 12.0.0(common-errors@1.2.0)
       get-value:
         specifier: ^3.0.1
         version: 3.0.1
@@ -2942,8 +2954,8 @@ importers:
   packages/plugin-validator:
     dependencies:
       '@microfleet/validation':
-        specifier: ^11.2.1
-        version: 11.2.1(common-errors@1.2.0)
+        specifier: ^12.0.0
+        version: 12.0.0(common-errors@1.2.0)
       callsite:
         specifier: ^1.0.0
         version: 1.0.0
@@ -4473,9 +4485,9 @@ packages:
       - supports-color
     dev: false
 
-  /@microfleet/validation@11.2.1(common-errors@1.2.0):
-    resolution: {integrity: sha512-tCszPBSTE1wcf8/5lT7ZagG1EwtOqI3cChRfqK/sfZq69ueGYHSw6YT3eaN+WXNIw4HkdBC7iBITDy5P2wG/Lw==}
-    engines: {node: '>= 14.15.0', npm: '>= 4.x.x'}
+  /@microfleet/validation@12.0.0(common-errors@1.2.0):
+    resolution: {integrity: sha512-JfpWBoftA2O57bTdIKNZXsy6o9/B9kwmgpSfvdpj9VBd2IpxIQnd19xl6J77Aj0GudLZ7bIilb7iPkGoJBEGEQ==}
+    engines: {node: '>= 20.10.0'}
     peerDependencies:
       common-errors: ~1.x.x
     dependencies:
@@ -4565,6 +4577,7 @@ packages:
     engines: {node: '>= 12'}
     cpu: [arm64]
     os: [linux]
+    requiresBuild: true
     dev: true
 
   /@node-rs/xxhash-linux-x64-gnu@1.5.0:
@@ -4581,6 +4594,7 @@ packages:
     engines: {node: '>= 12'}
     cpu: [x64]
     os: [linux]
+    requiresBuild: true
     dev: true
 
   /@node-rs/xxhash-wasm32-wasi@1.5.0:
@@ -6669,6 +6683,25 @@ packages:
   /bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
     engines: {node: '>= 0.8'}
+
+  /c8@8.0.1:
+    resolution: {integrity: sha512-EINpopxZNH1mETuI0DzRA4MZpAUH+IFiRhnmFD3vFr3vdrgxqi3VfE3KL0AIL+zDq8rC9bZqwM/VDmmoe04y7w==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dependencies:
+      '@bcoe/v8-coverage': 0.2.3
+      '@istanbuljs/schema': 0.1.3
+      find-up: 5.0.0
+      foreground-child: 2.0.0
+      istanbul-lib-coverage: 3.2.2
+      istanbul-lib-report: 3.0.1
+      istanbul-reports: 3.1.6
+      rimraf: 3.0.2
+      test-exclude: 6.0.0
+      v8-to-istanbul: 9.2.0
+      yargs: 17.7.2
+      yargs-parser: 21.1.1
+    dev: true
 
   /cache-base@1.0.1:
     resolution: {integrity: sha512-AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==}
@@ -8953,6 +8986,14 @@ packages:
     resolution: {integrity: sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ==}
     engines: {node: '>=0.10.0'}
     dev: false
+
+  /foreground-child@2.0.0:
+    resolution: {integrity: sha512-dCIq9FpEcyQyXKCkyzmlPTFNgrCzPudOe+mhvJU5zAtlBnGVy2yKxtfsxK2tQBThwq225jcvBjpw1Gr40uzZCA==}
+    engines: {node: '>=8.0.0'}
+    dependencies:
+      cross-spawn: 7.0.3
+      signal-exit: 3.0.7
+    dev: true
 
   /foreground-child@3.1.1:
     resolution: {integrity: sha512-TMKDUnIte6bfb5nWv7V/caI169OHgvwjb7V4WkeUvbQQdjr5rWKqHFiKWb/fcOwB+CzBT+qbWjvj+DVwRskpIg==}
@@ -14947,7 +14988,7 @@ packages:
       require-directory: 2.1.1
       string-width: 4.2.3
       y18n: 5.0.8
-      yargs-parser: 20.2.4
+      yargs-parser: 20.2.9
     dev: true
 
   /yargs@17.7.2:

@@ -214,15 +214,15 @@ export class KafkaFactory {
  * Plugin init function.
  * @param params - Kafka configuration.
  */
-export function attach(
+export async function attach(
   this: Microfleet,
   params: GlobalConfig
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const conf = this.validator.ifError<GlobalConfig>(name, params)
   const kafkaPlugin = this[name] = new KafkaFactory(this, conf)

@@ -1,6 +1,6 @@
 import { NotSupportedError } from 'common-errors'
 
-import { Lifecycle } from '../../lifecycle'
+import { Lifecycle } from '../../lifecycle/index'
 import { ServiceRequest } from '../../types/router'
 import { RequestDataKey, ActionTransport } from '../../router'
 

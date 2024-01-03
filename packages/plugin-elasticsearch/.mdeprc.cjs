@@ -13,7 +13,10 @@ module.exports = {
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
     tester: {
-      working_dir: `/src/packages/${dir}`
+      working_dir: `/src/packages/${dir}`,
+      environment: {
+        NODE_OPTIONS: '--experimental-vm-modules'
+      }
     }
   }
 }

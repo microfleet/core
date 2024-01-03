@@ -32,6 +32,7 @@ export { PluginHealthStatus, HealthStatus }
 
 const toArray = <T>(x: T | T[]): T[] => Array.isArray(x) ? x : [x]
 const debug = _debug('@microfleet:core')
+const kRegisterCalled = Symbol('@microfleet::registerCalled')
 
 export {
   PLUGIN_STATUS_OK,
@@ -85,6 +86,7 @@ export class Microfleet extends EventEmitter {
   public readonly [DESTRUCTORS_PROPERTY]: ns.StartStopTree
   public readonly [HEALTH_CHECKS_PROPERTY]: PluginHealthCheck[]
   private connectorToPlugin: Map<ns.PluginConnector, string>
+  private [kRegisterCalled]: boolean
 
   /**
    * Allow Extensions
@@ -114,10 +116,26 @@ export class Microfleet extends EventEmitter {
     this.plugins = []
     this[CONNECTORS_PROPERTY] = Object.create(null)
     this[DESTRUCTORS_PROPERTY] = Object.create(null)
+    this[kRegisterCalled] = false
+
+    for (const pluginType of PluginsPriority) {
+      this[CONNECTORS_PROPERTY][pluginType] = []
+      this[DESTRUCTORS_PROPERTY][pluginType] = []
+    }
 
     // setup error listener
     this.on('error', this.onError)
-    this.initPlugins(this.config)
+  }
+
+  /**
+   * Initializes all plugins
+   */
+  public async register(): Promise<void> {
+    if (this[kRegisterCalled]) {
+      throw new Error('register() has already been called')
+    }
+
+    await this.initPlugins(this.config)
 
     // setup hooks
     for (const [eventName, hooks] of Object.entries(this.config.hooks)) {
@@ -132,6 +150,8 @@ export class Microfleet extends EventEmitter {
         process.once('SIGINT', this.exit)
       })
     }
+
+    this[kRegisterCalled] = true
   }
 
   /**
@@ -183,6 +203,10 @@ export class Microfleet extends EventEmitter {
    * @returns Walks over registered connectors and emits ready event upon completion.
    */
   public async connect(): Promise<unknown[]> {
+    if (!this[kRegisterCalled]) {
+      await this.register()
+    }
+
     return this.processAndEmit(this.getConnectors(), 'ready', ConnectorsPriority)
   }
 
@@ -210,7 +234,7 @@ export class Microfleet extends EventEmitter {
    * @param [conf] - Configuration in case it's not present in the core configuration object.
    */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public initPlugin<T extends Record<string, unknown>>(mod: ns.Plugin<T>, conf?: any): void {
+  public async initPlugin<T extends Record<string, unknown>>(mod: ns.Plugin<T>, conf?: any): Promise<void> {
     const pluginName = mod.name
     debug('initializing', pluginName)
 
@@ -227,7 +251,7 @@ export class Microfleet extends EventEmitter {
         configuration.schemas.push(resolve(__dirname, '../schemas'))
       }
 
-      expose = mod.attach.call(this, configuration, __filename)
+      expose = await mod.attach.call(this, configuration, __filename)
     } catch (e: any) {
       if (e.constructor === HttpStatusError) {
         e.message = `[@microfleet/core] Could not attach ${mod.name}:\n${e.message}`
@@ -406,12 +430,7 @@ export class Microfleet extends EventEmitter {
    * @param {Object} config - Service plugins configuration.
    * @private
    */
-  private initPlugins(config: ns.CoreOptions): void {
-    for (const pluginType of PluginsPriority) {
-        this[CONNECTORS_PROPERTY][pluginType] = []
-      this[DESTRUCTORS_PROPERTY][pluginType] = []
-    }
-
+  private async initPlugins(config: ns.CoreOptions): Promise<void> {
     // require all modules
     const plugins: ns.Plugin[] = []
     for (const plugin of config.plugins) {
@@ -441,7 +460,7 @@ export class Microfleet extends EventEmitter {
 
     // call the .attach function
     for (const plugin of plugins) {
-      this.initPlugin(plugin)
+      await this.initPlugin(plugin)
     }
 
     this.emit('init')

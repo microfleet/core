@@ -1,17 +1,18 @@
-import * as Extensions from './extensions' // @TODO remove import?
+import * as Extensions from './extensions/index' // @TODO remove import?
 import RequestCountTracker from './tracker'
 import './lifecycle/handlers/allowed'
 
-export { Lifecycle, LifecycleExtension } from './lifecycle'
-export { ServiceActionAuthConfig } from './lifecycle/handlers/auth'
+export type { LifecycleExtension } from './lifecycle/index'
+export { Lifecycle } from './lifecycle/index'
+export type { ServiceActionAuthConfig } from './lifecycle/handlers/auth'
 
 export { Extensions, RequestCountTracker }
 
 export * from './plugin'
-export * from './types/plugin'
+export type * from './types/plugin'
 
 export { Router, ActionTransport } from './router'
-export {
+export type {
   ServiceRequest,
   ServiceAction,
   ServiceMiddleware,
@@ -20,4 +21,4 @@ export {
   TransportOptions,
 } from './types/router'
 
-export { AuthInfo } from './lifecycle/handlers/auth'
+export type { AuthInfo } from './lifecycle/handlers/auth'
