@@ -1,4 +1,4 @@
-import { strict as assert, rejects, strictEqual } from 'assert'
+import assert, { rejects, strictEqual } from 'node:assert/strict'
 import { Microfleet } from '@microfleet/core'
 
 import { runHandler, runHook } from '../../src/lifecycle/utils'

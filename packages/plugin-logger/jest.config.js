@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const { basename } = require('path')
+const { basename } = require('node:path')
 const globalConfig = require('../../jest.config')
 const dir = basename(__dirname)
 

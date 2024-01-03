@@ -1,4 +1,4 @@
-import { strict as assert } from 'assert'
+import assert from 'node:assert/strict'
 import { Microfleet } from '@microfleet/core'
 
 describe('Validator suite', () => {
@@ -9,14 +9,13 @@ describe('Validator suite', () => {
     assert(!service.validator)
   })
 
-  it('validator inits relative schema paths', function test() {
-    assert.doesNotThrow(() => {
-      service = new Microfleet({
-        name: 'tester',
-        plugins: ['validator'],
-        validator: { schemas: ['./fixtures'] },
-      })
+  it('validator inits relative schema paths', async function test() {
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['validator'],
+      validator: { schemas: ['./fixtures'] },
     })
+    await service.register()
 
     assert(service.validator.ajv.getSchema('test-schema'))
     assert(service.validator.ajv.getSchema('config'))
@@ -24,36 +23,37 @@ describe('Validator suite', () => {
 
   it('validator exposes validate methods on the service', function test() {
     const { validator } = service
+
     assert(validator.validate)
     assert(validator.validateSync)
     assert(typeof validator.validate === 'function')
     assert(typeof validator.validateSync === 'function')
   })
 
-  it('validator throw on invalid config when `config` schema is present', function test() {
-    assert.throws(() => {
-      service = new Microfleet({
-        name: 'tester',
-        plugins: ['validator'],
-        validator: { schemas: ['./fixtures'] },
-        invalid: 'mwhaha',
-      })
+  it('validator throw on invalid config when `config` schema is present', async function test() {
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['validator'],
+      validator: { schemas: ['./fixtures'] },
+      invalid: 'mwhaha',
     })
+
+    await assert.rejects(service.register())
   })
 
-  it('should be able to load config as object', () => {
-    assert.doesNotThrow(() => {
-      service = new Microfleet({
-        name: 'tester',
-        plugins: ['validator'],
-        validator: {
-          schemas: ['./fixtures'],
-          ajv: {
-            coerceTypes: true,
-          },
+  it('should be able to load config as object', async () => {
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['validator'],
+      validator: {
+        schemas: ['./fixtures'],
+        ajv: {
+          coerceTypes: true,
         },
-      })
+      },
     })
+
+    await service.register()
 
     assert(service.validator.ajv.getSchema('test-schema'))
     assert.strictEqual(service.validator.validateSync('test-types-schema', '1').doc, '1')

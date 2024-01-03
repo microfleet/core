@@ -14,6 +14,8 @@ describe('knex plugin', () => {
       },
     })
 
+    await service.register()
+
     assert.ok(service.knex)
   })
 

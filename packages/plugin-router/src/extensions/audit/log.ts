@@ -1,6 +1,6 @@
 import { Microfleet } from '@microfleet/core-types'
 import type { ServiceRequest } from '../../types/router'
-import { Lifecycle, LifecycleExtensions } from '../../lifecycle'
+import { Lifecycle, LifecycleExtensions } from '../../lifecycle/index'
 import { initTimingExtension } from './timing'
 
 export type ErrorLevel = typeof ERROR_LEVEL_INFO

@@ -9,14 +9,14 @@
     "clean": "pnpm -r clean",
     "build": "pnpm tsc -b ./tsconfig.build.json",
     "pretest": "pnpm build",
-    "test": "pnpm test -r --workspace-concurrency 1",
+    "test": "pnpm test -r --workspace-concurrency 3",
     "version": "rimraf ./ci/staged/*.json; pnpm --filter='./packages/*' exec -- pnpm release-it",
     "release-it": "release-it -c .release-it.root.cjs"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^13.0.5",
-    "@node-rs/xxhash-linux-arm64-musl": "^1.5.0",
-    "@node-rs/xxhash-linux-x64-musl": "^1.5.0",
+    "@node-rs/xxhash-linux-arm64-musl": "^1.5.1",
+    "@node-rs/xxhash-linux-x64-musl": "^1.5.1",
     "@release-it/conventional-changelog": "^4.3.0",
     "@swc/core": "^1.3.102",
     "@swc/core-linux-arm64-musl": "^1.3.102",

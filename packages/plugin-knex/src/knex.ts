@@ -61,16 +61,16 @@ const startupHandlers = (service: Microfleet, knex: Knex): PluginInterface => ({
   },
 })
 
-export function attach(
+export async function attach(
   this: Microfleet,
   params: Knex.Config | string = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   const { validator } = this
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const opts = validator.ifError<Knex.Config>('knex', params)
   const config = validator.ifError<Knex.Config>(`knex.${opts.client}`, opts)

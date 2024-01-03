@@ -19,6 +19,7 @@ module.exports = {
     tester: {
       working_dir: `/src/packages/${dir}`,
       environment: {
+        NODE_OPTIONS: "--experimental-vm-modules",
         DEBUG: process.env.DEBUG,
       }
     }

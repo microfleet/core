@@ -5,31 +5,33 @@ import { ValidationError } from 'common-errors'
 import { ServiceAction } from './types/router'
 
 export async function readRoutes(directory: string): Promise<[string, ServiceAction][]> {
-  const files = await glob('*.{js,ts}', {
+  const files = await glob('*.{js,ts,mjs,mts,cjs,cts}', {
     cwd: directory,
     matchBase: true,
-    ignore: ['*.d.ts', '**/*.d.ts']
+    ignore: ['*.d.ts', '**/*.d.ts', '*.d.mts', '**/*.d.mts', '*.d.cts', '**/*.d.cts']
   })
 
 
-  const routes = []
-  const actions = []
+  const routes: [string, ServiceAction][] = []
+
   for (const file of files) {
     // remove .js/.ts from route
     const route = file.slice(0, -3)
     // replace / with . for route
     const routeKey = route.split(sep).join('.')
 
-    const entry: [string, ServiceAction] = [routeKey, null as any]
-    const action = requireServiceActionHandler(resolve(directory, file)).then((resolvedAction) => {
-      entry[1] = resolvedAction
-    })
+    // rename .cts and .mts -> cjs / mjs
+    if (file.endsWith('.mts')) {
+    //   file = file.replace(/\.(c|m)ts$/, '.$1js')
+      continue
+    }
 
-    routes.push(entry)
-    actions.push(action)
+
+    routes.push([
+      routeKey,
+      await requireServiceActionHandler(resolve(directory, file))
+    ])
   }
-
-  await Promise.all(actions)
 
   return routes
 }

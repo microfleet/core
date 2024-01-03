@@ -4,12 +4,22 @@ const transform = resolve(cwd, 'node_modules/@swc-node/jest')
 
 module.exports = {
   testEnvironment: 'node',
+  extensionsToTreatAsEsm: ['.mts'],
   transform: {
-    '^.+\\.(t|j)sx?$': [transform, {
+    '^.+\\.(c?(t|j))sx?$': [transform, {
+      dynamicImport: true,
       experimentalDecorators: true,
       emitDecoratorMetadata: true,
       target: 'es2022',
+      module: 'commonjs',
     }],
+    '^.+\\.mts$': [transform, {
+      dynamicImport: true,
+      experimentalDecorators: true,
+      emitDecoratorMetadata: true,
+      target: 'es2022',
+      module: 'es6',
+    }]
   },
   moduleFileExtensions: [
     'ts',

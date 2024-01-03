@@ -31,9 +31,9 @@ export const priority = 15
 /**
  * Attaches plugin to the MService class.
  */
-export function attach(this: Microfleet, opts: Partial<RbacConfig> = {}): PluginInterface {
+export async function attach(this: Microfleet, opts: Partial<RbacConfig> = {}): Promise<PluginInterface> {
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const config = this.validator.ifError<RbacConfig>(name, opts)
 

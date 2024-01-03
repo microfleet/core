@@ -113,7 +113,7 @@ export interface Plugin<T = Record<string, unknown>> {
   name: string;
   priority: number;
   type: $Values<typeof PluginTypes>;
-  attach(conf: T, parentFile: string): PluginInterface | never;
+  attach(conf: T, parentFile: string): Promise<PluginInterface> | PluginInterface;
 }
 
 export type MserviceError = Error & {
