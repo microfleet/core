@@ -57,15 +57,15 @@ export const priority = 0
  * Provides `consul` and `consulLeader` methods.
  * @param opts - Consul Configuration Object.
  */
-export const attach = function attachConsulPlugin(
+export const attach = async function attachConsulPlugin(
   this: Microfleet,
   opts: Partial<ConsulConfig> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const config = this.validator.ifError<ConsulConfig>(name, opts)
   const base = { ...config.base, promisify: true }
@@ -137,7 +137,7 @@ export const attach = function attachConsulPlugin(
       return
     }
 
-    process.nextTick(() => {
+    queueMicrotask(() => {
       this.consulLeader.emit('acquire', { reemit: true })
     })
   }
@@ -170,8 +170,13 @@ export const attach = function attachConsulPlugin(
       this.consulLeader.removeListener('newListener', onNewListener)
       this.consulLeader.removeListener('end', onEnd)
 
-      this.consulLeader.release()
-      await once(this.consulLeader, 'end')
+      // @ts-expect-error - internal prop
+      if (this.consulLeader._ctx) {
+        await Promise.all([
+          once(this.consulLeader, 'end'),
+          this.consulLeader.release(),
+        ])
+      }
 
       this.consulLeader.removeListener('error', onError)
     },

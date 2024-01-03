@@ -3,6 +3,6 @@ module.exports = {
     '@swc-node/register',
     'tsconfig-paths/register',
   ],
-  extensions: ['ts'],
+  extension: ['ts', 'js', 'cjs'],
   timeout: 10000,
 }

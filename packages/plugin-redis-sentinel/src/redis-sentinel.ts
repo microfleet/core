@@ -56,9 +56,9 @@ export const priority = 10
  * @param  [conf={}] - Configuration for Redis Sentinel Connection.
  * @returns Connections and Destructors.
  */
-export function attach(this: Microfleet, opts: Partial<Config> = {}): PluginInterface {
+export async function attach(this: Microfleet, opts: Partial<Config> = {}): Promise<PluginInterface> {
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   // @ts-expect-error - promise not defined, but can be used
   Redis.Promise = Bluebird

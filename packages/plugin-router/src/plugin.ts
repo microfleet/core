@@ -1,4 +1,4 @@
-import { strict as assert } from 'assert'
+import assert from 'node:assert/strict'
 import { resolve } from 'path'
 import rfdc from 'rfdc'
 import { isObject } from 'lodash'
@@ -8,12 +8,12 @@ import { defaultsDeep } from '@microfleet/utils'
 import { Router, ActionTransport } from './router'
 import Routes from './routes'
 import Tracker from './tracker'
-import { auditLog } from './extensions'
-import { Lifecycle } from './lifecycle'
+import { auditLog } from './extensions/index'
+import { Lifecycle } from './lifecycle/index'
 
 import type { RouterPluginConfig } from './types/plugin'
 import type { ServiceRequest } from './types/router'
-import { PluginInterface } from '@microfleet/core-types'
+import type { PluginInterface } from '@microfleet/core-types'
 
 export const name = 'router'
 export const type = PluginTypes.transport
@@ -81,15 +81,15 @@ const defaultConfig: Partial<RouterPluginConfig> = {
  },
 }
 
-export function attach(
+export async function attach(
   this: Microfleet,
   options: Partial<RouterPluginConfig>
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), 'log module must be included')
   assert(this.hasPlugin('validator'), 'validator module must be included')
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const {
     auth,

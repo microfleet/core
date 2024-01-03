@@ -4,6 +4,7 @@ import { strict as assert } from 'assert'
 import split2 from 'split2'
 import { once } from 'events'
 import getFreePort from 'get-port'
+// @ts-expect-error hybrid module
 import { io } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
 import Bluebird from 'bluebird'
@@ -18,6 +19,7 @@ import { getGlobalDispatcher } from 'undici'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const debug = require('debug')('test')
 const childServiceFile = resolve(__dirname, '../artifacts/child-service.ts')
+const registerSwc = resolve(__dirname, '../artifacts/register.cjs')
 
 class ChildServiceRunner {
   protected cmd: string
@@ -39,7 +41,7 @@ class ChildServiceRunner {
 
   async start(): Promise<any> {
     const freePort = await getFreePort()
-    const args = ['-r', '@swc-node/register', '-r', 'tsconfig-paths/register', this.cmd, String(freePort)]
+    const args = ['-r', registerSwc, '-r', 'tsconfig-paths/register', this.cmd, String(freePort)]
 
     debug('node %s', args.join(' '))
 
@@ -138,8 +140,6 @@ class ChildServiceRunner {
     return this.port
   }
 }
-
-jest.setTimeout(1000 * 20 * 3)
 
 describe('service graceful shutdown', () => {
   let childService: ChildServiceRunner

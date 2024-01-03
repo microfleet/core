@@ -37,14 +37,14 @@ export const name = 'hapi'
 export const type = PluginTypes.transport
 export const priority = 20
 
-export function attach(
+export async function attach(
   this: Microfleet,
   options: Partial<HapiPluginConfig> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('validator'), 'validator plugin must be included')
   assert(this.hasPlugin('logger'), 'logger plugin must be included')
 
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const config = this.validator.ifError<HapiPluginConfig>('hapi', options)
 

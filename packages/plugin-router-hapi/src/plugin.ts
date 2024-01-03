@@ -22,13 +22,13 @@ declare module '@microfleet/core-types' {
  * Attaches HTTP handler.
  * @param config - HTTP handler configuration to attach.
  */
-export function attach(
+export async function attach(
   this: Microfleet,
   options: Partial<RouterHapiPluginConfig> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('validator'), 'validator module must be included')
 
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const config = this.validator.ifError<RouterHapiPluginConfig>('router-hapi', options)
   const routerPlugin = attachRouter(this, config)

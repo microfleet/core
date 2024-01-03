@@ -31,14 +31,14 @@ export type Config = ClientOptions & {
 export const priority = 0
 export const name = 'awsElasticsearch'
 export const type = PluginTypes.database
-export function attach(
+export async function attach(
   this: Microfleet,
   opts: Partial<Config> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('logger module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
   const{ accessKeyId, secretAccessKey, region, ...conf } = this.validator
     .ifError<Config>('awsElasticsearch', opts)
 

@@ -26,7 +26,7 @@ describe('#generic', () => {
   let producer: KafkaProducerStream
   let consumerStream: KafkaConsumerStream
 
-  beforeEach(() => {
+  beforeEach(async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'kafka'],
@@ -37,6 +37,7 @@ describe('#generic', () => {
         'fetch.wait.max.ms': 300,
       },
     })
+    await service.register()
   })
 
   afterEach(async () => {
@@ -1192,6 +1193,7 @@ describe('#2s-toxified', () => {
         'fetch.wait.max.ms': 50,
       },
     })
+    await service.register()
   })
 
   const setProxyEnabled = async (enabled: boolean) => {
@@ -1400,6 +1402,8 @@ describe('#consumer parallel reads', () => {
         // debug: 'consumer',
       },
     })
+
+    await service.register()
   })
 
   afterEach(async () => {
@@ -1501,6 +1505,8 @@ describe.skip('#8s-toxified', () => {
         'fetch.wait.max.ms': 50,
       },
     })
+
+    await service.register()
   })
 
   afterEach(async () => {
@@ -1590,6 +1596,8 @@ describe('#connect-toxified', () => {
         debug: 'consumer',
       },
     })
+
+    await service.register()
   })
 
   afterEach(async () => {

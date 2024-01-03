@@ -112,7 +112,7 @@ export class Router {
     }
 
     if (this.enabledGenericActions !== undefined) {
-      this.loadGenericActions(this.enabledGenericActions)
+      await this.loadGenericActions(this.enabledGenericActions)
     }
   }
 
