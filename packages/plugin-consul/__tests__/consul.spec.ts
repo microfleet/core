@@ -13,12 +13,12 @@ afterEach(async () => {
   if (service) await service.close()
 })
 
-beforeEach(() => {
-  service = createService()
+beforeEach(async () => {
+  service = await createService()
 })
 
-const createService = (name = 'consul-test') => {
-  return new Microfleet({
+const createService = async (name = 'consul-test') => {
+  const service = new Microfleet({
     name,
     plugins: ['validator', 'logger', 'consul'],
     consul: {
@@ -35,6 +35,8 @@ const createService = (name = 'consul-test') => {
       },
     } as Partial<ConsulConfig>,
   })
+  await service.register()
+  return service
 }
 
 test('service launched', async () => {
@@ -79,7 +81,7 @@ test('parallel instances - whenLeader resolves to false when closing', async () 
     return true
   }
 
-  const masterService = createService('as-master')
+  const masterService = await createService('as-master')
 
   // connect master service
   await masterService.connect()
@@ -89,24 +91,25 @@ test('parallel instances - whenLeader resolves to false when closing', async () 
   service.addConnector('application', connectorFn.bind(service))
   await service.connect()
   await masterService.close()
-  masterService.log.debug('CLOSED')
+
   expect(stub.notCalled).toBe(true)
 })
 
 
 test('parallel instances', async () => {
-  async function worker(this: Microfleet) {
-    const isLeader = await this.whenLeader()
+  async function worker(ctx: Microfleet) {
+    const isLeader = await ctx.whenLeader()
     if (isLeader) {
-      if (this.shouldRelease) {
-        this.consulLeader.release()
+      if (ctx.shouldRelease) {
+        ctx.consulLeader.release()
+        ctx.log.info('--------------------- releasing lock')
       }
     }
-    this.testTimeout = setTimeout(async () => { await worker.call(this) }, 1000)
+    ctx.testTimeout = setTimeout(worker, 100, ctx)
   }
 
   async function connectorFn(this: Microfleet) {
-    worker.call(this)
+    worker(this)
     return true
   }
 
@@ -115,21 +118,22 @@ test('parallel instances', async () => {
   }
 
   function assignConnector(srv: Microfleet) {
-    srv.addConnector('application', connectorFn.bind(srv), `${srv.config.name}-test-lock`)
-    srv.addDestructor('application', destructorFn.bind(srv), `${srv.config.name}-test-lock`)
+    srv.addConnector('application', connectorFn, `${srv.config.name}-test-lock`)
+    srv.addDestructor('application', destructorFn, `${srv.config.name}-test-lock`)
     return srv
   }
 
   assignConnector(service)
-  let parallelService = createService('second-service')
+  let parallelService = await createService('second-service')
   assignConnector(parallelService)
 
   // should switch service when lock released
-  service.shouldRelease = true
+  service.shouldRelease = false
   await service.connect()
   await expect(service.whenLeader()).resolves.toBe(true)
 
-  // connect second service
+  // // connect second service
+  service.shouldRelease = true
   await parallelService.connect()
   await expect(parallelService.whenLeader()).resolves.toBe(true)
 
@@ -137,14 +141,13 @@ test('parallel instances', async () => {
   await parallelService.close()
   await expect(service.whenLeader()).resolves.toBe(true)
 
-  // switch master when one service closed
-  parallelService = createService('third-service')
+  // // switch master when one service closed
+  parallelService = await createService('third-service')
   assignConnector(parallelService)
 
   await parallelService.connect()
   await service.close()
-  // no ts-ignore but helps
-  service = null as unknown as Microfleet
+
   await expect(parallelService.whenLeader()).resolves.toBe(true)
   await parallelService.close()
 })

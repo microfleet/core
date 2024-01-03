@@ -28,17 +28,17 @@ export const name = 'routerAmqp'
 export const type = PluginTypes.transport
 export const priority = 30 // should be after plugin-amqp and plugin router
 
-export function attach(
+export async function attach(
   this: Microfleet,
   options: Partial<RouterAMQPPluginConfig> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   assert(this.hasPlugin('router'), new NotFoundError('router module must be included'))
   assert(this.hasPlugin('amqp'), new NotFoundError('router module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const routerAmqpConfig = this.validator.ifError<RouterAMQPPluginConfig>('router-amqp', options)
   const amqpConfig = this.config.amqp

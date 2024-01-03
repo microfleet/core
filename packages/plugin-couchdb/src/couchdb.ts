@@ -85,15 +85,15 @@ const startupHandlers = (
   },
 })
 
-export function attach(
+export async function attach(
   this: Microfleet,
   params: Config
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const opts = this.validator.ifError<Config>(name, params)
   const nano = CouchDB(opts.connection)

@@ -36,14 +36,14 @@ export const name = 'socketio'
 export const type = PluginTypes.transport
 export const priority = 20
 
-export const attach = function attachSocketioPlugin(
+export const attach = async function attachSocketioPlugin(
   this: Microfleet,
   options: Partial<SocketIOPluginConfig> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('validator'), 'validator module is required')
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   // validate
   const config = this.validator.ifError<SocketIOPluginConfig>('socketio', options)

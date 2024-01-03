@@ -1,5 +1,5 @@
 import { parse } from 'qs'
-import { Lifecycle } from '../../lifecycle'
+import { Lifecycle } from '../../lifecycle/index'
 import { ServiceRequest } from '../../types/router'
 
 type QSParserAugmentedAction = ServiceRequest & {

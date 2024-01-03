@@ -101,11 +101,11 @@ async function factory(this: Microfleet, Cassandra: Cassandra, config: Config) {
   return client
 }
 
-export function attach(this: Microfleet, params: Partial<Config> = {}): PluginInterface {
+export async function attach(this: Microfleet, params: Partial<Config> = {}): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
   const config = this.validator.ifError<Config>('cassandra', params)
 
   async function connectCassandra(this: Microfleet) {

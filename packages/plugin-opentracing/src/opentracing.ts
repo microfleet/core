@@ -40,12 +40,12 @@ export const priority = 50
  * Attaches plugin to the MService class.
  * @param opts - AMQP plugin configuration.
  */
-export function attach(this: Microfleet, opts = {}): void {
+export async function attach(this: Microfleet, opts = {}): Promise<void> {
   assert(this.hasPlugin('logger'), new NotFoundError('logger module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const settings = this.validator.ifError<Config>('opentracing', opts)
   const { config = {}, options = {} } = settings
