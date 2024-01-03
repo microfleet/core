@@ -1,5 +1,29 @@
 
 
+# [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.3.0...@microfleet/plugin-router-hapi@3.0.0) (2024-01-03)
+
+
+### Features
+
+* async plugin registration ([#694](https://github.com/microfleet/core/issues/694)) ([3b7969a](https://github.com/microfleet/core/commit/3b7969ae755862832889ae04fe4ef80e483b561d))
+
+
+### BREAKING CHANGES
+
+* requires oen to call await microfleet.register() before any of the plugins are instantiated. This allows one to have async jobs as part of the attachment routine. Updates @microfleet/validation to version 13, which moves from require() to async import() of files as part of this change. This raises min node.js version to 20.10 (it will still work on lower versions, but >= 20.10 allows for much better performance, as well as way fewer ESM issues). This will be a non-lts version aimed at polishing async plugins and tightening public interface
+
+# [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.3.0...@microfleet/plugin-router-hapi@3.0.0) (2024-01-03)
+
+
+### Features
+
+* async plugin registration ([#694](https://github.com/microfleet/core/issues/694)) ([3b7969a](https://github.com/microfleet/core/commit/3b7969ae755862832889ae04fe4ef80e483b561d))
+
+
+### BREAKING CHANGES
+
+* requires oen to call await microfleet.register() before any of the plugins are instantiated. This allows one to have async jobs as part of the attachment routine. Updates @microfleet/validation to version 13, which moves from require() to async import() of files as part of this change. This raises min node.js version to 20.10 (it will still work on lower versions, but >= 20.10 allows for much better performance, as well as way fewer ESM issues). This will be a non-lts version aimed at polishing async plugins and tightening public interface
+
 # [2.3.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.2.14...@microfleet/plugin-router-hapi@2.3.0) (2024-01-02)
 
 
