@@ -1,5 +1,19 @@
 
 
+## [3.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.0.0...@microfleet/plugin-router-hapi@3.0.1) (2024-01-03)
+
+
+### Bug Fixes
+
+* wrong peer dep ([aeea4a0](https://github.com/microfleet/core/commit/aeea4a080492b24ca0ed544e3f791e3df9149209))
+
+## [3.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.0.0...@microfleet/plugin-router-hapi@3.0.1) (2024-01-03)
+
+
+### Bug Fixes
+
+* wrong peer dep ([aeea4a0](https://github.com/microfleet/core/commit/aeea4a080492b24ca0ed544e3f791e3df9149209))
+
 # [3.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@2.3.0...@microfleet/plugin-router-hapi@3.0.0) (2024-01-03)
 
 
