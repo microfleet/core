@@ -38,7 +38,7 @@
     "@microfleet/plugin-validator": "workspace:^",
     "@microfleet/utils": "workspace:^",
     "@opensearch-project/opensearch": "^2.4.0",
-    "aws-sdk": "^2.1528.0",
+    "aws-sdk": "^2.1529.0",
     "aws4": "^1.12.0",
     "bluebird": "^3.7.2",
     "bluebird-retry": "^0.11.0"

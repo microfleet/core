@@ -27,10 +27,10 @@ export const name = 'elasticsearch'
 
 export const type = PluginTypes.database
 
-export function attach(this: Microfleet, params: Partial<Config> = {}): PluginInterface {
+export async function attach(this: Microfleet, params: Partial<Config> = {}): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('logger module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   const conf = this.validator.ifError<Config>('elasticsearch', params)
   this.elasticsearch = new Client({ ...conf })

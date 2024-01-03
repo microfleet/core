@@ -1,4 +1,4 @@
-import { Lifecycle, LifecycleExtension } from '../../lifecycle'
+import { Lifecycle, LifecycleExtension } from '../../lifecycle/index'
 import type { ServiceRequest } from '../../types/router'
 
 declare module '../../types/router' {

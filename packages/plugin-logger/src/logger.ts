@@ -2,7 +2,7 @@ import { strict as assert } from 'node:assert'
 import { resolve } from 'path'
 import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'
-import { pino } from 'pino'
+import { pino, symbols } from 'pino'
 import { PrettyOptions } from 'pino-pretty'
 import type { NodeOptions as SentryNodeOptions } from '@sentry/node'
 import { defaultsDeep } from '@microfleet/utils'
@@ -110,7 +110,9 @@ export interface LoggerConfig {
 
 declare module '@microfleet/core-types' {
   export interface Microfleet {
-    log: Logger;
+    log: Logger & {
+      flushSync(): void
+    }
     logTransport?: any; // type ThreadStream = any https://github.com/pinojs/pino/blob/v7.6.3/pino.d.ts#L31
     logClose?: () => Promise<void>;
   }
@@ -134,15 +136,20 @@ const noopInterface: PluginInterface = {
    }
 }
 
+function flushSync(this: Logger): void {
+  // @ts-expect-error has hidden prop
+  this[symbols.streamSym].flushSync()
+}
+
 /**
  * Plugin init function.
  * @param  opts - Logger configuration.
  */
-export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): PluginInterface {
+export async function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Promise<PluginInterface> {
   const { version, config: { name: applicationName } } = this
 
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
   const config = this.validator.ifError<LoggerConfig>('logger', defaultsDeep(opts, defaultConfig))
 
   const {
@@ -156,7 +163,9 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
   } = config
 
   if (isCompatible(defaultLogger)) {
+    // @ts-expect-error addign flushSync afterwards
     this.log = defaultLogger
+    this.log.flushSync = flushSync
     return noopInterface
   }
 
@@ -193,7 +202,9 @@ export function attach(this: Microfleet, opts: Partial<LoggerConfig> = {}): Plug
     pinoOptions.transport = { targets, worker }
   }
 
+  // @ts-expect-error adding flushSync afterwards
   this.log = pino(pinoOptions)
+  this.log.flushSync = flushSync
   this.logClose = () => new Promise((resolve, reject) => {
     this.log.flush((err) => err ? reject(err) : resolve())
   })

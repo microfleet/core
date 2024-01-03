@@ -6,20 +6,22 @@ import { file as tmpFile } from 'tempy'
 import { open } from 'fs/promises'
 import { HttpStatusError } from 'common-errors'
 import Fastify from 'fastify'
-import { setTimeout } from 'timers/promises'
+import { setTimeout } from 'node:timers/promises'
 
 describe('Logger suite', () => {
-  it('when service does not include `logger` plugin, it emits an error or throws', () => {
+  it('when service does not include `logger` plugin, it emits an error or throws', async () => {
     const plugins: (keyof typeof PluginTypes)[] = []
     const service = new Microfleet({
       plugins,
       name: 'tester',
     })
 
+    await service.register()
+
     assert(!service.log)
   })
 
-  it('logger inits with output to stdout', () => {
+  it('logger inits with output to stdout', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'],
@@ -32,13 +34,15 @@ describe('Logger suite', () => {
       }
     })
 
+    await service.register()
+
     assert.ok(service.log)
     assert.ok(typeof service.log.info === 'function')
 
     service.logClose?.()
   })
 
-  it('logger inits with output to stdout: debug', () => {
+  it('logger inits with output to stdout: debug', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'],
@@ -52,13 +56,15 @@ describe('Logger suite', () => {
       },
     })
 
+    await service.register()
+
     assert.ok(service.log)
     assert.ok(typeof service.log.info === 'function')
 
     service.logClose?.()
   })
 
-  it('should be able to init custom logger', () => {
+  it('should be able to init custom logger', async () => {
     const logger = pino({ name: 'test' })
     const service = new Microfleet({
       name: 'tester',
@@ -67,6 +73,8 @@ describe('Logger suite', () => {
         defaultLogger: logger,
       },
     })
+
+    await service.register()
 
     assert.deepEqual(service.log, logger)
   })
@@ -95,6 +103,9 @@ describe('Logger suite', () => {
               destination: file,
             },
           },
+          options: {
+            level: 'debug',
+          },
           streams: {
             sentry: {
               sentry: {
@@ -105,13 +116,15 @@ describe('Logger suite', () => {
                   },
                 },
               },
-              externalConfiguration: './__tests__/sentry.beforeSend',
+              externalConfiguration: './__tests__/sentry.beforeSend.js',
               level: 'debug',
               minLevel: 10,
             },
           },
         },
       })
+
+      await service.register()
 
       assert.ok(service.log)
       assert.ok(typeof service.log.info === 'function')
@@ -125,14 +138,13 @@ describe('Logger suite', () => {
       service.log.error({ err: new Error('fatal') }, 'unexpected error')
       service.log.error({ err: new Error('could not find associated data') }, 'must be filtered')
       service.log.error({ err: new HttpStatusError(200, '412: upload was already processed') }, 'must be filtered 2')
-      service.log.flush() // writing is async, we need to flush the data
 
-      // to ensure it actually flushes to disk
-      await setTimeout(3000)
+      await setTimeout(50)
+      await service.logClose?.()
 
       const data = await handle.readFile({ encoding: 'utf8' })
       const lines = data.split('\n').slice(0, -1).map((x) => JSON.parse(x))
-      assert.equal(lines.length, 10)
+      assert.equal(lines.length, 10, JSON.stringify(lines))
 
       lines.forEach((obj) => {
         assert(obj.level)

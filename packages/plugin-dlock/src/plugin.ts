@@ -83,16 +83,16 @@ function acquireLock(this: Microfleet, ...keys: string[]): Bluebird.Disposer<Loc
   }
 }
 
-export const attach = function attachDlockPlugin(
+export const attach = async function attachDlockPlugin(
   this: Microfleet,
   opts: Partial<Config> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('redis'), new NotFoundError('`redis-cluster` or `redis-sentinel` module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
   const config = this.validator.ifError<Config>(name, opts)
 
   return {

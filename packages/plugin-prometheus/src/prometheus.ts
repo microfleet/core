@@ -110,11 +110,11 @@ export const priority = 50
  * Attaches plugin to the MService class.
  * @param settings - prometheus settings
  */
-export function attach(this: Microfleet, opts: Partial<Config> = {}): PluginInterface {
+export async function attach(this: Microfleet, opts: Partial<Config> = {}): Promise<PluginInterface> {
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
   if (this.hasPlugin('router')) {
     this.config.router.extensions.register.push(metricObservability)

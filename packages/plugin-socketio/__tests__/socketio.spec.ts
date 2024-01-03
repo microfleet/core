@@ -4,22 +4,23 @@ import { Server as SocketIOStatic } from 'socket.io'
 import { Transport, Adapter } from 'ms-socket.io-adapter-amqp'
 
 describe('@microfleet/plugin-socketio', () => {
-  it('should not be able to create socket.io instance when plugin is included', () => {
+  it('should not be able to create socket.io instance when plugin is included', async () => {
     const service = new Microfleet({ name: 'tester', plugins: [] })
-
+    await service.register()
     strictEqual(service.socketio, undefined)
   })
 
-  it('should create socket.io instance when plugin is included', () => {
+  it('should create socket.io instance when plugin is included', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'socketio'],
     })
 
+    await service.register()
     strictEqual(service.socketio instanceof SocketIOStatic, true)
   })
 
-  it('should be able to set up AMQP adapter', () => {
+  it('should be able to set up AMQP adapter', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'socketio'],
@@ -36,6 +37,7 @@ describe('@microfleet/plugin-socketio', () => {
       },
     })
 
+    await service.register()
     strict(service.socketio.sockets.adapter instanceof Adapter)
     strict(service.socketio.sockets.adapter.transport instanceof Transport)
   })
