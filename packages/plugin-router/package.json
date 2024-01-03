@@ -73,7 +73,7 @@
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "@typescript-eslint/parser": "^6.17.0",
     "bluebird": "^3.7.2",
-    "c8": "^8.0.1",
+    "c8": "^9.0.0",
     "common-errors": "^1.2.0",
     "cross-env": "^7.0.3",
     "debug": "^4.3.4",
