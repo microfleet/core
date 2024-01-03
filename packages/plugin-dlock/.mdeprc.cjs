@@ -13,6 +13,9 @@ module.exports = {
   extras: {
     tester: {
       working_dir: `/src/packages/${dir}`,
+      environment: {
+        NODE_OPTIONS: "--experimental-vm-modules",
+      }
     }
   },
   services: [

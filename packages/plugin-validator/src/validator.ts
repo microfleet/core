@@ -10,7 +10,7 @@ import { defaultsDeep, PluginTypes } from '@microfleet/utils'
 
 declare module '@microfleet/validation' {
   interface Validator {
-    addLocation(location: string): void;
+    addLocation(location: string): Promise<void>;
   }
 }
 
@@ -99,11 +99,11 @@ const { isArray } = Array
  * @param conf - Validator Configuration Object.
  * @param parentFile - From which file this plugin was invoked.
  */
-export function attach(
+export async function attach(
   this: Microfleet,
   opts: ValidatorConfig,
   parentFile: string
-): void {
+): Promise<void> {
   const config = defaultsDeep(opts, defaultConfig)
   const { schemas, serviceConfigSchemaIds, filter, ajv: ajvConfig } = config
 
@@ -113,7 +113,8 @@ export function attach(
   strictEqual(isPlainObject(ajvConfig), true, configError('ajvConfig'))
 
   const validator = new MicrofleetValidator(undefined, filter, ajvConfig)
-  const addLocation = (location: string): void => {
+
+  const addLocation = async (location: string): Promise<void> => {
     strictEqual(isString(location) && location.length !== 0, true, configError('schemas'))
 
     // for relative paths
@@ -141,12 +142,12 @@ export function attach(
       dir = location
     }
 
-    validator.init(dir)
+    await validator.init(dir)
   }
 
   // Note that schemas with same file name will be overwritten
   for (const location of schemas) {
-    addLocation(location)
+    await addLocation(location)
   }
 
   // built-in configuration schema

@@ -1,4 +1,4 @@
-import assert from 'assert'
+import assert from 'node:assert/strict'
 import { fetch, getGlobalDispatcher } from 'undici'
 import { Microfleet } from '@microfleet/core'
 
@@ -7,6 +7,7 @@ describe('prometheus plugin', function testSuite() {
 
   it('should be able to throw error if plugin is not included', async () => {
     service = new Microfleet({ name: 'micro', plugins: [] })
+    await service.register()
     assert(!service.prometheus)
   })
 
@@ -16,6 +17,7 @@ describe('prometheus plugin', function testSuite() {
       plugins: ['logger', 'validator', 'prometheus'],
     })
 
+    await service.register()
     assert.ok(service.prometheus)
   })
 

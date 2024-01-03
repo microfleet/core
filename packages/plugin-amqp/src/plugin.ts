@@ -32,15 +32,15 @@ export const priority = 20
  * Attaches plugin to the Mthis class.
  * @param config - AMQP plugin configuration.
  */
-export function attach(
+export async function attach(
   this: Microfleet,
   options: Partial<AMQPPluginConfig> = {}
-): PluginInterface {
+): Promise<PluginInterface> {
   assert(this.hasPlugin('logger'), new NotFoundError('log module must be included'))
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
 
   // load local schemas
-  this.validator.addLocation(resolve(__dirname, '../schemas'))
+  await this.validator.addLocation(resolve(__dirname, '../schemas'))
   const config = this.config.amqp = this.validator.ifError<AMQPPluginConfig>('amqp', options)
 
   /**
