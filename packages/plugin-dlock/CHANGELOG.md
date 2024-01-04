@@ -1,5 +1,19 @@
 
 
+## [3.0.2](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.0.1...@microfleet/plugin-dlock@3.0.2) (2024-01-04)
+
+
+### Bug Fixes
+
+* dynamic import calls, swc -> esbuild ([7e6d1a2](https://github.com/microfleet/core/commit/7e6d1a29c92979626cab8ac96c9c55c02c19ab40))
+
+## [3.0.2](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.0.1...@microfleet/plugin-dlock@3.0.2) (2024-01-04)
+
+
+### Bug Fixes
+
+* dynamic import calls, swc -> esbuild ([7e6d1a2](https://github.com/microfleet/core/commit/7e6d1a29c92979626cab8ac96c9c55c02c19ab40))
+
 ## [3.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.0.0...@microfleet/plugin-dlock@3.0.1) (2024-01-03)
 
 
