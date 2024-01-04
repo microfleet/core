@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/node'
+import Sentry = require('@sentry/node')
 import { createSandbox, match } from 'sinon'
 import { sentryTransport as sentryStreamFactory } from './sentry'
 import { pino } from 'pino'
@@ -15,7 +15,7 @@ describe('Logger Sentry Stream Suite', () => {
   })
 
   it('sentryStreamFactory() should be able to init sentry stream', async () => {
-    const sentryInitSpy = sandbox.spy(Sentry, 'init')
+    const sentryInitSpy = sandbox.spy(Sentry)
     const { testkit, sentryTransport } = sentryTestkit()
 
     const stream = await sentryStreamFactory({
@@ -29,7 +29,7 @@ describe('Logger Sentry Stream Suite', () => {
 
     assert(stream)
     assert(typeof stream.write === 'function')
-    assert(sentryInitSpy.calledOnceWithExactly({
+    assert(sentryInitSpy.init.calledWithExactly({
       dsn: 'https://api@sentry.io/1822',
       defaultIntegrations: [],
       release: 'test',
@@ -52,8 +52,9 @@ describe('Logger Sentry Stream Suite', () => {
       },
       minLevel: 10,
     })
+
     const streamWriteSpy = sandbox.spy(stream, 'write')
-    const captureEventSpy = sandbox.spy(Sentry, 'captureMessage')
+    const captureEventSpy = sandbox.spy(Sentry)
 
     const pinoms = pino.multistream([
       { stream, level: 'info' },
@@ -70,7 +71,7 @@ describe('Logger Sentry Stream Suite', () => {
 
     await setTimeout(1000)
     assert.equal(testkit.reports().length, 1)
-    assert(captureEventSpy.calledOnceWith('Warning message', match({
+    assert(captureEventSpy.captureMessage.calledOnceWith('Warning message', match({
       _notifyingListeners: false,
       _scopeListeners: [],
       _eventProcessors: [],

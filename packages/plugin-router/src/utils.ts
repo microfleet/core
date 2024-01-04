@@ -11,7 +11,6 @@ export async function readRoutes(directory: string): Promise<[string, ServiceAct
     ignore: ['*.d.ts', '**/*.d.ts', '*.d.mts', '**/*.d.mts', '*.d.cts', '**/*.d.cts']
   })
 
-
   const routes: [string, ServiceAction][] = []
 
   for (const file of files) {
@@ -19,13 +18,6 @@ export async function readRoutes(directory: string): Promise<[string, ServiceAct
     const route = file.slice(0, -3)
     // replace / with . for route
     const routeKey = route.split(sep).join('.')
-
-    // rename .cts and .mts -> cjs / mjs
-    if (file.endsWith('.mts')) {
-    //   file = file.replace(/\.(c|m)ts$/, '.$1js')
-      continue
-    }
-
 
     routes.push([
       routeKey,
@@ -62,7 +54,8 @@ export const transformFileToAction = (input: any, handler?: any): ServiceAction 
 }
 
 export async function requireServiceActionHandler(path: string): Promise<ServiceAction> {
-  const baseAction = await import(path)
+  const module = await import(path)
+  const baseAction = module.default || module
 
   // debug
   if (typeof baseAction === 'function') {
@@ -71,6 +64,11 @@ export async function requireServiceActionHandler(path: string): Promise<Service
 
   if (baseAction && typeof baseAction.default === 'function') {
     return transformFileToAction(baseAction, baseAction.default)
+  }
+
+  // native ESM or we have specified handler without default export
+  if (baseAction && typeof baseAction.handler === 'function') {
+    return { ...baseAction } // copy as we can't mutate original exports
   }
 
   throw new Error(`action from ${path} must be a function`)

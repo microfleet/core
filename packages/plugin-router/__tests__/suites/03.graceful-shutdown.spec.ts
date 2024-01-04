@@ -19,7 +19,6 @@ import { getGlobalDispatcher } from 'undici'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const debug = require('debug')('test')
 const childServiceFile = resolve(__dirname, '../artifacts/child-service.ts')
-const registerSwc = resolve(__dirname, '../artifacts/register.cjs')
 
 class ChildServiceRunner {
   protected cmd: string
@@ -41,19 +40,18 @@ class ChildServiceRunner {
 
   async start(): Promise<any> {
     const freePort = await getFreePort()
-    const args = ['-r', registerSwc, '-r', 'tsconfig-paths/register', this.cmd, String(freePort)]
+    const args = ['--import', 'tsx', '-r', 'tsconfig-paths/register', this.cmd, freePort.toString()]
 
     debug('node %s', args.join(' '))
 
     const proc = execa('node', args, {
       buffer: false,
-      env: { SWC_NODE_PROJECT: './tsconfig.test.json' },
+      stderr: 'inherit'
     })
 
     debug('spawned')
 
-    const { stderr, stdout } = proc
-    stderr?.pipe(process.stderr)
+    const { stdout } = proc
 
     stdout?.pipe(split2()).on('data', (line: string): void => {
       // in case of emergency uncomment

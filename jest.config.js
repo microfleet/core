@@ -1,29 +1,19 @@
 const { resolve } = require('node:path')
-const cwd = process.cwd()
-const transform = resolve(cwd, 'node_modules/@swc-node/jest')
+const esBuildTransform = resolve(__dirname, 'ci/esbuild-transform.js')
 
 module.exports = {
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.mts'],
   transform: {
-    '^.+\\.(c?(t|j))sx?$': [transform, {
-      dynamicImport: true,
-      experimentalDecorators: true,
-      emitDecoratorMetadata: true,
-      target: 'es2022',
-      module: 'commonjs',
-    }],
-    '^.+\\.mts$': [transform, {
-      dynamicImport: true,
-      experimentalDecorators: true,
-      emitDecoratorMetadata: true,
-      target: 'es2022',
-      module: 'es6',
-    }]
+    '^.+\\.[cm]?[tj]sx?$': [esBuildTransform]
   },
   moduleFileExtensions: [
     'ts',
     'js',
+    'mts',
+    'cts',
+    'cjs',
+    'mjs',
     'json',
     'node',
   ],
