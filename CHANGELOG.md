@@ -1,3 +1,255 @@
+# @microfleet/utils 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/utils@3.0.3...@microfleet/utils@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-validator 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.0.3...@microfleet/plugin-validator@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-socketio 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@3.0.3...@microfleet/plugin-socketio@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-signed-request 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@3.0.3...@microfleet/plugin-signed-request@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-router 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-router@3.0.3...@microfleet/plugin-router@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-router-socketio 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@3.0.3...@microfleet/plugin-router-socketio@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-router-hapi 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.0.3...@microfleet/plugin-router-hapi@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-router-amqp 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@3.0.3...@microfleet/plugin-router-amqp@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-redis-sentinel 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.0.3...@microfleet/plugin-redis-sentinel@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-redis-core 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@3.0.3...@microfleet/plugin-redis-core@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-redis-cluster 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.3...@microfleet/plugin-redis-cluster@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-prometheus 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@3.0.3...@microfleet/plugin-prometheus@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-opentracing 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@3.0.3...@microfleet/plugin-opentracing@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-logger 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.0.3...@microfleet/plugin-logger@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-knex 5.0.4
+
+## [5.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@5.0.3...@microfleet/plugin-knex@5.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-kafka 5.0.4
+
+## [5.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.0.3...@microfleet/plugin-kafka@5.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-kafka-types 4.0.4
+
+## [4.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@4.0.3...@microfleet/plugin-kafka-types@4.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-hapi 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@3.0.3...@microfleet/plugin-hapi@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-elasticsearch 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@3.0.3...@microfleet/plugin-elasticsearch@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-dlock 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.0.3...@microfleet/plugin-dlock@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-couchdb 5.0.4
+
+## [5.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@5.0.3...@microfleet/plugin-couchdb@5.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-consul 5.0.4
+
+## [5.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@5.0.3...@microfleet/plugin-consul@5.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-cassandra 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@3.0.3...@microfleet/plugin-cassandra@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-casl 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@3.0.3...@microfleet/plugin-casl@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-aws-elasticsearch 4.0.4
+
+## [4.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@4.0.3...@microfleet/plugin-aws-elasticsearch@4.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/plugin-amqp 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@3.0.3...@microfleet/plugin-amqp@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/core 20.0.4
+
+## [20.0.4](https://github.com/microfleet/core/compare/@microfleet/core@20.0.3...@microfleet/core@20.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+# @microfleet/core-types 3.0.4
+
+## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/core-types@3.0.3...@microfleet/core-types@3.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
 # @microfleet/utils 3.0.3
 
 ## [3.0.3](https://github.com/microfleet/core/compare/@microfleet/utils@3.0.2...@microfleet/utils@3.0.3) (2024-01-05)

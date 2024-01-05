@@ -1,5 +1,19 @@
 
 
+## [5.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.0.3...@microfleet/plugin-kafka@5.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
+## [5.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.0.3...@microfleet/plugin-kafka@5.0.4) (2024-01-05)
+
+
+### Bug Fixes
+
+* auto-starting an instance in ESM ([157d2a5](https://github.com/microfleet/core/commit/157d2a5cb60f881467a62c3e6aab34c1018b333d))
+
 ## [5.0.3](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.0.2...@microfleet/plugin-kafka@5.0.3) (2024-01-05)
 
 
