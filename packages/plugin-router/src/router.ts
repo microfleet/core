@@ -1,9 +1,9 @@
-import { strict as assert } from 'assert'
-import { resolve } from 'path'
+import assert from 'node:assert/strict'
 import { Tags } from 'opentracing'
 import hyperid from 'hyperid'
 import { Tracer } from 'opentracing'
 import { Logger } from '@microfleet/plugin-logger'
+import { glob } from 'glob'
 
 import RequestCountTracker from './tracker'
 import Routes from './routes'
@@ -166,7 +166,16 @@ export class Router {
 
   public async loadGenericActions(enabled: string[]): Promise<void> {
     const handlers = enabled.map(async (route) => {
-      const handler = await requireServiceActionHandler(resolve(__dirname, `./actions/${route}`))
+      const serviceActions = await glob(`actions/${route}.{js,cjs,mjs,ts,cts,mts}`, {
+        cwd: __dirname,
+        absolute: true,
+        ignore: ['*.d.ts', '**/*.d.ts', '*.d.mts', '**/*.d.mts', '*.d.cts', '**/*.d.cts']
+      })
+
+      assert(serviceActions.length > 0, `did not find ${route} action`)
+      const [serviceAction] = serviceActions
+
+      const handler = await requireServiceActionHandler(serviceAction)
       this.addRoute(`generic.${route}`, handler)
     })
 
