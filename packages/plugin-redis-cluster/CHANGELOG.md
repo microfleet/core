@@ -1,5 +1,19 @@
 
 
+## [3.0.3](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.2...@microfleet/plugin-redis-cluster@3.0.3) (2024-01-05)
+
+
+### Bug Fixes
+
+* ensure full paths are resolved for generic actions in ESM mode ([a02d85f](https://github.com/microfleet/core/commit/a02d85fe88b1874d8a02c35f8c2fa76ba400cee5))
+
+## [3.0.3](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.2...@microfleet/plugin-redis-cluster@3.0.3) (2024-01-05)
+
+
+### Bug Fixes
+
+* ensure full paths are resolved for generic actions in ESM mode ([a02d85f](https://github.com/microfleet/core/commit/a02d85fe88b1874d8a02c35f8c2fa76ba400cee5))
+
 ## [3.0.2](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.1...@microfleet/plugin-redis-cluster@3.0.2) (2024-01-04)
 
 

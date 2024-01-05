@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-router",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "",
   "type": "commonjs",
   "main": "./lib/index.js",
