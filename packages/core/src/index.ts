@@ -496,16 +496,4 @@ export class Microfleet extends EventEmitter {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Microfleet extends ns.Microfleet {}
-
-// if there is no parent module we assume it's called as a binary
-if (!module.parent) {
-  const mservice = new Microfleet({ name: 'cli' })
-  mservice
-    .connect()
-    .catch((err: Error) => {
-      mservice.log.fatal('Failed to start service', err)
-      setImmediate(() => { throw err })
-    })
-}
