@@ -1352,8 +1352,8 @@ importers:
         specifier: ^10.3.1
         version: 10.3.1
       sonic-boom:
-        specifier: 3.7.0
-        version: 3.7.0
+        specifier: 3.8.0
+        version: 3.8.0
     devDependencies:
       '@makeomatic/deploy':
         specifier: ^13.0.5
@@ -11998,7 +11998,7 @@ packages:
       pump: 3.0.0
       readable-stream: 4.5.2
       secure-json-parse: 2.7.0
-      sonic-boom: 3.7.0
+      sonic-boom: 3.8.0
       strip-json-comments: 3.1.1
     dev: false
 
@@ -13203,6 +13203,12 @@ packages:
     resolution: {integrity: sha512-IudtNvSqA/ObjN97tfgNmOKyDOs4dNcg4cUUsHDebqsgb8wGBBwb31LIgShNO8fye0dFI52X1+tFoKKI6Rq1Gg==}
     dependencies:
       atomic-sleep: 1.0.0
+
+  /sonic-boom@3.8.0:
+    resolution: {integrity: sha512-ybz6OYOUjoQQCQ/i4LU8kaToD8ACtYP+Cj5qd2AO36bwbdewxWJ3ArmJ2cr6AvxlL2o0PqnCcPGUgkILbfkaCA==}
+    dependencies:
+      atomic-sleep: 1.0.0
+    dev: false
 
   /sort-by@1.2.0:
     resolution: {integrity: sha512-aRyW65r3xMnf4nxJRluCg0H/woJpksU1dQxRtXYzau30sNBOmf5HACpDd9MZDhKh7ALQ5FgSOfMPwZEtUmMqcg==}
