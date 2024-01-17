@@ -1,5 +1,19 @@
 
 
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.4...@microfleet/plugin-redis-cluster@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.4...@microfleet/plugin-redis-cluster@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
 ## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.3...@microfleet/plugin-redis-cluster@3.0.4) (2024-01-05)
 
 

@@ -1,5 +1,19 @@
 
 
+## [20.0.5](https://github.com/microfleet/core/compare/@microfleet/core@20.0.4...@microfleet/core@20.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+## [20.0.5](https://github.com/microfleet/core/compare/@microfleet/core@20.0.4...@microfleet/core@20.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
 ## [20.0.4](https://github.com/microfleet/core/compare/@microfleet/core@20.0.3...@microfleet/core@20.0.4) (2024-01-05)
 
 

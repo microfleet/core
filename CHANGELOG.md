@@ -1,3 +1,255 @@
+# @microfleet/utils 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/utils@3.0.4...@microfleet/utils@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-validator 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.0.4...@microfleet/plugin-validator@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-socketio 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@3.0.4...@microfleet/plugin-socketio@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-signed-request 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@3.0.4...@microfleet/plugin-signed-request@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-router 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router@3.0.4...@microfleet/plugin-router@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-router-socketio 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@3.0.4...@microfleet/plugin-router-socketio@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-router-hapi 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.0.4...@microfleet/plugin-router-hapi@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-router-amqp 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@3.0.4...@microfleet/plugin-router-amqp@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-redis-sentinel 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.0.4...@microfleet/plugin-redis-sentinel@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-redis-core 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@3.0.4...@microfleet/plugin-redis-core@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-redis-cluster 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.4...@microfleet/plugin-redis-cluster@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-prometheus 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@3.0.4...@microfleet/plugin-prometheus@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-opentracing 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@3.0.4...@microfleet/plugin-opentracing@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-logger 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.0.4...@microfleet/plugin-logger@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-knex 5.0.5
+
+## [5.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@5.0.4...@microfleet/plugin-knex@5.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-kafka 5.0.5
+
+## [5.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.0.4...@microfleet/plugin-kafka@5.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-kafka-types 4.0.5
+
+## [4.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@4.0.4...@microfleet/plugin-kafka-types@4.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-hapi 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@3.0.4...@microfleet/plugin-hapi@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-elasticsearch 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@3.0.4...@microfleet/plugin-elasticsearch@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-dlock 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.0.4...@microfleet/plugin-dlock@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-couchdb 5.0.5
+
+## [5.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@5.0.4...@microfleet/plugin-couchdb@5.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-consul 5.0.5
+
+## [5.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@5.0.4...@microfleet/plugin-consul@5.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-cassandra 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@3.0.4...@microfleet/plugin-cassandra@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-casl 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@3.0.4...@microfleet/plugin-casl@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-aws-elasticsearch 4.0.5
+
+## [4.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@4.0.4...@microfleet/plugin-aws-elasticsearch@4.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/plugin-amqp 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@3.0.4...@microfleet/plugin-amqp@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/core 20.0.5
+
+## [20.0.5](https://github.com/microfleet/core/compare/@microfleet/core@20.0.4...@microfleet/core@20.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
+# @microfleet/core-types 3.0.5
+
+## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/core-types@3.0.4...@microfleet/core-types@3.0.5) (2024-01-17)
+
+
+### Bug Fixes
+
+* don't use logger in the mfleet ([61fdffc](https://github.com/microfleet/core/commit/61fdffc15f91941d13340035f58a75119bc80670))
+
 # @microfleet/utils 3.0.4
 
 ## [3.0.4](https://github.com/microfleet/core/compare/@microfleet/utils@3.0.3...@microfleet/utils@3.0.4) (2024-01-05)
