@@ -36,7 +36,7 @@ describe('Logger Sentry Stream Suite', () => {
       instrumenter: 'sentry',
       autoSessionTracking: false,
       transport: sentryTransport,
-      integrations: [match.instanceOf(Sentry.Integrations.Console)] as any,
+      integrations: [match({ name: 'Console', setupOnce: match.func })] as any,
     }))
 
     assert.equal(testkit.reports().length, 0)

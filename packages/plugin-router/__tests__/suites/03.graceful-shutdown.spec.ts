@@ -4,11 +4,11 @@ import { strict as assert } from 'assert'
 import split2 from 'split2'
 import { once } from 'events'
 import getFreePort from 'get-port'
-// @ts-expect-error hybrid module
 import { io } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
 import Bluebird from 'bluebird'
-import execa from 'execa'
+// @ts-expect-error just a type
+import { type ExecaChildProcess } from 'execa'
 
 import {
   getHTTPRequest,
@@ -26,7 +26,7 @@ class ChildServiceRunner {
   protected stdout: string[]
   protected stderr: string[]
   protected processClosed?: Promise<any[]>
-  protected process?: execa.ExecaChildProcess
+  protected process?: ExecaChildProcess
   protected port?: number
   public exchange = ''
   public receivedCloseSignal = false
@@ -44,6 +44,7 @@ class ChildServiceRunner {
 
     debug('node %s', args.join(' '))
 
+    const { execa } = await import('execa')
     const proc = execa('node', args, {
       buffer: false,
       stderr: 'inherit'
