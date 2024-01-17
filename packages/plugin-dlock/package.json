@@ -42,7 +42,7 @@
     "@microfleet/core": "workspace:^"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^13.0.5",
+    "@makeomatic/deploy": "^13.0.7",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-logger": "workspace:^",
     "@microfleet/plugin-redis-cluster": "workspace:^",
@@ -53,9 +53,9 @@
     "@types/common-errors": "^1.0.5",
     "@types/ioredis": "^4.28.10",
     "@types/jest": "29.5.11",
-    "@types/node": "^20.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
     "eslint-config-makeomatic": "^6.0.0",

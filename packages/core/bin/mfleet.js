@@ -43,12 +43,7 @@ async function loadAny(loaders) {
     ? await Service()
     : new Service()
 
-  try {
-    await service.connect()
-  } catch (err) {
-    service.log.fatal({ err }, 'service crashed')
-    throw err
-  }
+  await service.connect()
 
   service.log.info('service started')
 })().catch((err) => {

@@ -39,7 +39,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^13.0.5",
+    "@makeomatic/deploy": "^13.0.7",
     "@microfleet/core": "workspace:^",
     "@microfleet/core-types": "workspace:^",
     "@microfleet/utils": "workspace:^",
@@ -48,9 +48,9 @@
     "@types/common-errors": "^1.0.5",
     "@types/jest": "29.5.11",
     "@types/lodash": "^4.14.202",
-    "@types/node": "^20.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
+    "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
     "eslint-config-makeomatic": "^6.0.0",

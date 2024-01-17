@@ -38,13 +38,13 @@
     "common-errors": "~1.x.x"
   },
   "dependencies": {
-    "@microfleet/amqp-coffee": "^2.8.0",
-    "@microfleet/transport-amqp": "^17.8.0",
+    "@microfleet/amqp-coffee": "^2.8.1",
+    "@microfleet/transport-amqp": "^17.8.1",
     "bluebird": "^3.7.2",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^13.0.5",
+    "@makeomatic/deploy": "^13.0.7",
     "@microfleet/core": "workspace:^",
     "@microfleet/core-types": "workspace:^",
     "@microfleet/plugin-amqp": "workspace:^",
@@ -55,10 +55,10 @@
     "@types/common-errors": "^1.0.5",
     "@types/jest": "29.5.11",
     "@types/lodash": "^4.14.202",
-    "@types/node": "^20.10.6",
-    "@types/sinon": "^17.0.2",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
+    "@types/node": "^20.11.5",
+    "@types/sinon": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
     "common-errors": "^1.2.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.56.0",

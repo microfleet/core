@@ -37,17 +37,17 @@
     "semver": "^7.5.4"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^13.0.5",
+    "@makeomatic/deploy": "^13.0.7",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
     "@release-it/conventional-changelog": "^4.3.0",
     "@types/common-errors": "^1.0.5",
     "@types/jest": "29.5.11",
-    "@types/node": "^20.10.6",
+    "@types/node": "^20.11.5",
     "@types/semver": "^7.5.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
     "common-errors": "^1.2.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
@@ -60,7 +60,7 @@
     "sinon": "^17.0.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "~5.3.3",
-    "undici": "^6.2.1"
+    "undici": "^6.3.0"
   },
   "engines": {
     "node": ">= 12.15.0",
