@@ -5,6 +5,7 @@ import { pino } from 'pino'
 import sentryTestkit from 'sentry-testkit'
 import { strict as assert } from 'assert'
 import { setTimeout } from 'timers/promises'
+import { SENTRY_FINGERPRINT_DEFAULT } from '../../constants'
 
 describe('Logger Sentry Stream Suite', () => {
   const sandbox = createSandbox()
@@ -63,7 +64,13 @@ describe('Logger Sentry Stream Suite', () => {
 
     const logger = pino({ level: 'debug' }, pinoms)
 
-    logger.warn({ userId: 123, tags: { testTag: 'test' }, extras: { someData: 'test' }, user: { id: 1234 } }, 'Warning message')
+    logger.warn({
+      userId: 123,
+      tags: { testTag: 'test' },
+      extras: { someData: 'test' },
+      user: { id: 1234 },
+      fingerprint: [SENTRY_FINGERPRINT_DEFAULT, 'test'],
+    }, 'Warning message')
     logger.flush()
 
     await Sentry.flush()
@@ -80,6 +87,7 @@ describe('Logger Sentry Stream Suite', () => {
       _user: { id: 1234 },
       _tags: { testTag: 'test' },
       _extra: { someData: 'test' },
+      _fingerprint: ['{{ default }}', 'test'],
       _contexts: {},
       _sdkProcessingMetadata: {},
       _level: 'warning'
