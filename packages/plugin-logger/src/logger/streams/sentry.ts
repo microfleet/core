@@ -67,12 +67,15 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
 
   return build(async function (source) {
     for await (const obj of source) {
-      const { level, tags, extras, user } = obj
+      const { level, tags, extras, user, fingerprint } = obj
       const scope = new Sentry.Scope()
       scope.setLevel(pinoLevelToSentryLevel(level))
       scope.setExtras(extras)
       scope.setUser(user)
       scope.setTags(tags)
+      if (fingerprint) {
+        scope.setFingerprint(fingerprint);
+      }
 
       // extend scope with enumerable error properties if they exist, omit manually processed ones
       if (obj.err) {
