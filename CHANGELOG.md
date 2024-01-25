@@ -1,3 +1,255 @@
+# @microfleet/utils 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/utils@3.0.5...@microfleet/utils@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-validator 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.0.5...@microfleet/plugin-validator@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-socketio 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@3.0.5...@microfleet/plugin-socketio@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-signed-request 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@3.0.5...@microfleet/plugin-signed-request@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-router 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@3.0.5...@microfleet/plugin-router@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-router-socketio 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@3.0.5...@microfleet/plugin-router-socketio@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-router-hapi 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.0.5...@microfleet/plugin-router-hapi@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-router-amqp 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@3.0.5...@microfleet/plugin-router-amqp@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-redis-sentinel 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.0.5...@microfleet/plugin-redis-sentinel@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-redis-core 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@3.0.5...@microfleet/plugin-redis-core@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-redis-cluster 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.0.5...@microfleet/plugin-redis-cluster@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-prometheus 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@3.0.5...@microfleet/plugin-prometheus@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-opentracing 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@3.0.5...@microfleet/plugin-opentracing@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-logger 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.0.5...@microfleet/plugin-logger@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-knex 5.1.0
+
+# [5.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@5.0.5...@microfleet/plugin-knex@5.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-kafka 5.1.0
+
+# [5.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.0.5...@microfleet/plugin-kafka@5.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-kafka-types 4.1.0
+
+# [4.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@4.0.5...@microfleet/plugin-kafka-types@4.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-hapi 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@3.0.5...@microfleet/plugin-hapi@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-elasticsearch 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@3.0.5...@microfleet/plugin-elasticsearch@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-dlock 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.0.5...@microfleet/plugin-dlock@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-couchdb 5.1.0
+
+# [5.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@5.0.5...@microfleet/plugin-couchdb@5.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-consul 5.1.0
+
+# [5.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@5.0.5...@microfleet/plugin-consul@5.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-cassandra 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@3.0.5...@microfleet/plugin-cassandra@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-casl 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@3.0.5...@microfleet/plugin-casl@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-aws-elasticsearch 4.1.0
+
+# [4.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@4.0.5...@microfleet/plugin-aws-elasticsearch@4.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/plugin-amqp 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@3.0.5...@microfleet/plugin-amqp@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/core 20.1.0
+
+# [20.1.0](https://github.com/microfleet/core/compare/@microfleet/core@20.0.5...@microfleet/core@20.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# @microfleet/core-types 3.1.0
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/core-types@3.0.5...@microfleet/core-types@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
 # @microfleet/utils 3.0.5
 
 ## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/utils@3.0.4...@microfleet/utils@3.0.5) (2024-01-17)

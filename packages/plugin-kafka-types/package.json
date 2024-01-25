@@ -1,7 +1,7 @@
 {
   "name": "@microfleet/plugin-kafka-types",
   "description": "Types for Apache Kafka adapter for microfleet",
-  "version": "4.0.5",
+  "version": "4.1.0",
   "main": "./index.d.ts",
   "types": "./index.d.ts",
   "scripts": {

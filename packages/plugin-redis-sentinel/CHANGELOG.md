@@ -1,5 +1,19 @@
 
 
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.0.5...@microfleet/plugin-redis-sentinel@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
+# [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.0.5...@microfleet/plugin-redis-sentinel@3.1.0) (2024-01-25)
+
+
+### Features
+
+* **plugin-logger:** sentry fingerprinting ([#697](https://github.com/microfleet/core/issues/697)) ([849c599](https://github.com/microfleet/core/commit/849c599730f0561f9bdd01dbec3f16deeb08eb51))
+
 ## [3.0.5](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.0.4...@microfleet/plugin-redis-sentinel@3.0.5) (2024-01-17)
 
 
