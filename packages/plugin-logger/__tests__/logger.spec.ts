@@ -139,7 +139,7 @@ describe('Logger suite', () => {
       service.log.error({ err: new Error('could not find associated data') }, 'must be filtered')
       service.log.error({ err: new HttpStatusError(200, '412: upload was already processed') }, 'must be filtered 2')
 
-      await setTimeout(50)
+      await setTimeout(100)
       await service.logClose?.()
 
       const data = await handle.readFile({ encoding: 'utf8' })
