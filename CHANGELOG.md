@@ -1,3 +1,255 @@
+# @microfleet/utils 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.0...@microfleet/utils@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-validator 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.1.0...@microfleet/plugin-validator@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-socketio 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@3.1.0...@microfleet/plugin-socketio@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-signed-request 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@3.1.0...@microfleet/plugin-signed-request@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-router 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@3.1.0...@microfleet/plugin-router@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-router-socketio 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@3.1.0...@microfleet/plugin-router-socketio@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-router-hapi 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.1.0...@microfleet/plugin-router-hapi@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-router-amqp 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@3.1.0...@microfleet/plugin-router-amqp@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-redis-sentinel 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.1.0...@microfleet/plugin-redis-sentinel@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-redis-core 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@3.1.0...@microfleet/plugin-redis-core@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-redis-cluster 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.1.0...@microfleet/plugin-redis-cluster@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-prometheus 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@3.1.0...@microfleet/plugin-prometheus@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-opentracing 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@3.1.0...@microfleet/plugin-opentracing@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-logger 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.1.0...@microfleet/plugin-logger@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-knex 5.1.1
+
+## [5.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@5.1.0...@microfleet/plugin-knex@5.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-kafka 5.1.1
+
+## [5.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.1.0...@microfleet/plugin-kafka@5.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-kafka-types 4.1.1
+
+## [4.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@4.1.0...@microfleet/plugin-kafka-types@4.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-hapi 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@3.1.0...@microfleet/plugin-hapi@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-elasticsearch 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@3.1.0...@microfleet/plugin-elasticsearch@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-dlock 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.1.0...@microfleet/plugin-dlock@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-couchdb 5.1.1
+
+## [5.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@5.1.0...@microfleet/plugin-couchdb@5.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-consul 5.1.1
+
+## [5.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@5.1.0...@microfleet/plugin-consul@5.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-cassandra 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@3.1.0...@microfleet/plugin-cassandra@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-casl 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@3.1.0...@microfleet/plugin-casl@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-aws-elasticsearch 4.1.1
+
+## [4.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@4.1.0...@microfleet/plugin-aws-elasticsearch@4.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/plugin-amqp 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@3.1.0...@microfleet/plugin-amqp@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/core 20.1.1
+
+## [20.1.1](https://github.com/microfleet/core/compare/@microfleet/core@20.1.0...@microfleet/core@20.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+# @microfleet/core-types 3.1.1
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/core-types@3.1.0...@microfleet/core-types@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
 # @microfleet/utils 3.1.0
 
 # [3.1.0](https://github.com/microfleet/core/compare/@microfleet/utils@3.0.5...@microfleet/utils@3.1.0) (2024-01-25)

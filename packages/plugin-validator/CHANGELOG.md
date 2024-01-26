@@ -1,5 +1,19 @@
 
 
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.1.0...@microfleet/plugin-validator@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
+## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.1.0...@microfleet/plugin-validator@3.1.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* **plugin-logger:** pass error enumerable fields as event extras ([#698](https://github.com/microfleet/core/issues/698)) ([d755df3](https://github.com/microfleet/core/commit/d755df31c1937440ffb4e832d792a30bd1e93212))
+
 # [3.1.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.0.5...@microfleet/plugin-validator@3.1.0) (2024-01-25)
 
 
