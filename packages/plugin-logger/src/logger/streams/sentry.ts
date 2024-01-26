@@ -79,7 +79,7 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
 
       // extend scope with enumerable error properties if they exist, omit manually processed ones
       if (obj.err) {
-        for (const [key, prop] of Object.entries(obj)) {
+        for (const [key, prop] of Object.entries(obj.err)) {
           if (!kOmitKeys.includes(key)) {
             scope.setExtra(key, prop)
           }
