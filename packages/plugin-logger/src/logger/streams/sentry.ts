@@ -10,7 +10,7 @@ export type SentryTransportConfig = {
   sentry: Sentry.NodeOptions
 }
 
-class ExtendedError extends Error {
+export class ExtendedError extends Error {
   constructor(message: string, public stack: string | undefined, public code: string | undefined, public signal: string | undefined) {
     super(message)
     this.name = "Error"

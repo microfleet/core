@@ -1,6 +1,6 @@
 import Sentry = require('@sentry/node')
 import { createSandbox, match } from 'sinon'
-import { sentryTransport as sentryStreamFactory } from './sentry'
+import { sentryTransport as sentryStreamFactory, ExtendedError } from './sentry'
 import { pino } from 'pino'
 import sentryTestkit from 'sentry-testkit'
 import { strict as assert } from 'assert'
@@ -95,7 +95,7 @@ describe('Logger Sentry Stream Suite', () => {
     })))
   })
 
-  it('sentryStreamFactory() result should be able to handle pinoms message', async () => {
+  it('sentryStreamFactory() result should be able to handle pinoms error message', async () => {
     const { testkit, sentryTransport } = sentryTestkit()
     const stream = await sentryStreamFactory({
       sentry: {
@@ -127,18 +127,29 @@ describe('Logger Sentry Stream Suite', () => {
 
     await setTimeout(1000)
     assert.equal(testkit.reports().length, 1)
-    assert(captureEventSpy.captureMessage.calledOnceWith('Error message', match({
-      _notifyingListeners: false,
-      _scopeListeners: [],
-      _eventProcessors: [],
-      _breadcrumbs: [],
-      _attachments: [],
-      _contexts: {},
-      _extra: {
-        statusСode: 400,
-      },
-      _sdkProcessingMetadata: {},
-      _level: 'error'
-    })))
+    assert(captureEventSpy.captureException.calledOnceWith(
+      match
+        .instanceOf(ExtendedError)
+        .and(match.has('stack')),
+      match({
+        _notifyingListeners: false,
+        _scopeListeners: [],
+        _eventProcessors: [],
+        _breadcrumbs: [],
+        _attachments: [],
+        _user: {},
+        _tags: {},
+        _extra: {
+          type: 'HttpStatusError',
+          status: 400,
+          statusCode: 400,
+          status_code: 400,
+          name: 'HttpStatusError'
+        },
+        _contexts: {},
+        _sdkProcessingMetadata: {},
+        _level: 'error'
+      }))
+    )
   })
 })
