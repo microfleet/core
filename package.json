@@ -14,7 +14,7 @@
     "release-it": "release-it -c .release-it.root.cjs"
   },
   "devDependencies": {
-    "@esbuild/linux-arm64": "^0.19.11",
+    "@esbuild/linux-arm64": "^0.20.0",
     "@makeomatic/deploy": "^13.0.7",
     "@release-it/conventional-changelog": "^4.3.0",
     "conventional-changelog-angular": "^7.0.0",
