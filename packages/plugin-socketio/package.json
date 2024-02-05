@@ -44,7 +44,7 @@
     "@microfleet/core": "workspace:^",
     "@release-it/conventional-changelog": "^4.3.0",
     "@types/common-errors": "^1.0.5",
-    "@types/jest": "29.5.11",
+    "@types/jest": "29.5.12",
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
