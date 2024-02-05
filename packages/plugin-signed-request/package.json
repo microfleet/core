@@ -48,7 +48,7 @@
     "@microfleet/plugin-validator": "workspace:^",
     "@release-it/conventional-changelog": "^4.3.0",
     "@types/common-errors": "^1.0.5",
-    "@types/jest": "29.5.11",
+    "@types/jest": "29.5.12",
     "@types/node": "^20.11.5",
     "@types/restify": "^8.5.12",
     "@types/semver": "^7.5.6",
