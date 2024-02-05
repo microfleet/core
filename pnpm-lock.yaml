@@ -97,8 +97,8 @@ importers:
         specifier: ^4.1.12
         version: 4.1.12
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -252,8 +252,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -355,8 +355,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -440,8 +440,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -537,8 +537,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -628,8 +628,8 @@ importers:
         specifier: ^0.40.3
         version: 0.40.3
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -725,8 +725,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -831,8 +831,8 @@ importers:
         specifier: ^4.28.10
         version: 4.28.10
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -916,8 +916,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1007,8 +1007,8 @@ importers:
         specifier: ^5.5.7
         version: 5.5.7
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1110,8 +1110,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
@@ -1274,8 +1274,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1483,8 +1483,8 @@ importers:
         specifier: ^3.18.7
         version: 3.18.7
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1565,8 +1565,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1671,8 +1671,8 @@ importers:
         specifier: ^4.28.10
         version: 4.28.10
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1756,8 +1756,8 @@ importers:
         specifier: ^4.28.10
         version: 4.28.10
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1850,8 +1850,8 @@ importers:
         specifier: ^4.28.10
         version: 4.28.10
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -1965,8 +1965,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
@@ -2101,8 +2101,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
@@ -2210,8 +2210,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
@@ -2304,8 +2304,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0(release-it@14.14.3)
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
@@ -2395,8 +2395,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -2507,8 +2507,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -2592,8 +2592,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       '@types/jest':
-        specifier: 29.5.11
-        version: 29.5.11
+        specifier: 29.5.12
+        version: 29.5.12
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
@@ -4976,8 +4976,8 @@ packages:
       prom-client: 14.2.0
     dev: true
 
-  /@types/jest@29.5.11:
-    resolution: {integrity: sha512-S2mHmYIVe13vrm6q4kN6fLYYAka15ALQki/vgDC3mIukEOx8WJlv0kQPM+d4w8Gp6u0uSdKND04IlTXBv0rwnQ==}
+  /@types/jest@29.5.12:
+    resolution: {integrity: sha512-eDC8bTvT/QhYdxJAulQikueigY5AsdBRH2yDKW3yveW7svY3+DzN84/2NUgkw10RTiJbWqZrTtoGVdYlvFJdLw==}
     dependencies:
       expect: 29.7.0
       pretty-format: 29.7.0
