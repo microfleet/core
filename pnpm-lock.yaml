@@ -2371,8 +2371,8 @@ importers:
         version: 1.4.0
     devDependencies:
       '@hapi/hapi':
-        specifier: 21.3.2
-        version: 21.3.2
+        specifier: 21.3.3
+        version: 21.3.3
       '@makeomatic/deploy':
         specifier: ^13.0.7
         version: 13.0.7(typescript@5.3.3)
@@ -3627,6 +3627,30 @@ packages:
       '@hapi/teamwork': 6.0.0
       '@hapi/topo': 6.0.2
       '@hapi/validate': 2.0.1
+
+  /@hapi/hapi@21.3.3:
+    resolution: {integrity: sha512-6pgwWVl/aSKSNVn86n+mWa06jRqCAKi2adZp/Hti19A0u5x3/6eiKz8UTBPMzfrdGf9WcrYbFBYzWr/qd2s28g==}
+    engines: {node: '>=14.15.0'}
+    dependencies:
+      '@hapi/accept': 6.0.3
+      '@hapi/ammo': 6.0.1
+      '@hapi/boom': 10.0.1
+      '@hapi/bounce': 3.0.1
+      '@hapi/call': 9.0.1
+      '@hapi/catbox': 12.1.1
+      '@hapi/catbox-memory': 6.0.1
+      '@hapi/heavy': 8.0.1
+      '@hapi/hoek': 11.0.4
+      '@hapi/mimos': 7.0.1
+      '@hapi/podium': 5.0.1
+      '@hapi/shot': 6.0.1
+      '@hapi/somever': 4.1.1
+      '@hapi/statehood': 8.1.1
+      '@hapi/subtext': 8.1.0
+      '@hapi/teamwork': 6.0.0
+      '@hapi/topo': 6.0.2
+      '@hapi/validate': 2.0.1
+    dev: true
 
   /@hapi/heavy@8.0.1:
     resolution: {integrity: sha512-gBD/NANosNCOp6RsYTsjo2vhr5eYA3BEuogk6cxY0QdhllkkTaJFYtTXv46xd6qhBVMbMMqcSdtqey+UQU3//w==}
