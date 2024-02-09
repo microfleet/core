@@ -32,7 +32,7 @@ import fs from 'node:fs/promises'
 import { strict as assert } from 'node:assert'
 
 import _debug from 'debug'
-import { glob } from 'glob'
+import { glob, Path } from 'glob'
 import Redis from 'ioredis'
 import path from 'path'
 import sortBy from 'sort-by'
@@ -81,6 +81,33 @@ const appendLuaScript = (finalVersion: number, min = 0, script: string) => [
   appendPostScript(finalVersion),
 ].join('\n')
 
+const getMigrationFile = async (script: Path) => {
+  let file = script.fullpath()
+
+  if (script.isDirectory()) {
+    const files = await script.readdir()
+    const availableExtensions = []
+
+    for (const item of files) {
+      const parsed = path.parse(item.fullpath())
+      if (parsed.name === 'index') {
+        availableExtensions.push(parsed.ext)
+      }
+    }
+
+    for (const extension of ['js', 'ts', 'cjs', 'mjs']) {
+      if (availableExtensions.includes(extension)) {
+        file = `${file}/index.${extension}`
+        break
+      }
+    }
+  }
+
+  const mod = await import(file)
+
+  return mod.default || mod
+}
+
 export interface Migration {
   final: number;
   min: number;
@@ -115,11 +142,8 @@ export async function performMigration(redis: Redis.Redis | Redis.Cluster, servi
   let files: Migration[]
   if (typeof scripts === 'string') {
     debug('looking for files in %s', scripts)
-    files = await glob('*{.js,/}', { cwd: scripts })
-      .then((migrationScripts: string[]) => Promise.all(migrationScripts.map(async (script: string) => {
-        const mod = await import(path.resolve(scripts, script))
-        return mod.default || mod
-      })))
+    files = await glob('*{.js,/}', { cwd: scripts, withFileTypes: true })
+      .then((migrationScripts: Path[]) => Promise.all(migrationScripts.map(getMigrationFile)))
   } else if (Array.isArray(scripts)) {
     files = scripts
   } else {
