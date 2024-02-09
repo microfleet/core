@@ -98,6 +98,7 @@ const getMigrationFile = async (script: Path) => {
     for (const extension of ['js', 'ts', 'cjs', 'mjs']) {
       if (availableExtensions.includes(extension)) {
         file = `${file}/index.${extension}`
+        break
       }
     }
   }
