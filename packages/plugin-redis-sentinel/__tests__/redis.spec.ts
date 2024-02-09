@@ -49,7 +49,10 @@ describe('Redis suite', function testSuite() {
       .migrate('redis', '/src/packages/plugin-redis-sentinel/__tests__/migrations')
 
     const version = await service.redis.get('version')
-    assert.strictEqual(version, '10')
+    assert.strictEqual(version, '11')
+
+    const migration_01 = await service.redis.get('migration_01')
+    assert.strictEqual(migration_01, 'done')
   })
 
   it('able to close connection to redis', async () => {
