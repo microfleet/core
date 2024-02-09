@@ -41,7 +41,6 @@
     "@release-it/conventional-changelog": "^4.3.0",
     "@types/common-errors": "^1.0.5",
     "@types/debug": "^4.1.12",
-    "@types/glob": "^8.1.0",
     "@types/ioredis": "^4.28.10",
     "@types/jest": "29.5.11",
     "@types/node": "^20.11.5",
