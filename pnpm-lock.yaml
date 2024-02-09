@@ -1749,9 +1749,6 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
-      '@types/glob':
-        specifier: ^8.1.0
-        version: 8.1.0
       '@types/ioredis':
         specifier: ^4.28.10
         version: 4.28.10
