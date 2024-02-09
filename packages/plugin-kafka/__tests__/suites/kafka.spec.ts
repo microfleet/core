@@ -1621,7 +1621,7 @@ describe('#connect-toxified', () => {
   it('producer connection timeout', async () => {
     const { kafka } = service
     const createPromise = kafka.createProducerStream({
-      streamOptions: { objectMode: false, topic: 'testBoo', connectOptions: { timeout: 200 } },
+      streamOptions: { objectMode: false, topic: 'testBoo', connectOptions: { timeout: 100 } },
       conf: { 'client.id': 'consume-group-offline' },
     })
     await expect(createPromise).rejects.toThrowError(/Broker transport failure/)
@@ -1632,7 +1632,7 @@ describe('#connect-toxified', () => {
     const createPromise = kafka.createConsumerStream({
       streamOptions: {
         topics: ['test'],
-        connectOptions: { timeout: 200 },
+        connectOptions: { timeout: 100 },
       },
       conf: { 'client.id': 'consume-group-offline' },
     })
