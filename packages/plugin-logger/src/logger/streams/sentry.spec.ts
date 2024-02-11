@@ -1,23 +1,33 @@
 import Sentry = require('@sentry/node')
-import { createSandbox, match } from 'sinon'
-import { sentryTransport as sentryStreamFactory, ExtendedError } from './sentry'
+import { createSandbox, match, assert as sinonAssert } from 'sinon'
 import { pino } from 'pino'
 import sentryTestkit from 'sentry-testkit'
-import { strict as assert } from 'assert'
+import assert from 'node:assert/strict'
 import { HttpStatusError } from 'common-errors'
 import { setTimeout } from 'timers/promises'
 import { SENTRY_FINGERPRINT_DEFAULT } from '../../constants'
 
 describe('Logger Sentry Stream Suite', () => {
   const sandbox = createSandbox()
+  let sentryInitSpy: sinon.SinonSpy
+  let sentryStreamFactory: any
+  let ExtendedError: any
+
+  beforeEach(async () => {
+    sentryInitSpy = sandbox.spy(Sentry, 'init')
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { sentryTransport, ExtendedError: er } = require('./sentry')
+    sentryStreamFactory = sentryTransport
+    ExtendedError = er
+  })
 
   afterEach(async () => {
+    sentryInitSpy.restore()
     sandbox.restore()
     await Sentry.close()
   })
 
   it('sentryStreamFactory() should be able to init sentry stream', async () => {
-    const sentryInitSpy = sandbox.spy(Sentry)
     const { testkit, sentryTransport } = sentryTestkit()
 
     const stream = await sentryStreamFactory({
@@ -31,15 +41,16 @@ describe('Logger Sentry Stream Suite', () => {
 
     assert(stream)
     assert(typeof stream.write === 'function')
-    assert(sentryInitSpy.init.calledWithExactly({
+
+    sinonAssert.calledWithExactly(sentryInitSpy, {
       dsn: 'https://api@sentry.io/1822',
-      defaultIntegrations: [],
+      defaultIntegrations: false,
       release: 'test',
       instrumenter: 'sentry',
       autoSessionTracking: false,
       transport: sentryTransport,
       integrations: [match({ name: 'Console', setupOnce: match.func })] as any,
-    }))
+    })
 
     assert.equal(testkit.reports().length, 0)
   })
@@ -56,7 +67,7 @@ describe('Logger Sentry Stream Suite', () => {
     })
 
     const streamWriteSpy = sandbox.spy(stream, 'write')
-    const captureEventSpy = sandbox.spy(Sentry)
+    const captureMessageEventSpy = sandbox.spy(Sentry, 'captureMessage')
 
     const pinoms = pino.multistream([
       { stream, level: 'info' },
@@ -79,7 +90,7 @@ describe('Logger Sentry Stream Suite', () => {
 
     await setTimeout(1000)
     assert.equal(testkit.reports().length, 1)
-    assert(captureEventSpy.captureMessage.calledOnceWith('Warning message', match({
+    sinonAssert.calledOnceWithMatch(captureMessageEventSpy, 'Warning message', match({
       _notifyingListeners: false,
       _scopeListeners: [],
       _eventProcessors: [],
@@ -92,7 +103,7 @@ describe('Logger Sentry Stream Suite', () => {
       _contexts: {},
       _sdkProcessingMetadata: {},
       _level: 'warning'
-    })))
+    }))
   })
 
   it('sentryStreamFactory() result should be able to handle pinoms error message', async () => {
@@ -107,7 +118,7 @@ describe('Logger Sentry Stream Suite', () => {
     })
 
     const streamWriteSpy = sandbox.spy(stream, 'write')
-    const captureEventSpy = sandbox.spy(Sentry)
+    const captureExceptionEventSpy = sandbox.spy(Sentry, 'captureException')
 
     const pinoms = pino.multistream([
       { stream, level: 'info' },
@@ -127,10 +138,9 @@ describe('Logger Sentry Stream Suite', () => {
 
     await setTimeout(1000)
     assert.equal(testkit.reports().length, 1)
-    assert(captureEventSpy.captureException.calledOnceWith(
-      match
-        .instanceOf(ExtendedError)
-        .and(match.has('stack')),
+    sinonAssert.calledOnceWithMatch(
+      captureExceptionEventSpy,
+      match.instanceOf(ExtendedError).and(match.has('stack')),
       match({
         _notifyingListeners: false,
         _scopeListeners: [],
@@ -149,7 +159,7 @@ describe('Logger Sentry Stream Suite', () => {
         _contexts: {},
         _sdkProcessingMetadata: {},
         _level: 'error'
-      }))
+      })
     )
   })
 })
