@@ -36,7 +36,7 @@ services:
       KAFKA_HEAP_OPTS: "-Xmx512m -Xms512m"
 
   toxy:
-    image: shopify/toxiproxy
+    image: ghcr.io/shopify/toxiproxy
     expose:
       - "9092"
       - "29092"
