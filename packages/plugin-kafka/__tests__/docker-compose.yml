@@ -51,8 +51,9 @@ services:
       - '-config=/config/toxy.json'
 
   tester:
-    links:
-      - toxy:kafka
+    depends_on:
+      - toxy
+      - kafka
     environment:
       DEBUG: ${DEBUG}
       UV_THREADPOOL_SIZE: 16 # assume 4+n consumers active and give some more place
