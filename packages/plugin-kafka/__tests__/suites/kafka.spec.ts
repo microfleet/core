@@ -1590,7 +1590,7 @@ describe('#connect-toxified', () => {
       name: 'tester',
       plugins: ['logger', 'validator', 'kafka'],
       kafka: {
-        'metadata.broker.list': 'kafka:49092',
+        'metadata.broker.list': 'toxy:49092',
         'group.id': 'test-group',
         'fetch.wait.max.ms': 50,
         debug: 'consumer',
@@ -1624,7 +1624,7 @@ describe('#connect-toxified', () => {
       streamOptions: { objectMode: false, topic: 'testBoo', connectOptions: { timeout: 200 } },
       conf: { 'client.id': 'consume-group-offline' },
     })
-    await expect(createPromise).rejects.toThrowError(/Broker transport failure/)
+    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
   })
 
   it('consumer connection timeout', async () => {
@@ -1636,6 +1636,6 @@ describe('#connect-toxified', () => {
       },
       conf: { 'client.id': 'consume-group-offline' },
     })
-    await expect(createPromise).rejects.toThrowError(/Broker transport failure/)
+    await expect(createPromise).rejects.toThrow(/Broker transport failure/)
   })
 })

@@ -12,6 +12,9 @@ module.exports = {
   ],
   root: `/src/packages/${dir}/node_modules/.bin`,
   extras: {
+    postgres: {
+      image: 'postgres:15-alpine',
+    },
     tester: {
       working_dir: `/src/packages/${dir}`,
       environment: {
