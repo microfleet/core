@@ -1,3 +1,255 @@
+# @microfleet/utils 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.1...@microfleet/utils@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-validator 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.1.1...@microfleet/plugin-validator@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-socketio 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@3.1.1...@microfleet/plugin-socketio@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-signed-request 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@3.1.1...@microfleet/plugin-signed-request@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-router 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router@3.1.1...@microfleet/plugin-router@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-router-socketio 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@3.1.1...@microfleet/plugin-router-socketio@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-router-hapi 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.1.1...@microfleet/plugin-router-hapi@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-router-amqp 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@3.1.1...@microfleet/plugin-router-amqp@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-redis-sentinel 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.1.1...@microfleet/plugin-redis-sentinel@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-redis-core 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@3.1.1...@microfleet/plugin-redis-core@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-redis-cluster 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.1.1...@microfleet/plugin-redis-cluster@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-prometheus 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@3.1.1...@microfleet/plugin-prometheus@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-opentracing 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-opentracing@3.1.1...@microfleet/plugin-opentracing@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-logger 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.1.1...@microfleet/plugin-logger@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-knex 5.1.2
+
+## [5.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@5.1.1...@microfleet/plugin-knex@5.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-kafka 5.1.2
+
+## [5.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.1.1...@microfleet/plugin-kafka@5.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-kafka-types 4.1.2
+
+## [4.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@4.1.1...@microfleet/plugin-kafka-types@4.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-hapi 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@3.1.1...@microfleet/plugin-hapi@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-elasticsearch 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@3.1.1...@microfleet/plugin-elasticsearch@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-dlock 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.1.1...@microfleet/plugin-dlock@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-couchdb 5.1.2
+
+## [5.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@5.1.1...@microfleet/plugin-couchdb@5.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-consul 5.1.2
+
+## [5.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@5.1.1...@microfleet/plugin-consul@5.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-cassandra 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-cassandra@3.1.1...@microfleet/plugin-cassandra@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-casl 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@3.1.1...@microfleet/plugin-casl@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-aws-elasticsearch 4.1.2
+
+## [4.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@4.1.1...@microfleet/plugin-aws-elasticsearch@4.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/plugin-amqp 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@3.1.1...@microfleet/plugin-amqp@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/core 20.1.2
+
+## [20.1.2](https://github.com/microfleet/core/compare/@microfleet/core@20.1.1...@microfleet/core@20.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+# @microfleet/core-types 3.1.2
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/core-types@3.1.1...@microfleet/core-types@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
 # @microfleet/utils 3.1.1
 
 ## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.0...@microfleet/utils@3.1.1) (2024-01-26)

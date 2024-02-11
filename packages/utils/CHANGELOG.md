@@ -1,5 +1,19 @@
 
 
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.1...@microfleet/utils@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
+## [3.1.2](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.1...@microfleet/utils@3.1.2) (2024-02-11)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** perform index file if migration is a directory ([#705](https://github.com/microfleet/core/issues/705)) ([848bb8e](https://github.com/microfleet/core/commit/848bb8e28b1af1274ca9d2b0e55c6255e6a13a88))
+
 ## [3.1.1](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.0...@microfleet/utils@3.1.1) (2024-01-26)
 
 
