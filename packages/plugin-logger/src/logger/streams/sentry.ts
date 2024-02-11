@@ -1,13 +1,13 @@
 import build from 'pino-abstract-transport'
 import { strict as assert } from 'node:assert'
-import * as Sentry from '@sentry/node'
+import { init, captureException, captureMessage, Scope, Integrations, type SeverityLevel, type NodeOptions } from '@sentry/node'
 import { isAbsolute, resolve } from 'path'
 import merge from 'lodash.merge'
 
 export type SentryTransportConfig = {
   minLevel?: number
   externalConfiguration?: string
-  sentry: Sentry.NodeOptions
+  sentry: NodeOptions
 }
 
 export class ExtendedError extends Error {
@@ -17,7 +17,7 @@ export class ExtendedError extends Error {
   }
 }
 
-export const pinoLevelToSentryLevel = (level: number): Sentry.SeverityLevel => {
+export const pinoLevelToSentryLevel = (level: number): SeverityLevel => {
   if (level == 60) {
     return "fatal"
   }
@@ -52,29 +52,31 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
     merge(sentry, extraConfig)
   }
 
-  Sentry.init({
+  const opts: NodeOptions = {
     autoSessionTracking: false,
     ...sentry,
     defaultIntegrations: false,
     ...process.env.NODE_ENV === 'test' && {
       integrations: [
-        new Sentry.Integrations.Console(),
+        new Integrations.Console(),
       ],
     },
-  })
+  }
+
+  init(opts)
 
   const kOmitKeys = ['message', 'signal', 'code', 'stack']
 
   return build(async function (source) {
     for await (const obj of source) {
       const { level, tags, extras, user, fingerprint } = obj
-      const scope = new Sentry.Scope()
+      const scope = new Scope()
       scope.setLevel(pinoLevelToSentryLevel(level))
       scope.setExtras(extras)
       scope.setUser(user)
       scope.setTags(tags)
       if (fingerprint) {
-        scope.setFingerprint(fingerprint);
+        scope.setFingerprint(fingerprint)
       }
 
       // extend scope with enumerable error properties if they exist, omit manually processed ones
@@ -94,12 +96,12 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
           const signal = obj.err.signal
           const code = obj.err.code
 
-          Sentry.captureException(
+          captureException(
             new ExtendedError(errorMessage, stack, code, signal),
             scope
           )
         } else {
-          Sentry.captureMessage(obj?.msg, scope)
+          captureMessage(obj?.msg, scope)
         }
       }
     }

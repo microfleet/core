@@ -33,7 +33,7 @@ const startupHandlers = (service: Microfleet, knex: Knex): PluginInterface => ({
   async connect() {
     const establishConnection = async () => {
       try {
-        const result = await knex.raw('SELECT TRUE;')
+        const result = await knex.raw('SELECT TRUE as bool;')
         assert.strictEqual(result.rows[0].bool, true)
       } catch (err) {
         service.log.warn({ err }, 'Failed to connect to PGSQL')
