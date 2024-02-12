@@ -1,5 +1,19 @@
 
 
+## [20.1.3](https://github.com/microfleet/core/compare/@microfleet/core@20.1.2...@microfleet/core@20.1.3) (2024-02-12)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** file extension handling ([#706](https://github.com/microfleet/core/issues/706)) ([b3761ae](https://github.com/microfleet/core/commit/b3761ae8b1a376eaecb24c7eac499904fabf7e10))
+
+## [20.1.3](https://github.com/microfleet/core/compare/@microfleet/core@20.1.2...@microfleet/core@20.1.3) (2024-02-12)
+
+
+### Bug Fixes
+
+* **plugin-redis-core:** file extension handling ([#706](https://github.com/microfleet/core/issues/706)) ([b3761ae](https://github.com/microfleet/core/commit/b3761ae8b1a376eaecb24c7eac499904fabf7e10))
+
 ## [20.1.2](https://github.com/microfleet/core/compare/@microfleet/core@20.1.1...@microfleet/core@20.1.2) (2024-02-11)
 
 
