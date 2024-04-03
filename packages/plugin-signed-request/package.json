@@ -40,7 +40,7 @@
     "http-signature": "^1.4.0"
   },
   "devDependencies": {
-    "@hapi/hapi": "21.3.6",
+    "@hapi/hapi": "21.3.8",
     "@makeomatic/deploy": "^13.0.7",
     "@microfleet/core": "workspace:^",
     "@microfleet/plugin-hapi": "workspace:^",
