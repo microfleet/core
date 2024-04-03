@@ -2368,8 +2368,8 @@ importers:
         version: 1.4.0
     devDependencies:
       '@hapi/hapi':
-        specifier: 21.3.6
-        version: 21.3.6
+        specifier: 21.3.8
+        version: 21.3.8
       '@makeomatic/deploy':
         specifier: ^13.0.7
         version: 13.0.7(typescript@5.3.3)
@@ -3930,8 +3930,8 @@ packages:
       '@hapi/topo': 6.0.2
       '@hapi/validate': 2.0.1
 
-  /@hapi/hapi@21.3.6:
-    resolution: {integrity: sha512-fbJ7QYQZl7Ixe6fmKjJbVO3zUrDa5aY+4xn7xBvJFXw6be76B4d28qknrD2la1aXo6GIhTUsJnqzU2awqmG0Sg==}
+  /@hapi/hapi@21.3.8:
+    resolution: {integrity: sha512-2YGNQZTnWKAWiexoLxvsSFFpJvFBJKhtRzARNxR6G1dHbDfL1WPQBXF00rmMRJLdo+oi7d+Ntgdno6V+z+js7w==}
     engines: {node: '>=14.15.0'}
     dependencies:
       '@hapi/accept': 6.0.3
