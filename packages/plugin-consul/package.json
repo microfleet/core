@@ -53,7 +53,7 @@
     "@typescript-eslint/parser": "^6.21.0",
     "bluebird": "^3.7.2",
     "cross-env": "^7.0.3",
-    "eslint": "^8.56.0",
+    "eslint": "^9.0.0",
     "eslint-config-makeomatic": "^6.0.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-unicorn": "^51.0.1",
