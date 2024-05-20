@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@esbuild/linux-arm64':
-        specifier: ^0.20.0
-        version: 0.20.0
+        specifier: ^0.21.0
+        version: 0.21.3
       '@makeomatic/deploy':
         specifier: ^13.0.7
         version: 13.0.7(typescript@5.3.3)
@@ -3487,6 +3487,14 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
+    optional: true
+
+  /@esbuild/linux-arm64@0.21.3:
+    resolution: {integrity: sha512-vvG6R5g5ieB4eCJBQevyDMb31LMHthLpXTc2IGkFnPWS/GzIFDnaYFp558O+XybTmYrVjxnryru7QRleJvmZ6Q==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [linux]
     dev: true
 
   /@esbuild/linux-arm@0.19.12:
