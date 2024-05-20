@@ -19,7 +19,7 @@
     "@release-it/conventional-changelog": "^4.3.0",
     "conventional-changelog-angular": "^7.0.0",
     "debug": "^4.3.4",
-    "esbuild": "^0.20.0",
+    "esbuild": "^0.21.0",
     "glob": "^10.3.10",
     "js-yaml": "^4.1.0",
     "prepend-file": "^2.0.1",
