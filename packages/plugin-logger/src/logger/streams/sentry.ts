@@ -88,7 +88,7 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
         }
       }
 
-      if (level > minLevel) {
+      if (level >= minLevel) {
         const stack = obj.err?.stack
 
         if (stack) {
@@ -101,7 +101,7 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
             scope
           )
         } else {
-          captureMessage(obj?.msg, scope)
+          captureMessage(obj.msg, scope)
         }
       }
     }
