@@ -1,5 +1,19 @@
 
 
+## [3.1.4](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.1.3...@microfleet/plugin-logger@3.1.4) (2024-07-03)
+
+
+### Bug Fixes
+
+* logger schema ([#644](https://github.com/microfleet/core/issues/644)) ([3af5be5](https://github.com/microfleet/core/commit/3af5be5a96294cf0a93df4791d4071861bf80a1a))
+
+## [3.1.4](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.1.3...@microfleet/plugin-logger@3.1.4) (2024-07-03)
+
+
+### Bug Fixes
+
+* logger schema ([#644](https://github.com/microfleet/core/issues/644)) ([3af5be5](https://github.com/microfleet/core/commit/3af5be5a96294cf0a93df4791d4071861bf80a1a))
+
 ## [3.1.3](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.1.2...@microfleet/plugin-logger@3.1.3) (2024-02-12)
 
 

@@ -1,5 +1,19 @@
 
 
+## [20.1.4](https://github.com/microfleet/core/compare/@microfleet/core@20.1.3...@microfleet/core@20.1.4) (2024-07-03)
+
+
+### Bug Fixes
+
+* logger schema ([#644](https://github.com/microfleet/core/issues/644)) ([3af5be5](https://github.com/microfleet/core/commit/3af5be5a96294cf0a93df4791d4071861bf80a1a))
+
+## [20.1.4](https://github.com/microfleet/core/compare/@microfleet/core@20.1.3...@microfleet/core@20.1.4) (2024-07-03)
+
+
+### Bug Fixes
+
+* logger schema ([#644](https://github.com/microfleet/core/issues/644)) ([3af5be5](https://github.com/microfleet/core/commit/3af5be5a96294cf0a93df4791d4071861bf80a1a))
+
 ## [20.1.3](https://github.com/microfleet/core/compare/@microfleet/core@20.1.2...@microfleet/core@20.1.3) (2024-02-12)
 
 

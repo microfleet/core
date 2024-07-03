@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/plugin-socketio",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "description": "socket.io transport adapter",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
