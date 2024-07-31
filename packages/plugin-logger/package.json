@@ -43,7 +43,7 @@
     "lsmod": "^1.0.0",
     "pino": "^8.21.0",
     "pino-abstract-transport": "^1.2.0",
-    "pino-pretty": "^10.3.1",
+    "pino-pretty": "^11.0.0",
     "sonic-boom": "3.8.0"
   },
   "devDependencies": {
