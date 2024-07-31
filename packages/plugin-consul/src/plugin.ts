@@ -97,6 +97,7 @@ export const attach = async function attachConsulPlugin(
     await Promise.race([
       once(this.consulLeader, 'acquire'),
       // force all Promises that wait for lock to resolve with false
+      // @ts-expect-error typed too strictly
       once(this, 'close').then(() => { isLeader = false }),
     ])
 

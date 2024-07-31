@@ -14,7 +14,7 @@ async function validateHandler(this: Microfleet, request: ServiceRequest): Promi
     return
   }
 
-  const paramsKey = RequestDataKey[request.method]
+  const paramsKey = RequestDataKey[request.method] ?? 'params'
 
   try {
     // @todo (important) handle schema not found error and log it
