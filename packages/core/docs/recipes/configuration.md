@@ -117,12 +117,6 @@ This should print current config. Take some time to explore it:
     }
   },
   "sigterm": true,
-  "opentracing": {
-    "config": {
-      "disable": true,
-      "serviceName": "microfleet"
-    }
-  },
   "prometheus": {
     "config": {
       "port": 9102,

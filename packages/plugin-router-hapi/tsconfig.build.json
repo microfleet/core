@@ -6,8 +6,6 @@
     "path": "../plugin-hapi/tsconfig.build.json"
   }, {
     "path": "../plugin-router/tsconfig.build.json"
-  }, {
-    "path": "../plugin-opentracing/tsconfig.build.json"
   }],
   "compilerOptions": {
     "rootDir": "./src",

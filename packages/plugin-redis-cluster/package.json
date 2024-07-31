@@ -40,7 +40,6 @@
     "bluebird": "^3.7.2",
     "debug": "^4.3.4",
     "ioredis": "^4.28.5",
-    "opentracing-js-ioredis": "^2.1.2",
     "promise-toolbox": "^0.21.0"
   },
   "devDependencies": {
