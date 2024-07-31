@@ -21,6 +21,7 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
   const reformatError = (error: any) => {
     let statusCode
     let errorMessage
+    let code = undefined
 
     const { errors } = error
 
@@ -51,10 +52,11 @@ export default function getHapiAdapter(actionName: string, service: Microfleet):
       } else {
         const [nestedError] = errors
         errorMessage = nestedError.text || nestedError.message || undefined
+        code = nestedError.code || undefined
       }
     }
 
-    const replyError = boomify(error, { statusCode, message: errorMessage })
+    const replyError = boomify(error, { statusCode, message: errorMessage, data: { code } })
 
     if (error.name) {
       replyError.output.payload.name = error.name
