@@ -36,7 +36,7 @@
     "@casl/ability": "^6.7.1",
     "@microfleet/core-types": "workspace:^",
     "@microfleet/utils": "workspace:^",
-    "mem": "^8.1.1",
+    "mem": "^10.0.0",
     "semver": "^7.6.3"
   },
   "devDependencies": {
