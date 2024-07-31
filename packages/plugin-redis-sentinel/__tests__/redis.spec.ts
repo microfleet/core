@@ -24,7 +24,7 @@ describe('Redis suite', function testSuite() {
   it('able to connect to redis sentinel when plugin is included', async () => {
     service = new Microfleet({
       name: 'tester',
-      plugins: ['validator', 'opentracing', 'logger', 'redisSentinel'],
+      plugins: ['validator', 'logger', 'redisSentinel'],
       redis: {
         ...getConfigForRedis(),
         luaScripts: [resolve(__dirname, './fixtures')],

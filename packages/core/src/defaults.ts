@@ -20,16 +20,6 @@ export const hooks = {}
  */
 export const sigterm = true
 
-/**
- * Opentracing configuration
- */
-export const opentracing = {
-  config: {
-    disable: true,
-    serviceName: 'microfleet',
-  },
-}
-
 export const prometheus = {
   config: {
     port: 9102,

@@ -1,7 +1,5 @@
 import assert from 'node:assert/strict'
-import { Tags } from 'opentracing'
 import hyperid from 'hyperid'
-import { Tracer } from 'opentracing'
 import { Logger } from '@microfleet/plugin-logger'
 import { glob } from 'glob'
 
@@ -16,37 +14,15 @@ import {
   requireServiceActionHandler,
 } from './utils'
 
-const { COMPONENT, ERROR } = Tags
-
 export type RouterOptions = {
   lifecycle: Lifecycle
   routes: Routes
   requestCountTracker: RequestCountTracker
   log: Logger
   config?: RouterConfig
-  tracer?: Tracer
 }
 
 export type RouterConfig = RouterPluginRoutesConfig
-
-const finishSpan = ({ span }: ServiceRequest) => () => {
-  if (span != null) {
-    span.finish()
-  }
-}
-const spanLog = (request: ServiceRequest, error: Error) => {
-  if (request.span != null) {
-    request.span.setTag(ERROR, true)
-    request.span.log({
-      'error.object': error,
-      event: 'error',
-      message: error.message,
-      stack: error.stack,
-    })
-  }
-
-  throw error
-}
 
 // Constants with possilble transport values
 // @TODO is it possible to config it from own transport plugin
@@ -80,18 +56,16 @@ export class Router {
   public readonly lifecycle: Lifecycle
   protected readonly log: Logger
   protected readonly prefix?: string
-  protected readonly tracer?: Tracer
   protected readonly idgen: hyperid.Instance
   protected readonly directory?: string
   protected readonly enabledGenericActions?: string[]
 
-  constructor({ lifecycle, routes, config, requestCountTracker, log, tracer }: RouterOptions) {
+  constructor({ lifecycle, routes, config, requestCountTracker, log }: RouterOptions) {
     this.lifecycle = lifecycle
     this.routes = routes
     this.config = config
     this.requestCountTracker = requestCountTracker
     this.log = log
-    this.tracer = tracer
     this.idgen = hyperid()
 
     if (config !== undefined) {
@@ -198,18 +172,7 @@ export class Router {
     assert(request.transport)
 
     const { route, transport } = request
-    const { tracer, log, lifecycle } = this
-
-    // @todo extension?
-    // if we have installed tracer - init span
-    if (tracer !== undefined) {
-      request.span = tracer.startSpan(`dispatch:${route}`, {
-        childOf: request.parentSpan || undefined,
-        tags: {
-          [COMPONENT]: request.transport,
-        },
-      })
-    }
+    const { log, lifecycle } = this
 
     // "as ServiceAction" is not ok, because getAction() result could be undefined
     // but there is a addition check for it in lifecycle/handlers/request
@@ -220,13 +183,7 @@ export class Router {
       reqId: this.idgen(),
     })
 
-    try {
-      await lifecycle.run(request)
-    } catch (e: any) {
-      spanLog(request, e)
-    } finally {
-      finishSpan(request)
-    }
+    await lifecycle.run(request)
 
     return request.response
   }

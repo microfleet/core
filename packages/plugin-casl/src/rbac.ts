@@ -1,12 +1,8 @@
-import { AssertionError } from 'assert/strict'
+import { strict as assert } from 'node:assert'
 import mem from 'mem'
 
-import {
-  Ability, ExtractSubjectType,
-  MongoQuery, Subject,
-  subject, SubjectRawRule,
-  createAliasResolver
-} from '@casl/ability'
+import type { ExtractSubjectType, MongoQuery, Subject, SubjectRawRule } from '@casl/ability'
+import { subject, createAliasResolver, PureAbility } from '@casl/ability'
 import { defaultsDeep } from '@microfleet/utils'
 
 export type RuleDefinition = SubjectRawRule<string, ExtractSubjectType<Subject>, MongoQuery<unknown>>[] | undefined
@@ -44,7 +40,7 @@ export type RbacConfig = {
 }
 
 export class Rbac {
-  private abilities: Map<string, Ability>  = new Map()
+  private abilities: Map<string, PureAbility>  = new Map()
   private anyAction?: string
   private anySubjectType: string | undefined
   private actionResolver?: (action: string | string[]) => string[]
@@ -83,7 +79,7 @@ export class Rbac {
   /**
    * Verifies whether action is available on provided subject.
    */
-  public can(ability: Ability, action: string, targetSubject: Subject, _overrideSubject?: string) {
+  public can(ability: PureAbility, action: string, targetSubject: Subject, _overrideSubject?: string) {
     const passedSubject = typeof targetSubject === 'string'
       ? targetSubject
       : ability.detectSubjectType(targetSubject) as string
@@ -105,27 +101,26 @@ export class Rbac {
    * Verifies whether action is available on provided object.
    * Wraps object with secified Subject to mach rules.
    */
-  public canSubject(ability: Ability, action: string, sub: string, obj: Record<string, any>) {
+  public canSubject(ability: PureAbility, action: string, sub: string, obj: Record<string, any>) {
     return this.can(ability, action, subject(sub, obj), sub)
   }
 
   /**
    * Get predefined ability
    */
-  public get(key: string): Ability {
+  public get(key: string): PureAbility {
     if (this.abilities.has(key)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return this.abilities.get(key)!
     }
 
-    throw new AssertionError({ message: `'${key}' ability does not exists in configuration` })
+    assert.fail(`'${key}' ability does not exists in configuration`)
   }
 
   /**
    * Creates ability based on passed rules
    */
-  public createAbility(rules: RuleDefinition): Ability {
-    return new Ability(rules, {
+  public createAbility(rules: RuleDefinition): PureAbility {
+    return new PureAbility(rules, {
       anyAction: this.anyAction,
       anySubjectType: this.anySubjectType,
       resolveAction: this.actionResolver,
