@@ -1,8 +1,8 @@
 import { NotFoundError } from 'common-errors'
-import { resolve } from 'path'
-import { strict as assert } from 'assert'
+import { resolve } from 'node:path'
+import { strict as assert } from 'node:assert'
 
-import { Microfleet } from '@microfleet/core'
+import type { Microfleet } from '@microfleet/core'
 import type { PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
 

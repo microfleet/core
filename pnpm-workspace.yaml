@@ -3,7 +3,6 @@ packages:
   - ./packages/core-types
   - ./packages/plugin-amqp
   - ./packages/plugin-aws-elasticsearch
-  - ./packages/plugin-cassandra
   - ./packages/plugin-consul
   - ./packages/plugin-couchdb
   - ./packages/plugin-dlock
@@ -13,7 +12,6 @@ packages:
   - ./packages/plugin-kafka-types
   - ./packages/plugin-knex
   - ./packages/plugin-logger
-  - ./packages/plugin-opentracing
   - ./packages/plugin-prometheus
   - ./packages/plugin-redis-cluster
   - ./packages/plugin-redis-core

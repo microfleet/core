@@ -1,7 +1,7 @@
 import { NotPermittedError } from 'common-errors'
 
-import { Microfleet } from '@microfleet/core-types'
-import { Lifecycle, LifecycleExtension, ServiceRequest } from '@microfleet/plugin-router'
+import type { Microfleet } from '@microfleet/core-types'
+import { Lifecycle, type LifecycleExtension, type ServiceRequest } from '@microfleet/plugin-router'
 
 export const rbacExtension: LifecycleExtension = {
   point: Lifecycle.hooks.preAllowed,

@@ -59,6 +59,7 @@ export default class RequestCountTracker {
       return
     }
 
+    // @ts-expect-error typed too strictly
     await once(this.service, event)
   }
 

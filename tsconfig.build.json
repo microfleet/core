@@ -20,8 +20,6 @@
   }, {
     "path": "./packages/plugin-couchdb/tsconfig.build.json"
   }, {
-    "path": "./packages/plugin-cassandra/tsconfig.build.json"
-  }, {
     "path": "./packages/plugin-dlock/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-casl/tsconfig.build.json"
@@ -43,8 +41,6 @@
     "path": "./packages/plugin-router-socketio/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-socketio/tsconfig.build.json"
-  }, {
-    "path": "./packages/plugin-opentracing/tsconfig.build.json"
   }, {
     "path": "./packages/plugin-prometheus/tsconfig.build.json"
   }, {

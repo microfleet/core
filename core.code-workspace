@@ -21,10 +21,6 @@
 			"path": "packages/plugin-aws-elasticsearch"
 		},
 		{
-			"name": "📦 @microfleet/plugin-cassandra",
-			"path": "packages/plugin-cassandra"
-		},
-		{
 			"name": "📦 @microfleet/plugin-consul",
 			"path": "packages/plugin-consul"
 		},
@@ -59,10 +55,6 @@
 		{
 			"name": "📦 @microfleet/plugin-logger",
 			"path": "packages/plugin-logger"
-		},
-		{
-			"name": "📦 @microfleet/plugin-opentracing",
-			"path": "packages/plugin-opentracing"
 		},
 		{
 			"name": "📦 @microfleet/plugin-prometheus",
