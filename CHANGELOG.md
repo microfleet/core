@@ -1,3 +1,601 @@
+# @microfleet/utils 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.4...@microfleet/utils@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-validator 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@3.1.4...@microfleet/plugin-validator@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-socketio 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@3.1.4...@microfleet/plugin-socketio@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-signed-request 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@3.1.4...@microfleet/plugin-signed-request@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-router 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@3.1.4...@microfleet/plugin-router@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-router-socketio 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@3.1.4...@microfleet/plugin-router-socketio@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-router-hapi 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@3.1.4...@microfleet/plugin-router-hapi@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-router-amqp 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@3.1.4...@microfleet/plugin-router-amqp@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-redis-sentinel 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@3.1.4...@microfleet/plugin-redis-sentinel@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-redis-core 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@3.1.4...@microfleet/plugin-redis-core@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-redis-cluster 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@3.1.4...@microfleet/plugin-redis-cluster@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-prometheus 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@3.1.4...@microfleet/plugin-prometheus@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-logger 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@3.1.4...@microfleet/plugin-logger@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-knex 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@5.1.4...@microfleet/plugin-knex@6.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-kafka 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@5.1.4...@microfleet/plugin-kafka@6.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-kafka-types 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@4.1.4...@microfleet/plugin-kafka-types@5.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-hapi 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@3.1.4...@microfleet/plugin-hapi@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-elasticsearch 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@3.1.4...@microfleet/plugin-elasticsearch@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-dlock 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@3.1.4...@microfleet/plugin-dlock@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-couchdb 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@5.1.4...@microfleet/plugin-couchdb@6.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-consul 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@5.1.4...@microfleet/plugin-consul@6.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-casl 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@3.1.4...@microfleet/plugin-casl@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-aws-elasticsearch 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@4.1.4...@microfleet/plugin-aws-elasticsearch@5.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/plugin-amqp 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@3.1.4...@microfleet/plugin-amqp@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/core 21.0.0
+
+# [21.0.0](https://github.com/microfleet/core/compare/@microfleet/core@20.1.4...@microfleet/core@21.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
+# @microfleet/core-types 4.0.0
+
+# [4.0.0](https://github.com/microfleet/core/compare/@microfleet/core-types@3.1.4...@microfleet/core-types@4.0.0) (2024-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sonic-boom to v3.8.1 ([101d9b1](https://github.com/microfleet/core/commit/101d9b1e70c464051bf162ac2f49f7cd709f7915))
+
+
+### Features
+
+* remove opentracing, cassandra, expand error msg for hapi ([#721](https://github.com/microfleet/core/issues/721)) ([b9def89](https://github.com/microfleet/core/commit/b9def89f0e344f2c6909b2f2f1db9c7f72cca8f9))
+
+
+### BREAKING CHANGES
+
+* removed opentracing & cassandra plugins. They are not maintained and are a perf hit
+
+* feat: support error code in hapi respones as extra data
+* feat: remove opentracing and cassandra
+* fix: remove plugin from the list
+
 # @microfleet/utils 3.1.4
 
 ## [3.1.4](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.3...@microfleet/utils@3.1.4) (2024-07-03)
