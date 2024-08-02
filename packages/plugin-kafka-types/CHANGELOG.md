@@ -1,5 +1,19 @@
 
 
+## [5.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@5.0.0...@microfleet/plugin-kafka-types@5.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+## [5.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@5.0.0...@microfleet/plugin-kafka-types@5.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
 # [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@4.1.4...@microfleet/plugin-kafka-types@5.0.0) (2024-08-01)
 
 

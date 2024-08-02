@@ -1,3 +1,237 @@
+# @microfleet/utils 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/utils@4.0.0...@microfleet/utils@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-validator 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@4.0.0...@microfleet/plugin-validator@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-socketio 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@4.0.0...@microfleet/plugin-socketio@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-signed-request 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@4.0.0...@microfleet/plugin-signed-request@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-router 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router@4.0.0...@microfleet/plugin-router@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-router-socketio 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@4.0.0...@microfleet/plugin-router-socketio@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-router-hapi 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@4.0.0...@microfleet/plugin-router-hapi@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-router-amqp 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@4.0.0...@microfleet/plugin-router-amqp@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-redis-sentinel 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@4.0.0...@microfleet/plugin-redis-sentinel@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-redis-core 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@4.0.0...@microfleet/plugin-redis-core@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-redis-cluster 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@4.0.0...@microfleet/plugin-redis-cluster@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-prometheus 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@4.0.0...@microfleet/plugin-prometheus@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-logger 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@4.0.0...@microfleet/plugin-logger@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-knex 6.0.1
+
+## [6.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@6.0.0...@microfleet/plugin-knex@6.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-kafka 6.0.1
+
+## [6.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@6.0.0...@microfleet/plugin-kafka@6.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-kafka-types 5.0.1
+
+## [5.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@5.0.0...@microfleet/plugin-kafka-types@5.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-hapi 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@4.0.0...@microfleet/plugin-hapi@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-elasticsearch 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@4.0.0...@microfleet/plugin-elasticsearch@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-dlock 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@4.0.0...@microfleet/plugin-dlock@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-couchdb 6.0.1
+
+## [6.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@6.0.0...@microfleet/plugin-couchdb@6.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-consul 6.0.1
+
+## [6.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@6.0.0...@microfleet/plugin-consul@6.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-casl 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@4.0.0...@microfleet/plugin-casl@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-aws-elasticsearch 5.0.1
+
+## [5.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@5.0.0...@microfleet/plugin-aws-elasticsearch@5.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/plugin-amqp 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@4.0.0...@microfleet/plugin-amqp@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/core 21.0.1
+
+## [21.0.1](https://github.com/microfleet/core/compare/@microfleet/core@21.0.0...@microfleet/core@21.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
+# @microfleet/core-types 4.0.1
+
+## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/core-types@4.0.0...@microfleet/core-types@4.0.1) (2024-08-02)
+
+
+### Bug Fixes
+
+* **hapi:** error code pass-through ([66ed3d0](https://github.com/microfleet/core/commit/66ed3d04cc6cf34d3169a982e90405e28790756b))
+
 # @microfleet/utils 4.0.0
 
 # [4.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@3.1.4...@microfleet/utils@4.0.0) (2024-08-01)

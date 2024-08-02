@@ -1,6 +1,6 @@
 {
   "name": "@microfleet/core-types",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "@microfleet/core Types",
   "main": "./index.d.ts",
   "types": "./index.d.ts",
