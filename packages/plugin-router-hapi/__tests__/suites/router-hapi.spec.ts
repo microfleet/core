@@ -255,6 +255,20 @@ describe('@microfleet/plugin-router-hapi', () => {
       const body = await response.text()
       strictEqual(/google/.test(body), true)
     })
+
+    it('validation error is serialized including the code', async () => {
+      const response = await fetch('http://0.0.0.0:3000/foo/bar/validation')
+
+      strictEqual(response.status, 400)
+      const body = await response.json()
+      deepStrictEqual(body, {
+        name: 'ValidationError',
+        error: 'Bad Request',
+        statusCode: 400,
+        message: 'first: sample',
+        code: 'E_FIRST'
+      })
+    })
   })
 
   afterAll(async () => {
