@@ -131,6 +131,10 @@ export class Lifecycle {
       await runHandler(this.validateResponseHandler, hooks, preValidateResponse, postValidateResponse, context, request)
     } catch (error: any) {
       request.error = error
+      // todo is it a right place to clear reply headers? add some error handler?
+      if (request.hasReplyHeadersSupport()) {
+        request.clearReplyHeaders()
+      }
     }
 
     await runHandler(responseHandler, hooks, preResponse, postResponse, context, request)

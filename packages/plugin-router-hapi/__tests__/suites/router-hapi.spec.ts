@@ -1,4 +1,4 @@
-import { strictEqual, deepStrictEqual } from 'assert'
+import { strictEqual, deepStrictEqual, ok, rejects } from 'assert'
 import { resolve } from 'path'
 import { all } from 'bluebird'
 import cheerio from 'cheerio'
@@ -254,6 +254,48 @@ describe('@microfleet/plugin-router-hapi', () => {
       strictEqual(response.status, 200)
       const body = await response.text()
       strictEqual(/google/.test(body), true)
+    })
+  })
+
+  describe('should be able to use service request api', () => {
+    const service = new Microfleet({
+      name: 'tester',
+      plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
+      hapi: {
+        server: {
+          port: 3000,
+        },
+      },
+      router: {
+        routes: {
+          directory: resolve(__dirname, '../artifacts/actions'),
+        },
+      },
+    })
+
+    beforeAll(() => service.connect())
+    afterAll(() => service.close())
+
+    it('should be able to crud reply headers', async () => {
+      const response = await fetch('http://0.0.0.0:3000/headers')
+      const { headers, status } = response
+      strictEqual(status, 200)
+      const body = await response.json()
+      strictEqual(body.response, 'success')
+      strictEqual(headers.get('x-add'), 'added')
+      strictEqual(headers.get('x-override'), 'new')
+      ok(headers.getSetCookie().includes('foo=1'))
+      ok(headers.getSetCookie().includes('bar=2'))
+      ok(headers.getSetCookie().includes('baz=3'))
+      strictEqual(headers.get('x-add-remove'), null)
+    })
+
+    it('should be able to pass error headers and clear happy path headers', async () => {
+      const response = await fetch('http://0.0.0.0:3000/error-headers')
+      const { headers, status } = response
+      strictEqual(status, 500)
+      strictEqual(headers.get('x-happy-path'), null)
+      strictEqual(headers.get('x-unsuccessful-attempts'), '1/10')
     })
   })
 

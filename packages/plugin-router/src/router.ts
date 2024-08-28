@@ -4,17 +4,19 @@ import hyperid from 'hyperid'
 import { Tracer } from 'opentracing'
 import { Logger } from '@microfleet/plugin-logger'
 import { glob } from 'glob'
+import { defaults } from 'lodash'
 
 import RequestCountTracker from './tracker'
 import Routes from './routes'
 import { Lifecycle } from './lifecycle'
-import { ServiceAction, ServiceRequest } from './types/router'
+import { ServiceAction } from './types/router'
 import { RouterPluginRoutesConfig } from './types/plugin'
 import {
   readRoutes,
   createServiceAction,
   requireServiceActionHandler,
 } from './utils'
+import type { ServiceRequest, DispatchOptions } from './types/router'
 
 const { COMPONENT, ERROR } = Tags
 
@@ -27,7 +29,7 @@ export type RouterOptions = {
   tracer?: Tracer
 }
 
-export type RouterConfig = RouterPluginRoutesConfig
+export type RouterConfig = RouterPluginRoutesConfig & { dispatchOptions: DispatchOptions }
 
 const finishSpan = ({ span }: ServiceRequest) => () => {
   if (span != null) {
@@ -72,6 +74,8 @@ export const RequestDataKey = {
   socketio: 'params',
 } as const
 
+export const defaultDispatchOptions = { simpleResponse: true }
+
 export class Router {
   public readonly config?: RouterConfig
   public readonly routes: Routes
@@ -84,6 +88,7 @@ export class Router {
   protected readonly idgen: hyperid.Instance
   protected readonly directory?: string
   protected readonly enabledGenericActions?: string[]
+  protected readonly dispatchOptions: DispatchOptions
 
   constructor({ lifecycle, routes, config, requestCountTracker, log, tracer }: RouterOptions) {
     this.lifecycle = lifecycle
@@ -104,6 +109,7 @@ export class Router {
       this.directory = directory
       this.enabledGenericActions = enabledGenericActions
     }
+    this.dispatchOptions = defaults(config?.dispatchOptions, defaultDispatchOptions)
   }
 
   public async ready(): Promise<void> {
@@ -188,12 +194,27 @@ export class Router {
     }
   }
 
-  public async prefixAndDispatch(routeWithoutPrefix: string, request: ServiceRequest): Promise<any> {
+  public async prefixAndDispatch(routeWithoutPrefix: string, request: ServiceRequest, options?: Partial<DispatchOptions>): Promise<any> {
     request.route = this.prefixRoute(routeWithoutPrefix)
-    return this.dispatch(request)
+    return this.dispatch(request, options)
   }
 
-  public async dispatch(request: ServiceRequest): Promise<any> {
+  public resolveDispatchOptions(options?: Partial<DispatchOptions>): DispatchOptions {
+    return defaults(options, this.dispatchOptions)
+  }
+
+  public resolveResponse(request: ServiceRequest, options: DispatchOptions): any {
+    const { response: data } = request
+    if (options.simpleResponse) {
+      return data
+    }
+
+    const headers = request.hasReplyHeadersSupport() ? request.getReplyHeaders() : undefined
+
+    return { data, headers }
+  }
+
+  public async dispatch(request: ServiceRequest, options?: Partial<DispatchOptions>): Promise<any> {
     assert(request.route)
     assert(request.transport)
 
@@ -228,7 +249,7 @@ export class Router {
       finishSpan(request)
     }
 
-    return request.response
+    return this.resolveResponse(request, this.resolveDispatchOptions(options))
   }
 }
 

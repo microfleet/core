@@ -19,6 +19,10 @@ export type {
   ServiceActionHandler,
   ServiceActionAuthGetName,
   TransportOptions,
+  DispatchOptions,
 } from './types/router'
+export { BaseServiceRequest, InternalServiceRequest } from './service-request'
 
 export type { AuthInfo } from './lifecycle/handlers/auth'
+
+export * from './symbols'

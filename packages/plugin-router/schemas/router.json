@@ -121,6 +121,16 @@
           }
         }
       }
+    },
+    "dispatchOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "simpleResponse": {
+          "type": "boolean",
+          "default": true
+        }
+      }
     }
   }
 }

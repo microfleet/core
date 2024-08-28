@@ -1,0 +1,5 @@
+{
+  "$id": "headers",
+  "type": "object",
+  "additionalProperties": false
+}

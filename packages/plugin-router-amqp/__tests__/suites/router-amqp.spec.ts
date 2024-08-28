@@ -1,11 +1,11 @@
-import { strict as assert, deepStrictEqual, rejects } from 'assert'
+import { strict as assert, deepStrictEqual, rejects, strictEqual } from 'assert'
 import { resolve } from 'path'
 import { ConnectionError } from 'common-errors'
 import { Microfleet } from '@microfleet/core'
 import { Lifecycle, ServiceRequest } from '@microfleet/plugin-router'
 import { spy } from 'sinon'
 import { RequestCountTracker } from '@microfleet/plugin-router'
-import { AMQPTransport, connect } from '@microfleet/transport-amqp'
+import { AMQPTransport, connect, kReplyHeaders as kAmqpReplyHeaders } from '@microfleet/transport-amqp'
 
 jest.setTimeout(5000)
 
@@ -35,7 +35,7 @@ beforeAll(async () => {
       level: 'trace',
     },
   })
-})
+}, 10000)
 
 afterAll(() => publisher.close())
 
@@ -438,6 +438,91 @@ describe('AMQP suite: retry + amqp router prefix + router prefix', function test
         message: 'Fake connection error first 3 times',
         name: 'ConnectionError',
         retryAttempt: 3
+      }
+    )
+  })
+})
+
+describe('AMQP suite: service request', function testSuite() {
+  const service = new Microfleet({
+    name: 'tester',
+    plugins: [
+      'logger',
+      'validator',
+      'amqp',
+      'router',
+      'router-amqp'
+    ],
+    amqp: {
+      transport: {
+        debug: true,
+        logOptions: {
+          level: 'trace'
+        }
+      }
+    },
+    logger: {
+      defaultLogger: {
+        level: 'trace'
+      },
+    },
+    router: {
+      routes: {
+        directory: resolve(__dirname, '../artifacts/actions'),
+      },
+    },
+  })
+
+  beforeAll(() => service.connect())
+  afterAll(() => service.close())
+
+  it('should be able to crud headers', async () => {
+    const { amqp } = service
+    const response = await amqp.publishAndWait('headers', null, { simpleResponse: false })
+    const { headers, data } = response
+    strictEqual(data.response, 'success')
+    // amqp-transport header is also present
+    strictEqual(headers['timeout'], 10000)
+    // custom headers
+    strictEqual(headers['x-add'], 'added')
+    strictEqual(headers['x-override'], 'new')
+    strictEqual(headers['x-add-remove'], undefined)
+    // http exception not applied when set through amqp
+    strictEqual(headers['set-cookie'], 'bar=2')
+    // non ascii symbol is fine as far as it's unicode
+    strictEqual(headers['x-non-ascii'], '👾')
+    // empty header
+    strictEqual(headers['x-empty'], '')
+  })
+
+  it('should be able to validate headers and clear happy path headers', async () => {
+    const { amqp } = service
+    await rejects(
+      amqp.publishAndWait(
+        'invalid-headers',
+        { key: 'x-invalid', value: ['should', 'be', 'a', 'string', 'array', 'given'] },
+        { simpleResponse: false }
+      ),
+      (error) => {
+        const headers = error[kAmqpReplyHeaders]
+        strictEqual(headers['x-invalid'], undefined)
+        strictEqual(headers['x-valid'], undefined)
+        strictEqual(headers['timeout'], 10000)
+        return true
+      }
+    )
+  })
+
+  it('should be able to pass error headers and clear happy path headers', async () => {
+    const { amqp } = service
+    await rejects(
+      amqp.publishAndWait('error-headers', null, { simpleResponse: false }),
+      (error) => {
+        const headers = error[kAmqpReplyHeaders]
+        strictEqual(headers['x-happy-path'], undefined)
+        strictEqual(headers['x-unsuccessful-attempts'], '1/10')
+        strictEqual(headers['timeout'], 10000)
+        return true
       }
     )
   })

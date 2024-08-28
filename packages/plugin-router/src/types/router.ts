@@ -3,6 +3,7 @@ import { Span, SpanContext } from 'opentracing'
 import { Microfleet } from '@microfleet/core'
 import { Logger } from '@microfleet/plugin-logger'
 import { RequestDataKey, ActionTransport } from '../router'
+import { kReplyHeaders } from '../symbols'
 
 export type ServiceMiddleware = (this: Microfleet, request: ServiceRequest) => Promise<void>
 export type ServiceActionAuthGetName = (request: ServiceRequest) => string
@@ -22,6 +23,7 @@ export interface ServiceAction<R = unknown> {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TransportOptions {}
 
+export type ReplyHeaders = Map<string, string | Array<string>>
 export interface ServiceRequest<R = unknown> {
   route: string
   action: ServiceAction<R>
@@ -36,6 +38,19 @@ export interface ServiceRequest<R = unknown> {
   span: Span | null
   log: Logger
   response?: unknown
-  error?: any
+  error?: any | Error & { headers?: ReplyHeaders }
   reformatError: boolean
+  [kReplyHeaders]: ReplyHeaders;
+  hasReplyHeadersSupport(): boolean
+  getReplyHeaders(): Map<string, string | Array<string>>
+  getReplyHeader(title: string): string | Array<string> | undefined
+  hasReplyHeader(title: string): boolean
+  setReplyHeader(title: string, value: string | Array<string>): ServiceRequest
+  removeReplyHeader(title: string): ServiceRequest
+  isValidReplyHeader(title: string, value: string | Array<string>): boolean
+  clearReplyHeaders(): ServiceRequest
+}
+
+export interface DispatchOptions {
+  simpleResponse: boolean
 }

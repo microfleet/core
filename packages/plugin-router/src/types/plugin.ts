@@ -1,5 +1,5 @@
 import Router from '../router'
-import { ServiceAction, ServiceRequest } from './router'
+import { DispatchOptions, ServiceAction, ServiceRequest } from './router'
 import { AuthConfig } from '../lifecycle/handlers/auth'
 import { ValidateResponseConfig } from '../lifecycle/handlers/validate-response'
 import { LifecycleExtensions } from '../lifecycle'
@@ -21,6 +21,7 @@ export type RouterPluginConfig = {
     register: LifecycleExtensions[]
   }
   routes: RouterPluginRoutesConfig
+  dispatchOptions: DispatchOptions
 }
 
 export interface RouterPluginRoutesConfig {

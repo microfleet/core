@@ -2,8 +2,17 @@ import assert, { rejects, strictEqual } from 'node:assert/strict'
 import { Microfleet } from '@microfleet/core'
 
 import { runHandler, runHook } from '../../src/lifecycle/utils'
+import { InternalServiceRequest, ServiceRequest } from '@microfleet/plugin-router'
 
 // @todo tests for lifecycle
+
+const dummyRequest = (options?: { response: any }): ServiceRequest => {
+  const request = (new InternalServiceRequest({}, {}, null, {})) as ServiceRequest
+  if (options && options.response !== undefined) {
+    request.response = options.response
+  }
+  return request
+}
 
 describe('@microfleet/plugin-router: "runner" utils', () => {
   const context = new Microfleet({
@@ -13,16 +22,16 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
     },
  })
 
-  it('shoul be able to run', async () => {
+  it('should be able to run', async () => {
     const hooks: any = new Map([
       ['preHandler', new Set([
-        async (req: any) => { req.response += 1 },
-        async (req: any) => { req.response += 1 },
+        async (req: ServiceRequest) => { req.response += 1 },
+        async (req: ServiceRequest) => { req.response += 1 },
       ])],
     ])
-    const request = {
+    const request = dummyRequest({
       response: 0,
-    } as any
+    })
 
     await runHook(hooks, 'preHandler', context, request)
 
@@ -31,9 +40,9 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
 
   it('should not throw if run unknown id', async () => {
     const hooks: any = new Map([])
-    const request = {
+    const request = dummyRequest({
       response: 1,
-    } as any
+    })
 
     await runHook(hooks, 'preHandler', context, request)
 
@@ -43,12 +52,12 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
   it('should be able to run function', async () => {
     const hooks: any = new Map([
       ['preHandler', new Set([
-        async (req: any) => { req.response += 1 },
+        async (req: ServiceRequest) => { req.response += 1 },
       ])],
     ])
-    const request = {
+    const request = dummyRequest({
       response: 0,
-    } as any
+    })
     const handler = async (req: any) => { req.response += 1 }
 
     await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
@@ -59,13 +68,13 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
   it('should be able to throw error on pre', async () => {
     const hooks: any = new Map([
       ['preHandler', new Set([
-        async (req: any) => { req.error = 'perchik' },
-        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) },
+        async (req: ServiceRequest) => { req.error = 'perchik' },
+        async (req: ServiceRequest) => { throw new Error(`the name of the fattest cat is ${req.error}`) },
       ])],
     ])
-    const request = {
+    const request = dummyRequest({
       response: 0,
-    } as any
+    })
     const handler = async (req: any) => { req.response += 1 }
 
     await rejects(
@@ -77,11 +86,11 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
   it('should return result from handler with "pre-handler"', async () => {
     const hooks: any = new Map([
       ['preHandler', new Set([
-        async (req: any) => { req.cat = 'perchik' },
+        async (req: ServiceRequest) => { req.cat = 'perchik' },
       ])],
     ])
-    const request = {} as any
-    const handler = async (req: any) => { req.response = req.cat }
+    const request = dummyRequest()
+    const handler = async (req: ServiceRequest) => { req.response = req.cat }
 
     await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
 
@@ -91,8 +100,8 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
 
   it('should return result from handler', async () => {
     const hooks: any = new Map()
-    const request = {} as any
-    const handler = async (req: any) => { req.response = 'perchik' }
+    const request = dummyRequest()
+    const handler = async (req: ServiceRequest) => { req.response = 'perchik' }
 
     await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
 
@@ -101,7 +110,7 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
 
   it('should be able to throw error from handler', async () => {
     const hooks: any = new Map()
-    const request = {} as any
+    const request = dummyRequest()
     const handler = async () => { throw new Error('too fat cat') }
 
     rejects(
@@ -113,14 +122,14 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
   it('should be able to error from post-handler', async () => {
     const hooks: any = new Map([
       ['postHandler', new Set([
-        async (req: any) => { req.error = 'perchik' },
-        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error}`) },
+        async (req: ServiceRequest) => { req.error = 'perchik' },
+        async (req: ServiceRequest) => { throw new Error(`the name of the fattest cat is ${req.error}`) },
       ])],
     ])
-    const request = {
+    const request = dummyRequest({
       response: 0,
-    } as any
-    const handler = async (req: any) => { req.response += 1 }
+    })
+    const handler = async (req: ServiceRequest) => { req.response += 1 }
 
     await rejects(
       runHandler(handler, hooks, 'preHandler', 'postHandler', context, request),
@@ -131,11 +140,11 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
   it('should be able to modify result if no error returned from handler', async () => {
     const hooks: any = new Map([
       ['postHandler', new Set([
-        async (req: any) => { req.result = 'perchik' },
+        async (req: ServiceRequest) => { req.result = 'perchik' },
       ])],
     ])
-    const request = {} as any
-    const handler = async (req: any) => { req.result = 'persik' }
+    const request = dummyRequest()
+    const handler = async (req: ServiceRequest) => { req.result = 'persik' }
 
     await runHandler(handler, hooks, 'preHandler', 'postHandler', context, request)
 
@@ -145,10 +154,10 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
   it('should be able to modify error returned from handler', async () => {
     const hooks: any = new Map([
       ['postHandler', new Set([
-        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.error.message}`) },
+        async (req: ServiceRequest) => { throw new Error(`the name of the fattest cat is ${req.error.message}`) },
       ])],
     ])
-    const request = {} as any
+    const request = dummyRequest()
     const handler = async () => { throw new Error('perchik') }
 
     await rejects(
@@ -160,11 +169,11 @@ describe('@microfleet/plugin-router: "runner" utils', () => {
   it('should be able to pass arguments to post-handler', async () => {
     const hooks: any = new Map([
       ['postHandler', new Set([
-        async (req: any) => { throw new Error(`the name of the fattest cat is ${req.response}`) },
+        async (req: ServiceRequest) => { throw new Error(`the name of the fattest cat is ${req.response}`) },
       ])],
     ])
-    const request = {} as any
-    const handler = async (req: any) => { req.response = 'perchik' }
+    const request = dummyRequest()
+    const handler = async (req: ServiceRequest) => { req.response = 'perchik' }
 
     await rejects(
       () => runHandler(handler, hooks, 'preHandler', 'postHandler', context, request),

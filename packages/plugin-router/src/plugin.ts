@@ -5,14 +5,15 @@ import { isObject } from 'lodash'
 import { Microfleet, PluginTypes } from '@microfleet/core'
 import { defaultsDeep } from '@microfleet/utils'
 
-import { Router, ActionTransport } from './router'
+import { Router, defaultDispatchOptions } from './router'
 import Routes from './routes'
 import Tracker from './tracker'
 import { auditLog } from './extensions/index'
 import { Lifecycle } from './lifecycle/index'
+import { InternalServiceRequest } from './service-request'
 
 import type { RouterPluginConfig } from './types/plugin'
-import type { ServiceRequest } from './types/router'
+import type { ServiceRequest, DispatchOptions } from './types/router'
 import type { PluginInterface } from '@microfleet/core-types'
 
 export const name = 'router'
@@ -31,54 +32,39 @@ const shallowObjectClone = (prop: any) => isObject(prop)
  */
 const deepClone = rfdc()
 
-/**
- * Fills gaps in default service request.
- * @param request - service request.
- * @returns Prepared service request.
- */
-const prepareInternalRequest = (request: Partial<ServiceRequest>): ServiceRequest => ({
-  // initiate action to ensure that we have prepared proto fo the object
-  // input params
-  // make sure we standardize the request
-  // to provide similar interfaces
-  action: null as any,
-  headers: shallowObjectClone(request.headers),
-  locals: shallowObjectClone(request.locals),
-  auth: shallowObjectClone(request.auth),
-  log: console as any,
-  method: ActionTransport.internal,
-  params: request.params != null
-    ? deepClone(request.params)
-    : Object.create(null),
-  parentSpan: null,
-  span: null,
-  query: Object.create(null),
-  route: '',
-  transport: ActionTransport.internal,
-  transportRequest: Object.create(null),
-  reformatError: false,
-})
+export function createInternalRequest(request: Partial<ServiceRequest>): ServiceRequest {
+  const { params, headers, locals } = request
+  return new (InternalServiceRequest as any)(
+    params != null
+      ? deepClone(params)
+      : Object.create(null),
+    shallowObjectClone(headers),
+    request,
+    shallowObjectClone(locals),
+  )
+}
 
 const defaultConfig: Partial<RouterPluginConfig> = {
- /* Routes configuration */
- routes: {
-   /* Directory to scan for actions. */
-   directory: resolve(process.cwd(), 'src/actions'),
-   /* Enables health action by default */
-   enabledGenericActions: [
-     'health',
-   ],
-   /* Enables response validation. */
-   responseValidation: {
-     enabled: false,
-     maxSample: 7,
-     panic: false,
-   }
- },
- /* Extensions configuration */
- extensions: {
-   register: [auditLog()],
- },
+  /* Routes configuration */
+  routes: {
+    /* Directory to scan for actions. */
+    directory: resolve(process.cwd(), 'src/actions'),
+    /* Enables health action by default */
+    enabledGenericActions: [
+      'health',
+    ],
+    /* Enables response validation. */
+    responseValidation: {
+      enabled: false,
+      maxSample: 7,
+      panic: false,
+    }
+  },
+  /* Extensions configuration */
+  extensions: {
+    register: [auditLog()],
+  },
+  dispatchOptions: defaultDispatchOptions,
 }
 
 export async function attach(
@@ -100,8 +86,9 @@ export async function attach(
       enabled,
       allRoutes,
       enabledGenericActions,
-      responseValidation: validateResponse
-    }
+      responseValidation: validateResponse,
+    },
+    dispatchOptions
   } = this.validator.ifError<RouterPluginConfig>('router', defaultsDeep(options, defaultConfig))
 
   const routes = new Routes()
@@ -119,14 +106,15 @@ export async function attach(
       enabled,
       enabledGenericActions,
       allRoutes,
+      dispatchOptions,
     },
     log: this.log,
-    requestCountTracker: new Tracker(this)
+    requestCountTracker: new Tracker(this),
   })
 
   // dispatcher
-  this.dispatch = (route: string, request: Partial<ServiceRequest>) =>
-    router.prefixAndDispatch(route, prepareInternalRequest(request))
+  this.dispatch = (route: string, request: Partial<ServiceRequest>, dispatchOptions?: Partial<DispatchOptions>) =>
+    router.prefixAndDispatch(route, createInternalRequest(request), dispatchOptions)
 
   return {
     async connect() {
