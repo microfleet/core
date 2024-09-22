@@ -20,7 +20,7 @@
     "@types/node": "20.12.14",
     "conventional-changelog-angular": "^7.0.0",
     "debug": "^4.3.6",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.24.0",
     "glob": "^10.4.5",
     "js-yaml": "^4.1.0",
     "prepend-file": "^2.0.1",
