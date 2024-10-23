@@ -17,7 +17,7 @@
     "@esbuild/linux-arm64": "^0.20.2",
     "@makeomatic/deploy": "^13.0.7",
     "@release-it/conventional-changelog": "^4.3.0",
-    "@types/node": "20.12.14",
+    "@types/node": "20.17.0",
     "conventional-changelog-angular": "^7.0.0",
     "debug": "^4.3.6",
     "esbuild": "^0.20.2",
