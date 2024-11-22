@@ -86,7 +86,7 @@
     "split2": "^4.2.0",
     "tempy": "^1.0.1",
     "tsx": "^4.16.3",
-    "typescript": "~5.3.3",
+    "typescript": "~5.7.0",
     "undici": "^6.19.5"
   },
   "engines": {

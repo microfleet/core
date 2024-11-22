@@ -27,6 +27,6 @@
     "release-it": "^14.14.3",
     "rimraf": "^5.0.9",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "~5.3.3"
+    "typescript": "~5.7.0"
   }
 }
