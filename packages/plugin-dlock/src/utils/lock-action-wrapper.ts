@@ -1,4 +1,5 @@
 import Bluebird from 'bluebird'
+// @ts-expect-error: possible to import sync ESM from node >= 22.12.0
 import { LockAcquisitionError } from '@microfleet/ioredis-lock'
 import { HttpStatusError } from 'common-errors'
 import type { Microfleet } from '@microfleet/core'

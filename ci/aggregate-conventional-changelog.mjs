@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const ConventionalChangelog = require('@release-it/conventional-changelog')
+import ConventionalChangelog from '@release-it/conventional-changelog'
 
 class AggregateConventionalChangelog extends ConventionalChangelog {
   async beforeRelease() {
@@ -13,4 +13,4 @@ class AggregateConventionalChangelog extends ConventionalChangelog {
   }
 }
 
-module.exports = AggregateConventionalChangelog
+export default AggregateConventionalChangelog

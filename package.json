@@ -14,19 +14,18 @@
     "release-it": "release-it -c .release-it.root.cjs"
   },
   "devDependencies": {
-    "@esbuild/linux-arm64": "^0.20.2",
-    "@makeomatic/deploy": "^13.0.7",
-    "@release-it/conventional-changelog": "^4.3.0",
-    "@types/node": "20.12.14",
-    "conventional-changelog-angular": "^7.0.0",
-    "debug": "^4.3.6",
-    "esbuild": "^0.20.2",
-    "glob": "^10.4.5",
+    "@esbuild/linux-arm64": "^0.23.1",
+    "@makeomatic/deploy": "^13.1.0",
+    "@release-it/conventional-changelog": "^10.0.0",
+    "@types/node": "22.10.10",
+    "conventional-changelog-angular": "^8.0.0",
+    "debug": "^4.4.0",
+    "esbuild": "^0.23.1",
+    "glob": "^11.0.1",
     "js-yaml": "^4.1.0",
     "prepend-file": "^2.0.1",
-    "release-it": "^14.14.3",
-    "rimraf": "^5.0.9",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "~5.3.3"
+    "release-it": "^18.1.2",
+    "rimraf": "^6.0.1",
+    "typescript": "~5.7.3"
   }
 }

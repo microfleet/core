@@ -1,11 +1,12 @@
-import { strict as assert } from 'assert'
+import assert from 'node:assert/strict'
+import { test } from 'node:test'
 import { Microfleet } from '@microfleet/core'
 import Bluebird from 'bluebird'
 
-describe('@microfleet/plugin-dlock + sentinel', () => {
+test('@microfleet/plugin-dlock + sentinel', async (t) => {
   let microfleet: Microfleet
 
-  beforeAll(async () => {
+  t.before(async () => {
     microfleet = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'redis-sentinel', 'dlock'],
@@ -22,26 +23,26 @@ describe('@microfleet/plugin-dlock + sentinel', () => {
     })
   })
 
-  it('microfleet connects', async () => {
+  t.after(async () => {
+    if (microfleet) await microfleet.close()
+  })
+
+  await t.test('microfleet connects', async () => {
     await microfleet.connect()
     assert(microfleet.dlock)
   })
 
-  it('able to acquire lock', async () => {
+  await t.test('able to acquire lock', async () => {
     await Bluebird.using(microfleet.dlock.acquireLock('single lock'), async (lock) => {
       microfleet.log.info('lock acquired')
       lock.extend()
     })
   })
 
-  it('able to acquire multi-lock', async () => {
+  await t.test('able to acquire multi-lock', async () => {
     await Bluebird.using(microfleet.dlock.acquireLock('single lock', 'second key'), async (lock) => {
       microfleet.log.info('lock acquired')
       lock.extend()
     })
-  })
-
-  afterAll(async () => {
-    if (microfleet) await microfleet.close()
   })
 })

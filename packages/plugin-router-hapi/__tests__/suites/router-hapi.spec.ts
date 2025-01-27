@@ -1,14 +1,14 @@
-import { strictEqual, deepStrictEqual } from 'assert'
-import { resolve } from 'path'
-import { all } from 'bluebird'
-import cheerio from 'cheerio'
+import { test } from 'node:test'
+import { strictEqual, deepStrictEqual } from 'node:assert'
+import { resolve } from 'node:path'
+import * as cheerio from 'cheerio'
 import { fetch, getGlobalDispatcher } from 'undici'
 
 import { Microfleet } from '@microfleet/core'
 import handlebars from 'handlebars'
 
-describe('@microfleet/plugin-router-hapi', () => {
-  it('should be able to attach \'router\' plugin', async () => {
+test('@microfleet/plugin-router-hapi', async (t) => {
+  await t.test('should be able to attach \'router\' plugin', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
@@ -36,7 +36,7 @@ describe('@microfleet/plugin-router-hapi', () => {
     }
 
     try {
-      await all([
+      await Promise.all([
         fetch(uri, options).then(async (response) => {
           strictEqual(response.status, 200)
           deepStrictEqual(await response.json(), { message: 'foo' })
@@ -53,7 +53,7 @@ describe('@microfleet/plugin-router-hapi', () => {
     }
   })
 
-  it('should be able to use \'router\' plugin prefix', async () => {
+  await t.test('should be able to use \'router\' plugin prefix', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
@@ -86,7 +86,7 @@ describe('@microfleet/plugin-router-hapi', () => {
     }
   })
 
-  it('should be able to use \'hapi\' plugin prefix', async () => {
+  await t.test('should be able to use \'hapi\' plugin prefix', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
@@ -121,7 +121,7 @@ describe('@microfleet/plugin-router-hapi', () => {
     }
   })
 
-  it('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', async () => {
+  await t.test('should be able to use both \'hapi\' plugin prefix and \'router\' plugin prefix', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
@@ -157,7 +157,7 @@ describe('@microfleet/plugin-router-hapi', () => {
     }
   })
 
-  it('should be able to pass custom options to hapi route', async () => {
+  await t.test('should be able to pass custom options to hapi route', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
@@ -188,7 +188,7 @@ describe('@microfleet/plugin-router-hapi', () => {
     }
   })
 
-  describe('should be able to use hapi\'s plugins', () => {
+  await t.test('hapi plugins suite', async (t) => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'router', 'hapi', 'router-hapi'],
@@ -197,9 +197,7 @@ describe('@microfleet/plugin-router-hapi', () => {
           port: 3000,
         },
         views: {
-          engines: {
-            hbs: handlebars,
-          },
+          engines: { hbs: handlebars },
           path: resolve(__dirname, '../artifacts/templates'),
         },
       },
@@ -213,10 +211,15 @@ describe('@microfleet/plugin-router-hapi', () => {
       },
     })
 
-    beforeAll(() => service.connect())
-    afterAll(() => service.close())
+    t.before(async () => {
+      await service.connect()
+    })
 
-    it('should be able to send html view', async () => {
+    t.after(async () => {
+      await service.close()
+    })
+
+    await t.test('should be able to send html view', async () => {
       const options = {
         method: 'post',
         headers: {
@@ -240,7 +243,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       strictEqual(page('div#content')?.html()?.trim(), 'content')
     })
 
-    it('should be able to redirect', async () => {
+    await t.test('should be able to redirect', async () => {
       const response = await fetch('http://0.0.0.0:3000/foo/bar/redirect')
 
       strictEqual(response.status, 200)
@@ -248,7 +251,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       deepStrictEqual(body, { redirected: true })
     })
 
-    it('should be able to redirect', async () => {
+    await t.test('should be able to redirect external', async () => {
       const response = await fetch('http://0.0.0.0:3000/foo/bar/external-redirect')
 
       strictEqual(response.status, 200)
@@ -256,7 +259,7 @@ describe('@microfleet/plugin-router-hapi', () => {
       strictEqual(/google/.test(body), true)
     })
 
-    it('validation error is serialized including the code', async () => {
+    await t.test('validation error is serialized including the code', async () => {
       const response = await fetch('http://0.0.0.0:3000/foo/bar/validation')
 
       strictEqual(response.status, 400)
@@ -271,7 +274,7 @@ describe('@microfleet/plugin-router-hapi', () => {
     })
   })
 
-  afterAll(async () => {
+  t.after(async () => {
     await getGlobalDispatcher().close()
   })
 })

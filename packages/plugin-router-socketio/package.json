@@ -35,36 +35,33 @@
     "@microfleet/plugin-socketio": "workspace:^",
     "common-errors": "~1.2.0",
     "lodash": "^4.17.21",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.8.1"
   },
   "peerDependencies": {
     "@microfleet/core": "workspace:^",
     "common-errors": "~1.x.x"
   },
   "devDependencies": {
-    "@makeomatic/deploy": "^13.0.7",
+    "@makeomatic/deploy": "^13.1.0",
     "@microfleet/core": "workspace:^",
-    "@release-it/conventional-changelog": "^4.3.0",
-    "@types/jest": "29.5.12",
-    "@types/lodash": "^4.17.7",
-    "@types/node": "^20.14.13",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
+    "@release-it/conventional-changelog": "^10.0.0",
+    "@types/lodash": "^4.17.14",
+    "@types/node": "^22.10.10",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-makeomatic": "^6.0.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-unicorn": "^51.0.1",
-    "jest": "^29.7.0",
-    "release-it": "^14.14.3",
-    "rimraf": "^5.0.9",
-    "sinon": "^17.0.1",
-    "socket.io-client": "^4.7.5",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "~5.3.3"
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-unicorn": "^56.0.1",
+    "release-it": "^18.1.2",
+    "rimraf": "^6.0.1",
+    "sinon": "^19.0.2",
+    "socket.io-client": "^4.8.1",
+    "typescript": "~5.7.3"
   },
   "engines": {
-    "node": ">= 12.14.0",
+    "node": ">= 22.12.0",
     "npm": ">= 4.0.0"
   },
   "files": [

@@ -1,17 +1,20 @@
 import { strict as assert } from 'node:assert'
+import test from 'node:test'
 import { Microfleet } from '@microfleet/core'
 import { Config } from '@microfleet/plugin-elasticsearch'
 
-jest.setTimeout(1000 * 30)
+const getConfig = (): Config => ({
+  node: 'http://elasticsearch:9200',
+})
 
-describe('Elasticsearch suite', () => {
-  let service: Microfleet
+let service: Microfleet
 
-  const getConfig = (): Config => ({
-    node: 'http://elasticsearch:9200',
+test('Elasticsearch suite', async (t) => {
+  t.after(async () => {
+    await service?.close()
   })
 
-  it('should throw an error when plugin isn\'t included', async () => {
+  await t.test('should throw an error when plugin isn\'t included', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: [],
@@ -19,23 +22,17 @@ describe('Elasticsearch suite', () => {
     assert(!service.elasticsearch)
   })
 
-  it('able to connect to elasticsearch when plugin is included', async () => {
+  await t.test('able to connect to elasticsearch when plugin is included', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'elasticsearch'],
       elasticsearch: getConfig(),
     })
 
-
     await service.connect()
     const { elasticsearch } = service
-    // Since elastic is not an instance of Elasticsearch.Client due to
-    // its inner implementation, here we do some duck tests to check it
-    expect(elasticsearch).toHaveProperty('transport')
-    expect(elasticsearch).toHaveProperty('cluster')
-  })
 
-  it('able to close connection to elasticsearch', async () => {
-    await service.close()
+    assert(elasticsearch.transport, 'elasticsearch should have transport property')
+    assert(elasticsearch.cluster, 'elasticsearch should have cluster property')
   })
 })

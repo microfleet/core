@@ -5,7 +5,7 @@ export type RouterAMQPPluginRetryConfig = {
   maxRetries: number;
   factor: number;
   queue: string;
-  predicate: CallableFunction;
+  predicate: <T extends Error>(err: T, actionName: string) => boolean;
 }
 
 export type RouterAMQPPluginConfig = {

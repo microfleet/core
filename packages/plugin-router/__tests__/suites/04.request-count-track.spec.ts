@@ -1,4 +1,5 @@
-import { strict as assert } from 'assert'
+import { describe, it, beforeEach, afterEach } from 'node:test'
+import { strict as assert } from 'node:assert'
 import { spy } from 'sinon'
 import { Microfleet } from '@microfleet/core'
 import { Extensions } from '@microfleet/plugin-router'
@@ -16,7 +17,19 @@ import { Agent, getGlobalDispatcher, setGlobalDispatcher } from 'undici'
 
 const { auditLog } = Extensions
 
-describe('service request count', () => {
+describe('service request count', async () => {
+  beforeEach(async () => {
+    setGlobalDispatcher(new Agent({
+      bodyTimeout: 1e3,
+      headersTimeout: 1e3,
+      connections: 1,
+    }))
+  })
+
+  afterEach(async () => {
+    await getGlobalDispatcher().close()
+  })
+
   it('counts requests on unknown routes', async () => {
     const port = await getFreePort()
     const service = new Microfleet(withResponseValidateAction('tester', {
@@ -105,17 +118,5 @@ describe('service request count', () => {
 
     assert(preRequestSpy.callCount === 3)
     assert(postResponseSpy.callCount === 3)
-  })
-
-  beforeEach(async () => {
-    setGlobalDispatcher(new Agent({
-      bodyTimeout: 1e3,
-      headersTimeout: 1e3,
-      connections: 1,
-    }))
-  })
-
-  afterEach(async () => {
-    await getGlobalDispatcher().close()
   })
 })
