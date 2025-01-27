@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   kafka:
     image: confluentinc/cp-kafka
@@ -29,9 +27,9 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_GROUP_MIN_SESSION_TIMEOUT_MS: 10000
       KAFKA_GROUP_MAX_SESSION_TIMEOUT_MS: 30000
-      KAFKA_NUM_NETWORK_THREADS: 4
-      KAFKA_NUM_IO_THREADS: 4
-      KAFKA_BACKGROUND_THREADS: 4
+      KAFKA_NUM_NETWORK_THREADS: 2
+      KAFKA_NUM_IO_THREADS: 2
+      KAFKA_BACKGROUND_THREADS: 2
       TOPIC_AUTO_CREATE: 'true'
       KAFKA_HEAP_OPTS: "-Xmx512m -Xms512m"
 
@@ -56,7 +54,7 @@ services:
       - kafka
     environment:
       DEBUG: ${DEBUG}
-      UV_THREADPOOL_SIZE: 16 # assume 4+n consumers active and give some more place
+      UV_THREADPOOL_SIZE: 8 # assume 4+n consumers active and give some more place
     user: "${UID:-1000}:${UID:-1000}"
     volumes:
       - ${PNPM_STORE:-~/.pnpm-store}:/tmp/.pnpm-store

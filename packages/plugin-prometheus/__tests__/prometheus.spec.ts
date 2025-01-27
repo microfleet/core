@@ -1,17 +1,23 @@
 import assert from 'node:assert/strict'
+import { test } from 'node:test'
 import { fetch, getGlobalDispatcher } from 'undici'
 import { Microfleet } from '@microfleet/core'
 
-describe('prometheus plugin', function testSuite() {
+
+test('prometheus plugin', async (t) => {
   let service: Microfleet
 
-  it('should be able to throw error if plugin is not included', async () => {
+  t.afterEach(() => (
+    service && service.close()
+  ))
+
+  await t.test('should be able to throw error if plugin is not included', async () => {
     service = new Microfleet({ name: 'micro', plugins: [] })
     await service.register()
     assert(!service.prometheus)
   })
 
-  it('should be able to initialize', async () => {
+  await t.test('should be able to initialize', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'prometheus'],
@@ -21,7 +27,7 @@ describe('prometheus plugin', function testSuite() {
     assert.ok(service.prometheus)
   })
 
-  it('should be able to provide metrics', async () => {
+  await t.test('should be able to provide metrics', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'prometheus'],
@@ -35,11 +41,7 @@ describe('prometheus plugin', function testSuite() {
     assert.ok(text.includes('TYPE microfleet_request_duration_milliseconds histogram'))
   })
 
-  afterEach(() => (
-    service && service.close()
-  ))
-
-  afterAll(async () => {
+  t.after(async () => {
     await getGlobalDispatcher().close()
   })
 })

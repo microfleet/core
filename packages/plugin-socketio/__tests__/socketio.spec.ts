@@ -1,16 +1,17 @@
-import { strictEqual, strict } from 'assert'
+import { test } from 'node:test'
+import { strictEqual, strict } from 'node:assert'
 import { Microfleet } from '@microfleet/core'
 import { Server as SocketIOStatic } from 'socket.io'
 import { Transport, Adapter } from 'ms-socket.io-adapter-amqp'
 
-describe('@microfleet/plugin-socketio', () => {
-  it('should not be able to create socket.io instance when plugin is included', async () => {
+test('plugin-socketio', async (t) => {
+  await t.test('should not be able to create socket.io instance when plugin is not included', async () => {
     const service = new Microfleet({ name: 'tester', plugins: [] })
     await service.register()
     strictEqual(service.socketio, undefined)
   })
 
-  it('should create socket.io instance when plugin is included', async () => {
+  await t.test('should create socket.io instance when plugin is included', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'socketio'],
@@ -20,7 +21,7 @@ describe('@microfleet/plugin-socketio', () => {
     strictEqual(service.socketio instanceof SocketIOStatic, true)
   })
 
-  it('should be able to set up AMQP adapter', async () => {
+  await t.test('should be able to set up AMQP adapter', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'socketio'],
