@@ -42,7 +42,7 @@ module.exports = {
       }
     },
     [path.resolve(__dirname, './ci/pnpm-git.mjs')]: {},
-    [require.resolve('../node_modules/release-it/lib/plugin/github/GitHub.js')]: {
+    [require.resolve('./node_modules/release-it/lib/plugin/github/GitHub.js')]: {
       release: true,
       releaseName: "Release ${version}",
       releaseNotes: null,
