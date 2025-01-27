@@ -1,6 +1,6 @@
 import { Microfleet } from '@microfleet/core'
 import { merge } from 'lodash'
-import { once } from 'events'
+import { once } from 'node:events'
 
 import {
   KafkaConsumerStream,

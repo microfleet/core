@@ -1,6 +1,14 @@
 import build from 'pino-abstract-transport'
 import { strict as assert } from 'node:assert'
-import { init, captureException, captureMessage, Scope, Integrations, type SeverityLevel, type NodeOptions } from '@sentry/node'
+import {
+  init,
+  captureException,
+  captureMessage,
+  Scope,
+  consoleIntegration,
+  type SeverityLevel,
+  type NodeOptions
+} from '@sentry/node'
 import { isAbsolute, resolve } from 'path'
 import merge from 'lodash.merge'
 
@@ -58,7 +66,7 @@ export async function sentryTransport({ externalConfiguration, sentry, minLevel 
     defaultIntegrations: false,
     ...process.env.NODE_ENV === 'test' && {
       integrations: [
-        new Integrations.Console(),
+        consoleIntegration(),
       ],
     },
   }

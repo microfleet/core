@@ -7,7 +7,7 @@ import { Config, CredentialsStore, SignedRequest } from '../signed-request'
 
 declare module 'fastify' {
   interface FastifyRequest {
-    signature?: SignedRequest
+    signature: SignedRequest | null
   }
 }
 

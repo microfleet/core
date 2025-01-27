@@ -1,15 +1,16 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import sinon from 'sinon'
-import { strict as assert } from 'assert'
+import assert from 'node:assert/strict'
+import { test } from 'node:test'
 
 import { Microfleet } from '@microfleet/core'
 import { ServiceRequest } from '@microfleet/plugin-router'
 
-describe('#Casl RBAC plugin', () => {
+test('#Casl RBAC plugin', async (t) => {
   let service: Microfleet
   const strategyStub = sinon.stub()
 
-  beforeAll(async () => {
+  t.before(async () => {
     service = new Microfleet({
       name: 'rbac-service',
       plugins: [
@@ -60,15 +61,13 @@ describe('#Casl RBAC plugin', () => {
     await service.connect()
   })
 
-  afterAll(async () => {
-    if (service) {
-      await service.close()
-    }
+  t.after(async () => {
+    await service?.close()
   })
 
-  describe('#direct usage', () => {
-    it('panics on unknown ability', async () => {
-      assert.rejects(
+  await t.test('#direct usage', async (t) => {
+    await t.test('panics on unknown ability', async () => {
+      await assert.rejects(
         async () => {
           service.rbac.get('unknown-ability')
         },
@@ -76,26 +75,26 @@ describe('#Casl RBAC plugin', () => {
       )
     })
 
-    it('uses subjectDetector', async () => {
+    await t.test('uses subjectDetector', async () => {
       const { rbac } = service
       const ability = rbac.get('foo-ability')
 
-      assert.strictEqual(rbac.can(ability, 'manage', { type: 'foo' }), true)
-      assert.strictEqual(rbac.can(ability, 'manage', { type: 'bar' }), false)
+      assert.equal(rbac.can(ability, 'manage', { type: 'foo' }), true)
+      assert.equal(rbac.can(ability, 'manage', { type: 'bar' }), false)
     })
 
-    it('allows to override subject', async () => {
+    await t.test('allows to override subject', async () => {
       const { rbac } = service
       const ability = rbac.get('foo-ability')
 
-      assert.strictEqual(rbac.canSubject(ability, 'manage', 'foo', {}), true)
-      assert.strictEqual(rbac.canSubject(ability, 'manage', 'bar', {}), false)
+      assert.equal(rbac.canSubject(ability, 'manage', 'foo', {}), true)
+      assert.equal(rbac.canSubject(ability, 'manage', 'bar', {}), false)
     })
   })
 
-  describe('#action config', () => {
-    describe('flat action', () => {
-      it('should not allow action execution', async () => {
+  await t.test('#action config', async (t) => {
+    await t.test('flat action', async (t) => {
+      await t.test('should not allow action execution', async () => {
         const testScopes = [
           [{ action: 'some', subject: 'xxbb' }],
           [{ action: 'read', subject: 'my-subject', inverted: true }],
@@ -121,7 +120,7 @@ describe('#Casl RBAC plugin', () => {
         }
       })
 
-      it('should allow action execution', async () => {
+      await t.test('should allow action execution', async () => {
         const testScopes =  [
           [{ action: 'read', subject: 'my-subject' }],
           [{ action: 'x-manage', subject: 'my-subject' }],
@@ -143,8 +142,8 @@ describe('#Casl RBAC plugin', () => {
       })
     })
 
-    describe('scoped action', () => {
-      it('should allow/deny action execution', async () => {
+    await t.test('scoped action', async (t) => {
+      await t.test('should allow/deny action execution', async () => {
         const testScopes =  [
           {
             scopes: [{ action: 'read', subject: 'app' }],
