@@ -39,7 +39,6 @@
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
     "debug": "^4.4.0",
-    "ioredis": "^5.4.2",
     "promise-toolbox": "^0.21.0"
   },
   "devDependencies": {
@@ -58,7 +57,7 @@
     "eslint-config-makeomatic": "^6.0.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-unicorn": "^56.0.1",
-    "ioredis": "^4.28.3",
+    "ioredis": "^5.4.2",
     "release-it": "^14.14.3",
     "rimraf": "^6.0.1",
     "sinon": "^19.0.2",

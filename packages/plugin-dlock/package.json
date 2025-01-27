@@ -35,11 +35,11 @@
     "@microfleet/plugin-validator": "workspace:^",
     "@microfleet/utils": "workspace:^",
     "bluebird": "^3.7.2",
-    "common-errors": "^1.2.0",
-    "ioredis": "^5.4.2"
+    "common-errors": "^1.2.0"
   },
   "peerDependencies": {
-    "@microfleet/core": "workspace:^"
+    "@microfleet/core": "workspace:^",
+    "ioredis": "^5.4.2"
   },
   "devDependencies": {
     "@makeomatic/deploy": "^13.1.0",
@@ -62,7 +62,8 @@
     "release-it": "^14.14.3",
     "rimraf": "^6.0.1",
     "sinon": "^19.0.2",
-    "typescript": "~5.7.3"
+    "typescript": "~5.7.3",
+    "ioredis": "^5.4.2"
   },
   "engines": {
     "node": ">= 22.12.0",

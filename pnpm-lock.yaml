@@ -644,9 +644,6 @@ importers:
       common-errors:
         specifier: ^1.2.0
         version: 1.2.0
-      ioredis:
-        specifier: ^5.4.2
-        version: 5.4.2
     devDependencies:
       '@makeomatic/deploy':
         specifier: ^13.1.0
@@ -699,6 +696,9 @@ importers:
       eslint-plugin-unicorn:
         specifier: ^56.0.1
         version: 56.0.1(eslint@8.57.1)
+      ioredis:
+        specifier: ^5.4.2
+        version: 5.4.2
       release-it:
         specifier: ^14.14.3
         version: 14.14.3
@@ -1333,9 +1333,6 @@ importers:
       debug:
         specifier: ^4.4.0
         version: 4.4.0
-      ioredis:
-        specifier: ^5.4.2
-        version: 5.4.2
       promise-toolbox:
         specifier: ^0.21.0
         version: 0.21.0
@@ -1385,6 +1382,9 @@ importers:
       eslint-plugin-unicorn:
         specifier: ^56.0.1
         version: 56.0.1(eslint@8.57.1)
+      ioredis:
+        specifier: ^5.4.2
+        version: 5.4.2
       release-it:
         specifier: ^14.14.3
         version: 14.14.3
@@ -9806,7 +9806,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.4.0
+      debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
 
@@ -11747,7 +11747,7 @@ snapshots:
     dependencies:
       '@tootallnate/once': 1.1.2
       data-uri-to-buffer: 3.0.1
-      debug: 4.4.0
+      debug: 4.3.4
       file-uri-to-path: 2.0.0
       fs-extra: 8.1.0
       ftp: 0.3.10
@@ -12015,7 +12015,7 @@ snapshots:
     dependencies:
       '@tootallnate/once': 1.1.2
       agent-base: 6.0.2
-      debug: 4.4.0
+      debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
 
@@ -12035,7 +12035,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.4.0
+      debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
 
@@ -13121,7 +13121,7 @@ snapshots:
     dependencies:
       '@tootallnate/once': 1.1.2
       agent-base: 6.0.2
-      debug: 4.4.0
+      debug: 4.3.4
       get-uri: 3.0.2
       http-proxy-agent: 4.0.1
       https-proxy-agent: 5.0.1
@@ -13432,7 +13432,7 @@ snapshots:
   proxy-agent@5.0.0:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.4.0
+      debug: 4.3.4
       http-proxy-agent: 4.0.1
       https-proxy-agent: 5.0.1
       lru-cache: 5.1.1
@@ -14078,7 +14078,7 @@ snapshots:
   socks-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.4.0
+      debug: 4.3.4
       socks: 2.8.3
     transitivePeerDependencies:
       - supports-color

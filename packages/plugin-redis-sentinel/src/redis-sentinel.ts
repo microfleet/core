@@ -14,13 +14,13 @@ import {
   isStarted,
   loadLuaScripts,
 } from '@microfleet/plugin-redis-core'
-import Redis from 'ioredis'
+import { Redis, RedisOptions } from 'ioredis'
 
 const debug = _debug('mservice:redisSentinel')
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
-    redis: Redis.Redis;
+    redis: Redis;
     redisType: 'redisSentinel';
   }
 
@@ -31,8 +31,8 @@ declare module '@microfleet/core-types' {
 
 export interface Config {
   name: string
-  sentinels: Redis.RedisOptions['sentinels']
-  options: Omit<Redis.RedisOptions, 'sentinels'>
+  sentinels: RedisOptions['sentinels']
+  options: Omit<RedisOptions, 'sentinels'>
   luaScripts: string | string[]
 }
 

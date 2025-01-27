@@ -29,7 +29,7 @@
   "peerDependencies": {
     "@microfleet/core": "workspace:^",
     "common-errors": "^1.2.0",
-    "ioredis": "^4.28.0"
+    "ioredis": "^4.28.0 || ^5.0.0"
   },
   "dependencies": {
     "@microfleet/core-types": "workspace:^",
