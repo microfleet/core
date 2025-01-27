@@ -1,3 +1,809 @@
+# @microfleet/utils 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@4.0.1...@microfleet/utils@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-validator 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@4.0.1...@microfleet/plugin-validator@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-socketio 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@4.0.1...@microfleet/plugin-socketio@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-signed-request 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@4.0.1...@microfleet/plugin-signed-request@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-router 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@4.0.1...@microfleet/plugin-router@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-router-socketio 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@4.0.1...@microfleet/plugin-router-socketio@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-router-hapi 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@4.0.1...@microfleet/plugin-router-hapi@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-router-amqp 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@4.0.1...@microfleet/plugin-router-amqp@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-redis-sentinel 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@4.0.1...@microfleet/plugin-redis-sentinel@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-redis-core 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@4.0.1...@microfleet/plugin-redis-core@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-redis-cluster 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@4.0.1...@microfleet/plugin-redis-cluster@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-prometheus 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@4.0.1...@microfleet/plugin-prometheus@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-logger 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@4.0.1...@microfleet/plugin-logger@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-knex 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@6.0.1...@microfleet/plugin-knex@7.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-kafka 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@6.0.1...@microfleet/plugin-kafka@7.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-kafka-types 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@5.0.1...@microfleet/plugin-kafka-types@6.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-hapi 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@4.0.1...@microfleet/plugin-hapi@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-elasticsearch 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@4.0.1...@microfleet/plugin-elasticsearch@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-dlock 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@4.0.1...@microfleet/plugin-dlock@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-couchdb 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@6.0.1...@microfleet/plugin-couchdb@7.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-consul 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@6.0.1...@microfleet/plugin-consul@7.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-casl 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@4.0.1...@microfleet/plugin-casl@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-aws-elasticsearch 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@5.0.1...@microfleet/plugin-aws-elasticsearch@6.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/plugin-amqp 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@4.0.1...@microfleet/plugin-amqp@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/core 22.0.0
+
+# [22.0.0](https://github.com/microfleet/core/compare/@microfleet/core@21.0.1...@microfleet/core@22.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# @microfleet/core-types 5.0.0
+
+# [5.0.0](https://github.com/microfleet/core/compare/@microfleet/core-types@4.0.1...@microfleet/core-types@5.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
 # @microfleet/utils 4.0.1
 
 ## [4.0.1](https://github.com/microfleet/core/compare/@microfleet/utils@4.0.0...@microfleet/utils@4.0.1) (2024-08-02)

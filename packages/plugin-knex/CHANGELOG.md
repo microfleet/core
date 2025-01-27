@@ -1,4 +1,62 @@
+# Changelog
 
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@6.0.1...@microfleet/plugin-knex@7.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@6.0.1...@microfleet/plugin-knex@7.0.0) (2025-01-27)
+
+
+### Features
+
+* swap test harness to node:test, min node 22.12.0 ([#727](https://github.com/microfleet/core/issues/727)) ([939c65f](https://github.com/microfleet/core/commit/939c65fef292e191a04fb21e9cfa0b812482ed12))
+
+
+### BREAKING CHANGES
+
+* uses sync ESM modules, which is now possible with the release
+of node 22.12.0. On top of it swaps test harness to built-in node:test.
+Other major changes: support ioredis@5 - main change is lack of Bluebird promises support, which
+may break plenty of code that relied on it. Updated dlock & associated modules with ioredis@5 support
+Updated rdkafka to latest, which fixes a few segfaults and deadlocks on consumer close. Uses tsx to
+transform typescript for tests and do proper cjs/esm interop. Jest / mocha proved to be very difficult to
+implement
+
+Short list of changes:
+- removed jest
+- using node:test
+- removed mocha
+- minimized using bluebird
+- ioredis@5
+- librdkaka@1.7.1
+- pino@9 
+- sentry@8
+- minimum node @ 22.12.0
 
 ## [6.0.1](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@6.0.0...@microfleet/plugin-knex@6.0.1) (2024-08-02)
 
