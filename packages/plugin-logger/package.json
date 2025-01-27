@@ -49,7 +49,7 @@
   "devDependencies": {
     "@makeomatic/deploy": "^13.1.0",
     "@microfleet/core": "workspace:^",
-    "@release-it/conventional-changelog": "^4.3.0",
+    "@release-it/conventional-changelog": "^10.0.0",
     "@sentry/node": "^8.51.0",
     "@sentry/types": "^8.51.0",
     "@types/bluebird": "^3.5.42",
@@ -67,7 +67,7 @@
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-unicorn": "^56.0.1",
     "fastify": "^5.2.1",
-    "release-it": "^14.14.3",
+    "release-it": "^18.1.2",
     "rimraf": "^6.0.1",
     "sentry-testkit": "^5.0.9",
     "sinon": "^19.0.2",

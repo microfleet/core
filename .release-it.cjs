@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('node:path')
 const cwd = process.cwd()
 const pkg = path.resolve(cwd, 'package.json')
 const { name } = require(pkg)
@@ -19,17 +19,17 @@ module.exports = {
     ignoreVersion: false,
   },
   plugins: {
-    [path.resolve(__dirname, './ci/aggregate-npm.js')]: {},
-    [path.resolve(__dirname, './ci/aggregate-conventional-changelog.js')]: {
+    [path.resolve(__dirname, './ci/aggregate-npm.mjs')]: {},
+    [path.resolve(__dirname, './ci/aggregate-conventional-changelog.mjs')]: {
       infile: "CHANGELOG.md",
       preset: {
-        name: path.resolve(__dirname, './ci/conventional-changelog-microfleet.js'),
+        name: path.resolve(__dirname, './ci/conventional-changelog-microfleet.mjs'),
         parserOpts: {
           noteKeywords: ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
         },
       },
     },
-    [path.resolve(__dirname, './ci/aggregate-release.js')]: {},
+    [path.resolve(__dirname, './ci/aggregate-release.mjs')]: {},
   },
   'disable-metrics': true,
 }

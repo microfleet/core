@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const NPM = require('release-it/lib/plugin/npm/npm')
+import NPM from '../node_modules/release-it/lib/plugin/npm/npm.js'
 
 class AggregateNPM extends NPM {
   static disablePlugin() {
@@ -24,4 +24,4 @@ class AggregateNPM extends NPM {
   }
 }
 
-module.exports = AggregateNPM
+export default AggregateNPM

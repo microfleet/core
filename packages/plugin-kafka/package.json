@@ -48,7 +48,7 @@
   "devDependencies": {
     "@makeomatic/deploy": "^13.1.0",
     "@microfleet/core": "workspace:^",
-    "@release-it/conventional-changelog": "^4.3.0",
+    "@release-it/conventional-changelog": "^10.0.0",
     "@types/bluebird": "^3.5.42",
     "@types/bluebird-retry": "^0.11.8",
     "@types/common-errors": "^1.0.5",
@@ -66,7 +66,7 @@
     "eslint-plugin-unicorn": "^56.0.1",
     "execa": "^9.5.2",
     "fast-json-stable-stringify": "^2.1.0",
-    "release-it": "^14.14.3",
+    "release-it": "^18.1.2",
     "rimraf": "^6.0.1",
     "sinon": "^19.0.2",
     "toxiproxy-node-client": "^4.0.0",
