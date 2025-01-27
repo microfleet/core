@@ -1,24 +1,25 @@
 import { strict as assert } from 'node:assert'
+import { test } from 'node:test'
+import { resolve } from 'node:path'
 import { findHealthCheck } from './utils/health-check'
 import { Microfleet } from '@microfleet/core'
 import type { Config } from '@microfleet/plugin-redis-cluster'
 import { Cluster } from 'ioredis'
-import { resolve } from 'path'
 
-describe('Redis suite', function testSuite() {
-  let service: Microfleet
+let service: Microfleet
 
-  const getConfigForRedis = (): Partial<Config> => ({
-    hosts: [0, 1, 2].map((idx) => ({
-      host: 'redis-cluster',
-      port: 7000 + idx,
-    })),
-    options: {
-      keyPrefix: '{host}'
-    }
-  })
+const getConfigForRedis = (): Partial<Config> => ({
+  hosts: [0, 1, 2].map((idx) => ({
+    host: 'redis-cluster',
+    port: 7000 + idx,
+  })),
+  options: {
+    keyPrefix: '{host}'
+  }
+})
 
-  it('able to connect to redis when plugin is included', async () => {
+test('Redis suite', async (t) => {
+  await t.test('able to connect to redis when plugin is included', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'redis-cluster'],
@@ -39,7 +40,7 @@ describe('Redis suite', function testSuite() {
     assert(result)
   })
 
-  it('able to perform migrations', async () => {
+  await t.test('able to perform migrations', async () => {
     await service
       .migrate('redis', '/src/packages/plugin-redis-cluster/__tests__/migrations')
 
@@ -50,7 +51,7 @@ describe('Redis suite', function testSuite() {
     assert.strictEqual(migration_01, 'done')
   })
 
-  it('able to close connection to redis', async () => {
+  await t.test('able to close connection to redis', async () => {
     assert(service)
     await service.close()
   })

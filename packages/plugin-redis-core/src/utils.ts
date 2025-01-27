@@ -7,7 +7,7 @@ import { readFile } from 'node:fs/promises'
 import { glob } from 'glob'
 import path from 'path'
 import { ERROR_NOT_HEALTHY, ERROR_NOT_STARTED } from './constants'
-import Redis from 'ioredis'
+import { Redis, Cluster } from 'ioredis'
 
 const debug = _debug('mservice:lua')
 
@@ -16,7 +16,7 @@ const debug = _debug('mservice:lua')
  * @param dir - Directory to scan for LUA scripts to load.
  * @param redis - Redis connector instance.
  */
-export async function loadLuaScripts<T extends Redis.Redis | Redis.Cluster>(
+export async function loadLuaScripts<T extends Redis | Cluster>(
   ctx: Microfleet,
   dir: string | string[],
   redis: T
@@ -52,7 +52,7 @@ export async function loadLuaScripts<T extends Redis.Redis | Redis.Cluster>(
   }
 }
 
-export function isStarted<T extends Redis.ClusterStatic | typeof Redis>(service: Microfleet, RedisType: T) {
+export function isStarted<T extends typeof Cluster | typeof Redis>(service: Microfleet, RedisType: T) {
   return (): boolean => (
     service.redis && (service.redis instanceof RedisType)
   )

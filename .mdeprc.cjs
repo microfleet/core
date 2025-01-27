@@ -1,5 +1,5 @@
 module.exports = {
-  node: '20',
+  node: '22',
   mutagenWorkingDir: '/src',
   mutagenDir: __dirname,
   mutagenVolumeExternal: true,
