@@ -7,7 +7,6 @@ import getFreePort from 'get-port'
 import { filter, range } from 'lodash'
 import { Microfleet, PLUGIN_STATUS_FAIL } from '@microfleet/core'
 import { Extensions, ServiceRequest } from '../../src/index'
-import { file as tmpFile } from 'tempy'
 import { open } from 'fs/promises'
 import { setTimeout } from 'timers/promises'
 import {
@@ -19,6 +18,7 @@ import {
   getIOClient
 } from '../artifacts/utils'
 import { getGlobalDispatcher, setGlobalDispatcher, Agent } from 'undici'
+import { describe, it, beforeEach, afterEach } from 'node:test'
 
 const {
   auditLog,
@@ -29,7 +29,9 @@ const {
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const debug = require('debug')('test')
 
-describe('@microfleet/plugin-router', () => {
+describe('@microfleet/plugin-router', async () => {
+  const { temporaryFile } = await import('tempy')
+
   let port: number
   let service: Microfleet
 
@@ -524,7 +526,7 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should be able to log error for unknown route', async () => {
-    const file = tmpFile()
+    const file = temporaryFile()
     const handle = await open(file, 'w+')
 
     try {
@@ -574,7 +576,7 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should be able to disable an error logging for unknown route', async () => {
-    const file = tmpFile()
+    const file = temporaryFile()
     const handle = await open(file, 'w+')
 
     try {
@@ -620,7 +622,7 @@ describe('@microfleet/plugin-router', () => {
   })
 
   it('should be able to decrease an error level using \'getErrorLevel\' function', async function test() {
-    const file = tmpFile()
+    const file = temporaryFile()
     const handle = await open(file, 'w+')
 
     try {

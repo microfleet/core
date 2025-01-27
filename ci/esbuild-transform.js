@@ -10,7 +10,7 @@ const transformer = {
       format: /\.m[tj]s$/.test(filename) ? 'esm' : 'cjs',
       sourcemap: 'inline',
       platform: 'node',
-      target: 'node20',
+      target: 'node22',
       ...transformerConfig,
       entryPoints: [filename],
     })
