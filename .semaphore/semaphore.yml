@@ -17,14 +17,13 @@ global_job_config:
   prologue:
     commands:
       - set -e
-      - sem-version node 20
-      - curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=8.15.9 sh -
-      - source /home/semaphore/.bashrc
-      - pnpm config set store-dir=~/.pnpm-store
+      - sem-version node --lts
+      - corepack enable
+      - corepack install --global pnpm@9.x
       - checkout
       - cache restore node-$(checksum pnpm-lock.yaml)
       - pnpm i --frozen-lockfile --prefer-offline --ignore-scripts
-      - cache store node-$(checksum pnpm-lock.yaml) ~/.pnpm-store
+      - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
       - cp ~/.env.aws-credentials ./packages/plugin-aws-elasticsearch/.env
       - sudo chgrp -hR +1000 node_modules # so that it matches node uid/gid in the docker container
 
@@ -32,6 +31,8 @@ global_job_config:
   - name: aws-credentials
   env_vars:
   - name: BUILD_LIBRDKAFKA
+    value: '0'
+  - name: COREPACK_ENABLE_AUTO_PIN
     value: '0'
 
 blocks:
@@ -56,7 +57,7 @@ blocks:
           - artifact pull workflow intermediary-build.tgz
           - tar -xzf intermediary-build.tgz -C ./
           - cd ./packages/$TEST_WORKSPACE_NAME
-          - env UID=${UID} PNPM_STORE=$(pnpm config get store-dir) pnpm test
+          - env UID=${UID} PNPM_STORE=$(dirname `pnpm store path`) pnpm test
         matrix:
         - env_var: TEST_WORKSPACE_NAME
           values: ["core", "core-types", "plugin-amqp", "plugin-aws-elasticsearch",

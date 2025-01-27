@@ -1,10 +1,9 @@
 import { strict as assert } from 'node:assert'
-import Bluebird from 'bluebird'
 import _debug from 'debug'
 import fromEvent from 'promise-toolbox/fromEvent'
 import type { PluginInterface } from '@microfleet/core-types'
 import type { Microfleet } from '@microfleet/core'
-import Redis from 'ioredis'
+import { Cluster, type ClusterNode, type ClusterOptions } from 'ioredis'
 import { resolve } from 'path'
 import { PluginTypes } from '@microfleet/utils'
 import { NotFoundError } from 'common-errors'
@@ -23,7 +22,7 @@ const debug = _debug('mservice:redisCluster')
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
-    redis: Redis.Cluster;
+    redis: Cluster;
     redisType: 'redisCluster';
   }
 
@@ -33,8 +32,8 @@ declare module '@microfleet/core-types' {
 }
 
 export interface Config {
-  hosts: Redis.ClusterNode[]
-  options: Redis.ClusterOptions & {
+  hosts: ClusterNode[]
+  options: ClusterOptions & {
     keyPrefix?: string
   }
   luaScripts: string | string[]
@@ -64,16 +63,6 @@ export async function attach(this: Microfleet, opts: Partial<Config> = {}): Prom
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  const bird = Bluebird.getNewLibraryCopy()
-  bird.config({
-    cancellation: true,
-  })
-
-  // push out its own bluebird version and configure cancellation
-  // @ts-expect-error not defined in protos
-  Redis.Promise = bird
-
-  const { Cluster } = Redis
   const isClusterStarted = isStarted(this, Cluster)
   const conf = this.validator.ifError<Config>('redisCluster', opts)
 

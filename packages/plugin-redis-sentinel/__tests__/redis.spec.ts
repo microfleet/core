@@ -1,14 +1,13 @@
+import { describe, it } from 'node:test'
 import { strict as assert } from 'node:assert'
+import { resolve } from 'node:path'
 import { findHealthCheck } from './utils/health-check'
 import { Microfleet } from '@microfleet/core'
 import type { Config } from '@microfleet/plugin-redis-sentinel'
 import Redis from 'ioredis'
-import { resolve } from 'path'
 
-describe('Redis suite', function testSuite() {
+describe('Redis suite', async () => {
   let service: Microfleet
-
-  jest.setTimeout(15000)
 
   const getConfigForRedis = (): Partial<Config> => ({
     sentinels: [

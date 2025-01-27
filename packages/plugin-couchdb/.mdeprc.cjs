@@ -1,22 +1,18 @@
-const { basename } = require('path')
+const { basename } = require('node:path')
 const dir = basename(__dirname)
 
 module.exports = {
   ...require('../../.mdeprc.cjs'),
-  auto_compose: true,
-  "parallel": 3,
-  "test_framework": "jest --config ./jest.config.js --runTestsByPath --runInBand",
-  "tests": "__tests__/*.spec.ts",
-  "services": [
-    "couchdb"
+  services: [
+    'couchdb',
   ],
-  root: `/src/packages/${dir}/node_modules/.bin`,
+  auto_compose: true,
+  root: '/src/node_modules/.bin',
+  test_framework: "tsx --test",
+  tests: "__tests__/**/*.spec.ts",
   extras: {
     tester: {
       working_dir: `/src/packages/${dir}`,
-      environment: {
-        NODE_OPTIONS: "--experimental-vm-modules",
-      }
-    },
+    }
   }
 }

@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const Git = require('release-it/lib/plugin/git/Git')
-const { format } = require('release-it/lib/util')
-const { resolve, basename } = require('path')
-const yaml = require('js-yaml')
-const fs = require('fs/promises')
-const { glob } = require('glob')
-const { EOL } = require('os')
-const prependFile = require('prepend-file')
+import Git from '../node_modules/release-it/lib/plugin/git/Git.js'
+import { format } from '../node_modules/release-it/lib/util.js'
+import { resolve, basename } from 'node:path'
+import yaml from 'js-yaml'
+import fs from 'node:fs/promises'
+import { glob } from 'glob'
+import { EOL } from 'node:os'
+import prependFile from 'prepend-file'
 
 const fixArgs = args => (args ? (typeof args === 'string' ? args.split(' ') : args) : [])
-const staged = resolve(__dirname, './staged')
-const root = resolve(__dirname, '../')
+const staged = resolve(import.meta.dirname, './staged')
+const root = resolve(import.meta.dirname, '../')
 const workspace = resolve(root, 'pnpm-workspace.yaml')
 
 class GitPNPMMonorepo extends Git {
@@ -167,4 +166,4 @@ class GitPNPMMonorepo extends Git {
   }
 }
 
-module.exports = GitPNPMMonorepo
+export default GitPNPMMonorepo

@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { Plugin } = require('release-it')
-const fs = require('fs/promises')
-const { resolve } = require('path')
+import { Plugin } from 'release-it'
+import fs from 'node:fs/promises'
+import { resolve } from 'node:path'
 
-const staged = resolve(__dirname, './staged')
+const staged = resolve(import.meta.dirname, './staged')
 
-module.exports = class AggregateRelease extends Plugin {
+export default class AggregateRelease extends Plugin {
   getIncrementedVersion() {
     // if we are at this stage then previous plugin
     // did not return version and we are at the same version as before

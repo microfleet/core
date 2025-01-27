@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const createAngularPreset = require('conventional-changelog-angular')
-const debug = require('debug')('release-it:aggregate-conventional-changelog')
+import createAngularPreset from 'conventional-changelog-angular'
+import _debug from 'debug'
+
+const debug = _debug('release-it:aggregate-conventional-changelog')
 
 const whatBump = (commits) => {
   let level = undefined
@@ -35,7 +36,8 @@ const whatBump = (commits) => {
   }
 }
 
-module.exports = createAngularPreset().then((opts) => {
-  opts.recommendedBumpOpts.whatBump = whatBump
-  return opts
-})
+export default async function createPreset() {
+  const preset = await createAngularPreset()
+  preset.whatBump = whatBump
+  return preset
+}

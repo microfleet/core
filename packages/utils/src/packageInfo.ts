@@ -1,5 +1,6 @@
-import { sync as readPackageUpSync } from 'read-pkg-up'
-import { strict as assert } from 'assert'
+import assert from 'node:assert/strict'
+// @ts-expect-error TS1479 - works on node 22.12+
+import { readPackageUpSync } from 'read-package-up'
 
 function getVersion(): string {
   const pkgUp = readPackageUpSync()

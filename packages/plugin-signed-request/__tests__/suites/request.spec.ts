@@ -10,6 +10,7 @@ import { IncomingMessage } from 'http'
 import url from 'url'
 import { createHmac, createSign, generateKeyPairSync } from 'crypto'
 import { sign } from 'http-signature'
+import { after, before, describe, it } from 'node:test'
 
 import { CoreOptions, Microfleet } from '@microfleet/core'
 import { ServiceRequest } from '@microfleet/plugin-router'
@@ -107,7 +108,7 @@ class RequestLike {
   }
 }
 
-describe('smoke', () => {
+describe('smoke', async () => {
   it('should panic on uninitialized request', async () => {
     const signedRequest = new SignedRequest({ headers: [] }, {} as any)
     await assert.rejects(async () => signedRequest.verifyHeaders(), /req should be initialized/)
@@ -135,7 +136,7 @@ describe('smoke', () => {
   })
 })
 
-describe('#http-signed-request hapi plugin', () => {
+describe('#http-signed-request hapi plugin', async () => {
   class MyApp extends Microfleet {
     constructor(opts: Partial<CoreOptions>, credentialsStore: CredentialsStore) {
       super(opts as CoreOptions)
@@ -145,7 +146,7 @@ describe('#http-signed-request hapi plugin', () => {
 
   const baseUrl = `http://localhost:3000/`
 
-  describe('#hmac', () => {
+  describe('#hmac', async () => {
     let service: Microfleet
 
     const httpSignature = {
@@ -183,7 +184,7 @@ describe('#http-signed-request hapi plugin', () => {
       }
     }
 
-    beforeAll(async () => {
+    before(async () => {
       service = new MyApp({
         ...defaultConfig,
         validator: {
@@ -194,7 +195,7 @@ describe('#http-signed-request hapi plugin', () => {
       await service.connect()
     })
 
-    afterAll(async () => {
+    after(async () => {
       if (service) {
         await service.close()
       }
@@ -260,7 +261,7 @@ describe('#http-signed-request hapi plugin', () => {
     })
   })
 
-  describe('#rs', () => {
+  describe('#rs', async () => {
     let service: Microfleet
 
     const pemKeypair = generateKeyPairSync('rsa', {
@@ -301,7 +302,7 @@ describe('#http-signed-request hapi plugin', () => {
       return request.json()
     }
 
-    beforeAll(async () => {
+    before(async () => {
       service = new MyApp({
         ...defaultConfig,
         validator: {
@@ -312,7 +313,7 @@ describe('#http-signed-request hapi plugin', () => {
       await service.connect()
     })
 
-    afterAll(async () => {
+    after(async () => {
       if (service) {
         await service.close()
       }
@@ -344,7 +345,7 @@ describe('#http-signed-request hapi plugin', () => {
   })
 })
 
-describe('restify plugin', () => {
+describe('restify plugin', async () => {
   const validKeyContents = 'valid-sign-key-contents'
   const validKeyId = 'valid-key-id'
   const algorithm = 'hmac-sha512'
@@ -389,7 +390,7 @@ describe('restify plugin', () => {
 
   let server: restify.Server
 
-  beforeAll(async () => {
+  before(async () => {
     server = restify.createServer({ name: 'myapp' })
     server.listen = promisify(server.listen).bind(server)
     server.close = promisify(server.close).bind(server)
@@ -416,7 +417,7 @@ describe('restify plugin', () => {
     await server.listen(8088)
   })
 
-  afterAll(async () => {
+  after(async () => {
     if (server) {
       await server.close()
     }
@@ -467,7 +468,7 @@ describe('restify plugin', () => {
   })
 })
 
-describe('fastify plugin', () => {
+describe('fastify plugin', async () => {
   const validKeyContents = 'valid-sign-key-contents'
   const validKeyId = 'valid-key-id'
   const algorithm = 'hmac-sha512'
@@ -512,7 +513,7 @@ describe('fastify plugin', () => {
 
   let server: fastify.FastifyInstance
 
-  beforeAll(async () => {
+  before(async () => {
     server = fastify.fastify({
       forceCloseConnections: true,
       keepAliveTimeout: 100,
@@ -539,7 +540,7 @@ describe('fastify plugin', () => {
     })
   })
 
-  afterAll(async () => {
+  after(async () => {
     if (server) {
       await server.close()
     }

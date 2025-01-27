@@ -1,22 +1,16 @@
-const { basename } = require('path')
+const { basename } = require('node:path')
 const dir = basename(__dirname)
 
 module.exports = {
   ...require('../../.mdeprc.cjs'),
+  services: ["elasticsearch"],
   auto_compose: true,
-  "parallel": 3,
-  "services": [
-    "elasticsearch"
-  ],
-  "test_framework": 'jest --config ./jest.config.js --runTestsByPath --runInBand --verbose --colors',
-  "tests": '__tests__/*.spec.ts',
-  root: `/src/packages/${dir}/node_modules/.bin`,
+  root: '/src/node_modules/.bin',
+  test_framework: "tsx --test",
+  tests: "__tests__/**/*.spec.ts",
   extras: {
     tester: {
       working_dir: `/src/packages/${dir}`,
-      environment: {
-        NODE_OPTIONS: '--experimental-vm-modules'
-      }
     }
   }
 }

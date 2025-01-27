@@ -1,10 +1,15 @@
-import { strict as assert } from 'assert'
+import { test } from 'node:test'
+import { strict as assert } from 'node:assert'
 import { Microfleet, ConnectorsTypes } from '@microfleet/core'
 
-describe('knex plugin', () => {
+test('knex plugin', async (t) => {
   let service: Microfleet
 
-  it('should be able to initialize', async () => {
+  t.afterEach(async () => {
+    if (service) await service.close()
+  })
+
+  await t.test('should be able to initialize', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'knex'],
@@ -19,7 +24,17 @@ describe('knex plugin', () => {
     assert.ok(service.knex)
   })
 
-  it('should be able to connect', async () => {
+  await t.test('should be able to connect', async () => {
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['logger', 'validator', 'knex'],
+      knex: {
+        client: 'pg',
+        connection: 'postgres://postgres@postgres:5432/postgres',
+      },
+    })
+
+    await service.register()
     await service.connect()
     const { knex } = service
 
@@ -29,7 +44,18 @@ describe('knex plugin', () => {
     assert.ok(pool.numUsed() + pool.numFree() + pool.numPendingCreates() >= 1, 'not enough connections')
   })
 
-  it('should be able to make query', async () => {
+  await t.test('should be able to make query', async () => {
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['logger', 'validator', 'knex'],
+      knex: {
+        client: 'pg',
+        connection: 'postgres://postgres@postgres:5432/postgres',
+      },
+    })
+
+    await service.register()
+    await service.connect()
     const { knex } = service
 
     const result = await knex
@@ -38,13 +64,24 @@ describe('knex plugin', () => {
     assert.equal(result.rows[0].datname, 'postgres')
   })
 
-  it('should be able to disconnect', async () => {
+  await t.test('should be able to disconnect', async () => {
+    service = new Microfleet({
+      name: 'tester',
+      plugins: ['logger', 'validator', 'knex'],
+      knex: {
+        client: 'pg',
+        connection: 'postgres://postgres@postgres:5432/postgres',
+      },
+    })
+
+    await service.register()
+    await service.connect()
     await service.close()
 
     assert.equal(service.knex.client.pool, undefined)
   })
 
-  it('should be able to run migrations', async () => {
+  await t.test('should be able to run migrations', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['logger', 'validator', 'knex'],
@@ -66,9 +103,5 @@ describe('knex plugin', () => {
     } finally {
       await service.close()
     }
-  })
-
-  afterAll(async () => {
-    if (service) await service.close()
   })
 })
