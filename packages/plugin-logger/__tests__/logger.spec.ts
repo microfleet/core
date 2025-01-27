@@ -1,15 +1,17 @@
+import { test } from 'node:test'
 import { pino } from 'pino'
 import { strict as assert } from 'assert'
 import { Microfleet } from '@microfleet/core'
 import type { PluginTypes } from '@microfleet/utils'
-import { file as tmpFile } from 'tempy'
 import { open } from 'fs/promises'
 import { HttpStatusError } from 'common-errors'
 import Fastify from 'fastify'
 import { setTimeout } from 'node:timers/promises'
 
-describe('Logger suite', () => {
-  it('when service does not include `logger` plugin, it emits an error or throws', async () => {
+test('Logger suite', async (t) => {
+  const { temporaryFile } = await import('tempy')
+
+  await t.test('when service does not include `logger` plugin, it emits an error or throws', async () => {
     const plugins: (keyof typeof PluginTypes)[] = []
     const service = new Microfleet({
       plugins,
@@ -21,7 +23,7 @@ describe('Logger suite', () => {
     assert(!service.log)
   })
 
-  it('logger inits with output to stdout', async () => {
+  await t.test('logger inits with output to stdout', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'],
@@ -42,7 +44,7 @@ describe('Logger suite', () => {
     service.logClose?.()
   })
 
-  it('logger inits with output to stdout: debug', async () => {
+  await t.test('logger inits with output to stdout: debug', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger'],
@@ -64,7 +66,7 @@ describe('Logger suite', () => {
     service.logClose?.()
   })
 
-  it('should be able to init custom logger', async () => {
+  await t.test('should be able to init custom logger', async () => {
     const logger = pino({ name: 'test' })
     const service = new Microfleet({
       name: 'tester',
@@ -79,8 +81,8 @@ describe('Logger suite', () => {
     assert.deepEqual(service.log, logger)
   })
 
-  it('should be able to init sentry stream, including external configuration', async () => {
-    const file = tmpFile()
+  await t.test('should be able to init sentry stream, including external configuration', async () => {
+    const file = temporaryFile()
     const handle = await open(file, 'w+')
     const fastify = Fastify({ logger: true })
     const reports: any[] = []

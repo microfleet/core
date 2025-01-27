@@ -1,15 +1,16 @@
+import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { Microfleet } from '@microfleet/core'
 
-describe('Validator suite', () => {
+test('Validator suite', async (t) => {
   let service: Microfleet
 
-  it('no `validator` plugin, it emits an error or throws', function test() {
+  await t.test('no `validator` plugin, it emits an error or throws', () => {
     service = new Microfleet({ name: 'tester', plugins: [] })
     assert(!service.validator)
   })
 
-  it('validator inits relative schema paths', async function test() {
+  await t.test('validator inits relative schema paths', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['validator'],
@@ -21,7 +22,7 @@ describe('Validator suite', () => {
     assert(service.validator.ajv.getSchema('config'))
   })
 
-  it('validator exposes validate methods on the service', function test() {
+  await t.test('validator exposes validate methods on the service', () => {
     const { validator } = service
 
     assert(validator.validate)
@@ -30,7 +31,7 @@ describe('Validator suite', () => {
     assert(typeof validator.validateSync === 'function')
   })
 
-  it('validator throw on invalid config when `config` schema is present', async function test() {
+  await t.test('validator throw on invalid config when `config` schema is present', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['validator'],
@@ -41,7 +42,7 @@ describe('Validator suite', () => {
     await assert.rejects(service.register())
   })
 
-  it('should be able to load config as object', async () => {
+  await t.test('should be able to load config as object', async () => {
     service = new Microfleet({
       name: 'tester',
       plugins: ['validator'],
