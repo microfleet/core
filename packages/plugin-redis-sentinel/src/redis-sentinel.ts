@@ -1,6 +1,5 @@
 import type * as _ from '@microfleet/plugin-validator'
 import { strict as assert } from 'node:assert'
-import Bluebird from 'bluebird'
 import _debug from 'debug'
 import type { PluginInterface } from '@microfleet/core-types'
 import type { Microfleet } from '@microfleet/core'
@@ -60,8 +59,6 @@ export async function attach(this: Microfleet, opts: Partial<Config> = {}): Prom
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  // @ts-expect-error - promise not defined, but can be used
-  Redis.Promise = Bluebird
   const isRedisStarted = isStarted(this, Redis)
   const conf = this.validator.ifError<Config>('redisSentinel', opts)
 

@@ -29,12 +29,12 @@
 import type { Microfleet } from '@microfleet/core-types'
 
 import fs from 'node:fs/promises'
-import { strict as assert } from 'node:assert'
+import assert from 'node:assert/strict'
 
 import _debug from 'debug'
 import { glob, Path } from 'glob'
 import type { Redis, Cluster, RedisKey, RedisValue } from 'ioredis'
-import path from 'path'
+import path from 'node:path'
 import sortBy from 'sort-by'
 
 // some constant helpers
@@ -111,8 +111,8 @@ const getMigrationFile = async (script: Path) => {
 export interface Migration {
   final: number;
   min: number;
-  args: RedisValue[];
   script: any;
+  args?: RedisValue[];
   keys?: string[];
 }
 
@@ -183,7 +183,7 @@ export async function performMigration(redis: Redis | Cluster, service: Microfle
       // finalize content
       const script = appendLuaScript(final, file.min, file.script)
       const keys: RedisKey[] = [VERSION_KEY].concat(file.keys || [])
-      const { args } = file
+      const { args = [] } = file
 
       debug('evaluating script after %s', currentVersion, script)
 
