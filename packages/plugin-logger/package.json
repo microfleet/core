@@ -8,7 +8,7 @@
     "lint": "eslint './src/**/*.ts'",
     "pretest": "npm run compile",
     "test": "npm run test:unit && npm run test:e2e",
-    "test:unit": "NODE_ENV=test mocha src/**/*.spec.ts",
+    "test:unit": "NODE_ENV=test tsx --test src/**/*.spec.ts",
     "test:e2e": "mdep test run",
     "clean": "rimraf ./lib *.tsbuildinfo",
     "compile": "npm run build",
