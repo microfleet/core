@@ -1,13 +1,11 @@
-import { strictEqual, deepStrictEqual } from 'assert'
+import { strictEqual, deepStrictEqual } from 'node:assert'
+import { test } from 'node:test'
 import { Microfleet } from '@microfleet/core'
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import { io as SocketIOClient } from 'socket.io-client'
 
-describe('@microfleet/plugin-hapi', () => {
-  // @todo add missing tests for hapi plugins without using plugin-router
-  // (it tested in plugin-router-hapi now)
-
-  it('should starts \'hapi\' http server when plugin is included', async () => {
+test('plugin-hapi', async (t) => {
+  await t.test('should starts \'hapi\' http server when plugin is included', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: ['validator', 'logger', 'hapi'],
@@ -25,7 +23,7 @@ describe('@microfleet/plugin-hapi', () => {
     strictEqual(service.hapi.info.started === 0, true)
   })
 
-  it('should be able to attach \'socketio\' plugin', async () => {
+  await t.test('should be able to attach \'socketio\' plugin', async () => {
     const service = new Microfleet({
       name: 'tester',
       plugins: [

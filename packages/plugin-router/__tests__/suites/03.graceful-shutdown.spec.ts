@@ -1,14 +1,13 @@
-import { delay, TimeoutError } from 'bluebird'
-import { resolve } from 'path'
-import { strict as assert } from 'assert'
+import { describe, it, beforeEach, after } from 'node:test'
+import { resolve } from 'node:path'
+import { strict as assert } from 'node:assert'
+import { setTimeout } from 'node:timers/promises'
 import split2 from 'split2'
-import { once } from 'events'
+import { once } from 'node:events'
 import getFreePort from 'get-port'
 import { io } from 'socket.io-client'
 import { Microfleet } from '@microfleet/core'
-import Bluebird from 'bluebird'
-// @ts-expect-error just a type
-import { type ExecaChildProcess } from 'execa'
+import { execa, ExecaChildProcess } from 'execa'
 
 import {
   getHTTPRequest,
@@ -26,6 +25,7 @@ class ChildServiceRunner {
   protected stdout: string[]
   protected stderr: string[]
   protected processClosed?: Promise<any[]>
+  protected abortController?: AbortController
   protected process?: ExecaChildProcess
   protected port?: number
   public exchange = ''
@@ -40,21 +40,21 @@ class ChildServiceRunner {
 
   async start(): Promise<any> {
     const freePort = await getFreePort()
-    const args = ['--import', 'tsx', '-r', 'tsconfig-paths/register', this.cmd, freePort.toString()]
+    const args = ['--import', 'tsx', this.cmd, freePort.toString()]
 
     debug('node %s', args.join(' '))
 
-    const { execa } = await import('execa')
+    const controller = new AbortController()
     const proc = execa('node', args, {
       buffer: false,
-      stderr: 'inherit'
+      stderr: 'inherit',
+      stdout: 'pipe',
+      signal: controller.signal,
     })
 
     debug('spawned')
 
-    const { stdout } = proc
-
-    stdout?.pipe(split2()).on('data', (line: string): void => {
+    proc.stdout?.pipe(split2()).on('data', (line: string): void => {
       // in case of emergency uncomment
       // eslint-disable-next-line no-console
       // console.info(line)
@@ -70,12 +70,17 @@ class ChildServiceRunner {
       }
     })
 
+    const timeoutController = new AbortController()
     await Promise.race([
-      Bluebird.delay(15000).throw(new TimeoutError('child process isnt ready after 15s')),
+      setTimeout(15000, { signal: timeoutController.signal }).then(() => {
+        controller.abort(new Error('child process isnt ready after 15s'))
+      }),
       proc,
       once(proc, 'ready')
     ])
 
+    timeoutController.abort()
+    this.abortController = controller
     this.process = proc
     this.port = freePort
 
@@ -111,6 +116,7 @@ class ChildServiceRunner {
     })
 
     socket.connect()
+    // @ts-expect-error invalid typings
     await once(socket, 'connect')
 
     return {
@@ -121,14 +127,14 @@ class ChildServiceRunner {
     }
   }
 
-  async kill(signal = 'SIGTERM', wait = false) {
+  async kill(signal: NodeJS.Signals = 'SIGTERM', wait = false) {
     assert(this.serviceStarted, 'No service started')
     assert(this.process, 'No service started')
 
-    if (wait) await delay(500)
+    if (wait) await setTimeout(500)
 
     this.process.kill(signal, {
-      forceKillAfterTimeout: 50000,
+      forceKillAfterTimeout: 2000
     })
 
     await this.process
@@ -140,7 +146,7 @@ class ChildServiceRunner {
   }
 }
 
-describe('service graceful shutdown', () => {
+describe('service graceful shutdown', async () => {
   let childService: ChildServiceRunner
 
   beforeEach(async () => {
@@ -166,7 +172,9 @@ describe('service graceful shutdown', () => {
     try {
       const [serviceResponse] = await Promise.all([
         serviceConnector.service.amqp.publishAndWait('amqp.action.long-running', { pause: 999 }),
-        Bluebird.delay(100).then(() => childService.kill('SIGTERM', true)),
+        setTimeout(100).then(async () => {
+          await childService.kill('SIGTERM', true)
+        }),
       ])
 
       assert(serviceResponse, 'should respond to action')
@@ -183,7 +191,7 @@ describe('service graceful shutdown', () => {
     try {
       const [serviceResponse] = await Promise.all([
         serviceConnector.http('/action.long-running', { pause: 1000 }),
-        childService.kill('SIGTERM', true),
+        childService.kill('SIGTERM', true)
       ])
 
       assert(serviceResponse, 'should respond to action')
@@ -200,7 +208,7 @@ describe('service graceful shutdown', () => {
     try {
       const [serviceResponseSocket] = await Promise.all([
         serviceConnector.socketio('action.long-running', { pause: 500 }),
-        childService.kill('SIGTERM', true),
+        childService.kill('SIGTERM', true)
       ])
 
       assert(serviceResponseSocket, 'should respond to action')
@@ -226,7 +234,7 @@ describe('service graceful shutdown', () => {
         ...Array.from({ length: 100 })
           .map(() => Math.floor(Math.random() * actions.length))
           .map((i) => actions[i]()),
-        childService.kill('SIGTERM', true),
+        childService.kill('SIGTERM', true)
       ])
 
       debug('responses received')
@@ -248,7 +256,7 @@ describe('service graceful shutdown', () => {
     }
   })
 
-  afterAll(async () => {
+  after(async () => {
     await getGlobalDispatcher().close()
   })
 })

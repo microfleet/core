@@ -1,17 +1,16 @@
 const { userInfo } = require('node:os')
-const { basename } = require('path')
+const { basename } = require('node:path')
 const dir = basename(__dirname)
 
 const { uid } = userInfo()
 
 module.exports = {
   ...require('../../.mdeprc.cjs'),
-  auto_compose: true,
   tester_flavour: "rdkafka-tester",
-  http: false,
-  test_framework: "jest --config ./jest.config.js --runTestsByPath --maxWorkers=50% --colors --verbose",
+  auto_compose: true,
+  root: '/src/node_modules/.bin',
+  test_framework: "tsx --test",
   tests: "__tests__/**/*.spec.ts",
-  root: `/src/packages/${dir}/node_modules/.bin`,
   euser: uid,
   tuser: uid,
   arbitrary_exec: [
@@ -20,9 +19,6 @@ module.exports = {
   extras: {
     tester: {
       working_dir: `/src/packages/${dir}`,
-      environment: {
-        NODE_OPTIONS: "--experimental-vm-modules",
-      }
     }
   }
 }

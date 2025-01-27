@@ -1,7 +1,9 @@
+import { describe, it } from 'node:test'
+import assert from 'node:assert/strict'
 import { Client } from '@opensearch-project/opensearch'
 import { Microfleet } from '@microfleet/core'
 
-describe.skip('AWS Elasticsearch suite', () => {
+describe.skip('AWS Elasticsearch suite', async () => {
   let service: Microfleet
 
   it('should throw an error when plugin isn\'t included', async () => {
@@ -9,7 +11,7 @@ describe.skip('AWS Elasticsearch suite', () => {
       name: 'tester',
       plugins: [],
     })
-    expect(!service.awsElasticsearch)
+    assert.equal(service.awsElasticsearch, undefined)
   })
 
   it('able to connect to elasticsearch when plugin is included', async () => {
@@ -26,13 +28,13 @@ describe.skip('AWS Elasticsearch suite', () => {
     await service.connect()
 
     const { awsElasticsearch } = service
-    expect(awsElasticsearch).toHaveProperty('transport')
-    expect(awsElasticsearch).toBeInstanceOf(Client)
-    expect(service.awsElasticsearch).toBeInstanceOf(Client)
+    assert.ok(Object.hasOwn(awsElasticsearch, 'transport'))
+    assert.ok(awsElasticsearch instanceof Client)
+    assert.ok(service.awsElasticsearch instanceof Client)
   })
 
   it('able to close connection to elasticsearch', async () => {
     await service.close()
-    expect(!service.awsElasticsearch)
+    assert.equal(service.awsElasticsearch, undefined)
   })
 })

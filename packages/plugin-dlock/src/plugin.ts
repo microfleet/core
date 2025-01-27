@@ -8,7 +8,9 @@ import { strict as assert } from 'assert'
 import { NotFoundError, HttpStatusError } from 'common-errors'
 import { Microfleet, PluginInterface } from '@microfleet/core-types'
 import { PluginTypes } from '@microfleet/utils'
+// @ts-expect-error: possible to import sync ESM from node >= 22.12.0
 import { DistributedCallbackQueue, Config, MultiLock, MultiLockError } from '@microfleet/dlock'
+// @ts-expect-error: possible to import sync ESM from node >= 22.12.0
 import { Lock, LockAcquisitionError } from '@microfleet/ioredis-lock'
 export { default as actionLockWrapper } from './utils/lock-action-wrapper'
 export interface DLockPlugin {

@@ -1,5 +1,6 @@
-import { strict as assert } from 'node:assert'
-import mem from 'mem'
+import assert from 'node:assert/strict'
+// @ts-expect-error: possible to import sync ESM from node >= 22.12.0
+import mem from 'memoize'
 
 import type { ExtractSubjectType, MongoQuery, Subject, SubjectRawRule } from '@casl/ability'
 import { subject, createAliasResolver, PureAbility } from '@casl/ability'

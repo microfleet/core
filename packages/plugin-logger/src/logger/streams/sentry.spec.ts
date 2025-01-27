@@ -3,17 +3,18 @@ import { createSandbox, match, assert as sinonAssert } from 'sinon'
 import { pino } from 'pino'
 import sentryTestkit from 'sentry-testkit'
 import assert from 'node:assert/strict'
+import { test } from 'node:test'
 import { HttpStatusError } from 'common-errors'
 import { setTimeout } from 'timers/promises'
 import { SENTRY_FINGERPRINT_DEFAULT } from '../../constants'
 
-describe('Logger Sentry Stream Suite', () => {
+test('Logger Sentry Stream Suite', async (t) => {
   const sandbox = createSandbox()
   let sentryInitSpy: sinon.SinonSpy
   let sentryStreamFactory: any
   let ExtendedError: any
 
-  beforeEach(async () => {
+  t.beforeEach(async () => {
     sentryInitSpy = sandbox.spy(Sentry, 'init')
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { sentryTransport, ExtendedError: er } = require('./sentry')
@@ -21,13 +22,13 @@ describe('Logger Sentry Stream Suite', () => {
     ExtendedError = er
   })
 
-  afterEach(async () => {
+  t.afterEach(async () => {
     sentryInitSpy.restore()
     sandbox.restore()
     await Sentry.close()
   })
 
-  it('sentryStreamFactory() should be able to init sentry stream', async () => {
+  await t.test('should be able to init sentry stream', async () => {
     const { testkit, sentryTransport } = sentryTestkit()
 
     const stream = await sentryStreamFactory({
@@ -39,23 +40,23 @@ describe('Logger Sentry Stream Suite', () => {
       minLevel: 30,
     })
 
-    assert(stream)
-    assert(typeof stream.write === 'function')
+    assert.ok(stream)
+    assert.ok(typeof stream.write === 'function')
 
     sinonAssert.calledWithExactly(sentryInitSpy, {
-      dsn: 'https://api@sentry.io/1822',
-      defaultIntegrations: false,
-      release: 'test',
-      instrumenter: 'sentry',
       autoSessionTracking: false,
+      dsn: 'https://api@sentry.io/1822',
+      release: 'test',
       transport: sentryTransport,
-      integrations: [match({ name: 'Console', setupOnce: match.func })] as any,
+      defaultIntegrations: false,
+      integrations: [match({ name: 'Console', setup: match.func })] as any,
+      spotlight: undefined,
     })
 
     assert.equal(testkit.reports().length, 0)
   })
 
-  it('sentryStreamFactory() result should be able to handle pinoms message', async () => {
+  await t.test('should be able to handle pinoms message', async () => {
     const { testkit, sentryTransport } = sentryTestkit()
     const stream = await sentryStreamFactory({
       sentry: {
@@ -86,7 +87,7 @@ describe('Logger Sentry Stream Suite', () => {
     logger.flush()
 
     await Sentry.flush()
-    assert(streamWriteSpy.calledOnceWithExactly(match.string))
+    assert.ok(streamWriteSpy.calledOnceWithExactly(match.string))
 
     await setTimeout(1000)
     assert.equal(testkit.reports().length, 1)
@@ -106,7 +107,7 @@ describe('Logger Sentry Stream Suite', () => {
     }))
   })
 
-  it('sentryStreamFactory() result should be able to handle pinoms error message', async () => {
+  await t.test('should be able to handle pinoms error message', async () => {
     const { testkit, sentryTransport } = sentryTestkit()
     const stream = await sentryStreamFactory({
       sentry: {
@@ -134,7 +135,7 @@ describe('Logger Sentry Stream Suite', () => {
     logger.flush()
 
     await Sentry.flush()
-    assert(streamWriteSpy.calledOnceWithExactly(match.string))
+    assert.ok(streamWriteSpy.calledOnceWithExactly(match.string))
 
     await setTimeout(1000)
     assert.equal(testkit.reports().length, 1)
