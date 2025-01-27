@@ -1,6 +1,5 @@
 import type * as _ from '@microfleet/plugin-validator'
 import { strict as assert } from 'node:assert'
-import Bluebird from 'bluebird'
 import _debug from 'debug'
 import type { PluginInterface } from '@microfleet/core-types'
 import type { Microfleet } from '@microfleet/core'
@@ -14,13 +13,13 @@ import {
   isStarted,
   loadLuaScripts,
 } from '@microfleet/plugin-redis-core'
-import Redis from 'ioredis'
+import { Redis, RedisOptions } from 'ioredis'
 
 const debug = _debug('mservice:redisSentinel')
 
 declare module '@microfleet/core-types' {
   interface Microfleet {
-    redis: Redis.Redis;
+    redis: Redis;
     redisType: 'redisSentinel';
   }
 
@@ -31,8 +30,8 @@ declare module '@microfleet/core-types' {
 
 export interface Config {
   name: string
-  sentinels: Redis.RedisOptions['sentinels']
-  options: Omit<Redis.RedisOptions, 'sentinels'>
+  sentinels: RedisOptions['sentinels']
+  options: Omit<RedisOptions, 'sentinels'>
   luaScripts: string | string[]
 }
 
@@ -60,8 +59,6 @@ export async function attach(this: Microfleet, opts: Partial<Config> = {}): Prom
   assert(this.hasPlugin('validator'), new NotFoundError('validator module must be included'))
   await this.validator.addLocation(resolve(__dirname, '../schemas'))
 
-  // @ts-expect-error - promise not defined, but can be used
-  Redis.Promise = Bluebird
   const isRedisStarted = isStarted(this, Redis)
   const conf = this.validator.ifError<Config>('redisSentinel', opts)
 
