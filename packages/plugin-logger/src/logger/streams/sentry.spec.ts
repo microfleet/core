@@ -43,13 +43,13 @@ describe('Logger Sentry Stream Suite', () => {
     assert(typeof stream.write === 'function')
 
     sinonAssert.calledWithExactly(sentryInitSpy, {
-      dsn: 'https://api@sentry.io/1822',
-      defaultIntegrations: false,
-      release: 'test',
-      instrumenter: 'sentry',
       autoSessionTracking: false,
+      dsn: 'https://api@sentry.io/1822',
+      release: 'test',
       transport: sentryTransport,
-      integrations: [match({ name: 'Console', setupOnce: match.func })] as any,
+      defaultIntegrations: false,
+      integrations: [match({ name: 'Console', setup: match.func })] as any,
+      spotlight: undefined,
     })
 
     assert.equal(testkit.reports().length, 0)

@@ -1,3 +1,4 @@
+import { describe, it } from 'node:test'
 import assert, { rejects, strictEqual } from 'node:assert/strict'
 import { Microfleet } from '@microfleet/core'
 
@@ -5,15 +6,15 @@ import { runHandler, runHook } from '../../src/lifecycle/utils'
 
 // @todo tests for lifecycle
 
-describe('@microfleet/plugin-router: "runner" utils', () => {
+describe('@microfleet/plugin-router: "runner" utils', async () => {
   const context = new Microfleet({
     name: 'tester',
     logger: {
       defaultLogger: false,
     },
- })
+  })
 
-  it('shoul be able to run', async () => {
+  it('should be able to run', async () => {
     const hooks: any = new Map([
       ['preHandler', new Set([
         async (req: any) => { req.response += 1 },

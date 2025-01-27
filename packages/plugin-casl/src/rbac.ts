@@ -1,5 +1,5 @@
-import { strict as assert } from 'node:assert'
-import mem from 'mem'
+import assert from 'node:assert/strict'
+import mem from 'memoize'
 
 import type { ExtractSubjectType, MongoQuery, Subject, SubjectRawRule } from '@casl/ability'
 import { subject, createAliasResolver, PureAbility } from '@casl/ability'

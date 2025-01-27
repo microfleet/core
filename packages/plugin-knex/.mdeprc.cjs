@@ -1,25 +1,19 @@
-const { basename } = require('path')
+const { basename } = require('node:path')
 const dir = basename(__dirname)
 
 module.exports = {
   ...require('../../.mdeprc.cjs'),
   auto_compose: true,
-  "parallel": 3,
-  "test_framework": "jest --config ./jest.config.js --runTestsByPath --runInBand",
-  "tests": "__tests__/*.spec.ts",
-  "services": [
-    "postgres"
-  ],
-  root: `/src/packages/${dir}/node_modules/.bin`,
+  root: '/src/node_modules/.bin',
+  test_framework: "tsx --test",
+  tests: "__tests__/**/*.spec.ts",
+  services: ['postgres'],
   extras: {
     postgres: {
-      image: 'postgres:15-alpine',
+      image: 'postgres:17-alpine',
     },
     tester: {
       working_dir: `/src/packages/${dir}`,
-      environment: {
-        NODE_OPTIONS: "--experimental-vm-modules",
-      }
     }
   }
 }
