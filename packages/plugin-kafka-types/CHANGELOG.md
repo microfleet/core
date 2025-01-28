@@ -1,5 +1,19 @@
 # Changelog
 
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@6.0.0...@microfleet/plugin-kafka-types@7.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@6.0.0...@microfleet/plugin-kafka-types@7.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
 # [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@5.0.1...@microfleet/plugin-kafka-types@6.0.0) (2025-01-27)
 
 

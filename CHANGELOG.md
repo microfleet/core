@@ -1,3 +1,237 @@
+# @microfleet/utils 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@5.0.0...@microfleet/utils@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-validator 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@5.0.0...@microfleet/plugin-validator@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-socketio 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@5.0.0...@microfleet/plugin-socketio@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-signed-request 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@5.0.0...@microfleet/plugin-signed-request@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-router 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@5.0.0...@microfleet/plugin-router@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-router-socketio 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@5.0.0...@microfleet/plugin-router-socketio@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-router-hapi 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@5.0.0...@microfleet/plugin-router-hapi@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-router-amqp 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@5.0.0...@microfleet/plugin-router-amqp@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-redis-sentinel 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@5.0.0...@microfleet/plugin-redis-sentinel@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-redis-core 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@5.0.0...@microfleet/plugin-redis-core@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-redis-cluster 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@5.0.0...@microfleet/plugin-redis-cluster@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-prometheus 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@5.0.0...@microfleet/plugin-prometheus@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-logger 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@5.0.0...@microfleet/plugin-logger@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-knex 8.0.0
+
+# [8.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@7.0.0...@microfleet/plugin-knex@8.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-kafka 8.0.0
+
+# [8.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@7.0.0...@microfleet/plugin-kafka@8.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-kafka-types 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@6.0.0...@microfleet/plugin-kafka-types@7.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-hapi 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@5.0.0...@microfleet/plugin-hapi@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-elasticsearch 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@5.0.0...@microfleet/plugin-elasticsearch@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-dlock 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@5.0.0...@microfleet/plugin-dlock@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-couchdb 8.0.0
+
+# [8.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@7.0.0...@microfleet/plugin-couchdb@8.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-consul 8.0.0
+
+# [8.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@7.0.0...@microfleet/plugin-consul@8.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-casl 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@5.0.0...@microfleet/plugin-casl@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-aws-elasticsearch 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@6.0.0...@microfleet/plugin-aws-elasticsearch@7.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/plugin-amqp 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@5.0.0...@microfleet/plugin-amqp@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/core 23.0.0
+
+# [23.0.0](https://github.com/microfleet/core/compare/@microfleet/core@22.0.0...@microfleet/core@23.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# @microfleet/core-types 6.0.0
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/core-types@5.0.0...@microfleet/core-types@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
 # @microfleet/utils 5.0.0
 
 # [5.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@4.0.1...@microfleet/utils@5.0.0) (2025-01-27)

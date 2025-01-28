@@ -1,5 +1,19 @@
 # Changelog
 
+# [23.0.0](https://github.com/microfleet/core/compare/@microfleet/core@22.0.0...@microfleet/core@23.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# [23.0.0](https://github.com/microfleet/core/compare/@microfleet/core@22.0.0...@microfleet/core@23.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
 # [22.0.0](https://github.com/microfleet/core/compare/@microfleet/core@21.0.1...@microfleet/core@22.0.0) (2025-01-27)
 
 

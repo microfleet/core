@@ -1,5 +1,19 @@
 # Changelog
 
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@5.0.0...@microfleet/plugin-router@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
+# [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@5.0.0...@microfleet/plugin-router@6.0.0) (2025-01-28)
+
+
+### Bug Fixes
+
+* properly cut 3 letter sized extensions (mjs/mts,cjs,cts) ([ccc438d](https://github.com/microfleet/core/commit/ccc438d6d27f9d06f95a4d3c4ef7d1d1ec00529b))
+
 # [5.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@4.0.1...@microfleet/plugin-router@5.0.0) (2025-01-27)
 
 
