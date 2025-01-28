@@ -14,8 +14,8 @@ export async function readRoutes(directory: string): Promise<[string, ServiceAct
   const routes: [string, ServiceAction][] = []
 
   for (const file of files) {
-    // remove .js/.ts from route
-    const route = file.slice(0, -3)
+    // remove .mts, .mjs, .cts, .cjs, .js, .ts extensions
+    const route = file.replace(/\.[mc]?[jt]s$/, '')
     // replace / with . for route
     const routeKey = route.split(sep).join('.')
 
