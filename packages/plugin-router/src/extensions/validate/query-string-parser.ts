@@ -19,12 +19,14 @@ async function preValidate(request: QSParserAugmentedAction): Promise<any> {
     const { action } = request
     const { transformQuery = identity, transformOpts } = action
 
-    request.query = transformQuery(parse(query, {
-      depth: 1,
-      parameterLimit: 10,
-      parseArrays: false,
-      ...transformOpts,
-    }))
+    if (typeof query === 'string') {
+      request.query = transformQuery(parse(query, {
+        depth: 1,
+        parameterLimit: 10,
+        parseArrays: false,
+        ...transformOpts,
+      }))
+    }
   }
 }
 

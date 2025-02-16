@@ -1,5 +1,5 @@
 import { Microfleet } from '@microfleet/core-types'
-import type { ServiceRequest } from '../../types/router'
+import type { ReplyGenericInterface, RequestGenericInterface, ServiceRequest } from '../../types/router'
 import { Lifecycle, LifecycleExtensions } from '../../lifecycle/index'
 import { initTimingExtension } from './timing'
 
@@ -13,15 +13,18 @@ export type AuditLogExtensionParams = {
   getErrorLevel?: (this: Microfleet, error: any) => ErrorLevel | undefined
 }
 
-export type MetaLog = {
-  headers: Record<string, unknown>
+export type MetaLog<
+  DefaultRequest extends RequestGenericInterface = RequestGenericInterface,
+  DefaultReply extends ReplyGenericInterface = ReplyGenericInterface
+> = {
+  headers: DefaultRequest["Headers"]
   latency: number | null
   method: string
-  params: any
-  query: any
+  params: DefaultRequest["Params"]
+  query: DefaultRequest["Querystring"]
   route: string
   transport: string
-  response?: any
+  response?: DefaultReply["Reply"]
   err?: Error
 }
 
