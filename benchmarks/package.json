@@ -8,7 +8,7 @@
     "flame": "NODE_ENV=production clinic flame --on-port 'autocannon localhost:$PORT/hello' -- node"
   },
   "dependencies": {
-    "autocannon": "^7.5.0",
+    "autocannon": "^8.0.0",
     "clinic": "^10.0.0"
   },
   "devDependencies": {
