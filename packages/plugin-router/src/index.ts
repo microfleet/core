@@ -18,7 +18,8 @@ export type {
   ServiceMiddleware,
   ServiceActionHandler,
   ServiceActionAuthGetName,
-  TransportOptions,
+  RequestGenericInterface,
+  ReplyGenericInterface
 } from './types/router'
 
 export type { AuthInfo } from './lifecycle/handlers/auth'

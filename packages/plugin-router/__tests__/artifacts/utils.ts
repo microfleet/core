@@ -59,7 +59,7 @@ const reqPromise = async (reqUrl: URL, requestOptions: any) => {
   return res
 }
 
-export function getHTTPRequest<T = any>(_options: RequestInit & {url: string }): (action: string, params?: any, opts?: any) => Bluebird<T> {
+export function getHTTPRequest<T = any>(_options: RequestInit & { url: string }): (action: string, params?: any, opts?: any) => Bluebird<T> {
   return (action: string, params?: any, opts: any = {}): Bluebird<T> => {
     const { url, ...options } = _options
     const requestOptions = {
@@ -68,6 +68,10 @@ export function getHTTPRequest<T = any>(_options: RequestInit & {url: string }):
         'content-type': 'application/json'
       },
       ...options,
+    }
+
+    if (opts.method) {
+      requestOptions.method = opts.method
     }
 
     const reqUrl = new URL(`${url}${action}`)
