@@ -1,3 +1,237 @@
+# @microfleet/utils 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@6.0.0...@microfleet/utils@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-validator 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-validator@6.0.0...@microfleet/plugin-validator@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-socketio 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-socketio@6.0.0...@microfleet/plugin-socketio@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-signed-request 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-signed-request@6.0.0...@microfleet/plugin-signed-request@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-router 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router@6.0.0...@microfleet/plugin-router@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-router-socketio 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-socketio@6.0.0...@microfleet/plugin-router-socketio@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-router-hapi 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-hapi@6.0.0...@microfleet/plugin-router-hapi@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-router-amqp 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-router-amqp@6.0.0...@microfleet/plugin-router-amqp@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-redis-sentinel 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-sentinel@6.0.0...@microfleet/plugin-redis-sentinel@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-redis-core 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-core@6.0.0...@microfleet/plugin-redis-core@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-redis-cluster 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-redis-cluster@6.0.0...@microfleet/plugin-redis-cluster@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-prometheus 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-prometheus@6.0.0...@microfleet/plugin-prometheus@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-logger 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@6.0.0...@microfleet/plugin-logger@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-knex 9.0.0
+
+# [9.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-knex@8.0.0...@microfleet/plugin-knex@9.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-kafka 9.0.0
+
+# [9.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka@8.0.0...@microfleet/plugin-kafka@9.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-kafka-types 8.0.0
+
+# [8.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-kafka-types@7.0.0...@microfleet/plugin-kafka-types@8.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-hapi 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-hapi@6.0.0...@microfleet/plugin-hapi@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-elasticsearch 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-elasticsearch@6.0.0...@microfleet/plugin-elasticsearch@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-dlock 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-dlock@6.0.0...@microfleet/plugin-dlock@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-couchdb 9.0.0
+
+# [9.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-couchdb@8.0.0...@microfleet/plugin-couchdb@9.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-consul 9.0.0
+
+# [9.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-consul@8.0.0...@microfleet/plugin-consul@9.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-casl 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-casl@6.0.0...@microfleet/plugin-casl@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-aws-elasticsearch 8.0.0
+
+# [8.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-aws-elasticsearch@7.0.0...@microfleet/plugin-aws-elasticsearch@8.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/plugin-amqp 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-amqp@6.0.0...@microfleet/plugin-amqp@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/core 24.0.0
+
+# [24.0.0](https://github.com/microfleet/core/compare/@microfleet/core@23.0.0...@microfleet/core@24.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# @microfleet/core-types 7.0.0
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/core-types@6.0.0...@microfleet/core-types@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
 # @microfleet/utils 6.0.0
 
 # [6.0.0](https://github.com/microfleet/core/compare/@microfleet/utils@5.0.0...@microfleet/utils@6.0.0) (2025-01-28)

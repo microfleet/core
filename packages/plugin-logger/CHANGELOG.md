@@ -1,5 +1,19 @@
 # Changelog
 
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@6.0.0...@microfleet/plugin-logger@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# [7.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@6.0.0...@microfleet/plugin-logger@7.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
 # [6.0.0](https://github.com/microfleet/core/compare/@microfleet/plugin-logger@5.0.0...@microfleet/plugin-logger@6.0.0) (2025-01-28)
 
 

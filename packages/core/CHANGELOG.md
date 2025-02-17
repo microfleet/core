@@ -1,5 +1,19 @@
 # Changelog
 
+# [24.0.0](https://github.com/microfleet/core/compare/@microfleet/core@23.0.0...@microfleet/core@24.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
+# [24.0.0](https://github.com/microfleet/core/compare/@microfleet/core@23.0.0...@microfleet/core@24.0.0) (2025-02-17)
+
+
+### Features
+
+* improved types for actions ([#733](https://github.com/microfleet/core/issues/733)) ([92b6d73](https://github.com/microfleet/core/commit/92b6d733b087a1b4e29e075674aaf67e200913ed))
+
 # [23.0.0](https://github.com/microfleet/core/compare/@microfleet/core@22.0.0...@microfleet/core@23.0.0) (2025-01-28)
 
 
