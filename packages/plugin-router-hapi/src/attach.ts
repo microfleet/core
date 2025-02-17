@@ -33,13 +33,18 @@ function attachRequestCountEvents(server: Server, router: Microfleet['router']) 
   server.events.on('stop', onStop)
 }
 
+declare module '@microfleet/plugin-router' {
+
+}
+
 export default function attachRouter(service: Microfleet, config: RouterHapiPluginConfig): ServerRegisterPluginObject<any> {
   return {
     plugin: {
       name: 'microfleetRouter',
       version: '1.0.0',
       async register(server: Server) {
-        for (const [actionName, handler] of service.router.routes.get(ActionTransport.http).entries()) {
+        const routes = service.router.routes.get<{ TransportOptions: { hapi: ServerRoute } }>(ActionTransport.http)
+        for (const [actionName, handler] of routes.entries()) {
           const path = fromNameToPath(actionName, config.prefix)
           const serverRoute: ServerRoute = {
             path,
