@@ -249,15 +249,13 @@ describe('@microfleet/plugin-router', async () => {
     }
 
     await service.connect()
-    await Promise.all([
-      rget({ sample: 1, bool: true }),
-      rget({ sample: 'crap', bool: true }, false),
-      rget({ sample: 13, bool: 'invalid' }, false),
-      rget({ sample: 13, bool: '0' }),
-      rget({ sample: 13, bool: '0', oops: 'q' }, false),
-      rget({ sample: 13.4, bool: '0' }, false),
-      rget(null, false, { json: { sample: 13.4, bool: '0' }, method: 'post' }),
-    ])
+    await rget({ sample: 1, bool: true })
+    await rget({ sample: 'crap', bool: true }, false)
+    await rget({ sample: 13, bool: 'invalid' }, false)
+    await rget({ sample: 13, bool: '0' })
+    await rget({ sample: 13, bool: '0', oops: 'q' }, false)
+    await rget({ sample: 13.4, bool: '0' }, false)
+    await rget(null, false, { json: { sample: 13.4, bool: '0' }, method: 'post' })
   })
 
   it('should be able to set schema and responseSchema from action name', async () => {

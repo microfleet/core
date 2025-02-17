@@ -1,11 +1,11 @@
-import { parse } from 'qs'
+import { parse, type ParsedQs } from 'qs'
 import { Lifecycle } from '../../lifecycle/index'
 import { ServiceRequest } from '../../types/router'
 
 type QSParserAugmentedAction = ServiceRequest & {
   action: ServiceRequest['action'] & {
-    transformQuery?: (...args: any[]) => any;
-    transformOpts?: any;
+    transformQuery?: (input: Record<string, any>) => ParsedQs;
+    transformOpts?: Parameters<typeof parse>[1];
   };
 }
 
@@ -19,14 +19,13 @@ async function preValidate(request: QSParserAugmentedAction): Promise<any> {
     const { action } = request
     const { transformQuery = identity, transformOpts } = action
 
-    if (typeof query === 'string') {
-      request.query = transformQuery(parse(query, {
-        depth: 1,
-        parameterLimit: 10,
-        parseArrays: false,
-        ...transformOpts,
-      }))
-    }
+    // module actually handles all variations of input
+    request.query = transformQuery(parse(query as any, {
+      depth: 1,
+      parameterLimit: 10,
+      parseArrays: false,
+      ...transformOpts,
+    }))
   }
 }
 
