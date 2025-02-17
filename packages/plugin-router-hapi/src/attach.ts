@@ -33,10 +33,6 @@ function attachRequestCountEvents(server: Server, router: Microfleet['router']) 
   server.events.on('stop', onStop)
 }
 
-declare module '@microfleet/plugin-router' {
-
-}
-
 export default function attachRouter(service: Microfleet, config: RouterHapiPluginConfig): ServerRegisterPluginObject<any> {
   return {
     plugin: {
