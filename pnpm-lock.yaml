@@ -4,8 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-pnpmfileChecksum: 4yli4wjfkqi52nfceb4nbwwdne
-
 importers:
 
   .:
@@ -18,10 +16,10 @@ importers:
         version: 13.1.0(typescript@5.7.3)
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/node':
-        specifier: 22.10.10
-        version: 22.10.10
+        specifier: 22.15.20
+        version: 22.15.20
       conventional-changelog-angular:
         specifier: ^8.0.0
         version: 8.0.0
@@ -42,7 +40,7 @@ importers:
         version: 2.0.1
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -85,7 +83,7 @@ importers:
         version: 12.0.0(common-errors@1.2.0)
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -100,7 +98,7 @@ importers:
         version: 4.1.12
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -127,7 +125,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -158,7 +156,7 @@ importers:
         version: 13.1.0(typescript@5.7.3)
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -167,7 +165,7 @@ importers:
         version: 0.11.8
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -191,7 +189,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -231,7 +229,7 @@ importers:
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -240,7 +238,7 @@ importers:
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
@@ -270,7 +268,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -319,7 +317,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/aws4':
         specifier: ^1.11.6
         version: 1.11.6
@@ -334,7 +332,7 @@ importers:
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -361,7 +359,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -404,13 +402,13 @@ importers:
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/common-errors':
         specifier: ^1.0.5
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -443,7 +441,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -483,7 +481,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -495,7 +493,7 @@ importers:
         version: 0.40.3
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
@@ -528,7 +526,7 @@ importers:
         version: 14.0.0
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -571,7 +569,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -583,7 +581,7 @@ importers:
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -610,7 +608,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -665,7 +663,7 @@ importers:
         version: link:../plugin-router
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -674,7 +672,7 @@ importers:
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -701,7 +699,7 @@ importers:
         version: 5.4.2
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -741,7 +739,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -753,7 +751,7 @@ importers:
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -780,7 +778,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -829,13 +827,13 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/hapi__vision':
         specifier: ^5.5.8
         version: 5.5.8
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -859,7 +857,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -917,7 +915,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -932,7 +930,7 @@ importers:
         version: 4.17.14
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/readable-stream':
         specifier: ^4.0.18
         version: 4.0.18
@@ -971,7 +969,7 @@ importers:
         version: 2.1.0
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -996,10 +994,10 @@ importers:
         version: 13.1.0(typescript@5.7.3)
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -1023,7 +1021,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1069,7 +1067,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -1081,7 +1079,7 @@ importers:
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -1108,7 +1106,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1160,7 +1158,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@sentry/node':
         specifier: ^8.51.0
         version: 8.51.0
@@ -1178,7 +1176,7 @@ importers:
         version: 4.6.9
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
@@ -1214,7 +1212,7 @@ importers:
         version: 5.2.1
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1263,13 +1261,13 @@ importers:
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/common-errors':
         specifier: ^1.0.5
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -1299,7 +1297,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1345,7 +1343,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -1357,7 +1355,7 @@ importers:
         version: 4.1.12
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -1387,7 +1385,7 @@ importers:
         version: 5.4.2
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1421,7 +1419,7 @@ importers:
         version: 13.1.0(typescript@5.7.3)
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/common-errors':
         specifier: ^1.0.5
         version: 1.0.5
@@ -1430,7 +1428,7 @@ importers:
         version: 4.1.12
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -1460,7 +1458,7 @@ importers:
         version: 5.4.2
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1500,7 +1498,7 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -1512,7 +1510,7 @@ importers:
         version: 4.1.12
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -1542,7 +1540,7 @@ importers:
         version: 5.4.2
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1603,7 +1601,7 @@ importers:
         version: link:../utils
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -1618,7 +1616,7 @@ importers:
         version: 4.17.14
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/qs':
         specifier: ^6.9.18
         version: 6.9.18
@@ -1669,7 +1667,7 @@ importers:
         version: 7.1.0
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1730,7 +1728,7 @@ importers:
         version: link:../plugin-router
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -1742,7 +1740,7 @@ importers:
         version: 4.17.14
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
@@ -1772,7 +1770,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1818,7 +1816,7 @@ importers:
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/bluebird':
         specifier: ^3.5.42
         version: 3.5.42
@@ -1836,7 +1834,7 @@ importers:
         version: 4.17.14
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -1872,7 +1870,7 @@ importers:
         version: 4.7.8
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1915,13 +1913,13 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/lodash':
         specifier: ^4.17.14
         version: 4.17.14
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -1945,7 +1943,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -1994,13 +1992,13 @@ importers:
         version: link:../plugin-validator
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/common-errors':
         specifier: ^1.0.5
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@types/restify':
         specifier: ^8.5.12
         version: 8.5.12
@@ -2042,7 +2040,7 @@ importers:
         version: 5.0.1
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       restify:
         specifier: ^11.1.0
         version: 11.1.0
@@ -2097,13 +2095,13 @@ importers:
         version: link:../core
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/common-errors':
         specifier: ^1.0.5
         version: 1.0.5
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -2130,7 +2128,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -2170,7 +2168,7 @@ importers:
         version: link:../utils
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/callsite':
         specifier: ^1.0.34
         version: 1.0.34
@@ -2182,7 +2180,7 @@ importers:
         version: 4.17.14
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -2206,7 +2204,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -2231,13 +2229,13 @@ importers:
         version: 13.1.0(typescript@5.7.3)
       '@release-it/conventional-changelog':
         specifier: ^10.0.0
-        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))
+        version: 10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))
       '@types/lodash':
         specifier: ^4.17.14
         version: 4.17.14
       '@types/node':
         specifier: ^22.10.10
-        version: 22.10.10
+        version: 22.15.20
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.0.0
         version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.3))(eslint@8.57.1)(typescript@5.7.3)
@@ -2261,7 +2259,7 @@ importers:
         version: 56.0.1(eslint@8.57.1)
       release-it:
         specifier: ^18.1.2
-        version: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+        version: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -2429,6 +2427,7 @@ packages:
   '@esbuild/linux-arm64@0.23.1':
     resolution: {integrity: sha512-/93bf2yxencYDnItMYV/v116zff6UyTjo4EtEQjUBeGiVpMmffDNUyD9UN2zV+V3LRV3/on4xdZ26NKzn6754g==}
     engines: {node: '>=18'}
+    cpu: [arm64]
     os: [linux]
 
   '@esbuild/linux-arm@0.23.1':
@@ -3386,8 +3385,8 @@ packages:
   '@types/node@20.17.16':
     resolution: {integrity: sha512-vOTpLduLkZXePLxHiHsBLp98mHGnl8RptV4YAO3HfKO5UHjDvySGbxKtpYfy8Sx5+WKcgc45qNreJJRVM3L6mw==}
 
-  '@types/node@22.10.10':
-    resolution: {integrity: sha512-X47y/mPNzxviAGY5TcYPtYL8JsY3kAq2n8fMmKoRCxq/c4v4pyGNCzM2R6+M5/umG4ZfHuT+sgqDYqWc9rJ6ww==}
+  '@types/node@22.15.20':
+    resolution: {integrity: sha512-A6BohGFRGHAscJsTslDCA9JG7qSJr/DWUvrvY8yi9IgnGtMxCyat7vvQ//MFa0DnLsyuS3wYTpLdw4Hf+Q5JXw==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -3809,7 +3808,7 @@ packages:
     resolution: {integrity: sha512-Nik3Sc0ncrMK4UUdXQmAnRtzmNQTAAXmXIopizwZ1W1t8QmfJj+zL4OA2I7XPTPW5z5TDqv4hRo/JzouDJnX3A==}
 
   bintrees@1.0.2:
-    resolution: {integrity: sha1-SfiW1uhYpKSZ34XDj7OZua/4QPg=}
+    resolution: {integrity: sha512-VOMgTMwjAaUG580SXn3LacVgjurrbMme7ZZNYGSSV7mmtY6QQRh0Eg3pwIcntQ77DErK1L0NxkbetjcoXzVwKw==}
 
   bl@6.0.18:
     resolution: {integrity: sha512-2k76XmWCuvu9HTvu3tFOl5HDdCH0wLZ/jHYva/LBVJmc9oX8yUtNQjxrFmbTdXsCSmIxwVTANZPNDfMQrvHFUw==}
@@ -3854,6 +3853,7 @@ packages:
   bson@6.10.1:
     resolution: {integrity: sha512-P92xmHDQjSKPLHqFxefqMxASNq/aWJMEZugpCjf+AF/pgcUpMMQCg7t7+ewko0/u8AapvF3luf/FoehddEK+sA==}
     engines: {node: '>=16.20.1'}
+    deprecated: a critical bug affecting only useBigInt64=true deserialization usage is fixed in bson@6.10.3
 
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
@@ -4063,7 +4063,7 @@ packages:
     resolution: {integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==}
 
   concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   concat-stream@2.0.0:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
@@ -4084,6 +4084,7 @@ packages:
 
   consul@0.40.0:
     resolution: {integrity: sha512-GJdxzLAXJZZDddGhgVBeac2KeBGPABWeAlxGVjct5fAwSa2P0Zqy/e2MDPa6O1OvR5h2ko10zCyRrMjctbfytg==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   content-disposition@0.5.4:
     resolution: {integrity: sha512-FveZTNuGw04cxlAiWbzi6zTAL/lhehaWbTtgluJh4/E95DqMwTmha3KZN1aAWA8cFIhHzMZUvLevkw5Rqk+tSQ==}
@@ -6141,7 +6142,7 @@ packages:
     engines: {node: '>= 0.4'}
 
   object-path@0.6.0:
-    resolution: {integrity: sha1-tpp9EQk3k08zbKVh/ZvhrXt+DLc=}
+    resolution: {integrity: sha512-fxrwsCFi3/p+LeLOAwo/wyRMODZxdGBtUlWRzsEpsUVrisZbEfZ21arxLGfaWfcnqb8oHPNihIb4XPE8CQPN5A==}
     engines: {node: '>=0.8.0'}
 
   object.assign@4.1.7:
@@ -6297,6 +6298,7 @@ packages:
 
   papi@0.29.1:
     resolution: {integrity: sha512-Y9ipSMfWuuVFO3zY9PlxOmEg+bQ7CeJ28sa9/a0veYNynLf9fwjR3+3fld5otEy7okUaEOUuCHVH62MyTmACXQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -7340,8 +7342,8 @@ packages:
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
-  undici-types@6.20.0:
-    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
   undici@6.21.1:
     resolution: {integrity: sha512-q/1rj5D0/zayJB2FraXdaWxbhWiNKDvu8naDT2dl1yTlvJp4BLtOcp2a5BvgGNQpYYJzau7tf1WgKv3b+7mqpQ==}
@@ -7638,11 +7640,11 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commitlint/cli@19.6.1(@types/node@22.10.10)(typescript@5.7.3)':
+  '@commitlint/cli@19.6.1(@types/node@22.15.20)(typescript@5.7.3)':
     dependencies:
       '@commitlint/format': 19.5.0
       '@commitlint/lint': 19.6.0
-      '@commitlint/load': 19.6.1(@types/node@22.10.10)(typescript@5.7.3)
+      '@commitlint/load': 19.6.1(@types/node@22.15.20)(typescript@5.7.3)
       '@commitlint/read': 19.5.0
       '@commitlint/types': 19.5.0
       tinyexec: 0.3.2
@@ -7684,7 +7686,7 @@ snapshots:
       '@commitlint/rules': 19.6.0
       '@commitlint/types': 19.5.0
 
-  '@commitlint/load@19.6.1(@types/node@22.10.10)(typescript@5.7.3)':
+  '@commitlint/load@19.6.1(@types/node@22.15.20)(typescript@5.7.3)':
     dependencies:
       '@commitlint/config-validator': 19.5.0
       '@commitlint/execute-rule': 19.5.0
@@ -7692,7 +7694,7 @@ snapshots:
       '@commitlint/types': 19.5.0
       chalk: 5.4.1
       cosmiconfig: 9.0.0(typescript@5.7.3)
-      cosmiconfig-typescript-loader: 6.1.0(@types/node@22.10.10)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
+      cosmiconfig-typescript-loader: 6.1.0(@types/node@22.15.20)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -8108,25 +8110,25 @@ snapshots:
 
   '@iarna/toml@2.2.5': {}
 
-  '@inquirer/checkbox@4.0.6(@types/node@22.10.10)':
+  '@inquirer/checkbox@4.0.6(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
       '@inquirer/figures': 1.0.9
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       ansi-escapes: 4.3.2
       yoctocolors-cjs: 2.1.2
 
-  '@inquirer/confirm@5.1.3(@types/node@22.10.10)':
+  '@inquirer/confirm@5.1.3(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
 
-  '@inquirer/core@10.1.4(@types/node@22.10.10)':
+  '@inquirer/core@10.1.4(@types/node@22.15.20)':
     dependencies:
       '@inquirer/figures': 1.0.9
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
       ansi-escapes: 4.3.2
       cli-width: 4.1.0
       mute-stream: 2.0.0
@@ -8137,82 +8139,82 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@inquirer/editor@4.2.3(@types/node@22.10.10)':
+  '@inquirer/editor@4.2.3(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       external-editor: 3.1.0
 
-  '@inquirer/expand@4.0.6(@types/node@22.10.10)':
+  '@inquirer/expand@4.0.6(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       yoctocolors-cjs: 2.1.2
 
   '@inquirer/figures@1.0.9': {}
 
-  '@inquirer/input@4.1.3(@types/node@22.10.10)':
+  '@inquirer/input@4.1.3(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
 
-  '@inquirer/number@3.0.6(@types/node@22.10.10)':
+  '@inquirer/number@3.0.6(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
 
-  '@inquirer/password@4.0.6(@types/node@22.10.10)':
+  '@inquirer/password@4.0.6(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       ansi-escapes: 4.3.2
 
-  '@inquirer/prompts@7.2.3(@types/node@22.10.10)':
+  '@inquirer/prompts@7.2.3(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/checkbox': 4.0.6(@types/node@22.10.10)
-      '@inquirer/confirm': 5.1.3(@types/node@22.10.10)
-      '@inquirer/editor': 4.2.3(@types/node@22.10.10)
-      '@inquirer/expand': 4.0.6(@types/node@22.10.10)
-      '@inquirer/input': 4.1.3(@types/node@22.10.10)
-      '@inquirer/number': 3.0.6(@types/node@22.10.10)
-      '@inquirer/password': 4.0.6(@types/node@22.10.10)
-      '@inquirer/rawlist': 4.0.6(@types/node@22.10.10)
-      '@inquirer/search': 3.0.6(@types/node@22.10.10)
-      '@inquirer/select': 4.0.6(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/checkbox': 4.0.6(@types/node@22.15.20)
+      '@inquirer/confirm': 5.1.3(@types/node@22.15.20)
+      '@inquirer/editor': 4.2.3(@types/node@22.15.20)
+      '@inquirer/expand': 4.0.6(@types/node@22.15.20)
+      '@inquirer/input': 4.1.3(@types/node@22.15.20)
+      '@inquirer/number': 3.0.6(@types/node@22.15.20)
+      '@inquirer/password': 4.0.6(@types/node@22.15.20)
+      '@inquirer/rawlist': 4.0.6(@types/node@22.15.20)
+      '@inquirer/search': 3.0.6(@types/node@22.15.20)
+      '@inquirer/select': 4.0.6(@types/node@22.15.20)
+      '@types/node': 22.15.20
 
-  '@inquirer/rawlist@4.0.6(@types/node@22.10.10)':
+  '@inquirer/rawlist@4.0.6(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       yoctocolors-cjs: 2.1.2
 
-  '@inquirer/search@3.0.6(@types/node@22.10.10)':
+  '@inquirer/search@3.0.6(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
       '@inquirer/figures': 1.0.9
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       yoctocolors-cjs: 2.1.2
 
-  '@inquirer/select@4.0.6(@types/node@22.10.10)':
+  '@inquirer/select@4.0.6(@types/node@22.15.20)':
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
       '@inquirer/figures': 1.0.9
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       ansi-escapes: 4.3.2
       yoctocolors-cjs: 2.1.2
 
-  '@inquirer/type@3.0.2(@types/node@22.10.10)':
+  '@inquirer/type@3.0.2(@types/node@22.15.20)':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@ioredis/commands@1.2.0': {}
 
@@ -8238,10 +8240,10 @@ snapshots:
 
   '@makeomatic/deploy@13.1.0(typescript@5.7.3)':
     dependencies:
-      '@commitlint/cli': 19.6.1(@types/node@22.10.10)(typescript@5.7.3)
+      '@commitlint/cli': 19.6.1(@types/node@22.15.20)(typescript@5.7.3)
       '@fastify/compress': 8.0.1
       '@sinclair/typebox': 0.33.22
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       chrome-launcher: 1.1.2
       chrome-remote-interface: 0.33.2
       cosmiconfig: 9.0.0(typescript@5.7.3)
@@ -8826,13 +8828,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@release-it/conventional-changelog@10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3))':
+  '@release-it/conventional-changelog@10.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)(release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3))':
     dependencies:
       concat-stream: 2.0.0
       conventional-changelog: 6.0.0(conventional-commits-filter@5.0.0)
       conventional-recommended-bump: 10.0.0
       git-semver-tags: 8.0.0(conventional-commits-filter@5.0.0)(conventional-commits-parser@6.0.0)
-      release-it: 18.1.2(@types/node@22.10.10)(typescript@5.7.3)
+      release-it: 18.1.2(@types/node@22.15.20)(typescript@5.7.3)
       semver: 7.6.3
     transitivePeerDependencies:
       - conventional-commits-filter
@@ -9014,7 +9016,7 @@ snapshots:
 
   '@types/aws4@1.11.6':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/bluebird-retry@0.11.8':
     dependencies:
@@ -9025,17 +9027,17 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/bunyan@1.8.11':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/callsite@1.0.34': {}
 
   '@types/cheerio@0.22.35':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/command-line-args@5.2.3': {}
 
@@ -9047,23 +9049,23 @@ snapshots:
 
   '@types/connect@3.4.36':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/consul@0.40.3':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/cors@2.8.17':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/debug@4.1.12':
     dependencies:
@@ -9071,7 +9073,7 @@ snapshots:
 
   '@types/express-serve-static-core@5.0.5':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       '@types/qs': 6.9.18
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -9085,19 +9087,19 @@ snapshots:
 
   '@types/formidable@1.2.8':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/get-value@3.0.5': {}
 
   '@types/glob@8.1.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/hapi__vision@5.5.8':
     dependencies:
       '@hapi/hapi': 21.3.12
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       joi: 17.13.3
 
   '@types/http-errors@2.0.4': {}
@@ -9122,15 +9124,15 @@ snapshots:
 
   '@types/mysql@2.15.26':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/node@20.17.16':
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.10.10':
+  '@types/node@22.15.20':
     dependencies:
-      undici-types: 6.20.0
+      undici-types: 6.21.0
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -9142,7 +9144,7 @@ snapshots:
 
   '@types/pg@8.6.1':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       pg-protocol: 1.7.0
       pg-types: 2.2.0
 
@@ -9152,14 +9154,14 @@ snapshots:
 
   '@types/readable-stream@4.0.18':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       safe-buffer: 5.1.2
 
   '@types/restify@8.5.12':
     dependencies:
       '@types/bunyan': 1.8.11
       '@types/formidable': 1.2.8
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       '@types/spdy': 3.4.9
 
   '@types/semver@7.5.8': {}
@@ -9167,12 +9169,12 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       '@types/send': 0.17.4
 
   '@types/shimmer@1.2.0': {}
@@ -9185,15 +9187,15 @@ snapshots:
 
   '@types/spdy@3.4.9':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/split2@4.2.3':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@types/tedious@4.0.14':
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
 
   '@typescript-eslint/eslint-plugin@6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.52.0)(typescript@5.7.3))(eslint@8.52.0)(typescript@5.7.3)':
     dependencies:
@@ -9813,7 +9815,7 @@ snapshots:
 
   chrome-launcher@1.1.2:
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 2.0.1
@@ -10076,9 +10078,9 @@ snapshots:
       object-assign: 4.1.1
       vary: 1.1.2
 
-  cosmiconfig-typescript-loader@6.1.0(@types/node@22.10.10)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
+  cosmiconfig-typescript-loader@6.1.0(@types/node@22.15.20)(cosmiconfig@9.0.0(typescript@5.7.3))(typescript@5.7.3):
     dependencies:
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       cosmiconfig: 9.0.0(typescript@5.7.3)
       jiti: 2.4.2
       typescript: 5.7.3
@@ -10344,7 +10346,7 @@ snapshots:
   engine.io@6.6.3:
     dependencies:
       '@types/cors': 2.8.17
-      '@types/node': 22.10.10
+      '@types/node': 22.15.20
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 1.0.2
@@ -11442,12 +11444,12 @@ snapshots:
 
   ini@4.1.1: {}
 
-  inquirer@12.3.0(@types/node@22.10.10):
+  inquirer@12.3.0(@types/node@22.15.20):
     dependencies:
-      '@inquirer/core': 10.1.4(@types/node@22.10.10)
-      '@inquirer/prompts': 7.2.3(@types/node@22.10.10)
-      '@inquirer/type': 3.0.2(@types/node@22.10.10)
-      '@types/node': 22.10.10
+      '@inquirer/core': 10.1.4(@types/node@22.15.20)
+      '@inquirer/prompts': 7.2.3(@types/node@22.15.20)
+      '@inquirer/type': 3.0.2(@types/node@22.15.20)
+      '@types/node': 22.15.20
       ansi-escapes: 4.3.2
       mute-stream: 2.0.0
       run-async: 3.0.0
@@ -12774,7 +12776,7 @@ snapshots:
     dependencies:
       jsesc: 0.5.0
 
-  release-it@18.1.2(@types/node@22.10.10)(typescript@5.7.3):
+  release-it@18.1.2(@types/node@22.15.20)(typescript@5.7.3):
     dependencies:
       '@iarna/toml': 2.2.5
       '@octokit/rest': 21.0.2
@@ -12785,7 +12787,7 @@ snapshots:
       execa: 9.5.2
       git-url-parse: 16.0.0
       globby: 14.0.2
-      inquirer: 12.3.0(@types/node@22.10.10)
+      inquirer: 12.3.0(@types/node@22.15.20)
       issue-parser: 7.0.1
       lodash: 4.17.21
       mime-types: 2.1.35
@@ -13597,7 +13599,7 @@ snapshots:
 
   undici-types@6.19.8: {}
 
-  undici-types@6.20.0: {}
+  undici-types@6.21.0: {}
 
   undici@6.21.1: {}
 
