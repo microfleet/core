@@ -37,7 +37,7 @@
     "@microfleet/plugin-socketio": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
     "common-errors": "~1.2.0",
-    "joi": "^17.13.3"
+    "joi": "^18.0.0"
   },
   "peerDependencies": {
     "@microfleet/core": "workspace:^",
