@@ -73,7 +73,7 @@
     "eslint-config-makeomatic": "^6.0.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-unicorn": "^56.0.1",
-    "execa": "^8.0.1",
+    "execa": "^9.0.0",
     "get-port": "^7.1.0",
     "release-it": "^18.1.2",
     "rimraf": "^6.0.1",
