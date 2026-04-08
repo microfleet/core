@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.1",
   "dependencies": {
-    "@hapi/boom": "^9.1.4",
-    "@hapi/hapi": "^20.2.1",
+    "@hapi/boom": "^10.0.0",
+    "@hapi/hapi": "^21.0.0",
     "@hapi/joi": "^17.1.1",
     "@microfleet/core":  "workspace:^",
     "@microfleet/transport-amqp": "^15.2.8",
