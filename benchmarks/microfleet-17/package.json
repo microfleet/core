@@ -5,7 +5,7 @@
   "dependencies": {
     "@hapi/boom": "^9.1.4",
     "@hapi/hapi": "^20.2.1",
-    "@hapi/joi": "^17.1.1",
+    "joi": "^17.1.1",
     "@microfleet/core":  "workspace:^",
     "@microfleet/transport-amqp": "^15.2.8",
     "@microfleet/validation": "^12.0.0",
