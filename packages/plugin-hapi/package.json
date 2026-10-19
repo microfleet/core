@@ -60,7 +60,7 @@
     "rimraf": "^6.0.1",
     "sinon": "^19.0.2",
     "socket.io-client": "^4.8.1",
-    "typescript": "~5.7.3"
+    "typescript": "~5.9.0"
   },
   "engines": {
     "node": ">= 22.12.0",
