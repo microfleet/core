@@ -26,6 +26,6 @@
     "prepend-file": "^2.0.1",
     "release-it": "^18.1.2",
     "rimraf": "^6.0.1",
-    "typescript": "~5.7.3"
+    "typescript": "~5.9.0"
   }
 }
