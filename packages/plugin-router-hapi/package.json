@@ -49,7 +49,7 @@
     "@microfleet/plugin-hapi": "workspace:^",
     "@microfleet/plugin-router": "workspace:^",
     "@microfleet/plugin-validator": "workspace:^",
-    "@release-it/conventional-changelog": "^10.0.0",
+    "@release-it/conventional-changelog": "^12.0.0",
     "@types/bluebird": "^3.5.42",
     "@types/cheerio": "^0.22.35",
     "@types/common-errors": "^1.0.5",
