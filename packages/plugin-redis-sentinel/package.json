@@ -42,7 +42,7 @@
   "devDependencies": {
     "@makeomatic/deploy": "^13.1.0",
     "@microfleet/core": "workspace:^",
-    "@release-it/conventional-changelog": "^10.0.0",
+    "@release-it/conventional-changelog": "^12.0.0",
     "@types/bluebird": "^3.5.42",
     "@types/common-errors": "^1.0.5",
     "@types/debug": "^4.1.12",
