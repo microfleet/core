@@ -70,7 +70,7 @@
     "rimraf": "^6.0.1",
     "sinon": "^19.0.2",
     "toxiproxy-node-client": "^4.0.0",
-    "typescript": "~5.7.3"
+    "typescript": "~5.9.0"
   },
   "files": [
     "lib/",
