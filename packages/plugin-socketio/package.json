@@ -42,7 +42,7 @@
   "devDependencies": {
     "@makeomatic/deploy": "^13.1.0",
     "@microfleet/core": "workspace:^",
-    "@release-it/conventional-changelog": "^10.0.0",
+    "@release-it/conventional-changelog": "^12.0.0",
     "@types/common-errors": "^1.0.5",
     "@types/node": "^22.10.10",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
